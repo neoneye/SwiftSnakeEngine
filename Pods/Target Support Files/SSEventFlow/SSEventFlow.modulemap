@@ -1,0 +1,6 @@
+framework module SSEventFlow {
+  umbrella header "SSEventFlow-umbrella.h"
+
+  export *
+  module * { export * }
+}

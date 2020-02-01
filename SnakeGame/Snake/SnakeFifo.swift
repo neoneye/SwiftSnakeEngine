@@ -1,0 +1,65 @@
+// MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
+import Foundation
+
+public class SnakeFifo<T> {
+	private var capacity: UInt
+	public private (set) var array: [T]
+
+	public init() {
+		self.capacity = 0
+		self.array = [T]()
+	}
+
+	public init(capacity: UInt, defaultValue: T) {
+		self.capacity = capacity
+		self.array = [T](repeating: defaultValue, count: Int(capacity))
+	}
+
+	public init(original: SnakeFifo<T>) {
+		self.capacity = original.capacity
+		self.array = [T](original.array)
+	}
+
+	private init(capacity: UInt, array: Array<T>) {
+		self.capacity = capacity
+		self.array = [T](array)
+	}
+
+	public func map(_ transform: (T) throws -> T) rethrows -> SnakeFifo<T> {
+		let newArray: [T] = try self.array.map {
+			try transform($0)
+		}
+		return SnakeFifo<T>(capacity: self.capacity, array: newArray)
+	}
+
+	public func removeAll() {
+		capacity = 0
+		purge()
+	}
+
+	public func append(_ item: T) {
+		array.append(item)
+		purge()
+	}
+
+	public func appendAndGrow(_ item: T) {
+		capacity += 1
+		array.append(item)
+		purge()
+	}
+
+	public func appendAndShrink(_ item: T) {
+		if capacity >= 1 {
+			capacity -= 1
+		}
+		array.append(item)
+		purge()
+	}
+
+	private func purge() {
+		let diff: Int = self.array.count - Int(self.capacity)
+		if diff >= 1 {
+			array.removeFirst(diff)
+		}
+	}
+}

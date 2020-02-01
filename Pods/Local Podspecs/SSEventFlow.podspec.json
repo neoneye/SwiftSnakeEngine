@@ -1,0 +1,26 @@
+{
+  "name": "SSEventFlow",
+  "version": "1.2.0",
+  "summary": "SSEventFlow is a type safe alternative to NSNotification, inspired by Flux",
+  "description": "This is a tiny variant of the Flux Application Architecture, invented by Facebook.\nSee video to how Flux works: https://facebook.github.io/flux/docs/in-depth-overview.html#content",
+  "homepage": "https://github.com/neoneye/SSEventFlow",
+  "license": {
+    "type": "MIT"
+  },
+  "authors": {
+    "Simon Strandgaard": "neoneye@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/neoneye/SSEventFlow.git",
+    "tag": "1.2.0"
+  },
+  "social_media_url": "https://twitter.com/neoneye",
+  "swift_versions": "4.2",
+  "platforms": {
+    "ios": "10.0",
+    "osx": "10.11",
+    "watchos": "4.0"
+  },
+  "source_files": "SSEventFlow_Framework/Classes/*",
+  "swift_version": "4.2"
+}
