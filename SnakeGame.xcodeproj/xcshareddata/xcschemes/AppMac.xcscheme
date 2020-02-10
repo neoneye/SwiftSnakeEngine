@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4255CA0A232F8A2100A230AF"
-               BuildableName = "AppMac.app"
+               BuildableName = "Snake.app"
                BlueprintName = "AppMac"
                ReferencedContainer = "container:SnakeGame.xcodeproj">
             </BuildableReference>
@@ -31,7 +31,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4255CA0A232F8A2100A230AF"
-            BuildableName = "AppMac.app"
+            BuildableName = "Snake.app"
             BlueprintName = "AppMac"
             ReferencedContainer = "container:SnakeGame.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4255CA0A232F8A2100A230AF"
-            BuildableName = "AppMac.app"
+            BuildableName = "Snake.app"
             BlueprintName = "AppMac"
             ReferencedContainer = "container:SnakeGame.xcodeproj">
          </BuildableReference>
@@ -81,7 +81,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4255CA0A232F8A2100A230AF"
-            BuildableName = "AppMac.app"
+            BuildableName = "Snake.app"
             BlueprintName = "AppMac"
             ReferencedContainer = "container:SnakeGame.xcodeproj">
          </BuildableReference>
