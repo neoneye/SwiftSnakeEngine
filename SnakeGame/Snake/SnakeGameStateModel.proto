@@ -1,0 +1,51 @@
+// Regenerate swift file
+// PROMPT> protoc --swift_out=. SnakeGameStateModel.proto
+syntax = "proto3";
+
+message SnakeGameStateModelPosition {
+	uint32 x = 1;
+	uint32 y = 2;
+}
+
+message SnakeGameStateModelPositionRange {
+	SnakeGameStateModelPosition position = 1;
+	uint32 count = 2;
+}
+
+message SnakeGameStateModelPlayer {
+	enum HeadDirection {
+		UP = 0;
+		LEFT = 1;
+		RIGHT = 2;
+		DOWN = 3;
+	}
+	HeadDirection head_direction = 1;
+	uint32 action_move_forward = 2;
+	uint32 action_move_cw = 3;
+	uint32 action_move_ccw = 4;
+	repeated SnakeGameStateModelPosition body_positions = 5;
+}
+
+message SnakeGameStateModel {
+	// The level has a size: width * height.
+	uint32 level_width = 1;
+	uint32 level_height = 2;
+
+	// There is always the player A.
+	SnakeGameStateModelPlayer player_a = 3;
+
+	// There may be an opponent player B.
+	oneof optional_player_b {
+		SnakeGameStateModelPlayer player_b = 4;
+	}
+
+	// There may be food or there may be no food.
+	oneof optional_food_position {
+		SnakeGameStateModelPosition food_position = 5;
+	}
+
+	// Obstacles such as walls, dead snakes.
+	repeated SnakeGameStateModelPosition obstacles_single = 6;
+	repeated SnakeGameStateModelPositionRange obstacles_horizontal = 7;
+	repeated SnakeGameStateModelPositionRange obstacles_vertical = 8;
+}
