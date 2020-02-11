@@ -55,11 +55,11 @@ extension SnakePlayer {
 	}
 }
 
-extension SnakeGameState {
-	private func toSnakeGameStateIngameModel() -> SnakeGameStateIngameModel {
+extension SnakeLevel {
+	fileprivate func toSnakeGameStateModelLevel() -> SnakeGameStateModelLevel {
 		// Empty positions in the level
 		var emptyPositions = [SnakeGameStateModelPosition]()
-		for signedPosition: IntVec2 in self.level.emptyPositionArray {
+		for signedPosition: IntVec2 in self.emptyPositionArray {
 			guard let unsignedPosition: UIntVec2 = signedPosition.uintVec2() else {
 				fatalError("All empty positions must be non-negative, but encountered a negative position: \(signedPosition)")
 			}
@@ -71,11 +71,18 @@ extension SnakeGameState {
 		}
 
 		// Overall level info
-		let level = SnakeGameStateModelLevel.with {
-			$0.levelWidth = self.level.size.x
-			$0.levelHeight = self.level.size.y
+		let model = SnakeGameStateModelLevel.with {
+			$0.levelWidth = self.size.x
+			$0.levelHeight = self.size.y
 			$0.emptyPositions = emptyPositions
 		}
+		return model
+	}
+}
+
+extension SnakeGameState {
+	private func toSnakeGameStateIngameModel() -> SnakeGameStateIngameModel {
+		let level: SnakeGameStateModelLevel = self.level.toSnakeGameStateModelLevel()
 
 		// Food
 		var optionalFoodPosition: SnakeGameStateIngameModel.OneOf_OptionalFoodPosition? = nil
