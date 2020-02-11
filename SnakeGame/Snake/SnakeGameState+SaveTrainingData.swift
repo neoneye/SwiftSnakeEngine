@@ -56,6 +56,10 @@ extension SnakeGameState {
 			optionalFoodPosition = nil
 		}
 
+		// IDEA: determine which player is doing best.
+		// Swap player1 and player2, so that the best comes first.
+		// Do this after the entire game have played out, and distinguish between overall winners/loosers?
+
 		// Model
 		let model = SnakeGameStateModel.with {
 			$0.levelWidth = self.level.size.x
