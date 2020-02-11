@@ -1,6 +1,47 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
+extension SnakePlayer {
+	fileprivate func toSnakeGameStateModelPlayer() -> SnakeGameStateModelPlayer {
+
+		// Direction of the snake head
+		let headDirection: SnakeGameStateModelPlayer.HeadDirection
+		switch self.snakeBody.head.direction {
+		case .up:
+			headDirection = .up
+		case .left:
+			headDirection = .left
+		case .right:
+			headDirection = .right
+		case .down:
+			headDirection = .down
+		}
+
+		// Positions of all the snake body parts
+		var bodyPositions = [SnakeGameStateModelPosition]()
+		for signedPosition: IntVec2 in self.snakeBody.positionArray() {
+			guard let unsignedPosition: UIntVec2 = signedPosition.uintVec2() else {
+				fatalError("Encountered a negative position. \(signedPosition). The snake game is supposed to always use unsigned coordinates.")
+			}
+			let position = SnakeGameStateModelPosition.with {
+				$0.x = unsignedPosition.x
+				$0.y = unsignedPosition.y
+			}
+			bodyPositions.append(position)
+		}
+
+		// IDEA: determine quality/risk of each action
+		// did the action cause the snake to die in near future.
+		// did the action cause the opponent snake to die in near future.
+
+		let model = SnakeGameStateModelPlayer.with {
+			$0.headDirection = headDirection
+			$0.bodyPositions = bodyPositions
+		}
+		return model
+	}
+}
+
 extension SnakeGameState {
 	private func toSnakeGameStateModel() -> SnakeGameStateModel {
 		// Food
