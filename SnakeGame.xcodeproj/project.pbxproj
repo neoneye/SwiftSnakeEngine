@@ -94,6 +94,7 @@
 		42E042B623340DEE007AC6F9 /* SnakeLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B523340DEE007AC6F9 /* SnakeLevel.swift */; };
 		42EB7BFE23F1FD9D00229CEA /* SnakeGameStateModel.proto in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7BFD23F1FD9D00229CEA /* SnakeGameStateModel.proto */; };
 		42EB7C0023F2105000229CEA /* SnakeGameStateModel.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7BFF23F2105000229CEA /* SnakeGameStateModel.pb.swift */; };
+		42EB7C0223F283FC00229CEA /* URL+temporaryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7C0123F283FC00229CEA /* URL+temporaryFile.swift */; };
 		42ECBCBE236F305600758303 /* SnakeBot4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCBD236F305600758303 /* SnakeBot4.swift */; };
 		42ECBCC023735BF600758303 /* SnakeLevelCacheModel.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCBF23735BF500758303 /* SnakeLevelCacheModel.pb.swift */; };
 		42ECBCCB237CA50700758303 /* DebugMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCCA237CA50700758303 /* DebugMenu.swift */; };
@@ -223,6 +224,7 @@
 		42E042B523340DEE007AC6F9 /* SnakeLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeLevel.swift; sourceTree = "<group>"; };
 		42EB7BFD23F1FD9D00229CEA /* SnakeGameStateModel.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = SnakeGameStateModel.proto; sourceTree = "<group>"; };
 		42EB7BFF23F2105000229CEA /* SnakeGameStateModel.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeGameStateModel.pb.swift; sourceTree = "<group>"; };
+		42EB7C0123F283FC00229CEA /* URL+temporaryFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+temporaryFile.swift"; sourceTree = "<group>"; };
 		42ECBCBD236F305600758303 /* SnakeBot4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeBot4.swift; sourceTree = "<group>"; };
 		42ECBCBF23735BF500758303 /* SnakeLevelCacheModel.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeLevelCacheModel.pb.swift; sourceTree = "<group>"; };
 		42ECBCC42373608600758303 /* SnakeLevelCacheModel.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = SnakeLevelCacheModel.proto; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 				4255CA00232F70F800A230AF /* sigmoid.swift */,
 				426891EF233267E900B97E29 /* swift-algorithm-club */,
 				4253C5422336349800210611 /* UIntVec2.swift */,
+				42EB7C0123F283FC00229CEA /* URL+temporaryFile.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -800,6 +803,7 @@
 				42CCD61823C1054C0021CBE7 /* SnakeLevelManager.swift in Sources */,
 				4221EFDC2332F0F00026A8A0 /* SnakeBody.swift in Sources */,
 				4255CA02232F70F800A230AF /* sigmoid.swift in Sources */,
+				42EB7C0223F283FC00229CEA /* URL+temporaryFile.swift in Sources */,
 				4253C5432336349800210611 /* UIntVec2.swift in Sources */,
 				42C3182D2386FBDC00468D1F /* SnakeBot5.swift in Sources */,
 				426891FB233267E900B97E29 /* AdjacencyMatrixGraph.swift in Sources */,
