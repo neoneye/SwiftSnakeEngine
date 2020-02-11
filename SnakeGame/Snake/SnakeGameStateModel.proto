@@ -7,11 +7,6 @@ message SnakeGameStateModelPosition {
 	uint32 y = 2;
 }
 
-message SnakeGameStateModelPositionRange {
-	SnakeGameStateModelPosition position = 1;
-	uint32 count = 2;
-}
-
 message SnakeGameStateModelPlayer {
 	enum HeadDirection {
 		UP = 0;
@@ -51,7 +46,5 @@ message SnakeGameStateModel {
 	}
 
 	// Obstacles such as walls, dead snakes.
-	repeated SnakeGameStateModelPosition obstacles_single = 6;
-	repeated SnakeGameStateModelPositionRange obstacles_horizontal = 7;
-	repeated SnakeGameStateModelPositionRange obstacles_vertical = 8;
+	repeated SnakeGameStateModelPosition obstacles = 6;
 }

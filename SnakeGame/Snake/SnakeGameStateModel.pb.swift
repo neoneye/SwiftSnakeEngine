@@ -36,32 +36,6 @@ struct SnakeGameStateModelPosition {
   init() {}
 }
 
-struct SnakeGameStateModelPositionRange {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var position: SnakeGameStateModelPosition {
-    get {return _storage._position ?? SnakeGameStateModelPosition()}
-    set {_uniqueStorage()._position = newValue}
-  }
-  /// Returns true if `position` has been explicitly set.
-  var hasPosition: Bool {return _storage._position != nil}
-  /// Clears the value of `position`. Subsequent reads from it will return its default value.
-  mutating func clearPosition() {_uniqueStorage()._position = nil}
-
-  var count: UInt32 {
-    get {return _storage._count}
-    set {_uniqueStorage()._count = newValue}
-  }
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
 struct SnakeGameStateModelPlayer {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -225,19 +199,9 @@ struct SnakeGameStateModel {
   }
 
   /// Obstacles such as walls, dead snakes.
-  var obstaclesSingle: [SnakeGameStateModelPosition] {
-    get {return _storage._obstaclesSingle}
-    set {_uniqueStorage()._obstaclesSingle = newValue}
-  }
-
-  var obstaclesHorizontal: [SnakeGameStateModelPositionRange] {
-    get {return _storage._obstaclesHorizontal}
-    set {_uniqueStorage()._obstaclesHorizontal = newValue}
-  }
-
-  var obstaclesVertical: [SnakeGameStateModelPositionRange] {
-    get {return _storage._obstaclesVertical}
-    set {_uniqueStorage()._obstaclesVertical = newValue}
+  var obstacles: [SnakeGameStateModelPosition] {
+    get {return _storage._obstacles}
+    set {_uniqueStorage()._obstacles = newValue}
   }
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -310,75 +274,6 @@ extension SnakeGameStateModelPosition: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 }
 
-extension SnakeGameStateModelPositionRange: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "SnakeGameStateModelPositionRange"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "position"),
-    2: .same(proto: "count"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _position: SnakeGameStateModelPosition? = nil
-    var _count: UInt32 = 0
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _position = source._position
-      _count = source._count
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._position)
-        case 2: try decoder.decodeSingularUInt32Field(value: &_storage._count)
-        default: break
-        }
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._position {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-      if _storage._count != 0 {
-        try visitor.visitSingularUInt32Field(value: _storage._count, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: SnakeGameStateModelPositionRange, rhs: SnakeGameStateModelPositionRange) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._position != rhs_storage._position {return false}
-        if _storage._count != rhs_storage._count {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
 extension SnakeGameStateModelPlayer: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = "SnakeGameStateModelPlayer"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -446,9 +341,7 @@ extension SnakeGameStateModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     3: .standard(proto: "player_a"),
     4: .standard(proto: "player_b"),
     5: .standard(proto: "food_position"),
-    6: .standard(proto: "obstacles_single"),
-    7: .standard(proto: "obstacles_horizontal"),
-    8: .standard(proto: "obstacles_vertical"),
+    6: .same(proto: "obstacles"),
   ]
 
   fileprivate class _StorageClass {
@@ -457,9 +350,7 @@ extension SnakeGameStateModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     var _playerA: SnakeGameStateModelPlayer? = nil
     var _optionalPlayerB: SnakeGameStateModel.OneOf_OptionalPlayerB?
     var _optionalFoodPosition: SnakeGameStateModel.OneOf_OptionalFoodPosition?
-    var _obstaclesSingle: [SnakeGameStateModelPosition] = []
-    var _obstaclesHorizontal: [SnakeGameStateModelPositionRange] = []
-    var _obstaclesVertical: [SnakeGameStateModelPositionRange] = []
+    var _obstacles: [SnakeGameStateModelPosition] = []
 
     static let defaultInstance = _StorageClass()
 
@@ -471,9 +362,7 @@ extension SnakeGameStateModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       _playerA = source._playerA
       _optionalPlayerB = source._optionalPlayerB
       _optionalFoodPosition = source._optionalFoodPosition
-      _obstaclesSingle = source._obstaclesSingle
-      _obstaclesHorizontal = source._obstaclesHorizontal
-      _obstaclesVertical = source._obstaclesVertical
+      _obstacles = source._obstacles
     }
   }
 
@@ -508,9 +397,7 @@ extension SnakeGameStateModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._optionalFoodPosition = .foodPosition(v)}
-        case 6: try decoder.decodeRepeatedMessageField(value: &_storage._obstaclesSingle)
-        case 7: try decoder.decodeRepeatedMessageField(value: &_storage._obstaclesHorizontal)
-        case 8: try decoder.decodeRepeatedMessageField(value: &_storage._obstaclesVertical)
+        case 6: try decoder.decodeRepeatedMessageField(value: &_storage._obstacles)
         default: break
         }
       }
@@ -534,14 +421,8 @@ extension SnakeGameStateModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       if case .foodPosition(let v)? = _storage._optionalFoodPosition {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
       }
-      if !_storage._obstaclesSingle.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._obstaclesSingle, fieldNumber: 6)
-      }
-      if !_storage._obstaclesHorizontal.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._obstaclesHorizontal, fieldNumber: 7)
-      }
-      if !_storage._obstaclesVertical.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._obstaclesVertical, fieldNumber: 8)
+      if !_storage._obstacles.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._obstacles, fieldNumber: 6)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -557,9 +438,7 @@ extension SnakeGameStateModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
         if _storage._playerA != rhs_storage._playerA {return false}
         if _storage._optionalPlayerB != rhs_storage._optionalPlayerB {return false}
         if _storage._optionalFoodPosition != rhs_storage._optionalFoodPosition {return false}
-        if _storage._obstaclesSingle != rhs_storage._obstaclesSingle {return false}
-        if _storage._obstaclesHorizontal != rhs_storage._obstaclesHorizontal {return false}
-        if _storage._obstaclesVertical != rhs_storage._obstaclesVertical {return false}
+        if _storage._obstacles != rhs_storage._obstacles {return false}
         return true
       }
       if !storagesAreEqual {return false}
