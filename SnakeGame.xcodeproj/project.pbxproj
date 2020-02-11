@@ -1093,7 +1093,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = neoneye.SnakeGameTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AppMac.app/Contents/MacOS/AppMac";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Snake.app/Contents/MacOS/Snake";
 			};
 			name = Debug;
 		};
@@ -1114,7 +1114,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = neoneye.SnakeGameTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AppMac.app/Contents/MacOS/AppMac";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Snake.app/Contents/MacOS/Snake";
 			};
 			name = Release;
 		};
