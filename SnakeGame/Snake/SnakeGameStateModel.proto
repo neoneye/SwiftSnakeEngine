@@ -27,24 +27,46 @@ message SnakeGameStateModelPlayer {
 	Action action = 3;
 }
 
-message SnakeGameStateModel {
+message SnakeGameStateIngameModel {
 	// The level has a size: width * height.
 	uint32 level_width = 1;
 	uint32 level_height = 2;
 
-	// There is always the player A (the winner).
-	SnakeGameStateModelPlayer player_a = 3;
-
-	// There may be an opponent player B (the looser).
-	oneof optional_player_b {
-		SnakeGameStateModelPlayer player_b = 4;
-	}
+	// Obstacles such as walls, dead snakes.
+	repeated SnakeGameStateModelPosition obstacles = 3;
 
 	// There may be food or there may be no food.
 	oneof optional_food_position {
-		SnakeGameStateModelPosition food_position = 5;
+		SnakeGameStateModelPosition food_position = 4;
 	}
 
+	// While ingame it's uncertain which of the players becomes the winner or the looser.
+	oneof optional_player_a {
+		SnakeGameStateModelPlayer player_a = 5;
+	}
+	oneof optional_player_b {
+		SnakeGameStateModelPlayer player_b = 6;
+	}
+}
+
+message SnakeGameStateWinnerLooserModel {
+	// The level has a size: width * height.
+	uint32 level_width = 1;
+	uint32 level_height = 2;
+
 	// Obstacles such as walls, dead snakes.
-	repeated SnakeGameStateModelPosition obstacles = 6;
+	repeated SnakeGameStateModelPosition obstacles = 3;
+
+	// There may be food or there may be no food.
+	oneof optional_food_position {
+		SnakeGameStateModelPosition food_position = 4;
+	}
+
+	// There is always the player A (the winner).
+	SnakeGameStateModelPlayer player_a = 5;
+
+	// There may be an opponent player B (the looser).
+	oneof optional_player_b {
+		SnakeGameStateModelPlayer player_b = 6;
+	}
 }

@@ -56,34 +56,54 @@ extension SnakePlayer {
 }
 
 extension SnakeGameState {
-	private func toSnakeGameStateModel() -> SnakeGameStateModel {
+	private func toSnakeGameStateIngameModel() -> SnakeGameStateIngameModel {
 		// Food
-		let optionalFoodPosition: SnakeGameStateModel.OneOf_OptionalFoodPosition?
+		var optionalFoodPosition: SnakeGameStateIngameModel.OneOf_OptionalFoodPosition? = nil
 		if let position: UIntVec2 = self.foodPosition?.uintVec2() {
 			let foodPosition = SnakeGameStateModelPosition.with {
 				$0.x = position.x
 				$0.y = position.y
 			}
-			optionalFoodPosition = SnakeGameStateModel.OneOf_OptionalFoodPosition.foodPosition(foodPosition)
-		} else {
-			optionalFoodPosition = nil
+			optionalFoodPosition = SnakeGameStateIngameModel.OneOf_OptionalFoodPosition.foodPosition(foodPosition)
 		}
 
-		// IDEA: determine which player is doing best.
-		// Swap player1 and player2, so that the best comes first.
-		// Do this after the entire game have played out, and distinguish between overall winners/loosers?
+		// Player A
+		var optionalPlayerA: SnakeGameStateIngameModel.OneOf_OptionalPlayerA? = nil
+		do {
+			let player: SnakePlayer = self.player1
+			if player.isInstalled {
+				let model: SnakeGameStateModelPlayer = player.toSnakeGameStateModelPlayer()
+				optionalPlayerA = SnakeGameStateIngameModel.OneOf_OptionalPlayerA.playerA(model)
+			}
+		}
+
+		// Player B
+		var optionalPlayerB: SnakeGameStateIngameModel.OneOf_OptionalPlayerB? = nil
+		do {
+			let player: SnakePlayer = self.player2
+			if player.isInstalled {
+				let model: SnakeGameStateModelPlayer = player.toSnakeGameStateModelPlayer()
+				optionalPlayerB = SnakeGameStateIngameModel.OneOf_OptionalPlayerB.playerB(model)
+			}
+		}
 
 		// Model
-		let model = SnakeGameStateModel.with {
+		let model = SnakeGameStateIngameModel.with {
 			$0.levelWidth = self.level.size.x
 			$0.levelHeight = self.level.size.y
 			$0.optionalFoodPosition = optionalFoodPosition
+			$0.optionalPlayerA = optionalPlayerA
+			$0.optionalPlayerB = optionalPlayerB
 		}
 		return model
 	}
 
+	// IDEA: identify which player did the best.
+	// After the entire game have played out, then swap player A and player B in such way that:
+	// Player A is the winner.
+	// Player B is the looser.
 	public func saveTrainingData() {
-		let model: SnakeGameStateModel = self.toSnakeGameStateModel()
+		let model: SnakeGameStateIngameModel = self.toSnakeGameStateIngameModel()
 
 		// Serialize to binary protobuf format
 		if let binaryData: Data = try? model.serializedData() {
