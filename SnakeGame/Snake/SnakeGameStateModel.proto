@@ -3,6 +3,7 @@
 syntax = "proto3";
 
 message SnakeGameStateModelPosition {
+	// The coordinate system origin is in the left/bottom corner.
 	uint32 x = 1;
 	uint32 y = 2;
 }

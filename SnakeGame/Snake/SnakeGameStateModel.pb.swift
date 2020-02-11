@@ -27,6 +27,7 @@ struct SnakeGameStateModelPosition {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// The coordinate system origin is in the left/bottom corner.
   var x: UInt32 = 0
 
   var y: UInt32 = 0
