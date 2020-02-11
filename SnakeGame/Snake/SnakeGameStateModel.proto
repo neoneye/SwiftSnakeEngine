@@ -32,8 +32,8 @@ message SnakeGameStateIngameModel {
 	uint32 level_width = 1;
 	uint32 level_height = 2;
 
-	// Obstacles such as walls, dead snakes.
-	repeated SnakeGameStateModelPosition obstacles = 3;
+	// Places where the snake can go.
+	repeated SnakeGameStateModelPosition empty_positions = 3;
 
 	// There may be food or there may be no food.
 	oneof optional_food_position {
@@ -54,8 +54,8 @@ message SnakeGameStateWinnerLooserModel {
 	uint32 level_width = 1;
 	uint32 level_height = 2;
 
-	// Obstacles such as walls, dead snakes.
-	repeated SnakeGameStateModelPosition obstacles = 3;
+	// Places where the snake can go.
+	repeated SnakeGameStateModelPosition empty_positions = 3;
 
 	// There may be food or there may be no food.
 	oneof optional_food_position {

@@ -160,10 +160,10 @@ struct SnakeGameStateIngameModel {
     set {_uniqueStorage()._levelHeight = newValue}
   }
 
-  /// Obstacles such as walls, dead snakes.
-  var obstacles: [SnakeGameStateModelPosition] {
-    get {return _storage._obstacles}
-    set {_uniqueStorage()._obstacles = newValue}
+  /// Places where the snake can go.
+  var emptyPositions: [SnakeGameStateModelPosition] {
+    get {return _storage._emptyPositions}
+    set {_uniqueStorage()._emptyPositions = newValue}
   }
 
   /// There may be food or there may be no food.
@@ -268,10 +268,10 @@ struct SnakeGameStateWinnerLooserModel {
     set {_uniqueStorage()._levelHeight = newValue}
   }
 
-  /// Obstacles such as walls, dead snakes.
-  var obstacles: [SnakeGameStateModelPosition] {
-    get {return _storage._obstacles}
-    set {_uniqueStorage()._obstacles = newValue}
+  /// Places where the snake can go.
+  var emptyPositions: [SnakeGameStateModelPosition] {
+    get {return _storage._emptyPositions}
+    set {_uniqueStorage()._emptyPositions = newValue}
   }
 
   /// There may be food or there may be no food.
@@ -446,7 +446,7 @@ extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._Messa
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "level_width"),
     2: .standard(proto: "level_height"),
-    3: .same(proto: "obstacles"),
+    3: .standard(proto: "empty_positions"),
     4: .standard(proto: "food_position"),
     5: .standard(proto: "player_a"),
     6: .standard(proto: "player_b"),
@@ -455,7 +455,7 @@ extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._Messa
   fileprivate class _StorageClass {
     var _levelWidth: UInt32 = 0
     var _levelHeight: UInt32 = 0
-    var _obstacles: [SnakeGameStateModelPosition] = []
+    var _emptyPositions: [SnakeGameStateModelPosition] = []
     var _optionalFoodPosition: SnakeGameStateIngameModel.OneOf_OptionalFoodPosition?
     var _optionalPlayerA: SnakeGameStateIngameModel.OneOf_OptionalPlayerA?
     var _optionalPlayerB: SnakeGameStateIngameModel.OneOf_OptionalPlayerB?
@@ -467,7 +467,7 @@ extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._Messa
     init(copying source: _StorageClass) {
       _levelWidth = source._levelWidth
       _levelHeight = source._levelHeight
-      _obstacles = source._obstacles
+      _emptyPositions = source._emptyPositions
       _optionalFoodPosition = source._optionalFoodPosition
       _optionalPlayerA = source._optionalPlayerA
       _optionalPlayerB = source._optionalPlayerB
@@ -488,7 +488,7 @@ extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._Messa
         switch fieldNumber {
         case 1: try decoder.decodeSingularUInt32Field(value: &_storage._levelWidth)
         case 2: try decoder.decodeSingularUInt32Field(value: &_storage._levelHeight)
-        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._obstacles)
+        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._emptyPositions)
         case 4:
           var v: SnakeGameStateModelPosition?
           if let current = _storage._optionalFoodPosition {
@@ -527,8 +527,8 @@ extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._Messa
       if _storage._levelHeight != 0 {
         try visitor.visitSingularUInt32Field(value: _storage._levelHeight, fieldNumber: 2)
       }
-      if !_storage._obstacles.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._obstacles, fieldNumber: 3)
+      if !_storage._emptyPositions.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._emptyPositions, fieldNumber: 3)
       }
       if case .foodPosition(let v)? = _storage._optionalFoodPosition {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
@@ -550,7 +550,7 @@ extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._Messa
         let rhs_storage = _args.1
         if _storage._levelWidth != rhs_storage._levelWidth {return false}
         if _storage._levelHeight != rhs_storage._levelHeight {return false}
-        if _storage._obstacles != rhs_storage._obstacles {return false}
+        if _storage._emptyPositions != rhs_storage._emptyPositions {return false}
         if _storage._optionalFoodPosition != rhs_storage._optionalFoodPosition {return false}
         if _storage._optionalPlayerA != rhs_storage._optionalPlayerA {return false}
         if _storage._optionalPlayerB != rhs_storage._optionalPlayerB {return false}
@@ -568,7 +568,7 @@ extension SnakeGameStateWinnerLooserModel: SwiftProtobuf.Message, SwiftProtobuf.
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "level_width"),
     2: .standard(proto: "level_height"),
-    3: .same(proto: "obstacles"),
+    3: .standard(proto: "empty_positions"),
     4: .standard(proto: "food_position"),
     5: .standard(proto: "player_a"),
     6: .standard(proto: "player_b"),
@@ -577,7 +577,7 @@ extension SnakeGameStateWinnerLooserModel: SwiftProtobuf.Message, SwiftProtobuf.
   fileprivate class _StorageClass {
     var _levelWidth: UInt32 = 0
     var _levelHeight: UInt32 = 0
-    var _obstacles: [SnakeGameStateModelPosition] = []
+    var _emptyPositions: [SnakeGameStateModelPosition] = []
     var _optionalFoodPosition: SnakeGameStateWinnerLooserModel.OneOf_OptionalFoodPosition?
     var _playerA: SnakeGameStateModelPlayer? = nil
     var _optionalPlayerB: SnakeGameStateWinnerLooserModel.OneOf_OptionalPlayerB?
@@ -589,7 +589,7 @@ extension SnakeGameStateWinnerLooserModel: SwiftProtobuf.Message, SwiftProtobuf.
     init(copying source: _StorageClass) {
       _levelWidth = source._levelWidth
       _levelHeight = source._levelHeight
-      _obstacles = source._obstacles
+      _emptyPositions = source._emptyPositions
       _optionalFoodPosition = source._optionalFoodPosition
       _playerA = source._playerA
       _optionalPlayerB = source._optionalPlayerB
@@ -610,7 +610,7 @@ extension SnakeGameStateWinnerLooserModel: SwiftProtobuf.Message, SwiftProtobuf.
         switch fieldNumber {
         case 1: try decoder.decodeSingularUInt32Field(value: &_storage._levelWidth)
         case 2: try decoder.decodeSingularUInt32Field(value: &_storage._levelHeight)
-        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._obstacles)
+        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._emptyPositions)
         case 4:
           var v: SnakeGameStateModelPosition?
           if let current = _storage._optionalFoodPosition {
@@ -642,8 +642,8 @@ extension SnakeGameStateWinnerLooserModel: SwiftProtobuf.Message, SwiftProtobuf.
       if _storage._levelHeight != 0 {
         try visitor.visitSingularUInt32Field(value: _storage._levelHeight, fieldNumber: 2)
       }
-      if !_storage._obstacles.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._obstacles, fieldNumber: 3)
+      if !_storage._emptyPositions.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._emptyPositions, fieldNumber: 3)
       }
       if case .foodPosition(let v)? = _storage._optionalFoodPosition {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
@@ -665,7 +665,7 @@ extension SnakeGameStateWinnerLooserModel: SwiftProtobuf.Message, SwiftProtobuf.
         let rhs_storage = _args.1
         if _storage._levelWidth != rhs_storage._levelWidth {return false}
         if _storage._levelHeight != rhs_storage._levelHeight {return false}
-        if _storage._obstacles != rhs_storage._obstacles {return false}
+        if _storage._emptyPositions != rhs_storage._emptyPositions {return false}
         if _storage._optionalFoodPosition != rhs_storage._optionalFoodPosition {return false}
         if _storage._playerA != rhs_storage._playerA {return false}
         if _storage._optionalPlayerB != rhs_storage._optionalPlayerB {return false}
