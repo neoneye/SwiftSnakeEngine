@@ -186,7 +186,7 @@ struct SnakeGameStateModel {
     set {_uniqueStorage()._levelHeight = newValue}
   }
 
-  /// There is always the player A.
+  /// There is always the player A (the winner).
   var playerA: SnakeGameStateModelPlayer {
     get {return _storage._playerA ?? SnakeGameStateModelPlayer()}
     set {_uniqueStorage()._playerA = newValue}
@@ -196,7 +196,7 @@ struct SnakeGameStateModel {
   /// Clears the value of `playerA`. Subsequent reads from it will return its default value.
   mutating func clearPlayerA() {_uniqueStorage()._playerA = nil}
 
-  /// There may be an opponent player B.
+  /// There may be an opponent player B (the looser).
   var optionalPlayerB: OneOf_OptionalPlayerB? {
     get {return _storage._optionalPlayerB}
     set {_uniqueStorage()._optionalPlayerB = newValue}
@@ -242,7 +242,7 @@ struct SnakeGameStateModel {
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  /// There may be an opponent player B.
+  /// There may be an opponent player B (the looser).
   enum OneOf_OptionalPlayerB: Equatable {
     case playerB(SnakeGameStateModelPlayer)
 

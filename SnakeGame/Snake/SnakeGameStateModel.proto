@@ -37,10 +37,10 @@ message SnakeGameStateModel {
 	uint32 level_width = 1;
 	uint32 level_height = 2;
 
-	// There is always the player A.
+	// There is always the player A (the winner).
 	SnakeGameStateModelPlayer player_a = 3;
 
-	// There may be an opponent player B.
+	// There may be an opponent player B (the looser).
 	oneof optional_player_b {
 		SnakeGameStateModelPlayer player_b = 4;
 	}
