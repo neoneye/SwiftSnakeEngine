@@ -3,6 +3,8 @@ import Foundation
 
 public class SnakeGameState {
 	public let level: SnakeLevel
+
+	// IDEA: change foodPosition to UIntVec2, so that fewer casts are needed.
 	public let foodPosition: IntVec2?
 	public let player1: SnakePlayer
 	public let player2: SnakePlayer
