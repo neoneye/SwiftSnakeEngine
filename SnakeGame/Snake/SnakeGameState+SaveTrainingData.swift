@@ -57,17 +57,7 @@ extension SnakePlayer {
 
 extension SnakeGameState {
 	private func toSnakeGameStateIngameModel() -> SnakeGameStateIngameModel {
-		// Food
-		var optionalFoodPosition: SnakeGameStateIngameModel.OneOf_OptionalFoodPosition? = nil
-		if let position: UIntVec2 = self.foodPosition?.uintVec2() {
-			let foodPosition = SnakeGameStateModelPosition.with {
-				$0.x = position.x
-				$0.y = position.y
-			}
-			optionalFoodPosition = SnakeGameStateIngameModel.OneOf_OptionalFoodPosition.foodPosition(foodPosition)
-		}
-
-		// Empty positions
+		// Empty positions in the level
 		var emptyPositions = [SnakeGameStateModelPosition]()
 		for signedPosition: IntVec2 in self.level.emptyPositionArray {
 			guard let unsignedPosition: UIntVec2 = signedPosition.uintVec2() else {
@@ -78,6 +68,23 @@ extension SnakeGameState {
 				$0.y = unsignedPosition.y
 			}
 			emptyPositions.append(position)
+		}
+
+		// Overall level info
+		let level = SnakeGameStateModelLevel.with {
+			$0.levelWidth = self.level.size.x
+			$0.levelHeight = self.level.size.y
+			$0.emptyPositions = emptyPositions
+		}
+
+		// Food
+		var optionalFoodPosition: SnakeGameStateIngameModel.OneOf_OptionalFoodPosition? = nil
+		if let position: UIntVec2 = self.foodPosition?.uintVec2() {
+			let foodPosition = SnakeGameStateModelPosition.with {
+				$0.x = position.x
+				$0.y = position.y
+			}
+			optionalFoodPosition = SnakeGameStateIngameModel.OneOf_OptionalFoodPosition.foodPosition(foodPosition)
 		}
 
 		// Player A
@@ -102,9 +109,7 @@ extension SnakeGameState {
 
 		// Model
 		let model = SnakeGameStateIngameModel.with {
-			$0.levelWidth = self.level.size.x
-			$0.levelHeight = self.level.size.y
-			$0.emptyPositions = emptyPositions
+			$0.level = level
 			$0.optionalFoodPosition = optionalFoodPosition
 			$0.optionalPlayerA = optionalPlayerA
 			$0.optionalPlayerB = optionalPlayerB
