@@ -69,13 +69,13 @@ struct SnakeGameStateModelPlayer {
 
   var headDirection: SnakeGameStateModelPlayer.HeadDirection = .up
 
+  var bodyPositions: [SnakeGameStateModelPosition] = []
+
   var actionMoveForward: UInt32 = 0
 
   var actionMoveCw: UInt32 = 0
 
   var actionMoveCcw: UInt32 = 0
-
-  var bodyPositions: [SnakeGameStateModelPosition] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -343,20 +343,20 @@ extension SnakeGameStateModelPlayer: SwiftProtobuf.Message, SwiftProtobuf._Messa
   static let protoMessageName: String = "SnakeGameStateModelPlayer"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "head_direction"),
-    2: .standard(proto: "action_move_forward"),
-    3: .standard(proto: "action_move_cw"),
-    4: .standard(proto: "action_move_ccw"),
-    5: .standard(proto: "body_positions"),
+    2: .standard(proto: "body_positions"),
+    3: .standard(proto: "action_move_forward"),
+    4: .standard(proto: "action_move_cw"),
+    5: .standard(proto: "action_move_ccw"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularEnumField(value: &self.headDirection)
-      case 2: try decoder.decodeSingularUInt32Field(value: &self.actionMoveForward)
-      case 3: try decoder.decodeSingularUInt32Field(value: &self.actionMoveCw)
-      case 4: try decoder.decodeSingularUInt32Field(value: &self.actionMoveCcw)
-      case 5: try decoder.decodeRepeatedMessageField(value: &self.bodyPositions)
+      case 2: try decoder.decodeRepeatedMessageField(value: &self.bodyPositions)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.actionMoveForward)
+      case 4: try decoder.decodeSingularUInt32Field(value: &self.actionMoveCw)
+      case 5: try decoder.decodeSingularUInt32Field(value: &self.actionMoveCcw)
       default: break
       }
     }
@@ -366,27 +366,27 @@ extension SnakeGameStateModelPlayer: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if self.headDirection != .up {
       try visitor.visitSingularEnumField(value: self.headDirection, fieldNumber: 1)
     }
+    if !self.bodyPositions.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.bodyPositions, fieldNumber: 2)
+    }
     if self.actionMoveForward != 0 {
-      try visitor.visitSingularUInt32Field(value: self.actionMoveForward, fieldNumber: 2)
+      try visitor.visitSingularUInt32Field(value: self.actionMoveForward, fieldNumber: 3)
     }
     if self.actionMoveCw != 0 {
-      try visitor.visitSingularUInt32Field(value: self.actionMoveCw, fieldNumber: 3)
+      try visitor.visitSingularUInt32Field(value: self.actionMoveCw, fieldNumber: 4)
     }
     if self.actionMoveCcw != 0 {
-      try visitor.visitSingularUInt32Field(value: self.actionMoveCcw, fieldNumber: 4)
-    }
-    if !self.bodyPositions.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.bodyPositions, fieldNumber: 5)
+      try visitor.visitSingularUInt32Field(value: self.actionMoveCcw, fieldNumber: 5)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SnakeGameStateModelPlayer, rhs: SnakeGameStateModelPlayer) -> Bool {
     if lhs.headDirection != rhs.headDirection {return false}
+    if lhs.bodyPositions != rhs.bodyPositions {return false}
     if lhs.actionMoveForward != rhs.actionMoveForward {return false}
     if lhs.actionMoveCw != rhs.actionMoveCw {return false}
     if lhs.actionMoveCcw != rhs.actionMoveCcw {return false}
-    if lhs.bodyPositions != rhs.bodyPositions {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
