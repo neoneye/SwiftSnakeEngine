@@ -34,9 +34,22 @@ extension SnakePlayer {
 		// did the action cause the snake to die in near future.
 		// did the action cause the opponent snake to die in near future.
 
+		let action: SnakeGameStateModelPlayer.Action
+		switch self.pendingMovement {
+		case .dontMove:
+			action = .die
+		case .moveForward:
+			action = .moveForward
+		case .moveCW:
+			action = .moveCw
+		case .moveCCW:
+			action = .moveCcw
+		}
+
 		let model = SnakeGameStateModelPlayer.with {
 			$0.headDirection = headDirection
 			$0.bodyPositions = bodyPositions
+			$0.action = action
 		}
 		return model
 	}

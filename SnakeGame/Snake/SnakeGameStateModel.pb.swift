@@ -71,11 +71,7 @@ struct SnakeGameStateModelPlayer {
 
   var bodyPositions: [SnakeGameStateModelPosition] = []
 
-  var actionMoveForward: UInt32 = 0
-
-  var actionMoveCw: UInt32 = 0
-
-  var actionMoveCcw: UInt32 = 0
+  var action: SnakeGameStateModelPlayer.Action = .die
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -113,6 +109,40 @@ struct SnakeGameStateModelPlayer {
 
   }
 
+  enum Action: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case die // = 0
+    case moveForward // = 1
+    case moveCw // = 2
+    case moveCcw // = 3
+    case UNRECOGNIZED(Int)
+
+    init() {
+      self = .die
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .die
+      case 1: self = .moveForward
+      case 2: self = .moveCw
+      case 3: self = .moveCcw
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .die: return 0
+      case .moveForward: return 1
+      case .moveCw: return 2
+      case .moveCcw: return 3
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
   init() {}
 }
 
@@ -125,6 +155,16 @@ extension SnakeGameStateModelPlayer.HeadDirection: CaseIterable {
     .left,
     .right,
     .down,
+  ]
+}
+
+extension SnakeGameStateModelPlayer.Action: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [SnakeGameStateModelPlayer.Action] = [
+    .die,
+    .moveForward,
+    .moveCw,
+    .moveCcw,
   ]
 }
 
@@ -344,9 +384,7 @@ extension SnakeGameStateModelPlayer: SwiftProtobuf.Message, SwiftProtobuf._Messa
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "head_direction"),
     2: .standard(proto: "body_positions"),
-    3: .standard(proto: "action_move_forward"),
-    4: .standard(proto: "action_move_cw"),
-    5: .standard(proto: "action_move_ccw"),
+    3: .same(proto: "action"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -354,9 +392,7 @@ extension SnakeGameStateModelPlayer: SwiftProtobuf.Message, SwiftProtobuf._Messa
       switch fieldNumber {
       case 1: try decoder.decodeSingularEnumField(value: &self.headDirection)
       case 2: try decoder.decodeRepeatedMessageField(value: &self.bodyPositions)
-      case 3: try decoder.decodeSingularUInt32Field(value: &self.actionMoveForward)
-      case 4: try decoder.decodeSingularUInt32Field(value: &self.actionMoveCw)
-      case 5: try decoder.decodeSingularUInt32Field(value: &self.actionMoveCcw)
+      case 3: try decoder.decodeSingularEnumField(value: &self.action)
       default: break
       }
     }
@@ -369,14 +405,8 @@ extension SnakeGameStateModelPlayer: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if !self.bodyPositions.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.bodyPositions, fieldNumber: 2)
     }
-    if self.actionMoveForward != 0 {
-      try visitor.visitSingularUInt32Field(value: self.actionMoveForward, fieldNumber: 3)
-    }
-    if self.actionMoveCw != 0 {
-      try visitor.visitSingularUInt32Field(value: self.actionMoveCw, fieldNumber: 4)
-    }
-    if self.actionMoveCcw != 0 {
-      try visitor.visitSingularUInt32Field(value: self.actionMoveCcw, fieldNumber: 5)
+    if self.action != .die {
+      try visitor.visitSingularEnumField(value: self.action, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -384,9 +414,7 @@ extension SnakeGameStateModelPlayer: SwiftProtobuf.Message, SwiftProtobuf._Messa
   static func ==(lhs: SnakeGameStateModelPlayer, rhs: SnakeGameStateModelPlayer) -> Bool {
     if lhs.headDirection != rhs.headDirection {return false}
     if lhs.bodyPositions != rhs.bodyPositions {return false}
-    if lhs.actionMoveForward != rhs.actionMoveForward {return false}
-    if lhs.actionMoveCw != rhs.actionMoveCw {return false}
-    if lhs.actionMoveCcw != rhs.actionMoveCcw {return false}
+    if lhs.action != rhs.action {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -398,6 +426,15 @@ extension SnakeGameStateModelPlayer.HeadDirection: SwiftProtobuf._ProtoNameProvi
     1: .same(proto: "LEFT"),
     2: .same(proto: "RIGHT"),
     3: .same(proto: "DOWN"),
+  ]
+}
+
+extension SnakeGameStateModelPlayer.Action: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "DIE"),
+    1: .same(proto: "MOVE_FORWARD"),
+    2: .same(proto: "MOVE_CW"),
+    3: .same(proto: "MOVE_CCW"),
   ]
 }
 

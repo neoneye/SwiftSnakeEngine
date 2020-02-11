@@ -20,10 +20,16 @@ message SnakeGameStateModelPlayer {
 		DOWN = 3;
 	}
 	HeadDirection head_direction = 1;
+
 	repeated SnakeGameStateModelPosition body_positions = 2;
-	uint32 action_move_forward = 3;
-	uint32 action_move_cw = 4;
-	uint32 action_move_ccw = 5;
+
+	enum Action {
+		DIE = 0;
+		MOVE_FORWARD = 1;
+		MOVE_CW = 2;
+		MOVE_CCW = 3;
+	}
+	Action action = 3;
 }
 
 message SnakeGameStateModel {
