@@ -137,6 +137,8 @@ class SnakeGameScene: SKScene {
 			userInputForPlayer2(.arrowRight)
 		case .letterZ:
 			schedule_stepBackwardOnce()
+		case .letterT:
+			gameState.saveTrainingData()
 		case .enter:
 			restartGame()
 		case .tab:
