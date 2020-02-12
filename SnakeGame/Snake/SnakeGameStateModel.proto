@@ -54,19 +54,23 @@ message SnakeGameStateIngameModel {
 	}
 }
 
-message SnakeGameStateWinnerLooserModel {
-	SnakeGameStateModelLevel level = 1;
-
+message SnakeGameStateWinnerLooserModelStep {
 	// There may be food or there may be no food.
 	oneof optional_food_position {
-		SnakeGameStateModelPosition food_position = 2;
+		SnakeGameStateModelPosition food_position = 1;
 	}
 
 	// There is always the player A (the winner).
-	SnakeGameStateModelPlayer player_a = 3;
+	SnakeGameStateModelPlayer player_a = 2;
 
 	// There may be an opponent player B (the looser).
 	oneof optional_player_b {
-		SnakeGameStateModelPlayer player_b = 4;
+		SnakeGameStateModelPlayer player_b = 3;
 	}
+}
+
+message SnakeGameStateWinnerLooserModel {
+	SnakeGameStateModelLevel level = 1;
+
+	repeated SnakeGameStateWinnerLooserModelStep steps = 2;
 }
