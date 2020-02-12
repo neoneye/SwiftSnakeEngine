@@ -160,12 +160,13 @@ public class PostProcessTrainingData {
 			print("ERROR: Unable to load file at url: '\(url)'. \(error)")
 			return
 		}
-		// IDEA: convert into a SnakeGameStateWinnerLooserModel
+		// IDEA: convert into a SnakeGameStateWinnerLooserModelStep
 	}
 
 	private func saveResult() {
 		let model = SnakeGameStateWinnerLooserModel.with {
 			$0.level = self.sharedLevel
+			// IDEA: assign $0.steps with the accumulated SnakeGameStateWinnerLooserModelStep's
 		}
 
 		// Serialize to binary protobuf format
