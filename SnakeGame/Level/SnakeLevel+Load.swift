@@ -169,7 +169,7 @@ extension SnakeLevel {
 
 			// Serialize to binary protobuf format
 			if let binaryData: Data = try? newCacheModel.serializedData() {
-				let temporaryFileUrl: URL = URL.temporaryFile(with: "snakegame-levelcache")
+				let temporaryFileUrl: URL = URL.temporaryFile(prefixes: ["snakegame", "levelcache"], suffixes: [])
 				do {
 					try binaryData.write(to: temporaryFileUrl)
 				} catch {

@@ -2,9 +2,10 @@
 import Foundation
 
 extension URL {
-	internal static func temporaryFile(with prefix: String) -> URL {
-		let uuid = UUID().uuidString
-		let pathComponent = "\(prefix)-\(uuid)"
+	internal static func temporaryFile(prefixes: [String], uuid: UUID? = nil, suffixes: [String]) -> URL {
+		let uuidString: String = (uuid ?? UUID()).uuidString
+		let components: [String] = prefixes + [uuidString] + suffixes
+		let pathComponent = components.joined(separator: "-")
 		return URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(pathComponent)
 	}
 }

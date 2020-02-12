@@ -17,6 +17,7 @@ class SnakeGameScene: SKScene {
 	var shouldPauseAfterUpdate = false
 	var updateAction = UpdateAction.stepForwardContinuously
 
+	var trainingSessionUUID: UUID
 	var initialGameState: SnakeGameState
 	var gameState: SnakeGameState
 	var gameNode: SnakeGameNode
@@ -43,6 +44,7 @@ class SnakeGameScene: SKScene {
 	}
 
 	override init(size: CGSize) {
+		self.trainingSessionUUID = UUID()
 		self.initialGameState = SnakeGameScene.defaultInitialGameState()
 		self.gameState = SnakeGameState.empty()
 		self.gameNode = SnakeGameNode()
@@ -50,6 +52,7 @@ class SnakeGameScene: SKScene {
 	}
 
 	required init?(coder aDecoder: NSCoder) {
+		self.trainingSessionUUID = UUID()
 		self.initialGameState = SnakeGameScene.defaultInitialGameState()
 		self.gameState = SnakeGameState.empty()
 		self.gameNode = SnakeGameNode()
@@ -109,6 +112,7 @@ class SnakeGameScene: SKScene {
 		needLayout = true
 		previousGameStates = []
 		gameState = initialGameState
+		trainingSessionUUID = UUID()
 		placeNewFood()
 	}
 
@@ -138,7 +142,7 @@ class SnakeGameScene: SKScene {
 		case .letterZ:
 			schedule_stepBackwardOnce()
 		case .letterT:
-			gameState.saveTrainingData()
+			gameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
 		case .enter:
 			restartGame()
 		case .tab:
@@ -320,7 +324,7 @@ class SnakeGameScene: SKScene {
 		placeNewFood()
 
 		if AppConstant.saveTrainingData {
-			oldGameState.saveTrainingData()
+			oldGameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
 		}
     }
 
