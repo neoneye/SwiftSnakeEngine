@@ -318,6 +318,10 @@ class SnakeGameScene: SKScene {
 		}
 
 		placeNewFood()
+
+		if AppConstant.saveTrainingData {
+			oldGameState.saveTrainingData()
+		}
     }
 
 	func stepBackward() {

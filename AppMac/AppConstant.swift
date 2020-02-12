@@ -20,4 +20,6 @@ struct AppConstant {
 	static let killPlayer2AfterAFewSteps = false
 
 	static let ignoreRepeatingKeyDownEvents = true
+
+	static let saveTrainingData = true
 }
