@@ -144,8 +144,10 @@ extension SnakeGameState {
 }
 
 public class PostProcessTrainingData {
+	private let trainingSessionUUID: UUID
 	private let sharedLevel: SnakeGameStateModelLevel
-	private init(sharedLevel: SnakeGameStateModelLevel) {
+	private init(trainingSessionUUID: UUID, sharedLevel: SnakeGameStateModelLevel) {
+		self.trainingSessionUUID = trainingSessionUUID
 		self.sharedLevel = sharedLevel
 	}
 
@@ -161,6 +163,28 @@ public class PostProcessTrainingData {
 		// IDEA: convert into a SnakeGameStateWinnerLooserModel
 	}
 
+	private func saveResult() {
+		let model = SnakeGameStateWinnerLooserModel.with {
+			$0.level = self.sharedLevel
+		}
+
+		// Serialize to binary protobuf format
+		guard let binaryData: Data = try? model.serializedData() else {
+			fatalError("Unable to serialize to a result file.")
+		}
+		let temporaryFileUrl: URL = URL.temporaryFile(
+			prefixes: ["snakegame", "trainingdata", "result"],
+			uuid: self.trainingSessionUUID,
+			suffixes: []
+		)
+		do {
+			try binaryData.write(to: temporaryFileUrl)
+		} catch {
+			fatalError("ERROR: Failed to save result file at: '\(temporaryFileUrl)', error: \(error)")
+		}
+		print("Successfully saved \(binaryData.count) bytes of result at: '\(temporaryFileUrl)'.")
+	}
+
 	/// Post processing all the generated files by a training session.
 	///
 	/// After the entire game have played out, then swap player A and player B in such way that:
@@ -170,7 +194,7 @@ public class PostProcessTrainingData {
 	/// - Player B is the looser, if there is a player B.
 	///
 	/// The level data is only stored once. Greatly reducing the size of the training data.
-	public class func process(urls: [URL]) {
+	public class func process(trainingSessionUUID: UUID, urls: [URL]) {
 		print("will process \(urls.count) files")
 
 		guard urls.count >= 1 else {
@@ -187,11 +211,13 @@ public class PostProcessTrainingData {
 			print("ERROR: Unable to load file at url: '\(url0)'. \(error)")
 			return
 		}
-		let processor = PostProcessTrainingData(sharedLevel: sharedLevel)
+		let processor = PostProcessTrainingData(trainingSessionUUID: trainingSessionUUID, sharedLevel: sharedLevel)
 		for url in urls {
 			processor.processFile(at: url)
 		}
 
 		print("did process \(urls.count) files")
+
+		processor.saveResult()
 	}
 }

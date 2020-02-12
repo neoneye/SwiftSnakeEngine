@@ -325,7 +325,7 @@ class SnakeGameScene: SKScene {
 			self.isPaused = true
 			// IDEA: Determine the winner: the longest snake, or the longest lived snake, or a combo?
 			// IDEA: pass on which player won/loose.
-			PostProcessTrainingData.process(urls: self.trainingSessionURLs)
+			PostProcessTrainingData.process(trainingSessionUUID: self.trainingSessionUUID, urls: self.trainingSessionURLs)
 			return
 		}
 
