@@ -129,9 +129,9 @@ extension SnakeGameState {
 			fatalError("Unable to serialize to a trainingdata file.")
 		}
 		let temporaryFileUrl: URL = URL.temporaryFile(
-			prefixes: ["snakegame", "trainingdata", "ingame"],
+			prefixes: ["snakegame", "trainingdata"],
 			uuid: trainingSessionUUID,
-			suffixes: [stepIndex]
+			suffixes: ["ingame", stepIndex]
 		)
 		do {
 			try binaryData.write(to: temporaryFileUrl)
@@ -173,9 +173,9 @@ public class PostProcessTrainingData {
 			fatalError("Unable to serialize to a result file.")
 		}
 		let temporaryFileUrl: URL = URL.temporaryFile(
-			prefixes: ["snakegame", "trainingdata", "result"],
+			prefixes: ["snakegame", "trainingdata"],
 			uuid: self.trainingSessionUUID,
-			suffixes: []
+			suffixes: ["result"]
 		)
 		do {
 			try binaryData.write(to: temporaryFileUrl)
