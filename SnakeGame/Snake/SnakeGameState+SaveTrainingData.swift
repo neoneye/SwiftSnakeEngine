@@ -185,7 +185,7 @@ public class PostProcessTrainingData {
 		print("Successfully saved \(binaryData.count) bytes of result at: '\(temporaryFileUrl)'.")
 	}
 
-	/// Post processing all the generated files by a training session.
+	/// Post processing of all the generated files by a training session.
 	///
 	/// After the entire game have played out, then swap player A and player B in such way that:
 	///
