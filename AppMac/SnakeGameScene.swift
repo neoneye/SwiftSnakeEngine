@@ -18,6 +18,7 @@ class SnakeGameScene: SKScene {
 	var updateAction = UpdateAction.stepForwardContinuously
 
 	var trainingSessionUUID: UUID
+	var trainingSessionURLs: [URL]
 	var initialGameState: SnakeGameState
 	var gameState: SnakeGameState
 	var gameNode: SnakeGameNode
@@ -45,6 +46,7 @@ class SnakeGameScene: SKScene {
 
 	override init(size: CGSize) {
 		self.trainingSessionUUID = UUID()
+		self.trainingSessionURLs = []
 		self.initialGameState = SnakeGameScene.defaultInitialGameState()
 		self.gameState = SnakeGameState.empty()
 		self.gameNode = SnakeGameNode()
@@ -53,6 +55,7 @@ class SnakeGameScene: SKScene {
 
 	required init?(coder aDecoder: NSCoder) {
 		self.trainingSessionUUID = UUID()
+		self.trainingSessionURLs = []
 		self.initialGameState = SnakeGameScene.defaultInitialGameState()
 		self.gameState = SnakeGameState.empty()
 		self.gameNode = SnakeGameNode()
@@ -113,6 +116,7 @@ class SnakeGameScene: SKScene {
 		previousGameStates = []
 		gameState = initialGameState
 		trainingSessionUUID = UUID()
+		trainingSessionURLs = []
 		placeNewFood()
 	}
 
@@ -142,7 +146,8 @@ class SnakeGameScene: SKScene {
 		case .letterZ:
 			schedule_stepBackwardOnce()
 		case .letterT:
-			gameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
+			let url: URL = gameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
+			trainingSessionURLs.append(url)
 		case .enter:
 			restartGame()
 		case .tab:
@@ -318,13 +323,15 @@ class SnakeGameScene: SKScene {
 
 		if gameState.player1.isDead && gameState.player2.isDead {
 			self.isPaused = true
+			PostProcessTrainingData.process(urls: self.trainingSessionURLs)
 			return
 		}
 
 		placeNewFood()
 
 		if AppConstant.saveTrainingData {
-			oldGameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
+			let url: URL = oldGameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
+			trainingSessionURLs.append(url)
 		}
     }
 

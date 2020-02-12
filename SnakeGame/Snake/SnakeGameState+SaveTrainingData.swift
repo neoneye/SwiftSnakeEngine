@@ -124,14 +124,13 @@ extension SnakeGameState {
 	// After the entire game have played out, then swap player A and player B in such way that:
 	// Player A is the winner.
 	// Player B is the looser.
-	public func saveTrainingData(trainingSessionUUID: UUID) {
+	public func saveTrainingData(trainingSessionUUID: UUID) -> URL {
 		let model: SnakeGameStateIngameModel = self.toSnakeGameStateIngameModel()
 		let stepIndex: String = "step\(self.numberOfSteps)"
 
 		// Serialize to binary protobuf format
 		guard let binaryData: Data = try? model.serializedData() else {
-			print("ERROR: unable to serialize to a trainingdata file.")
-			return
+			fatalError("Unable to serialize to a trainingdata file.")
 		}
 		let temporaryFileUrl: URL = URL.temporaryFile(
 			prefixes: ["snakegame", "trainingdata", "ingame"],
@@ -141,9 +140,15 @@ extension SnakeGameState {
 		do {
 			try binaryData.write(to: temporaryFileUrl)
 		} catch {
-			print("ERROR: Failed to save trainingdata file at: '\(temporaryFileUrl)', error: \(error)")
-			fatalError()
+			fatalError("ERROR: Failed to save trainingdata file at: '\(temporaryFileUrl)', error: \(error)")
 		}
 		print("Successfully saved \(binaryData.count) bytes of trainingdata at: '\(temporaryFileUrl)'.")
+		return temporaryFileUrl
+	}
+}
+
+public class PostProcessTrainingData {
+	public class func process(urls: [URL]) {
+		print("urls: \(urls)")
 	}
 }
