@@ -136,7 +136,7 @@ extension SnakeGameState {
 				print("ERROR: Failed to save trainingdata file at: '\(temporaryFileUrl)', error: \(error)")
 				fatalError()
 			}
-			print("Successfully saved a trainingdata file at: '\(temporaryFileUrl)'.")
+			print("Successfully saved \(binaryData.count) bytes of trainingdata at: '\(temporaryFileUrl)'.")
 		} else {
 			print("ERROR: unable to serialize to a trainingdata file.")
 		}
