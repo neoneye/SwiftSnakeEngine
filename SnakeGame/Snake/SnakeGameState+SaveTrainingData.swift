@@ -30,10 +30,6 @@ extension SnakePlayer {
 			bodyPositions.append(position)
 		}
 
-		// IDEA: determine quality/risk of each action
-		// did the action cause the snake to die in near future.
-		// did the action cause the opponent snake to die in near future.
-
 		let action: SnakeGameStateModelPlayer.Action
 		switch self.pendingMovement {
 		case .dontMove:
