@@ -120,10 +120,6 @@ extension SnakeGameState {
 		return model
 	}
 
-	// IDEA: identify which player did the best.
-	// After the entire game have played out, then swap player A and player B in such way that:
-	// Player A is the winner.
-	// Player B is the looser.
 	public func saveTrainingData(trainingSessionUUID: UUID) -> URL {
 		let model: SnakeGameStateIngameModel = self.toSnakeGameStateIngameModel()
 		let stepIndex: String = "step\(self.numberOfSteps)"
@@ -148,7 +144,54 @@ extension SnakeGameState {
 }
 
 public class PostProcessTrainingData {
+	private let sharedLevel: SnakeGameStateModelLevel
+	private init(sharedLevel: SnakeGameStateModelLevel) {
+		self.sharedLevel = sharedLevel
+	}
+
+	private func processFile(at url: URL) {
+		let model: SnakeGameStateIngameModel
+		do {
+			let data: Data = try Data(contentsOf: url)
+			model = try SnakeGameStateIngameModel(serializedData: data)
+		} catch {
+			print("ERROR: Unable to load file at url: '\(url)'. \(error)")
+			return
+		}
+		// IDEA: convert into a SnakeGameStateWinnerLooserModel
+	}
+
+	/// Post processing all the generated files by a training session.
+	///
+	/// After the entire game have played out, then swap player A and player B in such way that:
+	///
+	/// - Player A is the winner.
+	///
+	/// - Player B is the looser, if there is a player B.
+	///
+	/// The level data is only stored once. Greatly reducing the size of the training data.
 	public class func process(urls: [URL]) {
-		print("urls: \(urls)")
+		print("will process \(urls.count) files")
+
+		guard urls.count >= 1 else {
+			print("ERROR: Expected 1 or more urls for post processing. There is nothing to process!")
+			return
+		}
+		let sharedLevel: SnakeGameStateModelLevel
+		let url0: URL = urls.first!
+		do {
+			let data: Data = try Data(contentsOf: url0)
+			let model: SnakeGameStateIngameModel = try SnakeGameStateIngameModel(serializedData: data)
+			sharedLevel = model.level
+		} catch {
+			print("ERROR: Unable to load file at url: '\(url0)'. \(error)")
+			return
+		}
+		let processor = PostProcessTrainingData(sharedLevel: sharedLevel)
+		for url in urls {
+			processor.processFile(at: url)
+		}
+
+		print("did process \(urls.count) files")
 	}
 }
