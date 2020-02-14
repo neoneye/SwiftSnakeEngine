@@ -1,12 +1,12 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-public enum SnakeBodyPartContent: Equatable {
+public enum SnakeBodyPartContent: Hashable {
 	case empty
 	case food
 }
 
-public struct SnakeBodyPart: Equatable {
+public struct SnakeBodyPart: Hashable {
 	public var position: IntVec2
 	public var content: SnakeBodyPartContent
 }

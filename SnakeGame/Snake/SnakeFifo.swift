@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-public class SnakeFifo<T: Equatable> {
+public class SnakeFifo<T: Hashable> {
 	private var capacity: UInt
 	public fileprivate (set) var array: [T]
 
@@ -20,16 +20,21 @@ public class SnakeFifo<T: Equatable> {
 		self.array = [T](original.array)
 	}
 
-	private init(capacity: UInt, array: Array<T>) {
-		self.capacity = capacity
+	public init(array: Array<T>) {
+		self.capacity = UInt(array.count)
 		self.array = [T](array)
+	}
+
+	private init(capacity: UInt, originalArray: Array<T>) {
+		self.capacity = capacity
+		self.array = [T](originalArray)
 	}
 
 	public func map(_ transform: (T) throws -> T) rethrows -> SnakeFifo<T> {
 		let newArray: [T] = try self.array.map {
 			try transform($0)
 		}
-		return SnakeFifo<T>(capacity: self.capacity, array: newArray)
+		return SnakeFifo<T>(capacity: self.capacity, originalArray: newArray)
 	}
 
 	public func removeAll() {
@@ -70,5 +75,12 @@ extension SnakeFifo: Equatable {
 			return false
 		}
 		return lhs.array == rhs.array
+	}
+}
+
+extension SnakeFifo: Hashable {
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(capacity)
+		hasher.combine(array)
 	}
 }

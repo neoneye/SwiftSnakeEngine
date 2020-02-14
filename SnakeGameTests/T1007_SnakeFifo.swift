@@ -20,4 +20,25 @@ class T1007_SnakeFifo: XCTestCase {
 		fifo1.appendAndGrow("d")
 		XCTAssertNotEqual(fifo0, fifo1)
 	}
+
+	func test1_hashable() {
+		let fifo0 = SnakeFifoString(array: ["a", "b", "c"])
+		let fifo1a = SnakeFifoString(array: ["b", "c", "d"])
+		let fifo1b = SnakeFifoString(array: ["b", "c", "d"])
+		var set0 = Set<SnakeFifoString>()
+		XCTAssertFalse(set0.contains(fifo0))
+		XCTAssertFalse(set0.contains(fifo1a))
+		XCTAssertFalse(set0.contains(fifo1b))
+		set0.insert(fifo0)
+		set0.insert(fifo1a)
+		XCTAssertEqual(set0.count, 2)
+		XCTAssertTrue(set0.contains(fifo0))
+		XCTAssertTrue(set0.contains(fifo1a))
+		XCTAssertTrue(set0.contains(fifo1b))
+		fifo0.append("x")
+		XCTAssertFalse(set0.contains(fifo0))
+		set0.insert(fifo0)
+		XCTAssertEqual(set0.count, 3)
+		XCTAssertTrue(set0.contains(fifo0))
+	}
 }
