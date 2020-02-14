@@ -130,6 +130,36 @@ class T2000_SnakeBody: XCTestCase {
 			XCTAssertEqual(body0, body1)
 		}
 	}
+
+	func test5_hashable() {
+		let body0: SnakeBody = SnakeBody.create(
+			position: IntVec2(x: 20, y: 10),
+			headDirection: .left,
+			length: 5
+		)
+
+		var set0 = Set<SnakeBody>()
+		set0.insert(body0)
+		XCTAssertEqual(set0.count, 1)
+		set0.insert(body0)
+		XCTAssertEqual(set0.count, 1)
+
+		let body1: SnakeBody = SnakeBody.create(
+			position: IntVec2(x: 21, y: 10),
+			headDirection: .left,
+			length: 4
+		)
+		set0.insert(body1)
+		XCTAssertEqual(set0.count, 2)
+
+		var body2 = body1.stateForTick(movement: .moveForward, act: .eat)
+		body2 = body2.clearedContentOfStomach()
+		XCTAssertEqual(body0, body2)
+
+		set0.remove(body2)
+		XCTAssertEqual(set0.count, 1)
+		XCTAssertTrue(set0.contains(body1))
+	}
 }
 
 extension SnakeHead {

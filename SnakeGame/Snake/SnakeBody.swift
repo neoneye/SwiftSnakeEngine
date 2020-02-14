@@ -162,6 +162,13 @@ extension SnakeBody: Equatable {
 	}
 }
 
+extension SnakeBody: Hashable {
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(head)
+		hasher.combine(fifo)
+	}
+}
+
 extension SnakeBodyPartContent {
 	fileprivate var shorthand: String {
 		switch self {
