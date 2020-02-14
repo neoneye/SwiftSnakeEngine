@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-public class SnakeFifo<T: Hashable> {
+public struct SnakeFifo<T: Hashable> {
 	private var capacity: UInt
 	public fileprivate (set) var array: [T]
 
@@ -37,23 +37,23 @@ public class SnakeFifo<T: Hashable> {
 		return SnakeFifo<T>(capacity: self.capacity, originalArray: newArray)
 	}
 
-	public func removeAll() {
+	public mutating func removeAll() {
 		capacity = 0
 		purge()
 	}
 
-	public func append(_ item: T) {
+	public mutating func append(_ item: T) {
 		array.append(item)
 		purge()
 	}
 
-	public func appendAndGrow(_ item: T) {
+	public mutating func appendAndGrow(_ item: T) {
 		capacity += 1
 		array.append(item)
 		purge()
 	}
 
-	public func appendAndShrink(_ item: T) {
+	public mutating func appendAndShrink(_ item: T) {
 		if capacity >= 1 {
 			capacity -= 1
 		}
@@ -61,7 +61,7 @@ public class SnakeFifo<T: Hashable> {
 		purge()
 	}
 
-	private func purge() {
+	private mutating func purge() {
 		let diff: Int = self.array.count - Int(self.capacity)
 		if diff >= 1 {
 			array.removeFirst(diff)

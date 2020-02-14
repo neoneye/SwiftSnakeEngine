@@ -6,12 +6,12 @@ class T1007_SnakeFifo: XCTestCase {
 	typealias SnakeFifoString = SnakeFifo<String>
 
 	func test0_equatable() {
-		let fifo0 = SnakeFifoString()
+		var fifo0 = SnakeFifoString()
 		fifo0.appendAndGrow("a")
 		fifo0.appendAndGrow("b")
 		fifo0.appendAndGrow("c")
 		XCTAssertEqual(fifo0, fifo0)
-		let fifo1 = SnakeFifoString()
+		var fifo1 = SnakeFifoString()
 		fifo1.appendAndGrow("a")
 		fifo1.appendAndGrow("b")
 		XCTAssertNotEqual(fifo0, fifo1)
@@ -22,7 +22,7 @@ class T1007_SnakeFifo: XCTestCase {
 	}
 
 	func test1_hashable() {
-		let fifo0 = SnakeFifoString(array: ["a", "b", "c"])
+		var fifo0 = SnakeFifoString(array: ["a", "b", "c"])
 		let fifo1a = SnakeFifoString(array: ["b", "c", "d"])
 		let fifo1b = SnakeFifoString(array: ["b", "c", "d"])
 		var set0 = Set<SnakeFifoString>()

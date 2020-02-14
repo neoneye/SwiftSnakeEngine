@@ -46,7 +46,7 @@ public class SnakeBody {
 			return self
 		}
 		let newHead: SnakeHead = self.head.simulateTick(movement: movement)
-		let newFifo = SnakeFifo<SnakeBodyPart>(original: self.fifo)
+		var newFifo = SnakeFifo<SnakeBodyPart>(original: self.fifo)
 
 		let content: SnakeBodyPartContent
 		switch act {
@@ -126,7 +126,7 @@ public class SnakeBody {
 		}
 
 		let startPosition: IntVec2 = position.offsetBy(dx: dx, dy: dy)
-		let initialFifo = SnakeFifo<SnakeBodyPart>()
+		var initialFifo = SnakeFifo<SnakeBodyPart>()
 		let snakeBodyPart = SnakeBodyPart(position: startPosition, content: .empty)
 		initialFifo.appendAndGrow(snakeBodyPart)
 		let initialHead = SnakeHead(
