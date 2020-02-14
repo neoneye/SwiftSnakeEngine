@@ -23,7 +23,7 @@ public enum SnakeBodyAct {
 	case eat
 }
 
-public class SnakeBody {
+public struct SnakeBody {
 	public let fifo: SnakeFifo<SnakeBodyPart>
 	public let head: SnakeHead
 
@@ -32,7 +32,7 @@ public class SnakeBody {
 		self.head = head
 	}
 
-	public class func empty() -> SnakeBody {
+	public static func empty() -> SnakeBody {
 		let head = SnakeHead(position: IntVec2(x: 0, y: 0), direction: SnakeHeadDirection.right)
 		let state = SnakeBody(
 			fifo: SnakeFifo<SnakeBodyPart>(),
@@ -110,7 +110,7 @@ public class SnakeBody {
 		return UInt(fifo.array.count)
 	}
 
-	public class func create(position: IntVec2, headDirection: SnakeHeadDirection, length: UInt) -> SnakeBody {
+	public static func create(position: IntVec2, headDirection: SnakeHeadDirection, length: UInt) -> SnakeBody {
 		let n = Int32(length)
 		var dx: Int32 = 0
 		var dy: Int32 = 0
