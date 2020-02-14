@@ -41,7 +41,24 @@ class T1001_IntVec2: XCTestCase {
 		}
 	}
 
-	func test3_offsetBy() {
+	func test3_hashable() {
+		var set0 = Set<IntVec2>()
+		set0.insert(IntVec2(x: 0, y: 0))
+		set0.insert(IntVec2(x: -10, y: 0))
+		set0.insert(IntVec2(x: 10, y: 0))
+		set0.insert(IntVec2(x: 0, y: -10))
+		set0.insert(IntVec2(x: 0, y: 10))
+		XCTAssertTrue(set0.contains(IntVec2(x: 0, y: 0)))
+		XCTAssertTrue(set0.contains(IntVec2(x: 10, y: 0)))
+		XCTAssertTrue(set0.contains(IntVec2(x: -10, y: 0)))
+		XCTAssertTrue(set0.contains(IntVec2(x: 0, y: 10)))
+		XCTAssertTrue(set0.contains(IntVec2(x: 0, y: -10)))
+		XCTAssertFalse(set0.contains(IntVec2(x: 666, y: 666)))
+		set0.remove(IntVec2(x: 0, y: 0))
+		XCTAssertFalse(set0.contains(IntVec2(x: 0, y: 0)))
+	}
+
+	func test4_offsetBy() {
 		do {
 			let a = IntVec2(x: -10, y: -1000).offsetBy(dx: 10, dy: 1000)
 			let b = IntVec2.zero
@@ -54,7 +71,7 @@ class T1001_IntVec2: XCTestCase {
 		}
 	}
 
-	func test4_customDebugStringConvertible() {
+	func test5_customDebugStringConvertible() {
 		do {
 			let s = String(reflecting: IntVec2.zero)
 			XCTAssertEqual(s, "(0, 0)")
@@ -69,7 +86,7 @@ class T1001_IntVec2: XCTestCase {
 		}
 	}
 
-	func test5_convertToUIntVec2() {
+	func test6_convertToUIntVec2() {
 		do {
 			let point: UIntVec2? = IntVec2(x: 100, y: 100).uintVec2()
 			XCTAssertNotNil(point)
@@ -88,7 +105,7 @@ class T1001_IntVec2: XCTestCase {
 		}
 	}
 
-	func test6_convertToCGPoint() {
+	func test7_convertToCGPoint() {
 		do {
 			let point: CGPoint = IntVec2.zero.cgPoint
 			XCTAssertEqual(point.x, 0.0, accuracy: 0.0001)
@@ -106,7 +123,7 @@ class T1001_IntVec2: XCTestCase {
 		}
 	}
 
-	func test7_manhattanDistance() {
+	func test8_manhattanDistance() {
 		do {
 			let point = IntVec2(x: 0, y: 0)
 			let actual: UInt32 = point.manhattanDistance(point)
@@ -132,7 +149,7 @@ class T1001_IntVec2: XCTestCase {
 		}
 	}
 
-	func test8_comparable() {
+	func test9_comparable() {
 		do {
 			let a = IntVec2(x: 0, y: 0)
 			let b = IntVec2(x: 0, y: 0)
@@ -165,22 +182,5 @@ class T1001_IntVec2: XCTestCase {
 			let expected: [IntVec2] = [a, b, c, d, e, f]
 			XCTAssertEqual(actual, expected)
 		}
-	}
-
-	func test9_hashable() {
-		var set0 = Set<IntVec2>()
-		set0.insert(IntVec2(x: 0, y: 0))
-		set0.insert(IntVec2(x: -10, y: 0))
-		set0.insert(IntVec2(x: 10, y: 0))
-		set0.insert(IntVec2(x: 0, y: -10))
-		set0.insert(IntVec2(x: 0, y: 10))
-		XCTAssertTrue(set0.contains(IntVec2(x: 0, y: 0)))
-		XCTAssertTrue(set0.contains(IntVec2(x: 10, y: 0)))
-		XCTAssertTrue(set0.contains(IntVec2(x: -10, y: 0)))
-		XCTAssertTrue(set0.contains(IntVec2(x: 0, y: 10)))
-		XCTAssertTrue(set0.contains(IntVec2(x: 0, y: -10)))
-		XCTAssertFalse(set0.contains(IntVec2(x: 666, y: 666)))
-		set0.remove(IntVec2(x: 0, y: 0))
-		XCTAssertFalse(set0.contains(IntVec2(x: 0, y: 0)))
 	}
 }
