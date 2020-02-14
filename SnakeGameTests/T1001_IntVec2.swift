@@ -166,4 +166,21 @@ class T1001_IntVec2: XCTestCase {
 			XCTAssertEqual(actual, expected)
 		}
 	}
+
+	func test9_hashable() {
+		var set0 = Set<IntVec2>()
+		set0.insert(IntVec2(x: 0, y: 0))
+		set0.insert(IntVec2(x: -10, y: 0))
+		set0.insert(IntVec2(x: 10, y: 0))
+		set0.insert(IntVec2(x: 0, y: -10))
+		set0.insert(IntVec2(x: 0, y: 10))
+		XCTAssertTrue(set0.contains(IntVec2(x: 0, y: 0)))
+		XCTAssertTrue(set0.contains(IntVec2(x: 10, y: 0)))
+		XCTAssertTrue(set0.contains(IntVec2(x: -10, y: 0)))
+		XCTAssertTrue(set0.contains(IntVec2(x: 0, y: 10)))
+		XCTAssertTrue(set0.contains(IntVec2(x: 0, y: -10)))
+		XCTAssertFalse(set0.contains(IntVec2(x: 666, y: 666)))
+		set0.remove(IntVec2(x: 0, y: 0))
+		XCTAssertFalse(set0.contains(IntVec2(x: 0, y: 0)))
+	}
 }

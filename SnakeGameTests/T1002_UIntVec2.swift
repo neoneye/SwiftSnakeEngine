@@ -100,4 +100,17 @@ class T1002_UIntVec2: XCTestCase {
 			XCTAssertEqual(actual, expected)
 		}
 	}
+
+	func test7_hashable() {
+		var set0 = Set<UIntVec2>()
+		set0.insert(UIntVec2(x: 0, y: 0))
+		set0.insert(UIntVec2(x: 10, y: 0))
+		set0.insert(UIntVec2(x: 0, y: 10))
+		XCTAssertTrue(set0.contains(UIntVec2(x: 0, y: 0)))
+		XCTAssertTrue(set0.contains(UIntVec2(x: 10, y: 0)))
+		XCTAssertTrue(set0.contains(UIntVec2(x: 0, y: 10)))
+		XCTAssertFalse(set0.contains(UIntVec2(x: 666, y: 666)))
+		set0.remove(UIntVec2(x: 0, y: 0))
+		XCTAssertFalse(set0.contains(UIntVec2(x: 0, y: 0)))
+	}
 }
