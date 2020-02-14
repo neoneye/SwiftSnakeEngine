@@ -140,13 +140,25 @@ public class SnakeBody {
 		for _ in 0..<n {
 			state = state.stateForTick(movement: .moveForward, act: .eat)
 		}
+		// At this point the snake has a lot of food items inside its stomach, so we have to clear the stomach.
+		return state.clearedContentOfStomach()
+	}
 
-		// Clear the content of the stomach, so that there is no food inside the snake
-		let head: SnakeHead = state.head
-		let fifo: SnakeFifo<SnakeBodyPart> = state.fifo.map {
+	/// Clears the content of the stomach, so that there is no food inside the snake
+	public func clearedContentOfStomach() -> SnakeBody {
+		let fifo: SnakeFifo<SnakeBodyPart> = self.fifo.map {
 			SnakeBodyPart(position: $0.position, content: .empty)
 		}
-		return SnakeBody(fifo: fifo, head: head)
+		return SnakeBody(fifo: fifo, head: self.head)
+	}
+}
+
+extension SnakeBody: Equatable {
+	public static func == (lhs: SnakeBody, rhs: SnakeBody) -> Bool {
+		guard lhs.head == rhs.head else {
+			return false
+		}
+		return lhs.fifo == rhs.fifo
 	}
 }
 
