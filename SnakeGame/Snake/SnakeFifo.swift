@@ -1,9 +1,9 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-public class SnakeFifo<T> {
+public class SnakeFifo<T: Equatable> {
 	private var capacity: UInt
-	public private (set) var array: [T]
+	public fileprivate (set) var array: [T]
 
 	public init() {
 		self.capacity = 0
@@ -61,5 +61,14 @@ public class SnakeFifo<T> {
 		if diff >= 1 {
 			array.removeFirst(diff)
 		}
+	}
+}
+
+extension SnakeFifo: Equatable {
+	public static func == (lhs: SnakeFifo, rhs: SnakeFifo) -> Bool {
+		guard lhs.capacity == rhs.capacity else {
+			return false
+		}
+		return lhs.array == rhs.array
 	}
 }
