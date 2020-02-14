@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-public struct SnakeFifo<T: Hashable> {
+public struct SnakeFifo<T: Hashable>: Hashable {
 	private var capacity: UInt
 	public fileprivate (set) var array: [T]
 
@@ -66,21 +66,5 @@ public struct SnakeFifo<T: Hashable> {
 		if diff >= 1 {
 			array.removeFirst(diff)
 		}
-	}
-}
-
-extension SnakeFifo: Equatable {
-	public static func == (lhs: SnakeFifo, rhs: SnakeFifo) -> Bool {
-		guard lhs.capacity == rhs.capacity else {
-			return false
-		}
-		return lhs.array == rhs.array
-	}
-}
-
-extension SnakeFifo: Hashable {
-	public func hash(into hasher: inout Hasher) {
-		hasher.combine(capacity)
-		hasher.combine(array)
 	}
 }

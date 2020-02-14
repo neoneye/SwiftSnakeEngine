@@ -3,7 +3,7 @@
 /// A vector of 2 unsigned integers.
 ///
 /// This struct is inspired by Metal's `intvec2` type and GLSL's `ivec2` type.
-public struct UIntVec2 {
+public struct UIntVec2: Hashable {
 	public var x: UInt32
 	public var y: UInt32
 
@@ -26,35 +26,6 @@ extension UIntVec2 {
 	/// The vector with the value `(0, 0)`.
 	public static var zero: UIntVec2 {
 		return UIntVec2(x: 0, y: 0)
-	}
-}
-
-extension UIntVec2: Equatable {
-
-	/// Returns a Boolean value indicating whether two values are equal.
-	///
-	/// Equality is the inverse of inequality. For any values `a` and `b`,
-	/// `a == b` implies that `a != b` is `false`.
-	///
-	/// - Parameters:
-	///   - lhs: A value to compare.
-	///   - rhs: Another value to compare.
-	public static func == (lhs: UIntVec2, rhs: UIntVec2) -> Bool {
-		guard lhs.x == rhs.x else {
-			return false
-		}
-		guard lhs.y == rhs.y else {
-			return false
-		}
-		return true
-	}
-}
-
-extension UIntVec2: Hashable {
-	/// Hashes the `x` and `y` components of this value by feeding them into the given hasher.
-	public func hash(into hasher: inout Hasher) {
-		self.x.hash(into: &hasher)
-		self.y.hash(into: &hasher)
 	}
 }
 

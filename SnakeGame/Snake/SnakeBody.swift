@@ -23,7 +23,7 @@ public enum SnakeBodyAct {
 	case eat
 }
 
-public struct SnakeBody {
+public struct SnakeBody: Hashable {
 	public let fifo: SnakeFifo<SnakeBodyPart>
 	public let head: SnakeHead
 
@@ -150,22 +150,6 @@ public struct SnakeBody {
 			SnakeBodyPart(position: $0.position, content: .empty)
 		}
 		return SnakeBody(fifo: fifo, head: self.head)
-	}
-}
-
-extension SnakeBody: Equatable {
-	public static func == (lhs: SnakeBody, rhs: SnakeBody) -> Bool {
-		guard lhs.head == rhs.head else {
-			return false
-		}
-		return lhs.fifo == rhs.fifo
-	}
-}
-
-extension SnakeBody: Hashable {
-	public func hash(into hasher: inout Hasher) {
-		hasher.combine(head)
-		hasher.combine(fifo)
 	}
 }
 
