@@ -3,6 +3,38 @@ import SpriteKit
 import SnakeGame
 import SSEventFlow
 
+class StuckSnakeDetector {
+	private let humanReadableName: String
+	private var historical_snakeBodies = Set<SnakeBody>()
+	private var numberOfConsecutiveDetections: UInt = 0
+
+	init(humanReadableName: String) {
+		self.humanReadableName = humanReadableName
+	}
+
+	func reset() {
+		historical_snakeBodies.removeAll()
+		numberOfConsecutiveDetections = 0
+	}
+
+	func process(player: SnakePlayer) {
+		guard player.isAlive else {
+			return
+		}
+		let body: SnakeBody = player.snakeBody
+		guard historical_snakeBodies.contains(body) else {
+			historical_snakeBodies.insert(body)
+			numberOfConsecutiveDetections = 0
+			return
+		}
+		print("\(humanReadableName) has possible become stuck!")
+		numberOfConsecutiveDetections += 1
+		if numberOfConsecutiveDetections >= 5 {
+			print("\(humanReadableName) has almost certainly become stuck!")
+		}
+	}
+}
+
 enum UpdateAction {
 	case stepForwardContinuously
 	case stepForwardOnce
@@ -23,8 +55,8 @@ class SnakeGameScene: SKScene {
 	var gameState: SnakeGameState
 	var gameNode: SnakeGameNode
 	var previousGameStates: [SnakeGameState] = []
-	var historical_snakeBody1 = Set<SnakeBody>()
-	var historical_snakeBody2 = Set<SnakeBody>()
+	var stuckSnakeDetector1 = StuckSnakeDetector(humanReadableName: "Player1")
+	var stuckSnakeDetector2 = StuckSnakeDetector(humanReadableName: "Player2")
 	let sound_snakeDies = SKAction.playSoundFileNamed("snake_dies.wav", waitForCompletion: false)
 	let sound_snakeEats = SKAction.playSoundFileNamed("snake_eats.wav", waitForCompletion: false)
 	let sound_snakeStep = SKAction.playSoundFileNamed("snake_step.wav", waitForCompletion: false)
@@ -119,8 +151,8 @@ class SnakeGameScene: SKScene {
 		gameState = initialGameState
 		trainingSessionUUID = UUID()
 		trainingSessionURLs = []
-		historical_snakeBody1.removeAll()
-		historical_snakeBody2.removeAll()
+		stuckSnakeDetector1.reset()
+		stuckSnakeDetector2.reset()
 		placeNewFood()
 	}
 
@@ -336,22 +368,8 @@ class SnakeGameScene: SKScene {
 		placeNewFood()
 
 		// Detect if a player has gotten stuck and doing the same things over and over
-		if gameState.player1.isAlive {
-			let body: SnakeBody = gameState.player1.snakeBody
-			if historical_snakeBody1.contains(body) {
-				print("Player1 has possible become stuck!")
-			} else {
-				historical_snakeBody1.insert(body)
-			}
-		}
-		if gameState.player2.isAlive {
-			let body: SnakeBody = gameState.player2.snakeBody
-			if historical_snakeBody2.contains(body) {
-				print("Player2 has possible become stuck!")
-			} else {
-				historical_snakeBody2.insert(body)
-			}
-		}
+		stuckSnakeDetector1.process(player: gameState.player1)
+		stuckSnakeDetector2.process(player: gameState.player2)
 
 		if AppConstant.saveTrainingData {
 			let url: URL = oldGameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
