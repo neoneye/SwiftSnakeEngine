@@ -3,7 +3,7 @@ import XCTest
 @testable import SnakeGame
 
 class T3100_StuckSnakeDetector: XCTestCase {
-    func test1() {
+    func test0() {
         let detector = StuckSnakeDetector(humanReadableName: "TestPlayer")
         let body = SnakeBody.create(position: IntVec2(x: 10, y: 10), headDirection: .right, length: 3)
         XCTAssertFalse(detector.isStuck)
