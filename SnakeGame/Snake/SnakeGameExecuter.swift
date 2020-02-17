@@ -2,10 +2,44 @@
 import Foundation
 
 public class SnakeGameExecuter {
-	
+    public class func executeStep(_ currentGameState: SnakeGameState) -> SnakeGameState {
+        var gameState: SnakeGameState = currentGameState
+        let newGameState = gameState.detectCollision()
+        gameState = newGameState
+
+        if gameState.player1.isAlive {
+            var player: SnakePlayer = gameState.player1
+            let snakeBody: SnakeBody = player.snakeBody.stateForTick(
+                movement: player.pendingMovement,
+                act: player.pendingAct
+            )
+            player = player.playerWithNewSnakeBody(snakeBody)
+            player = player.updatePendingMovement(.dontMove)
+            player = player.updatePendingAct(.doNothing)
+            gameState = gameState.stateWithNewPlayer1(player)
+        }
+
+        if gameState.player2.isAlive {
+            var player: SnakePlayer = gameState.player2
+            let snakeBody: SnakeBody = player.snakeBody.stateForTick(
+                movement: player.pendingMovement,
+                act: player.pendingAct
+            )
+            player = player.playerWithNewSnakeBody(snakeBody)
+            player = player.updatePendingMovement(.dontMove)
+            player = player.updatePendingAct(.doNothing)
+            gameState = gameState.stateWithNewPlayer2(player)
+        }
+
+        gameState = gameState.incrementNumberOfSteps()
+        return gameState
+    }
+}
+
+extension SnakeGameState {
 	/// Decide about optimal path to get to the food
-	public class func prepareBotMovements(_ currentGameState: SnakeGameState) -> SnakeGameState {
-		var gameState: SnakeGameState = currentGameState
+	public func prepareBotMovements() -> SnakeGameState {
+		var gameState: SnakeGameState = self
 		if case SnakePlayerRole.bot = gameState.player1.role {
 			if gameState.player1.isAlive && gameState.player1.pendingMovement == .dontMove {
 				let (newBotState, pendingMovement) = gameState.player1.bot.takeAction(
@@ -35,8 +69,8 @@ public class SnakeGameExecuter {
 	}
 
 	/// Checks the human inputs and prevent humans from colliding with walls/snakes
-	public class func preventHumanCollisions(_ currentGameState: SnakeGameState) -> SnakeGameState {
-		var gameState: SnakeGameState = currentGameState
+	public func preventHumanCollisions() -> SnakeGameState {
+		var gameState: SnakeGameState = self
 
 		if gameState.player1.role == .human && gameState.player1.isAlive && gameState.player1.pendingMovement != .dontMove {
 			let detector = SnakeCollisionDetector.create(
@@ -67,12 +101,12 @@ public class SnakeGameExecuter {
 		return gameState
 	}
 
-	public class func isWaitingForHumanInput(_ gameState: SnakeGameState) -> Bool {
+	public func isWaitingForHumanInput() -> Bool {
 		var waitingForPlayers = false
-		if gameState.player1.isAlive && gameState.player1.pendingMovement == .dontMove {
+		if self.player1.isAlive && self.player1.pendingMovement == .dontMove {
 			waitingForPlayers = true
 		}
-		if gameState.player2.isAlive && gameState.player2.pendingMovement == .dontMove {
+		if self.player2.isAlive && self.player2.pendingMovement == .dontMove {
 			waitingForPlayers = true
 		}
 		if waitingForPlayers {
@@ -83,44 +117,10 @@ public class SnakeGameExecuter {
 		}
 	}
 
-	public class func executeStep(_ currentGameState: SnakeGameState) -> SnakeGameState {
-		var gameState: SnakeGameState = currentGameState
-		let newGameState = SnakeGameExecuter.detectCollision(gameState)
-		gameState = newGameState
-
-		if gameState.player1.isAlive {
-			var player: SnakePlayer = gameState.player1
-			let snakeBody: SnakeBody = player.snakeBody.stateForTick(
-				movement: player.pendingMovement,
-				act: player.pendingAct
-			)
-			player = player.playerWithNewSnakeBody(snakeBody)
-			player = player.updatePendingMovement(.dontMove)
-			player = player.updatePendingAct(.doNothing)
-			gameState = gameState.stateWithNewPlayer1(player)
-		}
-
-		if gameState.player2.isAlive {
-			var player: SnakePlayer = gameState.player2
-			let snakeBody: SnakeBody = player.snakeBody.stateForTick(
-				movement: player.pendingMovement,
-				act: player.pendingAct
-			)
-			player = player.playerWithNewSnakeBody(snakeBody)
-			player = player.updatePendingMovement(.dontMove)
-			player = player.updatePendingAct(.doNothing)
-			gameState = gameState.stateWithNewPlayer2(player)
-		}
-
-		gameState = gameState.incrementNumberOfSteps()
-		return gameState
-	}
-
-
 	/// Deal with collision when both the player1 and the player2 is installed
 	/// Deal with collision only if either the player1 or player2 is installed
-	fileprivate class func detectCollision(_ currentGameState: SnakeGameState) -> SnakeGameState {
-		var gameState: SnakeGameState = currentGameState
+	fileprivate func detectCollision() -> SnakeGameState {
+		var gameState: SnakeGameState = self
 		if gameState.player1.isDead && gameState.player2.isDead {
 			print("Both players are dead. No need to check for collision between them. 1")
 			return gameState

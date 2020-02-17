@@ -310,11 +310,11 @@ class SnakeGameScene: SKScene {
 	}
 
 	func stepForward() {
-		let newGameState0 = SnakeGameExecuter.prepareBotMovements(gameState)
-		let newGameState1 = SnakeGameExecuter.preventHumanCollisions(newGameState0)
+		let newGameState0 = gameState.prepareBotMovements()
+		let newGameState1 = newGameState0.preventHumanCollisions()
 		self.gameState = newGameState1
 
-		let isWaiting = SnakeGameExecuter.isWaitingForHumanInput(self.gameState)
+		let isWaiting = self.gameState.isWaitingForHumanInput()
 		if isWaiting {
 			//print("waiting for players")
 			return
