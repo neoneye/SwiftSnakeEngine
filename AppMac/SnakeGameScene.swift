@@ -293,7 +293,7 @@ class SnakeGameScene: SKScene {
 		if AppConstant.killPlayer2AfterAFewSteps {
 			if gameState.player2.isAlive && gameState.numberOfSteps == 10 {
 				var player: SnakePlayer = gameState.player2
-				player = player.killed()
+                player = player.kill(.killAfterAFewTimeSteps)
 				gameState = gameState.stateWithNewPlayer2(player)
 			}
 		}

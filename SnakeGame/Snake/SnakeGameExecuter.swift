@@ -28,7 +28,7 @@ public class SnakeGameExecuter {
             player = player.updatePendingAct(.doNothing)
             stuckSnakeDetector1.process(body: player.snakeBody)
             if stuckSnakeDetector1.isStuck {
-                player = player.killed()
+                player = player.kill(.stuckInALoop)
             }
             gameState = gameState.stateWithNewPlayer1(player)
         }
@@ -44,7 +44,7 @@ public class SnakeGameExecuter {
             player = player.updatePendingAct(.doNothing)
             stuckSnakeDetector2.process(body: player.snakeBody)
             if stuckSnakeDetector2.isStuck {
-                player = player.killed()
+                player = player.kill(.stuckInALoop)
             }
             gameState = gameState.stateWithNewPlayer2(player)
         }
@@ -153,12 +153,14 @@ extension SnakeGameState {
 		detector.process()
 
 		if gameState.player1.isAlive && detector.player1Alive == false {
-			print("killing player1 because: \(detector.collisionType1)")
-			gameState = gameState.killPlayer1()
+            let collisionType: SnakeCollisionType = detector.collisionType1
+            print("killing player1 because: \(collisionType)")
+            gameState = gameState.killPlayer1(collisionType.killEvent)
 		}
 		if gameState.player2.isAlive && detector.player2Alive == false {
-			print("killing player2 because: \(detector.collisionType2)")
-			gameState = gameState.killPlayer2()
+            let collisionType: SnakeCollisionType = detector.collisionType2
+			print("killing player2 because: \(collisionType)")
+			gameState = gameState.killPlayer2(collisionType.killEvent)
 		}
 
 		if detector.player1EatsFood {
@@ -175,4 +177,20 @@ extension SnakeGameState {
 		}
 		return gameState
 	}
+}
+
+extension SnakeCollisionType {
+    /// Convert from a `CollisionType` to its corresponding `KillEvent`.
+    fileprivate var killEvent: SnakePlayerKillEvent {
+        switch self {
+        case .noCollision:
+            fatalError("Inconsistency. A collision happened, but no collision is registered. Should never happen!")
+        case .snakeCollisionWithWall:
+            return .collisionWithWall
+        case .snakeCollisionWithOpponent:
+            return .collisionWithOpponent
+        case .snakeCollisionWithItself:
+            return .collisionWithItself
+        }
+    }
 }

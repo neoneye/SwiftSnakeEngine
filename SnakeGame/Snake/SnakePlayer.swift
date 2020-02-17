@@ -23,6 +23,15 @@ extension SnakePlayerRole: Equatable {
 	}
 }
 
+public enum SnakePlayerKillEvent {
+    case collisionWithWall
+    case collisionWithItself
+    case collisionWithOpponent
+    case noMoreFood
+    case stuckInALoop
+    case killAfterAFewTimeSteps
+}
+
 public class SnakePlayer {
 	public let isAlive: Bool
 	public let isInstalled: Bool
@@ -30,6 +39,7 @@ public class SnakePlayer {
 	public let snakeBody: SnakeBody
 	public let pendingMovement: SnakeBodyMovement
 	public let pendingAct: SnakeBodyAct
+    public let killEvents: [SnakePlayerKillEvent]
 	public let bot: SnakeBot
 
 	public var isDead: Bool {
@@ -47,13 +57,14 @@ public class SnakePlayer {
 		}
 	}
 
-	private init(isAlive: Bool, isInstalled: Bool, role: SnakePlayerRole, snakeBody: SnakeBody, pendingMovement: SnakeBodyMovement, pendingAct: SnakeBodyAct, bot: SnakeBot) {
+	private init(isAlive: Bool, isInstalled: Bool, role: SnakePlayerRole, snakeBody: SnakeBody, pendingMovement: SnakeBodyMovement, pendingAct: SnakeBodyAct, killEvents: [SnakePlayerKillEvent], bot: SnakeBot) {
 		self.isAlive = isAlive
 		self.isInstalled = isInstalled
 		self.role = role
 		self.snakeBody = snakeBody
 		self.pendingMovement = pendingMovement
 		self.pendingAct = pendingAct
+        self.killEvents = killEvents
 		self.bot = bot
 	}
 
@@ -77,6 +88,7 @@ public class SnakePlayer {
 			snakeBody: SnakeBody.create(position: IntVec2.zero, headDirection: .right, length: 1),
 			pendingMovement: .dontMove,
 			pendingAct: .doNothing,
+            killEvents: [],
 			bot: bot
 		)
 	}
@@ -89,6 +101,7 @@ public class SnakePlayer {
 			snakeBody: snakeBody,
 			pendingMovement: newPendingMovement,
 			pendingAct: pendingAct,
+            killEvents: killEvents,
 			bot: bot
 		)
 	}
@@ -101,6 +114,7 @@ public class SnakePlayer {
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: newPendingAct,
+            killEvents: killEvents,
 			bot: bot
 		)
 	}
@@ -116,11 +130,13 @@ public class SnakePlayer {
 			snakeBody: snakeBody,
 			pendingMovement: .dontMove,
 			pendingAct: .doNothing,
+            killEvents: killEvents,
 			bot: bot
 		)
 	}
 
-	public func killed() -> SnakePlayer {
+    // IDEA: add a kill reason, such as: stuck, collision with wall, collision with self, collision with opponent.
+    public func kill(_ killEvent: SnakePlayerKillEvent) -> SnakePlayer {
 		return SnakePlayer(
 			isAlive: false,
 			isInstalled: isInstalled,
@@ -128,6 +144,7 @@ public class SnakePlayer {
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: pendingAct,
+            killEvents: killEvents + [killEvent],
 			bot: bot
 		)
 	}
@@ -140,6 +157,7 @@ public class SnakePlayer {
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: pendingAct,
+            killEvents: killEvents,
 			bot: bot
 		)
 	}
@@ -152,6 +170,7 @@ public class SnakePlayer {
 			snakeBody: newSnakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: pendingAct,
+            killEvents: killEvents,
 			bot: bot
 		)
 	}
@@ -164,6 +183,7 @@ public class SnakePlayer {
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: pendingAct,
+            killEvents: killEvents,
 			bot: newBot
 		)
 	}
