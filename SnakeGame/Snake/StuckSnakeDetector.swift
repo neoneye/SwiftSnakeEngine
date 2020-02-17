@@ -6,6 +6,7 @@ public class StuckSnakeDetector {
     private let humanReadableName: String
     private var historical_snakeBodies = Set<SnakeBody>()
     private var score: UInt = 0
+    public private (set) var isStuck = false
 
     public init(humanReadableName: String) {
         self.humanReadableName = humanReadableName
@@ -14,6 +15,7 @@ public class StuckSnakeDetector {
     public func reset() {
         historical_snakeBodies.removeAll()
         score = 0
+        isStuck = false
     }
 
     public func process(player: SnakePlayer) {
@@ -34,6 +36,7 @@ public class StuckSnakeDetector {
         score += 2
         if score >= 5 {
             print("\(humanReadableName) has almost certainly become stuck!")
+            isStuck = true
         }
     }
 }

@@ -27,6 +27,9 @@ public class SnakeGameExecuter {
             player = player.updatePendingMovement(.dontMove)
             player = player.updatePendingAct(.doNothing)
             stuckSnakeDetector1.process(player: player)
+            if stuckSnakeDetector1.isStuck {
+                player = player.killed()
+            }
             gameState = gameState.stateWithNewPlayer1(player)
         }
 
@@ -40,6 +43,9 @@ public class SnakeGameExecuter {
             player = player.updatePendingMovement(.dontMove)
             player = player.updatePendingAct(.doNothing)
             stuckSnakeDetector2.process(player: player)
+            if stuckSnakeDetector2.isStuck {
+                player = player.killed()
+            }
             gameState = gameState.stateWithNewPlayer2(player)
         }
 
