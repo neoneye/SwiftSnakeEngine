@@ -1,6 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 
-public enum SnakeHeadDirection {
+public enum SnakeHeadDirection: Hashable {
 	case up, down, left, right
 }
 

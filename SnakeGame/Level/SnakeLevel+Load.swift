@@ -169,8 +169,7 @@ extension SnakeLevel {
 
 			// Serialize to binary protobuf format
 			if let binaryData: Data = try? newCacheModel.serializedData() {
-				let temporaryFileUrl: URL = URL.temporaryFile(with: "snakegame")
-				//print("temporaryFileUrl: \(temporaryFileUrl)")
+				let temporaryFileUrl: URL = URL.temporaryFile(prefixes: ["snakegame", "levelcache"], suffixes: [])
 				do {
 					try binaryData.write(to: temporaryFileUrl)
 				} catch {
@@ -190,13 +189,5 @@ extension SnakeLevel {
 extension String {
 	fileprivate func getCharacterAt(_ i: Int) -> String {
 		return String(self[index(startIndex, offsetBy: i)])
-	}
-}
-
-extension URL {
-	fileprivate static func temporaryFile(with prefix: String) -> URL {
-		let uuid = UUID().uuidString
-		let pathComponent = "\(prefix)-\(uuid)"
-		return URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(pathComponent)
 	}
 }

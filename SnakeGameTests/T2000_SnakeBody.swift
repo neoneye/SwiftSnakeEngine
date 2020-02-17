@@ -91,6 +91,75 @@ class T2000_SnakeBody: XCTestCase {
 		XCTAssertEqual(state.head, SnakeHead.test_create(9, 10, .up))
 		XCTAssertTrue(state.isEatingItself)
 	}
+
+	func test4_equatable() {
+		do {
+			let body0: SnakeBody = SnakeBody.create(
+				position: IntVec2(x: 10, y: 10),
+				headDirection: .right,
+				length: 3
+			)
+			var body1: SnakeBody = SnakeBody.create(
+				position: IntVec2(x: 9, y: 10),
+				headDirection: .right,
+				length: 3
+			)
+			XCTAssertNotEqual(body0, body1)
+			body1 = body1.stateForTick(movement: .moveForward, act: .doNothing)
+			XCTAssertEqual(body0, body1)
+			body1 = body1.stateForTick(movement: .moveForward, act: .doNothing)
+			XCTAssertNotEqual(body0, body1)
+		}
+		do {
+			var body0: SnakeBody = SnakeBody.create(
+				position: IntVec2(x: 10, y: 10),
+				headDirection: .down,
+				length: 3
+			)
+			var body1: SnakeBody = SnakeBody.create(
+				position: IntVec2(x: 10, y: 11),
+				headDirection: .down,
+				length: 2
+			)
+			XCTAssertNotEqual(body0, body1)
+			body1 = body1.stateForTick(movement: .moveForward, act: .eat)
+			body1 = body1.clearedContentOfStomach()
+			XCTAssertEqual(body0, body1)
+			body0 = body0.stateForTick(movement: .moveForward, act: .doNothing)
+			body1 = body1.stateForTick(movement: .moveForward, act: .doNothing)
+			XCTAssertEqual(body0, body1)
+		}
+	}
+
+	func test5_hashable() {
+		let body0: SnakeBody = SnakeBody.create(
+			position: IntVec2(x: 20, y: 10),
+			headDirection: .left,
+			length: 5
+		)
+
+		var set0 = Set<SnakeBody>()
+		set0.insert(body0)
+		XCTAssertEqual(set0.count, 1)
+		set0.insert(body0)
+		XCTAssertEqual(set0.count, 1)
+
+		let body1: SnakeBody = SnakeBody.create(
+			position: IntVec2(x: 21, y: 10),
+			headDirection: .left,
+			length: 4
+		)
+		set0.insert(body1)
+		XCTAssertEqual(set0.count, 2)
+
+		var body2 = body1.stateForTick(movement: .moveForward, act: .eat)
+		body2 = body2.clearedContentOfStomach()
+		XCTAssertEqual(body0, body2)
+
+		set0.remove(body2)
+		XCTAssertEqual(set0.count, 1)
+		XCTAssertTrue(set0.contains(body1))
+	}
 }
 
 extension SnakeHead {

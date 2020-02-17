@@ -3,6 +3,8 @@ import Foundation
 
 public class SnakeGameState {
 	public let level: SnakeLevel
+
+	// IDEA: change foodPosition to UIntVec2, so that fewer casts are needed.
 	public let foodPosition: IntVec2?
 	public let player1: SnakePlayer
 	public let player2: SnakePlayer
@@ -116,11 +118,11 @@ public class SnakeGameState {
 		)
 	}
 
-	public func killPlayer1() -> SnakeGameState {
+	public func killPlayer1(_ killEvent: SnakePlayerKillEvent) -> SnakeGameState {
 		return SnakeGameState(
 			level: level,
 			foodPosition: foodPosition,
-			player1: player1.killed(),
+			player1: player1.kill(killEvent),
 			player2: player2,
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
 			foodRandomGenerator_count: foodRandomGenerator_count,
@@ -128,12 +130,12 @@ public class SnakeGameState {
 		)
 	}
 
-	public func killPlayer2() -> SnakeGameState {
+	public func killPlayer2(_ killEvent: SnakePlayerKillEvent) -> SnakeGameState {
 		return SnakeGameState(
 			level: level,
 			foodPosition: foodPosition,
 			player1: player1,
-			player2: player2.killed(),
+			player2: player2.kill(killEvent),
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
 			foodRandomGenerator_count: foodRandomGenerator_count,
 			numberOfSteps: numberOfSteps

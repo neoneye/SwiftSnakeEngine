@@ -2,16 +2,15 @@
 import Foundation
 
 public class SnakeGameHeadless {
-	private let foodGenerator: SnakeFoodGenerator
+	private let foodGenerator = SnakeFoodGenerator()
+    private let gameExecuter = SnakeGameExecuter()
 
-	public init() {
-		self.foodGenerator = SnakeFoodGenerator()
-	}
+	public init() {}
 
 	private func step(_ currentGameState: SnakeGameState) -> SnakeGameState {
 		let state0 = foodGenerator.placeNewFood(currentGameState)
-		let state1 = SnakeGameExecuter.prepareBotMovements(state0)
-		let state2 = SnakeGameExecuter.executeStep(state1)
+		let state1 = state0.prepareBotMovements()
+		let state2 = gameExecuter.executeStep(state1)
 		return state2
 	}
 

@@ -40,8 +40,8 @@ public class SnakeFoodGenerator {
 
 		guard let position: IntVec2 = positionOrNil else {
 			print("You won. There are no more available food positions!")
-			gameState = gameState.killPlayer1()
-			gameState = gameState.killPlayer2()
+            gameState = gameState.killPlayer1(.noMoreFood)
+            gameState = gameState.killPlayer2(.noMoreFood)
 			return gameState
 		}
 		gameState = gameState.stateWithNewFoodPosition(position)

@@ -7,6 +7,7 @@ enum NSEvent_KeyCodeEnum: UInt16 {
 	case letterD = 2
 	case letterZ = 6
 	case letterW = 13
+	case letterT = 17
 	case enter = 36
 	case tab = 48
 	case spacebar = 49

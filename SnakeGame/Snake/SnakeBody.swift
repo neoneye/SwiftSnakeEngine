@@ -1,12 +1,12 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-public enum SnakeBodyPartContent {
+public enum SnakeBodyPartContent: Hashable {
 	case empty
 	case food
 }
 
-public struct SnakeBodyPart {
+public struct SnakeBodyPart: Hashable {
 	public var position: IntVec2
 	public var content: SnakeBodyPartContent
 }
@@ -23,7 +23,7 @@ public enum SnakeBodyAct {
 	case eat
 }
 
-public class SnakeBody {
+public struct SnakeBody: Hashable {
 	public let fifo: SnakeFifo<SnakeBodyPart>
 	public let head: SnakeHead
 
@@ -32,7 +32,7 @@ public class SnakeBody {
 		self.head = head
 	}
 
-	public class func empty() -> SnakeBody {
+	public static func empty() -> SnakeBody {
 		let head = SnakeHead(position: IntVec2(x: 0, y: 0), direction: SnakeHeadDirection.right)
 		let state = SnakeBody(
 			fifo: SnakeFifo<SnakeBodyPart>(),
@@ -46,7 +46,7 @@ public class SnakeBody {
 			return self
 		}
 		let newHead: SnakeHead = self.head.simulateTick(movement: movement)
-		let newFifo = SnakeFifo<SnakeBodyPart>(original: self.fifo)
+		var newFifo = SnakeFifo<SnakeBodyPart>(original: self.fifo)
 
 		let content: SnakeBodyPartContent
 		switch act {
@@ -110,7 +110,7 @@ public class SnakeBody {
 		return UInt(fifo.array.count)
 	}
 
-	public class func create(position: IntVec2, headDirection: SnakeHeadDirection, length: UInt) -> SnakeBody {
+	public static func create(position: IntVec2, headDirection: SnakeHeadDirection, length: UInt) -> SnakeBody {
 		let n = Int32(length)
 		var dx: Int32 = 0
 		var dy: Int32 = 0
@@ -126,7 +126,7 @@ public class SnakeBody {
 		}
 
 		let startPosition: IntVec2 = position.offsetBy(dx: dx, dy: dy)
-		let initialFifo = SnakeFifo<SnakeBodyPart>()
+		var initialFifo = SnakeFifo<SnakeBodyPart>()
 		let snakeBodyPart = SnakeBodyPart(position: startPosition, content: .empty)
 		initialFifo.appendAndGrow(snakeBodyPart)
 		let initialHead = SnakeHead(
@@ -140,13 +140,16 @@ public class SnakeBody {
 		for _ in 0..<n {
 			state = state.stateForTick(movement: .moveForward, act: .eat)
 		}
+		// At this point the snake has a lot of food items inside its stomach, so we have to clear the stomach.
+		return state.clearedContentOfStomach()
+	}
 
-		// Clear the content of the stomach, so that there is no food inside the snake
-		let head: SnakeHead = state.head
-		let fifo: SnakeFifo<SnakeBodyPart> = state.fifo.map {
+	/// Clears the content of the stomach, so that there is no food inside the snake
+	public func clearedContentOfStomach() -> SnakeBody {
+		let fifo: SnakeFifo<SnakeBodyPart> = self.fifo.map {
 			SnakeBodyPart(position: $0.position, content: .empty)
 		}
-		return SnakeBody(fifo: fifo, head: head)
+		return SnakeBody(fifo: fifo, head: self.head)
 	}
 }
 

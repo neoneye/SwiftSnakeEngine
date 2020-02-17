@@ -1,6 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 
-public struct SnakeHead {
+public struct SnakeHead: Hashable {
 	public let position: IntVec2
 	public let direction: SnakeHeadDirection
 
@@ -30,11 +30,5 @@ public struct SnakeHead {
 		}
 
 		return SnakeHead(position: newHeadPosition, direction: newHeadDirection)
-	}
-}
-
-extension SnakeHead: Equatable {
-	public static func == (lhs: Self, rhs: Self) -> Bool {
-		return lhs.direction == rhs.direction && lhs.position == rhs.position
 	}
 }
