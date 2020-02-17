@@ -64,6 +64,7 @@
 		429CD0D12348F93E00098E68 /* NSUserDefaultsController+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429CD0D02348F93E00098E68 /* NSUserDefaultsController+Settings.swift */; };
 		429CD0D523495DF300098E68 /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429CD0D423495DF300098E68 /* AppConstant.swift */; };
 		429D336623FAF46E00EF9B37 /* StuckSnakeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429D336523FAF46E00EF9B37 /* StuckSnakeDetector.swift */; };
+		429D336823FB056300EF9B37 /* T3100_StuckSnakeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429D336723FB056300EF9B37 /* T3100_StuckSnakeDetector.swift */; };
 		42A8B6FC2331B3CC00E618CF /* SnakeFifo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A8B6FB2331B3CC00E618CF /* SnakeFifo.swift */; };
 		42A8B6FE2331B4AE00E618CF /* SnakeHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A8B6FD2331B4AE00E618CF /* SnakeHead.swift */; };
 		42B96D952347EE000073CAAA /* SnakeLevelSelectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B96D942347EE000073CAAA /* SnakeLevelSelectorNode.swift */; };
@@ -197,6 +198,7 @@
 		429CD0D02348F93E00098E68 /* NSUserDefaultsController+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserDefaultsController+Settings.swift"; sourceTree = "<group>"; };
 		429CD0D423495DF300098E68 /* AppConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
 		429D336523FAF46E00EF9B37 /* StuckSnakeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StuckSnakeDetector.swift; sourceTree = "<group>"; };
+		429D336723FB056300EF9B37 /* T3100_StuckSnakeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T3100_StuckSnakeDetector.swift; sourceTree = "<group>"; };
 		42A8B6FB2331B3CC00E618CF /* SnakeFifo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeFifo.swift; sourceTree = "<group>"; };
 		42A8B6FD2331B4AE00E618CF /* SnakeHead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeHead.swift; sourceTree = "<group>"; };
 		42B96D942347EE000073CAAA /* SnakeLevelSelectorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeLevelSelectorNode.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				42C236EA2332F4BB00241639 /* T2000_SnakeBody.swift */,
 				42CCD61923C2AA9A0021CBE7 /* T3000_SnakeLevel.swift */,
 				42CCD60823BD54F70021CBE7 /* T3001_SnakeLevel_Cluster.swift */,
+				429D336723FB056300EF9B37 /* T3100_StuckSnakeDetector.swift */,
 			);
 			path = SnakeGameTests;
 			sourceTree = "<group>";
@@ -854,6 +857,7 @@
 				4228915423341D2100273A0F /* T1006_MeasureTurnCount.swift in Sources */,
 				4253C5472336350100210611 /* T1100_SeededGenerator.swift in Sources */,
 				4253C5462336350100210611 /* T1002_UIntVec2.swift in Sources */,
+				429D336823FB056300EF9B37 /* T3100_StuckSnakeDetector.swift in Sources */,
 				42C6512F23F5A2FD00B2669E /* T1007_SnakeFifo.swift in Sources */,
 				42E042B4233402CD007AC6F9 /* T1200_ComputeShortestPath.swift in Sources */,
 				426892032332682100B97E29 /* GraphTests.swift in Sources */,

@@ -26,7 +26,7 @@ public class SnakeGameExecuter {
             player = player.playerWithNewSnakeBody(snakeBody)
             player = player.updatePendingMovement(.dontMove)
             player = player.updatePendingAct(.doNothing)
-            stuckSnakeDetector1.process(player: player)
+            stuckSnakeDetector1.process(body: player.snakeBody)
             if stuckSnakeDetector1.isStuck {
                 player = player.killed()
             }
@@ -42,7 +42,7 @@ public class SnakeGameExecuter {
             player = player.playerWithNewSnakeBody(snakeBody)
             player = player.updatePendingMovement(.dontMove)
             player = player.updatePendingAct(.doNothing)
-            stuckSnakeDetector2.process(player: player)
+            stuckSnakeDetector2.process(body: player.snakeBody)
             if stuckSnakeDetector2.isStuck {
                 player = player.killed()
             }

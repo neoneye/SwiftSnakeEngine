@@ -18,11 +18,7 @@ public class StuckSnakeDetector {
         isStuck = false
     }
 
-    public func process(player: SnakePlayer) {
-        guard player.isAlive else {
-            return
-        }
-        let body: SnakeBody = player.snakeBody
+    public func process(body: SnakeBody) {
         guard historical_snakeBodies.contains(body) else {
             historical_snakeBodies.insert(body)
             if score > 1 {
