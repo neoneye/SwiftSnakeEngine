@@ -2,7 +2,15 @@
 import Foundation
 
 public class SnakeGameExecuter {
+    private var stuckSnakeDetector1 = StuckSnakeDetector(humanReadableName: "Player1")
+    private var stuckSnakeDetector2 = StuckSnakeDetector(humanReadableName: "Player2")
+
     public init() {}
+
+    public func reset() {
+        stuckSnakeDetector1.reset()
+        stuckSnakeDetector2.reset()
+    }
 
     public func executeStep(_ currentGameState: SnakeGameState) -> SnakeGameState {
         var gameState: SnakeGameState = currentGameState
@@ -18,6 +26,7 @@ public class SnakeGameExecuter {
             player = player.playerWithNewSnakeBody(snakeBody)
             player = player.updatePendingMovement(.dontMove)
             player = player.updatePendingAct(.doNothing)
+            stuckSnakeDetector1.process(player: player)
             gameState = gameState.stateWithNewPlayer1(player)
         }
 
@@ -30,6 +39,7 @@ public class SnakeGameExecuter {
             player = player.playerWithNewSnakeBody(snakeBody)
             player = player.updatePendingMovement(.dontMove)
             player = player.updatePendingAct(.doNothing)
+            stuckSnakeDetector2.process(player: player)
             gameState = gameState.stateWithNewPlayer2(player)
         }
 
