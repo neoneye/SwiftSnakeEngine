@@ -6,7 +6,7 @@ import SSEventFlow
 class StuckSnakeDetector {
 	private let humanReadableName: String
 	private var historical_snakeBodies = Set<SnakeBody>()
-	private var numberOfConsecutiveDetections: UInt = 0
+	private var score: UInt = 0
 
 	init(humanReadableName: String) {
 		self.humanReadableName = humanReadableName
@@ -14,7 +14,7 @@ class StuckSnakeDetector {
 
 	func reset() {
 		historical_snakeBodies.removeAll()
-		numberOfConsecutiveDetections = 0
+		score = 0
 	}
 
 	func process(player: SnakePlayer) {
@@ -24,12 +24,16 @@ class StuckSnakeDetector {
 		let body: SnakeBody = player.snakeBody
 		guard historical_snakeBodies.contains(body) else {
 			historical_snakeBodies.insert(body)
-			numberOfConsecutiveDetections = 0
+            if score > 1 {
+                score -= 1
+            } else {
+                score = 0
+            }
 			return
 		}
 		print("\(humanReadableName) has possible become stuck!")
-		numberOfConsecutiveDetections += 1
-		if numberOfConsecutiveDetections >= 5 {
+		score += 2
+		if score >= 5 {
 			print("\(humanReadableName) has almost certainly become stuck!")
 		}
 	}
