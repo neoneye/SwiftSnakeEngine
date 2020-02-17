@@ -58,6 +58,7 @@ class SnakeGameScene: SKScene {
 	var initialGameState: SnakeGameState
 	var gameState: SnakeGameState
 	var gameNode: SnakeGameNode
+    var gameExecuter = SnakeGameExecuter()
 	var previousGameStates: [SnakeGameState] = []
 	var stuckSnakeDetector1 = StuckSnakeDetector(humanReadableName: "Player1")
 	var stuckSnakeDetector2 = StuckSnakeDetector(humanReadableName: "Player2")
@@ -336,7 +337,7 @@ class SnakeGameScene: SKScene {
 			}
 		}
 
-		let newGameState2 = SnakeGameExecuter.executeStep(gameState)
+		let newGameState2 = gameExecuter.executeStep(gameState)
 		gameState = newGameState2
 
 		needRedraw = true

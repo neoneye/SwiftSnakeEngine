@@ -2,7 +2,9 @@
 import Foundation
 
 public class SnakeGameExecuter {
-    public class func executeStep(_ currentGameState: SnakeGameState) -> SnakeGameState {
+    public init() {}
+
+    public func executeStep(_ currentGameState: SnakeGameState) -> SnakeGameState {
         var gameState: SnakeGameState = currentGameState
         let newGameState = gameState.detectCollision()
         gameState = newGameState
