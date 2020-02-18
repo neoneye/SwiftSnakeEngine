@@ -52,28 +52,32 @@ struct MyContentView: View {
 	var isPreview: Bool = false
 
     var body: some View {
-		VStack {
+        VStack(spacing: 1) {
 			SpriteKitContainer(isPreview: isPreview)
-			HStack {
-				Text("Footer Left")
+            HStack(spacing: 1) {
+				Text("Player 1 (green)\nAlive\nLength 29")
 					.padding(10)
-                Spacer()
-				Text("Footer Right")
+                    .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+                .background(Color.green)
+				Text("Player 2 (blue)\nDead by collision with wall\nLength 14")
 					.padding(10)
+.frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+                .background(Color.blue)
 			}
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
 		}
+        .edgesIgnoringSafeArea(.all)
 	}
 }
 
-#if DEBUG
 struct ContentView_Previews : PreviewProvider {
 
 	static var previews: some View {
 		Group {
+            MyContentView(isPreview: true).previewLayout(.fixed(width: 130, height: 200))
 			MyContentView(isPreview: true).previewLayout(.fixed(width: 300, height: 200))
 			MyContentView(isPreview: true).previewLayout(.fixed(width: 400, height: 150))
 		}
 	}
 
 }
-#endif
