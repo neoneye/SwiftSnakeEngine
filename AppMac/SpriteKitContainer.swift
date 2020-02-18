@@ -3,20 +3,63 @@ import Cocoa
 import SpriteKit
 import SwiftUI
 import SnakeGame
+import Combine
+
+enum SnakeGameInfoEvent {
+    case player1_didUpdateLength(_ length: UInt)
+    case player2_didUpdateLength(_ length: UInt)
+    case player1_killed(_ killEvents: [SnakePlayerKillEvent])
+    case player2_killed(_ killEvents: [SnakePlayerKillEvent])
+}
+
+class MySKView: SKView {
+    var onSendInfoEvent: ((_ event: SnakeGameInfoEvent) -> Void)?
+
+    func sendInfoEvent(_ event: SnakeGameInfoEvent) {
+        onSendInfoEvent?(event)
+    }
+}
 
 struct SpriteKitContainer: NSViewRepresentable {
+    @Binding var player1Length: UInt
+    @Binding var player2Length: UInt
+    @Binding var player1Info: String
+    @Binding var player2Info: String
 	var isPreview: Bool = false
 
-	class Coordinator: NSObject {
-	}
+    class Coordinator: NSObject {
+        var parent: SpriteKitContainer
+
+        init(_ parent: SpriteKitContainer) {
+            self.parent = parent
+        }
+
+        func sendInfoEvent(_ event: SnakeGameInfoEvent) {
+            switch event {
+            case let .player1_didUpdateLength(length):
+                parent.player1Length = length
+                parent.player1Info = "Player 1\nLength: \(length)"
+            case let .player2_didUpdateLength(length):
+                parent.player2Length = length
+                parent.player2Info = "Player 2\nLength: \(length)"
+            case let .player1_killed(killEvents):
+                parent.player1Info = "Player 1\nKilled: \(killEvents)"
+            case let .player2_killed(killEvents):
+                parent.player2Info = "Player 2\nKilled: \(killEvents)"
+            }
+        }
+    }
 
 	func makeCoordinator() -> Coordinator {
-		return Coordinator()
+		return Coordinator(self)
 	}
 
-	func makeNSView(context: Context) -> SKView {
+	func makeNSView(context: Context) -> MySKView {
 		SnakeLevelManager.setup()
-		let view = SKView(frame: .zero)
+		let view = MySKView(frame: .zero)
+        view.onSendInfoEvent = { (event: SnakeGameInfoEvent) in
+            context.coordinator.sendInfoEvent(event)
+        }
 		if isPreview {
 			view.preferredFramesPerSecond = 1
 		} else {
@@ -38,7 +81,7 @@ struct SpriteKitContainer: NSViewRepresentable {
 	}
 
 
-	func updateNSView(_ view: SKView, context: Context) {
+	func updateNSView(_ view: MySKView, context: Context) {
 	}
 }
 
@@ -46,9 +89,9 @@ struct SpriteKitContainer_Previews : PreviewProvider {
 
 	static var previews: some View {
 		Group {
-            SpriteKitContainer(isPreview: true).previewLayout(.fixed(width: 125, height: 200))
-			SpriteKitContainer(isPreview: true).previewLayout(.fixed(width: 150, height: 150))
-			SpriteKitContainer(isPreview: true).previewLayout(.fixed(width: 200, height: 125))
+            SpriteKitContainer(player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 125, height: 200))
+			SpriteKitContainer(player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 150, height: 150))
+			SpriteKitContainer(player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 200, height: 125))
 		}
 	}
 

@@ -131,6 +131,13 @@ class SnakeGameScene: SKScene {
 		)
 	}
 
+    func sendInfoEvent(_ event: SnakeGameInfoEvent) {
+        guard let mySKView: MySKView = scene?.view as? MySKView else {
+            return
+        }
+        mySKView.sendInfoEvent(event)
+    }
+
     override func keyDown(with event: NSEvent) {
 		if AppConstant.ignoreRepeatingKeyDownEvents && event.isARepeat {
 			//print("keyDown: ignoring repeating event.")
@@ -303,6 +310,22 @@ class SnakeGameScene: SKScene {
 
 		needRedraw = true
 
+        do {
+            let oldLength: UInt = oldGameState.player1.snakeBody.length
+            let newLength: UInt = self.gameState.player1.snakeBody.length
+            if oldLength != newLength {
+                sendInfoEvent(.player1_didUpdateLength(newLength))
+            }
+        }
+
+        do {
+            let oldLength: UInt = oldGameState.player2.snakeBody.length
+            let newLength: UInt = self.gameState.player2.snakeBody.length
+            if oldLength != newLength {
+                sendInfoEvent(.player2_didUpdateLength(newLength))
+            }
+        }
+
 		if oldGameState.foodPosition != self.gameState.foodPosition {
 			if let pos: IntVec2 = oldGameState.foodPosition {
 				let point = cgPointFromGridPoint(pos)
@@ -322,6 +345,12 @@ class SnakeGameScene: SKScene {
 		if player1Dies || player2Dies {
 			playSoundEffect(sound_snakeDies)
 		}
+        if player1Dies {
+            sendInfoEvent(.player1_killed(self.gameState.player1.killEvents))
+        }
+        if player2Dies {
+            sendInfoEvent(.player2_killed(self.gameState.player2.killEvents))
+        }
 
 		if gameState.player1.isDead && gameState.player2.isDead {
 			self.isPaused = true
