@@ -105,19 +105,42 @@ struct SpriteKitContainer_Previews : PreviewProvider {
 
 extension SnakePlayerKillEvent {
     fileprivate var humanReadableDeathExplanation: String {
+        let s0 = self.deathExplanation_title
+        let s1 = self.deathExplanation_subtitle
+        return s0 + "\n" + s1
+    }
+    
+    fileprivate var deathExplanation_title: String {
         switch self {
         case .collisionWithWall:
-            return "Death by wall!\nCannot go through walls."
+            return "Death by wall!"
         case .collisionWithItself:
-            return "Self-cannibalism!\nEating oneself is deadly."
+            return "Self-cannibalism!"
         case .collisionWithOpponent:
-            return "Eating opponent!\nThe snakes cannot eat each other, since it's deadly."
+            return "Eating opponent!"
         case .noMoreFood:
-            return "Starvation!\nThere is no more food."
+            return "Starvation!"
         case .stuckInALoop:
-            return "Stuck in a loop!\nExpected the snake to make progress growing, but the snake continues doing the same moves over and over."
+            return "Stuck in a loop!"
         case .killAfterAFewTimeSteps:
-            return "Autokill!\nKilled automatically after a few steps.\nThis is useful during development."
+            return "Autokill!"
+        }
+    }
+
+    fileprivate var deathExplanation_subtitle: String {
+        switch self {
+        case .collisionWithWall:
+            return "Cannot go through walls."
+        case .collisionWithItself:
+            return "Eating oneself is deadly."
+        case .collisionWithOpponent:
+            return "The snakes cannot eat each other, since it's deadly."
+        case .noMoreFood:
+            return "There is no more food."
+        case .stuckInALoop:
+            return "Expected the snake to make progress growing, but the snake continues doing the same moves over and over."
+        case .killAfterAFewTimeSteps:
+            return "Killed automatically after a few steps.\nThis is useful during development."
         }
     }
 }
