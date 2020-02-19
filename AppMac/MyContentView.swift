@@ -17,25 +17,41 @@ struct MyContentView: View {
     @State private var player1Info = "Player 1 (green)\nAlive\nLength 29"
     @State private var player2Info = "Player 2 (blue)\nDead by collision with wall\nLength 14"
     var isPreview: Bool = false
+    let player1Color: Color = .green
+    let player2Color: Color = .blue
 
     var body: some View {
         VStack(spacing: 1) {
-            SpriteKitContainer(player1Length: $player1Length, player2Length: $player2Length, player1Info: $player1Info, player2Info: $player2Info, isPreview: isPreview)
+            
+            SpriteKitContainer(
+                player1Length: self.$player1Length,
+                player2Length: self.$player2Length,
+                player1Info: self.$player1Info,
+                player2Info: self.$player2Info,
+                isPreview: self.isPreview
+            )
+
             HStack(spacing: 1) {
 
                 Text(player1Info)
                     .padding(10)
                     .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-                    .background(Color.green.saturation(0.7))
+                    .background(self.player1Color)
 
-                PlayerScoreView(playerLength: $player1Length)
+                PlayerScoreView(
+                    playerLength: self.$player1Length,
+                    color: self.player1Color
+                )
 
-                PlayerScoreView(playerLength: $player2Length)
+                PlayerScoreView(
+                    playerLength: self.$player2Length,
+                    color: self.player2Color
+                )
 
                 Text(player2Info)
                     .padding(10)
 .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-                    .background(Color.blue.saturation(0.7))
+                    .background(self.player2Color)
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
         }
