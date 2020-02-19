@@ -41,9 +41,13 @@ struct SpriteKitContainer: NSViewRepresentable {
             case let .player2_didUpdateLength(length):
                 parent.player2Length = length
             case let .player1_killed(killEvents):
-                parent.player1Info = "Player 1\nKilled: \(killEvents)"
+                let deathExplanations: [String] = killEvents.map { $0.humanReadableDeathExplanation }
+                let info: String = deathExplanations.joined(separator: "\n-\n")
+                parent.player1Info = info
             case let .player2_killed(killEvents):
-                parent.player2Info = "Player 2\nKilled: \(killEvents)"
+                let deathExplanations: [String] = killEvents.map { $0.humanReadableDeathExplanation }
+                let info: String = deathExplanations.joined(separator: "\n-\n")
+                parent.player2Info = info
             }
         }
     }
@@ -97,4 +101,23 @@ struct SpriteKitContainer_Previews : PreviewProvider {
 		}
 	}
 
+}
+
+extension SnakePlayerKillEvent {
+    fileprivate var humanReadableDeathExplanation: String {
+        switch self {
+        case .collisionWithWall:
+            return "Death by wall!\nCannot go through walls."
+        case .collisionWithItself:
+            return "Self-cannibalism!\nEating oneself is deadly."
+        case .collisionWithOpponent:
+            return "Eating opponent!\nThe snakes cannot eat each other, since it's deadly."
+        case .noMoreFood:
+            return "Starvation!\nThere is no more food."
+        case .stuckInALoop:
+            return "Stuck in a loop!\nExpected the snake to make progress growing, but the snake continues doing the same moves over and over."
+        case .killAfterAFewTimeSteps:
+            return "Autokill!\nKilled automatically after a few steps.\nThis is useful during development."
+        }
+    }
 }
