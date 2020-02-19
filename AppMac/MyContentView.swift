@@ -37,6 +37,7 @@ struct MyContentView: View {
                     .padding(10)
                     .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                     .background(self.player1Color)
+                    .foregroundColor(.black)
 
                 PlayerScoreView(
                     playerLength: self.$player1Length,
@@ -52,6 +53,7 @@ struct MyContentView: View {
                     .padding(10)
 .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                     .background(self.player2Color)
+                    .foregroundColor(.black)
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
         }
