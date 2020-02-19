@@ -5,8 +5,21 @@ struct PlayerScoreView: View {
     @Binding var playerLength: UInt
 
     var body: some View {
-        Text("\(playerLength)")
-            .font(.custom("Iceland", size: 80))
+        Text("\(self.playerLength)")
+            .font(.custom("Iceland", size: 70))
+            .bold()
+            .fixedSize(horizontal: true, vertical: true)
+            .foregroundColor(.black)
+            .frame(width: 100, height: 100)
+            .background(MyGradient())
+            .background(Color.yellow.opacity(0.7))
+            .aspectRatio(1.0, contentMode: .fit)
+    }
+}
+
+struct MyGradient: View {
+    var body: some View {
+        LinearGradient(gradient: Gradient(colors: [Color.red.opacity(0.1), Color.green.opacity(0.1)]), startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 1, y: 1))
     }
 }
 
