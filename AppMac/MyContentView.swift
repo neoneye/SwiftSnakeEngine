@@ -12,7 +12,7 @@ class MyHostingController: NSHostingController<MyContentView> {
 }
 
 struct MyContentView: View {
-    @State private var player1Length: UInt = 0
+    @State private var player1Length: UInt = 123
     @State private var player2Length: UInt = 0
     @State private var player1Info = "Player 1 (green)\nAlive\nLength 29"
     @State private var player2Info = "Player 2 (blue)\nDead by collision with wall\nLength 14"
@@ -23,8 +23,7 @@ struct MyContentView: View {
             SpriteKitContainer(player1Length: $player1Length, player2Length: $player2Length, player1Info: $player1Info, player2Info: $player2Info, isPreview: isPreview)
             HStack(spacing: 1) {
                 (Text("\(player1Length)")
-                    .font(.title)
-                    .bold()
+                    .font(.custom("Iceland", size: 80))
                 +
                 Text(player1Info))
                     .padding(10)
