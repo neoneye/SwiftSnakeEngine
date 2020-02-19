@@ -105,6 +105,7 @@
 		42ECBCC023735BF600758303 /* SnakeLevelCacheModel.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCBF23735BF500758303 /* SnakeLevelCacheModel.pb.swift */; };
 		42ECBCCB237CA50700758303 /* DebugMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCCA237CA50700758303 /* DebugMenu.swift */; };
 		42EFB41923E57E18002B6191 /* SnakeGame.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EFB41823E57E18002B6191 /* SnakeGame.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42F35E6123FD877400A4795B /* PlayerScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F35E6023FD877400A4795B /* PlayerScoreView.swift */; };
 		42F4538823E5A3AD00B90297 /* IntVec2+CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3181F237D6E2700468D1F /* IntVec2+CGPoint.swift */; };
 		42F4538C23E5B41400B90297 /* SnakeHeadDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */; };
 		538970531674616122658DBA /* Pods_BasePods_AppMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4766643D46103B8402E69B4 /* Pods_BasePods_AppMac.framework */; };
@@ -242,6 +243,7 @@
 		42ECBCC42373608600758303 /* SnakeLevelCacheModel.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = SnakeLevelCacheModel.proto; sourceTree = "<group>"; };
 		42ECBCCA237CA50700758303 /* DebugMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenu.swift; sourceTree = "<group>"; };
 		42EFB41823E57E18002B6191 /* SnakeGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakeGame.h; sourceTree = "<group>"; };
+		42F35E6023FD877400A4795B /* PlayerScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScoreView.swift; sourceTree = "<group>"; };
 		42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeHeadDirection.swift; sourceTree = "<group>"; };
 		52109A9E363C770400D95B42 /* Pods-BasePods-SnakeGameTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePods-SnakeGameTests.release.xcconfig"; path = "Target Support Files/Pods-BasePods-SnakeGameTests/Pods-BasePods-SnakeGameTests.release.xcconfig"; sourceTree = "<group>"; };
 		8AF26EB06CC2C2212A22833A /* Pods-BasePods-SnakeGameTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePods-SnakeGameTests.debug.xcconfig"; path = "Target Support Files/Pods-BasePods-SnakeGameTests/Pods-BasePods-SnakeGameTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 				4255CA19232F8A2300A230AF /* Main.storyboard */,
 				42A93BF723FC1E1800A15FD2 /* MyContentView.swift */,
 				42C5566723ABE7E70001DBD8 /* NSEvent+KeyCode.swift */,
+				42F35E6023FD877400A4795B /* PlayerScoreView.swift */,
 				422B903A23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift */,
 				4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */,
 				4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */,
@@ -883,6 +886,7 @@
 			files = (
 				42C5566823ABE7E70001DBD8 /* NSEvent+KeyCode.swift in Sources */,
 				422B903B23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift in Sources */,
+				42F35E6123FD877400A4795B /* PlayerScoreView.swift in Sources */,
 				4294DA512341377900AA58CD /* SnakeGameNode.swift in Sources */,
 				42CC22C72336EFF200CF3D96 /* SnakeBodyNode.swift in Sources */,
 				4246C441235BB07E00324965 /* PlayerMenu.swift in Sources */,

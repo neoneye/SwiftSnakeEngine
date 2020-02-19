@@ -12,8 +12,8 @@ class MyHostingController: NSHostingController<MyContentView> {
 }
 
 struct MyContentView: View {
-    @State private var player1Length: UInt = 123
-    @State private var player2Length: UInt = 0
+    @State private var player1Length: UInt = 1
+    @State private var player2Length: UInt = 2
     @State private var player1Info = "Player 1 (green)\nAlive\nLength 29"
     @State private var player2Info = "Player 2 (blue)\nDead by collision with wall\nLength 14"
     var isPreview: Bool = false
@@ -22,19 +22,17 @@ struct MyContentView: View {
         VStack(spacing: 1) {
             SpriteKitContainer(player1Length: $player1Length, player2Length: $player2Length, player1Info: $player1Info, player2Info: $player2Info, isPreview: isPreview)
             HStack(spacing: 1) {
-                (Text("\(player1Length)")
-                    .font(.custom("Iceland", size: 80))
-                +
-                Text(player1Info))
+
+                Text(player1Info)
                     .padding(10)
                     .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                     .background(Color.green.saturation(0.7))
 
-                (Text("\(player2Length)")
-                    .font(.title)
-                    .bold()
-                +
-                Text(player2Info))
+                PlayerScoreView(playerLength: $player1Length)
+
+                PlayerScoreView(playerLength: $player2Length)
+
+                Text(player2Info)
                     .padding(10)
 .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                     .background(Color.blue.saturation(0.7))
