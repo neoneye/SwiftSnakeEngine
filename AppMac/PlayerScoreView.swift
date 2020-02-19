@@ -12,6 +12,13 @@ struct PlayerScoreView: View {
 
 struct PlayerScoreView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerScoreView(playerLength: .constant(123))
+        Group {
+            PlayerScoreView(playerLength: .constant(123))
+                .previewLayout(.fixed(width: 100, height: 100))
+            PlayerScoreView(playerLength: .constant(123))
+                .previewLayout(.fixed(width: 80, height: 150))
+            PlayerScoreView(playerLength: .constant(123))
+                .previewLayout(.fixed(width: 150, height: 80))
+        }
     }
 }
