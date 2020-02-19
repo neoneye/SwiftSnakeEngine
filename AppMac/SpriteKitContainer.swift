@@ -38,10 +38,8 @@ struct SpriteKitContainer: NSViewRepresentable {
             switch event {
             case let .player1_didUpdateLength(length):
                 parent.player1Length = length
-                parent.player1Info = "Player 1\nLength: \(length)"
             case let .player2_didUpdateLength(length):
                 parent.player2Length = length
-                parent.player2Info = "Player 2\nLength: \(length)"
             case let .player1_killed(killEvents):
                 parent.player1Info = "Player 1\nKilled: \(killEvents)"
             case let .player2_killed(killEvents):
