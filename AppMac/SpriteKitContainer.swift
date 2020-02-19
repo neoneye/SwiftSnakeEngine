@@ -65,8 +65,12 @@ struct SpriteKitContainer: NSViewRepresentable {
 		} else {
 			view.preferredFramesPerSecond = 60
 		}
-		view.showsFPS = true
-		view.showsNodeCount = true
+
+        if AppConstant.SpriteKit.showDeveloperInfo {
+            view.showsFPS = true
+            view.showsNodeCount = true
+        }
+
 		view.ignoresSiblingOrder = true
 
 		let scene: SKScene

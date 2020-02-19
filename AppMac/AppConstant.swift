@@ -22,4 +22,8 @@ struct AppConstant {
 	static let ignoreRepeatingKeyDownEvents = true
 
 	static let saveTrainingData = true
+
+    struct SpriteKit {
+        static let showDeveloperInfo = false
+    }
 }
