@@ -19,7 +19,8 @@ struct PlayerScoreView: View {
 struct PlayerScoreView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            PlayerScoreView(playerLength: .constant(123), color: .blue)
+            PlayerScoreView(playerLength: .constant(1), color: .blue)
+            PlayerScoreView(playerLength: .constant(12), color: .green)
             PlayerScoreView(playerLength: .constant(123), color: .green)
         }
     }
