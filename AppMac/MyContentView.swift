@@ -33,27 +33,38 @@ struct MyContentView: View {
 
             HStack(spacing: 1) {
 
-                Text(player1Info)
-                    .padding(10)
-                    .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-                    .background(self.player1Color)
-                    .foregroundColor(.black)
+                HStack(spacing: 1) {
+                    Text(player1Info)
+                        .padding(10)
+                        .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+                        .background(self.player1Color)
+                        .foregroundColor(.black)
 
-                PlayerScoreView(
-                    playerLength: self.$player1Length,
-                    color: self.player1Color
-                )
+                    if self.$player1Length.wrappedValue >= 1 {
+                        PlayerScoreView(
+                            playerLength: self.$player1Length,
+                            color: self.player1Color
+                        )
+                    }
+                }
+                .frame(maxWidth: .infinity)
 
-                PlayerScoreView(
-                    playerLength: self.$player2Length,
-                    color: self.player2Color
-                )
+                HStack(spacing: 1) {
 
-                Text(player2Info)
-                    .padding(10)
-.frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-                    .background(self.player2Color)
-                    .foregroundColor(.black)
+                    if self.$player2Length.wrappedValue >= 1 {
+                        PlayerScoreView(
+                            playerLength: self.$player2Length,
+                            color: self.player2Color
+                        )
+                    }
+
+                    Text(player2Info)
+                        .padding(10)
+                        .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+                        .background(self.player2Color)
+                        .foregroundColor(.black)
+                }
+                .frame(maxWidth: .infinity)
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
         }
@@ -70,7 +81,7 @@ struct ContentView_Previews : PreviewProvider {
             MyContentView(isPreview: true)
                 .previewLayout(.fixed(width: 300, height: 200))
             MyContentView(isPreview: true)
-                .previewLayout(.fixed(width: 400, height: 150))
+                .previewLayout(.fixed(width: 500, height: 150))
         }
     }
 
