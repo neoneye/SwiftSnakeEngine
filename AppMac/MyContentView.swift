@@ -12,13 +12,41 @@ class MyHostingController: NSHostingController<MyContentView> {
 }
 
 struct MyContentView: View {
+    @State private var player1Dead: Bool = false
     @State private var player1Length: UInt = 1
     @State private var player2Length: UInt = 2
     @State private var player1Info = "Player 1 (green)\nAlive\nLength 29"
     @State private var player2Info = "Player 2 (blue)\nDead by collision with wall\nLength 14"
     var isPreview: Bool = false
-    let player1Color: Color = .green
+    let player1ColorAlive: Color = .green
     let player2Color: Color = .blue
+
+    let showDebugPanels = true
+
+    var player1Color: Color {
+        if player1Dead {
+            return player1ColorAlive.opacity(0.3)
+        } else {
+            return player1ColorAlive
+        }
+    }
+
+    var debugPanel1: some View {
+        HStack {
+            Button("Dead/Alive") {
+                self.player1Dead.toggle()
+            }
+            Button("+") {
+                self.player1Length += 1
+            }
+            Button("-") {
+                let length: UInt = self.player1Length
+                if length >= 1 {
+                    self.player1Length = length - 1
+                }
+            }
+        }
+    }
 
     var body: some View {
         VStack(spacing: 1) {
@@ -34,11 +62,19 @@ struct MyContentView: View {
             HStack(spacing: 1) {
 
                 HStack(spacing: 1) {
-                    Text(player1Info)
-                        .padding(10)
-                        .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-                        .background(self.player1Color)
-                        .foregroundColor(.black)
+                    VStack(alignment: .leading, spacing: 0) {
+
+                        Text(player1Info)
+                            .padding(10)
+                            .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+                            .background(self.player1Color)
+                            .foregroundColor(.black)
+
+                        if self.showDebugPanels {
+                            debugPanel1
+                        }
+
+                    }
 
                     if self.$player1Length.wrappedValue >= 1 {
                         PlayerScoreView(
