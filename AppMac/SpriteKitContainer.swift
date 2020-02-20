@@ -23,10 +23,12 @@ struct SpriteKitContainer: NSViewRepresentable {
         func sendInfoEvent(_ event: SnakeGameInfoEvent) {
             switch event {
             case .showLevelSelector:
-                parent.player1Info = ""
-                parent.player2Info = ""
-                parent.player1Length = 0
-                parent.player2Length = 0
+                if !parent.isPreview {
+                    parent.player1Info = ""
+                    parent.player2Info = ""
+                    parent.player1Length = 0
+                    parent.player2Length = 0
+                }
             case let .beginNewGame(gameState):
                 parent.player1Info = ""
                 parent.player2Info = ""
