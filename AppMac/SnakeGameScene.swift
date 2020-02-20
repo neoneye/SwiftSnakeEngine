@@ -16,7 +16,7 @@ class SnakeGameScene: SKScene {
 	var needBecomeFirstResponder = false
 	var shouldPauseAfterUpdate = false
 	var updateAction = UpdateAction.stepForwardContinuously
-    var needSendInitialInfo = true
+    var needSendingBeginNewGame = true
 
 	var trainingSessionUUID: UUID
 	var trainingSessionURLs: [URL]
@@ -115,7 +115,7 @@ class SnakeGameScene: SKScene {
 		isPaused = false
 		needRedraw = true
 		needLayout = true
-        needSendInitialInfo = true
+        needSendingBeginNewGame = true
 		previousGameStates = []
 		gameState = initialGameState
 		trainingSessionUUID = UUID()
@@ -279,28 +279,9 @@ class SnakeGameScene: SKScene {
 			//print("pausing game after update")
 		}
 
-        if needSendInitialInfo {
-            needSendInitialInfo = false
-            do {
-                let player: SnakePlayer = self.gameState.player1
-                let length: UInt
-                if player.isInstalled {
-                    length = player.snakeBody.length
-                } else {
-                    length = 0
-                }
-                sendInfoEvent(.player1_didUpdateLength(length))
-            }
-            do {
-                let player: SnakePlayer = self.gameState.player2
-                let length: UInt
-                if player.isInstalled {
-                    length = player.snakeBody.length
-                } else {
-                    length = 0
-                }
-                sendInfoEvent(.player2_didUpdateLength(length))
-            }
+        if needSendingBeginNewGame {
+            needSendingBeginNewGame = false
+            sendInfoEvent(.beginNewGame(self.gameState))
         }
 	}
 

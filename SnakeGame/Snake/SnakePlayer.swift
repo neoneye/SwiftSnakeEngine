@@ -57,6 +57,18 @@ public class SnakePlayer {
 		}
 	}
 
+    /// Length of snake body.
+    ///
+    /// - Returns:
+    ///     - The length of the snake if it's installed. No matter if it's alive or dead.
+    ///     - Zero if there player isn't installed.
+    public func lengthOfInstalledSnake() -> UInt {
+        guard isInstalled else {
+            return 0
+        }
+        return snakeBody.length
+    }
+
 	private init(isAlive: Bool, isInstalled: Bool, role: SnakePlayerRole, snakeBody: SnakeBody, pendingMovement: SnakeBodyMovement, pendingAct: SnakeBodyAct, killEvents: [SnakePlayerKillEvent], bot: SnakeBot) {
 		self.isAlive = isAlive
 		self.isInstalled = isInstalled

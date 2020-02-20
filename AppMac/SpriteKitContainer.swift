@@ -6,6 +6,7 @@ import SnakeGame
 import Combine
 
 enum SnakeGameInfoEvent {
+    case beginNewGame(_ gameState: SnakeGameState)
     case player1_didUpdateLength(_ length: UInt)
     case player2_didUpdateLength(_ length: UInt)
     case player1_killed(_ killEvents: [SnakePlayerKillEvent])
@@ -36,6 +37,11 @@ struct SpriteKitContainer: NSViewRepresentable {
 
         func sendInfoEvent(_ event: SnakeGameInfoEvent) {
             switch event {
+            case let .beginNewGame(gameState):
+                parent.player1Info = ""
+                parent.player2Info = ""
+                parent.player1Length = gameState.player1.lengthOfInstalledSnake()
+                parent.player2Length = gameState.player2.lengthOfInstalledSnake()
             case let .player1_didUpdateLength(length):
                 parent.player1Length = length
             case let .player2_didUpdateLength(length):
