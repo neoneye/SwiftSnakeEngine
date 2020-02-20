@@ -4,6 +4,7 @@ import SnakeGame
 
 enum SnakeGameInfoEvent {
     case showLevelSelector
+    case showLevelDetail(_ gameState: SnakeGameState)
     case beginNewGame(_ gameState: SnakeGameState)
     case player1_didUpdateLength(_ length: UInt)
     case player2_didUpdateLength(_ length: UInt)

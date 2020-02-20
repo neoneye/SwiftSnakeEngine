@@ -29,6 +29,11 @@ struct SpriteKitContainer: NSViewRepresentable {
                     parent.player1Length = 0
                     parent.player2Length = 0
                 }
+            case let .showLevelDetail(gameState):
+                parent.player1Info = gameState.player1.humanReadableRole
+                parent.player2Info = gameState.player2.humanReadableRole
+                parent.player1Length = gameState.player1.lengthOfInstalledSnake()
+                parent.player2Length = gameState.player2.lengthOfInstalledSnake()
             case let .beginNewGame(gameState):
                 parent.player1Info = ""
                 parent.player2Info = ""
@@ -139,6 +144,24 @@ extension SnakePlayerKillEvent {
             return "Expected the snake to make progress growing, but the snake continues doing the same moves over and over."
         case .killAfterAFewTimeSteps:
             return "Killed automatically after a few steps.\nThis is useful during development."
+        }
+    }
+}
+
+extension SnakePlayer {
+    fileprivate var humanReadableRole: String {
+        switch self.role {
+        case .none:
+            return "Player is disabled"
+        case .human:
+            switch self.id {
+            case .player1:
+                return "Human\nControlled via Arrow keys."
+            case .player2:
+                return "Human\nControlled via WASD keys."
+            }
+        case .bot:
+            return "Bot"
         }
     }
 }

@@ -11,7 +11,7 @@ extension SnakeGameState {
 		gameState = gameState.stateWithNewLevel(snakeLevel)
 
 		do {
-			var player = SnakePlayer.create(role: player1)
+            var player = SnakePlayer.create(id: .player1, role: player1)
 			let snakeBody = SnakeBody.create(
 				position: snakeLevel.player1_initialPosition.intVec2,
 				headDirection: snakeLevel.player1_initialHeadDirection,
@@ -24,7 +24,7 @@ extension SnakeGameState {
 			gameState = gameState.stateWithNewPlayer1(player)
 		}
 		do {
-			var player = SnakePlayer.create(role: player2)
+			var player = SnakePlayer.create(id: .player2, role: player2)
 			let snakeBody = SnakeBody.create(
 				position: snakeLevel.player2_initialPosition.intVec2,
 				headDirection: snakeLevel.player2_initialHeadDirection,

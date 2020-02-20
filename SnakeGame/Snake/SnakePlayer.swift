@@ -7,6 +7,11 @@ public enum SnakePlayerRole {
 	case bot(snakeBotType: SnakeBot.Type)
 }
 
+public enum SnakePlayerId {
+    case player1
+    case player2
+}
+
 extension SnakePlayerRole: Equatable {
 	public static func == (lhs: SnakePlayerRole, rhs: SnakePlayerRole) -> Bool {
 		switch (lhs, rhs) {
@@ -33,6 +38,7 @@ public enum SnakePlayerKillEvent {
 }
 
 public class SnakePlayer {
+    public let id: SnakePlayerId
 	public let isAlive: Bool
 	public let isInstalled: Bool
 	public let role: SnakePlayerRole
@@ -69,7 +75,8 @@ public class SnakePlayer {
         return snakeBody.length
     }
 
-	private init(isAlive: Bool, isInstalled: Bool, role: SnakePlayerRole, snakeBody: SnakeBody, pendingMovement: SnakeBodyMovement, pendingAct: SnakeBodyAct, killEvents: [SnakePlayerKillEvent], bot: SnakeBot) {
+    private init(id: SnakePlayerId, isAlive: Bool, isInstalled: Bool, role: SnakePlayerRole, snakeBody: SnakeBody, pendingMovement: SnakeBodyMovement, pendingAct: SnakeBodyAct, killEvents: [SnakePlayerKillEvent], bot: SnakeBot) {
+        self.id = id
 		self.isAlive = isAlive
 		self.isInstalled = isInstalled
 		self.role = role
@@ -80,7 +87,7 @@ public class SnakePlayer {
 		self.bot = bot
 	}
 
-	public class func create(role: SnakePlayerRole) -> SnakePlayer {
+	public class func create(id: SnakePlayerId, role: SnakePlayerRole) -> SnakePlayer {
 		let snakeBotType: SnakeBot.Type
 		switch role {
 		case .none:
@@ -94,6 +101,7 @@ public class SnakePlayer {
 		let bot: SnakeBot = snakeBotType.init()
 
 		return SnakePlayer(
+            id: id,
 			isAlive: true,
 			isInstalled: true,
 			role: role,
@@ -107,6 +115,7 @@ public class SnakePlayer {
 
 	public func updatePendingMovement(_ newPendingMovement: SnakeBodyMovement) -> SnakePlayer {
 		return SnakePlayer(
+            id: id,
 			isAlive: isAlive,
 			isInstalled: isInstalled,
 			role: role,
@@ -120,6 +129,7 @@ public class SnakePlayer {
 
 	public func updatePendingAct(_ newPendingAct: SnakeBodyAct) -> SnakePlayer {
 		return SnakePlayer(
+            id: id,
 			isAlive: isAlive,
 			isInstalled: isInstalled,
 			role: role,
@@ -136,6 +146,7 @@ public class SnakePlayer {
 			return self
 		}
 		return SnakePlayer(
+            id: id,
 			isAlive: isAlive,
 			isInstalled: isInstalled,
 			role: role,
@@ -150,6 +161,7 @@ public class SnakePlayer {
     // IDEA: add a kill reason, such as: stuck, collision with wall, collision with self, collision with opponent.
     public func kill(_ killEvent: SnakePlayerKillEvent) -> SnakePlayer {
 		return SnakePlayer(
+            id: id,
 			isAlive: false,
 			isInstalled: isInstalled,
 			role: role,
@@ -163,6 +175,7 @@ public class SnakePlayer {
 
 	public func uninstall() -> SnakePlayer {
 		return SnakePlayer(
+            id: id,
 			isAlive: false,
 			isInstalled: false,
 			role: .none,
@@ -176,6 +189,7 @@ public class SnakePlayer {
 
 	public func playerWithNewSnakeBody(_ newSnakeBody: SnakeBody) -> SnakePlayer {
 		return SnakePlayer(
+            id: id,
 			isAlive: isAlive,
 			isInstalled: isInstalled,
 			role: role,
@@ -189,6 +203,7 @@ public class SnakePlayer {
 
 	public func updateBot(_ newBot: SnakeBot) -> SnakePlayer {
 		return SnakePlayer(
+            id: id,
 			isAlive: isAlive,
 			isInstalled: isInstalled,
 			role: role,
@@ -204,6 +219,6 @@ public class SnakePlayer {
 extension SnakePlayer: CustomDebugStringConvertible {
 	public var debugDescription: String {
 		let botDescription = String(describing: bot)
-		return "\(snakeBody.head.position) \(snakeBody.head.direction) \(botDescription) \(pendingMovement) \(pendingAct)"
+		return "\(id) \(snakeBody.head.position) \(snakeBody.head.direction) \(botDescription) \(pendingMovement) \(pendingAct)"
 	}
 }
