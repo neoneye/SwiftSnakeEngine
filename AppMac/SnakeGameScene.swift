@@ -133,13 +133,6 @@ class SnakeGameScene: SKScene {
 		)
 	}
 
-    func sendInfoEvent(_ event: SnakeGameInfoEvent) {
-        guard let mySKView: MySKView = scene?.view as? MySKView else {
-            return
-        }
-        mySKView.sendInfoEvent(event)
-    }
-
     override func keyDown(with event: NSEvent) {
 		if AppConstant.ignoreRepeatingKeyDownEvents && event.isARepeat {
 			//print("keyDown: ignoring repeating event.")

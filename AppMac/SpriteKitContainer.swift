@@ -5,21 +5,6 @@ import SwiftUI
 import SnakeGame
 import Combine
 
-enum SnakeGameInfoEvent {
-    case beginNewGame(_ gameState: SnakeGameState)
-    case player1_didUpdateLength(_ length: UInt)
-    case player2_didUpdateLength(_ length: UInt)
-    case player1_killed(_ killEvents: [SnakePlayerKillEvent])
-    case player2_killed(_ killEvents: [SnakePlayerKillEvent])
-}
-
-class MySKView: SKView {
-    var onSendInfoEvent: ((_ event: SnakeGameInfoEvent) -> Void)?
-
-    func sendInfoEvent(_ event: SnakeGameInfoEvent) {
-        onSendInfoEvent?(event)
-    }
-}
 
 struct SpriteKitContainer: NSViewRepresentable {
     @Binding var player1Length: UInt
@@ -62,9 +47,9 @@ struct SpriteKitContainer: NSViewRepresentable {
 		return Coordinator(self)
 	}
 
-	func makeNSView(context: Context) -> MySKView {
+	func makeNSView(context: Context) -> SnakeGameSKView {
 		SnakeLevelManager.setup()
-		let view = MySKView(frame: .zero)
+		let view = SnakeGameSKView(frame: .zero)
         view.onSendInfoEvent = { (event: SnakeGameInfoEvent) in
             context.coordinator.sendInfoEvent(event)
         }
@@ -93,7 +78,7 @@ struct SpriteKitContainer: NSViewRepresentable {
 	}
 
 
-	func updateNSView(_ view: MySKView, context: Context) {
+	func updateNSView(_ view: SnakeGameSKView, context: Context) {
 	}
 }
 
