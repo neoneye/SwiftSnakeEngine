@@ -8,6 +8,7 @@ class SnakeLevelSelectorScene: SKScene {
 	var needRedraw = false
 	var needLayout = false
 	var needBecomeFirstResponder = false
+    var needSendingShowLevelSelector = true
 
 	var levelSelectorNode: SnakeLevelSelectorNode
 
@@ -153,6 +154,11 @@ class SnakeLevelSelectorScene: SKScene {
 			needLayout = false
 			updateCamera()
 		}
+
+        if needSendingShowLevelSelector {
+            needSendingShowLevelSelector = false
+            sendInfoEvent(.showLevelSelector)
+        }
 	}
 }
 

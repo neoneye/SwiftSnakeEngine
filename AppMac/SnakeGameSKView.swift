@@ -3,6 +3,7 @@ import SpriteKit
 import SnakeGame
 
 enum SnakeGameInfoEvent {
+    case showLevelSelector
     case beginNewGame(_ gameState: SnakeGameState)
     case player1_didUpdateLength(_ length: UInt)
     case player2_didUpdateLength(_ length: UInt)
