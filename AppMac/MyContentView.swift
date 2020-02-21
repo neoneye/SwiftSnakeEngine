@@ -48,6 +48,13 @@ struct MyContentView: View {
         }
     }
 
+    var stripeImage: some View {
+        Image("stripes")
+            .resizable(resizingMode: .tile)
+            .contrast(0.2)
+            .colorMultiply(Color(white: 0.3))
+    }
+
     var body: some View {
         VStack(spacing: 1) {
             
@@ -86,10 +93,9 @@ struct MyContentView: View {
                         }
                     }
 
-                    Image("stripes")
-                        .resizable(resizingMode: .tile)
-                        .opacity(0.3)
-                    
+                    if self.$player1Length.wrappedValue == 0 {
+                        stripeImage
+                    }
                 }
                 .frame(maxWidth: .infinity)
 
