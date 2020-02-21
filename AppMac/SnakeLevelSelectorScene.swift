@@ -8,6 +8,7 @@ class SnakeLevelSelectorScene: SKScene {
 	var needRedraw = false
 	var needLayout = false
 	var needBecomeFirstResponder = false
+    var needSendingLevelInfo = true
 
 	var levelSelectorNode: SnakeLevelSelectorNode
 
@@ -76,6 +77,7 @@ class SnakeLevelSelectorScene: SKScene {
 			fatalError("Expected levelSelectorNode.parent to be nil, but got non-nil.")
 		}
 		levelSelectorNode.selectedIndex = NSUserDefaultsController.shared.selectedLevelIndex
+        needSendingLevelInfo = true
 		levelSelectorNode.createGameStates()
 		levelSelectorNode.createGameNodes()
 		self.addChild(levelSelectorNode)
@@ -100,18 +102,22 @@ class SnakeLevelSelectorScene: SKScene {
 			levelSelectorNode.moveSelectionLeft()
 			NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
 			needRedraw = true
+            needSendingLevelInfo = true
 		case 124: // Arrow Right
 			levelSelectorNode.moveSelectionRight()
 			NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
 			needRedraw = true
+            needSendingLevelInfo = true
 		case 125: // Arrow Down
 			levelSelectorNode.moveSelectionDown()
 			NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
 			needRedraw = true
+            needSendingLevelInfo = true
 		case 126: // Arrow Up
 			levelSelectorNode.moveSelectionUp()
 			NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
 			needRedraw = true
+            needSendingLevelInfo = true
         default:
             print("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
         }
@@ -153,6 +159,15 @@ class SnakeLevelSelectorScene: SKScene {
 			needLayout = false
 			updateCamera()
 		}
+
+        if needSendingLevelInfo {
+            needSendingLevelInfo = false
+            if let gameState: SnakeGameState = levelSelectorNode.gameStateForSelectedIndex() {
+                sendInfoEvent(.showLevelDetail(gameState))
+            } else {
+                sendInfoEvent(.showLevelSelector)
+            }
+        }
 	}
 }
 
@@ -163,6 +178,7 @@ extension SnakeLevelSelectorScene: FlowDispatcher {
 			levelSelectorNode.createGameStates()
 			levelSelectorNode.createGameNodes()
 			needRedraw = true
+            needSendingLevelInfo = true
 		}
 	}
 }

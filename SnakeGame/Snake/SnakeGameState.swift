@@ -26,8 +26,8 @@ public class SnakeGameState {
 		return SnakeGameState(
 			level: SnakeLevel.empty(),
 			foodPosition: nil,
-			player1: SnakePlayer.create(role: .human),
-			player2: SnakePlayer.create(role: .human),
+            player1: SnakePlayer.create(id: .player1, role: .human),
+			player2: SnakePlayer.create(id: .player2, role: .human),
 			foodRandomGenerator_seed: 0,
 			foodRandomGenerator_count: 0,
 			numberOfSteps: 0

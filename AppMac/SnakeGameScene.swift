@@ -16,6 +16,7 @@ class SnakeGameScene: SKScene {
 	var needBecomeFirstResponder = false
 	var shouldPauseAfterUpdate = false
 	var updateAction = UpdateAction.stepForwardContinuously
+    var needSendingBeginNewGame = true
 
 	var trainingSessionUUID: UUID
 	var trainingSessionURLs: [URL]
@@ -114,6 +115,7 @@ class SnakeGameScene: SKScene {
 		isPaused = false
 		needRedraw = true
 		needLayout = true
+        needSendingBeginNewGame = true
 		previousGameStates = []
 		gameState = initialGameState
 		trainingSessionUUID = UUID()
@@ -269,6 +271,11 @@ class SnakeGameScene: SKScene {
 			isPaused = true
 			//print("pausing game after update")
 		}
+
+        if needSendingBeginNewGame {
+            needSendingBeginNewGame = false
+            sendInfoEvent(.beginNewGame(self.gameState))
+        }
 	}
 
 	func stepForward() {
@@ -303,6 +310,22 @@ class SnakeGameScene: SKScene {
 
 		needRedraw = true
 
+        do {
+            let oldLength: UInt = oldGameState.player1.snakeBody.length
+            let newLength: UInt = self.gameState.player1.snakeBody.length
+            if oldLength != newLength {
+                sendInfoEvent(.player1_didUpdateLength(newLength))
+            }
+        }
+
+        do {
+            let oldLength: UInt = oldGameState.player2.snakeBody.length
+            let newLength: UInt = self.gameState.player2.snakeBody.length
+            if oldLength != newLength {
+                sendInfoEvent(.player2_didUpdateLength(newLength))
+            }
+        }
+
 		if oldGameState.foodPosition != self.gameState.foodPosition {
 			if let pos: IntVec2 = oldGameState.foodPosition {
 				let point = cgPointFromGridPoint(pos)
@@ -322,6 +345,12 @@ class SnakeGameScene: SKScene {
 		if player1Dies || player2Dies {
 			playSoundEffect(sound_snakeDies)
 		}
+        if player1Dies {
+            sendInfoEvent(.player1_killed(self.gameState.player1.killEvents))
+        }
+        if player2Dies {
+            sendInfoEvent(.player2_killed(self.gameState.player2.killEvents))
+        }
 
 		if gameState.player1.isDead && gameState.player2.isDead {
 			self.isPaused = true
