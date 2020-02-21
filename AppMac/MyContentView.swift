@@ -13,13 +13,14 @@ class MyHostingController: NSHostingController<MyContentView> {
 
 struct MyContentView: View {
     @State private var player1Dead: Bool = false
+    @State private var player2Dead: Bool = false
     @State private var player1Length: UInt = 1
     @State private var player2Length: UInt = 2
     @State private var player1Info = "Player 1 (green)\nAlive\nLength 29"
     @State private var player2Info = "Player 2 (blue)\nDead by collision with wall\nLength 14"
     var isPreview: Bool = false
     let player1ColorAlive: Color = .green
-    let player2Color: Color = .blue
+    let player2ColorAlive: Color = .blue
 
     let showDebugPanels = true
 
@@ -28,6 +29,14 @@ struct MyContentView: View {
             return player1ColorAlive.opacity(0.3)
         } else {
             return player1ColorAlive
+        }
+    }
+
+    var player2Color: Color {
+        if player2Dead {
+            return player2ColorAlive.opacity(0.3)
+        } else {
+            return player2ColorAlive
         }
     }
 
@@ -48,12 +57,95 @@ struct MyContentView: View {
         }
     }
 
+    var debugPanel2: some View {
+        HStack {
+            Button("Dead/Alive") {
+                self.player2Dead.toggle()
+            }
+            Button("+") {
+                self.player2Length += 1
+            }
+            Button("-") {
+                let length: UInt = self.player2Length
+                if length >= 1 {
+                    self.player2Length = length - 1
+                }
+            }
+        }
+    }
+
     var stripeImage: some View {
         Image("stripes")
             .resizable(resizingMode: .tile)
             .contrast(0.2)
             .colorMultiply(Color(white: 0.3))
     }
+
+    var leftSide: some View {
+        HStack(spacing: 1) {
+            VStack(alignment: .leading, spacing: 0) {
+
+                Text(player1Info)
+                    .padding(10)
+                    .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+                    .background(self.player1Color)
+                    .foregroundColor(.black)
+
+                if self.showDebugPanels {
+                    debugPanel1
+                }
+
+            }
+
+            if self.$player1Length.wrappedValue >= 1 {
+                PlayerScoreView(
+                    playerLength: self.$player1Length,
+                    color: self.player1Color
+                )
+            }
+        }
+    }
+
+    var rightSide: some View {
+        HStack(spacing: 1) {
+            if self.$player2Length.wrappedValue >= 1 {
+                PlayerScoreView(
+                    playerLength: self.$player2Length,
+                    color: self.player2Color
+                )
+            }
+
+            VStack(alignment: .leading, spacing: 0) {
+
+                Text(player2Info)
+                    .padding(10)
+                    .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+                    .background(self.player2Color)
+                    .foregroundColor(.black)
+
+                if self.showDebugPanels {
+                    debugPanel2
+                }
+            }
+        }
+    }
+
+    var leftSideOpacity: Double {
+        if self.$player1Length.wrappedValue >= 1 {
+            return 1
+        } else {
+            return 0
+        }
+    }
+
+    var rightSideOpacity: Double {
+        if self.$player2Length.wrappedValue >= 1 {
+            return 1
+        } else {
+            return 0
+        }
+    }
+
 
     var body: some View {
         VStack(spacing: 1) {
@@ -66,57 +158,24 @@ struct MyContentView: View {
                 isPreview: self.isPreview
             )
 
-            HStack(spacing: 1) {
-
-                ZStack {
-
-                    HStack(spacing: 1) {
-                        VStack(alignment: .leading, spacing: 0) {
-
-                            Text(player1Info)
-                                .padding(10)
-                                .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-                                .background(self.player1Color)
-                                .foregroundColor(.black)
-
-                            if self.showDebugPanels {
-                                debugPanel1
-                            }
-
-                        }
-
-                        if self.$player1Length.wrappedValue >= 1 {
-                            PlayerScoreView(
-                                playerLength: self.$player1Length,
-                                color: self.player1Color
-                            )
-                        }
-                    }
-
-                    if self.$player1Length.wrappedValue == 0 {
-                        stripeImage
-                    }
-                }
-                .frame(maxWidth: .infinity)
+            ZStack {
+                stripeImage
 
                 HStack(spacing: 1) {
 
-                    if self.$player2Length.wrappedValue >= 1 {
-                        PlayerScoreView(
-                            playerLength: self.$player2Length,
-                            color: self.player2Color
-                        )
-                    }
+                    leftSide
+                        .opacity(leftSideOpacity)
+                        .frame(maxWidth: .infinity)
 
-                    Text(player2Info)
-                        .padding(10)
-                        .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-                        .background(self.player2Color)
-                        .foregroundColor(.black)
+                    rightSide
+                        .opacity(rightSideOpacity)
+                        .frame(maxWidth: .infinity)
+
                 }
-                .frame(maxWidth: .infinity)
+
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
+
         }
         .edgesIgnoringSafeArea(.all)
     }
