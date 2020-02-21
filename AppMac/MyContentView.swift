@@ -61,27 +61,35 @@ struct MyContentView: View {
 
             HStack(spacing: 1) {
 
-                HStack(spacing: 1) {
-                    VStack(alignment: .leading, spacing: 0) {
+                ZStack {
 
-                        Text(player1Info)
-                            .padding(10)
-                            .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-                            .background(self.player1Color)
-                            .foregroundColor(.black)
+                    HStack(spacing: 1) {
+                        VStack(alignment: .leading, spacing: 0) {
 
-                        if self.showDebugPanels {
-                            debugPanel1
+                            Text(player1Info)
+                                .padding(10)
+                                .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+                                .background(self.player1Color)
+                                .foregroundColor(.black)
+
+                            if self.showDebugPanels {
+                                debugPanel1
+                            }
+
                         }
 
+                        if self.$player1Length.wrappedValue >= 1 {
+                            PlayerScoreView(
+                                playerLength: self.$player1Length,
+                                color: self.player1Color
+                            )
+                        }
                     }
 
-                    if self.$player1Length.wrappedValue >= 1 {
-                        PlayerScoreView(
-                            playerLength: self.$player1Length,
-                            color: self.player1Color
-                        )
-                    }
+                    Image("stripes")
+                        .resizable(resizingMode: .tile)
+                        .opacity(0.3)
+                    
                 }
                 .frame(maxWidth: .infinity)
 
