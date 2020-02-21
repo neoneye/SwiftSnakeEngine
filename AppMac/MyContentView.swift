@@ -22,7 +22,7 @@ struct MyContentView: View {
     let player1ColorAlive: Color = .green
     let player2ColorAlive: Color = .blue
 
-    let showDebugPanels = true
+    let showDebugPanels = false
 
     var player1Color: Color {
         if player1Dead {
