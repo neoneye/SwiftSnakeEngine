@@ -11,7 +11,7 @@ public class SnakeFoodGenerator {
 	public func placeNewFood(_ currentGameState: SnakeGameState) -> SnakeGameState {
 		var gameState: SnakeGameState = currentGameState
 		guard gameState.foodPosition == nil else {
-//			print("there is already food")
+//			log.debug("there is already food")
 			return gameState
 		}
 		let emptyPositionsArray: [IntVec2] = gameState.level.emptyPositionArray
@@ -39,7 +39,7 @@ public class SnakeFoodGenerator {
 		)
 
 		guard let position: IntVec2 = positionOrNil else {
-			print("You won. There are no more available food positions!")
+            log.info("You won. There are no more available food positions!")
             gameState = gameState.killPlayer1(.noMoreFood)
             gameState = gameState.killPlayer2(.noMoreFood)
 			return gameState

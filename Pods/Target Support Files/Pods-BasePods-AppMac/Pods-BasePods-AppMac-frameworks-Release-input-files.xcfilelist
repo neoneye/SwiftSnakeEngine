@@ -2,3 +2,4 @@ ${PODS_ROOT}/Target Support Files/Pods-BasePods-AppMac/Pods-BasePods-AppMac-fram
 ${BUILT_PRODUCTS_DIR}/SSEventFlow/SSEventFlow.framework
 ${BUILT_PRODUCTS_DIR}/SwiftCSV/SwiftCSV.framework
 ${BUILT_PRODUCTS_DIR}/SwiftProtobuf/SwiftProtobuf.framework
+${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework

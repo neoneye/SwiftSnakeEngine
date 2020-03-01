@@ -93,7 +93,7 @@ extension SnakeGameState {
 			)
 			detector.process()
 			if detector.player1Alive == false {
-				print("player1 will collide with something. \(detector.collisionType1). Preventing this movement.")
+                log.info("player1 will collide with something. \(detector.collisionType1). Preventing this movement.")
 				gameState = gameState.updatePendingMovementForPlayer1(.dontMove)
 			}
 		}
@@ -106,7 +106,7 @@ extension SnakeGameState {
 			)
 			detector.process()
 			if detector.player2Alive == false {
-				print("player2 will collide with something. \(detector.collisionType2). Preventing this movement.")
+                log.info("player2 will collide with something. \(detector.collisionType2). Preventing this movement.")
 				gameState = gameState.updatePendingMovementForPlayer2(.dontMove)
 			}
 		}
@@ -122,7 +122,7 @@ extension SnakeGameState {
 			waitingForPlayers = true
 		}
 		if waitingForPlayers {
-			//print("waiting for players")
+			//log.debug("waiting for players")
 			return true
 		} else {
 			return false
@@ -134,7 +134,7 @@ extension SnakeGameState {
 	fileprivate func detectCollision() -> SnakeGameState {
 		var gameState: SnakeGameState = self
 		if gameState.player1.isDead && gameState.player2.isDead {
-			print("Both players are dead. No need to check for collision between them. 1")
+			log.debug("Both players are dead. No need to check for collision between them. 1")
 			return gameState
 		}
 
@@ -148,12 +148,12 @@ extension SnakeGameState {
 
 		if gameState.player1.isAlive && detector.player1Alive == false {
             let collisionType: SnakeCollisionType = detector.collisionType1
-            print("killing player1 because: \(collisionType)")
+            log.info("killing player1 because: \(collisionType)")
             gameState = gameState.killPlayer1(collisionType.killEvent)
 		}
 		if gameState.player2.isAlive && detector.player2Alive == false {
             let collisionType: SnakeCollisionType = detector.collisionType2
-			print("killing player2 because: \(collisionType)")
+            log.info("killing player2 because: \(collisionType)")
 			gameState = gameState.killPlayer2(collisionType.killEvent)
 		}
 

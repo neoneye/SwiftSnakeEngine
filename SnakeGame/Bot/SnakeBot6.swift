@@ -35,15 +35,15 @@ public class SnakeBot6: SnakeBot {
 
 	public func takeAction(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
 		guard player.isInstalled else {
-			//print("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
+			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
 			return (self, .moveForward)
 		}
 		guard player.isAlive else {
-			//print("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
+			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
 			return (self, .moveForward)
 		}
 
-//		print("#\(iteration) ---")
+//		log.debug("#\(iteration) ---")
 
 		var countKeep: Int = 0
 		var countRemove: Int = 0
@@ -71,7 +71,7 @@ public class SnakeBot6: SnakeBot {
 
 				if let fp: IntVec2 = foodPosition {
 					// Find FoodNodeChoice that is nearest the new food position
-					// print("find shortest path to the new food position. Reuse as much as possible from the previous iteration.")
+					// log.debug("find shortest path to the new food position. Reuse as much as possible from the previous iteration.")
 					//
 					// IDEA: Consider non-permanent obstacles when estimating the distance, eg. snake itself, snake opponent.
 					// Don't rely on manhattan distance, since it doesn't consider obstacles, such as: Wall/snake.
@@ -89,7 +89,7 @@ public class SnakeBot6: SnakeBot {
 					for choice: FoodNodeChoice in choicesSorted.prefix(5) {
 						let visitor = FindMaxDepth()
 						choice.accept(visitor)
-						print("depth: unexplored=\(visitor.highestNumberOfMoves_unexplored) kill=\(visitor.highestNumberOfMoves_kill)")
+						log.debug("depth: unexplored=\(visitor.highestNumberOfMoves_unexplored) kill=\(visitor.highestNumberOfMoves_kill)")
 						// IDEA: pick the safest route where the snake survives.
 						// avoid the routes that causes certain death for the snake.
 					}
@@ -99,26 +99,26 @@ public class SnakeBot6: SnakeBot {
 							level.estimateDistance(position0: $0.position.intVec2, position1: fp)
 						}
 						allDistances.sort()
-						print("picked food subtree. distance \(distance)  of  \(allDistances)")
+						log.debug("picked food subtree. distance \(distance)  of  \(allDistances)")
 
 						subtreeNode = choice.child
 						// Currently the best choice survies and all the other choices gets discarded.
 						// IDEA: Keep the 2nd best and 3rd best FoodNodeChoice's around and use them as a fallback.
 						if subtreeNode is MoveNode {
-							//print("successfully extracted the nearest FoodNodeChoice")
+							//log.debug("successfully extracted the nearest FoodNodeChoice")
 						} else {
 							subtreeNode = nil
-							print("ERROR: unable to extract the nearest food node choice")
+							log.error("unable to extract the nearest food node choice")
 						}
 
 					} else {
 						subtreeNode = nil
-						print("ERROR: Expected FoodNode.choices to contain 1 or more choices, but got an empty array. Unable to extract the nearest food node choice")
+						log.error("Expected FoodNode.choices to contain 1 or more choices, but got an empty array. Unable to extract the nearest food node choice")
 					}
 				} else {
 					// IDEA: when the foodPosition is nil, then pick a random FoodNodeChoice.child
 					subtreeNode = nil
-					print("ERROR: expects the foodPosition to always be non-nil, but got nil. Cannot find nearest subtree.")
+					log.error("expects the foodPosition to always be non-nil, but got nil. Cannot find nearest subtree.")
 				}
 			}
 
@@ -133,7 +133,7 @@ public class SnakeBot6: SnakeBot {
 				}
 				if !foundMatchingChoice {
 					subtreeNode = nil
-					print("ERROR: Unable to reuse subtree from previous iteration. player0")
+					log.error("Unable to reuse subtree from previous iteration. player0")
 				}
 			}
 
@@ -148,7 +148,7 @@ public class SnakeBot6: SnakeBot {
 				}
 				if !foundMatchingChoice {
 					subtreeNode = nil
-					print("ERROR: Unable to reuse subtree from previous iteration. player1")
+					log.error("Unable to reuse subtree from previous iteration. player1")
 				}
 			}
 
@@ -158,7 +158,7 @@ public class SnakeBot6: SnakeBot {
 				root.child = actualSubtreeNode
 				actualSubtreeNode.parent = root
 			} else {
-				print("ERROR: unable to reuse subtree from previous iteration!")
+				log.error("unable to reuse subtree from previous iteration!")
 			}
 		}
 		let seed: UInt64 = UInt64(iteration * 100)
@@ -175,8 +175,8 @@ public class SnakeBot6: SnakeBot {
 		let countAll: UInt = root.nodeCount
 		countInsert = Int(countAll) - countKeep
 
-//		print("#\(iteration)   Remove: \(countRemove)   Keep: \(countKeep)   Insert: \(countInsert)")
-//		print("\(iteration);\(countRemove);\(countKeep);\(countInsert)")
+//		log.debug("#\(iteration)   Remove: \(countRemove)   Keep: \(countKeep)   Insert: \(countInsert)")
+//		log.debug("\(iteration);\(countRemove);\(countKeep);\(countInsert)")
 
 		let visitor_clearTheBest = ClearTheBestNodes()
 		root.accept(visitor_clearTheBest)
@@ -184,11 +184,11 @@ public class SnakeBot6: SnakeBot {
 		let visitor_countProblems = CountProblemsWithNodes()
 		root.accept(visitor_countProblems)
 		if visitor_countProblems.isError {
-			print("ERROR: inconsistency in tree. \(visitor_countProblems)")
+			log.error("inconsistency in tree. \(visitor_countProblems)")
 		}
 
 		guard let scenario: Scenario = visitor_buildTree.bestScenario() else {
-			print("ERROR: unable to find the best scenario")
+			log.error("unable to find the best scenario")
 			return (self, .moveForward)
 		}
 
@@ -223,7 +223,7 @@ public class SnakeBot6: SnakeBot {
 			let countInsert_string: String = nf.string(from: NSNumber(value: countInsert)) ?? ""
 
 			let aliveDead: String = scenario.certainDeath ? "DIE" : "   "
-			print("\(iteration_string) \(countRemove_string) \(countKeep_string) \(countInsert_string) \(aliveDead) \(prettyMovements)")
+			log.debug("\(iteration_string) \(countRemove_string) \(countKeep_string) \(countInsert_string) \(aliveDead) \(prettyMovements)")
 		}
 
 		let previousIterationData = PreviousIterationData(
@@ -458,7 +458,7 @@ fileprivate class Scenario {
 			node.isBest = true
 //			count += 1
 		}
-//		print("count: \(count)")
+//		log.debug("count: \(count)")
 	}
 
 	/// The utility function of this bot.
@@ -552,7 +552,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 	func printStats() {
 		let invocationsOfRandomGenerator: UInt64 = self.randomNumberGenerator.count
 		let scenariosCount: Int = self.scenarios.count
-		print("random: \(invocationsOfRandomGenerator)  scenarios: \(scenariosCount)")
+		log.debug("random: \(invocationsOfRandomGenerator)  scenarios: \(scenariosCount)")
 	}
 
 	func visit(_ node: RootNode) {
@@ -584,7 +584,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 	}
 
 	func visit(_ node: FoodNode) {
-		//print("FoodNode  depth: \(currentDepth)  \(movements)")
+		//log.debug("FoodNode  depth: \(currentDepth)  \(movements)")
 
 		let originalNumberOfFoodsEaten: Int = numberOfFoodsEaten
 		defer {
@@ -683,7 +683,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 		for choice: FoodNodeChoice in node.choices {
 			let position: IntVec2 = choice.position.intVec2
 			guard foodPositionSet.contains(position) else {
-				//print("Discarding a previous FoodNodeChoice with a position outside the reachable area!  position: \(position)")
+				//log.debug("Discarding a previous FoodNodeChoice with a position outside the reachable area!  position: \(position)")
 				continue
 			}
 			newChoices.append(choice)
@@ -700,12 +700,12 @@ fileprivate class BuildTreeVisitor: Visitor {
 		while newChoices.count < limit {
 			let n: Int = foodPositions.count
 			guard let index: Int = (0..<n).randomElement(using: &randomNumberGenerator) else {
-				//print("Exhausted all available food positions.")
+				//log.debug("Exhausted all available food positions.")
 				break
 			}
 			let position0: IntVec2 = foodPositions[index]
 			guard let position1: UIntVec2 = position0.uintVec2() else {
-				print("ERROR: Inconsistent food position. Expected non-negative coordinates, but got negative. position: \(position0).")
+				log.error("Inconsistent food position. Expected non-negative coordinates, but got negative. position: \(position0).")
 				break
 			}
 			let choice: FoodNodeChoice = FoodNodeChoice(position: position1)
@@ -961,7 +961,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 
 	func visit(_ node: KillNode) {
 		let playerId: UInt = node.playerId
-		//print("KillNode  depth: \(currentDepth)  \(movements)")
+		//log.debug("KillNode  depth: \(currentDepth)  \(movements)")
 		// IDEA: hitting a wall is certain death
 		// IDEA: hitting the snake at the oldest part, is a temporary obstacle and is less likely certain death
 		// IDEA: hitting the snake at a newer part, is almost a permanent obstacle and is highly likely certain death
@@ -1012,13 +1012,13 @@ fileprivate class BuildTreeVisitor: Visitor {
 			return newPlayerId
 		}
 
-		print("ERROR: nextAlivePlayerId() Cannot find a suitable new playerId.  playerId: \(playerId)")
+		log.error("nextAlivePlayerId() Cannot find a suitable new playerId.  playerId: \(playerId)")
 		fatalError("Cannot find a suitable new playerId")
 	}
 
 	func nextInstalledPlayerId(_ playerId: UInt) -> UInt {
 		guard player[0].isInstalled else {
-			print("ERROR: Assuming that playerA is always installed, since this is the player that this bot is simulating.")
+			log.error("Assuming that playerA is always installed, since this is the player that this bot is simulating.")
 			return 0
 		}
 		let isTwoPlayer: Bool = self.player[1].isInstalled
@@ -1122,12 +1122,12 @@ fileprivate class CountProblemsWithNodes: Visitor {
 		}
 		guard let childParentNode: Node = childNode.parent else {
 			countNilParent += 1
-			print("ERROR: Expected childNode.parent to be non-nil, but got nil.   parentNode: \(type(of: parentNode))  childNode: \(type(of: childNode))")
+			log.error("Expected childNode.parent to be non-nil, but got nil.   parentNode: \(type(of: parentNode))  childNode: \(type(of: childNode))")
 			return
 		}
 		guard childParentNode === parentNode else {
 			countWrongParent += 1
-			print("ERROR: Expected childNode.parent to be pointing at the parent, but it points to the wrong instance.   parentNode: \(type(of: parentNode))  childNode: \(type(of: childNode))")
+			log.error("Expected childNode.parent to be pointing at the parent, but it points to the wrong instance.   parentNode: \(type(of: parentNode))  childNode: \(type(of: childNode))")
 			return
 		}
 	}

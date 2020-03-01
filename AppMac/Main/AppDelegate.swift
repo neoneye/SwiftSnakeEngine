@@ -10,11 +10,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 	override init() {
 		super.init()
+        LogHelper.setup_mainExecutable()
 		SnakeLevelManager.setup()
 	}
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-		player1Menu?.configureAsPlayer1()
+        player1Menu?.configureAsPlayer1()
 		player2Menu?.configureAsPlayer2()
 
 //		let game = SnakeGameHeadless()

@@ -26,15 +26,15 @@ public class SnakeBot1: SnakeBot {
 	public func takeAction(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
 
 		guard player.isInstalled else {
-			//print("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
+			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
 			return (self, .moveForward)
 		}
 		guard player.isAlive else {
-			//print("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
+			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
 			return (self, .moveForward)
 		}
 		guard let foodPosition: IntVec2 = foodPosition else {
-			print("no food position. Cannot find shortest path")
+			log.debug("no food position. Cannot find shortest path")
 			return (self, .moveForward)
 		}
 
@@ -92,7 +92,7 @@ public class SnakeBot1: SnakeBot {
 				countCW = MeasureAreaSize.compute(positionArray: availablePositions, startPosition: newHead.position)
 				positionCW = newHead.position
 			}
-			print("fill at \(player.snakeBody.head.position)  countCCW: \(countCCW) countCW: \(countCW)     positionCCW: \(positionCCW) positionCW: \(positionCW)")
+			log.debug("fill at \(player.snakeBody.head.position)  countCCW: \(countCCW) countCW: \(countCW)     positionCCW: \(positionCCW) positionCW: \(positionCW)")
 
 			let pendingMovement: SnakeBodyMovement
 			if countCW == 0 && countCCW == 0 {
@@ -113,9 +113,9 @@ public class SnakeBot1: SnakeBot {
 		let dx: Int = Int(position0.x) - Int(position1.x)
 		let dy: Int = Int(position0.y) - Int(position1.y)
 		let distance: Int = dx * dx + dy * dy
-		//		print("dx: \(dx)  dy: \(dy)  distance: \(distance)")
+		//		log.debug("dx: \(dx)  dy: \(dy)  distance: \(distance)")
 		guard distance == 1 else {
-			print("ERROR: way too long distance to nearest neighbour. dx: \(dx)  dy: \(dy)  distance: \(distance)")
+			log.error("way too long distance to nearest neighbour. dx: \(dx)  dy: \(dy)  distance: \(distance)")
 			let bot = SnakeBot1(futurePlannedPath: plannedPath)
 			return (bot, .moveForward)
 		}

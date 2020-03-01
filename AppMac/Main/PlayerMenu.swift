@@ -245,7 +245,7 @@ public class PlayerMenu: NSMenu {
 				continue
 			}
 			guard let representedObject: Any = item.representedObject else {
-				print("ERROR: menu item does not have a representedObject")
+                log.error("Menu item does not have a representedObject")
 				continue
 			}
 			if let itemRole = item.representedObject as? PlayerRoleMenuItem {
@@ -264,13 +264,13 @@ public class PlayerMenu: NSMenu {
 				}
 				continue
 			}
-			print("ERROR: Expected item.representedObject to be either PlayerRoleMenuItem or PlayerSkinMenuItem, but got: \(type(of: representedObject))")
+			log.error("Expected item.representedObject to be either PlayerRoleMenuItem or PlayerSkinMenuItem, but got: \(type(of: representedObject))")
 		}
 	}
 
 	@objc private func roleAction(_ sender: NSMenuItem) {
 		guard let role: PlayerRoleMenuItem = sender.representedObject as? PlayerRoleMenuItem else {
-			print("ERROR: Expected sender.representedObject to be a PlayerRoleMenuItem, but got nil.")
+			log.error("Expected sender.representedObject to be a PlayerRoleMenuItem, but got nil.")
 			return
 		}
 		self.selectedRoleMenuItem = role
@@ -279,7 +279,7 @@ public class PlayerMenu: NSMenu {
 
 	@objc private func skinAction(_ sender: NSMenuItem) {
 		guard let skin: PlayerSkinMenuItem = sender.representedObject as? PlayerSkinMenuItem else {
-			print("ERROR: Expected sender.representedObject to be a PlayerSkinMenuItem, but got nil.")
+			log.error("Expected sender.representedObject to be a PlayerSkinMenuItem, but got nil.")
 			return
 		}
 		self.selectedSkinMenuItem = skin

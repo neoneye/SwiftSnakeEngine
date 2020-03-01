@@ -82,7 +82,7 @@ class SnakeBodyNode: SKEffectNode {
 
 	func rebuild(player: SnakePlayer) {
 		guard player.isInstalled else {
-			//print("do nothing, since the player is not installed, and thus not shown")
+			//log.debug("do nothing, since the player is not installed, and thus not shown")
 			return
 		}
 
@@ -180,7 +180,7 @@ class SnakeBodyNode: SKEffectNode {
 	private func drawPlannedPath(_ positionArray: [IntVec2]) {
 		let positionArrayCount: Int = positionArray.count
 		guard positionArrayCount >= 2 else {
-			//print("Cannot show the planned path, it's too short.")
+			//log.debug("Cannot show the planned path, it's too short.")
 			return
 		}
 		let positionArrayCountMinus1: Int = positionArrayCount - 1
