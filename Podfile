@@ -10,7 +10,7 @@ end
 
 def my_pod_swiftprotobuf
 	# https://github.com/apple/swift-protobuf/commits/master
-	pod 'SwiftProtobuf', :git => 'https://github.com/apple/swift-protobuf.git', :commit => 'b2baf41e0d62cccda25d12e18e9b1660756a8d4a'
+	pod 'SwiftProtobuf', :git => 'https://github.com/apple/swift-protobuf.git', :commit => 'd596aaf6568ff26285679e769769660a8b03b801'
 end
 
 def my_pod_sseventflow

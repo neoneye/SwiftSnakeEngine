@@ -1,12 +1,12 @@
 PODS:
   - SSEventFlow (1.2.0)
   - SwiftCSV (0.5.5)
-  - SwiftProtobuf (1.7.0)
+  - SwiftProtobuf (1.8.0)
 
 DEPENDENCIES:
   - SSEventFlow (from `https://github.com/neoneye/SSEventFlow.git`, commit `f81413764a7cece32e5ffb1601a41f31884c1f88`)
   - SwiftCSV (from `https://github.com/swiftcsv/SwiftCSV.git`, commit `22dc4dd1272e990da64ea87a8bc84bb606eb177e`)
-  - SwiftProtobuf (from `https://github.com/apple/swift-protobuf.git`, commit `b2baf41e0d62cccda25d12e18e9b1660756a8d4a`)
+  - SwiftProtobuf (from `https://github.com/apple/swift-protobuf.git`, commit `d596aaf6568ff26285679e769769660a8b03b801`)
 
 EXTERNAL SOURCES:
   SSEventFlow:
@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
     :commit: 22dc4dd1272e990da64ea87a8bc84bb606eb177e
     :git: https://github.com/swiftcsv/SwiftCSV.git
   SwiftProtobuf:
-    :commit: b2baf41e0d62cccda25d12e18e9b1660756a8d4a
+    :commit: d596aaf6568ff26285679e769769660a8b03b801
     :git: https://github.com/apple/swift-protobuf.git
 
 CHECKOUT OPTIONS:
@@ -27,14 +27,14 @@ CHECKOUT OPTIONS:
     :commit: 22dc4dd1272e990da64ea87a8bc84bb606eb177e
     :git: https://github.com/swiftcsv/SwiftCSV.git
   SwiftProtobuf:
-    :commit: b2baf41e0d62cccda25d12e18e9b1660756a8d4a
+    :commit: d596aaf6568ff26285679e769769660a8b03b801
     :git: https://github.com/apple/swift-protobuf.git
 
 SPEC CHECKSUMS:
   SSEventFlow: bd55cd210324b598180475df633a90e56f52f3c2
   SwiftCSV: 664cb23fd6a2fe98b0bcfde5e9f5afe781217f0c
-  SwiftProtobuf: 4fd9645e69b72cbae6ec8da5be0cdd20ca6565dd
+  SwiftProtobuf: 2cbd9409689b7df170d82a92a33443c8e3e14a70
 
-PODFILE CHECKSUM: 2a396d729bdc5da5f67ab163c039a2c4f8c8cde2
+PODFILE CHECKSUM: da3f5cdc6ec6dff4a59b18f10aa88c52814cf1ec
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4
