@@ -193,7 +193,7 @@ extension StuckSnakeDetector {
     /// While playing as a human, I find it annoying to get killed because
     /// I'm doing the same patterns over and over.
     /// So this "stuck in loop" detection only applies to bots.
-    func killBotIfStuckInLoop(_ player: SnakePlayer) -> SnakePlayer {
+    fileprivate func killBotIfStuckInLoop(_ player: SnakePlayer) -> SnakePlayer {
         guard player.isBot && player.isAlive else {
             return player
         }
