@@ -21,6 +21,8 @@
 		4228915423341D2100273A0F /* T1006_MeasureTurnCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4228915323341D2100273A0F /* T1006_MeasureTurnCount.swift */; };
 		422B903B23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422B903A23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift */; };
 		423494FC234D151D009C0030 /* SnakeLevelSelectorScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423494FB234D151D009C0030 /* SnakeLevelSelectorScene.swift */; };
+		423C4F54240C4B5B00786F49 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423C4F52240C4B5B00786F49 /* Logging.swift */; };
+		423C4F55240C4B5B00786F49 /* OSLogDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423C4F53240C4B5B00786F49 /* OSLogDestination.swift */; };
 		4246C441235BB07E00324965 /* PlayerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4246C440235BB07E00324965 /* PlayerMenu.swift */; };
 		4253C53F23359FB000210611 /* SnakeLevels.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4253C53E23359FB000210611 /* SnakeLevels.bundle */; };
 		4253C5412335A9D100210611 /* SnakeLevel+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5402335A9D100210611 /* SnakeLevel+Load.swift */; };
@@ -154,6 +156,8 @@
 		4228915323341D2100273A0F /* T1006_MeasureTurnCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1006_MeasureTurnCount.swift; sourceTree = "<group>"; };
 		422B903A23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKScene+BecomeFirstResponder.swift"; sourceTree = "<group>"; };
 		423494FB234D151D009C0030 /* SnakeLevelSelectorScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeLevelSelectorScene.swift; sourceTree = "<group>"; };
+		423C4F52240C4B5B00786F49 /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
+		423C4F53240C4B5B00786F49 /* OSLogDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSLogDestination.swift; sourceTree = "<group>"; };
 		4246C440235BB07E00324965 /* PlayerMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMenu.swift; sourceTree = "<group>"; };
 		4253C53E23359FB000210611 /* SnakeLevels.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SnakeLevels.bundle; sourceTree = "<group>"; };
 		4253C5402335A9D100210611 /* SnakeLevel+Load.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnakeLevel+Load.swift"; sourceTree = "<group>"; };
@@ -318,8 +322,10 @@
 				42CCD61223BEB04B0021CBE7 /* Data+SHA1.swift */,
 				4255CA25232FD31900A230AF /* IntVec2.swift */,
 				42C3181F237D6E2700468D1F /* IntVec2+CGPoint.swift */,
+				423C4F52240C4B5B00786F49 /* Logging.swift */,
 				42C236EC2333033700241639 /* MeasureAreaSize.swift */,
 				4228915123341CCC00273A0F /* MeasureTurnCount.swift */,
+				423C4F53240C4B5B00786F49 /* OSLogDestination.swift */,
 				4255C9FF232F70F800A230AF /* remap.swift */,
 				4255CA29233180B500A230AF /* SeededGenerator.swift */,
 				4255CA00232F70F800A230AF /* sigmoid.swift */,
@@ -814,11 +820,13 @@
 				42EB7C0023F2105000229CEA /* SnakeGameStateModel.pb.swift in Sources */,
 				42EB7BFE23F1FD9D00229CEA /* SnakeGameStateModel.proto in Sources */,
 				4255CA26232FD31900A230AF /* IntVec2.swift in Sources */,
+				423C4F55240C4B5B00786F49 /* OSLogDestination.swift in Sources */,
 				42C31822237F27AF00468D1F /* Array2.swift in Sources */,
 				422423BE233D9B760006D02D /* SnakeGameHeadless.swift in Sources */,
 				42CC22CD23397D9700CF3D96 /* SnakeBot.swift in Sources */,
 				42CCD61623BEE0CC0021CBE7 /* SnakeLevelCacheModel.proto in Sources */,
 				42A8B6FC2331B3CC00E618CF /* SnakeFifo.swift in Sources */,
+				423C4F54240C4B5B00786F49 /* Logging.swift in Sources */,
 				426891FA233267E900B97E29 /* Edge.swift in Sources */,
 				4255CA2A233180B500A230AF /* SeededGenerator.swift in Sources */,
 				426891FD233267E900B97E29 /* Vertex.swift in Sources */,
