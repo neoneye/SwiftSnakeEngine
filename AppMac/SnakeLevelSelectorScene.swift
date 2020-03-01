@@ -119,7 +119,7 @@ class SnakeLevelSelectorScene: SKScene {
 			needRedraw = true
             needSendingLevelInfo = true
         default:
-            print("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
+            log.debug("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
         }
     }
 
@@ -137,13 +137,13 @@ class SnakeLevelSelectorScene: SKScene {
 
 	override func didChangeSize(_ oldSize: CGSize) {
 		super.didChangeSize(oldSize)
-//		print("did change size: \(oldSize) \(size)")
+//		log.debug("did change size: \(oldSize) \(size)")
 		needLayout = true
 	}
 
     override func update(_ currentTime: TimeInterval) {
 		super.update(currentTime)
-//		print("update")
+//		log.debug("update")
 
 		if needBecomeFirstResponder {
 			needBecomeFirstResponder = false
@@ -174,7 +174,7 @@ class SnakeLevelSelectorScene: SKScene {
 extension SnakeLevelSelectorScene: FlowDispatcher {
 	func flow_dispatch(_ event: FlowEvent) {
 		if event is FlowEvent_DidChangePlayerSetting {
-			print("player settings did change")
+			log.debug("player settings did change")
 			levelSelectorNode.createGameStates()
 			levelSelectorNode.createGameNodes()
 			needRedraw = true

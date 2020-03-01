@@ -122,7 +122,7 @@ extension SnakeGameState {
 			waitingForPlayers = true
 		}
 		if waitingForPlayers {
-			//print("waiting for players")
+			//log.debug("waiting for players")
 			return true
 		} else {
 			return false
@@ -134,7 +134,7 @@ extension SnakeGameState {
 	fileprivate func detectCollision() -> SnakeGameState {
 		var gameState: SnakeGameState = self
 		if gameState.player1.isDead && gameState.player2.isDead {
-			print("Both players are dead. No need to check for collision between them. 1")
+			log.debug("Both players are dead. No need to check for collision between them. 1")
 			return gameState
 		}
 

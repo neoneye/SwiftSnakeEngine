@@ -110,7 +110,7 @@ class SnakeGameNode: SKNode {
 	}
 
 	func rebuildSnakes() {
-		//print("player1: \(gameState.player1.snakeBody.fifoContentString)")
+		//log.debug("player1: \(gameState.player1.snakeBody.fifoContentString)")
 		snakeNode1.rebuild(player: gameState.player1)
 		snakeNode2.rebuild(player: gameState.player2)
 	}
@@ -170,7 +170,7 @@ class SnakeGameNode: SKNode {
 		let yScale: CGFloat = nodeSize.height / levelHeight
 		let scale: CGFloat = min(xScale, yScale)
 		self.setScale(scale)
-		//print("scale: \(scale)  \(nodeSize.width) \(levelWidth)    \(nodeSize.height) \(levelHeight)")
+		//log.debug("scale: \(scale)  \(nodeSize.width) \(levelWidth)    \(nodeSize.height) \(levelHeight)")
 	}
 
 	func cgPointFromGridPoint(_ point: IntVec2) -> CGPoint {

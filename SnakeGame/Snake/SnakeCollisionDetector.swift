@@ -72,7 +72,7 @@ public class SnakeCollisionDetector {
 	/// Deal with collision only if either the player1 or player2 is installed
 	public func process() {
 		guard player1Alive || player2Alive else {
-			//print("Both players are dead. No need to check for collision between them. 1")
+			//log.debug("Both players are dead. No need to check for collision between them. 1")
 			return
 		}
 
@@ -89,26 +89,26 @@ public class SnakeCollisionDetector {
 		if player1Alive {
 			let wallCollision: Bool = level.getValue(player1Body.head.position) == .wall
 			if wallCollision {
-				//print("player1 collided with wall")
+				//log.debug("player1 collided with wall")
 				kill1(.snakeCollisionWithWall)
 			}
 		}
 		if player2Alive {
 			let wallCollision: Bool = level.getValue(player2Body.head.position) == .wall
 			if wallCollision {
-				//print("player2 collided with wall")
+				//log.debug("player2 collided with wall")
 				kill2(.snakeCollisionWithWall)
 			}
 		}
 		guard player1Alive || player2Alive else {
-			//print("both players are dead. No need for doing more collision detection. 2")
+			//log.debug("both players are dead. No need for doing more collision detection. 2")
 			return
 		}
 
 		if player1Alive && player2Alive {
 			let directHeadCollision: Bool = player1Body.head.position == player2Body.head.position
 			if directHeadCollision {
-				//print("direct head collision between players. mutual destruction!")
+				//log.debug("direct head collision between players. mutual destruction!")
 				kill1(.snakeCollisionWithOpponent)
 				kill2(.snakeCollisionWithOpponent)
 				return
@@ -121,44 +121,44 @@ public class SnakeCollisionDetector {
 		if player1Alive && player2Installed {
 			let opponentCollision: Bool = positions2.contains(player1Body.head.position)
 			if opponentCollision {
-				//print("player1 collided with opponent snake")
+				//log.debug("player1 collided with opponent snake")
 				kill1(.snakeCollisionWithOpponent)
 			}
 		}
 		if player2Alive && player1Installed {
 			let opponentCollision: Bool = positions1.contains(player2Body.head.position)
 			if opponentCollision {
-				//print("player2 collided with opponent snake")
+				//log.debug("player2 collided with opponent snake")
 				kill2(.snakeCollisionWithOpponent)
 			}
 		}
 		guard player1Alive || player2Alive else {
-			//print("both players are dead. No need for doing more collision detection. 3")
+			//log.debug("both players are dead. No need for doing more collision detection. 3")
 			return
 		}
 
 		if player1Alive && player1Body.isEatingItself {
-			//print("snake1 collided with itself")
+			//log.debug("snake1 collided with itself")
 			kill1(.snakeCollisionWithItself)
 		}
 		if player2Alive && player2Body.isEatingItself {
-			//print("snake2 collided with itself")
+			//log.debug("snake2 collided with itself")
 			kill2(.snakeCollisionWithItself)
 		}
 		guard player1Alive || player2Alive else {
-			//print("both players are dead. No need for doing more collision detection. 4")
+			//log.debug("both players are dead. No need for doing more collision detection. 4")
 			return
 		}
 
-		//print("success. detected no collision")
+		//log.debug("success. detected no collision")
 
 		if let foodPosition = self.foodPosition {
 			if player1Alive && player1Body.head.position == foodPosition {
-				//print("player1 eats food")
+				//log.debug("player1 eats food")
 				self.player1EatsFood = true
 			}
 			if player2Alive && player2Body.head.position == foodPosition {
-				//print("player2 eats food")
+				//log.debug("player2 eats food")
 				self.player2EatsFood = true
 			}
 		}

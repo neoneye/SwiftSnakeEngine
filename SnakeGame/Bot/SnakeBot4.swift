@@ -34,7 +34,7 @@ public class SnakeBot4: SnakeBot {
 		let t1 = CFAbsoluteTimeGetCurrent()
 		let elapsed: Double = t1 - t0
 		if Constant.printStats {
-			print("#\(iteration) total elapsed: \(elapsed)")
+			log.debug("#\(iteration) total elapsed: \(elapsed)")
 		}
 		return result
 	}
@@ -43,19 +43,19 @@ public class SnakeBot4: SnakeBot {
 		let scope_t0 = CFAbsoluteTimeGetCurrent()
 
 //		if iteration > 0 {
-//			print("---")
+//			log.debug("---")
 //		}
 
 		guard player.isInstalled else {
-			//print("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
+			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
 			return (self, .moveForward)
 		}
 		guard player.isAlive else {
-			//print("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
+			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
 			return (self, .moveForward)
 		}
 
-//		print("#\(iteration) -")
+//		log.debug("#\(iteration) -")
 
 		let level_emptyPositionSet: Set<IntVec2> = level.emptyPositionSet
 
@@ -66,16 +66,16 @@ public class SnakeBot4: SnakeBot {
 		// IDEA: Computing ChoiceNodes over and over takes time. Caching of the choice nodes to the next "takeAction",
 		// so that less time is spent on allocating the same memory over and over.
 		let rootChoice = ParentChoiceNode.create(depth: 9)
-//		print("nodeCount: \(rootChoice.nodeCount)")
+//		log.debug("nodeCount: \(rootChoice.nodeCount)")
 		rootChoice.assignMovements()
 
 		var nodes: [LeafChoiceNode] = rootChoice.leafNodes()
-//		print("nodes: \(nodes.count)")
+//		log.debug("nodes: \(nodes.count)")
 
 		let scope_t1 = CFAbsoluteTimeGetCurrent()
 		if Constant.printStats {
 			let elapsed: Double = scope_t1 - scope_t0
-			print("#\(iteration) setup: \(elapsed)")
+			log.debug("#\(iteration) setup: \(elapsed)")
 		}
 
 		// Discard poor choices where the snake impacts a wall
@@ -92,7 +92,7 @@ public class SnakeBot4: SnakeBot {
 			elapsed_collisionWithWall = t1 - t0
 		}
 		if Constant.printStats {
-			print("#\(iteration) collisions with wall: \(count_collisionWithWall)   elapsed: \(elapsed_collisionWithWall)")
+			log.debug("#\(iteration) collisions with wall: \(count_collisionWithWall)   elapsed: \(elapsed_collisionWithWall)")
 		}
 
 		// Discard choices that causes the snake to eat itself
@@ -110,7 +110,7 @@ public class SnakeBot4: SnakeBot {
 			elapsed_collisionWithSelf = t1 - t0
 		}
 		if Constant.printStats {
-			print("#\(iteration) collisions with self: \(count_collisionWithSelf)   elapsed: \(elapsed_collisionWithSelf)")
+			log.debug("#\(iteration) collisions with self: \(count_collisionWithSelf)   elapsed: \(elapsed_collisionWithSelf)")
 		}
 
 
@@ -133,7 +133,7 @@ public class SnakeBot4: SnakeBot {
 					if hasFood && head.position == currentFoodPosition {
 						distanceToFood = UInt32(numberOfTicks)
 						hasFood = false
-//						print("choice leads directly to food \(distanceToFood)")
+//						log.debug("choice leads directly to food \(distanceToFood)")
 					}
 					if hasFood {
 						let d: UInt32 = 10000 + currentFoodPosition.manhattanDistance(head.position) * 10000 + UInt32(numberOfTicks)
@@ -220,7 +220,7 @@ public class SnakeBot4: SnakeBot {
 			}
 		}
 		if Constant.printStats {
-			print("#\(iteration) estimate distance to food: \(count_estimateDistanceToFood)   elapsed: \(elapsed_estimateDistanceToFood)")
+			log.debug("#\(iteration) estimate distance to food: \(count_estimateDistanceToFood)   elapsed: \(elapsed_estimateDistanceToFood)")
 			printEstimatedDistancesToFood(nodes: nodes)
 		}
 
@@ -301,14 +301,14 @@ public class SnakeBot4: SnakeBot {
 
 			if insufficientRoom {
 				if Constant.printVerbose {
-					print("#\(iteration) choice#\(nodeIndex)  \(prettyMovements)  areaSize: \(areaSize)  snakeLength: \(snakeLength)   DEATH. Insufficient room for snake!")
+					log.debug("#\(iteration) choice#\(nodeIndex)  \(prettyMovements)  areaSize: \(areaSize)  snakeLength: \(snakeLength)   DEATH. Insufficient room for snake!")
 				}
 				numberOfDeaths += 1
 				// IDEA: Keep track of all the certain death cases, so they can be prioritized.
 				// This is useful when there are no "alive case". In this case we still want to pick the most optimal case.
 			} else {
 				if Constant.printVerbose {
-					print("#\(iteration) choice#\(nodeIndex)  \(prettyMovements)  areaSize: \(areaSize)  snakeLength: \(snakeLength)")
+					log.debug("#\(iteration) choice#\(nodeIndex)  \(prettyMovements)  areaSize: \(areaSize)  snakeLength: \(snakeLength)")
 				}
 				let nodeWithMetadata = LeafChoiceNodeWithMetaData(
 					leafChoiceNode: node,
@@ -330,7 +330,7 @@ public class SnakeBot4: SnakeBot {
 			guard let movement: ChoiceMovement = node.movements.first else {
 				continue
 			}
-			//print("#\(iteration) pick the first: \(node.estimatedDistanceToFood)")
+			//log.debug("#\(iteration) pick the first: \(node.estimatedDistanceToFood)")
 			let snakeBodyMovement: SnakeBodyMovement = movement.snakeBodyMovement
 			pendingMovement = snakeBodyMovement
 			break
@@ -370,7 +370,7 @@ public class SnakeBot4: SnakeBot {
 			pairs.append(pair)
 		}
 		let prettyPairsJoined: String = pairs.joined(separator: " ")
-		print("#\(iteration) estimated distance to food: \(prettyPairsJoined)")
+		log.debug("#\(iteration) estimated distance to food: \(prettyPairsJoined)")
 	}
 }
 

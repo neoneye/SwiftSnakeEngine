@@ -110,7 +110,7 @@ class SnakeGameScene: SKScene {
 	}
 
 	func restartGame() {
-		//print("restartGame")
+		//log.debug("restartGame")
 		updateAction = .stepForwardContinuously
 		isPaused = false
 		needRedraw = true
@@ -135,7 +135,7 @@ class SnakeGameScene: SKScene {
 
     override func keyDown(with event: NSEvent) {
 		if AppConstant.ignoreRepeatingKeyDownEvents && event.isARepeat {
-			//print("keyDown: ignoring repeating event.")
+			//log.debug("keyDown: ignoring repeating event.")
 			return
 		}
         switch event.keyCodeEnum {
@@ -174,7 +174,7 @@ class SnakeGameScene: SKScene {
 		case .arrowDown:
 			userInputForPlayer1(.arrowDown)
         default:
-            print("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
+            log.debug("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
         }
     }
 
@@ -212,7 +212,7 @@ class SnakeGameScene: SKScene {
 		}
 		// IDEA: Generate CSV file with statistics about food eating frequency
 		//let steps: UInt64 = self.gameState.numberOfSteps
-		//print("place new food: \(steps)")
+		//log.debug("place new food: \(steps)")
 		self.gameState = foodGenerator.placeNewFood(self.gameState)
 		needRedraw = true
 	}
@@ -231,13 +231,13 @@ class SnakeGameScene: SKScene {
 
 	override func didChangeSize(_ oldSize: CGSize) {
 		super.didChangeSize(oldSize)
-//		print("did change size: \(oldSize) \(size)")
+//		log.debug("did change size: \(oldSize) \(size)")
 		needLayout = true
 	}
 
     override func update(_ currentTime: TimeInterval) {
 		super.update(currentTime)
-//		print("update")
+//		log.debug("update")
 
 		switch updateAction {
 		case .stepForwardContinuously:
@@ -269,7 +269,7 @@ class SnakeGameScene: SKScene {
 		if shouldPauseAfterUpdate {
 			shouldPauseAfterUpdate = false
 			isPaused = true
-			//print("pausing game after update")
+			//log.debug("pausing game after update")
 		}
 
         if needSendingBeginNewGame {
@@ -285,15 +285,15 @@ class SnakeGameScene: SKScene {
 
 		let isWaiting = self.gameState.isWaitingForHumanInput()
 		if isWaiting {
-			//print("waiting for players")
+			//log.debug("waiting for players")
 			return
 		}
 
 		let oldGameState: SnakeGameState = self.gameState
-		//print("all the players have made their decision")
+		//log.debug("all the players have made their decision")
 		do {
 			let state: SnakeGameState = self.gameState
-//			print("appending: \(state.player2.debugDescription)")
+//			log.debug("appending: \(state.player2.debugDescription)")
 			previousGameStates.append(state)
 		}
 
@@ -374,7 +374,7 @@ class SnakeGameScene: SKScene {
 			return
 		}
 		state = state.clearPendingMovementAndPendingLengthForHumanPlayers()
-//		print("rewind to: \(state.player2.debugDescription)")
+//		log.debug("rewind to: \(state.player2.debugDescription)")
 		gameState = state
 		needRedraw = true
 	}

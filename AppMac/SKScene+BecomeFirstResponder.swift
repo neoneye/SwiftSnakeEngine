@@ -15,12 +15,12 @@ extension SKScene {
 			// This scene is already the first responder
 			return
 		}
-		//print("making this scene the first responder")
+		//log.debug("making this scene the first responder")
 		let ok: Bool = window.makeFirstResponder(self)
 		guard ok else {
 			log.error("snake_becomeFirstResponder() Expected NSWindow.makeFirstResponder() to return true, but got false.")
 			return
 		}
-		//print("makeFirstResponder success")
+		//log.debug("makeFirstResponder success")
 	}
 }

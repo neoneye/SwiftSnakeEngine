@@ -55,7 +55,7 @@ public class SnakeBot5: SnakeBot {
 		let t1 = CFAbsoluteTimeGetCurrent()
 		let elapsed: Double = t1 - t0
 		if Constant.printStats {
-			print("#\(iteration) total elapsed: \(elapsed)")
+			log.debug("#\(iteration) total elapsed: \(elapsed)")
 		}
 		return result
 	}
@@ -63,11 +63,11 @@ public class SnakeBot5: SnakeBot {
 	private func takeAction_inner(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
 
 		guard player.isInstalled else {
-			//print("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
+			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
 			return (self, .moveForward)
 		}
 		guard player.isAlive else {
-			//print("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
+			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
 			return (self, .moveForward)
 		}
 
@@ -121,7 +121,7 @@ public class SnakeBot5: SnakeBot {
 
 		if Constant.printStats {
 			for (scenarioResultIndex, scenarioResult) in scenarioResults.prefix(5).enumerated() {
-				print("#\(iteration)  \(scenarioResultIndex): \(scenarioResult)")
+				log.debug("#\(iteration)  \(scenarioResultIndex): \(scenarioResult)")
 			}
 		}
 
@@ -130,7 +130,7 @@ public class SnakeBot5: SnakeBot {
 			return (self, .moveForward)
 		}
 
-//		print("#\(iteration) first: \(bestScenarioResult)")
+//		log.debug("#\(iteration) first: \(bestScenarioResult)")
 
 		guard let bestMovement: SnakeBodyMovement = bestScenarioResult.movements.first else {
 			log.error("Expected bestScenarioResult.movements to be 1 or longer, but got nil")
@@ -305,7 +305,7 @@ fileprivate class ScenarioResultProcessor {
 		for (tickIndex, snakeBodyMovement) in plannedMovements.enumerated() {
 			let newHead: SnakeHead = snakeBody.head.simulateTick(movement: snakeBodyMovement)
 			guard self.emptyPositionSet.contains(newHead.position) else {
-//				print("#\(iteration) snake collided with wall")
+//				log.debug("#\(iteration) snake collided with wall")
 				ticksUntilDeath = UInt(tickIndex)
 				break
 			}
@@ -322,7 +322,7 @@ fileprivate class ScenarioResultProcessor {
 			candidateMovements.append(snakeBodyMovement)
 
 			if snakeBody.isEatingItself {
-//				print("#\(iteration) snake is eating itself")
+//				log.debug("#\(iteration) snake is eating itself")
 				ticksUntilDeath = UInt(tickIndex)
 				break
 			}
@@ -393,7 +393,7 @@ fileprivate class ScenarioResultProcessor {
 			check(SnakeBodyMovement.moveCCW)
 			check(SnakeBodyMovement.moveCW)
 			guard let snakeBodyMovement: SnakeBodyMovement = availableMovements.randomElement(using: &randomNumberGenerator) else {
-				//print("#\(iteration) no move choices available")
+				//log.debug("#\(iteration) no move choices available")
 				ticksUntilDeath = tickIndex
 				break
 			}
@@ -412,7 +412,7 @@ fileprivate class ScenarioResultProcessor {
 			candidateMovements.append(snakeBodyMovement)
 
 			guard !snakeBody.isEatingItself else {
-				//print("#\(iteration) snake is eating itself")
+				//log.debug("#\(iteration) snake is eating itself")
 				ticksUntilDeath = tickIndex
 				break
 			}
@@ -509,7 +509,7 @@ fileprivate class ScenarioResultProcessor {
 			check1(SnakeBodyMovement.moveCCW)
 			check1(SnakeBodyMovement.moveCW)
 			guard let snakeBodyMovement0: SnakeBodyMovement = availableMovements0.randomElement(using: &randomNumberGenerator) else {
-				//print("#\(iteration) no move choices available")
+				//log.debug("#\(iteration) no move choices available")
 				ticksUntilDeath = tickIndex
 				break
 			}
@@ -559,12 +559,12 @@ fileprivate class ScenarioResultProcessor {
 			candidateMovements.append(snakeBodyMovement0)
 
 			if detector.player1Alive == false {
-				//print("killing player1 because: \(detector.collisionType1)")
+				//log.debug("killing player1 because: \(detector.collisionType1)")
 				ticksUntilDeath = tickIndex
 				break
 			}
 			if oppositePlayerAlive && detector.player2Alive == false {
-				//print("killing player2 because: \(detector.collisionType2)")
+				//log.debug("killing player2 because: \(detector.collisionType2)")
 				oppositePlayerAlive = false
 			}
 

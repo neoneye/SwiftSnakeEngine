@@ -138,7 +138,7 @@ extension SnakeGameState {
 		} catch {
 			fatalError("ERROR: Failed to save trainingdata file at: '\(temporaryFileUrl)', error: \(error)")
 		}
-		print("Successfully saved \(binaryData.count) bytes of trainingdata at: '\(temporaryFileUrl)'.")
+		log.debug("Successfully saved \(binaryData.count) bytes of trainingdata at: '\(temporaryFileUrl)'.")
 		return temporaryFileUrl
 	}
 }
