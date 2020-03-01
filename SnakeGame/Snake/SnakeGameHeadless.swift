@@ -26,7 +26,7 @@ public class SnakeGameHeadless {
 		)
 
 		for iteration in 0..<1000 {
-			print("#\(iteration) \(gameState.player1.snakeBody.length) \(gameState.player2.snakeBody.length)")
+            log.debug("#\(iteration) \(gameState.player1.snakeBody.length) \(gameState.player2.snakeBody.length)")
 			gameState = step(gameState)
 		}
 	}

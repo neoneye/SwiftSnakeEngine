@@ -126,14 +126,14 @@ public class SnakeBot5: SnakeBot {
 		}
 
 		guard let bestScenarioResult: ScenarioResult = scenarioResults.first else {
-			print("ERROR: Expected 1 or more scenarioResults, but got 0")
+			log.error("Expected 1 or more scenarioResults, but got 0")
 			return (self, .moveForward)
 		}
 
 //		print("#\(iteration) first: \(bestScenarioResult)")
 
 		guard let bestMovement: SnakeBodyMovement = bestScenarioResult.movements.first else {
-			print("ERROR: Expected bestScenarioResult.movements to be 1 or longer, but got nil")
+			log.error("Expected bestScenarioResult.movements to be 1 or longer, but got nil")
 			return (self, .moveForward)
 		}
 

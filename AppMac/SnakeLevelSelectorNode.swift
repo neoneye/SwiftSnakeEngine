@@ -117,7 +117,7 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 
 	func redraw() {
 		guard gameNodes.count == gameStates.count else {
-			print("ERROR: Expected same number of nodes and states")
+			log.error("Expected same number of nodes and states")
 			return
 		}
 

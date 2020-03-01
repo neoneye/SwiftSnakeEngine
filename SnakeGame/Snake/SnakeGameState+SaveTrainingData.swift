@@ -157,7 +157,7 @@ public class PostProcessTrainingData {
 			let data: Data = try Data(contentsOf: url)
 			model = try SnakeGameStateIngameModel(serializedData: data)
 		} catch {
-			print("ERROR: Unable to load file at url: '\(url)'. \(error)")
+			log.error("Unable to load file at url: '\(url)'. \(error)")
 			return
 		}
 		// IDEA: convert into a SnakeGameStateWinnerLooserModelStep
@@ -183,7 +183,7 @@ public class PostProcessTrainingData {
 		} catch {
 			fatalError("ERROR: Failed to save result file at: '\(temporaryFileUrl)', error: \(error)")
 		}
-		print("Successfully saved \(binaryData.count) bytes of result at: '\(temporaryFileUrl)'.")
+        log.info("Successfully saved \(binaryData.count) bytes of result at: '\(temporaryFileUrl)'.")
 	}
 
 	/// Post processing of all the generated files by a training session.
@@ -196,10 +196,10 @@ public class PostProcessTrainingData {
 	///
 	/// The level data is only stored once. Greatly reducing the size of the training data.
 	public class func process(trainingSessionUUID: UUID, urls: [URL]) {
-		print("will process \(urls.count) files")
+        log.info("will process \(urls.count) files")
 
 		guard urls.count >= 1 else {
-			print("ERROR: Expected 1 or more urls for post processing. There is nothing to process!")
+			log.error("Expected 1 or more urls for post processing. There is nothing to process!")
 			return
 		}
 		let sharedLevel: SnakeGameStateModelLevel
@@ -209,7 +209,7 @@ public class PostProcessTrainingData {
 			let model: SnakeGameStateIngameModel = try SnakeGameStateIngameModel(serializedData: data)
 			sharedLevel = model.level
 		} catch {
-			print("ERROR: Unable to load file at url: '\(url0)'. \(error)")
+			log.error("Unable to load file at url: '\(url0)'. \(error)")
 			return
 		}
 		let processor = PostProcessTrainingData(trainingSessionUUID: trainingSessionUUID, sharedLevel: sharedLevel)
@@ -217,7 +217,7 @@ public class PostProcessTrainingData {
 			processor.processFile(at: url)
 		}
 
-		print("did process \(urls.count) files")
+        log.info("did process \(urls.count) files")
 
 		processor.saveResult()
 	}

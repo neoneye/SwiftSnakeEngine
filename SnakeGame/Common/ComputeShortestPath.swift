@@ -16,11 +16,11 @@ public class ComputeShortestPath {
 			positionToIndex[position] = index
 		}
 		guard let sourceIndex = positionToIndex[startPosition] else {
-			print("ERROR: found no index for startPosition")
+			log.error("found no index for startPosition")
 			return []
 		}
 		guard let targetIndex = positionToIndex[targetPosition] else {
-			print("ERROR: found no index for targetPosition")
+			log.error("found no index for targetPosition")
 			return []
 		}
 
@@ -130,12 +130,12 @@ public class ComputeShortestPath {
 		let targetVertex: VertexIntVec2 = vertexArray[targetIndex]
 
 		guard let result: BellmanFordResult<IntVec2> = BellmanFord<IntVec2>.apply(graph, source: sourceVertex) else {
-			print("ERROR: expected a result from BellmanFord, but got nil")
+			log.error("expected a result from BellmanFord, but got nil")
 			return []
 		}
 
 		guard let path: [IntVec2] = result.path(to: targetVertex, inGraph: graph) else {
-			print("ERROR: expected a path from BellmanFord, but got nil")
+			log.error("expected a path from BellmanFord, but got nil")
 			return []
 		}
 		return path
@@ -149,11 +149,11 @@ public class ComputeShortestPath {
 			positionToIndex[position] = index
 		}
 		guard let sourceIndex = positionToIndex[startPosition] else {
-			print("ERROR: found no index for startPosition")
+			log.error("found no index for startPosition")
 			return []
 		}
 		guard let targetIndex = positionToIndex[targetPosition] else {
-			print("ERROR: found no index for targetPosition")
+			log.error("found no index for targetPosition")
 			return []
 		}
 
@@ -190,12 +190,12 @@ public class ComputeShortestPath {
 
 		// IDEA: build this graph only once for a SnakeLevel, and reuse it afterward
 		guard let result: BellmanFordResult<IntVec2> = BellmanFord<IntVec2>.apply(graph, source: sourceVertex) else {
-			print("ERROR: expected a result from BellmanFord, but got nil")
+			log.error("expected a result from BellmanFord, but got nil")
 			return []
 		}
 
 		guard let path: [IntVec2] = result.path(to: targetVertex, inGraph: graph) else {
-			print("ERROR: expected a path from BellmanFord, but got nil")
+			log.error("expected a path from BellmanFord, but got nil")
 			return []
 		}
 
@@ -214,7 +214,7 @@ public class ComputeShortestPath {
 			let a = path[i]
 			let b = path[i + 1]
 			guard a != b else {
-				print("ERROR: expected unique positions in path, but encountered duplicates. \(path)")
+				log.error("expected unique positions in path, but encountered duplicates. \(path)")
 				return []
 			}
 
@@ -243,7 +243,7 @@ public class ComputeShortestPath {
 				continue
 			}
 
-			print("ERROR: expected positions to change along the x/y axis, but this path is diagonal. \(path)")
+			log.error("expected positions to change along the x/y axis, but this path is diagonal. \(path)")
 			return []
 		}
 		resultPath.append(path.last!)

@@ -108,17 +108,17 @@ public class SnakeBot6: SnakeBot {
 							//print("successfully extracted the nearest FoodNodeChoice")
 						} else {
 							subtreeNode = nil
-							print("ERROR: unable to extract the nearest food node choice")
+							log.error("unable to extract the nearest food node choice")
 						}
 
 					} else {
 						subtreeNode = nil
-						print("ERROR: Expected FoodNode.choices to contain 1 or more choices, but got an empty array. Unable to extract the nearest food node choice")
+						log.error("Expected FoodNode.choices to contain 1 or more choices, but got an empty array. Unable to extract the nearest food node choice")
 					}
 				} else {
 					// IDEA: when the foodPosition is nil, then pick a random FoodNodeChoice.child
 					subtreeNode = nil
-					print("ERROR: expects the foodPosition to always be non-nil, but got nil. Cannot find nearest subtree.")
+					log.error("expects the foodPosition to always be non-nil, but got nil. Cannot find nearest subtree.")
 				}
 			}
 
@@ -133,7 +133,7 @@ public class SnakeBot6: SnakeBot {
 				}
 				if !foundMatchingChoice {
 					subtreeNode = nil
-					print("ERROR: Unable to reuse subtree from previous iteration. player0")
+					log.error("Unable to reuse subtree from previous iteration. player0")
 				}
 			}
 
@@ -148,7 +148,7 @@ public class SnakeBot6: SnakeBot {
 				}
 				if !foundMatchingChoice {
 					subtreeNode = nil
-					print("ERROR: Unable to reuse subtree from previous iteration. player1")
+					log.error("Unable to reuse subtree from previous iteration. player1")
 				}
 			}
 
@@ -158,7 +158,7 @@ public class SnakeBot6: SnakeBot {
 				root.child = actualSubtreeNode
 				actualSubtreeNode.parent = root
 			} else {
-				print("ERROR: unable to reuse subtree from previous iteration!")
+				log.error("unable to reuse subtree from previous iteration!")
 			}
 		}
 		let seed: UInt64 = UInt64(iteration * 100)
@@ -184,11 +184,11 @@ public class SnakeBot6: SnakeBot {
 		let visitor_countProblems = CountProblemsWithNodes()
 		root.accept(visitor_countProblems)
 		if visitor_countProblems.isError {
-			print("ERROR: inconsistency in tree. \(visitor_countProblems)")
+			log.error("inconsistency in tree. \(visitor_countProblems)")
 		}
 
 		guard let scenario: Scenario = visitor_buildTree.bestScenario() else {
-			print("ERROR: unable to find the best scenario")
+			log.error("unable to find the best scenario")
 			return (self, .moveForward)
 		}
 
@@ -705,7 +705,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 			}
 			let position0: IntVec2 = foodPositions[index]
 			guard let position1: UIntVec2 = position0.uintVec2() else {
-				print("ERROR: Inconsistent food position. Expected non-negative coordinates, but got negative. position: \(position0).")
+				log.error("Inconsistent food position. Expected non-negative coordinates, but got negative. position: \(position0).")
 				break
 			}
 			let choice: FoodNodeChoice = FoodNodeChoice(position: position1)
@@ -1012,13 +1012,13 @@ fileprivate class BuildTreeVisitor: Visitor {
 			return newPlayerId
 		}
 
-		print("ERROR: nextAlivePlayerId() Cannot find a suitable new playerId.  playerId: \(playerId)")
+		log.error("nextAlivePlayerId() Cannot find a suitable new playerId.  playerId: \(playerId)")
 		fatalError("Cannot find a suitable new playerId")
 	}
 
 	func nextInstalledPlayerId(_ playerId: UInt) -> UInt {
 		guard player[0].isInstalled else {
-			print("ERROR: Assuming that playerA is always installed, since this is the player that this bot is simulating.")
+			log.error("Assuming that playerA is always installed, since this is the player that this bot is simulating.")
 			return 0
 		}
 		let isTwoPlayer: Bool = self.player[1].isInstalled
@@ -1122,12 +1122,12 @@ fileprivate class CountProblemsWithNodes: Visitor {
 		}
 		guard let childParentNode: Node = childNode.parent else {
 			countNilParent += 1
-			print("ERROR: Expected childNode.parent to be non-nil, but got nil.   parentNode: \(type(of: parentNode))  childNode: \(type(of: childNode))")
+			log.error("Expected childNode.parent to be non-nil, but got nil.   parentNode: \(type(of: parentNode))  childNode: \(type(of: childNode))")
 			return
 		}
 		guard childParentNode === parentNode else {
 			countWrongParent += 1
-			print("ERROR: Expected childNode.parent to be pointing at the parent, but it points to the wrong instance.   parentNode: \(type(of: parentNode))  childNode: \(type(of: childNode))")
+			log.error("Expected childNode.parent to be pointing at the parent, but it points to the wrong instance.   parentNode: \(type(of: parentNode))  childNode: \(type(of: childNode))")
 			return
 		}
 	}

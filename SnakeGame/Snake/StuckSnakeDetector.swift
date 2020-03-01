@@ -28,10 +28,10 @@ public class StuckSnakeDetector {
             }
             return
         }
-        print("\(humanReadableName) has possible become stuck!")
+        log.debug("\(humanReadableName) has possible become stuck!")
         score += 2
         if score >= 5 {
-            print("\(humanReadableName) has almost certainly become stuck!")
+            log.debug("\(humanReadableName) has almost certainly become stuck!")
             isStuck = true
         }
     }

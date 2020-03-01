@@ -115,7 +115,7 @@ public class SnakeBot1: SnakeBot {
 		let distance: Int = dx * dx + dy * dy
 		//		print("dx: \(dx)  dy: \(dy)  distance: \(distance)")
 		guard distance == 1 else {
-			print("ERROR: way too long distance to nearest neighbour. dx: \(dx)  dy: \(dy)  distance: \(distance)")
+			log.error("way too long distance to nearest neighbour. dx: \(dx)  dy: \(dy)  distance: \(distance)")
 			let bot = SnakeBot1(futurePlannedPath: plannedPath)
 			return (bot, .moveForward)
 		}

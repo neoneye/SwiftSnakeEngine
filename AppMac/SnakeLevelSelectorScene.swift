@@ -34,7 +34,7 @@ class SnakeLevelSelectorScene: SKScene {
 
 	func launchGame() {
 		guard let gameState: SnakeGameState = levelSelectorNode.gameStateForSelectedIndex() else {
-			print("ERROR: Expected gameStateForSelectedIndex() to be non-nil, but got nil")
+			log.error("Expected gameStateForSelectedIndex() to be non-nil, but got nil")
 			return
 		}
 
@@ -90,7 +90,7 @@ class SnakeLevelSelectorScene: SKScene {
 
     override func keyDown(with event: NSEvent) {
 		if AppConstant.ignoreRepeatingKeyDownEvents && event.isARepeat {
-			//print("keyDown: ignoring repeating event.")
+			//log.debug("keyDown: ignoring repeating event.")
 			return
 		}
         switch event.keyCode {

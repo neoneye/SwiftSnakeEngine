@@ -370,7 +370,7 @@ class SnakeGameScene: SKScene {
 
 	func stepBackward() {
 		guard var state: SnakeGameState = previousGameStates.popLast() else {
-			print("Canot step backward. There is no previous state to rewind back to.")
+            log.info("Canot step backward. There is no previous state to rewind back to.")
 			return
 		}
 		state = state.clearPendingMovementAndPendingLengthForHumanPlayers()
