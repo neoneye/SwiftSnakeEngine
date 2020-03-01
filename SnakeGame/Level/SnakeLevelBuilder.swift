@@ -91,16 +91,16 @@ public class SnakeLevelBuilder {
 			boundingBoxes[cluster] = box
 		}
 		guard boundingBoxes.count >= 2 else {
-			//print("Level without any clusters. Ignoring. A level must have at least 2 clusters in order to compute distances between clusters")
+            //log.debug("Level without any clusters. Ignoring. A level must have at least 2 clusters in order to compute distances between clusters")
 			return [:]
 		}
 		let clusterArray: [SnakeLevel_ClusterId] = boundingBoxes.keys.sorted()
-		print("Identified \(clusterArray.count) unique clusters: \(clusterArray)")
-		//print("boundingBoxes: \(boundingBoxes)")
+        log.debug("Identified \(clusterArray.count) unique clusters: \(clusterArray)")
+		//log.debug("boundingBoxes: \(boundingBoxes)")
 
 		// Compute center of each cluster
 		let boundingBoxCenters: [SnakeLevel_ClusterId: IntVec2] = boundingBoxes.mapValues { $0.center() }
-		//print("boundingBoxCenters: \(boundingBoxCenters)")
+		//log.debug("boundingBoxCenters: \(boundingBoxCenters)")
 
 		// Find actual cells that are near the center
 		var nearestCellPosition = [SnakeLevel_ClusterId: IntVec2]()
@@ -110,7 +110,7 @@ public class SnakeLevelBuilder {
 				continue
 			}
 			guard let center: IntVec2 = boundingBoxCenters[cluster] else {
-				print("ERROR: Expected to have boundingBoxCenters for all clusters, but \(cluster) is missing.")
+                log.error("Expected to have boundingBoxCenters for all clusters, but \(cluster) is missing.")
 				continue
 			}
 			let bestDistance: UInt32 = nearestCellDistance[cluster] ?? UInt32.max
@@ -120,10 +120,10 @@ public class SnakeLevelBuilder {
 				nearestCellPosition[cluster] = position
 			}
 		}
-		//print("nearestCellDistance: \(nearestCellDistance)")
-		//print("nearestCellPosition: \(nearestCellPosition)")
+		//log.debug("nearestCellDistance: \(nearestCellDistance)")
+		//log.debug("nearestCellPosition: \(nearestCellPosition)")
 
-		//print("ignoreTheseAdjacentClusterPairs: \(ignoreTheseAdjacentClusterPairs)")
+		//log.debug("ignoreTheseAdjacentClusterPairs: \(ignoreTheseAdjacentClusterPairs)")
 
 		var distanceBetweenClusters = [SnakeLevel_ClusterPair: Int]()
 		for cluster0: SnakeLevel_ClusterId in clusterArray {
@@ -143,12 +143,12 @@ public class SnakeLevelBuilder {
 					continue
 				}
 				guard let center0: IntVec2 = nearestCellPosition[cluster0] else {
-					print("ERROR: Expected to have a nearest position for all clusters, but \(cluster0) is missing.")
+                    log.error("Expected to have a nearest position for all clusters, but \(cluster0) is missing.")
 					distanceBetweenClusters[pair] = -1
 					continue
 				}
 				guard let center1: IntVec2 = nearestCellPosition[cluster1] else {
-					print("ERROR: Expected to have a nearest position for all clusters, but \(cluster1) is missing.")
+                    log.error("Expected to have a nearest position for all clusters, but \(cluster1) is missing.")
 					distanceBetweenClusters[pair] = -1
 					continue
 				}
@@ -164,7 +164,7 @@ public class SnakeLevelBuilder {
 				guard !plannedPath.isEmpty else {
 					// The plannedPath is empty when there are no route between the clusters.
 					// Use "-1" to indicate that there is no route.
-					print("\(pair) has no planned path")
+					log.debug("\(pair) has no planned path")
 					distanceBetweenClusters[pair] = -1
 					continue
 				}
@@ -172,15 +172,15 @@ public class SnakeLevelBuilder {
 				let distance: Int = plannedPath.count
 				distanceBetweenClusters[pair] = distance
 
-				//print("\(pair) = \(distance)")
+				//log.debug("\(pair) = \(distance)")
 			}
 		}
 
 		let t1 = CFAbsoluteTimeGetCurrent()
 		let elapsed: Double = t1 - t0
 
-		print("distanceBetweenClusters.count \(distanceBetweenClusters.count)  elapsed \(elapsed)")
-		//print("distanceBetweenClusters: \(distanceBetweenClusters)")
+		log.debug("distanceBetweenClusters.count \(distanceBetweenClusters.count)  elapsed \(elapsed)")
+		//log.debug("distanceBetweenClusters: \(distanceBetweenClusters)")
 
 		return distanceBetweenClusters
 	}

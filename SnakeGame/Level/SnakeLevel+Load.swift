@@ -10,27 +10,27 @@ extension SnakeLevel {
 	public class func load(_ resourceName: String) -> SnakeLevel {
 		let bundleName = "SnakeLevels.bundle"
 		guard let bundleUrl: URL = Bundle(for: SnakeLevel.self).url(forResource: bundleName, withExtension: nil) else {
-			print("Cannot locate bundle: '\(bundleName)'")
+            log.error("Cannot locate bundle: '\(bundleName)'")
 			fatalError()
 		}
 		guard let bundle: Bundle = Bundle(url: bundleUrl) else {
-			print("Unable to create bundle from url: '\(bundleUrl)'")
+			log.error("Unable to create bundle from url: '\(bundleUrl)'")
 			fatalError()
 		}
 		guard let csvUrl: URL = bundle.url(forResource: resourceName, withExtension: nil) else {
-			print("Unable to locate resource: '\(resourceName)' inside bundle at: '\(bundleUrl)'")
+			log.error("Unable to locate resource: '\(resourceName)' inside bundle at: '\(bundleUrl)'")
 			fatalError()
 		}
 		guard let csvData = try? Data(contentsOf: csvUrl) else {
-			print("Unable to load data from url: \(csvUrl)")
+			log.error("Unable to load data from url: \(csvUrl)")
 			fatalError()
 		}
 		guard let content = String(data: csvData, encoding: .utf8) else {
-			print("Expected utf8 string, but got something else. url: \(csvUrl)")
+			log.error("Expected utf8 string, but got something else. url: \(csvUrl)")
 			fatalError()
 		}
 		guard let csv: CSV = try? CSV(string: content, delimiter: ",", loadColumns: false) else {
-			print("Unable to load CSV. url: \(csvUrl)")
+			log.error("Unable to load CSV. url: \(csvUrl)")
 			fatalError()
 		}
 		let csvChecksum: String = csvData.sha1
@@ -40,27 +40,27 @@ extension SnakeLevel {
 		if let cacheData: Data = try? Data(contentsOf: cacheUrl) {
 			if let model = try? SnakeLevelCacheModel(serializedData: cacheData) {
 				if model.sha1 == csvChecksum {
-					//print("The cached data is syncronized")
+					//log.debug("The cached data is syncronized")
 					cacheModel = model
 				} else {
-					print("Will generate a new cache file. The checksum is out-of-sync for the current cache file at: \(cacheUrl)")
+                    log.warning("Will generate a new cache file. The checksum is out-of-sync for the current cache file at: \(cacheUrl)")
 				}
 			} else {
-				print("Will generate a new cache file. Unable to load the current cache file at: \(cacheUrl)")
+				log.warning("Will generate a new cache file. Unable to load the current cache file at: \(cacheUrl)")
 			}
 		} else {
-			print("Will generate a new cache file. There is no cache at: \(cacheUrl)")
+            log.info("Will generate a new cache file. There is no cache at: \(cacheUrl)")
 		}
 
 		let rows: [[String]] = csv.enumeratedRows.reversed()
 		let height = UInt32(rows.count)
 		guard height >= 3 else {
-			print("Expected level height to be 3 or greater")
+            log.error("Expected level height to be 3 or greater")
 			fatalError()
 		}
 		let width = UInt32(rows[0].count)
 		guard width >= 3 else {
-			print("Expected level width to be 3 or greater")
+			log.error("Expected level width to be 3 or greater")
 			fatalError()
 		}
 		let builder = SnakeLevelBuilder(size: UIntVec2(x: width, y: height))
@@ -77,7 +77,7 @@ extension SnakeLevel {
 				builder.initialFoodPosition = position
 			case "P": // player
 				guard token.count == 4 else {
-					print("ERROR: Expected player token to have format similar to: 'P1R5', 'P2L3', but got something with a different length")
+					log.error("Expected player token to have format similar to: 'P1R5', 'P2L3', but got something with a different length")
 					return
 				}
 				// player id: "1" or "2"
@@ -111,18 +111,18 @@ extension SnakeLevel {
 			case "C": // the cluster that this cell belongs to
 				let integerString: String = String(token.dropFirst())
 				guard let clusterId = UInt8(integerString) else {
-					print("ERROR: Expected a number in range 0..255, but got '\(integerString)'. Unable to parse token '\(token)' for position: \(position)")
+					log.error("Expected a number in range 0..255, but got '\(integerString)'. Unable to parse token '\(token)' for position: \(position)")
 					return
 				}
 				builder.assignCluster(clusterId, at: position)
 			default:
-				print("Encountered unknown token: '\(token)'  for position: \(position)")
+				log.error("Encountered unknown token: '\(token)'  for position: \(position)")
 			}
 		}
 		
 		for (y, columns) in rows.enumerated() {
 			guard width == columns.count else {
-				print("Inconsistent number of columns in the CSV file. Expected \(width), but got \(columns.count)")
+				log.error("Inconsistent number of columns in the CSV file. Expected \(width), but got \(columns.count)")
 				fatalError()
 			}
 			for (x, cellContent) in columns.enumerated() {
@@ -141,13 +141,13 @@ extension SnakeLevel {
 				distanceBetweenClusters[clusterPair] = Int(distanceKeyValuePair.valueDistance)
 			}
 			builder.precomputed_distanceBetweenClusters = distanceBetweenClusters
-			print("Loaded \(distanceBetweenClusters.count) precomputed distances for input file '\(resourceName)'")
+            log.debug("Loaded \(distanceBetweenClusters.count) precomputed distances for input file '\(resourceName)'")
 		}
 
 		let resultLevel: SnakeLevel = builder.level()
 
 		if cacheModel == nil {
-			print("Precomputing cache data for input file '\(resourceName)'")
+            log.debug("Precomputing cache data for input file '\(resourceName)'")
 			let pairs: [SnakeLevel_ClusterPair] = Array<SnakeLevel_ClusterPair>(resultLevel.distanceBetweenClusters.keys).sorted()
 			var distanceKeyValuePairs = [SnakeLevelCacheModelDistanceKeyValuePair]()
 			for pair in pairs {
@@ -173,12 +173,12 @@ extension SnakeLevel {
 				do {
 					try binaryData.write(to: temporaryFileUrl)
 				} catch {
-					print("ERROR: Failed to save cache file at: '\(temporaryFileUrl)' for input file '\(resourceName)', error: \(error)")
+					log.error("Failed to save cache file at: '\(temporaryFileUrl)' for input file '\(resourceName)', error: \(error)")
 					fatalError()
 				}
-				print("Successfully saved a cache file at: '\(temporaryFileUrl)' for input file '\(resourceName)'.")
+                log.debug("Successfully saved a cache file at: '\(temporaryFileUrl)' for input file '\(resourceName)'.")
 			} else {
-				print("ERROR: unable to serialize the new cache model, for input file '\(resourceName)'.")
+				log.error("Unable to serialize the new cache model, for input file '\(resourceName)'.")
 			}
 		}
 
