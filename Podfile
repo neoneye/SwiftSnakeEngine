@@ -3,6 +3,11 @@ swift_version = "5.0"
 platform :osx, '10.14'
 use_frameworks!
 
+def my_pod_swiftybeaver
+	# https://github.com/SwiftyBeaver/SwiftyBeaver/commits/master
+	pod 'SwiftyBeaver', :git => 'https://github.com/SwiftyBeaver/SwiftyBeaver.git', :commit => '99057ecb615e7bb3145f68b8fdf85af1c8ae4af5'
+end
+
 def my_pod_swiftcsv
 	# https://github.com/swiftcsv/SwiftCSV/commits/master
 	pod 'SwiftCSV', :git => 'https://github.com/swiftcsv/SwiftCSV.git', :commit => '22dc4dd1272e990da64ea87a8bc84bb606eb177e'
@@ -23,6 +28,7 @@ abstract_target 'BasePods' do
 	end
 
 	target 'SnakeGame' do
+		my_pod_swiftybeaver
 		my_pod_swiftcsv
 		my_pod_swiftprotobuf
 	end
