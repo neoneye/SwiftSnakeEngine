@@ -26,10 +26,7 @@ public class SnakeGameExecuter {
             player = player.playerWithNewSnakeBody(snakeBody)
             player = player.updatePendingMovement(.dontMove)
             player = player.updatePendingAct(.doNothing)
-            stuckSnakeDetector1.process(body: player.snakeBody)
-            if stuckSnakeDetector1.isStuck {
-                player = player.kill(.stuckInALoop)
-            }
+            player = stuckSnakeDetector1.killBotIfStuckInLoop(player)
             gameState = gameState.stateWithNewPlayer1(player)
         }
 
@@ -42,10 +39,7 @@ public class SnakeGameExecuter {
             player = player.playerWithNewSnakeBody(snakeBody)
             player = player.updatePendingMovement(.dontMove)
             player = player.updatePendingAct(.doNothing)
-            stuckSnakeDetector2.process(body: player.snakeBody)
-            if stuckSnakeDetector2.isStuck {
-                player = player.kill(.stuckInALoop)
-            }
+            player = stuckSnakeDetector2.killBotIfStuckInLoop(player)
             gameState = gameState.stateWithNewPlayer2(player)
         }
 
@@ -191,6 +185,23 @@ extension SnakeCollisionType {
             return .collisionWithOpponent
         case .snakeCollisionWithItself:
             return .collisionWithItself
+        }
+    }
+}
+
+extension StuckSnakeDetector {
+    /// While playing as a human, I find it annoying to get killed because
+    /// I'm doing the same patterns over and over.
+    /// So this "stuck in loop" detection only applies to bots.
+    func killBotIfStuckInLoop(_ player: SnakePlayer) -> SnakePlayer {
+        guard player.isBot && player.isAlive else {
+            return player
+        }
+        self.process(body: player.snakeBody)
+        if self.isStuck {
+            return player.kill(.stuckInALoop)
+        } else {
+            return player
         }
     }
 }
