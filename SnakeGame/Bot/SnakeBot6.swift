@@ -161,7 +161,9 @@ public class SnakeBot6: SnakeBot {
 				log.error("unable to reuse subtree from previous iteration!")
 			}
 		}
-		let seed: UInt64 = UInt64(iteration * 100)
+        let minorSeed: UInt = 3
+		let majorSeed: UInt = iteration * 100
+        let seed: UInt64 = UInt64(majorSeed + minorSeed)
 		let visitor_buildTree = BuildTreeVisitor(
 			level: level,
 			player: player,
