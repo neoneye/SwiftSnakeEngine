@@ -215,7 +215,7 @@ public class SnakeBot6: SnakeBot {
 		let plannedPath: [IntVec2] = positionArray
 
 		do {
-			let prettyMovements: String = PrettyPlannedPath.process(scenario.destinationNode)
+            let prettyMovements: String = PrettyPlannedPath.process(node: scenario.destinationNode, snakeHead: player.snakeBody.head)
 
 			let nf = NumberFormatter()
 			nf.formatWidth = 6
@@ -1221,11 +1221,17 @@ fileprivate class ClearTheBestNodes: Visitor {
 }
 
 fileprivate class PrettyPlannedPath: Visitor {
+    var head: SnakeHead
+    var isFirstMovement = true
 	var items = [String]()
 
-	class func process(_ node: Node) -> String {
+    private init(head: SnakeHead) {
+        self.head = head
+    }
+
+    class func process(node: Node, snakeHead: SnakeHead) -> String {
 		let reversedParentNodeArray: NodeArray = node.parentNodeArray.reversed()
-		let visitor = PrettyPlannedPath()
+        let visitor = PrettyPlannedPath(head: snakeHead)
 		for n: Node in reversedParentNodeArray {
 			n.accept(visitor)
 		}
@@ -1257,8 +1263,27 @@ fileprivate class PrettyPlannedPath: Visitor {
 		guard node.playerId == 0 else {
 			return
 		}
-		items.append(node.movement.shorthand)
+        let s: String = PrettyPlannedPath.humanReadable(movement: node.movement, direction: head.direction)
+        if isFirstMovement {
+            isFirstMovement = false
+        } else {
+            items.append(s)
+        }
+        head = head.simulateTick(movement: node.movement)
 	}
+
+    private class func humanReadable(movement: SnakeBodyMovement, direction: SnakeHeadDirection) -> String {
+        switch movement {
+        case .dontMove:
+            return "*"
+        case .moveForward:
+            return "⋅"
+        case .moveCCW:
+            return direction.rotatedCCW.pointingTriangle
+        case .moveCW:
+            return direction.rotatedCW.pointingTriangle
+        }
+    }
 
 	func visit(_ node: KillNode) {
 		// Only interested in player A. Ignore player B
