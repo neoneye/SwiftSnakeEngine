@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4217E4E623FD47DA00D8779A /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 4217E4E523FD47DA00D8779A /* Fonts */; };
 		4217EEA6240E77830066B8C0 /* T2000_SnakeHeadDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */; };
+		4217EEA8240E7D220066B8C0 /* SnakeBodyMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */; };
 		422158D4234BCE830011DA67 /* level_theme1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 422158D3234BCE830011DA67 /* level_theme1.atlas */; };
 		422158D6234BCE8A0011DA67 /* level_theme2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 422158D5234BCE8A0011DA67 /* level_theme2.atlas */; };
 		4221EFDC2332F0F00026A8A0 /* SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */; };
@@ -145,6 +146,7 @@
 		35C4C097824F5A32B5434DAE /* Pods-BasePods-AppMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePods-AppMac.debug.xcconfig"; path = "Target Support Files/Pods-BasePods-AppMac/Pods-BasePods-AppMac.debug.xcconfig"; sourceTree = "<group>"; };
 		4217E4E523FD47DA00D8779A /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2000_SnakeHeadDirection.swift; sourceTree = "<group>"; };
+		4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBodyMovement.swift; sourceTree = "<group>"; };
 		422158D3234BCE830011DA67 /* level_theme1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme1.atlas; sourceTree = "<group>"; };
 		422158D5234BCE8A0011DA67 /* level_theme2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme2.atlas; sourceTree = "<group>"; };
 		4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBody.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */,
+				4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */,
 				422423B3233CE40A0006D02D /* SnakeCollisionDetector.swift */,
 				42A8B6FB2331B3CC00E618CF /* SnakeFifo.swift */,
 				422423B7233D71E80006D02D /* SnakeFoodGenerator.swift */,
@@ -834,6 +837,7 @@
 				4255CA2A233180B500A230AF /* SeededGenerator.swift in Sources */,
 				426891FD233267E900B97E29 /* Vertex.swift in Sources */,
 				429D336623FAF46E00EF9B37 /* StuckSnakeDetector.swift in Sources */,
+				4217EEA8240E7D220066B8C0 /* SnakeBodyMovement.swift in Sources */,
 				42C3182F2388839100468D1F /* SnakeLevelDistanceMap.swift in Sources */,
 				42F4538823E5A3AD00B90297 /* IntVec2+CGPoint.swift in Sources */,
 				426891FC233267E900B97E29 /* Graph.swift in Sources */,

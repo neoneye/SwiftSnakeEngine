@@ -11,13 +11,6 @@ public struct SnakeBodyPart: Hashable {
 	public var content: SnakeBodyPartContent
 }
 
-public enum SnakeBodyMovement {
-	case dontMove
-	case moveForward
-	case moveCCW
-	case moveCW
-}
-
 public enum SnakeBodyAct {
 	case doNothing
 	case eat
