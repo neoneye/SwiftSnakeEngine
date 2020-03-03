@@ -1251,7 +1251,7 @@ fileprivate class PrettyPlannedPath: Visitor {
 	}
 
 	func visit(_ node: FoodNodeChoice) {
-		items.append("f")
+		items.append("○")
 	}
 
 	func visit(_ node: MoveNode) {
@@ -1277,7 +1277,7 @@ fileprivate class PrettyPlannedPath: Visitor {
         case .dontMove:
             return "*"
         case .moveForward:
-            return "⋅"
+            return "∙"
         case .moveCCW:
             return direction.rotatedCCW.pointingTriangle
         case .moveCW:
