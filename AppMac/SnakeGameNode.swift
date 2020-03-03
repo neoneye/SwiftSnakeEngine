@@ -20,7 +20,7 @@ class SnakeGameNode: SKNode {
 	var node_floor: SKShapeNode?
 	var floorColor: SKColor?
 
-	lazy var snakeNode1: SnakeBodyNode = {
+	lazy var snakeBodyNode1: SnakeBodyNode = {
 		let instance = SnakeBodyNode()
 		instance.convertCoordinate = { [weak self] (position) in
 			return self?.cgPointFromGridPoint(position) ?? CGPoint.zero
@@ -28,13 +28,29 @@ class SnakeGameNode: SKNode {
 		return instance
 	}()
 
-	lazy var snakeNode2: SnakeBodyNode = {
+	lazy var snakeBodyNode2: SnakeBodyNode = {
 		let instance = SnakeBodyNode()
 		instance.convertCoordinate = { [weak self] (position) in
 			return self?.cgPointFromGridPoint(position) ?? CGPoint.zero
 		}
 		return instance
 	}()
+
+    lazy var snakePlannedPathNode1: SnakePlannedPathNode = {
+        let instance = SnakePlannedPathNode()
+        instance.convertCoordinate = { [weak self] (position) in
+            return self?.cgPointFromGridPoint(position) ?? CGPoint.zero
+        }
+        return instance
+    }()
+
+    lazy var snakePlannedPathNode2: SnakePlannedPathNode = {
+        let instance = SnakePlannedPathNode()
+        instance.convertCoordinate = { [weak self] (position) in
+            return self?.cgPointFromGridPoint(position) ?? CGPoint.zero
+        }
+        return instance
+    }()
 
 	func configureTheme1() {
 		let atlas: SKTextureAtlas = SKTextureAtlas(named: "level_theme1")
@@ -87,9 +103,10 @@ class SnakeGameNode: SKNode {
 			configureTheme2()
 		}
 
-		snakeNode1.configure(skin: UserDefaults.standard.player1SkinMenuItem)
-		snakeNode2.configure(skin: UserDefaults.standard.player2SkinMenuItem)
-
+		snakeBodyNode1.configure(skin: UserDefaults.standard.player1SkinMenuItem)
+		snakeBodyNode2.configure(skin: UserDefaults.standard.player2SkinMenuItem)
+        snakePlannedPathNode1.configure(skin: UserDefaults.standard.player1SkinMenuItem)
+        snakePlannedPathNode2.configure(skin: UserDefaults.standard.player2SkinMenuItem)
 
 		self.node_food?.zPosition = 10
 		self.node_wall?.zPosition = 20
@@ -97,10 +114,15 @@ class SnakeGameNode: SKNode {
 		self.node_food?.isHidden = true
 		self.node_wall?.isHidden = true
 
-		self.snakeNode1.zPosition = 100
-		self.snakeNode2.zPosition = 100
-		self.addChild(self.snakeNode1)
-		self.addChild(self.snakeNode2)
+		self.snakeBodyNode1.zPosition = 100
+		self.snakeBodyNode2.zPosition = 100
+		self.addChild(self.snakeBodyNode1)
+		self.addChild(self.snakeBodyNode2)
+
+        self.snakePlannedPathNode1.zPosition = 101
+        self.snakePlannedPathNode2.zPosition = 102
+        self.addChild(self.snakePlannedPathNode1)
+        self.addChild(self.snakePlannedPathNode2)
 
 		self.wallNode.zPosition = 100
 		wallNode.node_wall = node_wall
@@ -111,8 +133,10 @@ class SnakeGameNode: SKNode {
 
 	func rebuildSnakes() {
 		//log.debug("player1: \(gameState.player1.snakeBody.fifoContentString)")
-		snakeNode1.rebuild(player: gameState.player1)
-		snakeNode2.rebuild(player: gameState.player2)
+		snakeBodyNode1.rebuild(player: gameState.player1)
+		snakeBodyNode2.rebuild(player: gameState.player2)
+        snakePlannedPathNode1.rebuild(player: gameState.player1)
+        snakePlannedPathNode2.rebuild(player: gameState.player2)
 	}
 
 	lazy var wallNode: SnakeWallNode = {
