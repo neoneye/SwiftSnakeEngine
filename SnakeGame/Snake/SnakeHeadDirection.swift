@@ -96,3 +96,18 @@ extension SnakeHeadDirection {
 		}
 	}
 }
+
+extension SnakeHeadDirection: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .up:
+            return "↑"
+        case .left:
+            return "←"
+        case .right:
+            return "→"
+        case .down:
+            return "↓"
+        }
+    }
+}
