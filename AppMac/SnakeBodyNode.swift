@@ -6,9 +6,6 @@ class SnakeBodyNode: SKEffectNode {
 	var drawLines: Bool = true
 	var lineWidth: CGFloat = 1
 	var strokeColor: SKColor = SKColor.black
-	var botPlannedPathColor: SKColor = SKColor.darkGray
-	var botPlannedPathLineWidthThick: CGFloat = 20
-	var botPlannedPathLineWidthThin: CGFloat = 1
 
 	var node_snakeHeadUp: SKSpriteNode?
 	var node_snakeHeadLeft: SKSpriteNode?
@@ -88,9 +85,6 @@ class SnakeBodyNode: SKEffectNode {
 
 		self.removeAllChildren()
 
-		drawPlannedPathForBot(player)
-		drawPendingMovementForHuman(player)
-
 		let snakeBody: SnakeBody = player.snakeBody
 
 		// Draw lines between the body parts
@@ -147,60 +141,6 @@ class SnakeBodyNode: SKEffectNode {
 			self.alpha = 1
 		} else {
 			self.alpha = 0.25
-		}
-	}
-
-	private func drawPlannedPathForBot(_ player: SnakePlayer) {
-		let showPlannedPath: Bool = NSUserDefaultsController.shared.isShowPlannedPathEnabled
-        if showPlannedPath && player.isBot && player.isAlive {
-			let positionArray: [IntVec2] = player.bot.plannedPath()
-			drawPlannedPath(positionArray)
-		}
-	}
-
-	private func drawPendingMovementForHuman(_ player: SnakePlayer) {
-		if player.role == .human {
-			// When there are 2 human players and there is no time-constraint,
-			// then it's difficult to tell if player1 is waiting for player2 or the other way around.
-			// A small hint here is to show the pending move of the fastest player.
-			// This way it's possible to see who is ready and who needs to make a move.
-			let pendingMovement: SnakeBodyMovement = player.pendingMovement
-			switch pendingMovement {
-			case .dontMove:
-				()
-			case .moveForward, .moveCCW, .moveCW:
-				let head0: SnakeHead = player.snakeBody.head
-				let head1: SnakeHead = head0.simulateTick(movement: pendingMovement)
-				let positionArray: [IntVec2] = [head0.position, head1.position]
-				drawPlannedPath(positionArray)
-			}
-		}
-	}
-
-	private func drawPlannedPath(_ positionArray: [IntVec2]) {
-		let positionArrayCount: Int = positionArray.count
-		guard positionArrayCount >= 2 else {
-			//log.debug("Cannot show the planned path, it's too short.")
-			return
-		}
-		let positionArrayCountMinus1: Int = positionArrayCount - 1
-		for i in 0..<positionArrayCountMinus1 {
-			let position0: IntVec2 = positionArray[i]
-			let position1: IntVec2 = positionArray[i + 1]
-			let yourline = SKShapeNode()
-			let pathToDraw = CGMutablePath()
-			pathToDraw.move(to: convert(position0))
-			pathToDraw.addLine(to: convert(position1))
-			yourline.path = pathToDraw
-			yourline.strokeColor = botPlannedPathColor
-			yourline.lineWidth = remap(
-				CGFloat(i),
-				CGFloat(0),
-				CGFloat(positionArrayCountMinus1),
-				CGFloat(botPlannedPathLineWidthThick),
-				CGFloat(botPlannedPathLineWidthThin)
-			)
-			self.addChild(yourline)
 		}
 	}
 
