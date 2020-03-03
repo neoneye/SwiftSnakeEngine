@@ -5,7 +5,20 @@ public enum SnakeHeadDirection: Hashable {
 }
 
 extension SnakeHeadDirection {
-	public var rotatedCW: SnakeHeadDirection {
+    public var rotatedCCW: SnakeHeadDirection {
+        switch self {
+        case .up:
+            return .left
+        case .left:
+            return .down
+        case .right:
+            return .up
+        case .down:
+            return .right
+        }
+    }
+
+    public var rotatedCW: SnakeHeadDirection {
 		switch self {
 		case .up:
 			return .right
@@ -18,18 +31,6 @@ extension SnakeHeadDirection {
 		}
 	}
 
-	public var rotatedCCW: SnakeHeadDirection {
-		switch self {
-		case .up:
-			return .left
-		case .left:
-			return .down
-		case .right:
-			return .up
-		case .down:
-			return .right
-		}
-	}
 }
 
 extension SnakeHeadDirection: CustomStringConvertible {
