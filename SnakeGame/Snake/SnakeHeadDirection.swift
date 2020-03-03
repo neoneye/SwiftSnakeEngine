@@ -31,10 +31,7 @@ extension SnakeHeadDirection {
 		}
 	}
 
-}
-
-extension SnakeHeadDirection: CustomStringConvertible {
-    public var description: String {
+    public var arrow: String {
         switch self {
         case .up:
             return "↑"
@@ -45,5 +42,24 @@ extension SnakeHeadDirection: CustomStringConvertible {
         case .down:
             return "↓"
         }
+    }
+
+    public var pointingTriangle: String {
+        switch self {
+        case .up:
+            return "▲"
+        case .left:
+            return "◀"
+        case .right:
+            return "▶"
+        case .down:
+            return "▼"
+        }
+    }
+}
+
+extension SnakeHeadDirection: CustomStringConvertible {
+    public var description: String {
+        return self.arrow
     }
 }

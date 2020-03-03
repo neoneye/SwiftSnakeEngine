@@ -5,8 +5,18 @@ import XCTest
 class T2000_SnakeHeadDirection: XCTestCase {
     func test0_description() {
         let directions: [SnakeHeadDirection] = [.up, .left, .right, .down]
-        let actual: String = directions.map { "\($0)" }.joined(separator: " ")
-        XCTAssertEqual(actual, "↑ ← → ↓")
+        do {
+            let actual: String = directions.map { $0.pointingTriangle }.joined(separator: " ")
+            XCTAssertEqual(actual, "▲ ◀ ▶ ▼")
+        }
+        do {
+            let actual: String = directions.map { $0.arrow }.joined(separator: " ")
+            XCTAssertEqual(actual, "↑ ← → ↓")
+        }
+        do {
+            let actual: String = directions.map { $0.description }.joined(separator: " ")
+            XCTAssertEqual(actual, "↑ ← → ↓")
+        }
     }
 
     func test1_rotatedCCW() {
