@@ -187,20 +187,20 @@ class SnakeBodyNode: SKEffectNode {
 		for i in 0..<positionArrayCountMinus1 {
 			let position0: IntVec2 = positionArray[i]
 			let position1: IntVec2 = positionArray[i + 1]
-			let yourline = SKShapeNode()
+			let shapeNode = SKShapeNode()
 			let pathToDraw = CGMutablePath()
 			pathToDraw.move(to: convert(position0))
 			pathToDraw.addLine(to: convert(position1))
-			yourline.path = pathToDraw
-			yourline.strokeColor = botPlannedPathColor
-			yourline.lineWidth = remap(
+			shapeNode.path = pathToDraw
+			shapeNode.strokeColor = botPlannedPathColor
+			shapeNode.lineWidth = remap(
 				CGFloat(i),
 				CGFloat(0),
 				CGFloat(positionArrayCountMinus1),
 				CGFloat(botPlannedPathLineWidthThick),
 				CGFloat(botPlannedPathLineWidthThin)
 			)
-			self.addChild(yourline)
+			self.addChild(shapeNode)
 		}
 	}
 
