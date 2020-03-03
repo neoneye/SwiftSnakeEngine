@@ -36,6 +36,22 @@ class SnakeGameNode: SKNode {
 		return instance
 	}()
 
+    lazy var snakePlannedPathNode1: SnakePlannedPathNode = {
+        let instance = SnakePlannedPathNode()
+        instance.convertCoordinate = { [weak self] (position) in
+            return self?.cgPointFromGridPoint(position) ?? CGPoint.zero
+        }
+        return instance
+    }()
+
+    lazy var snakePlannedPathNode2: SnakePlannedPathNode = {
+        let instance = SnakePlannedPathNode()
+        instance.convertCoordinate = { [weak self] (position) in
+            return self?.cgPointFromGridPoint(position) ?? CGPoint.zero
+        }
+        return instance
+    }()
+
 	func configureTheme1() {
 		let atlas: SKTextureAtlas = SKTextureAtlas(named: "level_theme1")
 		do {
@@ -89,7 +105,8 @@ class SnakeGameNode: SKNode {
 
 		snakeBodyNode1.configure(skin: UserDefaults.standard.player1SkinMenuItem)
 		snakeBodyNode2.configure(skin: UserDefaults.standard.player2SkinMenuItem)
-
+        snakePlannedPathNode1.configure(skin: UserDefaults.standard.player1SkinMenuItem)
+        snakePlannedPathNode2.configure(skin: UserDefaults.standard.player2SkinMenuItem)
 
 		self.node_food?.zPosition = 10
 		self.node_wall?.zPosition = 20
@@ -102,6 +119,11 @@ class SnakeGameNode: SKNode {
 		self.addChild(self.snakeBodyNode1)
 		self.addChild(self.snakeBodyNode2)
 
+        self.snakePlannedPathNode1.zPosition = 101
+        self.snakePlannedPathNode2.zPosition = 102
+        self.addChild(self.snakePlannedPathNode1)
+        self.addChild(self.snakePlannedPathNode2)
+
 		self.wallNode.zPosition = 100
 		wallNode.node_wall = node_wall
 		self.addChild(self.wallNode)
@@ -113,6 +135,8 @@ class SnakeGameNode: SKNode {
 		//log.debug("player1: \(gameState.player1.snakeBody.fifoContentString)")
 		snakeBodyNode1.rebuild(player: gameState.player1)
 		snakeBodyNode2.rebuild(player: gameState.player2)
+        snakePlannedPathNode1.rebuild(player: gameState.player1)
+        snakePlannedPathNode2.rebuild(player: gameState.player2)
 	}
 
 	lazy var wallNode: SnakeWallNode = {
