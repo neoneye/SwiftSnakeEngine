@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4217E4E623FD47DA00D8779A /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 4217E4E523FD47DA00D8779A /* Fonts */; };
-		4217EEA6240E77830066B8C0 /* T2000_SnakeHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA5240E77830066B8C0 /* T2000_SnakeHead.swift */; };
+		4217EEA6240E77830066B8C0 /* T2000_SnakeHeadDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */; };
 		422158D4234BCE830011DA67 /* level_theme1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 422158D3234BCE830011DA67 /* level_theme1.atlas */; };
 		422158D6234BCE8A0011DA67 /* level_theme2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 422158D5234BCE8A0011DA67 /* level_theme2.atlas */; };
 		4221EFDC2332F0F00026A8A0 /* SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */; };
@@ -144,7 +144,7 @@
 /* Begin PBXFileReference section */
 		35C4C097824F5A32B5434DAE /* Pods-BasePods-AppMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePods-AppMac.debug.xcconfig"; path = "Target Support Files/Pods-BasePods-AppMac/Pods-BasePods-AppMac.debug.xcconfig"; sourceTree = "<group>"; };
 		4217E4E523FD47DA00D8779A /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
-		4217EEA5240E77830066B8C0 /* T2000_SnakeHead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2000_SnakeHead.swift; sourceTree = "<group>"; };
+		4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2000_SnakeHeadDirection.swift; sourceTree = "<group>"; };
 		422158D3234BCE830011DA67 /* level_theme1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme1.atlas; sourceTree = "<group>"; };
 		422158D5234BCE8A0011DA67 /* level_theme2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme2.atlas; sourceTree = "<group>"; };
 		4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBody.swift; sourceTree = "<group>"; };
@@ -400,7 +400,7 @@
 				42C6512E23F5A2FD00B2669E /* T1007_SnakeFifo.swift */,
 				4253C5452336350100210611 /* T1100_SeededGenerator.swift */,
 				42E042B3233402CD007AC6F9 /* T1200_ComputeShortestPath.swift */,
-				4217EEA5240E77830066B8C0 /* T2000_SnakeHead.swift */,
+				4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */,
 				42C236EA2332F4BB00241639 /* T2001_SnakeBody.swift */,
 				42CCD61923C2AA9A0021CBE7 /* T3000_SnakeLevel.swift */,
 				42CCD60823BD54F70021CBE7 /* T3001_SnakeLevel_Cluster.swift */,
@@ -891,7 +891,7 @@
 				42CCD61A23C2AA9A0021CBE7 /* T3000_SnakeLevel.swift in Sources */,
 				42C236EB2332F4BB00241639 /* T2001_SnakeBody.swift in Sources */,
 				42CCD60923BD54F70021CBE7 /* T3001_SnakeLevel_Cluster.swift in Sources */,
-				4217EEA6240E77830066B8C0 /* T2000_SnakeHead.swift in Sources */,
+				4217EEA6240E77830066B8C0 /* T2000_SnakeHeadDirection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
