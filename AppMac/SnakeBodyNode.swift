@@ -152,7 +152,7 @@ class SnakeBodyNode: SKEffectNode {
 
 	private func drawPlannedPathForBot(_ player: SnakePlayer) {
 		let showPlannedPath: Bool = NSUserDefaultsController.shared.isShowPlannedPathEnabled
-		if showPlannedPath && player.isBot {
+        if showPlannedPath && player.isBot && player.isAlive {
 			let positionArray: [IntVec2] = player.bot.plannedPath()
 			drawPlannedPath(positionArray)
 		}
