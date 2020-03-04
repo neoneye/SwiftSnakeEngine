@@ -161,7 +161,9 @@ public class SnakeBot6: SnakeBot {
 				log.error("unable to reuse subtree from previous iteration!")
 			}
 		}
-		let seed: UInt64 = UInt64(iteration * 100)
+        let minorSeed: UInt = 0
+		let majorSeed: UInt = iteration * 100
+        let seed: UInt64 = UInt64(majorSeed + minorSeed)
 		let visitor_buildTree = BuildTreeVisitor(
 			level: level,
 			player: player,
@@ -205,7 +207,6 @@ public class SnakeBot6: SnakeBot {
 
 		var head: SnakeHead = player.snakeBody.head
 		var positionArray = [IntVec2]()
-		positionArray.append(head.position)
 		for movement: SnakeBodyMovement in scenario.movements {
 			head = head.simulateTick(movement: movement)
 			positionArray.append(head.position)
@@ -213,7 +214,7 @@ public class SnakeBot6: SnakeBot {
 		let plannedPath: [IntVec2] = positionArray
 
 		do {
-			let prettyMovements: String = PrettyPlannedPath.process(scenario.destinationNode)
+            let prettyMovements: String = PrettyPlannedPath.process(node: scenario.destinationNode, snakeHead: player.snakeBody.head)
 
 			let nf = NumberFormatter()
 			nf.formatWidth = 6
@@ -1219,11 +1220,17 @@ fileprivate class ClearTheBestNodes: Visitor {
 }
 
 fileprivate class PrettyPlannedPath: Visitor {
+    var head: SnakeHead
+    var isFirstMovement = true
 	var items = [String]()
 
-	class func process(_ node: Node) -> String {
+    private init(head: SnakeHead) {
+        self.head = head
+    }
+
+    class func process(node: Node, snakeHead: SnakeHead) -> String {
 		let reversedParentNodeArray: NodeArray = node.parentNodeArray.reversed()
-		let visitor = PrettyPlannedPath()
+        let visitor = PrettyPlannedPath(head: snakeHead)
 		for n: Node in reversedParentNodeArray {
 			n.accept(visitor)
 		}
@@ -1243,7 +1250,7 @@ fileprivate class PrettyPlannedPath: Visitor {
 	}
 
 	func visit(_ node: FoodNodeChoice) {
-		items.append("f")
+		items.append("○")
 	}
 
 	func visit(_ node: MoveNode) {
@@ -1255,8 +1262,27 @@ fileprivate class PrettyPlannedPath: Visitor {
 		guard node.playerId == 0 else {
 			return
 		}
-		items.append(node.movement.shorthand)
+        let s: String = PrettyPlannedPath.humanReadable(movement: node.movement, direction: head.direction)
+        if isFirstMovement {
+            isFirstMovement = false
+        } else {
+            items.append(s)
+        }
+        head = head.simulateTick(movement: node.movement)
 	}
+
+    private class func humanReadable(movement: SnakeBodyMovement, direction: SnakeHeadDirection) -> String {
+        switch movement {
+        case .dontMove:
+            return "*"
+        case .moveForward:
+            return "∙"
+        case .moveCCW:
+            return direction.rotatedCCW.pointingTriangle
+        case .moveCW:
+            return direction.rotatedCW.pointingTriangle
+        }
+    }
 
 	func visit(_ node: KillNode) {
 		// Only interested in player A. Ignore player B

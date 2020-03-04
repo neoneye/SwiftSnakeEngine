@@ -158,7 +158,7 @@ public class SnakePlayer {
 		)
 	}
 
-    // IDEA: add a kill reason, such as: stuck, collision with wall, collision with self, collision with opponent.
+    /// Examples of how the snake can die: stuck, collision with wall, collision with self, collision with opponent.
     public func kill(_ killEvent: SnakePlayerKillEvent) -> SnakePlayer {
 		return SnakePlayer(
             id: id,

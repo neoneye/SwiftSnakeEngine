@@ -55,10 +55,13 @@ class SnakeGameNode: SKNode {
 	func configureTheme1() {
 		let atlas: SKTextureAtlas = SKTextureAtlas(named: "level_theme1")
 		do {
-			let texture = atlas.textureNamed("food")
-			let node = SKSpriteNode(texture: texture)
-			node.color = SKColor(named: "Theme1_FoodColor") ?? SKColor.red
-			node.colorBlendFactor = 1
+            let radius: CGFloat = (AppConstant.tileSize / 2) - 1
+            let shapeNode = SKShapeNode(circleOfRadius: radius)
+			shapeNode.fillColor = SKColor(named: "Theme1_FoodColor") ?? SKColor.red
+            shapeNode.lineWidth = 0
+            let node = SKSpriteNode()
+            node.addChild(shapeNode)
+            node.colorBlendFactor = 1
 			self.addChild(node)
 			self.node_food = node
 		}
@@ -135,8 +138,8 @@ class SnakeGameNode: SKNode {
 		//log.debug("player1: \(gameState.player1.snakeBody.fifoContentString)")
 		snakeBodyNode1.rebuild(player: gameState.player1)
 		snakeBodyNode2.rebuild(player: gameState.player2)
-        snakePlannedPathNode1.rebuild(player: gameState.player1)
-        snakePlannedPathNode2.rebuild(player: gameState.player2)
+        snakePlannedPathNode1.rebuild(player: gameState.player1, foodPosition: gameState.foodPosition)
+        snakePlannedPathNode2.rebuild(player: gameState.player2, foodPosition: gameState.foodPosition)
 	}
 
 	lazy var wallNode: SnakeWallNode = {

@@ -3,6 +3,11 @@ import SpriteKit
 import SnakeGame
 
 class SnakeBodyNode: SKEffectNode {
+    enum Theme {
+        case retro
+        case textured
+    }
+    var theme = Theme.retro
 	var drawLines: Bool = true
 	var lineWidth: CGFloat = 1
 	var strokeColor: SKColor = SKColor.black
@@ -25,18 +30,19 @@ class SnakeBodyNode: SKEffectNode {
 		switch skin {
 		case .retroGreen:
 			let colorGreen: SKColor = SKColor(named: "snakeskin_simple_green") ?? SKColor.green
-			loadSimpleAtlas(named: "snakeskin_simple", color: colorGreen)
+			configure_retroTheme(color: colorGreen)
 		case .retroBlue:
 			let colorBlue: SKColor = SKColor(named: "snakeskin_simple_blue") ?? SKColor.blue
-			loadSimpleAtlas(named: "snakeskin_simple", color: colorBlue)
+			configure_retroTheme(color: colorBlue)
 		case .cuteGreen:
-			loadFullAtlas(named: "snakeskin_green")
+			configure_texturedTheme(named: "snakeskin_green")
 		case .cuteBlue:
-			loadFullAtlas(named: "snakeskin_blue")
+			configure_texturedTheme(named: "snakeskin_blue")
 		}
 	}
 
-	private func loadFullAtlas(named: String) {
+	private func configure_texturedTheme(named: String) {
+        self.theme = Theme.textured
 		self.strokeColor = SKColor.black
 		self.drawLines = true
 		self.lineWidth = 40
@@ -56,28 +62,71 @@ class SnakeBodyNode: SKEffectNode {
 		self.node_snakeBody?.setScale(0.7)
 	}
 
-	private func loadSimpleAtlas(named: String, color: SKColor) {
+	private func configure_retroTheme(color: SKColor) {
+        self.theme = Theme.retro
 		self.strokeColor = color
-		self.drawLines = true
+		self.drawLines = false
 		self.lineWidth = 90
-		let atlas = SKTextureAtlas(named: named)
-
-		func load(_ textureName: String) -> SKSpriteNode {
-			let texture = atlas.textureNamed(textureName)
-			let node = SKSpriteNode(texture: texture)
-			node.color = color
-			node.colorBlendFactor = 1
-			return node
-		}
-		self.node_snakeHeadUp = load("head")
-		self.node_snakeHeadLeft = load("head")
-		self.node_snakeHeadRight = load("head")
-		self.node_snakeHeadDown = load("head")
-		self.node_snakeBody = load("body")
-		self.node_snakeFood = load("body")
 	}
 
-	func rebuild(player: SnakePlayer) {
+    func rebuild(player: SnakePlayer) {
+        switch self.theme {
+        case .retro:
+            rebuild_retroTheme(player: player)
+        case .textured:
+            rebuild_texturedTheme(player: player)
+        }
+    }
+
+    private func rebuild_retroTheme(player: SnakePlayer) {
+        guard player.isInstalled else {
+            //log.debug("do nothing, since the player is not installed, and thus not shown")
+            return
+        }
+
+        self.removeAllChildren()
+
+        let snakeBody: SnakeBody = player.snakeBody
+
+        // Draw lines between the body parts
+        let positionArray: [IntVec2] = snakeBody.positionArray()
+        if positionArray.count >= 2 {
+            var range: Range = positionArray.indices
+            range.removeLast()
+            let pathToDraw = CGMutablePath()
+            for i in range {
+                let position0: IntVec2 = positionArray[i]
+                let position1: IntVec2 = positionArray[i + 1]
+                if i == 0 {
+                    pathToDraw.move(to: convert(position0))
+                }
+                pathToDraw.addLine(to: convert(position1))
+            }
+            let shapeNode = SKShapeNode(path: pathToDraw)
+            shapeNode.strokeColor = strokeColor
+            shapeNode.lineWidth = 70
+            shapeNode.lineCap = .round
+            shapeNode.lineJoin = .round
+            self.addChild(shapeNode)
+        }
+
+        do {
+            let size = CGSize(width: 95, height: 95)
+            let shapeNode = SKShapeNode(rectOf: size, cornerRadius: 10)
+            shapeNode.position = convert(snakeBody.head.position)
+            shapeNode.fillColor = strokeColor
+            shapeNode.lineWidth = 0
+            self.addChild(shapeNode)
+        }
+
+        if player.isAlive {
+            self.alpha = 1
+        } else {
+            self.alpha = 0.25
+        }
+    }
+
+	func rebuild_texturedTheme(player: SnakePlayer) {
 		guard player.isInstalled else {
 			//log.debug("do nothing, since the player is not installed, and thus not shown")
 			return

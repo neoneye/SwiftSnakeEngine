@@ -41,7 +41,6 @@ public class SnakeBot5: SnakeBot {
 		var head: SnakeHead = previousIterationData.snakeHead
 		var positionArray = [IntVec2]()
 		let movements: [SnakeBodyMovement] = previousIterationData.scenarioResult.movements
-		positionArray.append(head.position)
 		for movement in movements {
 			head = head.simulateTick(movement: movement)
 			positionArray.append(head.position)
