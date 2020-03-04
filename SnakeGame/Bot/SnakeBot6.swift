@@ -207,7 +207,6 @@ public class SnakeBot6: SnakeBot {
 
 		var head: SnakeHead = player.snakeBody.head
 		var positionArray = [IntVec2]()
-		positionArray.append(head.position)
 		for movement: SnakeBodyMovement in scenario.movements {
 			head = head.simulateTick(movement: movement)
 			positionArray.append(head.position)
