@@ -135,8 +135,8 @@ class SnakeGameNode: SKNode {
 		//log.debug("player1: \(gameState.player1.snakeBody.fifoContentString)")
 		snakeBodyNode1.rebuild(player: gameState.player1)
 		snakeBodyNode2.rebuild(player: gameState.player2)
-        snakePlannedPathNode1.rebuild(player: gameState.player1)
-        snakePlannedPathNode2.rebuild(player: gameState.player2)
+        snakePlannedPathNode1.rebuild(player: gameState.player1, foodPosition: gameState.foodPosition)
+        snakePlannedPathNode2.rebuild(player: gameState.player2, foodPosition: gameState.foodPosition)
 	}
 
 	lazy var wallNode: SnakeWallNode = {
