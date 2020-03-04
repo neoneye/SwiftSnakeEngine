@@ -3,10 +3,8 @@ import SpriteKit
 import SnakeGame
 
 class SnakePlannedPathNode: SKEffectNode {
-    var pathColorHighConfidence: SKColor = SKColor.gray
-    var pathColorLowConfidence: SKColor = SKColor.darkGray
-    var pathLineWidthThick: CGFloat = 20
-    var pathLineWidthThin: CGFloat = 1
+    var colorHighConfidence: SKColor = SKColor.gray
+    var colorLowConfidence: SKColor = SKColor.darkGray
 
     typealias CoordinateConverter = (IntVec2) -> CGPoint
     var convertCoordinate: CoordinateConverter?
@@ -18,11 +16,11 @@ class SnakePlannedPathNode: SKEffectNode {
     public func configure(skin: PlayerSkinMenuItem) {
         switch skin {
         case .retroGreen, .cuteGreen:
-            pathColorHighConfidence = SKColor(calibratedRed: 0.1, green: 0.7, blue: 0.1, alpha: 0.9)
+            colorHighConfidence = SKColor(calibratedRed: 0.1, green: 0.7, blue: 0.1, alpha: 0.9)
         case .retroBlue, .cuteBlue:
-            pathColorHighConfidence = SKColor(calibratedRed: 0.25, green: 0.3, blue: 0.8, alpha: 0.9)
+            colorHighConfidence = SKColor(calibratedRed: 0.25, green: 0.3, blue: 0.8, alpha: 0.9)
         }
-        pathColorLowConfidence = pathColorHighConfidence.colorWithOpacity(0.5)
+        colorLowConfidence = colorHighConfidence.colorWithOpacity(0.5)
     }
 
     func rebuild(player: SnakePlayer, foodPosition: IntVec2?) {
@@ -79,29 +77,49 @@ class SnakePlannedPathNode: SKEffectNode {
             //log.debug("Cannot show the planned path, it's too short.")
             return
         }
+
+        var leftRangeEnd = Int(highConfidenceCount + 1)
+        if leftRangeEnd >= positionArrayCount {
+            leftRangeEnd = positionArrayCount
+        }
+        let leftSplit: ArraySlice<IntVec2> = positionArray[0 ..< leftRangeEnd]
+
+        var rightRangeBegin = Int(highConfidenceCount)
+        if rightRangeBegin >= positionArrayCount {
+            rightRangeBegin = positionArrayCount
+        }
+        let rightSplit: ArraySlice<IntVec2> = positionArray[rightRangeBegin ..< positionArray.count]
+
+        if leftSplit.count >= 2 {
+            let shapeNode: SKShapeNode = shapeNodeWithPath(positionArray: Array(leftSplit))
+            shapeNode.strokeColor = colorHighConfidence
+            shapeNode.lineWidth = 30
+            shapeNode.lineCap = .round
+            shapeNode.lineJoin = .round
+            self.addChild(shapeNode)
+        }
+        if rightSplit.count >= 2 {
+            let shapeNode: SKShapeNode = shapeNodeWithPath(positionArray: Array(rightSplit))
+            shapeNode.strokeColor = colorLowConfidence
+            shapeNode.lineWidth = 2
+            self.addChild(shapeNode)
+        }
+    }
+
+    private func shapeNodeWithPath(positionArray: [IntVec2]) -> SKShapeNode {
+        assert(positionArray.count >= 2)
+        let positionArrayCount: Int = positionArray.count
         let positionArrayCountMinus1: Int = positionArrayCount - 1
+        let pathToDraw = CGMutablePath()
         for i in 0..<positionArrayCountMinus1 {
             let position0: IntVec2 = positionArray[i]
             let position1: IntVec2 = positionArray[i + 1]
-            let shapeNode = SKShapeNode()
-            let pathToDraw = CGMutablePath()
-            pathToDraw.move(to: convert(position0))
-            pathToDraw.addLine(to: convert(position1))
-            shapeNode.path = pathToDraw
-            if UInt(i) < highConfidenceCount {
-                shapeNode.strokeColor = pathColorHighConfidence
-            } else {
-                shapeNode.strokeColor = pathColorLowConfidence
+            if i == 0 {
+                pathToDraw.move(to: convert(position0))
             }
-            shapeNode.lineWidth = remap(
-                CGFloat(i),
-                CGFloat(0),
-                CGFloat(positionArrayCountMinus1),
-                CGFloat(pathLineWidthThick),
-                CGFloat(pathLineWidthThin)
-            )
-            self.addChild(shapeNode)
+            pathToDraw.addLine(to: convert(position1))
         }
+        return SKShapeNode(path: pathToDraw)
     }
 }
 
