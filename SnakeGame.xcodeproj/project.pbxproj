@@ -55,7 +55,6 @@
 		426892032332682100B97E29 /* GraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426892012332682100B97E29 /* GraphTests.swift */; };
 		426892042332682100B97E29 /* SSSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426892022332682100B97E29 /* SSSPTests.swift */; };
 		42822A23239817CA00DA4461 /* SnakeBot6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42822A22239817CA00DA4461 /* SnakeBot6.swift */; };
-		4285BC0D234BB4FE00FBE99E /* snakeskin_simple.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4285BC0A234BB4FE00FBE99E /* snakeskin_simple.atlas */; };
 		4285BC0E234BB4FE00FBE99E /* snakeskin_green.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4285BC0B234BB4FE00FBE99E /* snakeskin_green.atlas */; };
 		4285BC0F234BB4FE00FBE99E /* snakeskin_blue.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4285BC0C234BB4FE00FBE99E /* snakeskin_blue.atlas */; };
 		429122BF23520D3000B3E32A /* SnakeBot1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429122BE23520D3000B3E32A /* SnakeBot1.swift */; };
@@ -198,7 +197,6 @@
 		426892012332682100B97E29 /* GraphTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphTests.swift; sourceTree = "<group>"; };
 		426892022332682100B97E29 /* SSSPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSSPTests.swift; sourceTree = "<group>"; };
 		42822A22239817CA00DA4461 /* SnakeBot6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeBot6.swift; sourceTree = "<group>"; };
-		4285BC0A234BB4FE00FBE99E /* snakeskin_simple.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = snakeskin_simple.atlas; sourceTree = "<group>"; };
 		4285BC0B234BB4FE00FBE99E /* snakeskin_green.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = snakeskin_green.atlas; sourceTree = "<group>"; };
 		4285BC0C234BB4FE00FBE99E /* snakeskin_blue.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = snakeskin_blue.atlas; sourceTree = "<group>"; };
 		429122BE23520D3000B3E32A /* SnakeBot1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBot1.swift; sourceTree = "<group>"; };
@@ -350,7 +348,6 @@
 				422158D5234BCE8A0011DA67 /* level_theme2.atlas */,
 				4285BC0C234BB4FE00FBE99E /* snakeskin_blue.atlas */,
 				4285BC0B234BB4FE00FBE99E /* snakeskin_green.atlas */,
-				4285BC0A234BB4FE00FBE99E /* snakeskin_simple.atlas */,
 			);
 			name = Themes;
 			sourceTree = "<group>";
@@ -701,7 +698,6 @@
 				4255CA18232F8A2300A230AF /* Assets.xcassets in Resources */,
 				4285BC0E234BB4FE00FBE99E /* snakeskin_green.atlas in Resources */,
 				422158D4234BCE830011DA67 /* level_theme1.atlas in Resources */,
-				4285BC0D234BB4FE00FBE99E /* snakeskin_simple.atlas in Resources */,
 				4217E4E623FD47DA00D8779A /* Fonts in Resources */,
 				4255CA12232F8A2100A230AF /* Actions.sks in Resources */,
 				4294DA49233FC05200AA58CD /* snake_dies.wav in Resources */,
