@@ -165,6 +165,7 @@ public class SnakeBot6: SnakeBot {
 		let majorSeed: UInt = iteration * 100
         let seed: UInt64 = UInt64(majorSeed + minorSeed)
 		let visitor_buildTree = BuildTreeVisitor(
+            iteration: iteration,
 			level: level,
 			player: player,
 			oppositePlayer: oppositePlayer,
@@ -514,7 +515,9 @@ fileprivate class Scenario {
 
 // IDEA: Store confidence in each of the nodes.
 fileprivate class BuildTreeVisitor: Visitor {
-	// Use random generator with a seed for reproducable results
+    private let iteration: UInt
+
+    // Use random generator with a seed for reproducable results
 	private var randomNumberGenerator: SeededGenerator
 
 	private let level: SnakeLevel
@@ -535,7 +538,8 @@ fileprivate class BuildTreeVisitor: Visitor {
 	/// Keep track of the best paths so far.
 	private var scenarios: [Scenario]
 
-	init(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?, seed: UInt64) {
+	init(iteration: UInt, level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?, seed: UInt64) {
+        self.iteration = iteration
 		self.level = level
 		self.player = [player, oppositePlayer]
 		self.foodPosition = foodPosition
