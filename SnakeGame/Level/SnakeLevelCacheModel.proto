@@ -1,0 +1,14 @@
+// Regenerate swift file
+// PROMPT> protoc --swift_out=. SnakeLevelCacheModel.proto
+syntax = "proto3";
+
+message SnakeLevelCacheModelDistanceKeyValuePair {
+	uint32 key_low = 1;
+	uint32 key_high = 2;
+	sint32 value_distance = 3;
+}
+
+message SnakeLevelCacheModel {
+	string sha1 = 1;
+	repeated SnakeLevelCacheModelDistanceKeyValuePair distances = 2;
+}
