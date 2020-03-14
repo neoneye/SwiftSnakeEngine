@@ -106,7 +106,7 @@ public class PlayerRoleMenuItemFactory {
 	}
 
 	public func defaultBotOrNone() -> PlayerRoleMenuItem {
-		return self.bots.first ?? self.none
+		return self.bots.last ?? self.none
 	}
 }
 
