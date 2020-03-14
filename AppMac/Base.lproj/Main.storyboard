@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -69,7 +68,7 @@
                             </menuItem>
                             <menuItem title="Player 1" id="pvY-lo-MsK" userLabel="Player 1">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Player 1" id="bYH-uU-eqv" userLabel="Player 1" customClass="PlayerMenu" customModule="AppMac" customModuleProvider="target">
+                                <menu key="submenu" title="Player 1" id="bYH-uU-eqv" userLabel="Player 1" customClass="PlayerMenu" customModule="Snake" customModuleProvider="target">
                                     <items>
                                         <menuItem title="None" id="38R-Gm-RmF">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -85,7 +84,7 @@
                             </menuItem>
                             <menuItem title="Player 2" id="xqL-Za-lGe" userLabel="Player 2">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Player 2" id="K20-Ha-dXk" userLabel="Player 2" customClass="PlayerMenu" customModule="AppMac" customModuleProvider="target">
+                                <menu key="submenu" title="Player 2" id="K20-Ha-dXk" userLabel="Player 2" customClass="PlayerMenu" customModule="Snake" customModuleProvider="target">
                                     <items>
                                         <menuItem title="None" id="siQ-Er-1W9" userLabel="None">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -101,7 +100,7 @@
                             </menuItem>
                             <menuItem title="Debug" id="8Km-Fz-QsU">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Debug" id="XgW-Se-TQz" userLabel="Debug" customClass="DebugMenu" customModule="AppMac" customModuleProvider="target">
+                                <menu key="submenu" title="Debug" id="XgW-Se-TQz" userLabel="Debug" customClass="DebugMenu" customModule="Snake" customModuleProvider="target">
                                     <items>
                                         <menuItem title="Undo" keyEquivalent="" id="7Ah-AS-auP">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -200,7 +199,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="AppMac" customModuleProvider="target">
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Snake" customModuleProvider="target">
                     <connections>
                         <outlet property="debugMenu" destination="XgW-Se-TQz" id="IKZ-fi-u4Y"/>
                         <outlet property="player1Menu" destination="bYH-uU-eqv" id="tac-yD-Orl"/>
@@ -212,40 +211,6 @@
                 <userDefaultsController representsSharedInstance="YES" id="9gn-hT-kxi"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
-        </scene>
-        <!--Window Controller-->
-        <scene sceneID="R2V-B0-nI4">
-            <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" titleVisibility="hidden" id="IQv-IB-iLA">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <connections>
-                            <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
-                        </connections>
-                    </window>
-                    <connections>
-                        <segue destination="BaD-iR-hnF" kind="relationship" relationship="window.shadowedContentViewController" id="N93-tg-hhS"/>
-                    </connections>
-                </windowController>
-                <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="75" y="250"/>
-        </scene>
-        <!--My Hosting Controller-->
-        <scene sceneID="A4q-V8-Swt">
-            <objects>
-                <viewController id="BaD-iR-hnF" customClass="MyHostingController" customModule="AppMac" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="I0h-vK-RZm">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </view>
-                </viewController>
-                <customObject id="jOy-X3-ZXg" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="75" y="783"/>
         </scene>
     </scenes>
 </document>
