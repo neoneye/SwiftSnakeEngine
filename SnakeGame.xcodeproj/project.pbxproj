@@ -1192,7 +1192,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = neoneye.AppMac;
+				MARKETING_VERSION = 2020.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = neoneye.snake;
 				PRODUCT_NAME = Snake;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1212,7 +1213,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = neoneye.AppMac;
+				MARKETING_VERSION = 2020.1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = neoneye.snake;
 				PRODUCT_NAME = Snake;
 				SWIFT_VERSION = 5.0;
 			};
