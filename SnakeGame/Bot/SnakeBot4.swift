@@ -9,7 +9,7 @@ fileprivate struct Constant {
 public class SnakeBot4: SnakeBot {
 	public static var info: SnakeBotInfo {
 		SnakeBotInfoImpl(
-			humanReadableName: "Bot - Tree search",
+			humanReadableName: "Tree search",
 			userDefaultIdentifier: "bot4"
 		)
 	}

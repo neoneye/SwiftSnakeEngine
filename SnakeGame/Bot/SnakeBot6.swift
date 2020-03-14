@@ -9,7 +9,7 @@ fileprivate struct PreviousIterationData {
 public class SnakeBot6: SnakeBot {
 	public static var info: SnakeBotInfo {
 		SnakeBotInfoImpl(
-			humanReadableName: "Bot - Monte Carlo 2",
+			humanReadableName: "Monte Carlo 2",
 			userDefaultIdentifier: "bot6"
 		)
 	}

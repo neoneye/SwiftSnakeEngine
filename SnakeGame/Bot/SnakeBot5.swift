@@ -17,7 +17,7 @@ fileprivate struct PreviousIterationData {
 public class SnakeBot5: SnakeBot {
 	public static var info: SnakeBotInfo {
 		SnakeBotInfoImpl(
-			humanReadableName: "Bot - Monte Carlo 1",
+			humanReadableName: "Monte Carlo 1",
 			userDefaultIdentifier: "bot5"
 		)
 	}
