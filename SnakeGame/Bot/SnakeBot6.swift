@@ -415,7 +415,6 @@ fileprivate enum KillNodeCause {
 	case unspecified
 	case collisionWithSelf
 	case collisionWithOpponent
-	case collisionWithWall
 }
 
 /// The player dies because of collision with wall or itself.
