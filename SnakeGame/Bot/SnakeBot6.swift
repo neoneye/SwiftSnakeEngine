@@ -413,9 +413,9 @@ fileprivate class MoveNode: Node, HasMultipleChildren {
 
 fileprivate enum KillNodeCause {
 	case unspecified
-	case snakeSelf
-	case snakeOpponent
-	case wall
+	case collisionWithSelf
+	case collisionWithOpponent
+	case collisionWithWall
 }
 
 /// The player dies because of collision with wall or itself.
@@ -875,7 +875,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 				if let existingChildNode: KillNode = node.child as? KillNode {
 					// If the child already is a KillNode, then keep the subtree, and traverse the subtree.
 					// IDEA: if any of KillNode parameters have changed, then discard the subtree.
-					existingChildNode.cause = KillNodeCause.snakeSelf
+					existingChildNode.cause = KillNodeCause.collisionWithSelf
 					existingChildNode.playerId = playerId
 					existingChildNode.accept(self)
 					return
@@ -884,7 +884,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 					let newChildNode: KillNode = KillNode()
 					node.child = newChildNode
 					newChildNode.parent = node
-					newChildNode.cause = KillNodeCause.snakeSelf
+					newChildNode.cause = KillNodeCause.collisionWithSelf
 					newChildNode.playerId = playerId
 					newChildNode.accept(self)
 					return
@@ -925,7 +925,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 				if let existingChildNode: KillNode = node.child as? KillNode {
 					// If the child already is a KillNode, then keep the subtree, and traverse the subtree.
 					// IDEA: if any of KillNode parameters have changed, then discard the subtree.
-					existingChildNode.cause = KillNodeCause.snakeSelf
+					existingChildNode.cause = KillNodeCause.collisionWithSelf
 					existingChildNode.playerId = playerId
 					existingChildNode.accept(self)
 					return
@@ -934,7 +934,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 					let newChildNode: KillNode = KillNode()
 					node.child = newChildNode
 					newChildNode.parent = node
-					newChildNode.cause = KillNodeCause.snakeSelf
+					newChildNode.cause = KillNodeCause.collisionWithSelf
 					newChildNode.playerId = playerId
 					newChildNode.accept(self)
 					return
@@ -950,7 +950,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 					let newChildNode: KillNode = KillNode()
 					node.child = newChildNode
 					newChildNode.parent = node
-					newChildNode.cause = KillNodeCause.snakeOpponent
+					newChildNode.cause = KillNodeCause.collisionWithOpponent
 					newChildNode.playerId = playerId
 					newChildNode.accept(self)
 					return
