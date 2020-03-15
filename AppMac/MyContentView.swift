@@ -1,15 +1,9 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Cocoa
-import SpriteKit
 import SwiftUI
-import SnakeGame
+import SpriteKit
 import Combine
-
-class MyHostingController: NSHostingController<MyContentView> {
-    @objc required dynamic init?(coder: NSCoder) {
-        super.init(coder: coder, rootView: MyContentView())
-    }
-}
+import SnakeGame
 
 struct MyContentView: View {
     @State private var player1Dead: Bool = false
@@ -174,10 +168,10 @@ struct MyContentView: View {
                 }
 
             }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
-
+            .frame(minWidth: 80, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
         }
         .edgesIgnoringSafeArea(.all)
+        .frame(minWidth: isPreview ? 100 : 400, maxWidth: .infinity, minHeight: isPreview ? 80 : 400, maxHeight: .infinity)
     }
 }
 

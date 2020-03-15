@@ -81,7 +81,7 @@ public class PlayerRoleMenuItemFactory {
 			let playerRoleMenuItem = PlayerRoleMenuItemImpl(
 				role: SnakePlayerRole.bot(snakeBotType: snakeBotType),
 				userDefaultIdentifier: info.userDefaultIdentifier,
-				menuItemTitle: info.humanReadableName
+				menuItemTitle: "Bot - \(info.humanReadableName)"
 			)
 			registered.append(playerRoleMenuItem)
 		}
@@ -106,7 +106,7 @@ public class PlayerRoleMenuItemFactory {
 	}
 
 	public func defaultBotOrNone() -> PlayerRoleMenuItem {
-		return self.bots.first ?? self.none
+		return self.bots.last ?? self.none
 	}
 }
 

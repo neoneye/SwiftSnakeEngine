@@ -35,8 +35,8 @@ struct SpriteKitContainer: NSViewRepresentable {
                 parent.player1Length = gameState.player1.lengthOfInstalledSnake()
                 parent.player2Length = gameState.player2.lengthOfInstalledSnake()
             case let .beginNewGame(gameState):
-                parent.player1Info = ""
-                parent.player2Info = ""
+                parent.player1Info = gameState.player1.humanReadableRole
+                parent.player2Info = gameState.player2.humanReadableRole
                 parent.player1Length = gameState.player1.lengthOfInstalledSnake()
                 parent.player2Length = gameState.player2.lengthOfInstalledSnake()
             case let .player1_didUpdateLength(length):
@@ -156,12 +156,13 @@ extension SnakePlayer {
         case .human:
             switch self.id {
             case .player1:
-                return "Human\nControlled via Arrow keys."
+                return "HUMAN\nControlled via Arrow keys."
             case .player2:
-                return "Human\nControlled via WASD keys."
+                return "HUMAN\nControlled via WASD keys."
             }
-        case .bot:
-            return "Bot"
+        case let .bot(botType):
+            let name: String = botType.self.info.humanReadableName
+            return "BOT - \(name)"
         }
     }
 }

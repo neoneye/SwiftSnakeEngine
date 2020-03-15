@@ -4,7 +4,7 @@ import Foundation
 public class SnakeBot1: SnakeBot {
 	public static var info: SnakeBotInfo {
 		SnakeBotInfoImpl(
-			humanReadableName: "Bot - Shortest Path",
+			humanReadableName: "Shortest Path",
 			userDefaultIdentifier: "bot1"
 		)
 	}
