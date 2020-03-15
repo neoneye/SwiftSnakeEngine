@@ -386,19 +386,23 @@ fileprivate class MoveNodeChoice: Node, HasOneChild, ReplaceChild {
 	}
 }
 
+fileprivate struct MoveNodeChoiceWrapper {
+    let level_isEmpty: Bool   // false=wall, true=empty
+    let movement: SnakeBodyMovement
+    let position: IntVec2
+    var child: Node?
+}
+
 /// Simulate that the player moves counterclockwise, forward, clockwise.
 fileprivate class MoveNode: Node, HasMultipleChildren {
 	let playerId: UInt
+    var choiceWrappers: [MoveNodeChoiceWrapper]
 	var choices: [MoveNodeChoice]
 	var needsExploringPermanentObstacles = true
 
-	class func create(playerId: UInt) -> MoveNode {
-		let node = MoveNode(playerId: playerId)
-		return node
-	}
-
-	private init(playerId: UInt) {
+	fileprivate init(playerId: UInt, choiceWrappers: [MoveNodeChoiceWrapper]) {
 		self.playerId = playerId
+        self.choiceWrappers = choiceWrappers
 		self.choices = []
 	}
 
@@ -1044,6 +1048,32 @@ fileprivate class BuildTreeVisitor: Visitor {
 		return newPlayerId
 	}
 
+    func createMoveNode(playerId: UInt) -> MoveNode {
+        let playerForNode: SnakePlayer = self.player[Int(playerId)]
+        let snakeBody: SnakeBody = playerForNode.snakeBody
+        let currentHead: SnakeHead = snakeBody.head
+
+        func createChoiceWrapper(_ movement: SnakeBodyMovement) -> MoveNodeChoiceWrapper {
+            let newHead: SnakeHead = currentHead.simulateTick(movement: movement)
+            let newHeadPosition: IntVec2 = newHead.position
+            let level_isEmpty: Bool = level.emptyPositionSet.contains(newHeadPosition)
+            let wrapper = MoveNodeChoiceWrapper(level_isEmpty: level_isEmpty, movement: movement, position: newHeadPosition, child: nil)
+            return wrapper
+        }
+
+        // IDEA: This checkAndAppendChoice() approach, discards nodes if we collide with a wall.
+        // For the early stages of the game this works fine.
+        // However when the snake eats the very last food, then there is only a wall to collide with.
+        // These wall nodes would be discarded, and not be considerable as a possibility.
+        // It's better NOT to discard the nodes. Make use of a KillNodeCause.collisionWithWall for these nodes.
+
+        var movements: [SnakeBodyMovement] = [.moveCCW, .moveForward, .moveCW]
+        movements.shuffle(using: &randomNumberGenerator)
+        let choiceWrappers: [MoveNodeChoiceWrapper] = movements.map { createChoiceWrapper($0) }
+
+        return MoveNode(playerId: playerId, choiceWrappers: choiceWrappers)
+    }
+
 	func processChildNode(_ node: NodeWithReplaceChild, playerId: UInt) {
 		// If there already is a non-nil and non-leaf child, then keep this subtree, and traverse this subtree.
 		// Otherwise replace the entire subtree with a new child node.
@@ -1068,7 +1098,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 		let numberOfMoves: UInt = self.numberOfMoves[Int(playerId)]
 		let childNode: Node
 		if numberOfMoves < limit {
-			let moveNode = MoveNode.create(playerId: playerId)
+            let moveNode: MoveNode = createMoveNode(playerId: playerId)
 			childNode = moveNode
 		} else {
 			childNode = LeafNode()
