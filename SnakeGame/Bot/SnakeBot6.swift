@@ -805,6 +805,13 @@ fileprivate class BuildTreeVisitor: Visitor {
 				choice.parent = node
 				choices.append(choice)
 			}
+
+            // IDEA: This checkAndAppendChoice() approach, discards nodes if we collide with a wall.
+            // For the early stages of the game this works fine.
+            // However when the snake eats the very last food, then there is only a wall to collide with.
+            // These wall nodes would be discarded, and not be considerable as a possibility.
+            // It's better NOT to discard the nodes. Make use of a KillNodeCause.collisionWithWall for these nodes.
+
 			checkAndAppendChoice(.moveCCW)
 			checkAndAppendChoice(.moveForward)
 			checkAndAppendChoice(.moveCW)
