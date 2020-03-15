@@ -164,7 +164,7 @@ class SnakeGameScene: SKScene {
 				restartGame()
 			}
 		case .escape:
-			exit(EXIT_SUCCESS)
+            NSApp.terminate(self)
 		case .arrowUp:
 			userInputForPlayer1(.arrowUp)
 		case .arrowLeft:
