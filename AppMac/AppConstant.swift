@@ -7,7 +7,7 @@ struct AppConstant {
 		case production
 		case experimentWithAI_botVsNone
 	}
-	static let mode: Mode = .production
+	static let mode: Mode = .experimentWithAI_botVsNone
 
 	enum SnakeGameTheme {
 		case theme1
