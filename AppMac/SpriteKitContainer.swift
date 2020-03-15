@@ -82,8 +82,8 @@ struct SpriteKitContainer: NSViewRepresentable {
 		switch AppConstant.mode {
 		case .production:
 			scene = SnakeLevelSelectorScene.create()
-		case .experimentWithAI:
-			scene = SnakeGameScene.createBotsVsBots()
+		case .experimentWithAI_botVsNone:
+			scene = SnakeGameScene.createBotVsNone()
 		}
 		view.presentScene(scene)
 		return view
