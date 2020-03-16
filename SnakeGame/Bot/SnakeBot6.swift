@@ -840,6 +840,12 @@ fileprivate class BuildTreeVisitor: Visitor {
 			self.movements.append(node.movement)
 		}
 
+        // IDEA: Detect if the snake is chasing its own tail.
+        // Is the new head position the same as the previous tail position.
+        // I'm experiencing that the snake eats almost all the food, except for the very last food.
+        // The snake rather wants to chase its own tail, than eat the last remaining piece of food.
+        // In this case, then the snake should go for the food, so that the game can be finished.
+
 		let originalSnakeBody: SnakeBody = originalPlayer.snakeBody
 
 		// Currently there is no edge case handling.
