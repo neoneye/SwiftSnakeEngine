@@ -161,7 +161,7 @@ public class SnakeBot6: SnakeBot {
 				log.error("unable to reuse subtree from previous iteration!")
 			}
 		}
-        let minorSeed: UInt = 3
+        let minorSeed: UInt = 0
 		let majorSeed: UInt = iteration * 100
         let seed: UInt64 = UInt64(majorSeed + minorSeed)
 		let visitor_buildTree = BuildTreeVisitor(
@@ -367,12 +367,14 @@ fileprivate class FoodNode: Node, HasMultipleChildren {
 
 fileprivate class MoveNodeChoice: Node, HasOneChild, ReplaceChild {
 	let playerId: UInt
+    let level_isEmpty: Bool   // false=wall, true=empty
 	let movement: SnakeBodyMovement
 	let position: IntVec2
 	var child: Node?
 
-	init(playerId: UInt, movement: SnakeBodyMovement, position: IntVec2) {
+	init(playerId: UInt, level_isEmpty: Bool, movement: SnakeBodyMovement, position: IntVec2) {
 		self.playerId = playerId
+        self.level_isEmpty = level_isEmpty
 		self.movement = movement
 		self.position = position
 	}
@@ -386,24 +388,16 @@ fileprivate class MoveNodeChoice: Node, HasOneChild, ReplaceChild {
 	}
 }
 
-fileprivate struct MoveNodeChoiceWrapper {
-    let level_isEmpty: Bool   // false=wall, true=empty
-    let movement: SnakeBodyMovement
-    let position: IntVec2
-    var child: Node?
-}
-
 /// Simulate that the player moves counterclockwise, forward, clockwise.
 fileprivate class MoveNode: Node, HasMultipleChildren {
 	let playerId: UInt
-    var choiceWrappers: [MoveNodeChoiceWrapper]
-	var choices: [MoveNodeChoice]
-	var needsExploringPermanentObstacles = true
+    let choices: [MoveNodeChoice]
+    let shuffledIndexes: [UInt]
 
-	fileprivate init(playerId: UInt, choiceWrappers: [MoveNodeChoiceWrapper]) {
+	fileprivate init(playerId: UInt, choices: [MoveNodeChoice], shuffledIndexes: [UInt]) {
 		self.playerId = playerId
-        self.choiceWrappers = choiceWrappers
-		self.choices = []
+		self.choices = choices
+        self.shuffledIndexes = shuffledIndexes
 	}
 
 	var children: [Node] {
@@ -792,52 +786,11 @@ fileprivate class BuildTreeVisitor: Visitor {
 		// Afterwards clear all the counters.
 		// Afterwards expand the tree.
 
-
-		// Discard the terrible choices that causes hitting a wall
-		if node.needsExploringPermanentObstacles {
-			node.needsExploringPermanentObstacles = false
-
-			let playerForNode: SnakePlayer = self.player[playerId]
-			let snakeBody: SnakeBody = playerForNode.snakeBody
-			let currentHead: SnakeHead = snakeBody.head
-
-			var choices: [MoveNodeChoice] = []
-			choices.reserveCapacity(3)
-
-			func checkAndAppendChoice(_ movement: SnakeBodyMovement) {
-				let newHead: SnakeHead = currentHead.simulateTick(movement: movement)
-				let newHeadPosition: IntVec2 = newHead.position
-				let level_isEmpty: Bool = level.emptyPositionSet.contains(newHeadPosition)
-				guard level_isEmpty else {
-					return
-				}
-				let choice = MoveNodeChoice(playerId: playerIdUInt, movement: movement, position: newHeadPosition)
-				choice.parent = node
-				choices.append(choice)
-			}
-
-            // IDEA: This checkAndAppendChoice() approach, discards nodes if we collide with a wall.
-            // For the early stages of the game this works fine.
-            // However when the snake eats the very last food, then there is only a wall to collide with.
-            // These wall nodes would be discarded, and not be considerable as a possibility.
-            // It's better NOT to discard the nodes. Make use of a KillNodeCause.collisionWithWall for these nodes.
-
-			checkAndAppendChoice(.moveCCW)
-			checkAndAppendChoice(.moveForward)
-			checkAndAppendChoice(.moveCW)
-
-			node.choices = choices
-		}
-
 		// IDEA: When the snake have reached a dead end, where there are no ways to go.
 		// Then add this as a scenario and replace itself with a KillNode,
 		// so that we know this is a bad way, but may be the way to go if we are near the end of the game.
 
-		let availableChoices: NodeArray = node.choices
-		let bestNode: Node? = availableChoices.first { $0.isBest }
-		var nonBestNodes: NodeArray = availableChoices.filter { !$0.isBest }
-
-		var limit: Int = 3
+		var limit: UInt = 3
 		if newNumberOfMoves < 3 {
 			limit = 3
 		} else {
@@ -848,14 +801,28 @@ fileprivate class BuildTreeVisitor: Visitor {
 			}
 		}
 
-
-		nonBestNodes.shuffle(using: &randomNumberGenerator)
-		nonBestNodes = NodeArray(nonBestNodes.prefix(limit))
-
-		bestNode?.accept(self)
-		for choice in nonBestNodes {
-			choice.accept(self)
-		}
+        var visitCount: UInt = 0
+        for choice in node.choices {
+            if choice.isBest {
+                choice.accept(self)
+                visitCount += 1
+                break
+            }
+        }
+        for index: UInt in node.shuffledIndexes {
+            if visitCount >= limit {
+                break
+            }
+            let choice: MoveNodeChoice = node.choices[Int(index)]
+            if choice.isBest {
+                continue
+            }
+            if !choice.level_isEmpty {
+                continue
+            }
+            choice.accept(self)
+            visitCount += 1
+        }
 	}
 
 	func visit(_ node: MoveNodeChoice) {
@@ -1059,12 +1026,11 @@ fileprivate class BuildTreeVisitor: Visitor {
         let snakeBody: SnakeBody = playerForNode.snakeBody
         let currentHead: SnakeHead = snakeBody.head
 
-        func createChoiceWrapper(_ movement: SnakeBodyMovement) -> MoveNodeChoiceWrapper {
+        func createChoice(_ movement: SnakeBodyMovement) -> MoveNodeChoice {
             let newHead: SnakeHead = currentHead.simulateTick(movement: movement)
             let newHeadPosition: IntVec2 = newHead.position
             let level_isEmpty: Bool = level.emptyPositionSet.contains(newHeadPosition)
-            let wrapper = MoveNodeChoiceWrapper(level_isEmpty: level_isEmpty, movement: movement, position: newHeadPosition, child: nil)
-            return wrapper
+            return MoveNodeChoice(playerId: playerId, level_isEmpty: level_isEmpty, movement: movement, position: newHeadPosition)
         }
 
         // SILLY-IDEA: Minimize the tree structure.
@@ -1077,11 +1043,20 @@ fileprivate class BuildTreeVisitor: Visitor {
         // For the endgame, I need these MoveNodeChoice's with wall collision.
         // so that I can assign parameters about best choice.
 
-        var movements: [SnakeBodyMovement] = [.moveCCW, .moveForward, .moveCW]
-        movements.shuffle(using: &randomNumberGenerator)
-        let choiceWrappers: [MoveNodeChoiceWrapper] = movements.map { createChoiceWrapper($0) }
+        var shuffledIndexes: [UInt] = [0, 1, 2]
+        shuffledIndexes.shuffle(using: &randomNumberGenerator)
 
-        return MoveNode(playerId: playerId, choiceWrappers: choiceWrappers)
+        let choices: [MoveNodeChoice] = [
+            createChoice(.moveCCW),
+            createChoice(.moveForward),
+            createChoice(.moveCW)
+        ]
+
+        let node = MoveNode(playerId: playerId, choices: choices, shuffledIndexes: shuffledIndexes)
+        for choice in choices {
+            choice.parent = node
+        }
+        return node
     }
 
 	func processChildNode(_ node: NodeWithReplaceChild, playerId: UInt) {
