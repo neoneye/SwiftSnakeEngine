@@ -125,7 +125,7 @@ public class SnakeBot6: SnakeBot {
 			if let moveNode: MoveNode = subtreeNode as? MoveNode, moveNode.playerId == 0 {
 				let findPosition: IntVec2 = player.snakeBody.head.position
 				var foundMatchingChoice: Bool = false
-				for choice: MoveNodeChoice in moveNode.choices {
+				for choice: MoveNodeChoice in moveNode.shuffledChoices {
 					if choice.position == findPosition {
 						subtreeNode = choice.child
 						foundMatchingChoice = true
@@ -140,7 +140,7 @@ public class SnakeBot6: SnakeBot {
 			if let moveNode: MoveNode = subtreeNode as? MoveNode, moveNode.playerId == 1 {
 				let findPosition: IntVec2 = oppositePlayer.snakeBody.head.position
 				var foundMatchingChoice: Bool = false
-				for choice: MoveNodeChoice in moveNode.choices {
+				for choice: MoveNodeChoice in moveNode.shuffledChoices {
 					if choice.position == findPosition {
 						subtreeNode = choice.child
 						foundMatchingChoice = true
@@ -391,17 +391,15 @@ fileprivate class MoveNodeChoice: Node, HasOneChild, ReplaceChild {
 /// Simulate that the player moves counterclockwise, forward, clockwise.
 fileprivate class MoveNode: Node, HasMultipleChildren {
 	let playerId: UInt
-    let choices: [MoveNodeChoice]
-    let shuffledIndexes: [UInt]
+    let shuffledChoices: [MoveNodeChoice]
 
-	fileprivate init(playerId: UInt, choices: [MoveNodeChoice], shuffledIndexes: [UInt]) {
+	fileprivate init(playerId: UInt, shuffledChoices: [MoveNodeChoice]) {
 		self.playerId = playerId
-		self.choices = choices
-        self.shuffledIndexes = shuffledIndexes
+		self.shuffledChoices = shuffledChoices
 	}
 
 	var children: [Node] {
-		choices
+		shuffledChoices
 	}
 
 	override func accept(_ visitor: Visitor) {
@@ -802,18 +800,17 @@ fileprivate class BuildTreeVisitor: Visitor {
 		}
 
         var visitCount: UInt = 0
-        for choice in node.choices {
+        for choice in node.shuffledChoices {
             if choice.isBest {
                 choice.accept(self)
                 visitCount += 1
                 break
             }
         }
-        for index: UInt in node.shuffledIndexes {
+        for choice in node.shuffledChoices {
             if visitCount >= limit {
                 break
             }
-            let choice: MoveNodeChoice = node.choices[Int(index)]
             if choice.isBest {
                 continue
             }
@@ -1043,17 +1040,15 @@ fileprivate class BuildTreeVisitor: Visitor {
         // For the endgame, I need these MoveNodeChoice's with wall collision.
         // so that I can assign parameters about best choice.
 
-        var shuffledIndexes: [UInt] = [0, 1, 2]
-        shuffledIndexes.shuffle(using: &randomNumberGenerator)
-
-        let choices: [MoveNodeChoice] = [
+        var shuffledChoices: [MoveNodeChoice] = [
             createChoice(.moveCCW),
             createChoice(.moveForward),
             createChoice(.moveCW)
         ]
+        shuffledChoices.shuffle(using: &randomNumberGenerator)
 
-        let node = MoveNode(playerId: playerId, choices: choices, shuffledIndexes: shuffledIndexes)
-        for choice in choices {
+        let node = MoveNode(playerId: playerId, shuffledChoices: shuffledChoices)
+        for choice in shuffledChoices {
             choice.parent = node
         }
         return node
