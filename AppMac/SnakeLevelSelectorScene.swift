@@ -93,27 +93,27 @@ class SnakeLevelSelectorScene: SKScene {
 			//log.debug("keyDown: ignoring repeating event.")
 			return
 		}
-        switch event.keyCode {
-		case 36: // Enter
+        switch event.keyCodeEnum {
+        case .enter:
 			launchGame()
-		case 53: // ESCape
-			exit(EXIT_SUCCESS)
-		case 123: // Arrow Left
+        case .escape:
+            NSApp.terminate(self)
+        case .arrowLeft:
 			levelSelectorNode.moveSelectionLeft()
 			NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
 			needRedraw = true
             needSendingLevelInfo = true
-		case 124: // Arrow Right
+        case .arrowRight:
 			levelSelectorNode.moveSelectionRight()
 			NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
 			needRedraw = true
             needSendingLevelInfo = true
-		case 125: // Arrow Down
+        case .arrowDown:
 			levelSelectorNode.moveSelectionDown()
 			NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
 			needRedraw = true
             needSendingLevelInfo = true
-		case 126: // Arrow Up
+        case .arrowUp:
 			levelSelectorNode.moveSelectionUp()
 			NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
 			needRedraw = true
