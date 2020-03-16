@@ -1067,11 +1067,15 @@ fileprivate class BuildTreeVisitor: Visitor {
             return wrapper
         }
 
-        // IDEA: This checkAndAppendChoice() approach, discards nodes if we collide with a wall.
-        // For the early stages of the game this works fine.
-        // However when the snake eats the very last food, then there is only a wall to collide with.
-        // These wall nodes would be discarded, and not be considerable as a possibility.
-        // It's better NOT to discard the nodes. Make use of a KillNodeCause.collisionWithWall for these nodes.
+        // SILLY-IDEA: Minimize the tree structure.
+        // In the past I have discarded the MoveNodeChoice's where the snake collides with a wall.
+        // For the early stages of the game this approach also works fine.
+        //
+        // Why is this a silly idea?
+        // The endgame is tricky, when the snake is about to eat the very last food,
+        // then there is only no available choices if they all have been discarded.
+        // For the endgame, I need these MoveNodeChoice's with wall collision.
+        // so that I can assign parameters about best choice.
 
         var movements: [SnakeBodyMovement] = [.moveCCW, .moveForward, .moveCW]
         movements.shuffle(using: &randomNumberGenerator)
