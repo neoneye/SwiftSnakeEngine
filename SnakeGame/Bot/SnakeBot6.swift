@@ -807,6 +807,14 @@ fileprivate class BuildTreeVisitor: Visitor {
                 break
             }
         }
+//        let numberOfEmptyPositions: Int = self.level.emptyPositionSet.count
+//        let lengthPlayer0: UInt = self.player[0].lengthOfInstalledSnake()
+//        let lengthPlayer1: UInt = self.player[1].lengthOfInstalledSnake()
+//        let remaining: Int = numberOfEmptyPositions - Int(lengthPlayer0 + lengthPlayer1)
+//        let isEndNear: Bool = remaining < 3
+//        if isEndNear {
+//            log.debug("The end is near!  remaining: \(remaining)")
+//        }
         for choice in node.shuffledChoices {
             if visitCount >= limit {
                 break
@@ -815,6 +823,11 @@ fileprivate class BuildTreeVisitor: Visitor {
                 continue
             }
             if !choice.level_isEmpty {
+//                if isEndNear {
+//                    log.debug("End is near. Processing non-empty choice.")
+//                    choice.accept(self)
+//                    visitCount += 1
+//                }
                 continue
             }
             choice.accept(self)
