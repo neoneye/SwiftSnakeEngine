@@ -452,6 +452,12 @@ fileprivate class Scenario {
 	}
 
 	func flagTheBestNodes() {
+        // IDEA: Currently the best nodes are flagged with a boolean.
+        // A faster approach may be to construct an IndexPath.
+        // For nodes with multiple children, then it's easier to determine
+        // which child that is the best, since an IndexPath have an index.
+        // So there will not be any looping through the childern and looking at the isBest boolean.
+
 		var node: Node = self.destinationNode
 		node.isBest = true
 //		var count: UInt = 0
