@@ -35,13 +35,13 @@ class SnakeGameScene: SKScene {
 		return scene
 	}
 
-	class func createBotsVsBots() -> SnakeGameScene {
+	class func createBotVsNone() -> SnakeGameScene {
 		let newScene = SnakeGameScene.create()
-		let snakeBotType: SnakeBot.Type = SnakeBotFactory.snakeBotTypes.first ?? SnakeBotFactory.emptyBotType()
+		let snakeBotType: SnakeBot.Type = SnakeBotFactory.snakeBotTypes.last ?? SnakeBotFactory.emptyBotType()
 		newScene.initialGameState = SnakeGameState.create(
 			player1: .bot(snakeBotType: snakeBotType),
 			player2: .none,
-			levelName: "Level 7.csv"
+			levelName: "Level 0.csv"
 		)
 		return newScene
 	}
@@ -164,7 +164,7 @@ class SnakeGameScene: SKScene {
 				restartGame()
 			}
 		case .escape:
-			exit(EXIT_SUCCESS)
+            NSApp.terminate(self)
 		case .arrowUp:
 			userInputForPlayer1(.arrowUp)
 		case .arrowLeft:

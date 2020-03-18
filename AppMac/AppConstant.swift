@@ -5,7 +5,7 @@ import SnakeGame
 struct AppConstant {
 	enum Mode {
 		case production
-		case experimentWithAI
+		case experimentWithAI_botVsNone
 	}
 	static let mode: Mode = .production
 

@@ -165,6 +165,7 @@ public class SnakeBot6: SnakeBot {
 		let majorSeed: UInt = iteration * 100
         let seed: UInt64 = UInt64(majorSeed + minorSeed)
 		let visitor_buildTree = BuildTreeVisitor(
+            iteration: iteration,
 			level: level,
 			player: player,
 			oppositePlayer: oppositePlayer,
@@ -412,9 +413,8 @@ fileprivate class MoveNode: Node, HasMultipleChildren {
 
 fileprivate enum KillNodeCause {
 	case unspecified
-	case snakeSelf
-	case snakeOpponent
-	case wall
+	case collisionWithSelf
+	case collisionWithOpponent
 }
 
 /// The player dies because of collision with wall or itself.
@@ -448,6 +448,12 @@ fileprivate class Scenario {
 	}
 
 	func flagTheBestNodes() {
+        // IDEA: Currently the best nodes are flagged with a boolean.
+        // A faster approach may be to construct an IndexPath.
+        // For nodes with multiple children, then it's easier to determine
+        // which child that is the best, since an IndexPath have an index.
+        // So there will not be any looping through the childern and looking at the isBest boolean.
+
 		var node: Node = self.destinationNode
 		node.isBest = true
 //		var count: UInt = 0
@@ -514,7 +520,9 @@ fileprivate class Scenario {
 
 // IDEA: Store confidence in each of the nodes.
 fileprivate class BuildTreeVisitor: Visitor {
-	// Use random generator with a seed for reproducable results
+    private let iteration: UInt
+
+    // Use random generator with a seed for reproducable results
 	private var randomNumberGenerator: SeededGenerator
 
 	private let level: SnakeLevel
@@ -535,7 +543,8 @@ fileprivate class BuildTreeVisitor: Visitor {
 	/// Keep track of the best paths so far.
 	private var scenarios: [Scenario]
 
-	init(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?, seed: UInt64) {
+	init(iteration: UInt, level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?, seed: UInt64) {
+        self.iteration = iteration
 		self.level = level
 		self.player = [player, oppositePlayer]
 		self.foodPosition = foodPosition
@@ -802,6 +811,13 @@ fileprivate class BuildTreeVisitor: Visitor {
 				choice.parent = node
 				choices.append(choice)
 			}
+
+            // IDEA: This checkAndAppendChoice() approach, discards nodes if we collide with a wall.
+            // For the early stages of the game this works fine.
+            // However when the snake eats the very last food, then there is only a wall to collide with.
+            // These wall nodes would be discarded, and not be considerable as a possibility.
+            // It's better NOT to discard the nodes. Make use of a KillNodeCause.collisionWithWall for these nodes.
+
 			checkAndAppendChoice(.moveCCW)
 			checkAndAppendChoice(.moveForward)
 			checkAndAppendChoice(.moveCW)
@@ -856,6 +872,12 @@ fileprivate class BuildTreeVisitor: Visitor {
 			self.movements.append(node.movement)
 		}
 
+        // IDEA: Detect if the snake is chasing its own tail.
+        // Is the new head position the same as the previous tail position.
+        // I'm experiencing that the snake eats almost all the food, except for the very last food.
+        // The snake rather wants to chase its own tail, than eat the last remaining piece of food.
+        // In this case, then the snake should go for the food, so that the game can be finished.
+
 		let originalSnakeBody: SnakeBody = originalPlayer.snakeBody
 
 		// Currently there is no edge case handling.
@@ -871,7 +893,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 				if let existingChildNode: KillNode = node.child as? KillNode {
 					// If the child already is a KillNode, then keep the subtree, and traverse the subtree.
 					// IDEA: if any of KillNode parameters have changed, then discard the subtree.
-					existingChildNode.cause = KillNodeCause.snakeSelf
+					existingChildNode.cause = KillNodeCause.collisionWithSelf
 					existingChildNode.playerId = playerId
 					existingChildNode.accept(self)
 					return
@@ -880,7 +902,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 					let newChildNode: KillNode = KillNode()
 					node.child = newChildNode
 					newChildNode.parent = node
-					newChildNode.cause = KillNodeCause.snakeSelf
+					newChildNode.cause = KillNodeCause.collisionWithSelf
 					newChildNode.playerId = playerId
 					newChildNode.accept(self)
 					return
@@ -921,7 +943,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 				if let existingChildNode: KillNode = node.child as? KillNode {
 					// If the child already is a KillNode, then keep the subtree, and traverse the subtree.
 					// IDEA: if any of KillNode parameters have changed, then discard the subtree.
-					existingChildNode.cause = KillNodeCause.snakeSelf
+					existingChildNode.cause = KillNodeCause.collisionWithSelf
 					existingChildNode.playerId = playerId
 					existingChildNode.accept(self)
 					return
@@ -930,7 +952,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 					let newChildNode: KillNode = KillNode()
 					node.child = newChildNode
 					newChildNode.parent = node
-					newChildNode.cause = KillNodeCause.snakeSelf
+					newChildNode.cause = KillNodeCause.collisionWithSelf
 					newChildNode.playerId = playerId
 					newChildNode.accept(self)
 					return
@@ -946,7 +968,7 @@ fileprivate class BuildTreeVisitor: Visitor {
 					let newChildNode: KillNode = KillNode()
 					node.child = newChildNode
 					newChildNode.parent = node
-					newChildNode.cause = KillNodeCause.snakeOpponent
+					newChildNode.cause = KillNodeCause.collisionWithOpponent
 					newChildNode.playerId = playerId
 					newChildNode.accept(self)
 					return
@@ -970,6 +992,9 @@ fileprivate class BuildTreeVisitor: Visitor {
 			// If the player being controlled by this bot dies,
 			// then it makes no sense to continue simulating the dead player.
 			// It makes more sense to register this as a scenario leading to certain death.
+            if self.iteration >= 935 {
+                log.debug("#\(self.iteration) certainDeath because \(node.cause)")
+            }
 			appendScenario(node: node, certainDeath: true)
 			return
 		}
