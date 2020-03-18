@@ -992,9 +992,6 @@ fileprivate class BuildTreeVisitor: Visitor {
 			// If the player being controlled by this bot dies,
 			// then it makes no sense to continue simulating the dead player.
 			// It makes more sense to register this as a scenario leading to certain death.
-            if self.iteration >= 935 {
-                log.debug("#\(self.iteration) certainDeath because \(node.cause)")
-            }
 			appendScenario(node: node, certainDeath: true)
 			return
 		}
