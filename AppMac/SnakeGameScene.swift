@@ -373,6 +373,7 @@ class SnakeGameScene: SKScene {
             log.info("Canot step backward. There is no previous state to rewind back to.")
 			return
 		}
+        gameExecuter.undo()
 		state = state.clearPendingMovementAndPendingLengthForHumanPlayers()
 //		log.debug("rewind to: \(state.player2.debugDescription)")
 		gameState = state

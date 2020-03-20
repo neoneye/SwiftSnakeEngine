@@ -12,6 +12,11 @@ public class SnakeGameExecuter {
         stuckSnakeDetector2.reset()
     }
 
+    public func undo() {
+        stuckSnakeDetector1.undo()
+        stuckSnakeDetector2.undo()
+    }
+
     public func executeStep(_ currentGameState: SnakeGameState) -> SnakeGameState {
         var gameState: SnakeGameState = currentGameState
         let newGameState = gameState.detectCollision()
