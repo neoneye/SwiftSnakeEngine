@@ -30,7 +30,11 @@ public class StuckSnakeDetector {
     }
 
     /// Undo, by removing the last event and replay all the historical events.
-    public func removeLast() {
+    public func undo() {
+        guard !self.historical_snakeBodies.isEmpty else {
+            // When there is nothing to undo, then do nothing.
+            return
+        }
         self.historical_snakeBodies.removeLast()
         self.detector = StuckSnakeDetectorForwardHistory(humanReadableName: humanReadableName)
         for body in self.historical_snakeBodies {

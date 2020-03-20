@@ -27,6 +27,11 @@ class T3100_StuckSnakeDetector: XCTestCase {
 
     func test1_undo() {
         let detector = StuckSnakeDetector(humanReadableName: "TestPlayer")
+
+        // Undoing when there is no data, should not do anything.
+        detector.undo()
+        XCTAssertFalse(detector.isStuck)
+
         let body = SnakeBody.create(position: IntVec2(x: 10, y: 10), headDirection: .right, length: 3)
         do {
             XCTAssertFalse(detector.isStuck)
@@ -42,7 +47,7 @@ class T3100_StuckSnakeDetector: XCTestCase {
 
         // Remove the last event that caused the snake to get stuck
         // And check that it's not unstuck.
-        detector.removeLast()
+        detector.undo()
         XCTAssertFalse(detector.isStuck, "After undoing the last event, the snake must now be unstuck")
 
         // Append the same event that caused the snake to get stuck
