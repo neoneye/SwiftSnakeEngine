@@ -12,6 +12,11 @@ public class SnakeGameExecuter {
         stuckSnakeDetector2.reset()
     }
 
+    public func undo() {
+        stuckSnakeDetector1.undo()
+        stuckSnakeDetector2.undo()
+    }
+
     public func executeStep(_ currentGameState: SnakeGameState) -> SnakeGameState {
         var gameState: SnakeGameState = currentGameState
         let newGameState = gameState.detectCollision()
@@ -197,7 +202,7 @@ extension StuckSnakeDetector {
         guard player.isBot && player.isAlive else {
             return player
         }
-        self.process(body: player.snakeBody)
+        self.append(player.snakeBody)
         if self.isStuck {
             return player.kill(.stuckInALoop)
         } else {
