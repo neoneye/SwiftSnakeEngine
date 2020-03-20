@@ -2,7 +2,54 @@
 import Foundation
 
 /// Detect if a player has gotten stuck and doing the same things over and over.
+///
+/// Undo is possible in the UI. This makes debugging easiser, but it also complicates the data model.
+/// The user can step back/forward in time and inspect what is going on.
+///
+/// The `StuckSnakeDetectorForwardHistory` in it self does not support undo.
+///
+/// The `StuckSnakeDetector` makes undo possible.
 public class StuckSnakeDetector {
+    private let humanReadableName: String
+    private var historical_snakeBodies: [SnakeBody] = []
+    private var detector: StuckSnakeDetectorForwardHistory
+
+    public init(humanReadableName: String) {
+        self.humanReadableName = humanReadableName
+        self.detector = StuckSnakeDetectorForwardHistory(humanReadableName: humanReadableName)
+    }
+
+    public func reset() {
+        self.historical_snakeBodies.removeAll()
+        self.detector = StuckSnakeDetectorForwardHistory(humanReadableName: humanReadableName)
+    }
+
+    public func append(_ body: SnakeBody) {
+        self.detector.append(body)
+        self.historical_snakeBodies.append(body)
+    }
+
+    /// Undo, by removing the last event and replay all the historical events.
+    public func removeLast() {
+        self.historical_snakeBodies.removeLast()
+        self.detector = StuckSnakeDetectorForwardHistory(humanReadableName: humanReadableName)
+        for body in self.historical_snakeBodies {
+            self.detector.append(body)
+        }
+    }
+
+    public var isStuck: Bool {
+        return self.detector.isStuck
+    }
+}
+
+
+/// Detect if a player has gotten stuck and doing the same things over and over.
+///
+/// It's only possible to append items to this class.
+///
+/// There is no way to undo. Instead use the `StuckSnakeDetector` class.
+public class StuckSnakeDetectorForwardHistory {
     private let humanReadableName: String
     private var historical_snakeBodies = Set<SnakeBody>()
     private var score: UInt = 0
@@ -18,7 +65,7 @@ public class StuckSnakeDetector {
         isStuck = false
     }
 
-    public func process(body: SnakeBody) {
+    public func append(_ body: SnakeBody) {
         guard historical_snakeBodies.contains(body) else {
             historical_snakeBodies.insert(body)
             if score > 1 {

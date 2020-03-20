@@ -197,7 +197,7 @@ extension StuckSnakeDetector {
         guard player.isBot && player.isAlive else {
             return player
         }
-        self.process(body: player.snakeBody)
+        self.append(player.snakeBody)
         if self.isStuck {
             return player.kill(.stuckInALoop)
         } else {
