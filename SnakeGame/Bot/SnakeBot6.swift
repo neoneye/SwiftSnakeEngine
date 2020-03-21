@@ -14,6 +14,7 @@ public class SnakeBot6: SnakeBot {
 		)
 	}
 
+    private let debug_graphvizExport = true
 	private let iteration: UInt
 	private let previousIterationData: PreviousIterationData?
 
@@ -227,6 +228,13 @@ public class SnakeBot6: SnakeBot {
 			let aliveDead: String = scenario.certainDeath ? "DIE" : "   "
 			log.debug("\(iteration_string) \(countRemove_string) \(countKeep_string) \(countInsert_string) \(aliveDead) \(prettyMovements)")
 		}
+
+        if debug_graphvizExport {
+            let visitor_graphvizExport = GraphvizExport()
+            root.accept(visitor_graphvizExport)
+            let s: String = visitor_graphvizExport.result()
+            log.debug("graphviz export\n\(s)")
+        }
 
 		let previousIterationData = PreviousIterationData(
 			root: root,
@@ -1391,5 +1399,173 @@ fileprivate class FindMaxDepth: Visitor {
 
 		// no purpose traversing the subtree of this node, since we know that player A dies.
 	}
+}
+
+fileprivate class GraphvizExport: Visitor {
+    var rows = [String]()
+    var nodeId: UInt = 0
+    var currentIndex: UInt = 0
+    let maxDepth: UInt = 6
+    var depth: UInt = 0
+
+    func result() -> String {
+        var rows = [String]()
+        rows.append("/*")
+        rows.append("USAGE:")
+        rows.append("PROMPT> dot -Tsvg demo.dot -o demo.svg")
+        rows.append("*/")
+        rows.append("digraph G {")
+        rows += self.rows.map { "  \($0)" }
+        rows.append("}")
+        return rows.joined(separator: "\n")
+    }
+
+    func generateId() -> UInt {
+        currentIndex += 1
+        return currentIndex
+    }
+
+    func edge(_ fromId: UInt, _ toId: UInt) {
+        rows.append("node\(fromId) -> node\(toId);")
+    }
+
+    func nodeWithLabel(_ nodeId: UInt, label: String) {
+        rows.append("node\(nodeId) [label=\"\(label)\"];")
+    }
+
+    func visit(_ node: RootNode) {
+        nodeWithLabel(self.nodeId, label: "Root")
+        node.child?.accept(self)
+    }
+
+    func visit(_ node: LeafNode) {
+        let originalNodeId: UInt = self.nodeId
+        let originalDepth: UInt = self.depth
+        self.nodeId = generateId()
+        self.depth += 1
+        defer {
+            self.nodeId = originalNodeId
+            self.depth = originalDepth
+        }
+        nodeWithLabel(self.nodeId, label: "Leaf")
+        edge(originalNodeId, self.nodeId)
+
+        guard self.depth < self.maxDepth else {
+            return
+        }
+    }
+
+    func visit(_ node: FoodNode) {
+        let originalNodeId: UInt = self.nodeId
+        let originalDepth: UInt = self.depth
+        self.nodeId = generateId()
+        self.depth += 1
+        defer {
+            self.nodeId = originalNodeId
+            self.depth = originalDepth
+        }
+        nodeWithLabel(self.nodeId, label: "Food")
+        edge(originalNodeId, self.nodeId)
+
+        guard self.depth < self.maxDepth else {
+            return
+        }
+
+        for choice in node.choices {
+            choice.accept(self)
+        }
+    }
+
+    func visit(_ node: FoodNodeChoice) {
+        let originalNodeId: UInt = self.nodeId
+        let originalDepth: UInt = self.depth
+        self.nodeId = generateId()
+        self.depth += 1
+        defer {
+            self.nodeId = originalNodeId
+            self.depth = originalDepth
+        }
+        nodeWithLabel(self.nodeId, label: "FC")
+        edge(originalNodeId, self.nodeId)
+
+        guard self.depth < self.maxDepth else {
+            return
+        }
+
+        node.child?.accept(self)
+    }
+
+    func visit(_ node: MoveNode) {
+        let originalNodeId: UInt = self.nodeId
+        let originalDepth: UInt = self.depth
+        self.nodeId = generateId()
+        self.depth += 1
+        defer {
+            self.nodeId = originalNodeId
+            self.depth = originalDepth
+        }
+        let label = "Move\(node.playerId)"
+        nodeWithLabel(self.nodeId, label: label)
+        edge(originalNodeId, self.nodeId)
+
+        guard self.depth < self.maxDepth else {
+            return
+        }
+
+        let choices: [MoveNodeChoice] = node.choices.sorted { $0.movement < $1.movement }
+        for choice in choices {
+            choice.accept(self)
+        }
+    }
+
+    func visit(_ node: MoveNodeChoice) {
+        let originalNodeId: UInt = self.nodeId
+        let originalDepth: UInt = self.depth
+        self.nodeId = generateId()
+        self.depth += 1
+        defer {
+            self.nodeId = originalNodeId
+            self.depth = originalDepth
+        }
+        let label: String
+        switch node.movement {
+        case .dontMove:
+            label = "DontMove"
+        case .moveCCW:
+            label = "CCW"
+        case .moveForward:
+            label = "FWD"
+        case .moveCW:
+            label = "CW"
+        }
+
+        nodeWithLabel(self.nodeId, label: label)
+        edge(originalNodeId, self.nodeId)
+
+        guard self.depth < self.maxDepth else {
+            return
+        }
+
+        node.child?.accept(self)
+    }
+
+    func visit(_ node: KillNode) {
+        let originalNodeId: UInt = self.nodeId
+        let originalDepth: UInt = self.depth
+        self.nodeId = generateId()
+        self.depth += 1
+        defer {
+            self.nodeId = originalNodeId
+            self.depth = originalDepth
+        }
+        nodeWithLabel(self.nodeId, label: "Kill")
+        edge(originalNodeId, self.nodeId)
+
+        guard self.depth < self.maxDepth else {
+            return
+        }
+
+        node.child?.accept(self)
+    }
 }
 
