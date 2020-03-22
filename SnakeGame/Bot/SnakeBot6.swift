@@ -1449,7 +1449,7 @@ fileprivate class FindMaxDepth: Visitor {
 
 fileprivate class GraphvizExport: Visitor {
     var rows = [String]()
-    var nodeId: UInt = 0
+    var nodeId: String = "node0"
     var currentIndex: UInt = 0
     let maxDepth: UInt = 6
     var depth: UInt = 0
@@ -1466,26 +1466,26 @@ fileprivate class GraphvizExport: Visitor {
         return rows.joined(separator: "\n")
     }
 
-    func generateId() -> UInt {
+    func generateId() -> String {
         currentIndex += 1
-        return currentIndex
+        return "node\(currentIndex)"
     }
 
-    func edge(_ fromId: UInt, _ toId: UInt) {
-        rows.append("node\(fromId) -> node\(toId);")
+    func edge(_ fromId: String, _ toId: String) {
+        rows.append("\(fromId) -> \(toId);")
     }
 
-    func nodeWithLabel(_ nodeId: UInt, label: String) {
-        rows.append("node\(nodeId) [label=\"\(label)\"];")
+    func nodeWithLabel(_ nodeId: String, label: String) {
+        rows.append("\(nodeId) [label=\"\(label)\"];")
     }
 
     func visit(_ node: RootNode) {
-        nodeWithLabel(self.nodeId, label: "Root")
+        rows.append("\(self.nodeId) [shape=plaintext, label=\"Start\"];")
         node.child?.accept(self)
     }
 
     func visit(_ node: LeafNode) {
-        let originalNodeId: UInt = self.nodeId
+        let originalNodeId: String = self.nodeId
         let originalDepth: UInt = self.depth
         self.nodeId = generateId()
         self.depth += 1
@@ -1502,7 +1502,7 @@ fileprivate class GraphvizExport: Visitor {
     }
 
     func visit(_ node: FoodNode) {
-        let originalNodeId: UInt = self.nodeId
+        let originalNodeId: String = self.nodeId
         let originalDepth: UInt = self.depth
         self.nodeId = generateId()
         self.depth += 1
@@ -1523,7 +1523,7 @@ fileprivate class GraphvizExport: Visitor {
     }
 
     func visit(_ node: FoodNodeChoice) {
-        let originalNodeId: UInt = self.nodeId
+        let originalNodeId: String = self.nodeId
         let originalDepth: UInt = self.depth
         self.nodeId = generateId()
         self.depth += 1
@@ -1542,7 +1542,7 @@ fileprivate class GraphvizExport: Visitor {
     }
 
     func visit(_ node: MoveNode) {
-        let originalNodeId: UInt = self.nodeId
+        let originalNodeId: String = self.nodeId
         let originalDepth: UInt = self.depth
         self.nodeId = generateId()
         self.depth += 1
@@ -1550,53 +1550,58 @@ fileprivate class GraphvizExport: Visitor {
             self.nodeId = originalNodeId
             self.depth = originalDepth
         }
-        let label = "Move\(node.playerId)"
-        nodeWithLabel(self.nodeId, label: label)
+
+        let choices: [MoveNodeChoice] = node.choices.sorted { $0.movement < $1.movement }
+        let choiceNodeIds: [String] = choices.map { choice in self.generateId() }
+
         edge(originalNodeId, self.nodeId)
+
+        var choiceItems: [String] = []
+        for (index, choice) in choices.enumerated() {
+            let choiceNodeId: String = choiceNodeIds[index]
+
+            let label: String
+            switch choice.movement {
+            case .dontMove:
+                label = "DontMove"
+            case .moveCCW:
+                label = "ccw"
+            case .moveForward:
+                label = "fwd"
+            case .moveCW:
+                label = "cw"
+            }
+            choiceItems.append("<\(choiceNodeId)> \(label)")
+        }
+
+        let joinedChoiceItems: String = choiceItems.joined(separator: "|")
+        let nodeLabel = "Move"
+        let fillcolor: String
+        if node.playerId == 0 {
+            fillcolor = "lightgreen"
+        } else {
+            fillcolor = "lightblue"
+        }
+        rows.append("\(self.nodeId) [ shape=record, style=filled, fillcolor=\(fillcolor), label=\"{ \(nodeLabel) |{\(joinedChoiceItems)}}\" ];")
 
         guard self.depth < self.maxDepth else {
             return
         }
 
-        let choices: [MoveNodeChoice] = node.choices.sorted { $0.movement < $1.movement }
-        for choice in choices {
-            choice.accept(self)
+        let moveNodeId: String = self.nodeId
+        for (index, choice) in choices.enumerated() {
+            let childNodeId: String = choiceNodeIds[index]
+            self.nodeId = "\(moveNodeId):\(childNodeId)"
+            choice.child?.accept(self)
         }
     }
 
     func visit(_ node: MoveNodeChoice) {
-        let originalNodeId: UInt = self.nodeId
-        let originalDepth: UInt = self.depth
-        self.nodeId = generateId()
-        self.depth += 1
-        defer {
-            self.nodeId = originalNodeId
-            self.depth = originalDepth
-        }
-        let label: String
-        switch node.movement {
-        case .dontMove:
-            label = "DontMove"
-        case .moveCCW:
-            label = "CCW"
-        case .moveForward:
-            label = "FWD"
-        case .moveCW:
-            label = "CW"
-        }
-
-        nodeWithLabel(self.nodeId, label: label)
-        edge(originalNodeId, self.nodeId)
-
-        guard self.depth < self.maxDepth else {
-            return
-        }
-
-        node.child?.accept(self)
+        log.error("Expecting MoveNodeChoice to always have a MoveNode as its parent.")
     }
 
     func visit(_ node: KillNode) {
-        let originalNodeId: UInt = self.nodeId
+        let originalNodeId: String = self.nodeId
         let originalDepth: UInt = self.depth
         self.nodeId = generateId()
         self.depth += 1
