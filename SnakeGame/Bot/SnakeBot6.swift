@@ -111,7 +111,7 @@ public class SnakeBot6: SnakeBot {
 						// Currently the best choice survies and all the other choices gets discarded.
 						// IDEA: Keep the 2nd best and 3rd best FoodNodeChoice's around and use them as a fallback.
 						if subtreeNode is MoveNode {
-							//log.debug("successfully extracted the nearest FoodNodeChoice")
+							log.debug("successfully extracted the nearest FoodNodeChoice")
 						} else {
 							subtreeNode = nil
 							log.error("unable to extract the nearest food node choice")
@@ -135,6 +135,8 @@ public class SnakeBot6: SnakeBot {
 					if choice.position == findPosition {
 						subtreeNode = choice.child
 						foundMatchingChoice = true
+                        //log.debug("foundMatchingChoice for player0")
+                        break
 					}
 				}
 				if !foundMatchingChoice {
@@ -150,6 +152,8 @@ public class SnakeBot6: SnakeBot {
 					if choice.position == findPosition {
 						subtreeNode = choice.child
 						foundMatchingChoice = true
+                        //log.debug("foundMatchingChoice for player1")
+                        break
 					}
 				}
 				if !foundMatchingChoice {
@@ -163,6 +167,7 @@ public class SnakeBot6: SnakeBot {
 				countRemove = countAll - countKeep
 				root.child = actualSubtreeNode
 				actualSubtreeNode.parent = root
+//                log.debug("Successfully reused subtree from previous iteration")
 			} else {
 				log.error("unable to reuse subtree from previous iteration!")
 			}
