@@ -1,6 +1,11 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
+struct GraphvizRequestModel: Codable {
+    var iteration: UInt
+    var dotFile: String
+}
+
 fileprivate struct PreviousIterationData {
 	let root: RootNode
 	let plannedPath: [IntVec2]
@@ -233,7 +238,10 @@ public class SnakeBot6: SnakeBot {
             let visitor_graphvizExport = GraphvizExport()
             root.accept(visitor_graphvizExport)
             let s: String = visitor_graphvizExport.result()
-            log.debug("graphviz export\n\(s)")
+//            log.debug("graphviz export\n\(s)")
+            log.debug("will send graphviz to server")
+            sendGraphvizDataToServer(iteration: self.iteration, dotFile: s)
+            log.debug("did send graphviz to server")
         }
 
 		let previousIterationData = PreviousIterationData(
@@ -247,6 +255,42 @@ public class SnakeBot6: SnakeBot {
 
 		return (bot, bestMovement)
 	}
+
+    func sendGraphvizDataToServer(iteration: UInt, dotFile: String) {
+        let model = GraphvizRequestModel(iteration: iteration, dotFile: dotFile)
+        let jsonData: Data
+        do {
+            jsonData = try JSONEncoder().encode(model)
+        } catch let error {
+            log.error("Unable to convert model to json", error.localizedDescription)
+            return
+        }
+
+        let url = URL(string: "http://localhost:4000/graphviz")!
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            if let theError = error {
+                log.error("Response contains an error", String(describing: theError))
+                return
+            }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                log.error("Expected response to be of type HTTPURLResponse")
+                return
+            }
+            let statusCode: Int = httpResponse.statusCode
+            guard statusCode == 200 else {
+                log.error("Expected statusCode 200, but got: \(statusCode)")
+                return
+            }
+            log.debug("success")
+        })
+        task.resume()
+    }
 }
 
 extension SnakeBodyMovement {
