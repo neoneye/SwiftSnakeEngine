@@ -238,10 +238,7 @@ public class SnakeBot6: SnakeBot {
             let visitor_graphvizExport = GraphvizExport()
             root.accept(visitor_graphvizExport)
             let s: String = visitor_graphvizExport.result()
-//            log.debug("graphviz export\n\(s)")
-            log.debug("will send graphviz to server")
             sendGraphvizDataToServer(iteration: self.iteration, dotFile: s)
-            log.debug("did send graphviz to server")
         }
 
 		let previousIterationData = PreviousIterationData(
@@ -287,7 +284,7 @@ public class SnakeBot6: SnakeBot {
                 log.error("Expected statusCode 200, but got: \(statusCode)")
                 return
             }
-            log.debug("success")
+            //log.debug("success")
         })
         task.resume()
     }
