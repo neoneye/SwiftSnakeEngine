@@ -1460,7 +1460,7 @@ fileprivate class GraphvizExport: Visitor {
         rows.append("USAGE:")
         rows.append("PROMPT> dot -Tsvg demo.dot -o demo.svg")
         rows.append("*/")
-        rows.append("digraph G {")
+        rows.append("digraph {")
         rows += self.rows.map { "  \($0)" }
         rows.append("}")
         return rows.joined(separator: "\n")
