@@ -10,7 +10,7 @@ enum UpdateAction {
 
     static var initialUpdateAction: UpdateAction {
         switch AppConstant.gameInitialStepMode {
-        case .stepForwardContinuously:
+        case .production_stepForwardContinuously:
             return .stepForwardContinuously
         case .stepForwardOnce:
             return .stepForwardOnce
@@ -25,6 +25,7 @@ class SnakeGameScene: SKScene {
 	var needBecomeFirstResponder = false
 	var updateAction = UpdateAction.initialUpdateAction
     var needSendingBeginNewGame = true
+    var readyForComputingBotMovement = false
 
 	var trainingSessionUUID: UUID
 	var trainingSessionURLs: [URL]
@@ -121,6 +122,7 @@ class SnakeGameScene: SKScene {
 		//log.debug("restartGame")
 		updateAction = UpdateAction.initialUpdateAction
 		isPaused = false
+        readyForComputingBotMovement = false
 		needRedraw = true
 		needLayout = true
         needSendingBeginNewGame = true
@@ -191,6 +193,9 @@ class SnakeGameScene: SKScene {
 			return
 		}
 		let movement: SnakeBodyMovement = userInput.newMovement(oldDirection: gameState.player1.snakeBody.head.direction)
+        guard movement != SnakeBodyMovement.dontMove else {
+            return
+        }
 		let newGameState: SnakeGameState = gameState.updatePendingMovementForPlayer1(movement)
 		self.gameState = newGameState
 		self.needRedraw = true
@@ -203,6 +208,9 @@ class SnakeGameScene: SKScene {
 			return
 		}
 		let movement: SnakeBodyMovement = userInput.newMovement(oldDirection: gameState.player2.snakeBody.head.direction)
+        guard movement != SnakeBodyMovement.dontMove else {
+            return
+        }
 		let newGameState: SnakeGameState = gameState.updatePendingMovementForPlayer2(movement)
 		self.gameState = newGameState
 		self.needRedraw = true
@@ -245,18 +253,20 @@ class SnakeGameScene: SKScene {
 
     override func update(_ currentTime: TimeInterval) {
 		super.update(currentTime)
-//		log.debug("update")
 
-		switch updateAction {
-		case .stepForwardContinuously:
-			stepForward()
-		case .stepForwardOnce:
-			stepForward()
+//        log.debug("update \(currentTime)")
+
+        switch updateAction {
+        case .stepForwardContinuously:
+            readyForComputingBotMovement = true
+            stepForward()
+        case .stepForwardOnce:
+            stepForward()
             isPaused = true
-		case .stepBackwardOnce:
-			stepBackward()
+        case .stepBackwardOnce:
+            stepBackward()
             isPaused = true
-		}
+        }
 
 		if needBecomeFirstResponder {
 			needBecomeFirstResponder = false
@@ -283,8 +293,34 @@ class SnakeGameScene: SKScene {
 	}
 
 	func stepForward() {
-		let newGameState0 = gameState.prepareBotMovements()
-		let newGameState1 = newGameState0.preventHumanCollisions()
+        // Optimization thoughts:
+        //
+        // Scenario A: human interaction, then computation of the next bot movement.
+        // When a human singlesteps with a bot,
+        // then the info written to the logfile must correspond with the things happening on the screen.
+        // In this scenario the bots have to be computed AFTER the user have interacted.
+        // Terrible UX for the human player.
+        // Good UX for the developer.
+        //
+        // Scenario B: precomputation of the next bot movement, then wait for human interaction.
+        // When a human plays against a bot.
+        // It can take a long time for a bot to compute a movement.
+        // Meanwhile the bot is computing the human can think about what move to make.
+        // When the human interacts with the keyboard, we already have the bot movement.
+        // So the human will not have to wait for the bot.
+        // However this also complicate things. It's difficult to single step through this code.
+        // Good UX for the human player.
+        // Terrible UX for the developer.
+        let precomputeBotMovements: Bool = (AppConstant.gameInitialStepMode == .production_stepForwardContinuously)
+        let newGameState0: SnakeGameState
+        if precomputeBotMovements || readyForComputingBotMovement {
+            readyForComputingBotMovement = false
+            newGameState0 = self.gameState.prepareBotMovements()
+        } else {
+            newGameState0 = self.gameState
+        }
+
+        let newGameState1 = newGameState0.preventHumanCollisions()
 		self.gameState = newGameState1
 
 		let isWaiting = self.gameState.isWaitingForHumanInput()
@@ -392,6 +428,7 @@ class SnakeGameScene: SKScene {
 	func schedule_stepForwardOnce() {
 		updateAction = .stepForwardOnce
 		isPaused = false
+        readyForComputingBotMovement = true
 	}
 
 	func playSoundEffect(_ action: SKAction) {

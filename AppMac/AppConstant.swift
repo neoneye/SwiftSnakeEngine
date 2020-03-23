@@ -23,11 +23,14 @@ struct AppConstant {
 
     enum GameInitialStepMode {
         // Similar to most video players that begins playing right away.
-        case stepForwardContinuously
+        // The next bot move gets precomputed before the user input.
+        case production_stepForwardContinuously
 
         // Similar to single stepping with a debugger.
+        // The next bot move gets computed AFTER the user input.
         case stepForwardOnce
     }
+//    static let gameInitialStepMode: GameInitialStepMode = .production_stepForwardContinuously
     static let gameInitialStepMode: GameInitialStepMode = .stepForwardOnce
 
 	static let saveTrainingData = false
