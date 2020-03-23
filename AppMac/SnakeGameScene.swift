@@ -7,6 +7,15 @@ enum UpdateAction {
 	case stepForwardContinuously
 	case stepForwardOnce
 	case stepBackwardOnce
+
+    static var initialUpdateAction: UpdateAction {
+        switch AppConstant.gameInitialStepMode {
+        case .stepForwardContinuously:
+            return .stepForwardContinuously
+        case .stepForwardOnce:
+            return .stepForwardOnce
+        }
+    }
 }
 
 class SnakeGameScene: SKScene {
@@ -14,8 +23,7 @@ class SnakeGameScene: SKScene {
 	var needRedraw = false
 	var needLayout = false
 	var needBecomeFirstResponder = false
-	var shouldPauseAfterUpdate = false
-	var updateAction = UpdateAction.stepForwardContinuously
+	var updateAction = UpdateAction.initialUpdateAction
     var needSendingBeginNewGame = true
 
 	var trainingSessionUUID: UUID
@@ -111,7 +119,7 @@ class SnakeGameScene: SKScene {
 
 	func restartGame() {
 		//log.debug("restartGame")
-		updateAction = .stepForwardContinuously
+		updateAction = UpdateAction.initialUpdateAction
 		isPaused = false
 		needRedraw = true
 		needLayout = true
@@ -244,8 +252,10 @@ class SnakeGameScene: SKScene {
 			stepForward()
 		case .stepForwardOnce:
 			stepForward()
+            isPaused = true
 		case .stepBackwardOnce:
 			stepBackward()
+            isPaused = true
 		}
 
 		if needBecomeFirstResponder {
@@ -264,12 +274,6 @@ class SnakeGameScene: SKScene {
 		if needLayout {
 			needLayout = false
 			updateCamera()
-		}
-
-		if shouldPauseAfterUpdate {
-			shouldPauseAfterUpdate = false
-			isPaused = true
-			//log.debug("pausing game after update")
 		}
 
         if needSendingBeginNewGame {
@@ -383,13 +387,11 @@ class SnakeGameScene: SKScene {
 	func schedule_stepBackwardOnce() {
 		updateAction = .stepBackwardOnce
 		isPaused = false
-		shouldPauseAfterUpdate = true
 	}
 
 	func schedule_stepForwardOnce() {
 		updateAction = .stepForwardOnce
 		isPaused = false
-		shouldPauseAfterUpdate = true
 	}
 
 	func playSoundEffect(_ action: SKAction) {

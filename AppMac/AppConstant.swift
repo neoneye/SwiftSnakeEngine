@@ -21,6 +21,15 @@ struct AppConstant {
 
 	static let ignoreRepeatingKeyDownEvents = true
 
+    enum GameInitialStepMode {
+        // Similar to most video players that begins playing right away.
+        case stepForwardContinuously
+
+        // Similar to single stepping with a debugger.
+        case stepForwardOnce
+    }
+    static let gameInitialStepMode: GameInitialStepMode = .stepForwardOnce
+
 	static let saveTrainingData = false
 
     struct SpriteKit {
