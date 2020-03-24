@@ -1557,6 +1557,8 @@ fileprivate class GraphvizExport: Visitor {
 
         edge(originalNodeId, self.nodeId)
 
+        let isBest: Bool = node.isBest
+
         var choiceItems: [String] = []
         for (index, choice) in choices.enumerated() {
             let choiceNodeId: String = choiceNodeIds[index]
@@ -1579,11 +1581,31 @@ fileprivate class GraphvizExport: Visitor {
         let nodeLabel = "Move"
         let fillcolor: String
         if node.playerId == 0 {
-            fillcolor = "lightgreen"
+            if isBest {
+                fillcolor = "lightgreen"
+            } else {
+                fillcolor = "\"#d7f0d0\""
+            }
         } else {
-            fillcolor = "lightblue"
+            if isBest {
+                fillcolor = "lightblue"
+            } else {
+                fillcolor = "\"#d3def0\""
+            }
         }
-        rows.append("\(self.nodeId) [ shape=record, style=filled, fillcolor=\(fillcolor), label=\"{ \(nodeLabel) |{\(joinedChoiceItems)}}\" ];")
+        // peripheries=3,
+
+        let bordercolor: String
+        let fontcolor: String
+        if isBest {
+            bordercolor = "black"
+            fontcolor = "black"
+        } else {
+            bordercolor = "\"#c0c0b0\""
+            fontcolor = "gray"
+        }
+
+        rows.append("\(self.nodeId) [shape=record, style=filled, color=\(bordercolor), fillcolor=\(fillcolor), fontcolor=\(fontcolor), label=\"{ \(nodeLabel) |{\(joinedChoiceItems)}}\"];")
 
         guard self.depth < self.maxDepth else {
             return
