@@ -13,7 +13,7 @@ enum UpdateAction {
         switch AppConstant.gameInitialStepMode {
         case .production_stepForwardContinuously:
             return .stepForwardContinuously
-        case .stepForwardOnce:
+        case .doNothing:
             return .doNothing
         }
     }
