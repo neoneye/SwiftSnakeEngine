@@ -26,7 +26,6 @@ class SnakeGameScene: SKScene {
 	var needBecomeFirstResponder = false
 	var pendingUpdateAction = UpdateAction.initialUpdateAction
     var needSendingBeginNewGame = true
-    var readyForComputingBotMovement = false
 
 	var trainingSessionUUID: UUID
 	var trainingSessionURLs: [URL]
@@ -123,7 +122,6 @@ class SnakeGameScene: SKScene {
 		//log.debug("restartGame")
 		pendingUpdateAction = UpdateAction.initialUpdateAction
 		isPaused = false
-        readyForComputingBotMovement = false
 		needRedraw = true
 		needLayout = true
         needSendingBeginNewGame = true
@@ -269,7 +267,6 @@ class SnakeGameScene: SKScene {
             self.pendingUpdateAction = .doNothing
         case .stepForwardContinuously:
             self.pendingUpdateAction = .stepForwardContinuously
-            readyForComputingBotMovement = true
             stepForward()
         case .stepForwardOnce:
             self.pendingUpdateAction = .doNothing
@@ -304,35 +301,7 @@ class SnakeGameScene: SKScene {
 	}
 
 	func stepForward() {
-        // Optimization thoughts:
-        //
-        // Scenario A: human interaction, then computation of the next bot movement.
-        // When a human singlesteps with a bot,
-        // then the info written to the logfile must correspond with the things happening on the screen.
-        // In this scenario the bots have to be computed AFTER the user have interacted.
-        // Terrible UX for the human player.
-        // Good UX for the developer.
-        //
-        // Scenario B: precomputation of the next bot movement, then wait for human interaction.
-        // When a human plays against a bot.
-        // It can take a long time for a bot to compute a movement.
-        // Meanwhile the bot is computing the human can think about what move to make.
-        // When the human interacts with the keyboard, we already have the bot movement.
-        // So the human will not have to wait for the bot.
-        // However this also complicate things. It's difficult to single step through this code.
-        // Good UX for the human player.
-        // Terrible UX for the developer.
-        let precomputeBotMovements: Bool = (AppConstant.gameInitialStepMode == .production_stepForwardContinuously)
-        let newGameState0: SnakeGameState
-        if precomputeBotMovements || readyForComputingBotMovement {
-            readyForComputingBotMovement = false
-            newGameState0 = self.gameState.computeNextBotMovement()
-        } else {
-            newGameState0 = self.gameState
-        }
-
-        let newGameState1 = newGameState0.preventHumanCollisions()
-		self.gameState = newGameState1
+        self.gameState = self.gameState.preventHumanCollisions()
 
 		let isWaiting = self.gameState.isWaitingForHumanInput()
 		if isWaiting {
@@ -439,7 +408,6 @@ class SnakeGameScene: SKScene {
 	func schedule_stepForwardOnce() {
 		pendingUpdateAction = .stepForwardOnce
         isPaused = false
-        readyForComputingBotMovement = true
 	}
 
 	func playSoundEffect(_ action: SKAction) {

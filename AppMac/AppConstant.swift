@@ -24,12 +24,10 @@ struct AppConstant {
     enum GameInitialStepMode {
         // Similar to most video players that begins playing right away.
         // Immediately after selecting the level, the bot begins moving around.
-        // The next bot move gets precomputed before the user input.
         case production_stepForwardContinuously
 
         // Similar to single stepping with a debugger.
         // Nothing happens after selecting the level. The developer has to press F6 to single step.
-        // The next bot move gets computed AFTER the user input.
         case doNothing
     }
 //    static let gameInitialStepMode: GameInitialStepMode = .production_stepForwardContinuously
