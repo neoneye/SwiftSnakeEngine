@@ -9,7 +9,7 @@ public class SnakeGameHeadless {
 
 	private func step(_ currentGameState: SnakeGameState) -> SnakeGameState {
 		let state0 = foodGenerator.placeNewFood(currentGameState)
-		let state1 = state0.prepareBotMovements()
+		let state1 = state0.computeNextBotMovement()
 		let state2 = gameExecuter.executeStep(state1)
 		return state2
 	}

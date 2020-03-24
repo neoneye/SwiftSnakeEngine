@@ -325,7 +325,7 @@ class SnakeGameScene: SKScene {
         let newGameState0: SnakeGameState
         if precomputeBotMovements || readyForComputingBotMovement {
             readyForComputingBotMovement = false
-            newGameState0 = self.gameState.prepareBotMovements()
+            newGameState0 = self.gameState.computeNextBotMovement()
         } else {
             newGameState0 = self.gameState
         }
