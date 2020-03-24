@@ -1461,6 +1461,7 @@ fileprivate class GraphvizExport: Visitor {
         rows.append("PROMPT> dot -Tsvg demo.dot -o demo.svg")
         rows.append("*/")
         rows.append("digraph {")
+        rows.append("  bgcolor=\"#ffffff00\";") // Transparent background in the generated SVG
         rows += self.rows.map { "  \($0)" }
         rows.append("}")
         return rows.joined(separator: "\n")
