@@ -1462,6 +1462,9 @@ fileprivate class GraphvizExport: Visitor {
         rows.append("*/")
         rows.append("digraph {")
         rows.append("  bgcolor=\"#ffffff00\";") // Transparent background in the generated SVG
+        rows.append("  graph [fontname = \"helvetica\"];")
+        rows.append("  node [fontname = \"helvetica\"];")
+        rows.append("  edge [fontname = \"helvetica\"];")
         rows += self.rows.map { "  \($0)" }
         rows.append("}")
         return rows.joined(separator: "\n")
