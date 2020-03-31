@@ -2,8 +2,9 @@
 import Foundation
 
 struct GraphvizRequestModel: Codable {
+    var uuid: UUID
     var iteration: UInt
-    var dotFile: String
+    var dotfile: String
 }
 
 fileprivate struct PreviousIterationData {
@@ -243,7 +244,7 @@ public class SnakeBot6: SnakeBot {
             let visitor_graphvizExport = GraphvizExport()
             root.accept(visitor_graphvizExport)
             let s: String = visitor_graphvizExport.result()
-            sendGraphvizDataToServer(iteration: self.iteration, dotFile: s)
+            sendGraphvizDataToServer(iteration: self.iteration, dotfile: s)
         }
 
 		let previousIterationData = PreviousIterationData(
@@ -258,8 +259,8 @@ public class SnakeBot6: SnakeBot {
 		return (bot, bestMovement)
 	}
 
-    func sendGraphvizDataToServer(iteration: UInt, dotFile: String) {
-        let model = GraphvizRequestModel(iteration: iteration, dotFile: dotFile)
+    func sendGraphvizDataToServer(iteration: UInt, dotfile: String) {
+        let model = GraphvizRequestModel(uuid: UUID(), iteration: iteration, dotfile: dotfile)
         let jsonData: Data
         do {
             jsonData = try JSONEncoder().encode(model)
