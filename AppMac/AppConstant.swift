@@ -21,6 +21,18 @@ struct AppConstant {
 
 	static let ignoreRepeatingKeyDownEvents = true
 
+    enum GameInitialStepMode {
+        // Similar to most video players that begins playing right away.
+        // Immediately after selecting the level, the bot begins moving around.
+        case production_stepForwardContinuously
+
+        // Similar to single stepping with a debugger.
+        // Nothing happens after selecting the level. The developer has to press F6 to single step.
+        case doNothing
+    }
+//    static let gameInitialStepMode: GameInitialStepMode = .production_stepForwardContinuously
+    static let gameInitialStepMode: GameInitialStepMode = .doNothing
+
 	static let saveTrainingData = false
 
     struct SpriteKit {

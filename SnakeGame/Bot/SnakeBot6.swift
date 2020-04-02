@@ -1,6 +1,12 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
+struct GraphvizRequestModel: Codable {
+    var uuid: UUID
+    var iteration: UInt
+    var dotfile: String
+}
+
 fileprivate struct PreviousIterationData {
 	let root: RootNode
 	let plannedPath: [IntVec2]
@@ -14,6 +20,7 @@ public class SnakeBot6: SnakeBot {
 		)
 	}
 
+    private let debug_graphvizExport = false
 	private let iteration: UInt
 	private let previousIterationData: PreviousIterationData?
 
@@ -105,7 +112,7 @@ public class SnakeBot6: SnakeBot {
 						// Currently the best choice survies and all the other choices gets discarded.
 						// IDEA: Keep the 2nd best and 3rd best FoodNodeChoice's around and use them as a fallback.
 						if subtreeNode is MoveNode {
-							//log.debug("successfully extracted the nearest FoodNodeChoice")
+							log.debug("successfully extracted the nearest FoodNodeChoice")
 						} else {
 							subtreeNode = nil
 							log.error("unable to extract the nearest food node choice")
@@ -129,6 +136,8 @@ public class SnakeBot6: SnakeBot {
 					if choice.position == findPosition {
 						subtreeNode = choice.child
 						foundMatchingChoice = true
+                        //log.debug("foundMatchingChoice for player0")
+                        break
 					}
 				}
 				if !foundMatchingChoice {
@@ -144,6 +153,8 @@ public class SnakeBot6: SnakeBot {
 					if choice.position == findPosition {
 						subtreeNode = choice.child
 						foundMatchingChoice = true
+                        //log.debug("foundMatchingChoice for player1")
+                        break
 					}
 				}
 				if !foundMatchingChoice {
@@ -157,6 +168,7 @@ public class SnakeBot6: SnakeBot {
 				countRemove = countAll - countKeep
 				root.child = actualSubtreeNode
 				actualSubtreeNode.parent = root
+//                log.debug("Successfully reused subtree from previous iteration")
 			} else {
 				log.error("unable to reuse subtree from previous iteration!")
 			}
@@ -228,6 +240,13 @@ public class SnakeBot6: SnakeBot {
 			log.debug("\(iteration_string) \(countRemove_string) \(countKeep_string) \(countInsert_string) \(aliveDead) \(prettyMovements)")
 		}
 
+        if debug_graphvizExport {
+            let visitor_graphvizExport = GraphvizExport()
+            root.accept(visitor_graphvizExport)
+            let s: String = visitor_graphvizExport.result()
+            sendGraphvizDataToServer(iteration: self.iteration, dotfile: s)
+        }
+
 		let previousIterationData = PreviousIterationData(
 			root: root,
 			plannedPath: plannedPath
@@ -239,6 +258,42 @@ public class SnakeBot6: SnakeBot {
 
 		return (bot, bestMovement)
 	}
+
+    func sendGraphvizDataToServer(iteration: UInt, dotfile: String) {
+        let model = GraphvizRequestModel(uuid: UUID(), iteration: iteration, dotfile: dotfile)
+        let jsonData: Data
+        do {
+            jsonData = try JSONEncoder().encode(model)
+        } catch let error {
+            log.error("Unable to convert model to json", error.localizedDescription)
+            return
+        }
+
+        let url = URL(string: "http://localhost:4000/graphviz")!
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            if let theError = error {
+                log.error("Response contains an error", String(describing: theError))
+                return
+            }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                log.error("Expected response to be of type HTTPURLResponse")
+                return
+            }
+            let statusCode: Int = httpResponse.statusCode
+            guard statusCode == 200 else {
+                log.error("Expected statusCode 200, but got: \(statusCode)")
+                return
+            }
+            //log.debug("success")
+        })
+        task.resume()
+    }
 }
 
 extension SnakeBodyMovement {
@@ -1391,5 +1446,204 @@ fileprivate class FindMaxDepth: Visitor {
 
 		// no purpose traversing the subtree of this node, since we know that player A dies.
 	}
+}
+
+fileprivate class GraphvizExport: Visitor {
+    var rows = [String]()
+    var nodeId: String = "node0"
+    var currentIndex: UInt = 0
+    let maxDepth: UInt = 6
+    var depth: UInt = 0
+
+    func result() -> String {
+        var rows = [String]()
+        rows.append("/*")
+        rows.append("USAGE:")
+        rows.append("PROMPT> dot -Tsvg demo.dot -o demo.svg")
+        rows.append("*/")
+        rows.append("digraph {")
+        rows.append("  bgcolor=\"#ffffff00\";") // Transparent background in the generated SVG
+        rows.append("  graph [fontname = \"helvetica\"];")
+        rows.append("  node [fontname = \"helvetica\"];")
+        rows.append("  edge [fontname = \"helvetica\"];")
+        rows += self.rows.map { "  \($0)" }
+        rows.append("}")
+        return rows.joined(separator: "\n")
+    }
+
+    func generateId() -> String {
+        currentIndex += 1
+        return "node\(currentIndex)"
+    }
+
+    func edge(_ fromId: String, _ toId: String) {
+        rows.append("\(fromId) -> \(toId);")
+    }
+
+    func nodeWithLabel(_ nodeId: String, label: String) {
+        rows.append("\(nodeId) [label=\"\(label)\"];")
+    }
+
+    func visit(_ node: RootNode) {
+        rows.append("\(self.nodeId) [shape=plaintext, label=\"Start\"];")
+        node.child?.accept(self)
+    }
+
+    func visit(_ node: LeafNode) {
+        let originalNodeId: String = self.nodeId
+        let originalDepth: UInt = self.depth
+        self.nodeId = generateId()
+        self.depth += 1
+        defer {
+            self.nodeId = originalNodeId
+            self.depth = originalDepth
+        }
+        nodeWithLabel(self.nodeId, label: "Leaf")
+        edge(originalNodeId, self.nodeId)
+
+        guard self.depth < self.maxDepth else {
+            return
+        }
+    }
+
+    func visit(_ node: FoodNode) {
+        let originalNodeId: String = self.nodeId
+        let originalDepth: UInt = self.depth
+        self.nodeId = generateId()
+        self.depth += 1
+        defer {
+            self.nodeId = originalNodeId
+            self.depth = originalDepth
+        }
+        nodeWithLabel(self.nodeId, label: "Food")
+        edge(originalNodeId, self.nodeId)
+
+        guard self.depth < self.maxDepth else {
+            return
+        }
+
+        for choice in node.choices {
+            choice.accept(self)
+        }
+    }
+
+    func visit(_ node: FoodNodeChoice) {
+        let originalNodeId: String = self.nodeId
+        let originalDepth: UInt = self.depth
+        self.nodeId = generateId()
+        self.depth += 1
+        defer {
+            self.nodeId = originalNodeId
+            self.depth = originalDepth
+        }
+        nodeWithLabel(self.nodeId, label: "FC")
+        edge(originalNodeId, self.nodeId)
+
+        guard self.depth < self.maxDepth else {
+            return
+        }
+
+        node.child?.accept(self)
+    }
+
+    func visit(_ node: MoveNode) {
+        let originalNodeId: String = self.nodeId
+        let originalDepth: UInt = self.depth
+        self.nodeId = generateId()
+        self.depth += 1
+        defer {
+            self.nodeId = originalNodeId
+            self.depth = originalDepth
+        }
+
+        let choices: [MoveNodeChoice] = node.choices.sorted { $0.movement < $1.movement }
+        let choiceNodeIds: [String] = choices.map { choice in self.generateId() }
+
+        edge(originalNodeId, self.nodeId)
+
+        let isBest: Bool = node.isBest
+
+        var choiceItems: [String] = []
+        for (index, choice) in choices.enumerated() {
+            let choiceNodeId: String = choiceNodeIds[index]
+
+            let label: String
+            switch choice.movement {
+            case .dontMove:
+                label = "DontMove"
+            case .moveCCW:
+                label = "ccw"
+            case .moveForward:
+                label = "fwd"
+            case .moveCW:
+                label = "cw"
+            }
+            choiceItems.append("<\(choiceNodeId)> \(label)")
+        }
+
+        let joinedChoiceItems: String = choiceItems.joined(separator: "|")
+        let nodeLabel = "Move"
+        let fillcolor: String
+        if node.playerId == 0 {
+            if isBest {
+                fillcolor = "lightgreen"
+            } else {
+                fillcolor = "\"#d7f0d0\""
+            }
+        } else {
+            if isBest {
+                fillcolor = "lightblue"
+            } else {
+                fillcolor = "\"#d3def0\""
+            }
+        }
+        // peripheries=3,
+
+        let bordercolor: String
+        let fontcolor: String
+        if isBest {
+            bordercolor = "black"
+            fontcolor = "black"
+        } else {
+            bordercolor = "\"#c0c0b0\""
+            fontcolor = "gray"
+        }
+
+        rows.append("\(self.nodeId) [shape=record, style=filled, color=\(bordercolor), fillcolor=\(fillcolor), fontcolor=\(fontcolor), label=\"{ \(nodeLabel) |{\(joinedChoiceItems)}}\"];")
+
+        guard self.depth < self.maxDepth else {
+            return
+        }
+
+        let moveNodeId: String = self.nodeId
+        for (index, choice) in choices.enumerated() {
+            let childNodeId: String = choiceNodeIds[index]
+            self.nodeId = "\(moveNodeId):\(childNodeId)"
+            choice.child?.accept(self)
+        }
+    }
+
+    func visit(_ node: MoveNodeChoice) {
+        log.error("Expecting MoveNodeChoice to always have a MoveNode as its parent.")
+    }
+
+    func visit(_ node: KillNode) {
+        let originalNodeId: String = self.nodeId
+        let originalDepth: UInt = self.depth
+        self.nodeId = generateId()
+        self.depth += 1
+        defer {
+            self.nodeId = originalNodeId
+            self.depth = originalDepth
+        }
+        nodeWithLabel(self.nodeId, label: "Kill")
+        edge(originalNodeId, self.nodeId)
+
+        guard self.depth < self.maxDepth else {
+            return
+        }
+
+        node.child?.accept(self)
+    }
 }
 

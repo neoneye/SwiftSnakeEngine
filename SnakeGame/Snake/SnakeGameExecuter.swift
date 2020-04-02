@@ -55,7 +55,7 @@ public class SnakeGameExecuter {
 
 extension SnakeGameState {
 	/// Decide about optimal path to get to the food
-	public func prepareBotMovements() -> SnakeGameState {
+	public func computeNextBotMovement() -> SnakeGameState {
 		var gameState: SnakeGameState = self
 		if case SnakePlayerRole.bot = gameState.player1.role {
 			if gameState.player1.isAlive && gameState.player1.pendingMovement == .dontMove {
@@ -67,6 +67,7 @@ extension SnakeGameState {
 				)
 				gameState = gameState.updateBot1(newBotState)
 				gameState = gameState.updatePendingMovementForPlayer1(pendingMovement)
+                log.debug("player1: \(pendingMovement)")
 			}
 		}
 
@@ -80,6 +81,7 @@ extension SnakeGameState {
 				)
 				gameState = gameState.updateBot2(newBotState)
 				gameState = gameState.updatePendingMovementForPlayer2(pendingMovement)
+                log.debug("player2: \(pendingMovement)")
 			}
 		}
 		return gameState

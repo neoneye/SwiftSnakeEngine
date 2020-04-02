@@ -4,9 +4,19 @@ import SnakeGame
 import SSEventFlow
 
 enum UpdateAction {
+    case doNothing
 	case stepForwardContinuously
 	case stepForwardOnce
 	case stepBackwardOnce
+
+    static var initialUpdateAction: UpdateAction {
+        switch AppConstant.gameInitialStepMode {
+        case .production_stepForwardContinuously:
+            return .stepForwardContinuously
+        case .doNothing:
+            return .doNothing
+        }
+    }
 }
 
 class SnakeGameScene: SKScene {
@@ -14,8 +24,7 @@ class SnakeGameScene: SKScene {
 	var needRedraw = false
 	var needLayout = false
 	var needBecomeFirstResponder = false
-	var shouldPauseAfterUpdate = false
-	var updateAction = UpdateAction.stepForwardContinuously
+	var pendingUpdateAction = UpdateAction.initialUpdateAction
     var needSendingBeginNewGame = true
 
 	var trainingSessionUUID: UUID
@@ -111,7 +120,7 @@ class SnakeGameScene: SKScene {
 
 	func restartGame() {
 		//log.debug("restartGame")
-		updateAction = .stepForwardContinuously
+		pendingUpdateAction = UpdateAction.initialUpdateAction
 		isPaused = false
 		needRedraw = true
 		needLayout = true
@@ -158,8 +167,13 @@ class SnakeGameScene: SKScene {
 			restartGame()
 		case .spacebar:
 			if gameState.player1.isAlive || gameState.player2.isAlive {
-				isPaused = !isPaused
-				updateAction = .stepForwardContinuously
+                let updateAction = self.pendingUpdateAction
+                switch updateAction {
+                case .doNothing:
+                    self.pendingUpdateAction = .stepForwardContinuously
+                case .stepForwardContinuously, .stepForwardOnce, .stepBackwardOnce:
+                    self.pendingUpdateAction = .doNothing
+                }
 			} else {
 				restartGame()
 			}
@@ -183,11 +197,14 @@ class SnakeGameScene: SKScene {
 			return
 		}
 		let movement: SnakeBodyMovement = userInput.newMovement(oldDirection: gameState.player1.snakeBody.head.direction)
+        guard movement != SnakeBodyMovement.dontMove else {
+            return
+        }
 		let newGameState: SnakeGameState = gameState.updatePendingMovementForPlayer1(movement)
 		self.gameState = newGameState
 		self.needRedraw = true
 		self.isPaused = false
-		self.updateAction = .stepForwardContinuously
+		self.pendingUpdateAction = .stepForwardContinuously
 	}
 
 	func userInputForPlayer2(_ userInput: SnakeUserInput) {
@@ -195,11 +212,14 @@ class SnakeGameScene: SKScene {
 			return
 		}
 		let movement: SnakeBodyMovement = userInput.newMovement(oldDirection: gameState.player2.snakeBody.head.direction)
+        guard movement != SnakeBodyMovement.dontMove else {
+            return
+        }
 		let newGameState: SnakeGameState = gameState.updatePendingMovementForPlayer2(movement)
 		self.gameState = newGameState
 		self.needRedraw = true
 		self.isPaused = false
-		self.updateAction = .stepForwardContinuously
+		self.pendingUpdateAction = .stepForwardContinuously
 	}
 
 	lazy var foodGenerator: SnakeFoodGenerator = {
@@ -237,16 +257,24 @@ class SnakeGameScene: SKScene {
 
     override func update(_ currentTime: TimeInterval) {
 		super.update(currentTime)
-//		log.debug("update")
 
-		switch updateAction {
-		case .stepForwardContinuously:
-			stepForward()
-		case .stepForwardOnce:
-			stepForward()
-		case .stepBackwardOnce:
-			stepBackward()
-		}
+//        log.debug("update \(currentTime)")
+        self.gameState = self.gameState.computeNextBotMovement()
+
+        let updateAction = self.pendingUpdateAction
+        switch updateAction {
+        case .doNothing:
+            self.pendingUpdateAction = .doNothing
+        case .stepForwardContinuously:
+            self.pendingUpdateAction = .stepForwardContinuously
+            stepForward()
+        case .stepForwardOnce:
+            self.pendingUpdateAction = .doNothing
+            stepForward()
+        case .stepBackwardOnce:
+            self.pendingUpdateAction = .doNothing
+            stepBackward()
+        }
 
 		if needBecomeFirstResponder {
 			needBecomeFirstResponder = false
@@ -266,12 +294,6 @@ class SnakeGameScene: SKScene {
 			updateCamera()
 		}
 
-		if shouldPauseAfterUpdate {
-			shouldPauseAfterUpdate = false
-			isPaused = true
-			//log.debug("pausing game after update")
-		}
-
         if needSendingBeginNewGame {
             needSendingBeginNewGame = false
             sendInfoEvent(.beginNewGame(self.gameState))
@@ -279,9 +301,7 @@ class SnakeGameScene: SKScene {
 	}
 
 	func stepForward() {
-		let newGameState0 = gameState.prepareBotMovements()
-		let newGameState1 = newGameState0.preventHumanCollisions()
-		self.gameState = newGameState1
+        self.gameState = self.gameState.preventHumanCollisions()
 
 		let isWaiting = self.gameState.isWaitingForHumanInput()
 		if isWaiting {
@@ -381,15 +401,13 @@ class SnakeGameScene: SKScene {
 	}
 
 	func schedule_stepBackwardOnce() {
-		updateAction = .stepBackwardOnce
-		isPaused = false
-		shouldPauseAfterUpdate = true
+		pendingUpdateAction = .stepBackwardOnce
+        isPaused = false
 	}
 
 	func schedule_stepForwardOnce() {
-		updateAction = .stepForwardOnce
-		isPaused = false
-		shouldPauseAfterUpdate = true
+		pendingUpdateAction = .stepForwardOnce
+        isPaused = false
 	}
 
 	func playSoundEffect(_ action: SKAction) {
