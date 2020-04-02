@@ -30,8 +30,8 @@ struct AppConstant {
         // Nothing happens after selecting the level. The developer has to press F6 to single step.
         case doNothing
     }
-//    static let gameInitialStepMode: GameInitialStepMode = .production_stepForwardContinuously
-    static let gameInitialStepMode: GameInitialStepMode = .doNothing
+    static let gameInitialStepMode: GameInitialStepMode = .production_stepForwardContinuously
+//    static let gameInitialStepMode: GameInitialStepMode = .doNothing
 
 	static let saveTrainingData = false
 
