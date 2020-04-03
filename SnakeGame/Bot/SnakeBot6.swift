@@ -244,7 +244,7 @@ public class SnakeBot6: SnakeBot {
             let visitor_graphvizExport = GraphvizExport()
             root.accept(visitor_graphvizExport)
             let s: String = visitor_graphvizExport.result()
-            sendGraphvizDataToServer(iteration: self.iteration, dotfile: s)
+            sendGraphvizDataToServer(iteration: self.iteration, dotfile: s, foodPosition: foodPosition)
         }
 
 		let previousIterationData = PreviousIterationData(
@@ -259,8 +259,19 @@ public class SnakeBot6: SnakeBot {
 		return (bot, bestMovement)
 	}
 
-    func sendGraphvizDataToServer(iteration: UInt, dotfile: String) {
-        let preformattedText: String = "Iteration: \(iteration)"
+    func sendGraphvizDataToServer(iteration: UInt, dotfile: String, foodPosition: IntVec2?) {
+        let iterationString: String = "Iteration: \(iteration)"
+        let foodPositionString: String
+        if let position = foodPosition {
+            foodPositionString = "Food: \(position.x),\(position.y)"
+        } else {
+            foodPositionString = "Food: None"
+        }
+        var rows = [String]()
+        rows.append(iterationString)
+        rows.append(foodPositionString)
+        let preformattedText: String = rows.joined(separator: "\n")
+
         let model = GraphvizRequestModel(uuid: UUID(), preformattedText: preformattedText, dotfile: dotfile)
         let jsonData: Data
         do {
