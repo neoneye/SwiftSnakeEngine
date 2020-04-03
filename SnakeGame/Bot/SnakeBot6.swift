@@ -3,7 +3,7 @@ import Foundation
 
 struct GraphvizRequestModel: Codable {
     var uuid: UUID
-    var iteration: UInt
+    var preformattedText: String
     var dotfile: String
 }
 
@@ -260,7 +260,8 @@ public class SnakeBot6: SnakeBot {
 	}
 
     func sendGraphvizDataToServer(iteration: UInt, dotfile: String) {
-        let model = GraphvizRequestModel(uuid: UUID(), iteration: iteration, dotfile: dotfile)
+        let preformattedText: String = "Iteration: \(iteration)"
+        let model = GraphvizRequestModel(uuid: UUID(), preformattedText: preformattedText, dotfile: dotfile)
         let jsonData: Data
         do {
             jsonData = try JSONEncoder().encode(model)
