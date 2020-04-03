@@ -14,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	override init() {
 		super.init()
         LogHelper.setup_mainExecutable()
+        Dashboard.shared.url = AppConstant.Dashboard.url
 		SnakeLevelManager.setup()
 	}
 

@@ -12,6 +12,7 @@
 		4217EEA6240E77830066B8C0 /* T2000_SnakeHeadDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */; };
 		4217EEA8240E7D220066B8C0 /* SnakeBodyMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */; };
 		4217EEAA240F00740066B8C0 /* SnakePlannedPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */; };
+		421A9E2F2437E2CA00A85B6F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E2E2437E2CA00A85B6F /* Dashboard.swift */; };
 		422158D4234BCE830011DA67 /* level_theme1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 422158D3234BCE830011DA67 /* level_theme1.atlas */; };
 		422158D6234BCE8A0011DA67 /* level_theme2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 422158D5234BCE8A0011DA67 /* level_theme2.atlas */; };
 		4221EFDC2332F0F00026A8A0 /* SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */; };
@@ -150,6 +151,7 @@
 		4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2000_SnakeHeadDirection.swift; sourceTree = "<group>"; };
 		4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBodyMovement.swift; sourceTree = "<group>"; };
 		4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakePlannedPathNode.swift; sourceTree = "<group>"; };
+		421A9E2E2437E2CA00A85B6F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		422158D3234BCE830011DA67 /* level_theme1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme1.atlas; sourceTree = "<group>"; };
 		422158D5234BCE8A0011DA67 /* level_theme2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme2.atlas; sourceTree = "<group>"; };
 		4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBody.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				42C31821237F27AF00468D1F /* Array2.swift */,
 				42CCD61023BE65FD0021CBE7 /* BoundingBox.swift */,
 				42E042B1233400D3007AC6F9 /* ComputeShortestPath.swift */,
+				421A9E2E2437E2CA00A85B6F /* Dashboard.swift */,
 				42CCD61223BEB04B0021CBE7 /* Data+SHA1.swift */,
 				4255CA25232FD31900A230AF /* IntVec2.swift */,
 				42C3181F237D6E2700468D1F /* IntVec2+CGPoint.swift */,
@@ -858,6 +861,7 @@
 				42EB7C0423F2873B00229CEA /* SnakeGameState+SaveTrainingData.swift in Sources */,
 				42CCD61323BEB04B0021CBE7 /* Data+SHA1.swift in Sources */,
 				42CC22CB23397D1300CF3D96 /* SnakePlayer.swift in Sources */,
+				421A9E2F2437E2CA00A85B6F /* Dashboard.swift in Sources */,
 				42C236ED2333033700241639 /* MeasureAreaSize.swift in Sources */,
 				42CCD61123BE65FD0021CBE7 /* BoundingBox.swift in Sources */,
 				426891FE233267E900B97E29 /* SSSP.swift in Sources */,

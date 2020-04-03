@@ -38,4 +38,8 @@ struct AppConstant {
     struct SpriteKit {
         static let showDeveloperInfo = false
     }
+
+    struct Dashboard {
+        static let url = URL(string: "http://localhost:4000/")!
+    }
 }

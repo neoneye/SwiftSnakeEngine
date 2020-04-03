@@ -1,12 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-struct GraphvizRequestModel: Codable {
-    var uuid: UUID
-    var preformattedText: String
-    var dotfile: String
-}
-
 fileprivate struct PreviousIterationData {
 	let root: RootNode
 	let plannedPath: [IntVec2]
@@ -244,7 +238,7 @@ public class SnakeBot6: SnakeBot {
             let visitor_graphvizExport = GraphvizExport()
             root.accept(visitor_graphvizExport)
             let s: String = visitor_graphvizExport.result()
-            sendGraphvizDataToServer(iteration: self.iteration, dotfile: s, foodPosition: foodPosition)
+            sendGraphvizData(iteration: self.iteration, dotfile: s, foodPosition: foodPosition)
         }
 
 		let previousIterationData = PreviousIterationData(
@@ -259,7 +253,7 @@ public class SnakeBot6: SnakeBot {
 		return (bot, bestMovement)
 	}
 
-    func sendGraphvizDataToServer(iteration: UInt, dotfile: String, foodPosition: IntVec2?) {
+    func sendGraphvizData(iteration: UInt, dotfile: String, foodPosition: IntVec2?) {
         let iterationString: String = "Iteration: \(iteration)"
         let foodPositionString: String
         if let position = foodPosition {
@@ -272,39 +266,11 @@ public class SnakeBot6: SnakeBot {
         rows.append(foodPositionString)
         let preformattedText: String = rows.joined(separator: "\n")
 
-        let model = GraphvizRequestModel(uuid: UUID(), preformattedText: preformattedText, dotfile: dotfile)
-        let jsonData: Data
-        do {
-            jsonData = try JSONEncoder().encode(model)
-        } catch let error {
-            log.error("Unable to convert model to json", error.localizedDescription)
-            return
-        }
-
-        let url = URL(string: "http://localhost:4000/graphviz")!
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = jsonData
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            if let theError = error {
-                log.error("Response contains an error", String(describing: theError))
-                return
-            }
-            guard let httpResponse = response as? HTTPURLResponse else {
-                log.error("Expected response to be of type HTTPURLResponse")
-                return
-            }
-            let statusCode: Int = httpResponse.statusCode
-            guard statusCode == 200 else {
-                log.error("Expected statusCode 200, but got: \(statusCode)")
-                return
-            }
-            //log.debug("success")
-        })
-        task.resume()
+        Dashboard.shared.sendGraphvizData(
+            uuid: UUID(),
+            preformattedText: preformattedText,
+            dotfile: dotfile
+        )
     }
 }
 
