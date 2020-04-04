@@ -87,6 +87,16 @@ class SnakeGameScene: SKScene {
 		scene?.view?.presentScene(newScene, transition: transition)
 	}
 
+    /// Workaround, similar to the function `mouseMoved()`.
+    ///
+    /// I'm using SwiftUI, so I guess that is the reason that the function `mouseMoved()` never get called.
+    /// I had to make a work around for where I'm listening for mouse moved.
+    func trackingNSHostingView_mouseMoved(with event: NSEvent) {
+        let mousePosition: CGPoint = event.location(in: self.gameNode)
+        let gridPosition: CGPoint = gridPointFromGameNodeLocation(mousePosition)
+        log.debug("grid position: \(gridPosition.string1)")
+    }
+
     override func didMove(to view: SKView) {
 		super.didMove(to: view)
 
@@ -425,6 +435,13 @@ class SnakeGameScene: SKScene {
 		let py: CGFloat = CGFloat(point.y) + 0.5
 		return CGPoint(x: (px - midx) * gridSize, y: (py - midy) * gridSize)
 	}
+
+    func gridPointFromGameNodeLocation(_ point: CGPoint) -> CGPoint {
+        let gridSize: CGFloat = AppConstant.tileSize
+        let midx: CGFloat = CGFloat(gameState.level.size.x) / 2
+        let midy: CGFloat = CGFloat(gameState.level.size.y) / 2
+        return CGPoint(x: (point.x / gridSize) + midx, y: (point.y / gridSize) + midy)
+    }
 }
 
 extension SnakeGameScene: FlowDispatcher {
@@ -435,5 +452,8 @@ extension SnakeGameScene: FlowDispatcher {
 		if event is FlowEvent_PerformRedo {
 			schedule_stepForwardOnce()
 		}
+        if let e = event as? FlowEvent_TrackingNSHostingView_MouseMoved {
+            self.trackingNSHostingView_mouseMoved(with: e.nsEvent)
+        }
 	}
 }

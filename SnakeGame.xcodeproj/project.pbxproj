@@ -14,6 +14,7 @@
 		4217EEAA240F00740066B8C0 /* SnakePlannedPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */; };
 		421A9E2F2437E2CA00A85B6F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E2E2437E2CA00A85B6F /* Dashboard.swift */; };
 		421A9E312439004600A85B6F /* FloatFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E302439004600A85B6F /* FloatFormatting.swift */; };
+		421A9E33243922ED00A85B6F /* TrackingNSHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E32243922ED00A85B6F /* TrackingNSHostingView.swift */; };
 		422158D4234BCE830011DA67 /* level_theme1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 422158D3234BCE830011DA67 /* level_theme1.atlas */; };
 		422158D6234BCE8A0011DA67 /* level_theme2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 422158D5234BCE8A0011DA67 /* level_theme2.atlas */; };
 		4221EFDC2332F0F00026A8A0 /* SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */; };
@@ -154,6 +155,7 @@
 		4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakePlannedPathNode.swift; sourceTree = "<group>"; };
 		421A9E2E2437E2CA00A85B6F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		421A9E302439004600A85B6F /* FloatFormatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatFormatting.swift; sourceTree = "<group>"; };
+		421A9E32243922ED00A85B6F /* TrackingNSHostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingNSHostingView.swift; sourceTree = "<group>"; };
 		422158D3234BCE830011DA67 /* level_theme1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme1.atlas; sourceTree = "<group>"; };
 		422158D5234BCE8A0011DA67 /* level_theme2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme2.atlas; sourceTree = "<group>"; };
 		4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBody.swift; sourceTree = "<group>"; };
@@ -510,6 +512,7 @@
 				42ECBCCA237CA50700758303 /* DebugMenu.swift */,
 				429CD0D02348F93E00098E68 /* NSUserDefaultsController+Settings.swift */,
 				4246C440235BB07E00324965 /* PlayerMenu.swift */,
+				421A9E32243922ED00A85B6F /* TrackingNSHostingView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -925,6 +928,7 @@
 				4294DA3F233EF09900AA58CD /* SKSpriteNode+Pulse.swift in Sources */,
 				42A93BF823FC1E1800A15FD2 /* MyContentView.swift in Sources */,
 				42967E46234FBF3C0098A79D /* SnakeUserInput.swift in Sources */,
+				421A9E33243922ED00A85B6F /* TrackingNSHostingView.swift in Sources */,
 				42CCD61D23C3CF660021CBE7 /* SpriteKitContainer.swift in Sources */,
 				4255CA14232F8A2100A230AF /* SnakeGameScene.swift in Sources */,
 				429CD0D12348F93E00098E68 /* NSUserDefaultsController+Settings.swift in Sources */,

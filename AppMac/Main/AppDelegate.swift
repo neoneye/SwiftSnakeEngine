@@ -34,7 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
         window.center()
         window.setFrameAutosaveName("Main Window")
-        window.contentView = NSHostingView(rootView: contentView)
+        window.contentView = TrackingNSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
     }
     
