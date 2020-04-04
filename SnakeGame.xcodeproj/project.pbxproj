@@ -13,6 +13,7 @@
 		4217EEA8240E7D220066B8C0 /* SnakeBodyMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */; };
 		4217EEAA240F00740066B8C0 /* SnakePlannedPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */; };
 		421A9E2F2437E2CA00A85B6F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E2E2437E2CA00A85B6F /* Dashboard.swift */; };
+		421A9E312439004600A85B6F /* FloatFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E302439004600A85B6F /* FloatFormatting.swift */; };
 		422158D4234BCE830011DA67 /* level_theme1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 422158D3234BCE830011DA67 /* level_theme1.atlas */; };
 		422158D6234BCE8A0011DA67 /* level_theme2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 422158D5234BCE8A0011DA67 /* level_theme2.atlas */; };
 		4221EFDC2332F0F00026A8A0 /* SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */; };
@@ -152,6 +153,7 @@
 		4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBodyMovement.swift; sourceTree = "<group>"; };
 		4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakePlannedPathNode.swift; sourceTree = "<group>"; };
 		421A9E2E2437E2CA00A85B6F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
+		421A9E302439004600A85B6F /* FloatFormatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatFormatting.swift; sourceTree = "<group>"; };
 		422158D3234BCE830011DA67 /* level_theme1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme1.atlas; sourceTree = "<group>"; };
 		422158D5234BCE8A0011DA67 /* level_theme2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme2.atlas; sourceTree = "<group>"; };
 		4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBody.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				42E042B1233400D3007AC6F9 /* ComputeShortestPath.swift */,
 				421A9E2E2437E2CA00A85B6F /* Dashboard.swift */,
 				42CCD61223BEB04B0021CBE7 /* Data+SHA1.swift */,
+				421A9E302439004600A85B6F /* FloatFormatting.swift */,
 				4255CA25232FD31900A230AF /* IntVec2.swift */,
 				42C3181F237D6E2700468D1F /* IntVec2+CGPoint.swift */,
 				423C4F52240C4B5B00786F49 /* Logging.swift */,
@@ -836,6 +839,7 @@
 				422423BE233D9B760006D02D /* SnakeGameHeadless.swift in Sources */,
 				42CC22CD23397D9700CF3D96 /* SnakeBot.swift in Sources */,
 				42CCD61623BEE0CC0021CBE7 /* SnakeLevelCacheModel.proto in Sources */,
+				421A9E312439004600A85B6F /* FloatFormatting.swift in Sources */,
 				42A8B6FC2331B3CC00E618CF /* SnakeFifo.swift in Sources */,
 				423C4F54240C4B5B00786F49 /* Logging.swift in Sources */,
 				426891FA233267E900B97E29 /* Edge.swift in Sources */,
