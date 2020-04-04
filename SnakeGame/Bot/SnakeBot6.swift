@@ -1430,7 +1430,7 @@ fileprivate class GraphvizExport: Visitor {
     var rows = [String]()
     var nodeId: String = "node0"
     var currentIndex: UInt = 0
-    let maxDepth: UInt = 6
+    let maxDepth: UInt = 5
     var depth: UInt = 0
 
     func result() -> String {
