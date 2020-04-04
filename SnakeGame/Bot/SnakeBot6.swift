@@ -1555,7 +1555,7 @@ fileprivate class GraphvizExport: Visitor {
         let choices: [MoveNodeChoice] = node.choices.sorted { $0.movement < $1.movement }
         let choiceNodeIds: [String] = choices.map { choice in self.generateId() }
 
-        edge(originalNodeId, self.nodeId)
+        edge(originalNodeId, "\(self.nodeId):n")
 
         let isBest: Bool = node.isBest
 
