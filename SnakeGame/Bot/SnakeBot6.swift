@@ -14,7 +14,7 @@ public class SnakeBot6: SnakeBot {
 		)
 	}
 
-    private let debug_graphvizExport = true
+    private let debug_graphvizExport = false
 	private let iteration: UInt
 	private let previousIterationData: PreviousIterationData?
 
