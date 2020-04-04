@@ -1493,15 +1493,33 @@ fileprivate class GraphvizExport: Visitor {
             self.nodeId = originalNodeId
             self.depth = originalDepth
         }
-        nodeWithLabel(self.nodeId, label: "Food")
+        let numberOfChoices: Int = node.choices.count
+        nodeWithLabel(self.nodeId, label: "Eat \(numberOfChoices)")
         edge(originalNodeId, self.nodeId)
 
         guard self.depth < self.maxDepth else {
             return
         }
 
-        for choice in node.choices {
-            choice.accept(self)
+        typealias ChoiceCountPair = (FoodNodeChoice, UInt)
+        let choiceCountPairs: [ChoiceCountPair] = node.choices.map { (choice: FoodNodeChoice) in
+            let visitor = FindMaxDepth()
+            choice.accept(visitor)
+            var count: UInt = visitor.numberOfMoves
+            if choice.isBest {
+                count = 10000
+            }
+            return (choice, count)
+        }
+
+        let choiceCountPairsSorted: [ChoiceCountPair] = choiceCountPairs.sorted { $0.1 > $1.1 }
+
+        let bestChoiceCountPairs: ArraySlice<ChoiceCountPair> = choiceCountPairsSorted.prefix(1)
+
+        for choiceCountPair in bestChoiceCountPairs {
+            let foodNodeChoice: FoodNodeChoice = choiceCountPair.0
+            let foodNodeChoice_childNode: Node? = foodNodeChoice.child
+            foodNodeChoice_childNode?.accept(self)
         }
     }
 
