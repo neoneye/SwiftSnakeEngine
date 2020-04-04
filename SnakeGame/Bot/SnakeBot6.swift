@@ -1276,7 +1276,6 @@ fileprivate class ClearTheBestNodes: Visitor {
 
 fileprivate class PrettyPlannedPath: Visitor {
     var head: SnakeHead
-    var isFirstMovement = true
 	var items = [String]()
 
     private init(head: SnakeHead) {
@@ -1318,11 +1317,7 @@ fileprivate class PrettyPlannedPath: Visitor {
 			return
 		}
         let s: String = PrettyPlannedPath.humanReadable(movement: node.movement, direction: head.direction)
-        if isFirstMovement {
-            isFirstMovement = false
-        } else {
-            items.append(s)
-        }
+        items.append(s)
         head = head.simulateTick(movement: node.movement)
 	}
 
