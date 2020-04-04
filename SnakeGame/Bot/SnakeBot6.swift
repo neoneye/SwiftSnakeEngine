@@ -63,9 +63,43 @@ public class SnakeBot6: SnakeBot {
 			// Attach that node onto the new root node.
 			// Explore the unexplored paths.
 
-			// Extract the food subtree, BEFORE extracting the move nodes.
-			// Had it been the other way, I would have to coordinate random seeds across many FoodNode's
-			// This way I don't have to coordinate random seeds.
+            if let moveNode: MoveNode = subtreeNode as? MoveNode, moveNode.playerId == 0 {
+                let findPosition: IntVec2 = player.snakeBody.head.position
+                var foundMatchingChoice: Bool = false
+                for choice: MoveNodeChoice in moveNode.choices {
+                    if choice.position == findPosition {
+                        subtreeNode = choice.child
+                        foundMatchingChoice = true
+                        //log.debug("foundMatchingChoice for player0")
+                        break
+                    }
+                }
+                if !foundMatchingChoice {
+                    subtreeNode = nil
+                    log.error("Unable to reuse subtree from previous iteration. player0")
+                }
+            }
+
+            if let moveNode: MoveNode = subtreeNode as? MoveNode, moveNode.playerId == 1 {
+                let findPosition: IntVec2 = oppositePlayer.snakeBody.head.position
+                var foundMatchingChoice: Bool = false
+                for choice: MoveNodeChoice in moveNode.choices {
+                    if choice.position == findPosition {
+                        subtreeNode = choice.child
+                        foundMatchingChoice = true
+                        //log.debug("foundMatchingChoice for player1")
+                        break
+                    }
+                }
+                if !foundMatchingChoice {
+                    subtreeNode = nil
+                    log.error("Unable to reuse subtree from previous iteration. player1")
+                }
+            }
+
+            // IDEA: combine the FoodNodeChoice trees into a single tree.
+            // The trees will share one or more nodes in top of the tree.
+            // The trees have already been computed, so it's wasteful to discard the tree.
 			if let foodNode: FoodNode = subtreeNode as? FoodNode {
 				// IDEA: After every food pickup, I get recomputation of the path.
 				// It seems that passing the foodchoice subtree to the next iteration messes up things.
@@ -120,40 +154,6 @@ public class SnakeBot6: SnakeBot {
 					// IDEA: when the foodPosition is nil, then pick a random FoodNodeChoice.child
 					subtreeNode = nil
 					log.error("expects the foodPosition to always be non-nil, but got nil. Cannot find nearest subtree.")
-				}
-			}
-
-			if let moveNode: MoveNode = subtreeNode as? MoveNode, moveNode.playerId == 0 {
-				let findPosition: IntVec2 = player.snakeBody.head.position
-				var foundMatchingChoice: Bool = false
-				for choice: MoveNodeChoice in moveNode.choices {
-					if choice.position == findPosition {
-						subtreeNode = choice.child
-						foundMatchingChoice = true
-                        //log.debug("foundMatchingChoice for player0")
-                        break
-					}
-				}
-				if !foundMatchingChoice {
-					subtreeNode = nil
-					log.error("Unable to reuse subtree from previous iteration. player0")
-				}
-			}
-
-			if let moveNode: MoveNode = subtreeNode as? MoveNode, moveNode.playerId == 1 {
-				let findPosition: IntVec2 = oppositePlayer.snakeBody.head.position
-				var foundMatchingChoice: Bool = false
-				for choice: MoveNodeChoice in moveNode.choices {
-					if choice.position == findPosition {
-						subtreeNode = choice.child
-						foundMatchingChoice = true
-                        //log.debug("foundMatchingChoice for player1")
-                        break
-					}
-				}
-				if !foundMatchingChoice {
-					subtreeNode = nil
-					log.error("Unable to reuse subtree from previous iteration. player1")
 				}
 			}
 
