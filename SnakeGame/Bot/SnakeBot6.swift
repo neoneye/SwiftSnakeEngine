@@ -1,12 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-struct GraphvizRequestModel: Codable {
-    var uuid: UUID
-    var iteration: UInt
-    var dotfile: String
-}
-
 fileprivate struct PreviousIterationData {
 	let root: RootNode
 	let plannedPath: [IntVec2]
@@ -69,9 +63,43 @@ public class SnakeBot6: SnakeBot {
 			// Attach that node onto the new root node.
 			// Explore the unexplored paths.
 
-			// Extract the food subtree, BEFORE extracting the move nodes.
-			// Had it been the other way, I would have to coordinate random seeds across many FoodNode's
-			// This way I don't have to coordinate random seeds.
+            if let moveNode: MoveNode = subtreeNode as? MoveNode, moveNode.playerId == 0 {
+                let findPosition: IntVec2 = player.snakeBody.head.position
+                var foundMatchingChoice: Bool = false
+                for choice: MoveNodeChoice in moveNode.choices {
+                    if choice.position == findPosition {
+                        subtreeNode = choice.child
+                        foundMatchingChoice = true
+                        //log.debug("foundMatchingChoice for player0")
+                        break
+                    }
+                }
+                if !foundMatchingChoice {
+                    subtreeNode = nil
+                    log.error("Unable to reuse subtree from previous iteration. player0")
+                }
+            }
+
+            if let moveNode: MoveNode = subtreeNode as? MoveNode, moveNode.playerId == 1 {
+                let findPosition: IntVec2 = oppositePlayer.snakeBody.head.position
+                var foundMatchingChoice: Bool = false
+                for choice: MoveNodeChoice in moveNode.choices {
+                    if choice.position == findPosition {
+                        subtreeNode = choice.child
+                        foundMatchingChoice = true
+                        //log.debug("foundMatchingChoice for player1")
+                        break
+                    }
+                }
+                if !foundMatchingChoice {
+                    subtreeNode = nil
+                    log.error("Unable to reuse subtree from previous iteration. player1")
+                }
+            }
+
+            // IDEA: combine the FoodNodeChoice trees into a single tree.
+            // The trees will share one or more nodes in top of the tree.
+            // The trees have already been computed, so it's wasteful to discard the tree.
 			if let foodNode: FoodNode = subtreeNode as? FoodNode {
 				// IDEA: After every food pickup, I get recomputation of the path.
 				// It seems that passing the foodchoice subtree to the next iteration messes up things.
@@ -126,40 +154,6 @@ public class SnakeBot6: SnakeBot {
 					// IDEA: when the foodPosition is nil, then pick a random FoodNodeChoice.child
 					subtreeNode = nil
 					log.error("expects the foodPosition to always be non-nil, but got nil. Cannot find nearest subtree.")
-				}
-			}
-
-			if let moveNode: MoveNode = subtreeNode as? MoveNode, moveNode.playerId == 0 {
-				let findPosition: IntVec2 = player.snakeBody.head.position
-				var foundMatchingChoice: Bool = false
-				for choice: MoveNodeChoice in moveNode.choices {
-					if choice.position == findPosition {
-						subtreeNode = choice.child
-						foundMatchingChoice = true
-                        //log.debug("foundMatchingChoice for player0")
-                        break
-					}
-				}
-				if !foundMatchingChoice {
-					subtreeNode = nil
-					log.error("Unable to reuse subtree from previous iteration. player0")
-				}
-			}
-
-			if let moveNode: MoveNode = subtreeNode as? MoveNode, moveNode.playerId == 1 {
-				let findPosition: IntVec2 = oppositePlayer.snakeBody.head.position
-				var foundMatchingChoice: Bool = false
-				for choice: MoveNodeChoice in moveNode.choices {
-					if choice.position == findPosition {
-						subtreeNode = choice.child
-						foundMatchingChoice = true
-                        //log.debug("foundMatchingChoice for player1")
-                        break
-					}
-				}
-				if !foundMatchingChoice {
-					subtreeNode = nil
-					log.error("Unable to reuse subtree from previous iteration. player1")
 				}
 			}
 
@@ -244,7 +238,7 @@ public class SnakeBot6: SnakeBot {
             let visitor_graphvizExport = GraphvizExport()
             root.accept(visitor_graphvizExport)
             let s: String = visitor_graphvizExport.result()
-            sendGraphvizDataToServer(iteration: self.iteration, dotfile: s)
+            sendGraphvizData(iteration: self.iteration, dotfile: s, foodPosition: foodPosition)
         }
 
 		let previousIterationData = PreviousIterationData(
@@ -259,40 +253,24 @@ public class SnakeBot6: SnakeBot {
 		return (bot, bestMovement)
 	}
 
-    func sendGraphvizDataToServer(iteration: UInt, dotfile: String) {
-        let model = GraphvizRequestModel(uuid: UUID(), iteration: iteration, dotfile: dotfile)
-        let jsonData: Data
-        do {
-            jsonData = try JSONEncoder().encode(model)
-        } catch let error {
-            log.error("Unable to convert model to json", error.localizedDescription)
-            return
+    func sendGraphvizData(iteration: UInt, dotfile: String, foodPosition: IntVec2?) {
+        let iterationString: String = "Iteration: \(iteration)"
+        let foodPositionString: String
+        if let position = foodPosition {
+            foodPositionString = "Food: \(position.x),\(position.y)"
+        } else {
+            foodPositionString = "Food: None"
         }
+        var rows = [String]()
+        rows.append(iterationString)
+        rows.append(foodPositionString)
+        let preformattedText: String = rows.joined(separator: "\n")
 
-        let url = URL(string: "http://localhost:4000/graphviz")!
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.httpBody = jsonData
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            if let theError = error {
-                log.error("Response contains an error", String(describing: theError))
-                return
-            }
-            guard let httpResponse = response as? HTTPURLResponse else {
-                log.error("Expected response to be of type HTTPURLResponse")
-                return
-            }
-            let statusCode: Int = httpResponse.statusCode
-            guard statusCode == 200 else {
-                log.error("Expected statusCode 200, but got: \(statusCode)")
-                return
-            }
-            //log.debug("success")
-        })
-        task.resume()
+        Dashboard.shared.sendGraphvizData(
+            uuid: UUID(),
+            preformattedText: preformattedText,
+            dotfile: dotfile
+        )
     }
 }
 
@@ -1298,7 +1276,6 @@ fileprivate class ClearTheBestNodes: Visitor {
 
 fileprivate class PrettyPlannedPath: Visitor {
     var head: SnakeHead
-    var isFirstMovement = true
 	var items = [String]()
 
     private init(head: SnakeHead) {
@@ -1340,11 +1317,7 @@ fileprivate class PrettyPlannedPath: Visitor {
 			return
 		}
         let s: String = PrettyPlannedPath.humanReadable(movement: node.movement, direction: head.direction)
-        if isFirstMovement {
-            isFirstMovement = false
-        } else {
-            items.append(s)
-        }
+        items.append(s)
         head = head.simulateTick(movement: node.movement)
 	}
 
@@ -1452,7 +1425,7 @@ fileprivate class GraphvizExport: Visitor {
     var rows = [String]()
     var nodeId: String = "node0"
     var currentIndex: UInt = 0
-    let maxDepth: UInt = 6
+    let maxDepth: UInt = 5
     var depth: UInt = 0
 
     func result() -> String {
@@ -1515,15 +1488,33 @@ fileprivate class GraphvizExport: Visitor {
             self.nodeId = originalNodeId
             self.depth = originalDepth
         }
-        nodeWithLabel(self.nodeId, label: "Food")
+        let numberOfChoices: Int = node.choices.count
+        nodeWithLabel(self.nodeId, label: "Eat \(numberOfChoices)")
         edge(originalNodeId, self.nodeId)
 
         guard self.depth < self.maxDepth else {
             return
         }
 
-        for choice in node.choices {
-            choice.accept(self)
+        typealias ChoiceCountPair = (FoodNodeChoice, UInt)
+        let choiceCountPairs: [ChoiceCountPair] = node.choices.map { (choice: FoodNodeChoice) in
+            let visitor = FindMaxDepth()
+            choice.accept(visitor)
+            var count: UInt = visitor.numberOfMoves
+            if choice.isBest {
+                count = 10000
+            }
+            return (choice, count)
+        }
+
+        let choiceCountPairsSorted: [ChoiceCountPair] = choiceCountPairs.sorted { $0.1 > $1.1 }
+
+        let bestChoiceCountPairs: ArraySlice<ChoiceCountPair> = choiceCountPairsSorted.prefix(1)
+
+        for choiceCountPair in bestChoiceCountPairs {
+            let foodNodeChoice: FoodNodeChoice = choiceCountPair.0
+            let foodNodeChoice_childNode: Node? = foodNodeChoice.child
+            foodNodeChoice_childNode?.accept(self)
         }
     }
 
@@ -1559,7 +1550,7 @@ fileprivate class GraphvizExport: Visitor {
         let choices: [MoveNodeChoice] = node.choices.sorted { $0.movement < $1.movement }
         let choiceNodeIds: [String] = choices.map { choice in self.generateId() }
 
-        edge(originalNodeId, self.nodeId)
+        edge(originalNodeId, "\(self.nodeId):n")
 
         let isBest: Bool = node.isBest
 

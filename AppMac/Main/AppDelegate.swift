@@ -14,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	override init() {
 		super.init()
         LogHelper.setup_mainExecutable()
+        Dashboard.shared.url = AppConstant.Dashboard.url
 		SnakeLevelManager.setup()
 	}
 
@@ -33,7 +34,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
         window.center()
         window.setFrameAutosaveName("Main Window")
-        window.contentView = NSHostingView(rootView: contentView)
+        window.contentView = TrackingNSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
     }
     
