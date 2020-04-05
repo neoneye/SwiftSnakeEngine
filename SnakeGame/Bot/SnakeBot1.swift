@@ -32,7 +32,7 @@ public class SnakeBot1: SnakeBot {
 			return SnakeBot1()
 		}
 		guard let foodPosition: IntVec2 = foodPosition else {
-			log.debug("no food position. Cannot find shortest path")
+			log.error("no food position. Cannot find shortest path")
 			return SnakeBot1(plannedPath: [], plannedMovement: .moveForward)
 		}
 
@@ -103,7 +103,7 @@ public class SnakeBot1: SnakeBot {
 				}
 			}
 
-            return SnakeBot1(plannedPath: newPlannedPath, plannedMovement: pendingMovement)
+            return SnakeBot1(plannedPath: [], plannedMovement: pendingMovement)
 		}
 		let position0: IntVec2 = player.snakeBody.head.position
 		let position1: IntVec2 = path[1]
@@ -113,7 +113,7 @@ public class SnakeBot1: SnakeBot {
 		//		log.debug("dx: \(dx)  dy: \(dy)  distance: \(distance)")
 		guard distance == 1 else {
 			log.error("way too long distance to nearest neighbour. dx: \(dx)  dy: \(dy)  distance: \(distance)")
-            return SnakeBot1(plannedPath: newPlannedPath, plannedMovement: .moveForward)
+            return SnakeBot1(plannedPath: [], plannedMovement: .moveForward)
 		}
 
 		var pendingMovement: SnakeBodyMovement = .moveForward
