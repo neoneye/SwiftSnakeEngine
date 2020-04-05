@@ -21,7 +21,7 @@ enum UpdateAction {
 
 class SnakeGameScene: SKScene {
 	var contentCreated = false
-	var needRedraw = false
+    var gameNodeNeedRedraw: GameNodeNeedRedraw = []
 	var needLayout = false
 	var needBecomeFirstResponder = false
 	var pendingUpdateAction = UpdateAction.initialUpdateAction
@@ -106,7 +106,7 @@ class SnakeGameScene: SKScene {
 		}
 
 		needLayout = true
-		needRedraw = true
+        gameNodeNeedRedraw.insert(.didMoveToView)
 		needBecomeFirstResponder = true
 
 		flow_start()
@@ -132,7 +132,7 @@ class SnakeGameScene: SKScene {
 		//log.debug("restartGame")
 		pendingUpdateAction = UpdateAction.initialUpdateAction
 		isPaused = false
-		needRedraw = true
+        gameNodeNeedRedraw.insert(.newGame)
 		needLayout = true
         needSendingBeginNewGame = true
 		previousGameStates = []
@@ -212,7 +212,7 @@ class SnakeGameScene: SKScene {
         }
 		let newGameState: SnakeGameState = gameState.updatePendingMovementForPlayer1(movement)
 		self.gameState = newGameState
-		self.needRedraw = true
+        self.gameNodeNeedRedraw.insert(.userInputForPlayer)
 		self.isPaused = false
 		self.pendingUpdateAction = .stepForwardContinuously
 	}
@@ -227,7 +227,7 @@ class SnakeGameScene: SKScene {
         }
 		let newGameState: SnakeGameState = gameState.updatePendingMovementForPlayer2(movement)
 		self.gameState = newGameState
-		self.needRedraw = true
+        self.gameNodeNeedRedraw.insert(.userInputForPlayer)
 		self.isPaused = false
 		self.pendingUpdateAction = .stepForwardContinuously
 	}
@@ -244,7 +244,7 @@ class SnakeGameScene: SKScene {
 		//let steps: UInt64 = self.gameState.numberOfSteps
 		//log.debug("place new food: \(steps)")
 		self.gameState = foodGenerator.placeNewFood(self.gameState)
-		needRedraw = true
+        self.gameNodeNeedRedraw.insert(.newFood)
 	}
 
 	func updateCamera() {
@@ -291,13 +291,12 @@ class SnakeGameScene: SKScene {
 			snake_becomeFirstResponder()
 		}
 
-		if needRedraw {
-			needRedraw = false
-
-			gameNode.gameState = self.gameState
-
-			gameNode.redraw()
-		}
+        if !gameNodeNeedRedraw.isEmpty {
+            log.debug("redraw: \(gameNodeNeedRedraw)")
+            gameNodeNeedRedraw = []
+            gameNode.gameState = self.gameState
+            gameNode.redraw()
+        }
 
 		if needLayout {
 			needLayout = false
@@ -338,7 +337,7 @@ class SnakeGameScene: SKScene {
 		let newGameState2 = gameExecuter.executeStep(gameState)
 		gameState = newGameState2
 
-		needRedraw = true
+        gameNodeNeedRedraw.insert(.stepForward)
 
         do {
             let oldLength: UInt = oldGameState.player1.snakeBody.length
@@ -407,7 +406,7 @@ class SnakeGameScene: SKScene {
 		state = state.clearPendingMovementAndPendingLengthForHumanPlayers()
 //		log.debug("rewind to: \(state.player2.debugDescription)")
 		gameState = state
-		needRedraw = true
+        gameNodeNeedRedraw.insert(.stepBackward)
 	}
 
 	func schedule_stepBackwardOnce() {
@@ -457,3 +456,43 @@ extension SnakeGameScene: FlowDispatcher {
         }
 	}
 }
+
+struct GameNodeNeedRedraw: OptionSet {
+    let rawValue: UInt
+    static let didMoveToView          = GameNodeNeedRedraw(rawValue: 1 << 0)
+    static let newGame                = GameNodeNeedRedraw(rawValue: 1 << 1)
+    static let plannedPath            = GameNodeNeedRedraw(rawValue: 1 << 2)
+    static let userInputForPlayer     = GameNodeNeedRedraw(rawValue: 1 << 3)
+    static let newFood                = GameNodeNeedRedraw(rawValue: 1 << 4)
+    static let computeNextBotMovement = GameNodeNeedRedraw(rawValue: 1 << 5)
+    static let stepForward            = GameNodeNeedRedraw(rawValue: 1 << 6)
+    static let stepBackward           = GameNodeNeedRedraw(rawValue: 1 << 7)
+}
+
+extension GameNodeNeedRedraw: CustomStringConvertible, CustomDebugStringConvertible {
+    private static var debugDescriptions: [(Self, String)] = [
+        (.didMoveToView, "didMoveToView"),
+        (.newGame, "newGame"),
+        (.plannedPath, "plannedPath"),
+        (.userInputForPlayer, "userInputForPlayer"),
+        (.newFood, "newFood"),
+        (.computeNextBotMovement, "computeNextBotMovement"),
+        (.stepForward, "stepForward"),
+        (.stepBackward, "stepBackward")
+    ]
+
+    var debugDescription: String {
+        let result: [String] = Self.debugDescriptions.filter { contains($0.0) }.map { $0.1 }
+        return "GameNodeNeedRedraw(rawValue: \(self.rawValue)) \(result)"
+    }
+
+    var description: String {
+        let result: [String] = Self.debugDescriptions.filter { contains($0.0) }.map { $0.1 }
+        if result.isEmpty {
+            return "None"
+        } else {
+            return result.joined(separator: ",")
+        }
+    }
+}
+
