@@ -47,8 +47,8 @@ public class SnakeBot6: SnakeBot {
 		return positionArray
 	}
 
-	public func takeAction(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
-        log.debug("!!!!!!! #\(iteration) takeAction")
+	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+        log.debug("!!!!!!! #\(iteration) compute")
 		guard player.isInstalled else {
 			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
 			return (self, .moveForward)

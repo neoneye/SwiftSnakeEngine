@@ -28,7 +28,7 @@ public class SnakeBot4: SnakeBot {
 		[]
 	}
 
-	public func takeAction(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
 		let t0 = CFAbsoluteTimeGetCurrent()
 		let result = takeAction_inner(level: level, player: player, oppositePlayer: oppositePlayer, foodPosition: foodPosition)
 		let t1 = CFAbsoluteTimeGetCurrent()
@@ -63,7 +63,7 @@ public class SnakeBot4: SnakeBot {
 		// A faster approach would be to re-compute this only when the food position changes.
 		let distanceToFoodMap: SnakeLevelDistanceMap = SnakeLevelDistanceMap.create(level: level, initialPosition: foodPosition)
 
-		// IDEA: Computing ChoiceNodes over and over takes time. Caching of the choice nodes to the next "takeAction",
+		// IDEA: Computing ChoiceNodes over and over takes time. Caching of the choice nodes to the next "compute",
 		// so that less time is spent on allocating the same memory over and over.
 		let rootChoice = ParentChoiceNode.create(depth: 9)
 //		log.debug("nodeCount: \(rootChoice.nodeCount)")

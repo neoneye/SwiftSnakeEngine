@@ -48,7 +48,7 @@ public class SnakeBot5: SnakeBot {
 		return positionArray
 	}
 
-	public func takeAction(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
 		let t0 = CFAbsoluteTimeGetCurrent()
 		let result = takeAction_inner(level: level, player: player, oppositePlayer: oppositePlayer, foodPosition: foodPosition)
 		let t1 = CFAbsoluteTimeGetCurrent()
