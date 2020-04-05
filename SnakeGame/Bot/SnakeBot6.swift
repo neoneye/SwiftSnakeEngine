@@ -14,11 +14,16 @@ public class SnakeBot6: SnakeBot {
 		)
 	}
 
-    private let debug_graphvizExport = false
+    private let debug_graphvizExport = true
 	private let iteration: UInt
 	private let previousIterationData: PreviousIterationData?
 
 	private init(iteration: UInt, previousIterationData: PreviousIterationData?) {
+        if previousIterationData != nil {
+            log.debug("SnakeBot6.init iteration: \(iteration)  with previous data")
+        } else {
+            log.debug("SnakeBot6.init iteration: \(iteration)  no previous data")
+        }
 		self.iteration = iteration
 		self.previousIterationData = previousIterationData
 	}
@@ -28,13 +33,22 @@ public class SnakeBot6: SnakeBot {
 	}
 
 	public func plannedPath() -> [IntVec2] {
+        log.debug("!!!!!!! #\(iteration) plannedPath")
 		guard let previousIterationData: PreviousIterationData = self.previousIterationData else {
+            log.debug("no previous iteration data")
 			return []
 		}
-		return previousIterationData.plannedPath
+        let positionArray: [IntVec2] = previousIterationData.plannedPath
+        if let position0: IntVec2 = positionArray.first {
+            log.debug("position0: \(position0)")
+        } else {
+            log.error("The planned path is empty")
+        }
+		return positionArray
 	}
 
 	public func takeAction(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+        log.debug("!!!!!!! #\(iteration) takeAction")
 		guard player.isInstalled else {
 			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
 			return (self, .moveForward)
@@ -45,6 +59,7 @@ public class SnakeBot6: SnakeBot {
 		}
 
 //		log.debug("#\(iteration) ---")
+        log.debug("player head position: \(player.snakeBody.head.position)")
 
 		var countKeep: Int = 0
 		var countRemove: Int = 0
@@ -214,6 +229,7 @@ public class SnakeBot6: SnakeBot {
 
 		var head: SnakeHead = player.snakeBody.head
 		var positionArray = [IntVec2]()
+        positionArray.append(head.position)
 		for movement: SnakeBodyMovement in scenario.movements {
 			head = head.simulateTick(movement: movement)
 			positionArray.append(head.position)
