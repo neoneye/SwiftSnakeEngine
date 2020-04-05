@@ -11,14 +11,16 @@ public class SnakeBot1: SnakeBot {
 
     public let plannedPath: [IntVec2]
     public let plannedMovement: SnakeBodyMovement
+    public let plannedPathWithoutHead: [IntVec2]
 
-	fileprivate init(plannedPath: [IntVec2], plannedMovement: SnakeBodyMovement) {
+	fileprivate init(plannedPath: [IntVec2], plannedPathWithoutHead: [IntVec2], plannedMovement: SnakeBodyMovement) {
 		self.plannedPath = plannedPath
+        self.plannedPathWithoutHead = plannedPathWithoutHead
         self.plannedMovement = plannedMovement
 	}
 
 	required public convenience init() {
-        self.init(plannedPath: [], plannedMovement: .dontMove)
+        self.init(plannedPath: [], plannedPathWithoutHead: [], plannedMovement: .dontMove)
 	}
 
 	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
@@ -33,10 +35,10 @@ public class SnakeBot1: SnakeBot {
 		}
 		guard let foodPosition: IntVec2 = foodPosition else {
 			log.error("no food position. Cannot find shortest path")
-			return SnakeBot1(plannedPath: [], plannedMovement: .moveForward)
+			return SnakeBot1(plannedPath: [], plannedPathWithoutHead: [], plannedMovement: .moveForward)
 		}
 
-		var newPlannedPath: [IntVec2] = self.plannedPath
+		var newPlannedPathWithoutHead: [IntVec2] = self.plannedPathWithoutHead
 
 		// distance to opposite player head shortest path
 		// if too close, then avoid
@@ -56,17 +58,17 @@ public class SnakeBot1: SnakeBot {
 		availablePositionsPlusHead.removeAll { snakePositionsSet.contains($0) }
 		availablePositionsPlusHead.append(player.snakeBody.head.position)
 		availablePositionsPlusHead.removeAll { oppositePlayer_snakePositionSet.contains($0) }
-		if newPlannedPath.isEmpty {
-			newPlannedPath = ComputeShortestPath.compute(
+		if newPlannedPathWithoutHead.isEmpty {
+			newPlannedPathWithoutHead = ComputeShortestPath.compute(
 				availablePositions: availablePositionsPlusHead,
 				startPosition: player.snakeBody.head.position,
 				targetPosition: foodPosition
 			)
 		}
 
-		let path: [IntVec2] = Array(newPlannedPath)
-		if !newPlannedPath.isEmpty {
-			newPlannedPath.removeFirst()
+		let path: [IntVec2] = Array(newPlannedPathWithoutHead)
+		if !newPlannedPathWithoutHead.isEmpty {
+			newPlannedPathWithoutHead.removeFirst()
 		}
 
 		guard path.count >= 2 else {
@@ -103,7 +105,7 @@ public class SnakeBot1: SnakeBot {
 				}
 			}
 
-            return SnakeBot1(plannedPath: [], plannedMovement: pendingMovement)
+            return SnakeBot1(plannedPath: [], plannedPathWithoutHead: [], plannedMovement: pendingMovement)
 		}
 		let position0: IntVec2 = player.snakeBody.head.position
 		let position1: IntVec2 = path[1]
@@ -113,7 +115,7 @@ public class SnakeBot1: SnakeBot {
 		//		log.debug("dx: \(dx)  dy: \(dy)  distance: \(distance)")
 		guard distance == 1 else {
 			log.error("way too long distance to nearest neighbour. dx: \(dx)  dy: \(dy)  distance: \(distance)")
-            return SnakeBot1(plannedPath: [], plannedMovement: .moveForward)
+            return SnakeBot1(plannedPath: [], plannedPathWithoutHead: [], plannedMovement: .moveForward)
 		}
 
 		var pendingMovement: SnakeBodyMovement = .moveForward
@@ -172,7 +174,12 @@ public class SnakeBot1: SnakeBot {
 			}
 		}
 
-        return SnakeBot1(plannedPath: newPlannedPath, plannedMovement: pendingMovement)
+        let newPlannedPathWithHead: [IntVec2] = [player.snakeBody.head.position] + newPlannedPathWithoutHead
+        return SnakeBot1(
+            plannedPath: newPlannedPathWithHead,
+            plannedPathWithoutHead: newPlannedPathWithoutHead,
+            plannedMovement: pendingMovement
+        )
 	}
 }
 
