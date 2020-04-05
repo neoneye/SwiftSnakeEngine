@@ -9,20 +9,16 @@ public class SnakeBot1: SnakeBot {
 		)
 	}
 
+    public let plannedPath: [IntVec2]
     public let plannedMovement: SnakeBodyMovement
-	public let futurePlannedPath: [IntVec2]
 
-	fileprivate init(futurePlannedPath: [IntVec2], plannedMovement: SnakeBodyMovement) {
-		self.futurePlannedPath = futurePlannedPath
+	fileprivate init(plannedPath: [IntVec2], plannedMovement: SnakeBodyMovement) {
+		self.plannedPath = plannedPath
         self.plannedMovement = plannedMovement
 	}
 
 	required public convenience init() {
-        self.init(futurePlannedPath: [], plannedMovement: .dontMove)
-	}
-
-    public var plannedPath: [IntVec2] {
-		return futurePlannedPath
+        self.init(plannedPath: [], plannedMovement: .dontMove)
 	}
 
 	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
@@ -37,10 +33,10 @@ public class SnakeBot1: SnakeBot {
 		}
 		guard let foodPosition: IntVec2 = foodPosition else {
 			log.debug("no food position. Cannot find shortest path")
-			return SnakeBot1(futurePlannedPath: [], plannedMovement: .moveForward)
+			return SnakeBot1(plannedPath: [], plannedMovement: .moveForward)
 		}
 
-		var newPlannedPath: [IntVec2] = self.futurePlannedPath
+		var newPlannedPath: [IntVec2] = self.plannedPath
 
 		// distance to opposite player head shortest path
 		// if too close, then avoid
@@ -107,7 +103,7 @@ public class SnakeBot1: SnakeBot {
 				}
 			}
 
-            return SnakeBot1(futurePlannedPath: newPlannedPath, plannedMovement: pendingMovement)
+            return SnakeBot1(plannedPath: newPlannedPath, plannedMovement: pendingMovement)
 		}
 		let position0: IntVec2 = player.snakeBody.head.position
 		let position1: IntVec2 = path[1]
@@ -117,7 +113,7 @@ public class SnakeBot1: SnakeBot {
 		//		log.debug("dx: \(dx)  dy: \(dy)  distance: \(distance)")
 		guard distance == 1 else {
 			log.error("way too long distance to nearest neighbour. dx: \(dx)  dy: \(dy)  distance: \(distance)")
-            return SnakeBot1(futurePlannedPath: newPlannedPath, plannedMovement: .moveForward)
+            return SnakeBot1(plannedPath: newPlannedPath, plannedMovement: .moveForward)
 		}
 
 		var pendingMovement: SnakeBodyMovement = .moveForward
@@ -176,12 +172,12 @@ public class SnakeBot1: SnakeBot {
 			}
 		}
 
-        return SnakeBot1(futurePlannedPath: newPlannedPath, plannedMovement: pendingMovement)
+        return SnakeBot1(plannedPath: newPlannedPath, plannedMovement: pendingMovement)
 	}
 }
 
 extension SnakeBot1: CustomDebugStringConvertible {
 	public var debugDescription: String {
-		return "SnakeBot1 \(futurePlannedPath)"
+		return "SnakeBot1 \(plannedPath)"
 	}
 }
