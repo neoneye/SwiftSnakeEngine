@@ -15,8 +15,8 @@ public class SnakeBot6: SnakeBot {
 
     private let debug_graphvizExport = true
 	private let iteration: UInt
-    public private(set) var plannedMovement: SnakeBodyMovement
-    public private(set) var plannedPath: [IntVec2]
+    public let plannedMovement: SnakeBodyMovement
+    public let plannedPath: [IntVec2]
 
 	private let previousIterationData: PreviousIterationData?
 

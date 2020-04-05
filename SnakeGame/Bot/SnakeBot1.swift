@@ -9,7 +9,7 @@ public class SnakeBot1: SnakeBot {
 		)
 	}
 
-    public private(set) var plannedMovement: SnakeBodyMovement
+    public let plannedMovement: SnakeBodyMovement
 	public let futurePlannedPath: [IntVec2]
 
 	fileprivate init(futurePlannedPath: [IntVec2], plannedMovement: SnakeBodyMovement) {

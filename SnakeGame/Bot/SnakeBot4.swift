@@ -14,7 +14,7 @@ public class SnakeBot4: SnakeBot {
 		)
 	}
 
-    public private(set) var plannedMovement: SnakeBodyMovement
+    public let plannedMovement: SnakeBodyMovement
 	private let iteration: UInt
 
 	private init(iteration: UInt, plannedMovement: SnakeBodyMovement) {

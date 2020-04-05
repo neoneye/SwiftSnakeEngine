@@ -23,7 +23,7 @@ public class SnakeBot5: SnakeBot {
 	}
 
 	private let iteration: UInt
-    public private(set) var plannedMovement: SnakeBodyMovement
+    public let plannedMovement: SnakeBodyMovement
 	private let previousIterationData: PreviousIterationData?
 
 	private init(iteration: UInt, plannedMovement: SnakeBodyMovement, previousIterationData: PreviousIterationData?) {
