@@ -23,25 +23,25 @@ public class SnakeBot5: SnakeBot {
 	}
 
 	private let iteration: UInt
+    public let plannedPath: [IntVec2]
     public let plannedMovement: SnakeBodyMovement
 	private let previousIterationData: PreviousIterationData?
 
-	private init(iteration: UInt, plannedMovement: SnakeBodyMovement, previousIterationData: PreviousIterationData?) {
+	private init(iteration: UInt, plannedPath: [IntVec2], plannedMovement: SnakeBodyMovement, previousIterationData: PreviousIterationData?) {
 		self.iteration = iteration
+        self.plannedPath = plannedPath
         self.plannedMovement = plannedMovement
 		self.previousIterationData = previousIterationData
 	}
 
 	required public convenience init() {
-        self.init(iteration: 0, plannedMovement: .dontMove, previousIterationData: nil)
+        self.init(iteration: 0, plannedPath: [], plannedMovement: .dontMove, previousIterationData: nil)
 	}
 
-    public var plannedPath: [IntVec2] {
-		guard let previousIterationData: PreviousIterationData = self.previousIterationData else {
-			return []
-		}
+    private func computePlannedPath(previousIterationData: PreviousIterationData) -> [IntVec2] {
 		var head: SnakeHead = previousIterationData.snakeHead
 		var positionArray = [IntVec2]()
+        positionArray.append(head.position)
 		let movements: [SnakeBodyMovement] = previousIterationData.scenarioResult.movements
 		for movement in movements {
 			head = head.simulateTick(movement: movement)
@@ -130,6 +130,7 @@ public class SnakeBot5: SnakeBot {
 			log.error("Expected 1 or more scenarioResults, but got 0")
             return SnakeBot5(
                 iteration: self.iteration + 1,
+                plannedPath: [],
                 plannedMovement: .moveForward,
                 previousIterationData: nil
             )
@@ -141,6 +142,7 @@ public class SnakeBot5: SnakeBot {
 			log.error("Expected bestScenarioResult.movements to be 1 or longer, but got nil")
             return SnakeBot5(
                 iteration: self.iteration + 1,
+                plannedPath: [],
                 plannedMovement: .moveForward,
                 previousIterationData: nil
             )
@@ -152,6 +154,7 @@ public class SnakeBot5: SnakeBot {
 		)
 		return SnakeBot5(
 			iteration: self.iteration + 1,
+            plannedPath: computePlannedPath(previousIterationData: previousIterationData),
             plannedMovement: bestMovement,
 			previousIterationData: previousIterationData
 		)
