@@ -269,7 +269,13 @@ class SnakeGameScene: SKScene {
 		super.update(currentTime)
 
 //        log.debug("update \(currentTime)")
-        self.gameState = self.gameState.computeNextBotMovement()
+        do {
+            let (newGameState, didChange) = self.gameState.computeNextBotMovement()
+            if didChange {
+                self.gameState = newGameState
+                self.gameNodeNeedRedraw.insert(.computeNextBotMovement)
+            }
+        }
 
         let updateAction = self.pendingUpdateAction
         switch updateAction {
