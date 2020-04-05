@@ -12,7 +12,7 @@ public class SnakeBot_MoveForward: SnakeBot {
 	required public init() {
 	}
 
-	public func plannedPath() -> [IntVec2] {
+	public var plannedPath: [IntVec2] {
 		[]
 	}
 

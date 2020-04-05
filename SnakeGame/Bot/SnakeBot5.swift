@@ -36,7 +36,7 @@ public class SnakeBot5: SnakeBot {
         self.init(iteration: 0, plannedMovement: .dontMove, previousIterationData: nil)
 	}
 
-	public func plannedPath() -> [IntVec2] {
+    public var plannedPath: [IntVec2] {
 		guard let previousIterationData: PreviousIterationData = self.previousIterationData else {
 			return []
 		}

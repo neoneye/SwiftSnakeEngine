@@ -26,7 +26,7 @@ public class SnakeBot4: SnakeBot {
         self.init(iteration: 0, plannedMovement: .dontMove)
 	}
 
-	public func plannedPath() -> [IntVec2] {
+    public var plannedPath: [IntVec2] {
 		[]
 	}
 

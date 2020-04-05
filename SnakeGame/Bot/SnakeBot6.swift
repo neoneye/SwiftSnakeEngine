@@ -3,7 +3,6 @@ import Foundation
 
 fileprivate struct PreviousIterationData {
 	let root: RootNode
-	let plannedPath: [IntVec2]
 }
 
 public class SnakeBot6: SnakeBot {
@@ -17,9 +16,11 @@ public class SnakeBot6: SnakeBot {
     private let debug_graphvizExport = true
 	private let iteration: UInt
     public private(set) var plannedMovement: SnakeBodyMovement
+    public private(set) var plannedPath: [IntVec2]
+
 	private let previousIterationData: PreviousIterationData?
 
-	private init(iteration: UInt, plannedMovement: SnakeBodyMovement, previousIterationData: PreviousIterationData?) {
+	private init(iteration: UInt, plannedMovement: SnakeBodyMovement, plannedPath: [IntVec2], previousIterationData: PreviousIterationData?) {
         if previousIterationData != nil {
             log.debug("SnakeBot6.init iteration: \(iteration)  with previous data")
         } else {
@@ -27,26 +28,12 @@ public class SnakeBot6: SnakeBot {
         }
 		self.iteration = iteration
         self.plannedMovement = plannedMovement
+        self.plannedPath = plannedPath
 		self.previousIterationData = previousIterationData
 	}
 
 	required public convenience init() {
-        self.init(iteration: 0, plannedMovement: .dontMove, previousIterationData: nil)
-	}
-
-	public func plannedPath() -> [IntVec2] {
-        log.debug("!!!!!!! #\(iteration) plannedPath")
-		guard let previousIterationData: PreviousIterationData = self.previousIterationData else {
-            log.debug("no previous iteration data")
-			return []
-		}
-        let positionArray: [IntVec2] = previousIterationData.plannedPath
-        if let position0: IntVec2 = positionArray.first {
-            log.debug("position0: \(position0)")
-        } else {
-            log.error("The planned path is empty")
-        }
-		return positionArray
+        self.init(iteration: 0, plannedMovement: .dontMove, plannedPath: [], previousIterationData: nil)
 	}
 
 	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
@@ -218,6 +205,7 @@ public class SnakeBot6: SnakeBot {
             return SnakeBot6(
                 iteration: self.iteration + 1,
                 plannedMovement: .moveForward,
+                plannedPath: [],
                 previousIterationData: nil
             )
 		}
@@ -264,12 +252,12 @@ public class SnakeBot6: SnakeBot {
         }
 
 		let previousIterationData = PreviousIterationData(
-			root: root,
-			plannedPath: plannedPath
+			root: root
 		)
 		return SnakeBot6(
 			iteration: self.iteration + 1,
             plannedMovement: bestMovement,
+            plannedPath: plannedPath,
 			previousIterationData: previousIterationData
 		)
 	}
