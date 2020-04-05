@@ -16,20 +16,22 @@ public class SnakeBot6: SnakeBot {
 
     private let debug_graphvizExport = true
 	private let iteration: UInt
+    public private(set) var plannedMovement: SnakeBodyMovement
 	private let previousIterationData: PreviousIterationData?
 
-	private init(iteration: UInt, previousIterationData: PreviousIterationData?) {
+	private init(iteration: UInt, plannedMovement: SnakeBodyMovement, previousIterationData: PreviousIterationData?) {
         if previousIterationData != nil {
             log.debug("SnakeBot6.init iteration: \(iteration)  with previous data")
         } else {
             log.debug("SnakeBot6.init iteration: \(iteration)  no previous data")
         }
 		self.iteration = iteration
+        self.plannedMovement = plannedMovement
 		self.previousIterationData = previousIterationData
 	}
 
 	required public convenience init() {
-		self.init(iteration: 0, previousIterationData: nil)
+        self.init(iteration: 0, plannedMovement: .dontMove, previousIterationData: nil)
 	}
 
 	public func plannedPath() -> [IntVec2] {
@@ -263,6 +265,7 @@ public class SnakeBot6: SnakeBot {
 		)
 		let bot = SnakeBot6(
 			iteration: self.iteration + 1,
+            plannedMovement: bestMovement,
 			previousIterationData: previousIterationData
 		)
 

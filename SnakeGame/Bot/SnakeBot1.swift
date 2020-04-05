@@ -9,14 +9,16 @@ public class SnakeBot1: SnakeBot {
 		)
 	}
 
+    public private(set) var plannedMovement: SnakeBodyMovement
 	public let futurePlannedPath: [IntVec2]
 
-	fileprivate init(futurePlannedPath: [IntVec2]) {
+	fileprivate init(futurePlannedPath: [IntVec2], plannedMovement: SnakeBodyMovement) {
 		self.futurePlannedPath = futurePlannedPath
+        self.plannedMovement = plannedMovement
 	}
 
 	required public convenience init() {
-		self.init(futurePlannedPath: [])
+        self.init(futurePlannedPath: [], plannedMovement: .dontMove)
 	}
 
 	public func plannedPath() -> [IntVec2] {
@@ -105,7 +107,7 @@ public class SnakeBot1: SnakeBot {
 				}
 			}
 
-			let bot = SnakeBot1(futurePlannedPath: plannedPath)
+            let bot = SnakeBot1(futurePlannedPath: plannedPath, plannedMovement: pendingMovement)
 			return (bot, pendingMovement)
 		}
 		let position0: IntVec2 = player.snakeBody.head.position
@@ -116,7 +118,7 @@ public class SnakeBot1: SnakeBot {
 		//		log.debug("dx: \(dx)  dy: \(dy)  distance: \(distance)")
 		guard distance == 1 else {
 			log.error("way too long distance to nearest neighbour. dx: \(dx)  dy: \(dy)  distance: \(distance)")
-			let bot = SnakeBot1(futurePlannedPath: plannedPath)
+            let bot = SnakeBot1(futurePlannedPath: plannedPath, plannedMovement: .moveForward)
 			return (bot, .moveForward)
 		}
 
@@ -176,7 +178,7 @@ public class SnakeBot1: SnakeBot {
 			}
 		}
 
-		let bot = SnakeBot1(futurePlannedPath: plannedPath)
+        let bot = SnakeBot1(futurePlannedPath: plannedPath, plannedMovement: pendingMovement)
 		return (bot, pendingMovement)
 	}
 }

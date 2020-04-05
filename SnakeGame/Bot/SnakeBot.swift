@@ -11,6 +11,8 @@ public protocol SnakeBot: class {
 	init()
 	func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement)
 	func plannedPath() -> [IntVec2]
+
+    var plannedMovement: SnakeBodyMovement { get }
 }
 
 internal class SnakeBotInfoImpl: SnakeBotInfo {

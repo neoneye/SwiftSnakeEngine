@@ -23,15 +23,17 @@ public class SnakeBot5: SnakeBot {
 	}
 
 	private let iteration: UInt
+    public private(set) var plannedMovement: SnakeBodyMovement
 	private let previousIterationData: PreviousIterationData?
 
-	private init(iteration: UInt, previousIterationData: PreviousIterationData?) {
+	private init(iteration: UInt, plannedMovement: SnakeBodyMovement, previousIterationData: PreviousIterationData?) {
 		self.iteration = iteration
+        self.plannedMovement = plannedMovement
 		self.previousIterationData = previousIterationData
 	}
 
 	required public convenience init() {
-		self.init(iteration: 0, previousIterationData: nil)
+        self.init(iteration: 0, plannedMovement: .dontMove, previousIterationData: nil)
 	}
 
 	public func plannedPath() -> [IntVec2] {
@@ -142,6 +144,7 @@ public class SnakeBot5: SnakeBot {
 		)
 		let bot = SnakeBot5(
 			iteration: self.iteration + 1,
+            plannedMovement: bestMovement,
 			previousIterationData: previousIterationData
 		)
 		return (bot, bestMovement)
