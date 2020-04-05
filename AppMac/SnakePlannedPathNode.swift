@@ -94,9 +94,9 @@ class SnakePlannedPathNode: SKEffectNode {
         let rightSplit: ArraySlice<IntVec2> = positionArray[rightRangeBegin ..< positionArray.count]
 
         if leftSplit.count >= 2 {
-            if let position0: IntVec2 = leftSplit.first {
-                log.debug("position0: \(position0)")
-            }
+//            if let position0: IntVec2 = leftSplit.first {
+//                log.debug("position0: \(position0)")
+//            }
             let shapeNode: SKShapeNode = shapeNodeWithPath(positionArray: Array(leftSplit))
             shapeNode.strokeColor = colorHighConfidence
             shapeNode.lineWidth = 30

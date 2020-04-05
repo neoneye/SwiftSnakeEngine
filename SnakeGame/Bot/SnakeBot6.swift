@@ -247,7 +247,7 @@ public class SnakeBot6: SnakeBot {
 			let countInsert_string: String = nf.string(from: NSNumber(value: countInsert)) ?? ""
 
 			let aliveDead: String = scenario.certainDeath ? "DIE" : "   "
-			log.debug("\(iteration_string) \(countRemove_string) \(countKeep_string) \(countInsert_string) \(aliveDead) \(prettyMovements)")
+			//log.debug("\(iteration_string) \(countRemove_string) \(countKeep_string) \(countInsert_string) \(aliveDead) \(prettyMovements)")
 		}
 
         if debug_graphvizExport {
