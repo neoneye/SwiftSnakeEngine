@@ -40,7 +40,7 @@ public class SnakeBot1: SnakeBot {
 			return SnakeBot1(futurePlannedPath: [], plannedMovement: .moveForward)
 		}
 
-		var plannedPath: [IntVec2] = self.futurePlannedPath
+		var newPlannedPath: [IntVec2] = self.futurePlannedPath
 
 		// distance to opposite player head shortest path
 		// if too close, then avoid
@@ -60,17 +60,17 @@ public class SnakeBot1: SnakeBot {
 		availablePositionsPlusHead.removeAll { snakePositionsSet.contains($0) }
 		availablePositionsPlusHead.append(player.snakeBody.head.position)
 		availablePositionsPlusHead.removeAll { oppositePlayer_snakePositionSet.contains($0) }
-		if plannedPath.isEmpty {
-			plannedPath = ComputeShortestPath.compute(
+		if newPlannedPath.isEmpty {
+			newPlannedPath = ComputeShortestPath.compute(
 				availablePositions: availablePositionsPlusHead,
 				startPosition: player.snakeBody.head.position,
 				targetPosition: foodPosition
 			)
 		}
 
-		let path: [IntVec2] = Array(plannedPath)
-		if !plannedPath.isEmpty {
-			plannedPath.removeFirst()
+		let path: [IntVec2] = Array(newPlannedPath)
+		if !newPlannedPath.isEmpty {
+			newPlannedPath.removeFirst()
 		}
 
 		guard path.count >= 2 else {
@@ -107,7 +107,7 @@ public class SnakeBot1: SnakeBot {
 				}
 			}
 
-            return SnakeBot1(futurePlannedPath: plannedPath, plannedMovement: pendingMovement)
+            return SnakeBot1(futurePlannedPath: newPlannedPath, plannedMovement: pendingMovement)
 		}
 		let position0: IntVec2 = player.snakeBody.head.position
 		let position1: IntVec2 = path[1]
@@ -117,7 +117,7 @@ public class SnakeBot1: SnakeBot {
 		//		log.debug("dx: \(dx)  dy: \(dy)  distance: \(distance)")
 		guard distance == 1 else {
 			log.error("way too long distance to nearest neighbour. dx: \(dx)  dy: \(dy)  distance: \(distance)")
-            return SnakeBot1(futurePlannedPath: plannedPath, plannedMovement: .moveForward)
+            return SnakeBot1(futurePlannedPath: newPlannedPath, plannedMovement: .moveForward)
 		}
 
 		var pendingMovement: SnakeBodyMovement = .moveForward
@@ -176,7 +176,7 @@ public class SnakeBot1: SnakeBot {
 			}
 		}
 
-        return SnakeBot1(futurePlannedPath: plannedPath, plannedMovement: pendingMovement)
+        return SnakeBot1(futurePlannedPath: newPlannedPath, plannedMovement: pendingMovement)
 	}
 }
 
