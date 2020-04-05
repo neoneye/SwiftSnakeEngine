@@ -30,9 +30,9 @@ public class SnakeBot4: SnakeBot {
 		[]
 	}
 
-	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
 		let t0 = CFAbsoluteTimeGetCurrent()
-		let result = takeAction_inner(level: level, player: player, oppositePlayer: oppositePlayer, foodPosition: foodPosition)
+		let result = compute_inner(level: level, player: player, oppositePlayer: oppositePlayer, foodPosition: foodPosition)
 		let t1 = CFAbsoluteTimeGetCurrent()
 		let elapsed: Double = t1 - t0
 		if Constant.printStats {
@@ -41,7 +41,7 @@ public class SnakeBot4: SnakeBot {
 		return result
 	}
 
-	private func takeAction_inner(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+	private func compute_inner(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
 		let scope_t0 = CFAbsoluteTimeGetCurrent()
 
 //		if iteration > 0 {
@@ -50,11 +50,11 @@ public class SnakeBot4: SnakeBot {
 
 		guard player.isInstalled else {
 			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
-			return (self, .moveForward)
+			return SnakeBot4()
 		}
 		guard player.isAlive else {
 			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
-			return (self, .moveForward)
+            return SnakeBot4()
 		}
 
 //		log.debug("#\(iteration) -")
@@ -338,11 +338,10 @@ public class SnakeBot4: SnakeBot {
 			break
 		}
 
-		let bot = SnakeBot4(
+		return SnakeBot4(
 			iteration: self.iteration + 1,
             plannedMovement: pendingMovement
 		)
-		return (bot, pendingMovement)
 	}
 
 	private func printEstimatedDistancesToFood(nodes: ChoiceNodeArray) {

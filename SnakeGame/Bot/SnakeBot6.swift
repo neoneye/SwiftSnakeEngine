@@ -49,15 +49,15 @@ public class SnakeBot6: SnakeBot {
 		return positionArray
 	}
 
-	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
         log.debug("!!!!!!! #\(iteration) compute")
 		guard player.isInstalled else {
 			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
-			return (self, .moveForward)
+			return SnakeBot6()
 		}
 		guard player.isAlive else {
 			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
-			return (self, .moveForward)
+			return SnakeBot6()
 		}
 
 //		log.debug("#\(iteration) ---")
@@ -215,7 +215,11 @@ public class SnakeBot6: SnakeBot {
 
 		guard let scenario: Scenario = visitor_buildTree.bestScenario() else {
 			log.error("unable to find the best scenario")
-			return (self, .moveForward)
+            return SnakeBot6(
+                iteration: self.iteration + 1,
+                plannedMovement: .moveForward,
+                previousIterationData: nil
+            )
 		}
 
 		scenario.flagTheBestNodes()
@@ -263,13 +267,11 @@ public class SnakeBot6: SnakeBot {
 			root: root,
 			plannedPath: plannedPath
 		)
-		let bot = SnakeBot6(
+		return SnakeBot6(
 			iteration: self.iteration + 1,
             plannedMovement: bestMovement,
 			previousIterationData: previousIterationData
 		)
-
-		return (bot, bestMovement)
 	}
 
     func sendGraphvizData(iteration: UInt, dotfile: String, foodPosition: IntVec2?) {

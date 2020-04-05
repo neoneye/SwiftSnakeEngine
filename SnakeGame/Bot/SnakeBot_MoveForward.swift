@@ -20,7 +20,7 @@ public class SnakeBot_MoveForward: SnakeBot {
         .moveForward
     }
 
-	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
-		return (self, .moveForward)
+	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
+		self
 	}
 }

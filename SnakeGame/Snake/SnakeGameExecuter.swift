@@ -64,7 +64,7 @@ extension SnakeGameState {
 		var gameState: SnakeGameState = self
 		if case SnakePlayerRole.bot = gameState.player1.role {
 			if gameState.player1.isAlive && gameState.player1.pendingMovement == .dontMove {
-				let (newBotState, _) = gameState.player1.bot.compute(
+				let newBotState = gameState.player1.bot.compute(
 					level: gameState.level,
 					player: gameState.player1,
 					oppositePlayer: gameState.player2,
@@ -80,7 +80,7 @@ extension SnakeGameState {
 
 		if case SnakePlayerRole.bot = gameState.player2.role {
 			if gameState.player2.isAlive && gameState.player2.pendingMovement == .dontMove {
-				let (newBotState, _) = gameState.player2.bot.compute(
+				let newBotState = gameState.player2.bot.compute(
 					level: gameState.level,
 					player: gameState.player2,
 					oppositePlayer: gameState.player1,

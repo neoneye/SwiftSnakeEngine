@@ -9,7 +9,7 @@ public protocol SnakeBotInfo {
 public protocol SnakeBot: class {
 	static var info: SnakeBotInfo { get }
 	init()
-	func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement)
+	func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot
 	func plannedPath() -> [IntVec2]
 
     var plannedMovement: SnakeBodyMovement { get }

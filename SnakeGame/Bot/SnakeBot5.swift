@@ -50,9 +50,9 @@ public class SnakeBot5: SnakeBot {
 		return positionArray
 	}
 
-	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
 		let t0 = CFAbsoluteTimeGetCurrent()
-		let result = takeAction_inner(level: level, player: player, oppositePlayer: oppositePlayer, foodPosition: foodPosition)
+		let result = compute_inner(level: level, player: player, oppositePlayer: oppositePlayer, foodPosition: foodPosition)
 		let t1 = CFAbsoluteTimeGetCurrent()
 		let elapsed: Double = t1 - t0
 		if Constant.printStats {
@@ -61,15 +61,15 @@ public class SnakeBot5: SnakeBot {
 		return result
 	}
 
-	private func takeAction_inner(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+	private func compute_inner(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
 
 		guard player.isInstalled else {
 			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
-			return (self, .moveForward)
+			return SnakeBot5()
 		}
 		guard player.isAlive else {
 			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
-			return (self, .moveForward)
+			return SnakeBot5()
 		}
 
 		let emptyPositionSet: Set<IntVec2>
@@ -128,26 +128,33 @@ public class SnakeBot5: SnakeBot {
 
 		guard let bestScenarioResult: ScenarioResult = scenarioResults.first else {
 			log.error("Expected 1 or more scenarioResults, but got 0")
-			return (self, .moveForward)
+            return SnakeBot5(
+                iteration: self.iteration + 1,
+                plannedMovement: .moveForward,
+                previousIterationData: nil
+            )
 		}
 
 //		log.debug("#\(iteration) first: \(bestScenarioResult)")
 
 		guard let bestMovement: SnakeBodyMovement = bestScenarioResult.movements.first else {
 			log.error("Expected bestScenarioResult.movements to be 1 or longer, but got nil")
-			return (self, .moveForward)
+            return SnakeBot5(
+                iteration: self.iteration + 1,
+                plannedMovement: .moveForward,
+                previousIterationData: nil
+            )
 		}
 
 		let previousIterationData = PreviousIterationData(
 			scenarioResult: bestScenarioResult,
 			snakeHead: player.snakeBody.head
 		)
-		let bot = SnakeBot5(
+		return SnakeBot5(
 			iteration: self.iteration + 1,
             plannedMovement: bestMovement,
 			previousIterationData: previousIterationData
 		)
-		return (bot, bestMovement)
 	}
 }
 

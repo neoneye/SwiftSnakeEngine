@@ -25,19 +25,19 @@ public class SnakeBot1: SnakeBot {
 		return futurePlannedPath
 	}
 
-	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
 
 		guard player.isInstalled else {
 			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
-			return (self, .moveForward)
+			return SnakeBot1()
 		}
 		guard player.isAlive else {
 			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
-			return (self, .moveForward)
+			return SnakeBot1()
 		}
 		guard let foodPosition: IntVec2 = foodPosition else {
 			log.debug("no food position. Cannot find shortest path")
-			return (self, .moveForward)
+			return SnakeBot1(futurePlannedPath: [], plannedMovement: .moveForward)
 		}
 
 		var plannedPath: [IntVec2] = self.futurePlannedPath
@@ -107,8 +107,7 @@ public class SnakeBot1: SnakeBot {
 				}
 			}
 
-            let bot = SnakeBot1(futurePlannedPath: plannedPath, plannedMovement: pendingMovement)
-			return (bot, pendingMovement)
+            return SnakeBot1(futurePlannedPath: plannedPath, plannedMovement: pendingMovement)
 		}
 		let position0: IntVec2 = player.snakeBody.head.position
 		let position1: IntVec2 = path[1]
@@ -118,8 +117,7 @@ public class SnakeBot1: SnakeBot {
 		//		log.debug("dx: \(dx)  dy: \(dy)  distance: \(distance)")
 		guard distance == 1 else {
 			log.error("way too long distance to nearest neighbour. dx: \(dx)  dy: \(dy)  distance: \(distance)")
-            let bot = SnakeBot1(futurePlannedPath: plannedPath, plannedMovement: .moveForward)
-			return (bot, .moveForward)
+            return SnakeBot1(futurePlannedPath: plannedPath, plannedMovement: .moveForward)
 		}
 
 		var pendingMovement: SnakeBodyMovement = .moveForward
@@ -178,8 +176,7 @@ public class SnakeBot1: SnakeBot {
 			}
 		}
 
-        let bot = SnakeBot1(futurePlannedPath: plannedPath, plannedMovement: pendingMovement)
-		return (bot, pendingMovement)
+        return SnakeBot1(futurePlannedPath: plannedPath, plannedMovement: pendingMovement)
 	}
 }
 
