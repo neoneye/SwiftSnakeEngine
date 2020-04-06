@@ -14,23 +14,25 @@ public class SnakeBot4: SnakeBot {
 		)
 	}
 
+    public let plannedMovement: SnakeBodyMovement
 	private let iteration: UInt
 
-	private init(iteration: UInt) {
+	private init(iteration: UInt, plannedMovement: SnakeBodyMovement) {
 		self.iteration = iteration
+        self.plannedMovement = plannedMovement
 	}
 
 	required public convenience init() {
-		self.init(iteration: 0)
+        self.init(iteration: 0, plannedMovement: .dontMove)
 	}
 
-	public func plannedPath() -> [IntVec2] {
+    public var plannedPath: [IntVec2] {
 		[]
 	}
 
-	public func takeAction(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
 		let t0 = CFAbsoluteTimeGetCurrent()
-		let result = takeAction_inner(level: level, player: player, oppositePlayer: oppositePlayer, foodPosition: foodPosition)
+		let result = compute_inner(level: level, player: player, oppositePlayer: oppositePlayer, foodPosition: foodPosition)
 		let t1 = CFAbsoluteTimeGetCurrent()
 		let elapsed: Double = t1 - t0
 		if Constant.printStats {
@@ -39,7 +41,7 @@ public class SnakeBot4: SnakeBot {
 		return result
 	}
 
-	private func takeAction_inner(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+	private func compute_inner(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
 		let scope_t0 = CFAbsoluteTimeGetCurrent()
 
 //		if iteration > 0 {
@@ -48,11 +50,11 @@ public class SnakeBot4: SnakeBot {
 
 		guard player.isInstalled else {
 			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
-			return (self, .moveForward)
+			return SnakeBot4()
 		}
 		guard player.isAlive else {
 			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
-			return (self, .moveForward)
+            return SnakeBot4()
 		}
 
 //		log.debug("#\(iteration) -")
@@ -63,7 +65,7 @@ public class SnakeBot4: SnakeBot {
 		// A faster approach would be to re-compute this only when the food position changes.
 		let distanceToFoodMap: SnakeLevelDistanceMap = SnakeLevelDistanceMap.create(level: level, initialPosition: foodPosition)
 
-		// IDEA: Computing ChoiceNodes over and over takes time. Caching of the choice nodes to the next "takeAction",
+		// IDEA: Computing ChoiceNodes over and over takes time. Caching of the choice nodes to the next "compute",
 		// so that less time is spent on allocating the same memory over and over.
 		let rootChoice = ParentChoiceNode.create(depth: 9)
 //		log.debug("nodeCount: \(rootChoice.nodeCount)")
@@ -336,10 +338,10 @@ public class SnakeBot4: SnakeBot {
 			break
 		}
 
-		let bot = SnakeBot4(
-			iteration: self.iteration + 1
+		return SnakeBot4(
+			iteration: self.iteration + 1,
+            plannedMovement: pendingMovement
 		)
-		return (bot, pendingMovement)
 	}
 
 	private func printEstimatedDistancesToFood(nodes: ChoiceNodeArray) {

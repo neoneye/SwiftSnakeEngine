@@ -23,23 +23,25 @@ public class SnakeBot5: SnakeBot {
 	}
 
 	private let iteration: UInt
+    public let plannedPath: [IntVec2]
+    public let plannedMovement: SnakeBodyMovement
 	private let previousIterationData: PreviousIterationData?
 
-	private init(iteration: UInt, previousIterationData: PreviousIterationData?) {
+	private init(iteration: UInt, plannedPath: [IntVec2], plannedMovement: SnakeBodyMovement, previousIterationData: PreviousIterationData?) {
 		self.iteration = iteration
+        self.plannedPath = plannedPath
+        self.plannedMovement = plannedMovement
 		self.previousIterationData = previousIterationData
 	}
 
 	required public convenience init() {
-		self.init(iteration: 0, previousIterationData: nil)
+        self.init(iteration: 0, plannedPath: [], plannedMovement: .dontMove, previousIterationData: nil)
 	}
 
-	public func plannedPath() -> [IntVec2] {
-		guard let previousIterationData: PreviousIterationData = self.previousIterationData else {
-			return []
-		}
+    private func computePlannedPath(previousIterationData: PreviousIterationData) -> [IntVec2] {
 		var head: SnakeHead = previousIterationData.snakeHead
 		var positionArray = [IntVec2]()
+        positionArray.append(head.position)
 		let movements: [SnakeBodyMovement] = previousIterationData.scenarioResult.movements
 		for movement in movements {
 			head = head.simulateTick(movement: movement)
@@ -48,9 +50,9 @@ public class SnakeBot5: SnakeBot {
 		return positionArray
 	}
 
-	public func takeAction(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
 		let t0 = CFAbsoluteTimeGetCurrent()
-		let result = takeAction_inner(level: level, player: player, oppositePlayer: oppositePlayer, foodPosition: foodPosition)
+		let result = compute_inner(level: level, player: player, oppositePlayer: oppositePlayer, foodPosition: foodPosition)
 		let t1 = CFAbsoluteTimeGetCurrent()
 		let elapsed: Double = t1 - t0
 		if Constant.printStats {
@@ -59,15 +61,15 @@ public class SnakeBot5: SnakeBot {
 		return result
 	}
 
-	private func takeAction_inner(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+	private func compute_inner(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
 
 		guard player.isInstalled else {
 			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
-			return (self, .moveForward)
+			return SnakeBot5()
 		}
 		guard player.isAlive else {
 			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
-			return (self, .moveForward)
+			return SnakeBot5()
 		}
 
 		let emptyPositionSet: Set<IntVec2>
@@ -126,25 +128,36 @@ public class SnakeBot5: SnakeBot {
 
 		guard let bestScenarioResult: ScenarioResult = scenarioResults.first else {
 			log.error("Expected 1 or more scenarioResults, but got 0")
-			return (self, .moveForward)
+            return SnakeBot5(
+                iteration: self.iteration + 1,
+                plannedPath: [],
+                plannedMovement: .moveForward,
+                previousIterationData: nil
+            )
 		}
 
 //		log.debug("#\(iteration) first: \(bestScenarioResult)")
 
 		guard let bestMovement: SnakeBodyMovement = bestScenarioResult.movements.first else {
 			log.error("Expected bestScenarioResult.movements to be 1 or longer, but got nil")
-			return (self, .moveForward)
+            return SnakeBot5(
+                iteration: self.iteration + 1,
+                plannedPath: [],
+                plannedMovement: .moveForward,
+                previousIterationData: nil
+            )
 		}
 
 		let previousIterationData = PreviousIterationData(
 			scenarioResult: bestScenarioResult,
 			snakeHead: player.snakeBody.head
 		)
-		let bot = SnakeBot5(
+		return SnakeBot5(
 			iteration: self.iteration + 1,
+            plannedPath: computePlannedPath(previousIterationData: previousIterationData),
+            plannedMovement: bestMovement,
 			previousIterationData: previousIterationData
 		)
-		return (bot, bestMovement)
 	}
 }
 

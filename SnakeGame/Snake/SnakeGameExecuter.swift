@@ -56,34 +56,53 @@ public class SnakeGameExecuter {
 extension SnakeGameState {
 	/// Decide about optimal path to get to the food
 	public func computeNextBotMovement() -> SnakeGameState {
-		var gameState: SnakeGameState = self
-		if case SnakePlayerRole.bot = gameState.player1.role {
-			if gameState.player1.isAlive && gameState.player1.pendingMovement == .dontMove {
-				let (newBotState, pendingMovement) = gameState.player1.bot.takeAction(
-					level: gameState.level,
-					player: gameState.player1,
-					oppositePlayer: gameState.player2,
-					foodPosition: gameState.foodPosition
-				)
-				gameState = gameState.updateBot1(newBotState)
-				gameState = gameState.updatePendingMovementForPlayer1(pendingMovement)
-                log.debug("player1: \(pendingMovement)")
-			}
+        var computePlayer1 = false
+		if case SnakePlayerRole.bot = self.player1.role {
+			if self.player1.isAlive && self.player1.pendingMovement == .dontMove {
+                computePlayer1 = true
+            }
+        }
+        var computePlayer2 = false
+        if case SnakePlayerRole.bot = self.player2.role {
+            if self.player2.isAlive && self.player2.pendingMovement == .dontMove {
+                computePlayer2 = true
+            }
+        }
+
+        guard computePlayer1 || computePlayer2 else {
+            // No need to compute next movement for the bots.
+            return self
+        }
+        //log.debug("will compute")
+
+        var gameState: SnakeGameState = self
+        if computePlayer1 {
+            let newBotState = gameState.player1.bot.compute(
+                level: gameState.level,
+                player: gameState.player1,
+                oppositePlayer: gameState.player2,
+                foodPosition: gameState.foodPosition
+            )
+            let pendingMovement: SnakeBodyMovement = newBotState.plannedMovement
+            gameState = gameState.updateBot1(newBotState)
+            gameState = gameState.updatePendingMovementForPlayer1(pendingMovement)
+            //log.debug("player1: \(pendingMovement)")
 		}
 
-		if case SnakePlayerRole.bot = gameState.player2.role {
-			if gameState.player2.isAlive && gameState.player2.pendingMovement == .dontMove {
-				let (newBotState, pendingMovement) = gameState.player2.bot.takeAction(
-					level: gameState.level,
-					player: gameState.player2,
-					oppositePlayer: gameState.player1,
-					foodPosition: gameState.foodPosition
-				)
-				gameState = gameState.updateBot2(newBotState)
-				gameState = gameState.updatePendingMovementForPlayer2(pendingMovement)
-                log.debug("player2: \(pendingMovement)")
-			}
+		if computePlayer2 {
+            let newBotState = gameState.player2.bot.compute(
+                level: gameState.level,
+                player: gameState.player2,
+                oppositePlayer: gameState.player1,
+                foodPosition: gameState.foodPosition
+            )
+            let pendingMovement: SnakeBodyMovement = newBotState.plannedMovement
+            gameState = gameState.updateBot2(newBotState)
+            gameState = gameState.updatePendingMovementForPlayer2(pendingMovement)
+            //log.debug("player2: \(pendingMovement)")
 		}
+
+        //log.debug("did compute")
 		return gameState
 	}
 

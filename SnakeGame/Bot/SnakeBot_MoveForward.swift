@@ -12,11 +12,15 @@ public class SnakeBot_MoveForward: SnakeBot {
 	required public init() {
 	}
 
-	public func plannedPath() -> [IntVec2] {
+	public var plannedPath: [IntVec2] {
 		[]
 	}
 
-	public func takeAction(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
-		return (self, .moveForward)
+    public var plannedMovement: SnakeBodyMovement {
+        .moveForward
+    }
+
+	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
+		self
 	}
 }

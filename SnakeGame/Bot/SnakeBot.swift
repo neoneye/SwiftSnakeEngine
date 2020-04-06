@@ -9,8 +9,15 @@ public protocol SnakeBotInfo {
 public protocol SnakeBot: class {
 	static var info: SnakeBotInfo { get }
 	init()
-	func takeAction(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement)
-	func plannedPath() -> [IntVec2]
+	func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot
+
+    /// The first element is the current head position
+    /// The second element is be the first computed position (near future)
+    /// The following elements have lower and lower confidence (far out future).
+    var plannedPath: [IntVec2] { get }
+
+    /// The computed move for the player to take
+    var plannedMovement: SnakeBodyMovement { get }
 }
 
 internal class SnakeBotInfoImpl: SnakeBotInfo {

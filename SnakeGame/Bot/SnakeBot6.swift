@@ -3,7 +3,6 @@ import Foundation
 
 fileprivate struct PreviousIterationData {
 	let root: RootNode
-	let plannedPath: [IntVec2]
 }
 
 public class SnakeBot6: SnakeBot {
@@ -15,36 +14,35 @@ public class SnakeBot6: SnakeBot {
 	}
 
     private let debug_graphvizExport = false
+    private let debug_prettyPath = false
 	private let iteration: UInt
+    public let plannedMovement: SnakeBodyMovement
+    public let plannedPath: [IntVec2]
+
 	private let previousIterationData: PreviousIterationData?
 
-	private init(iteration: UInt, previousIterationData: PreviousIterationData?) {
+	private init(iteration: UInt, plannedMovement: SnakeBodyMovement, plannedPath: [IntVec2], previousIterationData: PreviousIterationData?) {
 		self.iteration = iteration
+        self.plannedMovement = plannedMovement
+        self.plannedPath = plannedPath
 		self.previousIterationData = previousIterationData
 	}
 
 	required public convenience init() {
-		self.init(iteration: 0, previousIterationData: nil)
+        self.init(iteration: 0, plannedMovement: .dontMove, plannedPath: [], previousIterationData: nil)
 	}
 
-	public func plannedPath() -> [IntVec2] {
-		guard let previousIterationData: PreviousIterationData = self.previousIterationData else {
-			return []
-		}
-		return previousIterationData.plannedPath
-	}
-
-	public func takeAction(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> (SnakeBot, SnakeBodyMovement) {
+	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
 		guard player.isInstalled else {
 			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
-			return (self, .moveForward)
+			return SnakeBot6()
 		}
 		guard player.isAlive else {
 			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
-			return (self, .moveForward)
+			return SnakeBot6()
 		}
 
-//		log.debug("#\(iteration) ---")
+        //log.debug("#\(iteration)  head.position: \(player.snakeBody.head.position)")
 
 		var countKeep: Int = 0
 		var countRemove: Int = 0
@@ -198,7 +196,12 @@ public class SnakeBot6: SnakeBot {
 
 		guard let scenario: Scenario = visitor_buildTree.bestScenario() else {
 			log.error("unable to find the best scenario")
-			return (self, .moveForward)
+            return SnakeBot6(
+                iteration: self.iteration + 1,
+                plannedMovement: .moveForward,
+                plannedPath: [],
+                previousIterationData: nil
+            )
 		}
 
 		scenario.flagTheBestNodes()
@@ -214,13 +217,14 @@ public class SnakeBot6: SnakeBot {
 
 		var head: SnakeHead = player.snakeBody.head
 		var positionArray = [IntVec2]()
+        positionArray.append(head.position)
 		for movement: SnakeBodyMovement in scenario.movements {
 			head = head.simulateTick(movement: movement)
 			positionArray.append(head.position)
 		}
 		let plannedPath: [IntVec2] = positionArray
 
-		do {
+		if debug_prettyPath {
             let prettyMovements: String = PrettyPlannedPath.process(node: scenario.destinationNode, snakeHead: player.snakeBody.head)
 
 			let nf = NumberFormatter()
@@ -242,15 +246,14 @@ public class SnakeBot6: SnakeBot {
         }
 
 		let previousIterationData = PreviousIterationData(
-			root: root,
-			plannedPath: plannedPath
+			root: root
 		)
-		let bot = SnakeBot6(
+		return SnakeBot6(
 			iteration: self.iteration + 1,
+            plannedMovement: bestMovement,
+            plannedPath: plannedPath,
 			previousIterationData: previousIterationData
 		)
-
-		return (bot, bestMovement)
 	}
 
     func sendGraphvizData(iteration: UInt, dotfile: String, foodPosition: IntVec2?) {

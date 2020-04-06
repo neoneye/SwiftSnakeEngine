@@ -37,7 +37,7 @@ class SnakePlannedPathNode: SKEffectNode {
     private func drawPlannedPathForBot(player: SnakePlayer, foodPosition: IntVec2?) {
         let showPlannedPath: Bool = NSUserDefaultsController.shared.isShowPlannedPathEnabled
         if showPlannedPath && player.isBot && player.isAlive {
-            let positionArray: [IntVec2] = player.bot.plannedPath()
+            let positionArray: [IntVec2] = player.bot.plannedPath
             let highConfidenceCount: UInt = self.highConfidenceCount(positionArray: positionArray, foodPosition: foodPosition)
             drawPlannedPath(positionArray: positionArray, highConfidenceCount: highConfidenceCount)
         }
