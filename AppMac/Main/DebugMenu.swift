@@ -1,6 +1,5 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Cocoa
-import SnakeGame
 import SSEventFlow
 
 class FlowEvent_PerformUndo: FlowEvent {}
@@ -13,7 +12,6 @@ class DebugMenu: NSMenu {
 	}
 
 	@IBAction func redoAction(_ sender: NSMenuItem) {
-        log.debug("User pressed F6 key")
 		FlowEvent_PerformRedo().fire()
 	}
 }

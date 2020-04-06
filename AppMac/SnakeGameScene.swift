@@ -292,7 +292,7 @@ class SnakeGameScene: SKScene {
 		}
 
         if !gameNodeNeedRedraw.isEmpty {
-            log.debug("redraw: \(gameNodeNeedRedraw)")
+            //log.debug("redraw: \(gameNodeNeedRedraw)")
             gameNodeNeedRedraw = []
             gameNode.gameState = self.gameState
             gameNode.redraw()

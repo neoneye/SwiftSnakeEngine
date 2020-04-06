@@ -70,9 +70,10 @@ extension SnakeGameState {
         }
 
         guard computePlayer1 || computePlayer2 else {
+            // No need to compute next movement for the bots.
             return self
         }
-        log.debug("will compute")
+        //log.debug("will compute")
 
         var gameState: SnakeGameState = self
         if computePlayer1 {
@@ -85,7 +86,7 @@ extension SnakeGameState {
             let pendingMovement: SnakeBodyMovement = newBotState.plannedMovement
             gameState = gameState.updateBot1(newBotState)
             gameState = gameState.updatePendingMovementForPlayer1(pendingMovement)
-            log.debug("player1: \(pendingMovement)")
+            //log.debug("player1: \(pendingMovement)")
 		}
 
 		if computePlayer2 {
@@ -98,10 +99,10 @@ extension SnakeGameState {
             let pendingMovement: SnakeBodyMovement = newBotState.plannedMovement
             gameState = gameState.updateBot2(newBotState)
             gameState = gameState.updatePendingMovementForPlayer2(pendingMovement)
-            log.debug("player2: \(pendingMovement)")
+            //log.debug("player2: \(pendingMovement)")
 		}
 
-        log.debug("did compute")
+        //log.debug("did compute")
 		return gameState
 	}
 
