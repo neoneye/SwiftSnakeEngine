@@ -21,11 +21,11 @@ public class SnakeBot6: SnakeBot {
 	private let previousIterationData: PreviousIterationData?
 
 	private init(iteration: UInt, plannedMovement: SnakeBodyMovement, plannedPath: [IntVec2], previousIterationData: PreviousIterationData?) {
-        if previousIterationData != nil {
-            log.debug("SnakeBot6.init iteration: \(iteration)  with previous data")
-        } else {
-            log.debug("SnakeBot6.init iteration: \(iteration)  no previous data")
-        }
+//        if previousIterationData != nil {
+//            log.debug("SnakeBot6.init iteration: \(iteration)  with previous data")
+//        } else {
+//            log.debug("SnakeBot6.init iteration: \(iteration)  no previous data")
+//        }
 		self.iteration = iteration
         self.plannedMovement = plannedMovement
         self.plannedPath = plannedPath
@@ -37,7 +37,6 @@ public class SnakeBot6: SnakeBot {
 	}
 
 	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
-        log.debug("!!!!!!! #\(iteration) compute")
 		guard player.isInstalled else {
 			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
 			return SnakeBot6()
@@ -47,8 +46,7 @@ public class SnakeBot6: SnakeBot {
 			return SnakeBot6()
 		}
 
-//		log.debug("#\(iteration) ---")
-        log.debug("player head position: \(player.snakeBody.head.position)")
+        //log.debug("#\(iteration)  head.position: \(player.snakeBody.head.position)")
 
 		var countKeep: Int = 0
 		var countRemove: Int = 0
