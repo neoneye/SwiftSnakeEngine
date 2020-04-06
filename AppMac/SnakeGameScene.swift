@@ -214,7 +214,6 @@ class SnakeGameScene: SKScene {
         }
 		let newGameState: SnakeGameState = gameState.updatePendingMovementForPlayer1(movement)
 		self.gameState = newGameState
-        self.gameNodeNeedRedraw.insert(.userInputForPlayer)
 		self.isPaused = false
 		self.pendingUpdateAction = .stepForwardContinuously
 	}
@@ -229,7 +228,6 @@ class SnakeGameScene: SKScene {
         }
 		let newGameState: SnakeGameState = gameState.updatePendingMovementForPlayer2(movement)
 		self.gameState = newGameState
-        self.gameNodeNeedRedraw.insert(.userInputForPlayer)
 		self.isPaused = false
 		self.pendingUpdateAction = .stepForwardContinuously
 	}
@@ -466,19 +464,15 @@ struct GameNodeNeedRedraw: OptionSet {
     let rawValue: UInt
     static let didMoveToView          = GameNodeNeedRedraw(rawValue: 1 << 0)
     static let newGame                = GameNodeNeedRedraw(rawValue: 1 << 1)
-    static let plannedPath            = GameNodeNeedRedraw(rawValue: 1 << 2)
-    static let userInputForPlayer     = GameNodeNeedRedraw(rawValue: 1 << 3)
-    static let newFood                = GameNodeNeedRedraw(rawValue: 1 << 4)
-    static let stepForward            = GameNodeNeedRedraw(rawValue: 1 << 5)
-    static let stepBackward           = GameNodeNeedRedraw(rawValue: 1 << 6)
+    static let newFood                = GameNodeNeedRedraw(rawValue: 1 << 2)
+    static let stepForward            = GameNodeNeedRedraw(rawValue: 1 << 3)
+    static let stepBackward           = GameNodeNeedRedraw(rawValue: 1 << 4)
 }
 
 extension GameNodeNeedRedraw: CustomStringConvertible, CustomDebugStringConvertible {
     private static var debugDescriptions: [(Self, String)] = [
         (.didMoveToView, "didMoveToView"),
         (.newGame, "newGame"),
-        (.plannedPath, "plannedPath"),
-        (.userInputForPlayer, "userInputForPlayer"),
         (.newFood, "newFood"),
         (.stepForward, "stepForward"),
         (.stepBackward, "stepBackward")
