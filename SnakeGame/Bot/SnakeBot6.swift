@@ -13,8 +13,8 @@ public class SnakeBot6: SnakeBot {
 		)
 	}
 
-    private let debug_graphvizExport = true
-    private let debug_prettyPath = true
+    private let debug_graphvizExport = false
+    private let debug_prettyPath = false
 	private let iteration: UInt
     public let plannedMovement: SnakeBodyMovement
     public let plannedPath: [IntVec2]
