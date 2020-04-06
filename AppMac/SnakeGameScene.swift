@@ -271,11 +271,7 @@ class SnakeGameScene: SKScene {
 		super.update(currentTime)
 
         if gameNodeNeedRedraw.contains(.newGame) {
-            let (newGameState, didChange) = self.gameState.computeNextBotMovement()
-            if didChange {
-                self.gameState = newGameState
-                self.gameNodeNeedRedraw.insert(.computeNextBotMovement)
-            }
+            self.gameState = self.gameState.computeNextBotMovement()
         }
 
         let updateAction = self.pendingUpdateAction
@@ -370,13 +366,7 @@ class SnakeGameScene: SKScene {
 			}
 		}
 
-        do {
-            let (newGameState, didChange) = self.gameState.computeNextBotMovement()
-            if didChange {
-                self.gameState = newGameState
-                self.gameNodeNeedRedraw.insert(.computeNextBotMovement)
-            }
-        }
+        self.gameState = self.gameState.computeNextBotMovement()
 
 		let human1Alive: Bool = gameState.player1.role == .human && gameState.player1.isAlive
 		let human2Alive: Bool = gameState.player2.role == .human && gameState.player2.isAlive
@@ -479,9 +469,8 @@ struct GameNodeNeedRedraw: OptionSet {
     static let plannedPath            = GameNodeNeedRedraw(rawValue: 1 << 2)
     static let userInputForPlayer     = GameNodeNeedRedraw(rawValue: 1 << 3)
     static let newFood                = GameNodeNeedRedraw(rawValue: 1 << 4)
-    static let computeNextBotMovement = GameNodeNeedRedraw(rawValue: 1 << 5)
-    static let stepForward            = GameNodeNeedRedraw(rawValue: 1 << 6)
-    static let stepBackward           = GameNodeNeedRedraw(rawValue: 1 << 7)
+    static let stepForward            = GameNodeNeedRedraw(rawValue: 1 << 5)
+    static let stepBackward           = GameNodeNeedRedraw(rawValue: 1 << 6)
 }
 
 extension GameNodeNeedRedraw: CustomStringConvertible, CustomDebugStringConvertible {
@@ -491,7 +480,6 @@ extension GameNodeNeedRedraw: CustomStringConvertible, CustomDebugStringConverti
         (.plannedPath, "plannedPath"),
         (.userInputForPlayer, "userInputForPlayer"),
         (.newFood, "newFood"),
-        (.computeNextBotMovement, "computeNextBotMovement"),
         (.stepForward, "stepForward"),
         (.stepBackward, "stepBackward")
     ]

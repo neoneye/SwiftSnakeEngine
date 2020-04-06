@@ -55,11 +55,7 @@ public class SnakeGameExecuter {
 
 extension SnakeGameState {
 	/// Decide about optimal path to get to the food
-    ///
-    /// Returns `true` if there was a change to the gameState, eg. bot movement have been computed.
-    /// 
-    /// Returns `false` if the gameState is unmodified.
-	public func computeNextBotMovement() -> (SnakeGameState, Bool) {
+	public func computeNextBotMovement() -> SnakeGameState {
         var computePlayer1 = false
 		if case SnakePlayerRole.bot = self.player1.role {
 			if self.player1.isAlive && self.player1.pendingMovement == .dontMove {
@@ -74,7 +70,7 @@ extension SnakeGameState {
         }
 
         guard computePlayer1 || computePlayer2 else {
-            return (self, false)
+            return self
         }
         log.debug("will compute")
 
@@ -106,7 +102,7 @@ extension SnakeGameState {
 		}
 
         log.debug("did compute")
-		return (gameState, true)
+		return gameState
 	}
 
 	/// Checks the human inputs and prevent humans from colliding with walls/snakes
