@@ -61,6 +61,7 @@ class SnakeGameScene: SKScene {
 		self.initialGameState = SnakeGameScene.defaultInitialGameState()
 		self.gameState = SnakeGameState.empty()
 		self.gameNode = SnakeGameNode()
+        self.gameNodeNeedRedraw.insert(.newGame)
 		super.init(size: size)
 	}
 
@@ -70,6 +71,7 @@ class SnakeGameScene: SKScene {
 		self.initialGameState = SnakeGameScene.defaultInitialGameState()
 		self.gameState = SnakeGameState.empty()
 		self.gameNode = SnakeGameNode()
+        self.gameNodeNeedRedraw.insert(.newGame)
 		super.init(coder: aDecoder)
 	}
 
@@ -268,8 +270,7 @@ class SnakeGameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
 		super.update(currentTime)
 
-//        log.debug("update \(currentTime)")
-        do {
+        if gameNodeNeedRedraw.contains(.newGame) {
             let (newGameState, didChange) = self.gameState.computeNextBotMovement()
             if didChange {
                 self.gameState = newGameState
@@ -368,6 +369,14 @@ class SnakeGameScene: SKScene {
 				playSoundEffect(sound_snakeEats)
 			}
 		}
+
+        do {
+            let (newGameState, didChange) = self.gameState.computeNextBotMovement()
+            if didChange {
+                self.gameState = newGameState
+                self.gameNodeNeedRedraw.insert(.computeNextBotMovement)
+            }
+        }
 
 		let human1Alive: Bool = gameState.player1.role == .human && gameState.player1.isAlive
 		let human2Alive: Bool = gameState.player2.role == .human && gameState.player2.isAlive
