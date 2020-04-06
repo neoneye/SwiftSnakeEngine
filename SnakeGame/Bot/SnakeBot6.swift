@@ -14,6 +14,7 @@ public class SnakeBot6: SnakeBot {
 	}
 
     private let debug_graphvizExport = true
+    private let debug_prettyPath = true
 	private let iteration: UInt
     public let plannedMovement: SnakeBodyMovement
     public let plannedPath: [IntVec2]
@@ -21,11 +22,6 @@ public class SnakeBot6: SnakeBot {
 	private let previousIterationData: PreviousIterationData?
 
 	private init(iteration: UInt, plannedMovement: SnakeBodyMovement, plannedPath: [IntVec2], previousIterationData: PreviousIterationData?) {
-//        if previousIterationData != nil {
-//            log.debug("SnakeBot6.init iteration: \(iteration)  with previous data")
-//        } else {
-//            log.debug("SnakeBot6.init iteration: \(iteration)  no previous data")
-//        }
 		self.iteration = iteration
         self.plannedMovement = plannedMovement
         self.plannedPath = plannedPath
@@ -228,7 +224,7 @@ public class SnakeBot6: SnakeBot {
 		}
 		let plannedPath: [IntVec2] = positionArray
 
-		do {
+		if debug_prettyPath {
             let prettyMovements: String = PrettyPlannedPath.process(node: scenario.destinationNode, snakeHead: player.snakeBody.head)
 
 			let nf = NumberFormatter()
@@ -239,7 +235,7 @@ public class SnakeBot6: SnakeBot {
 			let countInsert_string: String = nf.string(from: NSNumber(value: countInsert)) ?? ""
 
 			let aliveDead: String = scenario.certainDeath ? "DIE" : "   "
-			//log.debug("\(iteration_string) \(countRemove_string) \(countKeep_string) \(countInsert_string) \(aliveDead) \(prettyMovements)")
+			log.debug("\(iteration_string) \(countRemove_string) \(countKeep_string) \(countInsert_string) \(aliveDead) \(prettyMovements)")
 		}
 
         if debug_graphvizExport {
