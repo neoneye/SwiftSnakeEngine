@@ -244,7 +244,6 @@ class SnakeGameScene: SKScene {
 		//let steps: UInt64 = self.gameState.numberOfSteps
 		//log.debug("place new food: \(steps)")
 		self.gameState = foodGenerator.placeNewFood(self.gameState)
-        self.gameNodeNeedRedraw.insert(.newFood)
 	}
 
 	func updateCamera() {
@@ -464,16 +463,14 @@ struct GameNodeNeedRedraw: OptionSet {
     let rawValue: UInt
     static let didMoveToView          = GameNodeNeedRedraw(rawValue: 1 << 0)
     static let newGame                = GameNodeNeedRedraw(rawValue: 1 << 1)
-    static let newFood                = GameNodeNeedRedraw(rawValue: 1 << 2)
-    static let stepForward            = GameNodeNeedRedraw(rawValue: 1 << 3)
-    static let stepBackward           = GameNodeNeedRedraw(rawValue: 1 << 4)
+    static let stepForward            = GameNodeNeedRedraw(rawValue: 1 << 2)
+    static let stepBackward           = GameNodeNeedRedraw(rawValue: 1 << 3)
 }
 
 extension GameNodeNeedRedraw: CustomStringConvertible, CustomDebugStringConvertible {
     private static var debugDescriptions: [(Self, String)] = [
         (.didMoveToView, "didMoveToView"),
         (.newGame, "newGame"),
-        (.newFood, "newFood"),
         (.stepForward, "stepForward"),
         (.stepBackward, "stepBackward")
     ]
