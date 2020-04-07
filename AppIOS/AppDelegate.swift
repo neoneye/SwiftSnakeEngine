@@ -1,11 +1,18 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import UIKit
+import SnakeGameIOS
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    override init() {
+        super.init()
+//        LogHelper.setup_mainExecutable()
+//        Dashboard.shared.url = AppConstant.Dashboard.url
+//        SnakeLevelManager.setup()
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
