@@ -9,13 +9,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     override init() {
         super.init()
-//        LogHelper.setup_mainExecutable()
+        LogHelper.setup_mainExecutable()
 //        Dashboard.shared.url = AppConstant.Dashboard.url
-//        SnakeLevelManager.setup()
+        SnakeLevelManager.setup()
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        log.debug("app is running")
         return true
     }
 

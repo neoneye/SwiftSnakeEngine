@@ -83,6 +83,61 @@
 		42ABC112243CAD1100E05FF3 /* SnakeGameIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ABC110243CAD1100E05FF3 /* SnakeGameIOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42ABC115243CAD1100E05FF3 /* SnakeGameIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42ABC10E243CAD1100E05FF3 /* SnakeGameIOS.framework */; };
 		42ABC116243CAD1100E05FF3 /* SnakeGameIOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42ABC10E243CAD1100E05FF3 /* SnakeGameIOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		42ABC11B243D137D00E05FF3 /* SnakeBot_MoveForward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C318292384117500468D1F /* SnakeBot_MoveForward.swift */; };
+		42ABC11C243D137D00E05FF3 /* SnakeBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22CC23397D9700CF3D96 /* SnakeBot.swift */; };
+		42ABC11D243D137D00E05FF3 /* SnakeBot1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429122BE23520D3000B3E32A /* SnakeBot1.swift */; };
+		42ABC11E243D137D00E05FF3 /* SnakeBot4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCBD236F305600758303 /* SnakeBot4.swift */; };
+		42ABC11F243D137D00E05FF3 /* SnakeBot5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3182C2386FBDC00468D1F /* SnakeBot5.swift */; };
+		42ABC120243D137D00E05FF3 /* SnakeBot6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42822A22239817CA00DA4461 /* SnakeBot6.swift */; };
+		42ABC121243D138300E05FF3 /* Array2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C31821237F27AF00468D1F /* Array2.swift */; };
+		42ABC122243D138300E05FF3 /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCD61023BE65FD0021CBE7 /* BoundingBox.swift */; };
+		42ABC123243D138300E05FF3 /* ComputeShortestPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B1233400D3007AC6F9 /* ComputeShortestPath.swift */; };
+		42ABC124243D138300E05FF3 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E2E2437E2CA00A85B6F /* Dashboard.swift */; };
+		42ABC125243D138300E05FF3 /* Data+SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCD61223BEB04B0021CBE7 /* Data+SHA1.swift */; };
+		42ABC126243D138300E05FF3 /* FloatFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E302439004600A85B6F /* FloatFormatting.swift */; };
+		42ABC127243D138300E05FF3 /* IntVec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA25232FD31900A230AF /* IntVec2.swift */; };
+		42ABC128243D138300E05FF3 /* IntVec2+CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3181F237D6E2700468D1F /* IntVec2+CGPoint.swift */; };
+		42ABC129243D138300E05FF3 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423C4F52240C4B5B00786F49 /* Logging.swift */; };
+		42ABC12A243D138300E05FF3 /* MeasureAreaSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C236EC2333033700241639 /* MeasureAreaSize.swift */; };
+		42ABC12B243D138300E05FF3 /* MeasureTurnCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4228915123341CCC00273A0F /* MeasureTurnCount.swift */; };
+		42ABC12C243D138300E05FF3 /* OSLogDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423C4F53240C4B5B00786F49 /* OSLogDestination.swift */; };
+		42ABC12D243D138300E05FF3 /* remap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255C9FF232F70F800A230AF /* remap.swift */; };
+		42ABC12E243D138300E05FF3 /* SeededGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA29233180B500A230AF /* SeededGenerator.swift */; };
+		42ABC12F243D138300E05FF3 /* sigmoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA00232F70F800A230AF /* sigmoid.swift */; };
+		42ABC130243D138800E05FF3 /* UIntVec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5422336349800210611 /* UIntVec2.swift */; };
+		42ABC131243D138800E05FF3 /* URL+temporaryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7C0123F283FC00229CEA /* URL+temporaryFile.swift */; };
+		42ABC132243D139300E05FF3 /* AdjacencyListGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F1233267E900B97E29 /* AdjacencyListGraph.swift */; };
+		42ABC133243D139300E05FF3 /* AdjacencyMatrixGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F3233267E900B97E29 /* AdjacencyMatrixGraph.swift */; };
+		42ABC134243D139300E05FF3 /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F2233267E900B97E29 /* Edge.swift */; };
+		42ABC135243D139300E05FF3 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F4233267E900B97E29 /* Graph.swift */; };
+		42ABC136243D139300E05FF3 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F5233267E900B97E29 /* Vertex.swift */; };
+		42ABC137243D139300E05FF3 /* BellmanFord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F8233267E900B97E29 /* BellmanFord.swift */; };
+		42ABC138243D139300E05FF3 /* SSSP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F7233267E900B97E29 /* SSSP.swift */; };
+		42ABC139243D13A200E05FF3 /* SnakeLevel_Cluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCD60A23BD5DF40021CBE7 /* SnakeLevel_Cluster.swift */; };
+		42ABC13A243D13A200E05FF3 /* SnakeLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B523340DEE007AC6F9 /* SnakeLevel.swift */; };
+		42ABC13B243D13A200E05FF3 /* SnakeLevel+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5402335A9D100210611 /* SnakeLevel+Load.swift */; };
+		42ABC13C243D13A200E05FF3 /* SnakeLevelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCD60C23BE62CE0021CBE7 /* SnakeLevelBuilder.swift */; };
+		42ABC13D243D13A200E05FF3 /* SnakeLevelCacheModel.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCBF23735BF500758303 /* SnakeLevelCacheModel.pb.swift */; };
+		42ABC13E243D13A200E05FF3 /* SnakeLevelCacheModel.proto in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCC42373608600758303 /* SnakeLevelCacheModel.proto */; };
+		42ABC13F243D13A200E05FF3 /* SnakeLevelDistanceMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3182E2388839100468D1F /* SnakeLevelDistanceMap.swift */; };
+		42ABC140243D13A200E05FF3 /* SnakeLevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCD61723C1054C0021CBE7 /* SnakeLevelManager.swift */; };
+		42ABC141243D13AB00E05FF3 /* SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */; };
+		42ABC142243D13AB00E05FF3 /* SnakeBodyMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */; };
+		42ABC143243D13AB00E05FF3 /* SnakeCollisionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B3233CE40A0006D02D /* SnakeCollisionDetector.swift */; };
+		42ABC144243D13AB00E05FF3 /* SnakeFifo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A8B6FB2331B3CC00E618CF /* SnakeFifo.swift */; };
+		42ABC145243D13AB00E05FF3 /* SnakeFoodGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B7233D71E80006D02D /* SnakeFoodGenerator.swift */; };
+		42ABC146243D13AB00E05FF3 /* SnakeGameExecuter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423BB233D9ABD0006D02D /* SnakeGameExecuter.swift */; };
+		42ABC147243D13AB00E05FF3 /* SnakeGameHeadless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423BD233D9B760006D02D /* SnakeGameHeadless.swift */; };
+		42ABC148243D13AB00E05FF3 /* SnakeGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B5233D46F30006D02D /* SnakeGameState.swift */; };
+		42ABC149243D13AB00E05FF3 /* SnakeGameState+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B9233D9A590006D02D /* SnakeGameState+Create.swift */; };
+		42ABC14A243D13AB00E05FF3 /* SnakeGameState+SaveTrainingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7C0323F2873B00229CEA /* SnakeGameState+SaveTrainingData.swift */; };
+		42ABC14B243D13AB00E05FF3 /* SnakeGameStateModel.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7BFF23F2105000229CEA /* SnakeGameStateModel.pb.swift */; };
+		42ABC14C243D13AB00E05FF3 /* SnakeGameStateModel.proto in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7BFD23F1FD9D00229CEA /* SnakeGameStateModel.proto */; };
+		42ABC14D243D13AB00E05FF3 /* SnakeHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A8B6FD2331B4AE00E618CF /* SnakeHead.swift */; };
+		42ABC14E243D13AB00E05FF3 /* SnakeHeadDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */; };
+		42ABC14F243D13AB00E05FF3 /* SnakePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22CA23397D1300CF3D96 /* SnakePlayer.swift */; };
+		42ABC150243D13AB00E05FF3 /* StuckSnakeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429D336523FAF46E00EF9B37 /* StuckSnakeDetector.swift */; };
+		42ABC151243D13B400E05FF3 /* SnakeLevels.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4253C53E23359FB000210611 /* SnakeLevels.bundle */; };
 		42B96D952347EE000073CAAA /* SnakeLevelSelectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B96D942347EE000073CAAA /* SnakeLevelSelectorNode.swift */; };
 		42C236EB2332F4BB00241639 /* T2002_SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C236EA2332F4BB00241639 /* T2002_SnakeBody.swift */; };
 		42C236ED2333033700241639 /* MeasureAreaSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C236EC2333033700241639 /* MeasureAreaSize.swift */; };
@@ -910,6 +965,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42ABC151243D13B400E05FF3 /* SnakeLevels.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1211,6 +1267,60 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42ABC11D243D137D00E05FF3 /* SnakeBot1.swift in Sources */,
+				42ABC13D243D13A200E05FF3 /* SnakeLevelCacheModel.pb.swift in Sources */,
+				42ABC129243D138300E05FF3 /* Logging.swift in Sources */,
+				42ABC11F243D137D00E05FF3 /* SnakeBot5.swift in Sources */,
+				42ABC128243D138300E05FF3 /* IntVec2+CGPoint.swift in Sources */,
+				42ABC138243D139300E05FF3 /* SSSP.swift in Sources */,
+				42ABC125243D138300E05FF3 /* Data+SHA1.swift in Sources */,
+				42ABC136243D139300E05FF3 /* Vertex.swift in Sources */,
+				42ABC148243D13AB00E05FF3 /* SnakeGameState.swift in Sources */,
+				42ABC130243D138800E05FF3 /* UIntVec2.swift in Sources */,
+				42ABC140243D13A200E05FF3 /* SnakeLevelManager.swift in Sources */,
+				42ABC135243D139300E05FF3 /* Graph.swift in Sources */,
+				42ABC124243D138300E05FF3 /* Dashboard.swift in Sources */,
+				42ABC14C243D13AB00E05FF3 /* SnakeGameStateModel.proto in Sources */,
+				42ABC133243D139300E05FF3 /* AdjacencyMatrixGraph.swift in Sources */,
+				42ABC141243D13AB00E05FF3 /* SnakeBody.swift in Sources */,
+				42ABC12A243D138300E05FF3 /* MeasureAreaSize.swift in Sources */,
+				42ABC146243D13AB00E05FF3 /* SnakeGameExecuter.swift in Sources */,
+				42ABC11E243D137D00E05FF3 /* SnakeBot4.swift in Sources */,
+				42ABC149243D13AB00E05FF3 /* SnakeGameState+Create.swift in Sources */,
+				42ABC145243D13AB00E05FF3 /* SnakeFoodGenerator.swift in Sources */,
+				42ABC126243D138300E05FF3 /* FloatFormatting.swift in Sources */,
+				42ABC12C243D138300E05FF3 /* OSLogDestination.swift in Sources */,
+				42ABC14B243D13AB00E05FF3 /* SnakeGameStateModel.pb.swift in Sources */,
+				42ABC132243D139300E05FF3 /* AdjacencyListGraph.swift in Sources */,
+				42ABC13F243D13A200E05FF3 /* SnakeLevelDistanceMap.swift in Sources */,
+				42ABC123243D138300E05FF3 /* ComputeShortestPath.swift in Sources */,
+				42ABC13C243D13A200E05FF3 /* SnakeLevelBuilder.swift in Sources */,
+				42ABC122243D138300E05FF3 /* BoundingBox.swift in Sources */,
+				42ABC14F243D13AB00E05FF3 /* SnakePlayer.swift in Sources */,
+				42ABC120243D137D00E05FF3 /* SnakeBot6.swift in Sources */,
+				42ABC14D243D13AB00E05FF3 /* SnakeHead.swift in Sources */,
+				42ABC11C243D137D00E05FF3 /* SnakeBot.swift in Sources */,
+				42ABC14A243D13AB00E05FF3 /* SnakeGameState+SaveTrainingData.swift in Sources */,
+				42ABC137243D139300E05FF3 /* BellmanFord.swift in Sources */,
+				42ABC13A243D13A200E05FF3 /* SnakeLevel.swift in Sources */,
+				42ABC11B243D137D00E05FF3 /* SnakeBot_MoveForward.swift in Sources */,
+				42ABC134243D139300E05FF3 /* Edge.swift in Sources */,
+				42ABC142243D13AB00E05FF3 /* SnakeBodyMovement.swift in Sources */,
+				42ABC147243D13AB00E05FF3 /* SnakeGameHeadless.swift in Sources */,
+				42ABC127243D138300E05FF3 /* IntVec2.swift in Sources */,
+				42ABC121243D138300E05FF3 /* Array2.swift in Sources */,
+				42ABC13B243D13A200E05FF3 /* SnakeLevel+Load.swift in Sources */,
+				42ABC12F243D138300E05FF3 /* sigmoid.swift in Sources */,
+				42ABC12E243D138300E05FF3 /* SeededGenerator.swift in Sources */,
+				42ABC131243D138800E05FF3 /* URL+temporaryFile.swift in Sources */,
+				42ABC144243D13AB00E05FF3 /* SnakeFifo.swift in Sources */,
+				42ABC143243D13AB00E05FF3 /* SnakeCollisionDetector.swift in Sources */,
+				42ABC12D243D138300E05FF3 /* remap.swift in Sources */,
+				42ABC14E243D13AB00E05FF3 /* SnakeHeadDirection.swift in Sources */,
+				42ABC12B243D138300E05FF3 /* MeasureTurnCount.swift in Sources */,
+				42ABC139243D13A200E05FF3 /* SnakeLevel_Cluster.swift in Sources */,
+				42ABC13E243D13A200E05FF3 /* SnakeLevelCacheModel.proto in Sources */,
+				42ABC150243D13AB00E05FF3 /* StuckSnakeDetector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1598,6 +1708,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DB4C6E8BB4655A0782C5916E /* Pods-BasePodsIOS-AppIOS.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 22DR89XVRF;
@@ -1619,6 +1730,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3D7C5502B95DADFE8A9A7ECA /* Pods-BasePodsIOS-AppIOS.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 22DR89XVRF;
