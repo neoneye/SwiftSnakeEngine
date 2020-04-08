@@ -504,11 +504,11 @@
 			children = (
 				42FB0580243C99C4006BEE8D /* AppIOS */,
 				4255CA0C232F8A2100A230AF /* AppMac */,
+				42ABC10F243CAD1100E05FF3 /* EngineIOS */,
 				4255C9E7232F703E00A230AF /* EngineMac */,
 				4255CA2D2331810100A230AF /* Frameworks */,
 				88BCF870F0A6A03EA7495181 /* Pods */,
 				4255C9E6232F703E00A230AF /* Products */,
-				42ABC10F243CAD1100E05FF3 /* SnakeGameIOS */,
 				42BF1869243DC75D00CD9F06 /* SnakeGameShared */,
 				4255C9F2232F703E00A230AF /* SnakeGameTests */,
 			);
@@ -645,13 +645,13 @@
 			path = "swift-algorithm-club";
 			sourceTree = "<group>";
 		};
-		42ABC10F243CAD1100E05FF3 /* SnakeGameIOS */ = {
+		42ABC10F243CAD1100E05FF3 /* EngineIOS */ = {
 			isa = PBXGroup;
 			children = (
 				42ABC111243CAD1100E05FF3 /* Info.plist */,
 				42ABC110243CAD1100E05FF3 /* SnakeGameIOS.h */,
 			);
-			path = SnakeGameIOS;
+			path = EngineIOS;
 			sourceTree = "<group>";
 		};
 		42BF1869243DC75D00CD9F06 /* SnakeGameShared */ = {
@@ -1667,7 +1667,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SnakeGameIOS/Info.plist;
+				INFOPLIST_FILE = EngineIOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1694,7 +1694,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SnakeGameIOS/Info.plist;
+				INFOPLIST_FILE = EngineIOS/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
