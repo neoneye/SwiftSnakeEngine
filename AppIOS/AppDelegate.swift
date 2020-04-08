@@ -1,6 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import UIKit
-import SnakeGameIOS
+import EngineIOS
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

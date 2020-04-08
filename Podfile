@@ -21,7 +21,7 @@ end
 abstract_target 'BasePodsIOS' do
 	platform :ios, '13.0'
 
-	target 'SnakeGameIOS' do
+	target 'EngineIOS' do
 		my_shared_pods
 	end
 

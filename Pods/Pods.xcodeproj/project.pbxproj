@@ -53,28 +53,28 @@
 		3A8C4074A1C33731E5A73E137FA8FB64 /* GoogleCloudDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628D69E73296372E5081E931841BAFDB /* GoogleCloudDestination.swift */; };
 		3B6AAA038EA4C57F39C3E3594B173B5A /* empty.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990D13FDFF08CD942FB5D08C53CC0EE4 /* empty.pb.swift */; };
 		3CEAF537E4190E27E35D28634BE54E38 /* BinaryDelimited.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4CB4E260D9D5C2C73DFA42B1E0A561 /* BinaryDelimited.swift */; };
-		3D745F7C2521D22A5DC63AA4DDDC1B8F /* Pods-BasePodsIOS-AppIOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C3AAC32C890A683134AEB3CE4C94C82 /* Pods-BasePodsIOS-AppIOS-dummy.m */; };
+		3D745F7C2521D22A5DC63AA4DDDC1B8F /* Pods-BasePodsIOS-AppIOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2334F074FC8CDFF096B1AA8B124DB454 /* Pods-BasePodsIOS-AppIOS-dummy.m */; };
 		3E5BB79A09CC05BA40F4D56A6790D0C2 /* JSONDecodingOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595D22E7A7763577F5E72202DC08535 /* JSONDecodingOptions.swift */; };
 		3FCDEAB05467C92E6FA08B9E5280C5CE /* timestamp.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1DD71B37DFDFE2064AF2804AE3712A /* timestamp.pb.swift */; };
 		4171D16012FB09CFF2EA3259D34614BA /* Message+BinaryAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81C34933F7DCBD437F45F74562E424E /* Message+BinaryAdditions.swift */; };
 		42791C475EB2166FBB63F79266E53D62 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834DEA8A5139AE52C5BC2598A356E1C4 /* StringUtils.swift */; };
 		43170607C3750FA10F936B699B256314 /* ExtensibleMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE54AACF80AAE49664F2BBE5995C61E3 /* ExtensibleMessage.swift */; };
 		43A88E3EC7EBC1F29E5246444145885E /* Visitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89567D9C111CE39B326289489E9342D9 /* Visitor.swift */; };
-		448A1AE73A1413794A9A0E8229666134 /* Pods-BasePodsMAC-SnakeGameTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A982E39D230DB8AD2E5A1FCC16158FA5 /* Pods-BasePodsMAC-SnakeGameTests-dummy.m */; };
+		448A1AE73A1413794A9A0E8229666134 /* Pods-BasePodsMAC-SnakeGameTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 811FC47AC0E4E7CA631E02C17D08AF2B /* Pods-BasePodsMAC-SnakeGameTests-dummy.m */; };
 		46944E77B48BCFC5920732DF5E1E4CA2 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F3CFBDE98A3A6FB3B87757D9260284E /* Parser.swift */; };
 		4725745F3EBF08E5D3B33B2BF2542CF7 /* UnsafeRawPointer+Shims.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69D7B6A04B60CD7AC505145CEEC10FD /* UnsafeRawPointer+Shims.swift */; };
-		4747CB9C18F2CEE615D0E4539738CE73 /* Pods-BasePodsIOS-AppIOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C0595E1F9B74F65D048ED5C4BFE0E314 /* Pods-BasePodsIOS-AppIOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4747CB9C18F2CEE615D0E4539738CE73 /* Pods-BasePodsIOS-AppIOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CD17D83A47F3FC1D870CB1623B895AED /* Pods-BasePodsIOS-AppIOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		485CCBB6DE1375825EABEE44DB42CF0D /* JSONScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99650E23D149D4716EED13F4290AF74C /* JSONScanner.swift */; };
 		48DDA6F3D566BFBA58F89B097A82F359 /* Google_Protobuf_Struct+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD49005EDE93C13F99A64ED2EEE48DB /* Google_Protobuf_Struct+Extensions.swift */; };
 		48DED9557EA693B9C5887049D8169730 /* TimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0461D5801EB9C4EDEB38E436E3B30CB7 /* TimeUtils.swift */; };
 		4A92D52EE2AF5E37760545FA5D46EF46 /* TextFormatDecodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE5CE50C2EBEFC4AC9900948B0AA946 /* TextFormatDecodingError.swift */; };
 		4ADB615615CDDA3C66C7CE31939FAD7F /* Google_Protobuf_Wrappers+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEBC44AE30C2F5234291601DFE922F2 /* Google_Protobuf_Wrappers+Extensions.swift */; };
+		4E2648438422620E9AE652DAEB2BD246 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF078200D3CDAD0F3FB03ED9391A7F0 /* Foundation.framework */; };
 		4EE1D8F56674386AE5A44505A1B8F471 /* SSEventFlow-iOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A419E560BDBC8715785E930C8F792856 /* SSEventFlow-iOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F48C89CAEECAAFBA39B67CEAC80131C /* BinaryEncodingSizeVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94D33EB96001E10F3256F6DFEA2D327 /* BinaryEncodingSizeVisitor.swift */; };
 		5012BABF2D4651B73419A099C39521DE /* TextFormatDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52157CEAD41B308F0AE6ECC7E6C134D8 /* TextFormatDecoder.swift */; };
 		51656A6691B3CA562E894817AF2D1B56 /* JSONDecodingOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C595D22E7A7763577F5E72202DC08535 /* JSONDecodingOptions.swift */; };
 		51EE0D7A65A911F07F96D6FA85819624 /* FilterValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC503728816DC6CC84AC4F43AA61077 /* FilterValidator.swift */; };
-		54554EE98B4FDB6CC5CBF03CB4BC2617 /* Pods-BasePodsIOS-SnakeGameIOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EFB1BD55C79FFD85DDE26CBC6BB0FC05 /* Pods-BasePodsIOS-SnakeGameIOS-dummy.m */; };
 		552B1D11D934D87C74878E206548486B /* SSEventFlow-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F84EB0A590AF1D95BD9C194F9E88B30 /* SSEventFlow-macOS-dummy.m */; };
 		55BF4AEB49464DECCECC89F27D9C87A5 /* JSONEncodingVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7891577E3946AFAA0245901E76602F7E /* JSONEncodingVisitor.swift */; };
 		56763EC306C87683C77818E342777ACC /* BaseDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4683EEA54AE4FD621745A4DF5F68B4A8 /* BaseDestination.swift */; };
@@ -127,14 +127,12 @@
 		816543EDCDE6AC9E9E9D824414A04668 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30E0833F774141EB04DC79D0F4664C87 /* Cocoa.framework */; };
 		81ED74A5B610C46C8503B8C51F06447A /* Message+AnyAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE610B7C4251391A883EAF432C7C8A3 /* Message+AnyAdditions.swift */; };
 		83281FD4F7E0DA20F80B47C1781A0624 /* Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A301C029AA7E97077C73E9C22FCB15 /* Base64.swift */; };
-		8575498126AFE91992A8B4298B88E2CE /* Pods-BasePodsMAC-SnakeGameTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 21CD43F8AF002C464917AF3B4717E9C5 /* Pods-BasePodsMAC-SnakeGameTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8575498126AFE91992A8B4298B88E2CE /* Pods-BasePodsMAC-SnakeGameTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CE45CD8BEE104FF3B1995532AFAAFB9 /* Pods-BasePodsMAC-SnakeGameTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8745B26E2F2C53A9F6F3856A6AD55426 /* Google_Protobuf_Struct+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD49005EDE93C13F99A64ED2EEE48DB /* Google_Protobuf_Struct+Extensions.swift */; };
-		8797FBA4E0B8F4C802E7F27B6D2206DA /* Pods-BasePodsIOS-SnakeGameIOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 00B2DDACD4DC7BDB030996C5FBFBA794 /* Pods-BasePodsIOS-SnakeGameIOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A4A2D69FF46004733FFB30997BACDEF /* NameMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DB308493A001370345B1460D5224BC /* NameMap.swift */; };
 		8CFD59BD781897D48C6820DD37C0A499 /* ProtoNameProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48370834FE4C2C125D8F344563478A05 /* ProtoNameProviding.swift */; };
 		8D5F43D97F47F8F0BB90D75E28AD7393 /* any.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16FA080886ECE2E2E50DEBF3EACC999E /* any.pb.swift */; };
 		8E0242F929084ADE659DC2F7D8933794 /* type.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E805CAA1C8CCCFC05A3B2FC9CB605AA /* type.pb.swift */; };
-		8EA9FEC49FCDE5168461178A166F5E65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAF078200D3CDAD0F3FB03ED9391A7F0 /* Foundation.framework */; };
 		8ED0D04C8AD7BD37ABE17F476EEF23AA /* NamedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473B46BCF24777652D7B3EA3496CDBBC /* NamedView.swift */; };
 		8F3276AA39FEDEC3B99F95B4116DF9A2 /* ZigZag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066AD01B00E883D3FC0B8A9E3CEC8D0E /* ZigZag.swift */; };
 		8F6811A5B53E146D81542F51A2E3C495 /* SwiftProtobuf-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7029E8BD6A5EF2C63E31BAEBD1292238 /* SwiftProtobuf-iOS-dummy.m */; };
@@ -164,14 +162,16 @@
 		A85E13D89DB10EAAE2BD16D31378206D /* TextFormatEncodingVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04FB7DE02109780BAFB9B52408F2B60 /* TextFormatEncodingVisitor.swift */; };
 		AB07336FFCF7F3EF90439BEE43B690AD /* FieldTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C52318BA84020475BCF7A4E8B976969 /* FieldTag.swift */; };
 		AB86B59AFF359FBF4F069912E367FE29 /* SwiftProtobuf-macOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FA2308EEF585C9F0438349EE4FD36939 /* SwiftProtobuf-macOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ABC83B471142DA2046BD71B6A61C6FB4 /* Pods-BasePodsMAC-AppMac-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = BE37ED09AC18887CB6605E2E28ABA818 /* Pods-BasePodsMAC-AppMac-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AEAF6B7F069F023F622FCB428B060D27 /* Pods-BasePodsMAC-SnakeGame-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2087C73761AD95B6CE8993D34DA91CB2 /* Pods-BasePodsMAC-SnakeGame-dummy.m */; };
+		ABC83B471142DA2046BD71B6A61C6FB4 /* Pods-BasePodsMAC-AppMac-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8284D027DCB3915EAE6F22012D49DACF /* Pods-BasePodsMAC-AppMac-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AEAF6B7F069F023F622FCB428B060D27 /* Pods-BasePodsMAC-SnakeGame-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C51114C9D43AC292EB25B9DF76D2433 /* Pods-BasePodsMAC-SnakeGame-dummy.m */; };
+		AEDAFA6B43C1A907C9A00D70D7B8EAE6 /* Pods-BasePodsIOS-EngineIOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CFD7596CBD5A82DB85CC31D2F5CE3328 /* Pods-BasePodsIOS-EngineIOS-dummy.m */; };
 		AF10DFCACE298381592A1B101DE4D3E2 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E239BBE526D1873D02628705C7DCF31A /* Filter.swift */; };
-		B03A1A2E8307C9C2CA59645684F807C8 /* Pods-BasePodsMAC-AppMac-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD605D8D06A1ADFCBDC69742DEA446D /* Pods-BasePodsMAC-AppMac-dummy.m */; };
+		B03A1A2E8307C9C2CA59645684F807C8 /* Pods-BasePodsMAC-AppMac-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1E63A90156FBFC4BEC84B69A1429BE /* Pods-BasePodsMAC-AppMac-dummy.m */; };
 		B0BA64C13553FDC04148BC4AE16FF156 /* Google_Protobuf_Duration+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB0587954956B80580ECD588442344 /* Google_Protobuf_Duration+Extensions.swift */; };
 		B3A1CEE0A166EB073D6FE6F5CA8EB613 /* Google_Protobuf_Duration+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB0587954956B80580ECD588442344 /* Google_Protobuf_Duration+Extensions.swift */; };
 		B3AF1A67ED032BA6E910D8DD010F5A25 /* CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83382BA11748E60D878ED9D5C542C485 /* CSV.swift */; };
 		B3E77EE4110F7F4E73EFD59326A6B0B1 /* ExtensionMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E093BBA878FD1415B1D5627317D0C0C /* ExtensionMap.swift */; };
+		B42E41D0641AB63E2BF86E1CC1B105D1 /* Pods-BasePodsIOS-EngineIOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = ACBD2CC89FC32465273E124BDD55A69C /* Pods-BasePodsIOS-EngineIOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B4C64E7AEDABC7F22A911DD7082B41DF /* JSONEncodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9EA50B26A87F758F188F548C3AD89 /* JSONEncodingError.swift */; };
 		BAF678B26FDB5E8D277D5F14C3E169A3 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E239BBE526D1873D02628705C7DCF31A /* Filter.swift */; };
 		BB8C7AA2737429FCA90DF222859BD67F /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEDC17682E33F41BED83F9B3B3C5F5CB /* Description.swift */; };
@@ -241,7 +241,7 @@
 		F8C626DE1A4134838E9E439231E6AF34 /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F751BB6D90B7A24812DE43DB870832A5 /* Data+Extensions.swift */; };
 		F8D81521647E81303248C2C2394E2287 /* AES256CBC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A5C1CFE32D1B791D9AAAFDE76A0DCB /* AES256CBC.swift */; };
 		F90AB2CEA3DD593D4F8B81D2CCA73AC8 /* Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02C3AF3E90ED0642E79DB9EB0D12582 /* Internal.swift */; };
-		F9723E6FB6FE35E88493EBD92B7318A4 /* Pods-BasePodsMAC-SnakeGame-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 800004887687D29EECF229945F0A2D23 /* Pods-BasePodsMAC-SnakeGame-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F9723E6FB6FE35E88493EBD92B7318A4 /* Pods-BasePodsMAC-SnakeGame-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = ACFB79376C18F59B9A03C63AE8520CDD /* Pods-BasePodsMAC-SnakeGame-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA14BADBEC63521BF1576A5DA16C5EDC /* FieldTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C52318BA84020475BCF7A4E8B976969 /* FieldTag.swift */; };
 		FAD69323FAB987E17AD4DCEB0C5C90AB /* ProtoNameProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48370834FE4C2C125D8F344563478A05 /* ProtoNameProviding.swift */; };
 		FBC158E506AC0E8029C73B668F848719 /* TextFormatEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214136E47C1C456F948E9349357C111 /* TextFormatEncoder.swift */; };
@@ -265,13 +265,6 @@
 			remoteGlobalIDString = 03CFD46883B4DA7F79D17A00C7F4EED5;
 			remoteInfo = "SwiftCSV-macOS";
 		};
-		32D29EA293EAFED5AEE2F04ADB428388 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 825FB65494996D45E6AD2000EE3E3421;
-			remoteInfo = "SwiftCSV-iOS";
-		};
 		639DF7412A4D8565ACDD72A9704DEAB6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
@@ -292,6 +285,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 03CFD46883B4DA7F79D17A00C7F4EED5;
 			remoteInfo = "SwiftCSV-macOS";
+		};
+		94D18B4C8C546D093BE6D1DF2A1C7258 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 825FB65494996D45E6AD2000EE3E3421;
+			remoteInfo = "SwiftCSV-iOS";
 		};
 		954AB7EDE7A1EAC6A44350B8EB843FF1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -314,13 +314,6 @@
 			remoteGlobalIDString = 9FEFEE4D2F8D5542C99487880D8C4A81;
 			remoteInfo = "SSEventFlow-iOS";
 		};
-		AD6FE223137D38558FEEA21A30978EBC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 357D7AA757B0ED4603C9CD1523BC234E;
-			remoteInfo = "SwiftProtobuf-iOS";
-		};
 		B1504441B17CE2F645FF532D4DA10883 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
@@ -342,12 +335,12 @@
 			remoteGlobalIDString = AA186741961F10502016CE44BFED6684;
 			remoteInfo = "SwiftProtobuf-macOS";
 		};
-		D77433B29EB80206958EFC1421813828 /* PBXContainerItemProxy */ = {
+		D69D997D98E7071D8638C4464823451F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 1657B1C164E298BCDD3AE7E8C428882E;
-			remoteInfo = "SwiftyBeaver-iOS";
+			remoteGlobalIDString = 357D7AA757B0ED4603C9CD1523BC234E;
+			remoteInfo = "SwiftProtobuf-iOS";
 		};
 		E5E799D488598A9713F021A9E0A56E24 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -355,6 +348,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = B8198B4CD53FFE0380A2C93CA07E398E;
 			remoteInfo = "SwiftyBeaver-macOS";
+		};
+		EE1B706B8DB7F1AE09166F8BDC63ADB6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1657B1C164E298BCDD3AE7E8C428882E;
+			remoteInfo = "SwiftyBeaver-iOS";
 		};
 		EEAA5197B00BFDC6DB0513844CA62D0D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -373,14 +373,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00B2DDACD4DC7BDB030996C5FBFBA794 /* Pods-BasePodsIOS-SnakeGameIOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BasePodsIOS-SnakeGameIOS-umbrella.h"; sourceTree = "<group>"; };
-		02579D675E786964B354A865BBF0E102 /* Pods-BasePodsIOS-AppIOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BasePodsIOS-AppIOS-acknowledgements.markdown"; sourceTree = "<group>"; };
 		0461D5801EB9C4EDEB38E436E3B30CB7 /* TimeUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimeUtils.swift; path = Sources/SwiftProtobuf/TimeUtils.swift; sourceTree = "<group>"; };
 		0476D930ADA46B21B0B2349DAB19CC41 /* ExtensionFieldValueSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionFieldValueSet.swift; path = Sources/SwiftProtobuf/ExtensionFieldValueSet.swift; sourceTree = "<group>"; };
 		066AD01B00E883D3FC0B8A9E3CEC8D0E /* ZigZag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZigZag.swift; path = Sources/SwiftProtobuf/ZigZag.swift; sourceTree = "<group>"; };
 		076C311F4E4E64DA7ECC8E52FDC9D727 /* BinaryEncodingError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryEncodingError.swift; path = Sources/SwiftProtobuf/BinaryEncodingError.swift; sourceTree = "<group>"; };
+		077C4C5F836E223EEBB6AF95DA56A69B /* Pods-BasePodsIOS-AppIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsIOS-AppIOS.release.xcconfig"; sourceTree = "<group>"; };
 		0880777B28C98BF66936827AFCC92847 /* SwiftProtobuf-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SwiftProtobuf-macOS-dummy.m"; path = "../SwiftProtobuf-macOS/SwiftProtobuf-macOS-dummy.m"; sourceTree = "<group>"; };
-		0899DABB06DA8E2A2189104D54205D2C /* Pods-BasePodsMAC-SnakeGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsMAC-SnakeGame.release.xcconfig"; sourceTree = "<group>"; };
 		09122477807EFFA044BEC0022F27DF4C /* SBPlatformDestination.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SBPlatformDestination.swift; path = Sources/SBPlatformDestination.swift; sourceTree = "<group>"; };
 		09DB308493A001370345B1460D5224BC /* NameMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NameMap.swift; path = Sources/SwiftProtobuf/NameMap.swift; sourceTree = "<group>"; };
 		0CAFC29805E4DC1D8371E6F034AA9E0E /* SwiftyBeaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftyBeaver.framework; path = "SwiftyBeaver-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -389,41 +387,40 @@
 		0E8FB09BDA56CFB1AB2F1A5EC3DE91F6 /* SwiftProtobuf-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "SwiftProtobuf-iOS.modulemap"; sourceTree = "<group>"; };
 		104CADF17C766CA738FC0391EBBEF1C2 /* SwiftyBeaver-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SwiftyBeaver-macOS-umbrella.h"; path = "../SwiftyBeaver-macOS/SwiftyBeaver-macOS-umbrella.h"; sourceTree = "<group>"; };
 		1199530B63B05637C16329C66B5E8E58 /* CustomJSONCodable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CustomJSONCodable.swift; path = Sources/SwiftProtobuf/CustomJSONCodable.swift; sourceTree = "<group>"; };
-		11D6372F3128F4FF7B55453A5BEF842F /* Pods-BasePodsMAC-SnakeGame.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BasePodsMAC-SnakeGame.modulemap"; sourceTree = "<group>"; };
 		1317EAA5F5CD54F4398F20ABE3730876 /* SwiftCSV-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftCSV-iOS-umbrella.h"; sourceTree = "<group>"; };
 		1374B0DCA2489ED9358B1EEFED62A046 /* SSEventFlow-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SSEventFlow-iOS-Info.plist"; sourceTree = "<group>"; };
 		1554CC5A2F3EA277997A42EB3B835196 /* SwiftyBeaver-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "SwiftyBeaver-macOS.xcconfig"; path = "../SwiftyBeaver-macOS/SwiftyBeaver-macOS.xcconfig"; sourceTree = "<group>"; };
 		16FA080886ECE2E2E50DEBF3EACC999E /* any.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = any.pb.swift; path = Sources/SwiftProtobuf/any.pb.swift; sourceTree = "<group>"; };
 		18616330EB177E6F0FE7C0FECDDA0B27 /* SSEventFlow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SSEventFlow.framework; path = "SSEventFlow-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18E3B7E92C749EA472C7EE0E8A30FA22 /* BinaryEncoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryEncoder.swift; path = Sources/SwiftProtobuf/BinaryEncoder.swift; sourceTree = "<group>"; };
-		1927EACBBAC8B0DC7E443E9B30529CB6 /* Pods-BasePodsIOS-SnakeGameIOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BasePodsIOS-SnakeGameIOS.modulemap"; sourceTree = "<group>"; };
+		1A0C1B039F4E2333762CC575682264C1 /* Pods-BasePodsIOS-EngineIOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BasePodsIOS-EngineIOS-acknowledgements.markdown"; sourceTree = "<group>"; };
 		1BAACFFA1C2F43E278B719906E7134C2 /* duration.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = duration.pb.swift; path = Sources/SwiftProtobuf/duration.pb.swift; sourceTree = "<group>"; };
 		1CFD30C727FBC2D3FB1D2C37DBA5C93E /* BinaryDecodingError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryDecodingError.swift; path = Sources/SwiftProtobuf/BinaryDecodingError.swift; sourceTree = "<group>"; };
-		2087C73761AD95B6CE8993D34DA91CB2 /* Pods-BasePodsMAC-SnakeGame-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BasePodsMAC-SnakeGame-dummy.m"; sourceTree = "<group>"; };
-		21CD43F8AF002C464917AF3B4717E9C5 /* Pods-BasePodsMAC-SnakeGameTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BasePodsMAC-SnakeGameTests-umbrella.h"; sourceTree = "<group>"; };
+		1D3FE127A3FFE19933683616D32B21D5 /* Pods-BasePodsIOS-AppIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsIOS-AppIOS.debug.xcconfig"; sourceTree = "<group>"; };
+		210E3A17E5AF7D1AD4F713A6D9202C26 /* Pods-BasePodsMAC-AppMac-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BasePodsMAC-AppMac-frameworks.sh"; sourceTree = "<group>"; };
+		2334F074FC8CDFF096B1AA8B124DB454 /* Pods-BasePodsIOS-AppIOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BasePodsIOS-AppIOS-dummy.m"; sourceTree = "<group>"; };
 		23A1971CBCC28043C8EC517909E1EEB0 /* SwiftyBeaver-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "SwiftyBeaver-macOS-Info.plist"; path = "../SwiftyBeaver-macOS/SwiftyBeaver-macOS-Info.plist"; sourceTree = "<group>"; };
 		24964131BF7480BF8D316308E9B8618A /* Google_Protobuf_Value+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_Value+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_Value+Extensions.swift"; sourceTree = "<group>"; };
+		24C054E86D4477AB85698DFD9E286BDD /* Pods-BasePodsMAC-SnakeGame-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsMAC-SnakeGame-Info.plist"; sourceTree = "<group>"; };
 		2672014EBCB2D0A8E8C96079015DB2B5 /* TextFormatScanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatScanner.swift; path = Sources/SwiftProtobuf/TextFormatScanner.swift; sourceTree = "<group>"; };
-		2921C2787873A718CCA9D4644FF0D7AB /* Pods-BasePodsMAC-SnakeGame-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BasePodsMAC-SnakeGame-acknowledgements.markdown"; sourceTree = "<group>"; };
-		2951CAF0E85B6190D73359BAB31ABF2E /* Pods-BasePodsIOS-SnakeGameIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsIOS-SnakeGameIOS.release.xcconfig"; sourceTree = "<group>"; };
+		27514B6C13EB8A474E0AC47795D979CD /* Pods-BasePodsMAC-SnakeGameTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsMAC-SnakeGameTests.release.xcconfig"; sourceTree = "<group>"; };
 		2DCB49885130C51C5E864B281AF1070C /* SwiftyBeaver-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyBeaver-iOS-umbrella.h"; sourceTree = "<group>"; };
 		2DF587D31248E30CC3B3A34D8A0FD97D /* SwiftCSV-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "SwiftCSV-macOS-Info.plist"; path = "../SwiftCSV-macOS/SwiftCSV-macOS-Info.plist"; sourceTree = "<group>"; };
 		2E093BBA878FD1415B1D5627317D0C0C /* ExtensionMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionMap.swift; path = Sources/SwiftProtobuf/ExtensionMap.swift; sourceTree = "<group>"; };
-		2E16A54160832FB47F9777DCAADF327C /* Pods-BasePodsIOS-AppIOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BasePodsIOS-AppIOS-frameworks.sh"; sourceTree = "<group>"; };
 		2F3CFBDE98A3A6FB3B87757D9260284E /* Parser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Parser.swift; path = SwiftCSV/Parser.swift; sourceTree = "<group>"; };
 		30E0833F774141EB04DC79D0F4664C87 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		31BF9F1EEAD5BE41A134FE1B0C26BB70 /* Pods-BasePodsIOS-EngineIOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsIOS-EngineIOS-Info.plist"; sourceTree = "<group>"; };
 		3318E3FDCB8E1E4FBB942C7D27D9307D /* FileDestination.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FileDestination.swift; path = Sources/FileDestination.swift; sourceTree = "<group>"; };
 		336D514C74AAE3688CB4F894971F58FF /* Google_Protobuf_Timestamp+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_Timestamp+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_Timestamp+Extensions.swift"; sourceTree = "<group>"; };
-		3517D80B2A8B03C60BCC9BB002518B88 /* Pods-BasePodsMAC-SnakeGameTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BasePodsMAC-SnakeGameTests-frameworks.sh"; sourceTree = "<group>"; };
 		38BA574B410438C51C9D424F4152CB31 /* JSONEncodingOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONEncodingOptions.swift; path = Sources/SwiftProtobuf/JSONEncodingOptions.swift; sourceTree = "<group>"; };
 		39017EE459F343FB404C360736A18A23 /* SwiftProtobuf-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "SwiftProtobuf-macOS-Info.plist"; path = "../SwiftProtobuf-macOS/SwiftProtobuf-macOS-Info.plist"; sourceTree = "<group>"; };
-		3911B02FBF79982E0698AD089413EAF1 /* Pods-BasePodsMAC-AppMac-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsMAC-AppMac-acknowledgements.plist"; sourceTree = "<group>"; };
-		3928A51A91ED43C0E05E911F49293F74 /* Pods-BasePodsMAC-SnakeGameTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsMAC-SnakeGameTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		39379C4B03BEE462CD1CF8D4150E633C /* Pods-BasePodsIOS-EngineIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsIOS-EngineIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		3AF2E59EEC4E3CBACBCEA4E96BF9ADBD /* SwiftCSV-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "SwiftCSV-iOS.xcconfig"; sourceTree = "<group>"; };
 		3BE81B459CB051D6268150E9016C421D /* SSEventFlow-macOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "SSEventFlow-macOS-Info.plist"; path = "../SSEventFlow-macOS/SSEventFlow-macOS-Info.plist"; sourceTree = "<group>"; };
 		3C3BBC9C98355E1080869C173B4E23D0 /* HashVisitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HashVisitor.swift; path = Sources/SwiftProtobuf/HashVisitor.swift; sourceTree = "<group>"; };
 		3DEA83BF6F79581E00BC10E00F89353E /* wrappers.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = wrappers.pb.swift; path = Sources/SwiftProtobuf/wrappers.pb.swift; sourceTree = "<group>"; };
-		44BB365481A8B10CEC4BDB67E98182E3 /* Pods-BasePodsMAC-SnakeGameTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsMAC-SnakeGameTests-Info.plist"; sourceTree = "<group>"; };
+		3E24C1B1B7BC82F519E6B9A1D9609EAA /* Pods-BasePodsMAC-AppMac-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsMAC-AppMac-Info.plist"; sourceTree = "<group>"; };
+		430DAF617F5FCFAB480FEB986C417442 /* Pods-BasePodsMAC-SnakeGameTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsMAC-SnakeGameTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		45E18DF7221D55FD657331F2602631CE /* BinaryEncodingVisitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryEncodingVisitor.swift; path = Sources/SwiftProtobuf/BinaryEncodingVisitor.swift; sourceTree = "<group>"; };
 		4683EEA54AE4FD621745A4DF5F68B4A8 /* BaseDestination.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BaseDestination.swift; path = Sources/BaseDestination.swift; sourceTree = "<group>"; };
 		46CF3C352399E931AD38B4B5A161C319 /* struct.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = struct.pb.swift; path = Sources/SwiftProtobuf/struct.pb.swift; sourceTree = "<group>"; };
@@ -436,14 +433,14 @@
 		4DFCCF8FDC8F41274046CC45A4DBCA27 /* SSEventFlow-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SSEventFlow-macOS-umbrella.h"; path = "../SSEventFlow-macOS/SSEventFlow-macOS-umbrella.h"; sourceTree = "<group>"; };
 		4E1DD71B37DFDFE2064AF2804AE3712A /* timestamp.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = timestamp.pb.swift; path = Sources/SwiftProtobuf/timestamp.pb.swift; sourceTree = "<group>"; };
 		4E69752464EBAA25DC492EBA18C8A2B8 /* Version.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Version.swift; path = Sources/SwiftProtobuf/Version.swift; sourceTree = "<group>"; };
+		4F0E19AF48D6D416822488A0814DA56C /* Pods-BasePodsMAC-SnakeGame.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BasePodsMAC-SnakeGame.modulemap"; sourceTree = "<group>"; };
+		4F9D5374FB0180C0DE0BA99DAF931A28 /* Pods-BasePodsIOS-EngineIOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BasePodsIOS-EngineIOS.modulemap"; sourceTree = "<group>"; };
 		52157CEAD41B308F0AE6ECC7E6C134D8 /* TextFormatDecoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatDecoder.swift; path = Sources/SwiftProtobuf/TextFormatDecoder.swift; sourceTree = "<group>"; };
-		52BE9C30A040D7C4D4E6F6B1EAD5C978 /* Pods-BasePodsMAC-AppMac-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BasePodsMAC-AppMac-frameworks.sh"; sourceTree = "<group>"; };
 		57D01E94063D21D6F21A79126C510EFE /* MessageExtension.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MessageExtension.swift; path = Sources/SwiftProtobuf/MessageExtension.swift; sourceTree = "<group>"; };
 		57F00EE8FBE01961FD17B74F205AB4D2 /* SwiftyBeaver-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SwiftyBeaver-macOS-dummy.m"; path = "../SwiftyBeaver-macOS/SwiftyBeaver-macOS-dummy.m"; sourceTree = "<group>"; };
-		5C3AAC32C890A683134AEB3CE4C94C82 /* Pods-BasePodsIOS-AppIOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BasePodsIOS-AppIOS-dummy.m"; sourceTree = "<group>"; };
+		59D4B6929AF908E604D56B1EC7A132D0 /* Pods-BasePodsMAC-SnakeGameTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsMAC-SnakeGameTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5C52318BA84020475BCF7A4E8B976969 /* FieldTag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FieldTag.swift; path = Sources/SwiftProtobuf/FieldTag.swift; sourceTree = "<group>"; };
 		5C8D9D9550073BCE72B77F1402A586ED /* Enum.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Enum.swift; path = Sources/SwiftProtobuf/Enum.swift; sourceTree = "<group>"; };
-		5CEB21F31B12D4DCE5202CC8587B7EF1 /* Pods-BasePodsIOS-AppIOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BasePodsIOS-AppIOS.modulemap"; sourceTree = "<group>"; };
 		5D03465E610A8BFC6EBA42FE0B9CED97 /* descriptor.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = descriptor.pb.swift; path = Sources/SwiftProtobuf/descriptor.pb.swift; sourceTree = "<group>"; };
 		5DD49005EDE93C13F99A64ED2EEE48DB /* Google_Protobuf_Struct+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_Struct+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_Struct+Extensions.swift"; sourceTree = "<group>"; };
 		5EC722EFB75AD7B0C7A675B0C2B0EBAF /* Google_Protobuf_FieldMask+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_FieldMask+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_FieldMask+Extensions.swift"; sourceTree = "<group>"; };
@@ -453,32 +450,28 @@
 		628D69E73296372E5081E931841BAFDB /* GoogleCloudDestination.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GoogleCloudDestination.swift; path = Sources/GoogleCloudDestination.swift; sourceTree = "<group>"; };
 		63D9EB8134CD3D47095F0BE98B704280 /* WireFormat.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WireFormat.swift; path = Sources/SwiftProtobuf/WireFormat.swift; sourceTree = "<group>"; };
 		6596212B33DE924CFE4800A2E073FD0C /* SwiftyBeaver-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "SwiftyBeaver-iOS.modulemap"; sourceTree = "<group>"; };
-		66BA46BD8F41AE11370B3F45343D29F9 /* Pods-BasePodsMAC-SnakeGameTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsMAC-SnakeGameTests.debug.xcconfig"; sourceTree = "<group>"; };
 		66E3694B5124CFF280F387F0A9873AE6 /* SwiftyBeaver-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "SwiftyBeaver-macOS.modulemap"; path = "../SwiftyBeaver-macOS/SwiftyBeaver-macOS.modulemap"; sourceTree = "<group>"; };
-		682214E82E0735BC970CDC22A8F3358D /* Pods-BasePodsIOS-AppIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsIOS-AppIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		68FF854261673687C47F6F7E4E3BE0CB /* Flow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Flow.swift; path = SSEventFlow_Framework/Classes/Flow.swift; sourceTree = "<group>"; };
 		6997997FD158F24A0779219C2867B6E0 /* SwiftyBeaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftyBeaver.framework; path = "SwiftyBeaver-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AD77C6100C72C3E929FCD7E0C3D55BB /* SimpleExtensionMap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SimpleExtensionMap.swift; path = Sources/SwiftProtobuf/SimpleExtensionMap.swift; sourceTree = "<group>"; };
+		6C51114C9D43AC292EB25B9DF76D2433 /* Pods-BasePodsMAC-SnakeGame-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BasePodsMAC-SnakeGame-dummy.m"; sourceTree = "<group>"; };
 		6E3BD91C579A2B5201DF703EFDBAABA0 /* SwiftProtobuf-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftProtobuf-iOS-Info.plist"; sourceTree = "<group>"; };
 		6EBD34BF64B4A7E724675AA48DF7665C /* SSEventFlow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SSEventFlow.framework; path = "SSEventFlow-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EDB1CC64D5DCC8FBCDE7A8ECFE029FA /* Pods-BasePodsIOS-AppIOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BasePodsIOS-AppIOS-frameworks.sh"; sourceTree = "<group>"; };
 		6F84EB0A590AF1D95BD9C194F9E88B30 /* SSEventFlow-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SSEventFlow-macOS-dummy.m"; path = "../SSEventFlow-macOS/SSEventFlow-macOS-dummy.m"; sourceTree = "<group>"; };
 		7029E8BD6A5EF2C63E31BAEBD1292238 /* SwiftProtobuf-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftProtobuf-iOS-dummy.m"; sourceTree = "<group>"; };
 		70D6779CAE60EBA3EFF99DDA0AEE04EF /* SwiftCSV-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "SwiftCSV-macOS.modulemap"; path = "../SwiftCSV-macOS/SwiftCSV-macOS.modulemap"; sourceTree = "<group>"; };
 		713DB049C319D07CFD3C6FAFF4BECAC0 /* JSONEncoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONEncoder.swift; path = Sources/SwiftProtobuf/JSONEncoder.swift; sourceTree = "<group>"; };
-		71D0D0391CBD7A340A08FFC86C7A70B7 /* Pods-BasePodsMAC-AppMac-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsMAC-AppMac-Info.plist"; sourceTree = "<group>"; };
-		764531159A17929908EA7D2C49275248 /* Pods-BasePodsMAC-AppMac-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BasePodsMAC-AppMac-acknowledgements.markdown"; sourceTree = "<group>"; };
-		7675E8F8BFF68504E5B3947E111C7F9E /* Pods-BasePodsMAC-AppMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsMAC-AppMac.debug.xcconfig"; sourceTree = "<group>"; };
-		785F649A7E2A16A1165B16F06E35EFF4 /* Pods-BasePodsMAC-AppMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsMAC-AppMac.release.xcconfig"; sourceTree = "<group>"; };
+		7475A60703986F90A82407C7A07F0ACE /* Pods-BasePodsMAC-SnakeGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsMAC-SnakeGame.debug.xcconfig"; sourceTree = "<group>"; };
 		7891577E3946AFAA0245901E76602F7E /* JSONEncodingVisitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONEncodingVisitor.swift; path = Sources/SwiftProtobuf/JSONEncodingVisitor.swift; sourceTree = "<group>"; };
 		797DB6BFB8F8161DE9F58B0C6D1477FA /* String+Lines.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Lines.swift"; path = "SwiftCSV/String+Lines.swift"; sourceTree = "<group>"; };
 		79DE9E034E1266989938DA5B7475BBC6 /* SwiftProtobuf-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftProtobuf-iOS-prefix.pch"; sourceTree = "<group>"; };
 		7CF9EC1D86AAB23C14D695C250DC864E /* UnsafeBufferPointer+Shims.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UnsafeBufferPointer+Shims.swift"; path = "Sources/SwiftProtobuf/UnsafeBufferPointer+Shims.swift"; sourceTree = "<group>"; };
 		7DBDFBA31950C08EBECFABBD5CBEDBE5 /* SwiftCSV-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SwiftCSV-macOS-umbrella.h"; path = "../SwiftCSV-macOS/SwiftCSV-macOS-umbrella.h"; sourceTree = "<group>"; };
-		7E17DE34628E62D3D4C7741D0C6BE213 /* Pods-BasePodsIOS-AppIOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsIOS-AppIOS-Info.plist"; sourceTree = "<group>"; };
+		7E80A1D8432A7CCA9066E4CBE8DEE12D /* Pods-BasePodsMAC-AppMac.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BasePodsMAC-AppMac.modulemap"; sourceTree = "<group>"; };
 		7F6D2F80943207D9DF303A6B9EA50DA0 /* SwiftCSV-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "SwiftCSV-iOS.modulemap"; sourceTree = "<group>"; };
-		800004887687D29EECF229945F0A2D23 /* Pods-BasePodsMAC-SnakeGame-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BasePodsMAC-SnakeGame-umbrella.h"; sourceTree = "<group>"; };
-		80434CFFC525E87A095E761A6250C72C /* Pods-BasePodsIOS-AppIOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsIOS-AppIOS-acknowledgements.plist"; sourceTree = "<group>"; };
-		8165ED31A39552F3D5D31DA3F41AE855 /* Pods-BasePodsIOS-AppIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsIOS-AppIOS.release.xcconfig"; sourceTree = "<group>"; };
+		811FC47AC0E4E7CA631E02C17D08AF2B /* Pods-BasePodsMAC-SnakeGameTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BasePodsMAC-SnakeGameTests-dummy.m"; sourceTree = "<group>"; };
+		8284D027DCB3915EAE6F22012D49DACF /* Pods-BasePodsMAC-AppMac-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BasePodsMAC-AppMac-umbrella.h"; sourceTree = "<group>"; };
 		83382BA11748E60D878ED9D5C542C485 /* CSV.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CSV.swift; path = SwiftCSV/CSV.swift; sourceTree = "<group>"; };
 		834DEA8A5139AE52C5BC2598A356E1C4 /* StringUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StringUtils.swift; path = Sources/SwiftProtobuf/StringUtils.swift; sourceTree = "<group>"; };
 		835E63D63D2B927D1694A83F67170DFF /* Pods_BasePodsIOS_AppIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BasePodsIOS_AppIOS.framework; path = "Pods-BasePodsIOS-AppIOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -488,15 +481,12 @@
 		8AD07D0CFFA996E125AA37CC7C5C9874 /* Google_Protobuf_Any+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_Any+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_Any+Extensions.swift"; sourceTree = "<group>"; };
 		8AF0E4BE6CB89D1A02A14081360DFD8C /* SwiftProtobuf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftProtobuf.framework; path = "SwiftProtobuf-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C4CB4E260D9D5C2C73DFA42B1E0A561 /* BinaryDelimited.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryDelimited.swift; path = Sources/SwiftProtobuf/BinaryDelimited.swift; sourceTree = "<group>"; };
+		8CE45CD8BEE104FF3B1995532AFAAFB9 /* Pods-BasePodsMAC-SnakeGameTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BasePodsMAC-SnakeGameTests-umbrella.h"; sourceTree = "<group>"; };
 		8DAE36B2EDCE01DAB3506E7D06A4E641 /* SwiftProtobuf-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "SwiftProtobuf-macOS.modulemap"; path = "../SwiftProtobuf-macOS/SwiftProtobuf-macOS.modulemap"; sourceTree = "<group>"; };
-		8DD605D8D06A1ADFCBDC69742DEA446D /* Pods-BasePodsMAC-AppMac-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BasePodsMAC-AppMac-dummy.m"; sourceTree = "<group>"; };
 		90704E7CF6773EE2F7ED1F7C52173B5A /* DoubleParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DoubleParser.swift; path = Sources/SwiftProtobuf/DoubleParser.swift; sourceTree = "<group>"; };
 		91489F5D43FDCCBD31E29253CAB960E8 /* JSONMapEncodingVisitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONMapEncodingVisitor.swift; path = Sources/SwiftProtobuf/JSONMapEncodingVisitor.swift; sourceTree = "<group>"; };
 		92A301C029AA7E97077C73E9C22FCB15 /* Base64.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Base64.swift; path = Sources/Base64.swift; sourceTree = "<group>"; };
 		9347F2BD4E96F4F37E40429AAE76C04E /* SwiftProtobuf-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "SwiftProtobuf-macOS.xcconfig"; path = "../SwiftProtobuf-macOS/SwiftProtobuf-macOS.xcconfig"; sourceTree = "<group>"; };
-		94F7D0427EE97392F42399B2C8FFFC36 /* Pods-BasePodsIOS-SnakeGameIOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsIOS-SnakeGameIOS-Info.plist"; sourceTree = "<group>"; };
-		96D50172B206719AC7103A1642D77E2B /* Pods-BasePodsMAC-SnakeGameTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BasePodsMAC-SnakeGameTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		97B29EE7FA6B3E42B4E474E267B7EB6B /* Pods-BasePodsMAC-SnakeGame-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsMAC-SnakeGame-acknowledgements.plist"; sourceTree = "<group>"; };
 		988FF90599B956790F2F602FAA84EA91 /* BinaryDecoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryDecoder.swift; path = Sources/SwiftProtobuf/BinaryDecoder.swift; sourceTree = "<group>"; };
 		990D13FDFF08CD942FB5D08C53CC0EE4 /* empty.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = empty.pb.swift; path = Sources/SwiftProtobuf/empty.pb.swift; sourceTree = "<group>"; };
 		99650E23D149D4716EED13F4290AF74C /* JSONScanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONScanner.swift; path = Sources/SwiftProtobuf/JSONScanner.swift; sourceTree = "<group>"; };
@@ -505,25 +495,25 @@
 		9C7B084B41799CDC743781D6155D5B1D /* SwiftCSV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftCSV.framework; path = "SwiftCSV-macOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D4FD0B07BDA949C11457B972547112B /* ProtobufAPIVersionCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProtobufAPIVersionCheck.swift; path = Sources/SwiftProtobuf/ProtobufAPIVersionCheck.swift; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9F5F51C28AF025756E59C91544429E71 /* Pods-BasePodsMAC-SnakeGameTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsMAC-SnakeGameTests.release.xcconfig"; sourceTree = "<group>"; };
 		A0EBC0982B54E6F690DDC795C98EAE04 /* SwiftCSV-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftCSV-iOS-Info.plist"; sourceTree = "<group>"; };
 		A213C7DE826DDA54F090825E47B9FFCE /* SSEventFlow-macOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "SSEventFlow-macOS.modulemap"; path = "../SSEventFlow-macOS/SSEventFlow-macOS.modulemap"; sourceTree = "<group>"; };
 		A214136E47C1C456F948E9349357C111 /* TextFormatEncoder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatEncoder.swift; path = Sources/SwiftProtobuf/TextFormatEncoder.swift; sourceTree = "<group>"; };
+		A23F7348980F12AB63BC96FCB77898BA /* Pods-BasePodsMAC-SnakeGameTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BasePodsMAC-SnakeGameTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		A27FD10FF2ED5150526E7A807EA96740 /* JSONDecodingError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONDecodingError.swift; path = Sources/SwiftProtobuf/JSONDecodingError.swift; sourceTree = "<group>"; };
 		A327585CF3CFC0C5ACF394172D324258 /* Message+TextFormatAdditions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Message+TextFormatAdditions.swift"; path = "Sources/SwiftProtobuf/Message+TextFormatAdditions.swift"; sourceTree = "<group>"; };
 		A3F7C0D6F1AD1EF91E5D92B4C58EBFD7 /* SSEventFlow-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "SSEventFlow-iOS.xcconfig"; sourceTree = "<group>"; };
 		A419E560BDBC8715785E930C8F792856 /* SSEventFlow-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SSEventFlow-iOS-umbrella.h"; sourceTree = "<group>"; };
-		A982E39D230DB8AD2E5A1FCC16158FA5 /* Pods-BasePodsMAC-SnakeGameTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BasePodsMAC-SnakeGameTests-dummy.m"; sourceTree = "<group>"; };
+		A4BB4DABF386D644D11784995328CD55 /* Pods-BasePodsMAC-AppMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsMAC-AppMac.release.xcconfig"; sourceTree = "<group>"; };
+		AB2F536C854D75842DD0552EC4FBE94A /* Pods-BasePodsIOS-AppIOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsIOS-AppIOS-Info.plist"; sourceTree = "<group>"; };
 		AC1BA27AAB708F37279B1A50F61DE7D7 /* Varint.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Varint.swift; path = Sources/SwiftProtobuf/Varint.swift; sourceTree = "<group>"; };
 		AC45A725185FEEF022599BA64F3F8FC3 /* Message.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Message.swift; path = Sources/SwiftProtobuf/Message.swift; sourceTree = "<group>"; };
+		ACBD2CC89FC32465273E124BDD55A69C /* Pods-BasePodsIOS-EngineIOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BasePodsIOS-EngineIOS-umbrella.h"; sourceTree = "<group>"; };
 		ACDC7349F9CCB27DFB5DF58E4FF7620F /* SwiftProtobuf-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SwiftProtobuf-macOS-prefix.pch"; path = "../SwiftProtobuf-macOS/SwiftProtobuf-macOS-prefix.pch"; sourceTree = "<group>"; };
-		AD753CC85E56401D30B4A9A8383DF6B8 /* Pods-BasePodsIOS-SnakeGameIOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BasePodsIOS-SnakeGameIOS-acknowledgements.markdown"; sourceTree = "<group>"; };
+		ACFB79376C18F59B9A03C63AE8520CDD /* Pods-BasePodsMAC-SnakeGame-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BasePodsMAC-SnakeGame-umbrella.h"; sourceTree = "<group>"; };
 		AD7E0EEA64ADEA306834222EF11C24D2 /* TextFormatEncodingOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatEncodingOptions.swift; path = Sources/SwiftProtobuf/TextFormatEncodingOptions.swift; sourceTree = "<group>"; };
 		ADB22DEF71DBFCD34BA6D2D72CE8506D /* SwiftProtobuf-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "SwiftProtobuf-iOS.xcconfig"; sourceTree = "<group>"; };
 		B02C3AF3E90ED0642E79DB9EB0D12582 /* Internal.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Internal.swift; path = Sources/SwiftProtobuf/Internal.swift; sourceTree = "<group>"; };
-		B08EA773A8943828EEC465214A946243 /* Pods-BasePodsIOS-SnakeGameIOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsIOS-SnakeGameIOS-acknowledgements.plist"; sourceTree = "<group>"; };
 		B0F6AB53D344C8009D3D9993A1DBF82B /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Sources/Extensions.swift; sourceTree = "<group>"; };
-		B253DF7C0393117DE60FBF7F9BB7E10C /* Pods-BasePodsIOS-SnakeGameIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsIOS-SnakeGameIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B35E9D8DBDE5EF47425CEBFA35B77793 /* SwiftCSV-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftCSV-iOS-prefix.pch"; sourceTree = "<group>"; };
 		B53B2187050EFBEFF78F32ED2B411B72 /* SwiftyBeaver-iOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SwiftyBeaver-iOS-Info.plist"; sourceTree = "<group>"; };
 		B73AFB291A639CEBDCDF6FF82DC34202 /* ExtensionFields.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensionFields.swift; path = Sources/SwiftProtobuf/ExtensionFields.swift; sourceTree = "<group>"; };
@@ -532,22 +522,27 @@
 		B94D33EB96001E10F3256F6DFEA2D327 /* BinaryEncodingSizeVisitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryEncodingSizeVisitor.swift; path = Sources/SwiftProtobuf/BinaryEncodingSizeVisitor.swift; sourceTree = "<group>"; };
 		BB0242A547DD703DD88143FF4CB9ACB2 /* Google_Protobuf_Any+Registry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_Any+Registry.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_Any+Registry.swift"; sourceTree = "<group>"; };
 		BB57B6C4B763C85AD73B96ECB2EC5D08 /* ConsoleDestination.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConsoleDestination.swift; path = Sources/ConsoleDestination.swift; sourceTree = "<group>"; };
+		BBB20BBCD713DAC6612846987039319E /* Pods-BasePodsIOS-AppIOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BasePodsIOS-AppIOS-acknowledgements.markdown"; sourceTree = "<group>"; };
 		BCE5CE50C2EBEFC4AC9900948B0AA946 /* TextFormatDecodingError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatDecodingError.swift; path = Sources/SwiftProtobuf/TextFormatDecodingError.swift; sourceTree = "<group>"; };
-		BE37ED09AC18887CB6605E2E28ABA818 /* Pods-BasePodsMAC-AppMac-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BasePodsMAC-AppMac-umbrella.h"; sourceTree = "<group>"; };
+		BD0A4DAE3B6E1FF5955C9BD04FE2CCBD /* Pods-BasePodsIOS-EngineIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsIOS-EngineIOS.release.xcconfig"; sourceTree = "<group>"; };
 		BEDC17682E33F41BED83F9B3B3C5F5CB /* Description.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Description.swift; path = SwiftCSV/Description.swift; sourceTree = "<group>"; };
 		BEE98B574CD1C4E956B2CBA52172E4D0 /* SwiftyBeaver-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SwiftyBeaver-macOS-prefix.pch"; path = "../SwiftyBeaver-macOS/SwiftyBeaver-macOS-prefix.pch"; sourceTree = "<group>"; };
 		C051CCFA1C3FBB228A42EAA8A87C3C6C /* ParsingState.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParsingState.swift; path = SwiftCSV/ParsingState.swift; sourceTree = "<group>"; };
-		C0595E1F9B74F65D048ED5C4BFE0E314 /* Pods-BasePodsIOS-AppIOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BasePodsIOS-AppIOS-umbrella.h"; sourceTree = "<group>"; };
+		C0886CCBFA69C5877A6009CAC2AA5818 /* Pods-BasePodsMAC-SnakeGame-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsMAC-SnakeGame-acknowledgements.plist"; sourceTree = "<group>"; };
+		C096E9F803417ECF6D5ACE851F44A1CC /* Pods-BasePodsMAC-SnakeGameTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BasePodsMAC-SnakeGameTests-frameworks.sh"; sourceTree = "<group>"; };
 		C1A5C1CFE32D1B791D9AAAFDE76A0DCB /* AES256CBC.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AES256CBC.swift; path = Sources/AES256CBC.swift; sourceTree = "<group>"; };
 		C380A239B3E4AAE8D14C77D05E230FC7 /* Message+JSONArrayAdditions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Message+JSONArrayAdditions.swift"; path = "Sources/SwiftProtobuf/Message+JSONArrayAdditions.swift"; sourceTree = "<group>"; };
 		C595D22E7A7763577F5E72202DC08535 /* JSONDecodingOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONDecodingOptions.swift; path = Sources/SwiftProtobuf/JSONDecodingOptions.swift; sourceTree = "<group>"; };
+		C5FCA3C9B5214C34D8B8B7DF25DCC6BA /* Pods_BasePodsIOS_EngineIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BasePodsIOS_EngineIOS.framework; path = "Pods-BasePodsIOS-EngineIOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7833F2D9BCE975EB38F00D4B5734FFE /* source_context.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = source_context.pb.swift; path = Sources/SwiftProtobuf/source_context.pb.swift; sourceTree = "<group>"; };
 		C7D506D5B861ECBC1F58C2330C70F79A /* SSEventFlow-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SSEventFlow-macOS-prefix.pch"; path = "../SSEventFlow-macOS/SSEventFlow-macOS-prefix.pch"; sourceTree = "<group>"; };
 		C7FF04D618CC4D40F7FF80CED8A7C512 /* SwiftProtobuf-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftProtobuf-iOS-umbrella.h"; sourceTree = "<group>"; };
 		CAF078200D3CDAD0F3FB03ED9391A7F0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		CC216B7F58BBA1213A83B1042911B798 /* SwiftyBeaver-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyBeaver-iOS-dummy.m"; sourceTree = "<group>"; };
+		CD17D83A47F3FC1D870CB1623B895AED /* Pods-BasePodsIOS-AppIOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BasePodsIOS-AppIOS-umbrella.h"; sourceTree = "<group>"; };
 		CEEBC44AE30C2F5234291601DFE922F2 /* Google_Protobuf_Wrappers+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_Wrappers+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_Wrappers+Extensions.swift"; sourceTree = "<group>"; };
 		CF938F05788EAE57628DEA4E384D9200 /* SwiftCSV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftCSV.framework; path = "SwiftCSV-iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFD7596CBD5A82DB85CC31D2F5CE3328 /* Pods-BasePodsIOS-EngineIOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BasePodsIOS-EngineIOS-dummy.m"; sourceTree = "<group>"; };
 		D04FB7DE02109780BAFB9B52408F2B60 /* TextFormatEncodingVisitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextFormatEncodingVisitor.swift; path = Sources/SwiftProtobuf/TextFormatEncodingVisitor.swift; sourceTree = "<group>"; };
 		D1C886159E5B402504ED477943521CD9 /* SelectiveVisitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SelectiveVisitor.swift; path = Sources/SwiftProtobuf/SelectiveVisitor.swift; sourceTree = "<group>"; };
 		D21A531BB7C1D10A858059516C932F9C /* Message+JSONAdditions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Message+JSONAdditions.swift"; path = "Sources/SwiftProtobuf/Message+JSONAdditions.swift"; sourceTree = "<group>"; };
@@ -557,30 +552,35 @@
 		D44CDF0BE195F9035DD93AC9F9E94B4C /* SSEventFlow-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "SSEventFlow-macOS.xcconfig"; path = "../SSEventFlow-macOS/SSEventFlow-macOS.xcconfig"; sourceTree = "<group>"; };
 		D69D7B6A04B60CD7AC505145CEEC10FD /* UnsafeRawPointer+Shims.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UnsafeRawPointer+Shims.swift"; path = "Sources/SwiftProtobuf/UnsafeRawPointer+Shims.swift"; sourceTree = "<group>"; };
 		D722EB2C4067444DBDD6FF83EB88C35E /* SSEventFlow-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SSEventFlow-iOS-prefix.pch"; sourceTree = "<group>"; };
-		D88067AF9FA883A06411E2CEA45031E9 /* Pods-BasePodsMAC-SnakeGameTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BasePodsMAC-SnakeGameTests.modulemap"; sourceTree = "<group>"; };
+		D7F4B6FCD88C724C0325C1A5F7D874AB /* Pods-BasePodsIOS-AppIOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BasePodsIOS-AppIOS.modulemap"; sourceTree = "<group>"; };
+		D98F4F0F8F79895B8DDBAD4886C6E467 /* Pods-BasePodsMAC-SnakeGameTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsMAC-SnakeGameTests-Info.plist"; sourceTree = "<group>"; };
 		DA9869BFC268871462AD66FAF4C67D61 /* MathUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MathUtils.swift; path = Sources/SwiftProtobuf/MathUtils.swift; sourceTree = "<group>"; };
 		DD70D21D3CB720211ED9F6F740BF28A6 /* SwiftyBeaver-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "SwiftyBeaver-iOS.xcconfig"; sourceTree = "<group>"; };
 		DE1CDBE59A1B949099267BA1CEA777D0 /* BinaryDecodingOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryDecodingOptions.swift; path = Sources/SwiftProtobuf/BinaryDecodingOptions.swift; sourceTree = "<group>"; };
 		DE54AACF80AAE49664F2BBE5995C61E3 /* ExtensibleMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExtensibleMessage.swift; path = Sources/SwiftProtobuf/ExtensibleMessage.swift; sourceTree = "<group>"; };
 		DEC503728816DC6CC84AC4F43AA61077 /* FilterValidator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FilterValidator.swift; path = Sources/FilterValidator.swift; sourceTree = "<group>"; };
-		E066B0B9ABAE11E0282FCDDBDD5A4AC7 /* Pods_BasePodsIOS_SnakeGameIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BasePodsIOS_SnakeGameIOS.framework; path = "Pods-BasePodsIOS-SnakeGameIOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF1E63A90156FBFC4BEC84B69A1429BE /* Pods-BasePodsMAC-AppMac-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BasePodsMAC-AppMac-dummy.m"; sourceTree = "<group>"; };
+		DF5AABA1089B584F4DE28464B35C0D7B /* Pods-BasePodsIOS-AppIOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsIOS-AppIOS-acknowledgements.plist"; sourceTree = "<group>"; };
+		DFE58DCEB94E79ABFF1D2DAB591BF958 /* Pods-BasePodsMAC-AppMac-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsMAC-AppMac-acknowledgements.plist"; sourceTree = "<group>"; };
 		E1F9EA50B26A87F758F188F548C3AD89 /* JSONEncodingError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = JSONEncodingError.swift; path = Sources/SwiftProtobuf/JSONEncodingError.swift; sourceTree = "<group>"; };
 		E239BBE526D1873D02628705C7DCF31A /* Filter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Filter.swift; path = Sources/Filter.swift; sourceTree = "<group>"; };
+		E25EF3E1BDFDEB96BAE98C4DEA903C2F /* Pods-BasePodsMAC-AppMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsMAC-AppMac.debug.xcconfig"; sourceTree = "<group>"; };
 		E4EEDC00E585A727C178013BA50B1786 /* Pods_BasePodsMAC_SnakeGameTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BasePodsMAC_SnakeGameTests.framework; path = "Pods-BasePodsMAC-SnakeGameTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E61AB340CA6AC9D1B29DD1BB1099E78A /* Pods-BasePodsMAC-SnakeGameTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BasePodsMAC-SnakeGameTests.modulemap"; sourceTree = "<group>"; };
 		E6305DE65BCA2E7C5B5820A281D1EF72 /* api.pb.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = api.pb.swift; path = Sources/SwiftProtobuf/api.pb.swift; sourceTree = "<group>"; };
-		E6B021DF5A556EC3D84CB6C2F061653A /* Pods-BasePodsMAC-SnakeGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsMAC-SnakeGame.debug.xcconfig"; sourceTree = "<group>"; };
-		E867609FCB2C170799ACF53B64A5DDE5 /* Pods-BasePodsMAC-SnakeGame-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsMAC-SnakeGame-Info.plist"; sourceTree = "<group>"; };
 		EAAB1A3D532173C4AC84A457BB1B2F73 /* Google_Protobuf_ListValue+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Google_Protobuf_ListValue+Extensions.swift"; path = "Sources/SwiftProtobuf/Google_Protobuf_ListValue+Extensions.swift"; sourceTree = "<group>"; };
+		EB24660F35B143BE099E3957C2ABCC09 /* Pods-BasePodsIOS-EngineIOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasePodsIOS-EngineIOS-acknowledgements.plist"; sourceTree = "<group>"; };
 		ECDB74F874FECF79BFC8B03CB92F80D7 /* SwiftyBeaver-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyBeaver-iOS-prefix.pch"; sourceTree = "<group>"; };
+		ED9F249D13538E84E00AE1FCD4CADE6D /* Pods-BasePodsMAC-AppMac-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BasePodsMAC-AppMac-acknowledgements.markdown"; sourceTree = "<group>"; };
 		EDBB3D9F1E2E94B40785543D9C42885A /* SwiftCSV-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SwiftCSV-macOS-prefix.pch"; path = "../SwiftCSV-macOS/SwiftCSV-macOS-prefix.pch"; sourceTree = "<group>"; };
-		EFB1BD55C79FFD85DDE26CBC6BB0FC05 /* Pods-BasePodsIOS-SnakeGameIOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BasePodsIOS-SnakeGameIOS-dummy.m"; sourceTree = "<group>"; };
 		F19C48EC4010C2F6141431211F291050 /* UnknownStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UnknownStorage.swift; path = Sources/SwiftProtobuf/UnknownStorage.swift; sourceTree = "<group>"; };
 		F288FBADB813F3E8C04AC3BDC609BCBD /* SSEventFlow-iOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "SSEventFlow-iOS.modulemap"; sourceTree = "<group>"; };
+		F3D891280FBB941584A0EBE89C628B44 /* Pods-BasePodsMAC-SnakeGame-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BasePodsMAC-SnakeGame-acknowledgements.markdown"; sourceTree = "<group>"; };
 		F6A7F36895CE0B1E84D824B6CB266679 /* SwiftCSV-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SwiftCSV-macOS-dummy.m"; path = "../SwiftCSV-macOS/SwiftCSV-macOS-dummy.m"; sourceTree = "<group>"; };
 		F751BB6D90B7A24812DE43DB870832A5 /* Data+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Data+Extensions.swift"; path = "Sources/SwiftProtobuf/Data+Extensions.swift"; sourceTree = "<group>"; };
 		F767F4D9E4EB89CE71EC45215CE46CA8 /* AnyMessageStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnyMessageStorage.swift; path = Sources/SwiftProtobuf/AnyMessageStorage.swift; sourceTree = "<group>"; };
 		FA2308EEF585C9F0438349EE4FD36939 /* SwiftProtobuf-macOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "SwiftProtobuf-macOS-umbrella.h"; path = "../SwiftProtobuf-macOS/SwiftProtobuf-macOS-umbrella.h"; sourceTree = "<group>"; };
-		FD633727BAE8D78A1DDADC40C3AE0AAF /* Pods-BasePodsMAC-AppMac.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BasePodsMAC-AppMac.modulemap"; sourceTree = "<group>"; };
+		FD841C60517248037142A6D8E612CB42 /* Pods-BasePodsMAC-SnakeGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasePodsMAC-SnakeGame.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -664,14 +664,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B61C5540A1056A2C02AA64BD56A4F0F0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8EA9FEC49FCDE5168461178A166F5E65 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E0B149628D37E88121723F359074F519 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -688,6 +680,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F809B1A8A21579BE48814D1BA6D980BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E2648438422620E9AE652DAEB2BD246 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -701,20 +701,21 @@
 			path = SSEventFlow;
 			sourceTree = "<group>";
 		};
-		12CF04DD0FA38BBDA8D9B2D9870AE92F /* Pods-BasePodsMAC-SnakeGame */ = {
+		06FA73AA4F5E9178C42303F08D9CC585 /* Pods-BasePodsMAC-SnakeGameTests */ = {
 			isa = PBXGroup;
 			children = (
-				11D6372F3128F4FF7B55453A5BEF842F /* Pods-BasePodsMAC-SnakeGame.modulemap */,
-				2921C2787873A718CCA9D4644FF0D7AB /* Pods-BasePodsMAC-SnakeGame-acknowledgements.markdown */,
-				97B29EE7FA6B3E42B4E474E267B7EB6B /* Pods-BasePodsMAC-SnakeGame-acknowledgements.plist */,
-				2087C73761AD95B6CE8993D34DA91CB2 /* Pods-BasePodsMAC-SnakeGame-dummy.m */,
-				E867609FCB2C170799ACF53B64A5DDE5 /* Pods-BasePodsMAC-SnakeGame-Info.plist */,
-				800004887687D29EECF229945F0A2D23 /* Pods-BasePodsMAC-SnakeGame-umbrella.h */,
-				E6B021DF5A556EC3D84CB6C2F061653A /* Pods-BasePodsMAC-SnakeGame.debug.xcconfig */,
-				0899DABB06DA8E2A2189104D54205D2C /* Pods-BasePodsMAC-SnakeGame.release.xcconfig */,
+				E61AB340CA6AC9D1B29DD1BB1099E78A /* Pods-BasePodsMAC-SnakeGameTests.modulemap */,
+				A23F7348980F12AB63BC96FCB77898BA /* Pods-BasePodsMAC-SnakeGameTests-acknowledgements.markdown */,
+				430DAF617F5FCFAB480FEB986C417442 /* Pods-BasePodsMAC-SnakeGameTests-acknowledgements.plist */,
+				811FC47AC0E4E7CA631E02C17D08AF2B /* Pods-BasePodsMAC-SnakeGameTests-dummy.m */,
+				C096E9F803417ECF6D5ACE851F44A1CC /* Pods-BasePodsMAC-SnakeGameTests-frameworks.sh */,
+				D98F4F0F8F79895B8DDBAD4886C6E467 /* Pods-BasePodsMAC-SnakeGameTests-Info.plist */,
+				8CE45CD8BEE104FF3B1995532AFAAFB9 /* Pods-BasePodsMAC-SnakeGameTests-umbrella.h */,
+				59D4B6929AF908E604D56B1EC7A132D0 /* Pods-BasePodsMAC-SnakeGameTests.debug.xcconfig */,
+				27514B6C13EB8A474E0AC47795D979CD /* Pods-BasePodsMAC-SnakeGameTests.release.xcconfig */,
 			);
-			name = "Pods-BasePodsMAC-SnakeGame";
-			path = "Target Support Files/Pods-BasePodsMAC-SnakeGame";
+			name = "Pods-BasePodsMAC-SnakeGameTests";
+			path = "Target Support Files/Pods-BasePodsMAC-SnakeGameTests";
 			sourceTree = "<group>";
 		};
 		15F812183F03C7B6B3BE81F061335FF1 /* SwiftProtobuf */ = {
@@ -816,21 +817,21 @@
 			name = "OS X";
 			sourceTree = "<group>";
 		};
-		4031043F0CF4FB2A32C0C0DAC838440C /* Pods-BasePodsIOS-AppIOS */ = {
+		422B5F173C95A9F3FDEFCD2FD7AB4D1F /* Pods-BasePodsMAC-AppMac */ = {
 			isa = PBXGroup;
 			children = (
-				5CEB21F31B12D4DCE5202CC8587B7EF1 /* Pods-BasePodsIOS-AppIOS.modulemap */,
-				02579D675E786964B354A865BBF0E102 /* Pods-BasePodsIOS-AppIOS-acknowledgements.markdown */,
-				80434CFFC525E87A095E761A6250C72C /* Pods-BasePodsIOS-AppIOS-acknowledgements.plist */,
-				5C3AAC32C890A683134AEB3CE4C94C82 /* Pods-BasePodsIOS-AppIOS-dummy.m */,
-				2E16A54160832FB47F9777DCAADF327C /* Pods-BasePodsIOS-AppIOS-frameworks.sh */,
-				7E17DE34628E62D3D4C7741D0C6BE213 /* Pods-BasePodsIOS-AppIOS-Info.plist */,
-				C0595E1F9B74F65D048ED5C4BFE0E314 /* Pods-BasePodsIOS-AppIOS-umbrella.h */,
-				682214E82E0735BC970CDC22A8F3358D /* Pods-BasePodsIOS-AppIOS.debug.xcconfig */,
-				8165ED31A39552F3D5D31DA3F41AE855 /* Pods-BasePodsIOS-AppIOS.release.xcconfig */,
+				7E80A1D8432A7CCA9066E4CBE8DEE12D /* Pods-BasePodsMAC-AppMac.modulemap */,
+				ED9F249D13538E84E00AE1FCD4CADE6D /* Pods-BasePodsMAC-AppMac-acknowledgements.markdown */,
+				DFE58DCEB94E79ABFF1D2DAB591BF958 /* Pods-BasePodsMAC-AppMac-acknowledgements.plist */,
+				DF1E63A90156FBFC4BEC84B69A1429BE /* Pods-BasePodsMAC-AppMac-dummy.m */,
+				210E3A17E5AF7D1AD4F713A6D9202C26 /* Pods-BasePodsMAC-AppMac-frameworks.sh */,
+				3E24C1B1B7BC82F519E6B9A1D9609EAA /* Pods-BasePodsMAC-AppMac-Info.plist */,
+				8284D027DCB3915EAE6F22012D49DACF /* Pods-BasePodsMAC-AppMac-umbrella.h */,
+				E25EF3E1BDFDEB96BAE98C4DEA903C2F /* Pods-BasePodsMAC-AppMac.debug.xcconfig */,
+				A4BB4DABF386D644D11784995328CD55 /* Pods-BasePodsMAC-AppMac.release.xcconfig */,
 			);
-			name = "Pods-BasePodsIOS-AppIOS";
-			path = "Target Support Files/Pods-BasePodsIOS-AppIOS";
+			name = "Pods-BasePodsMAC-AppMac";
+			path = "Target Support Files/Pods-BasePodsMAC-AppMac";
 			sourceTree = "<group>";
 		};
 		4EDC20B56A0B9A8564E1FCEA191C83C4 /* Frameworks */ = {
@@ -842,57 +843,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5188DD194B5F40FE7974A2D6B70332FC /* Pods-BasePodsIOS-SnakeGameIOS */ = {
+		52BA40AE7F68829385A8D558C136F3BA /* Pods-BasePodsMAC-SnakeGame */ = {
 			isa = PBXGroup;
 			children = (
-				1927EACBBAC8B0DC7E443E9B30529CB6 /* Pods-BasePodsIOS-SnakeGameIOS.modulemap */,
-				AD753CC85E56401D30B4A9A8383DF6B8 /* Pods-BasePodsIOS-SnakeGameIOS-acknowledgements.markdown */,
-				B08EA773A8943828EEC465214A946243 /* Pods-BasePodsIOS-SnakeGameIOS-acknowledgements.plist */,
-				EFB1BD55C79FFD85DDE26CBC6BB0FC05 /* Pods-BasePodsIOS-SnakeGameIOS-dummy.m */,
-				94F7D0427EE97392F42399B2C8FFFC36 /* Pods-BasePodsIOS-SnakeGameIOS-Info.plist */,
-				00B2DDACD4DC7BDB030996C5FBFBA794 /* Pods-BasePodsIOS-SnakeGameIOS-umbrella.h */,
-				B253DF7C0393117DE60FBF7F9BB7E10C /* Pods-BasePodsIOS-SnakeGameIOS.debug.xcconfig */,
-				2951CAF0E85B6190D73359BAB31ABF2E /* Pods-BasePodsIOS-SnakeGameIOS.release.xcconfig */,
+				4F0E19AF48D6D416822488A0814DA56C /* Pods-BasePodsMAC-SnakeGame.modulemap */,
+				F3D891280FBB941584A0EBE89C628B44 /* Pods-BasePodsMAC-SnakeGame-acknowledgements.markdown */,
+				C0886CCBFA69C5877A6009CAC2AA5818 /* Pods-BasePodsMAC-SnakeGame-acknowledgements.plist */,
+				6C51114C9D43AC292EB25B9DF76D2433 /* Pods-BasePodsMAC-SnakeGame-dummy.m */,
+				24C054E86D4477AB85698DFD9E286BDD /* Pods-BasePodsMAC-SnakeGame-Info.plist */,
+				ACFB79376C18F59B9A03C63AE8520CDD /* Pods-BasePodsMAC-SnakeGame-umbrella.h */,
+				7475A60703986F90A82407C7A07F0ACE /* Pods-BasePodsMAC-SnakeGame.debug.xcconfig */,
+				FD841C60517248037142A6D8E612CB42 /* Pods-BasePodsMAC-SnakeGame.release.xcconfig */,
 			);
-			name = "Pods-BasePodsIOS-SnakeGameIOS";
-			path = "Target Support Files/Pods-BasePodsIOS-SnakeGameIOS";
-			sourceTree = "<group>";
-		};
-		5A3208474CAA72C6388436B847F88189 /* Pods-BasePodsMAC-SnakeGameTests */ = {
-			isa = PBXGroup;
-			children = (
-				D88067AF9FA883A06411E2CEA45031E9 /* Pods-BasePodsMAC-SnakeGameTests.modulemap */,
-				96D50172B206719AC7103A1642D77E2B /* Pods-BasePodsMAC-SnakeGameTests-acknowledgements.markdown */,
-				3928A51A91ED43C0E05E911F49293F74 /* Pods-BasePodsMAC-SnakeGameTests-acknowledgements.plist */,
-				A982E39D230DB8AD2E5A1FCC16158FA5 /* Pods-BasePodsMAC-SnakeGameTests-dummy.m */,
-				3517D80B2A8B03C60BCC9BB002518B88 /* Pods-BasePodsMAC-SnakeGameTests-frameworks.sh */,
-				44BB365481A8B10CEC4BDB67E98182E3 /* Pods-BasePodsMAC-SnakeGameTests-Info.plist */,
-				21CD43F8AF002C464917AF3B4717E9C5 /* Pods-BasePodsMAC-SnakeGameTests-umbrella.h */,
-				66BA46BD8F41AE11370B3F45343D29F9 /* Pods-BasePodsMAC-SnakeGameTests.debug.xcconfig */,
-				9F5F51C28AF025756E59C91544429E71 /* Pods-BasePodsMAC-SnakeGameTests.release.xcconfig */,
-			);
-			name = "Pods-BasePodsMAC-SnakeGameTests";
-			path = "Target Support Files/Pods-BasePodsMAC-SnakeGameTests";
-			sourceTree = "<group>";
-		};
-		646A79653E483FD15250168F1FF3EF46 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				835E63D63D2B927D1694A83F67170DFF /* Pods_BasePodsIOS_AppIOS.framework */,
-				E066B0B9ABAE11E0282FCDDBDD5A4AC7 /* Pods_BasePodsIOS_SnakeGameIOS.framework */,
-				61D2BE73F5FFAA80C9E46250A117BCDF /* Pods_BasePodsMAC_AppMac.framework */,
-				84A1232467E0EBAB3C80567FB0031AA5 /* Pods_BasePodsMAC_SnakeGame.framework */,
-				E4EEDC00E585A727C178013BA50B1786 /* Pods_BasePodsMAC_SnakeGameTests.framework */,
-				18616330EB177E6F0FE7C0FECDDA0B27 /* SSEventFlow.framework */,
-				6EBD34BF64B4A7E724675AA48DF7665C /* SSEventFlow.framework */,
-				9C7B084B41799CDC743781D6155D5B1D /* SwiftCSV.framework */,
-				CF938F05788EAE57628DEA4E384D9200 /* SwiftCSV.framework */,
-				5F52C76D0CC7F92C551EC2E40D9320AB /* SwiftProtobuf.framework */,
-				8AF0E4BE6CB89D1A02A14081360DFD8C /* SwiftProtobuf.framework */,
-				6997997FD158F24A0779219C2867B6E0 /* SwiftyBeaver.framework */,
-				0CAFC29805E4DC1D8371E6F034AA9E0E /* SwiftyBeaver.framework */,
-			);
-			name = Products;
+			name = "Pods-BasePodsMAC-SnakeGame";
+			path = "Target Support Files/Pods-BasePodsMAC-SnakeGame";
 			sourceTree = "<group>";
 		};
 		68DAAF15BA764C95B658449BB497006C /* Support Files */ = {
@@ -913,6 +877,22 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/SwiftCSV-iOS";
+			sourceTree = "<group>";
+		};
+		71C76D4E9014021135A8619CE4E1A168 /* Pods-BasePodsIOS-EngineIOS */ = {
+			isa = PBXGroup;
+			children = (
+				4F9D5374FB0180C0DE0BA99DAF931A28 /* Pods-BasePodsIOS-EngineIOS.modulemap */,
+				1A0C1B039F4E2333762CC575682264C1 /* Pods-BasePodsIOS-EngineIOS-acknowledgements.markdown */,
+				EB24660F35B143BE099E3957C2ABCC09 /* Pods-BasePodsIOS-EngineIOS-acknowledgements.plist */,
+				CFD7596CBD5A82DB85CC31D2F5CE3328 /* Pods-BasePodsIOS-EngineIOS-dummy.m */,
+				31BF9F1EEAD5BE41A134FE1B0C26BB70 /* Pods-BasePodsIOS-EngineIOS-Info.plist */,
+				ACBD2CC89FC32465273E124BDD55A69C /* Pods-BasePodsIOS-EngineIOS-umbrella.h */,
+				39379C4B03BEE462CD1CF8D4150E633C /* Pods-BasePodsIOS-EngineIOS.debug.xcconfig */,
+				BD0A4DAE3B6E1FF5955C9BD04FE2CCBD /* Pods-BasePodsIOS-EngineIOS.release.xcconfig */,
+			);
+			name = "Pods-BasePodsIOS-EngineIOS";
+			path = "Target Support Files/Pods-BasePodsIOS-EngineIOS";
 			sourceTree = "<group>";
 		};
 		76DD83FF5383A5B4412CD2D2EF9F9DFD /* Support Files */ = {
@@ -975,6 +955,26 @@
 			path = "../Target Support Files/SwiftyBeaver-iOS";
 			sourceTree = "<group>";
 		};
+		8DC928C545AD98FCB2D23EBF465D50FE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				835E63D63D2B927D1694A83F67170DFF /* Pods_BasePodsIOS_AppIOS.framework */,
+				C5FCA3C9B5214C34D8B8B7DF25DCC6BA /* Pods_BasePodsIOS_EngineIOS.framework */,
+				61D2BE73F5FFAA80C9E46250A117BCDF /* Pods_BasePodsMAC_AppMac.framework */,
+				84A1232467E0EBAB3C80567FB0031AA5 /* Pods_BasePodsMAC_SnakeGame.framework */,
+				E4EEDC00E585A727C178013BA50B1786 /* Pods_BasePodsMAC_SnakeGameTests.framework */,
+				18616330EB177E6F0FE7C0FECDDA0B27 /* SSEventFlow.framework */,
+				6EBD34BF64B4A7E724675AA48DF7665C /* SSEventFlow.framework */,
+				9C7B084B41799CDC743781D6155D5B1D /* SwiftCSV.framework */,
+				CF938F05788EAE57628DEA4E384D9200 /* SwiftCSV.framework */,
+				5F52C76D0CC7F92C551EC2E40D9320AB /* SwiftProtobuf.framework */,
+				8AF0E4BE6CB89D1A02A14081360DFD8C /* SwiftProtobuf.framework */,
+				6997997FD158F24A0779219C2867B6E0 /* SwiftyBeaver.framework */,
+				0CAFC29805E4DC1D8371E6F034AA9E0E /* SwiftyBeaver.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		A04419A5AE537C90597A7C474BBB87C9 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -992,6 +992,23 @@
 				7D56C94EDF35FC01C6A8A3980AE301F9 /* SwiftyBeaver */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		B41CE75B7394952F0B952EB9B1D8F795 /* Pods-BasePodsIOS-AppIOS */ = {
+			isa = PBXGroup;
+			children = (
+				D7F4B6FCD88C724C0325C1A5F7D874AB /* Pods-BasePodsIOS-AppIOS.modulemap */,
+				BBB20BBCD713DAC6612846987039319E /* Pods-BasePodsIOS-AppIOS-acknowledgements.markdown */,
+				DF5AABA1089B584F4DE28464B35C0D7B /* Pods-BasePodsIOS-AppIOS-acknowledgements.plist */,
+				2334F074FC8CDFF096B1AA8B124DB454 /* Pods-BasePodsIOS-AppIOS-dummy.m */,
+				6EDB1CC64D5DCC8FBCDE7A8ECFE029FA /* Pods-BasePodsIOS-AppIOS-frameworks.sh */,
+				AB2F536C854D75842DD0552EC4FBE94A /* Pods-BasePodsIOS-AppIOS-Info.plist */,
+				CD17D83A47F3FC1D870CB1623B895AED /* Pods-BasePodsIOS-AppIOS-umbrella.h */,
+				1D3FE127A3FFE19933683616D32B21D5 /* Pods-BasePodsIOS-AppIOS.debug.xcconfig */,
+				077C4C5F836E223EEBB6AF95DA56A69B /* Pods-BasePodsIOS-AppIOS.release.xcconfig */,
+			);
+			name = "Pods-BasePodsIOS-AppIOS";
+			path = "Target Support Files/Pods-BasePodsIOS-AppIOS";
 			sourceTree = "<group>";
 		};
 		C4847F2901798BD75E5443DC835F1E4F /* SwiftCSV */ = {
@@ -1016,9 +1033,21 @@
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				4EDC20B56A0B9A8564E1FCEA191C83C4 /* Frameworks */,
 				A505AE9F7F094FF43082892FDDDA54F7 /* Pods */,
-				646A79653E483FD15250168F1FF3EF46 /* Products */,
-				E9CED2592F0521F143584B9A857FA79F /* Targets Support Files */,
+				8DC928C545AD98FCB2D23EBF465D50FE /* Products */,
+				D4F8607B479436B84FA583B103327D31 /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		D4F8607B479436B84FA583B103327D31 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B41CE75B7394952F0B952EB9B1D8F795 /* Pods-BasePodsIOS-AppIOS */,
+				71C76D4E9014021135A8619CE4E1A168 /* Pods-BasePodsIOS-EngineIOS */,
+				422B5F173C95A9F3FDEFCD2FD7AB4D1F /* Pods-BasePodsMAC-AppMac */,
+				52BA40AE7F68829385A8D558C136F3BA /* Pods-BasePodsMAC-SnakeGame */,
+				06FA73AA4F5E9178C42303F08D9CC585 /* Pods-BasePodsMAC-SnakeGameTests */,
+			);
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
 		E007AD2718D9E1B9ECBD6A51A1EC92C8 /* Support Files */ = {
@@ -1041,35 +1070,6 @@
 			path = "../Target Support Files/SSEventFlow-iOS";
 			sourceTree = "<group>";
 		};
-		E9CED2592F0521F143584B9A857FA79F /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				4031043F0CF4FB2A32C0C0DAC838440C /* Pods-BasePodsIOS-AppIOS */,
-				5188DD194B5F40FE7974A2D6B70332FC /* Pods-BasePodsIOS-SnakeGameIOS */,
-				FC1316179ECD0B16B65DEA26E4AE3D32 /* Pods-BasePodsMAC-AppMac */,
-				12CF04DD0FA38BBDA8D9B2D9870AE92F /* Pods-BasePodsMAC-SnakeGame */,
-				5A3208474CAA72C6388436B847F88189 /* Pods-BasePodsMAC-SnakeGameTests */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		FC1316179ECD0B16B65DEA26E4AE3D32 /* Pods-BasePodsMAC-AppMac */ = {
-			isa = PBXGroup;
-			children = (
-				FD633727BAE8D78A1DDADC40C3AE0AAF /* Pods-BasePodsMAC-AppMac.modulemap */,
-				764531159A17929908EA7D2C49275248 /* Pods-BasePodsMAC-AppMac-acknowledgements.markdown */,
-				3911B02FBF79982E0698AD089413EAF1 /* Pods-BasePodsMAC-AppMac-acknowledgements.plist */,
-				8DD605D8D06A1ADFCBDC69742DEA446D /* Pods-BasePodsMAC-AppMac-dummy.m */,
-				52BE9C30A040D7C4D4E6F6B1EAD5C978 /* Pods-BasePodsMAC-AppMac-frameworks.sh */,
-				71D0D0391CBD7A340A08FFC86C7A70B7 /* Pods-BasePodsMAC-AppMac-Info.plist */,
-				BE37ED09AC18887CB6605E2E28ABA818 /* Pods-BasePodsMAC-AppMac-umbrella.h */,
-				7675E8F8BFF68504E5B3947E111C7F9E /* Pods-BasePodsMAC-AppMac.debug.xcconfig */,
-				785F649A7E2A16A1165B16F06E35EFF4 /* Pods-BasePodsMAC-AppMac.release.xcconfig */,
-			);
-			name = "Pods-BasePodsMAC-AppMac";
-			path = "Target Support Files/Pods-BasePodsMAC-AppMac";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1078,6 +1078,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EE1D8F56674386AE5A44505A1B8F471 /* SSEventFlow-iOS-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B561B25161E041E1394E9504FB9A078 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B42E41D0641AB63E2BF86E1CC1B105D1 /* Pods-BasePodsIOS-EngineIOS-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1126,14 +1134,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				10D069C77C40204F171933D0F592FD52 /* SSEventFlow-macOS-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8764E3F06778CF4E3AC63243ADB00FDB /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8797FBA4E0B8F4C802E7F27B6D2206DA /* Pods-BasePodsIOS-SnakeGameIOS-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1312,25 +1312,25 @@
 			productReference = 6EBD34BF64B4A7E724675AA48DF7665C /* SSEventFlow.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		A0E54B8A74781A4E651315912D108175 /* Pods-BasePodsIOS-SnakeGameIOS */ = {
+		A39B35B9F4415E4AF046DB0C3A49D75E /* Pods-BasePodsIOS-EngineIOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FAC017A7F592555A49783CB86282C609 /* Build configuration list for PBXNativeTarget "Pods-BasePodsIOS-SnakeGameIOS" */;
+			buildConfigurationList = D2D75E01BC2AC6C4887411D777AC2CBA /* Build configuration list for PBXNativeTarget "Pods-BasePodsIOS-EngineIOS" */;
 			buildPhases = (
-				8764E3F06778CF4E3AC63243ADB00FDB /* Headers */,
-				26C4936236D17D6159D2CC31028F7F4D /* Sources */,
-				B61C5540A1056A2C02AA64BD56A4F0F0 /* Frameworks */,
-				C984FF45633CC6477885F46EDCF1B3A7 /* Resources */,
+				3B561B25161E041E1394E9504FB9A078 /* Headers */,
+				105550BB0D3910FA97047B8231006BDA /* Sources */,
+				F809B1A8A21579BE48814D1BA6D980BD /* Frameworks */,
+				07BAA60C305B27682755541C4FAE413E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7BAA50E9A997646B2F61E578C4FEF227 /* PBXTargetDependency */,
-				CABD2D3750F8F7E02CC78BCE5168A275 /* PBXTargetDependency */,
-				8A40D2FD3CC2BEF20ADF7E5C7B963CB3 /* PBXTargetDependency */,
+				3575F85A6857758A2FBA4CDBF42B0DAB /* PBXTargetDependency */,
+				17E117807C5AB5ABFF38AC148D040A15 /* PBXTargetDependency */,
+				87CF94DA1AF4D168A73BAAC96011BDF4 /* PBXTargetDependency */,
 			);
-			name = "Pods-BasePodsIOS-SnakeGameIOS";
-			productName = "Pods-BasePodsIOS-SnakeGameIOS";
-			productReference = E066B0B9ABAE11E0282FCDDBDD5A4AC7 /* Pods_BasePodsIOS_SnakeGameIOS.framework */;
+			name = "Pods-BasePodsIOS-EngineIOS";
+			productName = "Pods-BasePodsIOS-EngineIOS";
+			productReference = C5FCA3C9B5214C34D8B8B7DF25DCC6BA /* Pods_BasePodsIOS_EngineIOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		AA186741961F10502016CE44BFED6684 /* SwiftProtobuf-macOS */ = {
@@ -1448,12 +1448,12 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 646A79653E483FD15250168F1FF3EF46 /* Products */;
+			productRefGroup = 8DC928C545AD98FCB2D23EBF465D50FE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				F1D1B473031B2AC42E8A5FDD39C0FDAD /* Pods-BasePodsIOS-AppIOS */,
-				A0E54B8A74781A4E651315912D108175 /* Pods-BasePodsIOS-SnakeGameIOS */,
+				A39B35B9F4415E4AF046DB0C3A49D75E /* Pods-BasePodsIOS-EngineIOS */,
 				FD2469E45EEE4A21316ACD64C2501CA1 /* Pods-BasePodsMAC-AppMac */,
 				8F44A25CD2BCC648109C424DDB98A120 /* Pods-BasePodsMAC-SnakeGame */,
 				47B87645A8536EFACF5C1DDC8C1F90F7 /* Pods-BasePodsMAC-SnakeGameTests */,
@@ -1470,6 +1470,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		07BAA60C305B27682755541C4FAE413E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1F7DD6F866713DF447503B59600EFF82 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1533,13 +1540,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C984FF45633CC6477885F46EDCF1B3A7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		EC03A31DB237B9FB74B2C623A1539DAB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1564,11 +1564,11 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		26C4936236D17D6159D2CC31028F7F4D /* Sources */ = {
+		105550BB0D3910FA97047B8231006BDA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54554EE98B4FDB6CC5CBF03CB4BC2617 /* Pods-BasePodsIOS-SnakeGameIOS-dummy.m in Sources */,
+				AEDAFA6B43C1A907C9A00D70D7B8EAE6 /* Pods-BasePodsIOS-EngineIOS-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1879,6 +1879,12 @@
 			target = B8198B4CD53FFE0380A2C93CA07E398E /* SwiftyBeaver-macOS */;
 			targetProxy = FB0D33E017905109E2E072057D0AAF3D /* PBXContainerItemProxy */;
 		};
+		17E117807C5AB5ABFF38AC148D040A15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SwiftProtobuf-iOS";
+			target = 357D7AA757B0ED4603C9CD1523BC234E /* SwiftProtobuf-iOS */;
+			targetProxy = D69D997D98E7071D8638C4464823451F /* PBXContainerItemProxy */;
+		};
 		2BE7A00C2E553FF3BFE684CF86535FF0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "SwiftyBeaver-macOS";
@@ -1909,6 +1915,12 @@
 			target = AA186741961F10502016CE44BFED6684 /* SwiftProtobuf-macOS */;
 			targetProxy = 639DF7412A4D8565ACDD72A9704DEAB6 /* PBXContainerItemProxy */;
 		};
+		3575F85A6857758A2FBA4CDBF42B0DAB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "SwiftCSV-iOS";
+			target = 825FB65494996D45E6AD2000EE3E3421 /* SwiftCSV-iOS */;
+			targetProxy = 94D18B4C8C546D093BE6D1DF2A1C7258 /* PBXContainerItemProxy */;
+		};
 		5817B695B561137522255E195A736B3C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "SwiftProtobuf-macOS";
@@ -1927,17 +1939,11 @@
 			target = 03CFD46883B4DA7F79D17A00C7F4EED5 /* SwiftCSV-macOS */;
 			targetProxy = 095689CC461FD7BC8EA306BBA5CBB2CF /* PBXContainerItemProxy */;
 		};
-		7BAA50E9A997646B2F61E578C4FEF227 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "SwiftCSV-iOS";
-			target = 825FB65494996D45E6AD2000EE3E3421 /* SwiftCSV-iOS */;
-			targetProxy = 32D29EA293EAFED5AEE2F04ADB428388 /* PBXContainerItemProxy */;
-		};
-		8A40D2FD3CC2BEF20ADF7E5C7B963CB3 /* PBXTargetDependency */ = {
+		87CF94DA1AF4D168A73BAAC96011BDF4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "SwiftyBeaver-iOS";
 			target = 1657B1C164E298BCDD3AE7E8C428882E /* SwiftyBeaver-iOS */;
-			targetProxy = D77433B29EB80206958EFC1421813828 /* PBXContainerItemProxy */;
+			targetProxy = EE1B706B8DB7F1AE09166F8BDC63ADB6 /* PBXContainerItemProxy */;
 		};
 		AA926E329D980AB71720543ACE44AA96 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1950,12 +1956,6 @@
 			name = "SSEventFlow-macOS";
 			target = FCE4A082D382FC9C6375864241653ADE /* SSEventFlow-macOS */;
 			targetProxy = 9565C610F06F6048CA5FDE8C7F655510 /* PBXContainerItemProxy */;
-		};
-		CABD2D3750F8F7E02CC78BCE5168A275 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "SwiftProtobuf-iOS";
-			target = 357D7AA757B0ED4603C9CD1523BC234E /* SwiftProtobuf-iOS */;
-			targetProxy = AD6FE223137D38558FEEA21A30978EBC /* PBXContainerItemProxy */;
 		};
 		D949859A5EC81CF720C2298F55BEBE7C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2016,6 +2016,45 @@
 			};
 			name = Debug;
 		};
+		16CB6ABE06FA7F7291D10641EC7F4D81 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD0A4DAE3B6E1FF5955C9BD04FE2CCBD /* Pods-BasePodsIOS-EngineIOS.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-BasePodsIOS-EngineIOS/Pods-BasePodsIOS-EngineIOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-BasePodsIOS-EngineIOS/Pods-BasePodsIOS-EngineIOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		1EB3BEBB3C245EEB18254BF3850A1BDD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9347F2BD4E96F4F37E40429AAE76C04E /* SwiftProtobuf-macOS.xcconfig */;
@@ -2048,6 +2087,44 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		20C0FE01D815512C6B85C483429E40A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39379C4B03BEE462CD1CF8D4150E633C /* Pods-BasePodsIOS-EngineIOS.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-BasePodsIOS-EngineIOS/Pods-BasePodsIOS-EngineIOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-BasePodsIOS-EngineIOS/Pods-BasePodsIOS-EngineIOS.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2093,7 +2170,7 @@
 		};
 		29CF99A6CCC105EB098E7482B71DC73B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6B021DF5A556EC3D84CB6C2F061653A /* Pods-BasePodsMAC-SnakeGame.debug.xcconfig */;
+			baseConfigurationReference = 7475A60703986F90A82407C7A07F0ACE /* Pods-BasePodsMAC-SnakeGame.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -2240,7 +2317,7 @@
 		};
 		3A4B848B07BE3D186E1C9B8E1D402378 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 66BA46BD8F41AE11370B3F45343D29F9 /* Pods-BasePodsMAC-SnakeGameTests.debug.xcconfig */;
+			baseConfigurationReference = 59D4B6929AF908E604D56B1EC7A132D0 /* Pods-BasePodsMAC-SnakeGameTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -2514,7 +2591,7 @@
 		};
 		66B5B56E30C8201A67382EA96CFEDE00 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 682214E82E0735BC970CDC22A8F3358D /* Pods-BasePodsIOS-AppIOS.debug.xcconfig */;
+			baseConfigurationReference = 1D3FE127A3FFE19933683616D32B21D5 /* Pods-BasePodsIOS-AppIOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -2552,7 +2629,7 @@
 		};
 		66B8AF62A4A8F1DFA9E1EC0F983D7181 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 785F649A7E2A16A1165B16F06E35EFF4 /* Pods-BasePodsMAC-AppMac.release.xcconfig */;
+			baseConfigurationReference = A4BB4DABF386D644D11784995328CD55 /* Pods-BasePodsMAC-AppMac.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -2592,7 +2669,7 @@
 		};
 		7439EDD610DCA9462C0700B1A7BD0DB1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0899DABB06DA8E2A2189104D54205D2C /* Pods-BasePodsMAC-SnakeGame.release.xcconfig */;
+			baseConfigurationReference = FD841C60517248037142A6D8E612CB42 /* Pods-BasePodsMAC-SnakeGame.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -2629,44 +2706,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		76F6728664C3487B29C11CA84726FE43 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B253DF7C0393117DE60FBF7F9BB7E10C /* Pods-BasePodsIOS-SnakeGameIOS.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-BasePodsIOS-SnakeGameIOS/Pods-BasePodsIOS-SnakeGameIOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-BasePodsIOS-SnakeGameIOS/Pods-BasePodsIOS-SnakeGameIOS.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		86983CB73900827EB281C03447DCB160 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -2780,7 +2819,7 @@
 		};
 		A6C651DBADBD95B39927961CCFF67C32 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F5F51C28AF025756E59C91544429E71 /* Pods-BasePodsMAC-SnakeGameTests.release.xcconfig */;
+			baseConfigurationReference = 27514B6C13EB8A474E0AC47795D979CD /* Pods-BasePodsMAC-SnakeGameTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -2820,7 +2859,7 @@
 		};
 		AFBE7813CF2CFB6F3CA9E43C571D367C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7675E8F8BFF68504E5B3947E111C7F9E /* Pods-BasePodsMAC-AppMac.debug.xcconfig */;
+			baseConfigurationReference = E25EF3E1BDFDEB96BAE98C4DEA903C2F /* Pods-BasePodsMAC-AppMac.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -2895,45 +2934,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		BDD4DCCFD2989F3AAC14DC35D282E0DE /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2951CAF0E85B6190D73359BAB31ABF2E /* Pods-BasePodsIOS-SnakeGameIOS.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-BasePodsIOS-SnakeGameIOS/Pods-BasePodsIOS-SnakeGameIOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-BasePodsIOS-SnakeGameIOS/Pods-BasePodsIOS-SnakeGameIOS.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		D7C22D4F0923B81C774C16E0D97A315C /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -3011,7 +3011,7 @@
 		};
 		F1DE388ED9FDAC7B82CD19C36FC7DE47 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8165ED31A39552F3D5D31DA3F41AE855 /* Pods-BasePodsIOS-AppIOS.release.xcconfig */;
+			baseConfigurationReference = 077C4C5F836E223EEBB6AF95DA56A69B /* Pods-BasePodsIOS-AppIOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -3177,6 +3177,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		D2D75E01BC2AC6C4887411D777AC2CBA /* Build configuration list for PBXNativeTarget "Pods-BasePodsIOS-EngineIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				20C0FE01D815512C6B85C483429E40A8 /* Debug */,
+				16CB6ABE06FA7F7291D10641EC7F4D81 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D332E8B3003CA4B56E8094409380C95F /* Build configuration list for PBXNativeTarget "SwiftCSV-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -3200,15 +3209,6 @@
 			buildConfigurations = (
 				3A4B848B07BE3D186E1C9B8E1D402378 /* Debug */,
 				A6C651DBADBD95B39927961CCFF67C32 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FAC017A7F592555A49783CB86282C609 /* Build configuration list for PBXNativeTarget "Pods-BasePodsIOS-SnakeGameIOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				76F6728664C3487B29C11CA84726FE43 /* Debug */,
-				BDD4DCCFD2989F3AAC14DC35D282E0DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

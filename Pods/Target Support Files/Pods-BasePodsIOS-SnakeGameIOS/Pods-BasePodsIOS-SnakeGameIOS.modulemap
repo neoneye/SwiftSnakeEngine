@@ -1,6 +1,0 @@
-framework module Pods_BasePodsIOS_SnakeGameIOS {
-  umbrella header "Pods-BasePodsIOS-SnakeGameIOS-umbrella.h"
-
-  export *
-  module * { export * }
-}
