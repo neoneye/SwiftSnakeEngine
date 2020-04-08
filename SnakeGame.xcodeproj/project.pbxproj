@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4214300824259647003A58FB /* T2001_SnakeBodyMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4214300724259647003A58FB /* T2001_SnakeBodyMovement.swift */; };
-		4217E4E623FD47DA00D8779A /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 4217E4E523FD47DA00D8779A /* Fonts */; };
 		4217EEA6240E77830066B8C0 /* T2000_SnakeHeadDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */; };
 		4217EEA8240E7D220066B8C0 /* SnakeBodyMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */; };
 		4217EEAA240F00740066B8C0 /* SnakePlannedPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */; };
@@ -72,6 +71,8 @@
 		42905329243E96BD004EFFB6 /* snake_eats.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA46233FC05100AA58CD /* snake_eats.wav */; };
 		4290532A243E96C1004EFFB6 /* snake_step.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA4A233FC96300AA58CD /* snake_step.wav */; };
 		4290532B243E98D9004EFFB6 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4255CA11232F8A2100A230AF /* Actions.sks */; };
+		42905331243E99DD004EFFB6 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 42905330243E99DD004EFFB6 /* Fonts */; };
+		42905332243E99DD004EFFB6 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 42905330243E99DD004EFFB6 /* Fonts */; };
 		429122BF23520D3000B3E32A /* SnakeBot1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429122BE23520D3000B3E32A /* SnakeBot1.swift */; };
 		4294DA3F233EF09900AA58CD /* SKSpriteNode+Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */; };
 		4294DA41233EF33200AA58CD /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA40233EF33200AA58CD /* Explosion.sks */; };
@@ -263,7 +264,6 @@
 		3D35A103F0B879CC6FD0D85D /* Pods-BasePodsMAC-EngineMacTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-EngineMacTests.release.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-EngineMacTests/Pods-BasePodsMAC-EngineMacTests.release.xcconfig"; sourceTree = "<group>"; };
 		3D7C5502B95DADFE8A9A7ECA /* Pods-BasePodsIOS-AppIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsIOS-AppIOS.release.xcconfig"; path = "Target Support Files/Pods-BasePodsIOS-AppIOS/Pods-BasePodsIOS-AppIOS.release.xcconfig"; sourceTree = "<group>"; };
 		4214300724259647003A58FB /* T2001_SnakeBodyMovement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2001_SnakeBodyMovement.swift; sourceTree = "<group>"; };
-		4217E4E523FD47DA00D8779A /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2000_SnakeHeadDirection.swift; sourceTree = "<group>"; };
 		4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBodyMovement.swift; sourceTree = "<group>"; };
 		4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakePlannedPathNode.swift; sourceTree = "<group>"; };
@@ -322,6 +322,7 @@
 		4290531D243E9659004EFFB6 /* snakeskin_green.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = snakeskin_green.atlas; sourceTree = "<group>"; };
 		4290531E243E9659004EFFB6 /* level_theme2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme2.atlas; sourceTree = "<group>"; };
 		4290531F243E9659004EFFB6 /* level_theme1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme1.atlas; sourceTree = "<group>"; };
+		42905330243E99DD004EFFB6 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		429122BE23520D3000B3E32A /* SnakeBot1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBot1.swift; sourceTree = "<group>"; };
 		4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKSpriteNode+Pulse.swift"; sourceTree = "<group>"; };
 		4294DA40233EF33200AA58CD /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
@@ -578,7 +579,6 @@
 				429CD0D423495DF300098E68 /* AppConstant.swift */,
 				4255CA1D232F8A2300A230AF /* AppMac.entitlements */,
 				4255CA17232F8A2300A230AF /* Assets.xcassets */,
-				4217E4E523FD47DA00D8779A /* Fonts */,
 				4255CA1C232F8A2300A230AF /* Info.plist */,
 				42C31826238187F600468D1F /* Main */,
 				4255CA19232F8A2300A230AF /* Main.storyboard */,
@@ -614,6 +614,7 @@
 			children = (
 				4255CA11232F8A2100A230AF /* Actions.sks */,
 				4294DA40233EF33200AA58CD /* Explosion.sks */,
+				42905330243E99DD004EFFB6 /* Fonts */,
 				4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */,
 				4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */,
 				42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */,
@@ -991,8 +992,8 @@
 			files = (
 				4294DA41233EF33200AA58CD /* Explosion.sks in Resources */,
 				4255CA18232F8A2300A230AF /* Assets.xcassets in Resources */,
-				4217E4E623FD47DA00D8779A /* Fonts in Resources */,
 				4255CA12232F8A2100A230AF /* Actions.sks in Resources */,
+				42905332243E99DD004EFFB6 /* Fonts in Resources */,
 				42905327243E9659004EFFB6 /* level_theme1.atlas in Resources */,
 				4294DA49233FC05200AA58CD /* snake_dies.wav in Resources */,
 				42905321243E9659004EFFB6 /* snakeskin_blue.atlas in Resources */,
@@ -1021,6 +1022,7 @@
 				42905328243E96B9004EFFB6 /* snake_dies.wav in Resources */,
 				4290532A243E96C1004EFFB6 /* snake_step.wav in Resources */,
 				42905324243E9659004EFFB6 /* level_theme2.atlas in Resources */,
+				42905331243E99DD004EFFB6 /* Fonts in Resources */,
 				42905329243E96BD004EFFB6 /* snake_eats.wav in Resources */,
 				42FB0584243C99C4006BEE8D /* GameScene.sks in Resources */,
 				4290532B243E98D9004EFFB6 /* Actions.sks in Resources */,
