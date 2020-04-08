@@ -105,22 +105,3 @@ struct SpriteKitContainer_Previews : PreviewProvider {
 	}
 
 }
-
-extension SnakePlayer {
-    fileprivate var humanReadableRole: String {
-        switch self.role {
-        case .none:
-            return "Player is disabled"
-        case .human:
-            switch self.id {
-            case .player1:
-                return "HUMAN\nControlled via Arrow keys."
-            case .player2:
-                return "HUMAN\nControlled via WASD keys."
-            }
-        case let .bot(botType):
-            let name: String = botType.self.info.humanReadableName
-            return "BOT - \(name)"
-        }
-    }
-}
