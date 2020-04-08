@@ -49,6 +49,8 @@
 		4255CA26232FD31900A230AF /* IntVec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA25232FD31900A230AF /* IntVec2.swift */; };
 		4255CA2A233180B500A230AF /* SeededGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA29233180B500A230AF /* SeededGenerator.swift */; };
 		4255CA2E2331810100A230AF /* EngineMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4255C9E5232F703E00A230AF /* EngineMac.framework */; };
+		42685C44243E8BAE000C5511 /* SnakePlayerKillEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42685C43243E8BAE000C5511 /* SnakePlayerKillEvent.swift */; };
+		42685C45243E8BAE000C5511 /* SnakePlayerKillEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42685C43243E8BAE000C5511 /* SnakePlayerKillEvent.swift */; };
 		426891F9233267E900B97E29 /* AdjacencyListGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F1233267E900B97E29 /* AdjacencyListGraph.swift */; };
 		426891FA233267E900B97E29 /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F2233267E900B97E29 /* Edge.swift */; };
 		426891FB233267E900B97E29 /* AdjacencyMatrixGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F3233267E900B97E29 /* AdjacencyMatrixGraph.swift */; };
@@ -294,6 +296,7 @@
 		4255CA23232FD2D700A230AF /* T1001_IntVec2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1001_IntVec2.swift; sourceTree = "<group>"; };
 		4255CA25232FD31900A230AF /* IntVec2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntVec2.swift; sourceTree = "<group>"; };
 		4255CA29233180B500A230AF /* SeededGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededGenerator.swift; sourceTree = "<group>"; };
+		42685C43243E8BAE000C5511 /* SnakePlayerKillEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakePlayerKillEvent.swift; sourceTree = "<group>"; };
 		426891F1233267E900B97E29 /* AdjacencyListGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdjacencyListGraph.swift; sourceTree = "<group>"; };
 		426891F2233267E900B97E29 /* Edge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Edge.swift; sourceTree = "<group>"; };
 		426891F3233267E900B97E29 /* AdjacencyMatrixGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdjacencyMatrixGraph.swift; sourceTree = "<group>"; };
@@ -464,6 +467,7 @@
 				42A8B6FD2331B4AE00E618CF /* SnakeHead.swift */,
 				42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */,
 				42CC22CA23397D1300CF3D96 /* SnakePlayer.swift */,
+				42685C43243E8BAE000C5511 /* SnakePlayerKillEvent.swift */,
 				429D336523FAF46E00EF9B37 /* StuckSnakeDetector.swift */,
 			);
 			path = Snake;
@@ -1197,6 +1201,7 @@
 				42CCD61823C1054C0021CBE7 /* SnakeLevelManager.swift in Sources */,
 				4221EFDC2332F0F00026A8A0 /* SnakeBody.swift in Sources */,
 				4255CA02232F70F800A230AF /* sigmoid.swift in Sources */,
+				42685C44243E8BAE000C5511 /* SnakePlayerKillEvent.swift in Sources */,
 				42EB7C0223F283FC00229CEA /* URL+temporaryFile.swift in Sources */,
 				4253C5432336349800210611 /* UIntVec2.swift in Sources */,
 				42C3182D2386FBDC00468D1F /* SnakeBot5.swift in Sources */,
@@ -1312,6 +1317,7 @@
 				42ABC12C243D138300E05FF3 /* OSLogDestination.swift in Sources */,
 				42ABC14B243D13AB00E05FF3 /* SnakeGameStateModel.pb.swift in Sources */,
 				42ABC132243D139300E05FF3 /* AdjacencyListGraph.swift in Sources */,
+				42685C45243E8BAE000C5511 /* SnakePlayerKillEvent.swift in Sources */,
 				42ABC13F243D13A200E05FF3 /* SnakeLevelDistanceMap.swift in Sources */,
 				42ABC123243D138300E05FF3 /* ComputeShortestPath.swift in Sources */,
 				42ABC13C243D13A200E05FF3 /* SnakeLevelBuilder.swift in Sources */,

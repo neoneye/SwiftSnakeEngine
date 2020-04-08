@@ -28,15 +28,6 @@ extension SnakePlayerRole: Equatable {
 	}
 }
 
-public enum SnakePlayerKillEvent {
-    case collisionWithWall
-    case collisionWithItself
-    case collisionWithOpponent
-    case noMoreFood
-    case stuckInALoop
-    case killAfterAFewTimeSteps
-}
-
 public class SnakePlayer {
     public let id: SnakePlayerId
 	public let isAlive: Bool
