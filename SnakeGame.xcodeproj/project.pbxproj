@@ -509,6 +509,7 @@
 				4255C9E6232F703E00A230AF /* Products */,
 				4255C9E7232F703E00A230AF /* SnakeGame */,
 				42ABC10F243CAD1100E05FF3 /* SnakeGameIOS */,
+				42BF1869243DC75D00CD9F06 /* SnakeGameShared */,
 				4255C9F2232F703E00A230AF /* SnakeGameTests */,
 			);
 			sourceTree = "<group>";
@@ -528,11 +529,7 @@
 		4255C9E7232F703E00A230AF /* SnakeGame */ = {
 			isa = PBXGroup;
 			children = (
-				42F4538923E5AFA200B90297 /* Bot */,
-				422423C0233E79240006D02D /* Common */,
 				4255C9E9232F703E00A230AF /* Info.plist */,
-				42F4538A23E5B0A200B90297 /* Level */,
-				422423BF233E79090006D02D /* Snake */,
 				42EFB41823E57E18002B6191 /* SnakeGame.h */,
 			);
 			path = SnakeGame;
@@ -651,10 +648,21 @@
 		42ABC10F243CAD1100E05FF3 /* SnakeGameIOS */ = {
 			isa = PBXGroup;
 			children = (
-				42ABC110243CAD1100E05FF3 /* SnakeGameIOS.h */,
 				42ABC111243CAD1100E05FF3 /* Info.plist */,
+				42ABC110243CAD1100E05FF3 /* SnakeGameIOS.h */,
 			);
 			path = SnakeGameIOS;
+			sourceTree = "<group>";
+		};
+		42BF1869243DC75D00CD9F06 /* SnakeGameShared */ = {
+			isa = PBXGroup;
+			children = (
+				42F4538923E5AFA200B90297 /* Bot */,
+				422423C0233E79240006D02D /* Common */,
+				42F4538A23E5B0A200B90297 /* Level */,
+				422423BF233E79090006D02D /* Snake */,
+			);
+			path = SnakeGameShared;
 			sourceTree = "<group>";
 		};
 		42C31826238187F600468D1F /* Main */ = {
