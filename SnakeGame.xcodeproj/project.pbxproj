@@ -15,8 +15,6 @@
 		421A9E2F2437E2CA00A85B6F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E2E2437E2CA00A85B6F /* Dashboard.swift */; };
 		421A9E312439004600A85B6F /* FloatFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E302439004600A85B6F /* FloatFormatting.swift */; };
 		421A9E33243922ED00A85B6F /* TrackingNSHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E32243922ED00A85B6F /* TrackingNSHostingView.swift */; };
-		422158D4234BCE830011DA67 /* level_theme1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 422158D3234BCE830011DA67 /* level_theme1.atlas */; };
-		422158D6234BCE8A0011DA67 /* level_theme2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 422158D5234BCE8A0011DA67 /* level_theme2.atlas */; };
 		4221EFDC2332F0F00026A8A0 /* SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */; };
 		422423B4233CE40A0006D02D /* SnakeCollisionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B3233CE40A0006D02D /* SnakeCollisionDetector.swift */; };
 		422423B6233D46F30006D02D /* SnakeGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B5233D46F30006D02D /* SnakeGameState.swift */; };
@@ -62,8 +60,14 @@
 		426892032332682100B97E29 /* GraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426892012332682100B97E29 /* GraphTests.swift */; };
 		426892042332682100B97E29 /* SSSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426892022332682100B97E29 /* SSSPTests.swift */; };
 		42822A23239817CA00DA4461 /* SnakeBot6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42822A22239817CA00DA4461 /* SnakeBot6.swift */; };
-		4285BC0E234BB4FE00FBE99E /* snakeskin_green.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4285BC0B234BB4FE00FBE99E /* snakeskin_green.atlas */; };
-		4285BC0F234BB4FE00FBE99E /* snakeskin_blue.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4285BC0C234BB4FE00FBE99E /* snakeskin_blue.atlas */; };
+		42905320243E9659004EFFB6 /* snakeskin_blue.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531C243E9659004EFFB6 /* snakeskin_blue.atlas */; };
+		42905321243E9659004EFFB6 /* snakeskin_blue.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531C243E9659004EFFB6 /* snakeskin_blue.atlas */; };
+		42905322243E9659004EFFB6 /* snakeskin_green.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531D243E9659004EFFB6 /* snakeskin_green.atlas */; };
+		42905323243E9659004EFFB6 /* snakeskin_green.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531D243E9659004EFFB6 /* snakeskin_green.atlas */; };
+		42905324243E9659004EFFB6 /* level_theme2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531E243E9659004EFFB6 /* level_theme2.atlas */; };
+		42905325243E9659004EFFB6 /* level_theme2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531E243E9659004EFFB6 /* level_theme2.atlas */; };
+		42905326243E9659004EFFB6 /* level_theme1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531F243E9659004EFFB6 /* level_theme1.atlas */; };
+		42905327243E9659004EFFB6 /* level_theme1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531F243E9659004EFFB6 /* level_theme1.atlas */; };
 		429122BF23520D3000B3E32A /* SnakeBot1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429122BE23520D3000B3E32A /* SnakeBot1.swift */; };
 		4294DA3F233EF09900AA58CD /* SKSpriteNode+Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */; };
 		4294DA41233EF33200AA58CD /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA40233EF33200AA58CD /* Explosion.sks */; };
@@ -263,8 +267,6 @@
 		421A9E2E2437E2CA00A85B6F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		421A9E302439004600A85B6F /* FloatFormatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatFormatting.swift; sourceTree = "<group>"; };
 		421A9E32243922ED00A85B6F /* TrackingNSHostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingNSHostingView.swift; sourceTree = "<group>"; };
-		422158D3234BCE830011DA67 /* level_theme1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme1.atlas; sourceTree = "<group>"; };
-		422158D5234BCE8A0011DA67 /* level_theme2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme2.atlas; sourceTree = "<group>"; };
 		4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBody.swift; sourceTree = "<group>"; };
 		422423B3233CE40A0006D02D /* SnakeCollisionDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeCollisionDetector.swift; sourceTree = "<group>"; };
 		422423B5233D46F30006D02D /* SnakeGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameState.swift; sourceTree = "<group>"; };
@@ -313,8 +315,10 @@
 		426892012332682100B97E29 /* GraphTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphTests.swift; sourceTree = "<group>"; };
 		426892022332682100B97E29 /* SSSPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSSPTests.swift; sourceTree = "<group>"; };
 		42822A22239817CA00DA4461 /* SnakeBot6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeBot6.swift; sourceTree = "<group>"; };
-		4285BC0B234BB4FE00FBE99E /* snakeskin_green.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = snakeskin_green.atlas; sourceTree = "<group>"; };
-		4285BC0C234BB4FE00FBE99E /* snakeskin_blue.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = snakeskin_blue.atlas; sourceTree = "<group>"; };
+		4290531C243E9659004EFFB6 /* snakeskin_blue.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = snakeskin_blue.atlas; sourceTree = "<group>"; };
+		4290531D243E9659004EFFB6 /* snakeskin_green.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = snakeskin_green.atlas; sourceTree = "<group>"; };
+		4290531E243E9659004EFFB6 /* level_theme2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme2.atlas; sourceTree = "<group>"; };
+		4290531F243E9659004EFFB6 /* level_theme1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme1.atlas; sourceTree = "<group>"; };
 		429122BE23520D3000B3E32A /* SnakeBot1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBot1.swift; sourceTree = "<group>"; };
 		4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKSpriteNode+Pulse.swift"; sourceTree = "<group>"; };
 		4294DA40233EF33200AA58CD /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
@@ -504,17 +508,6 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		4246C44A235BD54000324965 /* Themes */ = {
-			isa = PBXGroup;
-			children = (
-				422158D3234BCE830011DA67 /* level_theme1.atlas */,
-				422158D5234BCE8A0011DA67 /* level_theme2.atlas */,
-				4285BC0C234BB4FE00FBE99E /* snakeskin_blue.atlas */,
-				4285BC0B234BB4FE00FBE99E /* snakeskin_green.atlas */,
-			);
-			name = Themes;
-			sourceTree = "<group>";
-		};
 		4255C9DB232F703E00A230AF = {
 			isa = PBXGroup;
 			children = (
@@ -600,7 +593,6 @@
 				42967E45234FBF3C0098A79D /* SnakeUserInput.swift */,
 				42C3182B2386F17000468D1F /* Sounds */,
 				42CCD61C23C3CF660021CBE7 /* SpriteKitContainer.swift */,
-				4246C44A235BD54000324965 /* Themes */,
 			);
 			path = AppMac;
 			sourceTree = "<group>";
@@ -626,6 +618,7 @@
 				42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */,
 				4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */,
 				42CC22C82337C28500CF3D96 /* SnakeWallNode.swift */,
+				4290531B243E9659004EFFB6 /* Themes */,
 			);
 			path = AppShared;
 			sourceTree = "<group>";
@@ -667,6 +660,17 @@
 				426892022332682100B97E29 /* SSSPTests.swift */,
 			);
 			path = "swift-algorithm-club";
+			sourceTree = "<group>";
+		};
+		4290531B243E9659004EFFB6 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				4290531F243E9659004EFFB6 /* level_theme1.atlas */,
+				4290531E243E9659004EFFB6 /* level_theme2.atlas */,
+				4290531C243E9659004EFFB6 /* snakeskin_blue.atlas */,
+				4290531D243E9659004EFFB6 /* snakeskin_green.atlas */,
+			);
+			path = Themes;
 			sourceTree = "<group>";
 		};
 		42ABC10F243CAD1100E05FF3 /* EngineIOS */ = {
@@ -986,14 +990,14 @@
 			files = (
 				4294DA41233EF33200AA58CD /* Explosion.sks in Resources */,
 				4255CA18232F8A2300A230AF /* Assets.xcassets in Resources */,
-				4285BC0E234BB4FE00FBE99E /* snakeskin_green.atlas in Resources */,
-				422158D4234BCE830011DA67 /* level_theme1.atlas in Resources */,
 				4217E4E623FD47DA00D8779A /* Fonts in Resources */,
 				4255CA12232F8A2100A230AF /* Actions.sks in Resources */,
+				42905327243E9659004EFFB6 /* level_theme1.atlas in Resources */,
 				4294DA49233FC05200AA58CD /* snake_dies.wav in Resources */,
-				4285BC0F234BB4FE00FBE99E /* snakeskin_blue.atlas in Resources */,
+				42905321243E9659004EFFB6 /* snakeskin_blue.atlas in Resources */,
 				4294DA48233FC05200AA58CD /* snake_eats.wav in Resources */,
-				422158D6234BCE8A0011DA67 /* level_theme2.atlas in Resources */,
+				42905323243E9659004EFFB6 /* snakeskin_green.atlas in Resources */,
+				42905325243E9659004EFFB6 /* level_theme2.atlas in Resources */,
 				4255CA1B232F8A2300A230AF /* Main.storyboard in Resources */,
 				4294DA4B233FC96300AA58CD /* snake_step.wav in Resources */,
 			);
@@ -1011,12 +1015,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42905326243E9659004EFFB6 /* level_theme1.atlas in Resources */,
 				42FB058D243C99C4006BEE8D /* Main.storyboard in Resources */,
+				42905324243E9659004EFFB6 /* level_theme2.atlas in Resources */,
 				42FB0584243C99C4006BEE8D /* GameScene.sks in Resources */,
 				42FB058F243C99C7006BEE8D /* Assets.xcassets in Resources */,
 				42FB0592243C99C7006BEE8D /* LaunchScreen.storyboard in Resources */,
 				42FB0586243C99C4006BEE8D /* Actions.sks in Resources */,
+				42905320243E9659004EFFB6 /* snakeskin_blue.atlas in Resources */,
 				42BE1629243E941D0031C88B /* Explosion.sks in Resources */,
+				42905322243E9659004EFFB6 /* snakeskin_green.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
