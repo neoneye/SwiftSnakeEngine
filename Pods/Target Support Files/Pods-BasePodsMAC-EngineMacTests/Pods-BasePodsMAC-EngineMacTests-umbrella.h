@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_BasePodsMAC_SnakeGameTestsVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_BasePodsMAC_SnakeGameTestsVersionString[];
+FOUNDATION_EXPORT double Pods_BasePodsMAC_EngineMacTestsVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_BasePodsMAC_EngineMacTestsVersionString[];
 

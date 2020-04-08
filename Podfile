@@ -33,7 +33,7 @@ end
 abstract_target 'BasePodsMAC' do
 	platform :macos, '10.15'
 
-	target 'SnakeGameTests' do
+	target 'EngineMacTests' do
 	end
 
 	target 'SnakeGame' do

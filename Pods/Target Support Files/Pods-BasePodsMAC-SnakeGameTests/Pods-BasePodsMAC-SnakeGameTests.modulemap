@@ -1,6 +1,0 @@
-framework module Pods_BasePodsMAC_SnakeGameTests {
-  umbrella header "Pods-BasePodsMAC-SnakeGameTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
