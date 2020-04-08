@@ -1,6 +1,13 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import SpriteKit
+
+#if os(iOS)
+import EngineIOS
+#elseif os(macOS)
 import EngineMac
+#else
+#error("Unknown OS")
+#endif
 
 class SnakePlannedPathNode: SKEffectNode {
     var colorHighConfidence: SKColor = SKColor.gray
@@ -13,6 +20,7 @@ class SnakePlannedPathNode: SKEffectNode {
         return convertCoordinate?(position) ?? CGPoint.zero
     }
 
+    #if os(macOS)
     public func configure(skin: PlayerSkinMenuItem) {
         switch skin {
         case .retroGreen, .cuteGreen:
@@ -22,6 +30,7 @@ class SnakePlannedPathNode: SKEffectNode {
         }
         colorLowConfidence = colorHighConfidence.colorWithOpacity(0.5)
     }
+    #endif
 
     func rebuild(player: SnakePlayer, foodPosition: IntVec2?) {
         guard player.isInstalled else {
@@ -35,7 +44,13 @@ class SnakePlannedPathNode: SKEffectNode {
     }
 
     private func drawPlannedPathForBot(player: SnakePlayer, foodPosition: IntVec2?) {
-        let showPlannedPath: Bool = NSUserDefaultsController.shared.isShowPlannedPathEnabled
+        let showPlannedPath: Bool
+        #if os(macOS)
+        showPlannedPath = NSUserDefaultsController.shared.isShowPlannedPathEnabled
+        #else
+        showPlannedPath = true
+        #endif
+        
         if showPlannedPath && player.isBot && player.isAlive {
             let positionArray: [IntVec2] = player.bot.plannedPath
             let highConfidenceCount: UInt = self.highConfidenceCount(positionArray: positionArray, foodPosition: foodPosition)
@@ -126,6 +141,20 @@ class SnakePlannedPathNode: SKEffectNode {
 
 extension SKColor {
     fileprivate func colorWithOpacity(_ opacity: CGFloat) -> SKColor {
+        #if os(macOS)
         return SKColor(calibratedRed: self.redComponent, green: self.greenComponent, blue: self.blueComponent, alpha: self.alphaComponent * opacity)
+        #elseif os(iOS)
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        guard self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) else {
+            return self
+        }
+        return SKColor(red: red, green: green, blue: blue, alpha: alpha * opacity)
+        #else
+        #warning("Unknown OS")
+        return self
+        #endif
     }
 }
