@@ -68,6 +68,9 @@
 		42905325243E9659004EFFB6 /* level_theme2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531E243E9659004EFFB6 /* level_theme2.atlas */; };
 		42905326243E9659004EFFB6 /* level_theme1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531F243E9659004EFFB6 /* level_theme1.atlas */; };
 		42905327243E9659004EFFB6 /* level_theme1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531F243E9659004EFFB6 /* level_theme1.atlas */; };
+		42905328243E96B9004EFFB6 /* snake_dies.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA47233FC05100AA58CD /* snake_dies.wav */; };
+		42905329243E96BD004EFFB6 /* snake_eats.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA46233FC05100AA58CD /* snake_eats.wav */; };
+		4290532A243E96C1004EFFB6 /* snake_step.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA4A233FC96300AA58CD /* snake_step.wav */; };
 		429122BF23520D3000B3E32A /* SnakeBot1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429122BE23520D3000B3E32A /* SnakeBot1.swift */; };
 		4294DA3F233EF09900AA58CD /* SKSpriteNode+Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */; };
 		4294DA41233EF33200AA58CD /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA40233EF33200AA58CD /* Explosion.sks */; };
@@ -591,7 +594,6 @@
 				42B96D942347EE000073CAAA /* SnakeLevelSelectorNode.swift */,
 				423494FB234D151D009C0030 /* SnakeLevelSelectorScene.swift */,
 				42967E45234FBF3C0098A79D /* SnakeUserInput.swift */,
-				42C3182B2386F17000468D1F /* Sounds */,
 				42CCD61C23C3CF660021CBE7 /* SpriteKitContainer.swift */,
 			);
 			path = AppMac;
@@ -618,6 +620,7 @@
 				42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */,
 				4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */,
 				42CC22C82337C28500CF3D96 /* SnakeWallNode.swift */,
+				42C3182B2386F17000468D1F /* Sounds */,
 				4290531B243E9659004EFFB6 /* Themes */,
 			);
 			path = AppShared;
@@ -1017,7 +1020,10 @@
 			files = (
 				42905326243E9659004EFFB6 /* level_theme1.atlas in Resources */,
 				42FB058D243C99C4006BEE8D /* Main.storyboard in Resources */,
+				42905328243E96B9004EFFB6 /* snake_dies.wav in Resources */,
+				4290532A243E96C1004EFFB6 /* snake_step.wav in Resources */,
 				42905324243E9659004EFFB6 /* level_theme2.atlas in Resources */,
+				42905329243E96BD004EFFB6 /* snake_eats.wav in Resources */,
 				42FB0584243C99C4006BEE8D /* GameScene.sks in Resources */,
 				42FB058F243C99C7006BEE8D /* Assets.xcassets in Resources */,
 				42FB0592243C99C7006BEE8D /* LaunchScreen.storyboard in Resources */,
