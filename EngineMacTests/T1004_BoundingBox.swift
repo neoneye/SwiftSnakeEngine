@@ -1,6 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import XCTest
-@testable import SnakeGame
+@testable import EngineMac
 
 class T1004_BoundingBox: XCTestCase {
     func test0() {

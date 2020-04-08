@@ -2,7 +2,7 @@
 import Cocoa
 import SpriteKit
 import SwiftUI
-import SnakeGame
+import EngineMac
 import Combine
 
 

@@ -1,6 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import SpriteKit
-import SnakeGame
+import EngineMac
 
 class SnakeGameNode: SKNode {
 	var gameState: SnakeGameState

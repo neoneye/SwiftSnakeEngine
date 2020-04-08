@@ -3,7 +3,7 @@ import Cocoa
 import SwiftUI
 import SpriteKit
 import Combine
-import SnakeGame
+import EngineMac
 
 struct MyContentView: View {
     @State private var player1Dead: Bool = false

@@ -1,6 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import XCTest
-@testable import SnakeGame
+@testable import EngineMac
 
 class T1006_MeasureTurnCount: XCTestCase {
 

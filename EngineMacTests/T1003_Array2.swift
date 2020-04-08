@@ -1,6 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import XCTest
-@testable import SnakeGame
+@testable import EngineMac
 
 fileprivate class Demo_Array2_Int: Array2<Int> {
 	init(size: UIntVec2) {

@@ -36,7 +36,7 @@ abstract_target 'BasePodsMAC' do
 	target 'EngineMacTests' do
 	end
 
-	target 'SnakeGame' do
+	target 'EngineMac' do
 		my_shared_pods
 	end
 

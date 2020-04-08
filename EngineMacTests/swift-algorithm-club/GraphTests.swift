@@ -7,7 +7,7 @@
 
 import XCTest
 //@testable import Graph
-@testable import SnakeGame
+@testable import EngineMac
 
 class GraphTests: XCTestCase {
 

@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Cocoa
 import SSEventFlow
-import SnakeGame
+import EngineMac
 
 class FlowEvent_DidChangePlayerSetting: FlowEvent {}
 

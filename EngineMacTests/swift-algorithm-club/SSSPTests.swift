@@ -8,7 +8,7 @@
 //import Graph
 import XCTest
 //@testable import SSSP
-@testable import SnakeGame
+@testable import EngineMac
 
 class SSSPTests: XCTestCase {
   

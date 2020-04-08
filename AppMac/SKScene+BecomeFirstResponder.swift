@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Cocoa
 import SpriteKit
-import SnakeGame
+import EngineMac
 
 extension SKScene {
 	func snake_becomeFirstResponder() {

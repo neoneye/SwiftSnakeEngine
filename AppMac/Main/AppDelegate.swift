@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Cocoa
 import SwiftUI
-import SnakeGame
+import EngineMac
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {

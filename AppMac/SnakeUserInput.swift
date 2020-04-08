@@ -1,6 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
-import SnakeGame
+import EngineMac
 
 public enum SnakeUserInput {
 	case arrowUp, arrowLeft, arrowRight, arrowDown
