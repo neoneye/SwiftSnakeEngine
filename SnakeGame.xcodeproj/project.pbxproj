@@ -506,10 +506,10 @@
 				4255CA0C232F8A2100A230AF /* AppMac */,
 				42ABC10F243CAD1100E05FF3 /* EngineIOS */,
 				4255C9E7232F703E00A230AF /* EngineMac */,
+				42BF1869243DC75D00CD9F06 /* EngineShared */,
 				4255CA2D2331810100A230AF /* Frameworks */,
 				88BCF870F0A6A03EA7495181 /* Pods */,
 				4255C9E6232F703E00A230AF /* Products */,
-				42BF1869243DC75D00CD9F06 /* SnakeGameShared */,
 				4255C9F2232F703E00A230AF /* SnakeGameTests */,
 			);
 			sourceTree = "<group>";
@@ -654,7 +654,7 @@
 			path = EngineIOS;
 			sourceTree = "<group>";
 		};
-		42BF1869243DC75D00CD9F06 /* SnakeGameShared */ = {
+		42BF1869243DC75D00CD9F06 /* EngineShared */ = {
 			isa = PBXGroup;
 			children = (
 				42F4538923E5AFA200B90297 /* Bot */,
@@ -662,7 +662,7 @@
 				42F4538A23E5B0A200B90297 /* Level */,
 				422423BF233E79090006D02D /* Snake */,
 			);
-			path = SnakeGameShared;
+			path = EngineShared;
 			sourceTree = "<group>";
 		};
 		42C31826238187F600468D1F /* Main */ = {
