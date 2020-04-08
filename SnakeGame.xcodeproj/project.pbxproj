@@ -142,6 +142,8 @@
 		42BE1626243E90050031C88B /* SnakePlannedPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */; };
 		42BE1627243E93650031C88B /* SnakeBodyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */; };
 		42BE1628243E93E10031C88B /* SKSpriteNode+Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */; };
+		42BE1629243E941D0031C88B /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA40233EF33200AA58CD /* Explosion.sks */; };
+		42BE162A243E94270031C88B /* SKScene+Explode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */; };
 		42C236EB2332F4BB00241639 /* T2002_SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C236EA2332F4BB00241639 /* T2002_SnakeBody.swift */; };
 		42C236ED2333033700241639 /* MeasureAreaSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C236EC2333033700241639 /* MeasureAreaSize.swift */; };
 		42C31822237F27AF00468D1F /* Array2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C31821237F27AF00468D1F /* Array2.swift */; };
@@ -582,7 +584,6 @@
 				429CD0D423495DF300098E68 /* AppConstant.swift */,
 				4255CA1D232F8A2300A230AF /* AppMac.entitlements */,
 				4255CA17232F8A2300A230AF /* Assets.xcassets */,
-				4294DA40233EF33200AA58CD /* Explosion.sks */,
 				4217E4E523FD47DA00D8779A /* Fonts */,
 				4255CA1C232F8A2300A230AF /* Info.plist */,
 				42C31826238187F600468D1F /* Main */,
@@ -591,7 +592,6 @@
 				42C5566723ABE7E70001DBD8 /* NSEvent+KeyCode.swift */,
 				42F35E6023FD877400A4795B /* PlayerScoreView.swift */,
 				422B903A23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift */,
-				4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */,
 				4294DA502341377900AA58CD /* SnakeGameNode.swift */,
 				4255CA13232F8A2100A230AF /* SnakeGameScene.swift */,
 				42FC337123FEAC20004A50E7 /* SnakeGameSKView.swift */,
@@ -620,6 +620,8 @@
 		42685C46243E8DE2000C5511 /* AppShared */ = {
 			isa = PBXGroup;
 			children = (
+				4294DA40233EF33200AA58CD /* Explosion.sks */,
+				4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */,
 				4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */,
 				42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */,
 				4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */,
@@ -1014,6 +1016,7 @@
 				42FB058F243C99C7006BEE8D /* Assets.xcassets in Resources */,
 				42FB0592243C99C7006BEE8D /* LaunchScreen.storyboard in Resources */,
 				42FB0586243C99C4006BEE8D /* Actions.sks in Resources */,
+				42BE1629243E941D0031C88B /* Explosion.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1366,6 +1369,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42BE162A243E94270031C88B /* SKScene+Explode.swift in Sources */,
 				42BE1626243E90050031C88B /* SnakePlannedPathNode.swift in Sources */,
 				42FB0588243C99C4006BEE8D /* GameScene.swift in Sources */,
 				42FB058A243C99C4006BEE8D /* GameViewController.swift in Sources */,
