@@ -74,6 +74,7 @@
 		42905331243E99DD004EFFB6 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 42905330243E99DD004EFFB6 /* Fonts */; };
 		42905332243E99DD004EFFB6 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 42905330243E99DD004EFFB6 /* Fonts */; };
 		42905333243E9A3F004EFFB6 /* PlayerScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F35E6023FD877400A4795B /* PlayerScoreView.swift */; };
+		42905334243E9BDF004EFFB6 /* SnakeGameSKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC337123FEAC20004A50E7 /* SnakeGameSKView.swift */; };
 		429122BF23520D3000B3E32A /* SnakeBot1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429122BE23520D3000B3E32A /* SnakeBot1.swift */; };
 		4294DA3F233EF09900AA58CD /* SKSpriteNode+Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */; };
 		4294DA41233EF33200AA58CD /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA40233EF33200AA58CD /* Explosion.sks */; };
@@ -588,7 +589,6 @@
 				422B903A23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift */,
 				4294DA502341377900AA58CD /* SnakeGameNode.swift */,
 				4255CA13232F8A2100A230AF /* SnakeGameScene.swift */,
-				42FC337123FEAC20004A50E7 /* SnakeGameSKView.swift */,
 				42B96D942347EE000073CAAA /* SnakeLevelSelectorNode.swift */,
 				423494FB234D151D009C0030 /* SnakeLevelSelectorScene.swift */,
 				42967E45234FBF3C0098A79D /* SnakeUserInput.swift */,
@@ -619,6 +619,7 @@
 				4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */,
 				4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */,
 				42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */,
+				42FC337123FEAC20004A50E7 /* SnakeGameSKView.swift */,
 				4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */,
 				42CC22C82337C28500CF3D96 /* SnakeWallNode.swift */,
 				42C3182B2386F17000468D1F /* Sounds */,
@@ -1389,6 +1390,7 @@
 				42FB0588243C99C4006BEE8D /* GameScene.swift in Sources */,
 				42FB058A243C99C4006BEE8D /* GameViewController.swift in Sources */,
 				42685C47243E8DF5000C5511 /* SnakeWallNode.swift in Sources */,
+				42905334243E9BDF004EFFB6 /* SnakeGameSKView.swift in Sources */,
 				42905333243E9A3F004EFFB6 /* PlayerScoreView.swift in Sources */,
 				42BE1628243E93E10031C88B /* SKSpriteNode+Pulse.swift in Sources */,
 				42BE1627243E93650031C88B /* SnakeBodyNode.swift in Sources */,
