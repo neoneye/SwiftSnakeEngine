@@ -510,8 +510,8 @@
 				4255CA0C232F8A2100A230AF /* AppMac */,
 				42ABC10F243CAD1100E05FF3 /* EngineIOS */,
 				4255C9E7232F703E00A230AF /* EngineMac */,
+				4255C9F2232F703E00A230AF /* EngineMacTests */,
 				42BF1869243DC75D00CD9F06 /* EngineShared */,
-				4255C9F2232F703E00A230AF /* EngineTests */,
 				4255CA2D2331810100A230AF /* Frameworks */,
 				88BCF870F0A6A03EA7495181 /* Pods */,
 				4255C9E6232F703E00A230AF /* Products */,
@@ -539,7 +539,7 @@
 			path = EngineMac;
 			sourceTree = "<group>";
 		};
-		4255C9F2232F703E00A230AF /* EngineTests */ = {
+		4255C9F2232F703E00A230AF /* EngineMacTests */ = {
 			isa = PBXGroup;
 			children = (
 				4255C9F5232F703E00A230AF /* Info.plist */,
@@ -561,7 +561,7 @@
 				42CCD60823BD54F70021CBE7 /* T3001_SnakeLevel_Cluster.swift */,
 				429D336723FB056300EF9B37 /* T3100_StuckSnakeDetector.swift */,
 			);
-			path = EngineTests;
+			path = EngineMacTests;
 			sourceTree = "<group>";
 		};
 		4255CA0C232F8A2100A230AF /* AppMac */ = {
@@ -1589,7 +1589,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 22DR89XVRF;
-				INFOPLIST_FILE = EngineTests/Info.plist;
+				INFOPLIST_FILE = EngineMacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1610,7 +1610,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 22DR89XVRF;
-				INFOPLIST_FILE = EngineTests/Info.plist;
+				INFOPLIST_FILE = EngineMacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
