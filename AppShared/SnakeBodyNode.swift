@@ -1,6 +1,13 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import SpriteKit
+
+#if os(iOS)
+import EngineIOS
+#elseif os(macOS)
 import EngineMac
+#else
+#error("Unknown OS")
+#endif
 
 class SnakeBodyNode: SKEffectNode {
     enum Theme {
@@ -26,6 +33,7 @@ class SnakeBodyNode: SKEffectNode {
 		return convertCoordinate?(position) ?? CGPoint.zero
 	}
 
+    #if os(macOS)
 	public func configure(skin: PlayerSkinMenuItem) {
 		switch skin {
 		case .retroGreen:
@@ -40,6 +48,7 @@ class SnakeBodyNode: SKEffectNode {
 			configure_texturedTheme(named: "snakeskin_blue")
 		}
 	}
+    #endif
 
 	private func configure_texturedTheme(named: String) {
         self.theme = Theme.textured

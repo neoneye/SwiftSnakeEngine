@@ -140,6 +140,7 @@
 		42ABC151243D13B400E05FF3 /* SnakeLevels.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4253C53E23359FB000210611 /* SnakeLevels.bundle */; };
 		42B96D952347EE000073CAAA /* SnakeLevelSelectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B96D942347EE000073CAAA /* SnakeLevelSelectorNode.swift */; };
 		42BE1626243E90050031C88B /* SnakePlannedPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */; };
+		42BE1627243E93650031C88B /* SnakeBodyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */; };
 		42C236EB2332F4BB00241639 /* T2002_SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C236EA2332F4BB00241639 /* T2002_SnakeBody.swift */; };
 		42C236ED2333033700241639 /* MeasureAreaSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C236EC2333033700241639 /* MeasureAreaSize.swift */; };
 		42C31822237F27AF00468D1F /* Array2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C31821237F27AF00468D1F /* Array2.swift */; };
@@ -591,7 +592,6 @@
 				422B903A23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift */,
 				4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */,
 				4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */,
-				42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */,
 				4294DA502341377900AA58CD /* SnakeGameNode.swift */,
 				4255CA13232F8A2100A230AF /* SnakeGameScene.swift */,
 				42FC337123FEAC20004A50E7 /* SnakeGameSKView.swift */,
@@ -620,6 +620,7 @@
 		42685C46243E8DE2000C5511 /* AppShared */ = {
 			isa = PBXGroup;
 			children = (
+				42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */,
 				4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */,
 				42CC22C82337C28500CF3D96 /* SnakeWallNode.swift */,
 			);
@@ -1368,6 +1369,7 @@
 				42FB0588243C99C4006BEE8D /* GameScene.swift in Sources */,
 				42FB058A243C99C4006BEE8D /* GameViewController.swift in Sources */,
 				42685C47243E8DF5000C5511 /* SnakeWallNode.swift in Sources */,
+				42BE1627243E93650031C88B /* SnakeBodyNode.swift in Sources */,
 				42FB0582243C99C4006BEE8D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
