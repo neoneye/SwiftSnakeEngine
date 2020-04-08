@@ -1,6 +1,13 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import SpriteKit
+
+#if os(iOS)
+import EngineIOS
+#elseif os(macOS)
 import EngineMac
+#else
+#error("Unknown OS")
+#endif
 
 class SnakeWallNode: SKNode {
 	var node_wall: SKSpriteNode?

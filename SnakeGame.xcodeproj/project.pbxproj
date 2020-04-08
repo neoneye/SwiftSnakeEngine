@@ -51,6 +51,7 @@
 		4255CA2E2331810100A230AF /* EngineMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4255C9E5232F703E00A230AF /* EngineMac.framework */; };
 		42685C44243E8BAE000C5511 /* SnakePlayerKillEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42685C43243E8BAE000C5511 /* SnakePlayerKillEvent.swift */; };
 		42685C45243E8BAE000C5511 /* SnakePlayerKillEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42685C43243E8BAE000C5511 /* SnakePlayerKillEvent.swift */; };
+		42685C47243E8DF5000C5511 /* SnakeWallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22C82337C28500CF3D96 /* SnakeWallNode.swift */; };
 		426891F9233267E900B97E29 /* AdjacencyListGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F1233267E900B97E29 /* AdjacencyListGraph.swift */; };
 		426891FA233267E900B97E29 /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F2233267E900B97E29 /* Edge.swift */; };
 		426891FB233267E900B97E29 /* AdjacencyMatrixGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F3233267E900B97E29 /* AdjacencyMatrixGraph.swift */; };
@@ -514,6 +515,7 @@
 			children = (
 				42FB0580243C99C4006BEE8D /* AppIOS */,
 				4255CA0C232F8A2100A230AF /* AppMac */,
+				42685C46243E8DE2000C5511 /* AppShared */,
 				42ABC10F243CAD1100E05FF3 /* EngineIOS */,
 				4255C9E7232F703E00A230AF /* EngineMac */,
 				4255C9F2232F703E00A230AF /* EngineMacTests */,
@@ -596,7 +598,6 @@
 				423494FB234D151D009C0030 /* SnakeLevelSelectorScene.swift */,
 				4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */,
 				42967E45234FBF3C0098A79D /* SnakeUserInput.swift */,
-				42CC22C82337C28500CF3D96 /* SnakeWallNode.swift */,
 				42C3182B2386F17000468D1F /* Sounds */,
 				42CCD61C23C3CF660021CBE7 /* SpriteKitContainer.swift */,
 				4246C44A235BD54000324965 /* Themes */,
@@ -614,6 +615,14 @@
 				1415E0FB44E85AF5705D25E0 /* Pods_BasePodsMAC_EngineMac.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		42685C46243E8DE2000C5511 /* AppShared */ = {
+			isa = PBXGroup;
+			children = (
+				42CC22C82337C28500CF3D96 /* SnakeWallNode.swift */,
+			);
+			path = AppShared;
 			sourceTree = "<group>";
 		};
 		426891EF233267E900B97E29 /* swift-algorithm-club */ = {
@@ -1356,6 +1365,7 @@
 			files = (
 				42FB0588243C99C4006BEE8D /* GameScene.swift in Sources */,
 				42FB058A243C99C4006BEE8D /* GameViewController.swift in Sources */,
+				42685C47243E8DF5000C5511 /* SnakeWallNode.swift in Sources */,
 				42FB0582243C99C4006BEE8D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
