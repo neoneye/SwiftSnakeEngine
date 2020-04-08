@@ -504,10 +504,10 @@
 			children = (
 				42FB0580243C99C4006BEE8D /* AppIOS */,
 				4255CA0C232F8A2100A230AF /* AppMac */,
+				4255C9E7232F703E00A230AF /* EngineMac */,
 				4255CA2D2331810100A230AF /* Frameworks */,
 				88BCF870F0A6A03EA7495181 /* Pods */,
 				4255C9E6232F703E00A230AF /* Products */,
-				4255C9E7232F703E00A230AF /* SnakeGame */,
 				42ABC10F243CAD1100E05FF3 /* SnakeGameIOS */,
 				42BF1869243DC75D00CD9F06 /* SnakeGameShared */,
 				4255C9F2232F703E00A230AF /* SnakeGameTests */,
@@ -526,13 +526,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4255C9E7232F703E00A230AF /* SnakeGame */ = {
+		4255C9E7232F703E00A230AF /* EngineMac */ = {
 			isa = PBXGroup;
 			children = (
 				4255C9E9232F703E00A230AF /* Info.plist */,
 				42EFB41823E57E18002B6191 /* SnakeGame.h */,
 			);
-			path = SnakeGame;
+			path = EngineMac;
 			sourceTree = "<group>";
 		};
 		4255C9F2232F703E00A230AF /* SnakeGameTests */ = {
@@ -1530,7 +1530,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = SnakeGame/Info.plist;
+				INFOPLIST_FILE = EngineMac/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1559,7 +1559,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = SnakeGame/Info.plist;
+				INFOPLIST_FILE = EngineMac/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
