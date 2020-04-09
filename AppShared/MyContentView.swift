@@ -1,9 +1,13 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
-import Cocoa
 import SwiftUI
-import SpriteKit
-import Combine
+
+#if os(iOS)
+import EngineIOS
+#elseif os(macOS)
 import EngineMac
+#else
+#error("Unknown OS")
+#endif
 
 struct MyContentView: View {
     @State private var player1Dead: Bool = false
