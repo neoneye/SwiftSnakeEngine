@@ -1,7 +1,17 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import SpriteKit
+
+#if os(iOS)
+import EngineIOS
+#elseif os(macOS)
 import EngineMac
+#else
+#error("Unknown OS")
+#endif
+
+#if os(macOS)
 import SSEventFlow
+#endif
 
 enum UpdateAction {
     case doNothing
@@ -75,6 +85,7 @@ class SnakeGameScene: SKScene {
 		super.init(coder: aDecoder)
 	}
 
+    #if os(macOS)
 	override func mouseUp(with event: NSEvent) {
 		let transition = SKTransition.doorway(withDuration: 0.75)
 //		let transition = SKTransition.crossFade(withDuration: 1)
@@ -88,7 +99,9 @@ class SnakeGameScene: SKScene {
 		let newScene = SnakeLevelSelectorScene.create()
 		scene?.view?.presentScene(newScene, transition: transition)
 	}
+    #endif
 
+    #if os(macOS)
     /// Workaround, similar to the function `mouseMoved()`.
     ///
     /// I'm using SwiftUI, so I guess that is the reason that the function `mouseMoved()` never get called.
@@ -98,6 +111,7 @@ class SnakeGameScene: SKScene {
         let gridPosition: CGPoint = gridPointFromGameNodeLocation(mousePosition)
         log.debug("grid position: \(gridPosition.string1)")
     }
+    #endif
 
     override func didMove(to view: SKView) {
 		super.didMove(to: view)
@@ -111,7 +125,9 @@ class SnakeGameScene: SKScene {
         gameNodeNeedRedraw.insert(.didMoveToView)
 		needBecomeFirstResponder = true
 
+        #if os(macOS)
 		flow_start()
+        #endif
 	}
 
 	func createContent() {
@@ -127,7 +143,9 @@ class SnakeGameScene: SKScene {
 	
 	override func willMove(from view: SKView) {
 		super.willMove(from: view)
+        #if os(macOS)
 		flow_stop()
+        #endif
 	}
 
 	func restartGame() {
@@ -154,6 +172,7 @@ class SnakeGameScene: SKScene {
 		)
 	}
 
+    #if os(macOS)
     override func keyDown(with event: NSEvent) {
 		if AppConstant.ignoreRepeatingKeyDownEvents && event.isARepeat {
 			//log.debug("keyDown: ignoring repeating event.")
@@ -203,6 +222,7 @@ class SnakeGameScene: SKScene {
             log.debug("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
         }
     }
+    #endif
 
 	func userInputForPlayer1(_ userInput: SnakeUserInput) {
 		guard gameState.player1.isAlive && gameState.player1.role == .human else {
@@ -288,7 +308,9 @@ class SnakeGameScene: SKScene {
 
 		if needBecomeFirstResponder {
 			needBecomeFirstResponder = false
+            #if os(macOS)
 			snake_becomeFirstResponder()
+            #endif
 		}
 
         if !gameNodeNeedRedraw.isEmpty {
@@ -422,10 +444,14 @@ class SnakeGameScene: SKScene {
 	}
 
 	func playSoundEffect(_ action: SKAction) {
+        #if os(macOS)
 		guard NSUserDefaultsController.shared.isSoundEffectsEnabled else {
 			return
 		}
 		run(action)
+        #elseif os(iOS)
+        run(action)
+        #endif
 	}
 
 	func cgPointFromGridPoint(_ point: IntVec2) -> CGPoint {
@@ -445,6 +471,7 @@ class SnakeGameScene: SKScene {
     }
 }
 
+#if os(macOS)
 extension SnakeGameScene: FlowDispatcher {
 	func flow_dispatch(_ event: FlowEvent) {
 		if event is FlowEvent_PerformUndo {
@@ -458,6 +485,7 @@ extension SnakeGameScene: FlowDispatcher {
         }
 	}
 }
+#endif
 
 struct GameNodeNeedRedraw: OptionSet {
     let rawValue: UInt
