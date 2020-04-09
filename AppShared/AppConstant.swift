@@ -13,7 +13,8 @@ import EngineMac
 struct AppConstant {
 	enum Mode {
 		case production
-		case experimentWithAI_botVsNone
+		case develop_humanVsNone
+        case develop_botVsNone
 	}
 	static let mode: Mode = .production
 

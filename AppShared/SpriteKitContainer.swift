@@ -100,8 +100,10 @@ struct SpriteKitContainer: ViewRepresentableType {
 		switch AppConstant.mode {
 		case .production:
 			scene = SnakeLevelSelectorScene.create()
-		case .experimentWithAI_botVsNone:
-			scene = SnakeGameScene.createBotVsNone()
+		case .develop_humanVsNone:
+			scene = SnakeGameScene.createHumanVsNone()
+        case .develop_botVsNone:
+            scene = SnakeGameScene.createBotVsNone()
 		}
 		view.presentScene(scene)
 		return view

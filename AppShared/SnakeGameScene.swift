@@ -54,16 +54,26 @@ class SnakeGameScene: SKScene {
 		return scene
 	}
 
-	class func createBotVsNone() -> SnakeGameScene {
+	class func createHumanVsNone() -> SnakeGameScene {
 		let newScene = SnakeGameScene.create()
-		let snakeBotType: SnakeBot.Type = SnakeBotFactory.snakeBotTypes.last ?? SnakeBotFactory.emptyBotType()
 		newScene.initialGameState = SnakeGameState.create(
-			player1: .bot(snakeBotType: snakeBotType),
+			player1: .human,
 			player2: .none,
 			levelName: "Level 0.csv"
 		)
 		return newScene
 	}
+
+    class func createBotVsNone() -> SnakeGameScene {
+        let newScene = SnakeGameScene.create()
+        let snakeBotType: SnakeBot.Type = SnakeBotFactory.snakeBotTypes.last ?? SnakeBotFactory.emptyBotType()
+        newScene.initialGameState = SnakeGameState.create(
+            player1: .bot(snakeBotType: snakeBotType),
+            player2: .none,
+            levelName: "Level 0.csv"
+        )
+        return newScene
+    }
 
 	override init(size: CGSize) {
 		self.trainingSessionUUID = UUID()
