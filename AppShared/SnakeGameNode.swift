@@ -1,6 +1,13 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import SpriteKit
+
+#if os(iOS)
+import EngineIOS
+#elseif os(macOS)
 import EngineMac
+#else
+#error("Unknown OS")
+#endif
 
 class SnakeGameNode: SKNode {
 	var gameState: SnakeGameState
@@ -106,10 +113,17 @@ class SnakeGameNode: SKNode {
 			configureTheme2()
 		}
 
+        #if os(macOS)
 		snakeBodyNode1.configure(skin: UserDefaults.standard.player1SkinMenuItem)
 		snakeBodyNode2.configure(skin: UserDefaults.standard.player2SkinMenuItem)
         snakePlannedPathNode1.configure(skin: UserDefaults.standard.player1SkinMenuItem)
         snakePlannedPathNode2.configure(skin: UserDefaults.standard.player2SkinMenuItem)
+        #else
+        snakeBodyNode1.configure(skin: PlayerSkinMenuItem.retroGreen)
+        snakeBodyNode1.configure(skin: PlayerSkinMenuItem.retroBlue)
+        snakePlannedPathNode1.configure(skin: PlayerSkinMenuItem.retroGreen)
+        snakePlannedPathNode2.configure(skin: PlayerSkinMenuItem.retroBlue)
+        #endif
 
 		self.node_food?.zPosition = 10
 		self.node_wall?.zPosition = 20

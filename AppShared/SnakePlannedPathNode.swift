@@ -20,17 +20,23 @@ class SnakePlannedPathNode: SKEffectNode {
         return convertCoordinate?(position) ?? CGPoint.zero
     }
 
-    #if os(macOS)
     public func configure(skin: PlayerSkinMenuItem) {
         switch skin {
         case .retroGreen, .cuteGreen:
+            #if os(macOS)
             colorHighConfidence = SKColor(calibratedRed: 0.1, green: 0.7, blue: 0.1, alpha: 0.9)
+            #else
+            colorHighConfidence = SKColor(red: 0.1, green: 0.7, blue: 0.1, alpha: 0.9)
+            #endif
         case .retroBlue, .cuteBlue:
+            #if os(macOS)
             colorHighConfidence = SKColor(calibratedRed: 0.25, green: 0.3, blue: 0.8, alpha: 0.9)
+            #else
+            colorHighConfidence = SKColor(red: 0.25, green: 0.3, blue: 0.8, alpha: 0.9)
+            #endif
         }
         colorLowConfidence = colorHighConfidence.colorWithOpacity(0.5)
     }
-    #endif
 
     func rebuild(player: SnakePlayer, foodPosition: IntVec2?) {
         guard player.isInstalled else {

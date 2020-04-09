@@ -33,7 +33,6 @@ class SnakeBodyNode: SKEffectNode {
 		return convertCoordinate?(position) ?? CGPoint.zero
 	}
 
-    #if os(macOS)
 	public func configure(skin: PlayerSkinMenuItem) {
 		switch skin {
 		case .retroGreen:
@@ -48,7 +47,6 @@ class SnakeBodyNode: SKEffectNode {
 			configure_texturedTheme(named: "snakeskin_blue")
 		}
 	}
-    #endif
 
 	private func configure_texturedTheme(named: String) {
         self.theme = Theme.textured
