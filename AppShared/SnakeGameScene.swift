@@ -96,6 +96,13 @@ class SnakeGameScene: SKScene {
 	}
 
     #if os(iOS)
+
+    let tapGestureRecognizer = UITapGestureRecognizer()
+
+    @objc func tapAction(sender: UITapGestureRecognizer) {
+        userInputForPlayer1Forward()
+    }
+
     var touchBeganAtPosition: CGPoint = CGPoint.zero
 
     enum TouchMoveDirection {
@@ -289,6 +296,14 @@ class SnakeGameScene: SKScene {
         #if os(macOS)
 		flow_start()
         #endif
+
+
+        #if os(iOS)
+        tapGestureRecognizer.addTarget(self, action: #selector(tapAction(sender:)))
+        tapGestureRecognizer.numberOfTouchesRequired = 1
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        self.view?.addGestureRecognizer(tapGestureRecognizer)
+        #endif
 	}
 
 	func createContent() {
@@ -384,6 +399,16 @@ class SnakeGameScene: SKScene {
         }
     }
     #endif
+
+    func userInputForPlayer1Forward() {
+        guard gameState.player1.isAlive && gameState.player1.role == .human else {
+            return
+        }
+        let newGameState: SnakeGameState = gameState.updatePendingMovementForPlayer1(.moveForward)
+        self.gameState = newGameState
+        self.isPaused = false
+        self.pendingUpdateAction = .stepForwardContinuously
+    }
 
 	func userInputForPlayer1(_ userInput: SnakeUserInput) {
 		guard gameState.player1.isAlive && gameState.player1.role == .human else {
