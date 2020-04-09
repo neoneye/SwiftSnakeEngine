@@ -140,7 +140,7 @@ class SnakeLevelSelectorScene: SKScene {
         #if os(macOS)
         levelSelectorNode.selectedIndex = NSUserDefaultsController.shared.selectedLevelIndex
         #else
-        levelSelectorNode.selectedIndex = 6
+        levelSelectorNode.selectedIndex = 0
         #endif
         needSendingLevelInfo = true
 		levelSelectorNode.createGameStates()
