@@ -95,14 +95,20 @@ class SnakeLevelSelectorNode: SKSpriteNode {
         #if os(macOS)
 		role1 = UserDefaults.standard.player1RoleMenuItem.role
         #else
+//        role1 = SnakePlayerRole.none
         role1 = SnakePlayerRole.human
+//        let snakeBotType: SnakeBot.Type = SnakeBotFactory.snakeBotTypes.last!
+//        role1 = SnakePlayerRole.bot(snakeBotType: snakeBotType)
         #endif
 
         let role2: SnakePlayerRole
         #if os(macOS)
         role2 = UserDefaults.standard.player2RoleMenuItem.role
         #else
-        role2 = SnakePlayerRole.none
+//        role2 = SnakePlayerRole.none
+//        role2 = SnakePlayerRole.human
+        let snakeBotType: SnakeBot.Type = SnakeBotFactory.snakeBotTypes.last!
+        role2 = SnakePlayerRole.bot(snakeBotType: snakeBotType)
         #endif
 
 		let levelNames: [String] = SnakeLevelManager.shared.levelNames
