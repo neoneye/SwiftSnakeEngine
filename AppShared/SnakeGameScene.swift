@@ -96,6 +96,17 @@ class SnakeGameScene: SKScene {
 	}
 
     #if os(iOS)
+    var touchBeganAtPosition: CGPoint = CGPoint.zero
+
+    enum TouchMoveDirection {
+        case undecided
+        case horizontal
+        case vertical
+    }
+
+    var touchMoveDirection = TouchMoveDirection.undecided
+
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 
         guard let touch: UITouch = touches.first else {
@@ -103,13 +114,110 @@ class SnakeGameScene: SKScene {
         }
 
         let touchPoint: CGPoint = touch.location(in: self)
-        let gridPoint: CGPoint = gridPointFromGameNodeLocation(touchPoint)
+        touchBeganAtPosition = touchPoint
+        touchMoveDirection = TouchMoveDirection.undecided
 
-        let head: SnakeHead = gameState.player1.snakeBody.head
+//        let gridPoint: CGPoint = gridPointFromGameNodeLocation(touchPoint)
+//
+//        let head: SnakeHead = gameState.player1.snakeBody.head
+//
+//        let dx: Int32 = head.position.x - Int32(gridPoint.x)
+//        let dy: Int32 = head.position.y - Int32(gridPoint.y)
+//        log.debug("diff: \(dx) \(dy)")
+//
+//        if dx > 0 {
+//            userInputForPlayer1(.arrowLeft)
+//        }
+//        if dx < 0 {
+//            userInputForPlayer1(.arrowRight)
+//        }
+//        if dy > 0 {
+//            userInputForPlayer1(.arrowDown)
+//        }
+//        if dy < 0 {
+//            userInputForPlayer1(.arrowUp)
+//        }
 
-        let dx: Int32 = head.position.x - Int32(gridPoint.x)
-        let dy: Int32 = head.position.y - Int32(gridPoint.y)
-        log.debug("diff: \(dx) \(dy)")
+    }
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch: UITouch = touches.first else {
+            return
+        }
+
+        let touchPoint: CGPoint = touch.location(in: self)
+        switch self.touchMoveDirection {
+        case .undecided:
+            touchMoved_undecided(beganAtPosition: self.touchBeganAtPosition, currentPosition: touchPoint)
+        case .horizontal:
+            log.debug("decided horizontal")
+        case .vertical:
+            log.debug("decided vertical")
+        }
+    }
+
+    func touchMoved_undecided(beganAtPosition: CGPoint, currentPosition: CGPoint) {
+        let gridPoint0: CGPoint = gridPointFromGameNodeLocation(beganAtPosition)
+        let gridPoint1: CGPoint = gridPointFromGameNodeLocation(currentPosition)
+        let dx: CGFloat = gridPoint0.x - gridPoint1.x
+        let dy: CGFloat = gridPoint0.y - gridPoint1.y
+        let dx2: CGFloat = dx * dx
+        let dy2: CGFloat = dy * dy
+        let distance: CGFloat = sqrt(dx2 + dy2)
+        guard distance > 0.1 else {
+            return
+        }
+//        log.debug("undecided distance: \(distance.string2)")
+        if dx2 > dy2 {
+            touchMoveDirection = .horizontal
+//            log.debug("moving horizontal")
+        } else {
+            touchMoveDirection = .vertical
+//            log.debug("moving vertical")
+        }
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch: UITouch = touches.first else {
+            return
+        }
+
+        let touchPoint: CGPoint = touch.location(in: self)
+        switch self.touchMoveDirection {
+        case .undecided:
+            log.debug("do nothing")
+        case .horizontal:
+            touchUp_horizontal(beganAtPosition: self.touchBeganAtPosition, currentPosition: touchPoint)
+        case .vertical:
+            touchUp_vertical(beganAtPosition: self.touchBeganAtPosition, currentPosition: touchPoint)
+        }
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch: UITouch = touches.first else {
+            return
+        }
+
+        let touchPoint: CGPoint = touch.location(in: self)
+        switch self.touchMoveDirection {
+        case .undecided:
+            log.debug("do nothing")
+        case .horizontal:
+            touchUp_horizontal(beganAtPosition: self.touchBeganAtPosition, currentPosition: touchPoint)
+        case .vertical:
+            touchUp_vertical(beganAtPosition: self.touchBeganAtPosition, currentPosition: touchPoint)
+        }
+    }
+
+    func touchUp_horizontal(beganAtPosition: CGPoint, currentPosition: CGPoint) {
+        let gridPoint0: CGPoint = gridPointFromGameNodeLocation(beganAtPosition)
+        let gridPoint1: CGPoint = gridPointFromGameNodeLocation(currentPosition)
+        let dx: CGFloat = gridPoint0.x - gridPoint1.x
+        let dx2: CGFloat = dx * dx
+        let distance: CGFloat = sqrt(dx2)
+        guard distance > 0.1 else {
+            return
+        }
 
         if dx > 0 {
             userInputForPlayer1(.arrowLeft)
@@ -117,13 +225,24 @@ class SnakeGameScene: SKScene {
         if dx < 0 {
             userInputForPlayer1(.arrowRight)
         }
+    }
+
+    func touchUp_vertical(beganAtPosition: CGPoint, currentPosition: CGPoint) {
+        let gridPoint0: CGPoint = gridPointFromGameNodeLocation(beganAtPosition)
+        let gridPoint1: CGPoint = gridPointFromGameNodeLocation(currentPosition)
+        let dy: CGFloat = gridPoint0.y - gridPoint1.y
+        let dy2: CGFloat = dy * dy
+        let distance: CGFloat = sqrt(dy2)
+        guard distance > 0.1 else {
+            return
+        }
+
         if dy > 0 {
             userInputForPlayer1(.arrowDown)
         }
         if dy < 0 {
             userInputForPlayer1(.arrowUp)
         }
-
     }
     #endif
 
