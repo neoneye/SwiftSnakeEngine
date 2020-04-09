@@ -120,7 +120,7 @@ class SnakeGameNode: SKNode {
         snakePlannedPathNode2.configure(skin: UserDefaults.standard.player2SkinMenuItem)
         #else
         snakeBodyNode1.configure(skin: PlayerSkinMenuItem.retroGreen)
-        snakeBodyNode1.configure(skin: PlayerSkinMenuItem.retroBlue)
+        snakeBodyNode2.configure(skin: PlayerSkinMenuItem.retroBlue)
         snakePlannedPathNode1.configure(skin: PlayerSkinMenuItem.retroGreen)
         snakePlannedPathNode2.configure(skin: PlayerSkinMenuItem.retroBlue)
         #endif
