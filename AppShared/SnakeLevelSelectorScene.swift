@@ -1,7 +1,17 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import SpriteKit
+
+#if os(iOS)
+import EngineIOS
+#elseif os(macOS)
 import EngineMac
+#else
+#error("Unknown OS")
+#endif
+
+#if os(macOS)
 import SSEventFlow
+#endif
 
 class SnakeLevelSelectorScene: SKScene {
 	var contentCreated = false
@@ -28,9 +38,11 @@ class SnakeLevelSelectorScene: SKScene {
 		super.init(coder: aDecoder)
 	}
 
+    #if os(macOS)
 	override func mouseUp(with event: NSEvent) {
 		launchGame()
 	}
+    #endif
 
 	func launchGame() {
 		guard let gameState: SnakeGameState = levelSelectorNode.gameStateForSelectedIndex() else {
@@ -65,7 +77,9 @@ class SnakeLevelSelectorScene: SKScene {
 		needRedraw = true
 		needBecomeFirstResponder = true
 
+        #if os(macOS)
 		flow_start()
+        #endif
 	}
 
 	func createContent() {
@@ -76,7 +90,11 @@ class SnakeLevelSelectorScene: SKScene {
 		guard levelSelectorNode.parent == nil else {
 			fatalError("Expected levelSelectorNode.parent to be nil, but got non-nil.")
 		}
-		levelSelectorNode.selectedIndex = NSUserDefaultsController.shared.selectedLevelIndex
+        #if os(macOS)
+        levelSelectorNode.selectedIndex = NSUserDefaultsController.shared.selectedLevelIndex
+        #else
+        levelSelectorNode.selectedIndex = 0
+        #endif
         needSendingLevelInfo = true
 		levelSelectorNode.createGameStates()
 		levelSelectorNode.createGameNodes()
@@ -85,9 +103,12 @@ class SnakeLevelSelectorScene: SKScene {
 
 	override func willMove(from view: SKView) {
 		super.willMove(from: view)
+        #if os(macOS)
 		flow_stop()
+        #endif
 	}
 
+    #if os(macOS)
     override func keyDown(with event: NSEvent) {
 		if AppConstant.ignoreRepeatingKeyDownEvents && event.isARepeat {
 			//log.debug("keyDown: ignoring repeating event.")
@@ -122,6 +143,7 @@ class SnakeLevelSelectorScene: SKScene {
             log.debug("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
         }
     }
+    #endif
 
 	func updateCamera() {
 		let nodeSize: CGSize = self.size
@@ -147,7 +169,9 @@ class SnakeLevelSelectorScene: SKScene {
 
 		if needBecomeFirstResponder {
 			needBecomeFirstResponder = false
+            #if os(macOS)
 			snake_becomeFirstResponder()
+            #endif
 		}
 
 		if needRedraw {
@@ -171,6 +195,7 @@ class SnakeLevelSelectorScene: SKScene {
 	}
 }
 
+#if os(macOS)
 extension SnakeLevelSelectorScene: FlowDispatcher {
 	func flow_dispatch(_ event: FlowEvent) {
 		if event is FlowEvent_DidChangePlayerSetting {
@@ -182,3 +207,4 @@ extension SnakeLevelSelectorScene: FlowDispatcher {
 		}
 	}
 }
+#endif
