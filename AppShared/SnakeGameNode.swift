@@ -131,6 +131,9 @@ class SnakeGameNode: SKNode {
 		self.node_food?.isHidden = true
 		self.node_wall?.isHidden = true
 
+        self.nextMoveIndicatorNode.zPosition = 99
+        self.addChild(self.nextMoveIndicatorNode)
+
 		self.snakeBodyNode1.zPosition = 100
 		self.snakeBodyNode2.zPosition = 100
 		self.addChild(self.snakeBodyNode1)
@@ -155,6 +158,19 @@ class SnakeGameNode: SKNode {
         snakePlannedPathNode1.rebuild(player: gameState.player1, foodPosition: gameState.foodPosition)
         snakePlannedPathNode2.rebuild(player: gameState.player2, foodPosition: gameState.foodPosition)
 	}
+
+    lazy var nextMoveIndicatorNode: SKShapeNode = {
+        let gridSize: CGFloat = AppConstant.tileSize
+        let shapeSize = CGSize(
+            width: gridSize,
+            height: gridSize
+        )
+        let node: SKShapeNode = SKShapeNode(rectOf: shapeSize, cornerRadius: gridSize * 0.1)
+        node.lineWidth = 2.5
+        node.fillColor = SKColor(white: 0.7, alpha: 0.2)
+        node.strokeColor = SKColor(white: 0.8, alpha: 1.0)
+        return node
+    }()
 
 	lazy var wallNode: SnakeWallNode = {
 		let instance = SnakeWallNode()

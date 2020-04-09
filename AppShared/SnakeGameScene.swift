@@ -86,13 +86,7 @@ class SnakeGameScene: SKScene {
 	}
 
 	required init?(coder aDecoder: NSCoder) {
-		self.trainingSessionUUID = UUID()
-		self.trainingSessionURLs = []
-		self.initialGameState = SnakeGameScene.defaultInitialGameState()
-		self.gameState = SnakeGameState.empty()
-		self.gameNode = SnakeGameNode()
-        self.gameNodeNeedRedraw.insert(.newGame)
-		super.init(coder: aDecoder)
+        fatalError()
 	}
 
     #if os(iOS)
@@ -166,9 +160,9 @@ class SnakeGameScene: SKScene {
         case .undecided:
             touchMoved_undecided(beganAtPosition: self.touchBeganAtPosition, currentPosition: touchPoint)
         case .horizontal:
-            log.debug("decided horizontal")
+            touchMoved_horizontal(beganAtPosition: self.touchBeganAtPosition, currentPosition: touchPoint)
         case .vertical:
-            log.debug("decided vertical")
+            touchMoved_vertical(beganAtPosition: self.touchBeganAtPosition, currentPosition: touchPoint)
         }
     }
 
@@ -225,6 +219,52 @@ class SnakeGameScene: SKScene {
         }
     }
 
+    func touchMoved_horizontal(beganAtPosition: CGPoint, currentPosition: CGPoint) {
+        guard gameState.player1.isAlive && gameState.player1.role == .human else {
+            return
+        }
+        let snakeHead: SnakeHead = gameState.player1.snakeBody.head
+
+        let gridPoint0: CGPoint = gridPointFromGameNodeLocation(beganAtPosition)
+        let gridPoint1: CGPoint = gridPointFromGameNodeLocation(currentPosition)
+        var dx: CGFloat = gridPoint1.x - gridPoint0.x
+        if dx > 1 {
+            dx = 1
+        }
+        if dx < -1 {
+            dx = -1
+        }
+        var gridPoint2: CGPoint = snakeHead.position.cgPoint
+        gridPoint2.x += dx
+        gridPoint2.x += 0.5
+        gridPoint2.y += 0.5
+        self.gameNode.nextMoveIndicatorNode.position = cgPointFromGridPoint2(gridPoint2)
+        self.gameNode.nextMoveIndicatorNode.run(SKAction.fadeIn(withDuration: 0.1))
+    }
+
+    func touchMoved_vertical(beganAtPosition: CGPoint, currentPosition: CGPoint) {
+        guard gameState.player1.isAlive && gameState.player1.role == .human else {
+            return
+        }
+        let snakeHead: SnakeHead = gameState.player1.snakeBody.head
+
+        let gridPoint0: CGPoint = gridPointFromGameNodeLocation(beganAtPosition)
+        let gridPoint1: CGPoint = gridPointFromGameNodeLocation(currentPosition)
+        var dy: CGFloat = gridPoint1.y - gridPoint0.y
+        if dy > 1 {
+            dy = 1
+        }
+        if dy < -1 {
+            dy = -1
+        }
+        var gridPoint2: CGPoint = snakeHead.position.cgPoint
+        gridPoint2.y += dy
+        gridPoint2.x += 0.5
+        gridPoint2.y += 0.5
+        self.gameNode.nextMoveIndicatorNode.position = cgPointFromGridPoint2(gridPoint2)
+        self.gameNode.nextMoveIndicatorNode.run(SKAction.fadeIn(withDuration: 0.1))
+    }
+
     func touchUp_horizontal(beganAtPosition: CGPoint, currentPosition: CGPoint) {
         let gridPoint0: CGPoint = gridPointFromGameNodeLocation(beganAtPosition)
         let gridPoint1: CGPoint = gridPointFromGameNodeLocation(currentPosition)
@@ -241,6 +281,8 @@ class SnakeGameScene: SKScene {
         if dx < 0 {
             userInputForPlayer1(.arrowRight)
         }
+
+        touchUp_snapIntoPlace()
     }
 
     func touchUp_vertical(beganAtPosition: CGPoint, currentPosition: CGPoint) {
@@ -259,6 +301,26 @@ class SnakeGameScene: SKScene {
         if dy < 0 {
             userInputForPlayer1(.arrowUp)
         }
+        touchUp_snapIntoPlace()
+    }
+
+    func touchUp_snapIntoPlace() {
+        let snakeHead0: SnakeHead = gameState.player1.snakeBody.head
+        let snakeHead1: SnakeHead = snakeHead0.simulateTick(movement: gameState.player1.pendingMovement)
+        var snakeHeadPosition: CGPoint = snakeHead1.position.cgPoint
+        snakeHeadPosition.x += 0.5
+        snakeHeadPosition.y += 0.5
+        let nodePosition = cgPointFromGridPoint2(snakeHeadPosition)
+
+        let actionSequence = SKAction.sequence([
+            SKAction.wait(forDuration: 0.05),
+            SKAction.fadeOut(withDuration: 0.15)
+        ])
+        let actionGroup = SKAction.group([
+            SKAction.move(to: nodePosition, duration: 0.05),
+            actionSequence
+        ])
+        self.gameNode.nextMoveIndicatorNode.run(actionGroup)
     }
     #endif
 
@@ -305,7 +367,6 @@ class SnakeGameScene: SKScene {
         #if os(macOS)
 		flow_start()
         #endif
-
 
         #if os(iOS)
         tapGestureRecognizer.addTarget(self, action: #selector(tapAction(sender:)))
@@ -651,13 +712,19 @@ class SnakeGameScene: SKScene {
 	}
 
 	func cgPointFromGridPoint(_ point: IntVec2) -> CGPoint {
-		let gridSize: CGFloat = AppConstant.tileSize
-		let midx: CGFloat = CGFloat(gameState.level.size.x) / 2
-		let midy: CGFloat = CGFloat(gameState.level.size.y) / 2
-		let px: CGFloat = CGFloat(point.x) + 0.5
-		let py: CGFloat = CGFloat(point.y) + 0.5
-		return CGPoint(x: (px - midx) * gridSize, y: (py - midy) * gridSize)
+        let cgPoint = CGPoint(
+            x: CGFloat(point.x) + 0.5,
+            y: CGFloat(point.y) + 0.5
+        )
+        return cgPointFromGridPoint2(cgPoint)
 	}
+
+    func cgPointFromGridPoint2(_ point: CGPoint) -> CGPoint {
+        let gridSize: CGFloat = AppConstant.tileSize
+        let midx: CGFloat = CGFloat(gameState.level.size.x) / 2
+        let midy: CGFloat = CGFloat(gameState.level.size.y) / 2
+        return CGPoint(x: (point.x - midx) * gridSize, y: (point.y - midy) * gridSize)
+    }
 
     func gridPointFromGameNodeLocation(_ point: CGPoint) -> CGPoint {
         let gridSize: CGFloat = AppConstant.tileSize
