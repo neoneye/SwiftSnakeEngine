@@ -44,6 +44,13 @@ class SnakeLevelSelectorScene: SKScene {
 	}
     #endif
 
+    #if os(iOS)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        launchGame()
+    }
+    #endif
+
+
 	func launchGame() {
 		guard let gameState: SnakeGameState = levelSelectorNode.gameStateForSelectedIndex() else {
 			log.error("Expected gameStateForSelectedIndex() to be non-nil, but got nil")

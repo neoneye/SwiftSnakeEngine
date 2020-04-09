@@ -85,6 +85,38 @@ class SnakeGameScene: SKScene {
 		super.init(coder: aDecoder)
 	}
 
+    #if os(iOS)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+        guard let touch: UITouch = touches.first else {
+            return
+        }
+
+        let touchPoint: CGPoint = touch.location(in: self)
+        let gridPoint: CGPoint = gridPointFromGameNodeLocation(touchPoint)
+
+        let head: SnakeHead = gameState.player1.snakeBody.head
+
+        let dx: Int32 = head.position.x - Int32(gridPoint.x)
+        let dy: Int32 = head.position.y - Int32(gridPoint.y)
+        log.debug("diff: \(dx) \(dy)")
+
+        if dx > 0 {
+            userInputForPlayer1(.arrowLeft)
+        }
+        if dx < 0 {
+            userInputForPlayer1(.arrowRight)
+        }
+        if dy > 0 {
+            userInputForPlayer1(.arrowDown)
+        }
+        if dy < 0 {
+            userInputForPlayer1(.arrowUp)
+        }
+
+    }
+    #endif
+
     #if os(macOS)
 	override func mouseUp(with event: NSEvent) {
 		let transition = SKTransition.doorway(withDuration: 0.75)
