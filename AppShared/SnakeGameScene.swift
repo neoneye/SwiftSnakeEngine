@@ -98,9 +98,18 @@ class SnakeGameScene: SKScene {
     #if os(iOS)
 
     let tapGestureRecognizer = UITapGestureRecognizer()
+    let longPressGestureRecognizer = UILongPressGestureRecognizer()
 
     @objc func tapAction(sender: UITapGestureRecognizer) {
         userInputForPlayer1Forward()
+    }
+
+    @objc func longPressAction(sender: UILongPressGestureRecognizer) {
+        guard sender.state == .began else {
+            // Prevent long press gesture recognizer from firing multiple times
+            return
+        }
+        schedule_stepBackwardOnce()
     }
 
     var touchBeganAtPosition: CGPoint = CGPoint.zero
@@ -300,9 +309,10 @@ class SnakeGameScene: SKScene {
 
         #if os(iOS)
         tapGestureRecognizer.addTarget(self, action: #selector(tapAction(sender:)))
-        tapGestureRecognizer.numberOfTouchesRequired = 1
-        tapGestureRecognizer.numberOfTapsRequired = 1
         self.view?.addGestureRecognizer(tapGestureRecognizer)
+
+        longPressGestureRecognizer.addTarget(self, action: #selector(longPressAction(sender:)))
+        self.view?.addGestureRecognizer(longPressGestureRecognizer)
         #endif
 	}
 
