@@ -75,6 +75,7 @@
 		42905332243E99DD004EFFB6 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 42905330243E99DD004EFFB6 /* Fonts */; };
 		42905333243E9A3F004EFFB6 /* PlayerScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F35E6023FD877400A4795B /* PlayerScoreView.swift */; };
 		42905334243E9BDF004EFFB6 /* SnakeGameSKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC337123FEAC20004A50E7 /* SnakeGameSKView.swift */; };
+		42905335243E9CA4004EFFB6 /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429CD0D423495DF300098E68 /* AppConstant.swift */; };
 		429122BF23520D3000B3E32A /* SnakeBot1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429122BE23520D3000B3E32A /* SnakeBot1.swift */; };
 		4294DA3F233EF09900AA58CD /* SKSpriteNode+Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */; };
 		4294DA41233EF33200AA58CD /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA40233EF33200AA58CD /* Explosion.sks */; };
@@ -578,7 +579,6 @@
 		4255CA0C232F8A2100A230AF /* AppMac */ = {
 			isa = PBXGroup;
 			children = (
-				429CD0D423495DF300098E68 /* AppConstant.swift */,
 				4255CA1D232F8A2300A230AF /* AppMac.entitlements */,
 				4255CA17232F8A2300A230AF /* Assets.xcassets */,
 				4255CA1C232F8A2300A230AF /* Info.plist */,
@@ -613,6 +613,7 @@
 			isa = PBXGroup;
 			children = (
 				4255CA11232F8A2100A230AF /* Actions.sks */,
+				429CD0D423495DF300098E68 /* AppConstant.swift */,
 				4294DA40233EF33200AA58CD /* Explosion.sks */,
 				42905330243E99DD004EFFB6 /* Fonts */,
 				42F35E6023FD877400A4795B /* PlayerScoreView.swift */,
@@ -1386,6 +1387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42BE162A243E94270031C88B /* SKScene+Explode.swift in Sources */,
+				42905335243E9CA4004EFFB6 /* AppConstant.swift in Sources */,
 				42BE1626243E90050031C88B /* SnakePlannedPathNode.swift in Sources */,
 				42FB0588243C99C4006BEE8D /* GameScene.swift in Sources */,
 				42FB058A243C99C4006BEE8D /* GameViewController.swift in Sources */,
