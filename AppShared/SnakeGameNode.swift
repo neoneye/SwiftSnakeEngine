@@ -169,6 +169,7 @@ class SnakeGameNode: SKNode {
         node.lineWidth = 2.5
         node.fillColor = SKColor(white: 0.7, alpha: 0.2)
         node.strokeColor = SKColor(white: 0.8, alpha: 1.0)
+        node.alpha = 0
         return node
     }()
 
