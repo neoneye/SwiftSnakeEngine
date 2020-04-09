@@ -83,6 +83,7 @@
 		4290533B243EA036004EFFB6 /* SnakeUserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42967E45234FBF3C0098A79D /* SnakeUserInput.swift */; };
 		4290533C243EA41C004EFFB6 /* SnakeLevelSelectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B96D942347EE000073CAAA /* SnakeLevelSelectorNode.swift */; };
 		4290533D243EA53C004EFFB6 /* SnakeLevelSelectorScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423494FB234D151D009C0030 /* SnakeLevelSelectorScene.swift */; };
+		4290533E243EA6F8004EFFB6 /* SpriteKitContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCD61C23C3CF660021CBE7 /* SpriteKitContainer.swift */; };
 		429122BF23520D3000B3E32A /* SnakeBot1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429122BE23520D3000B3E32A /* SnakeBot1.swift */; };
 		4294DA3F233EF09900AA58CD /* SKSpriteNode+Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */; };
 		4294DA41233EF33200AA58CD /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA40233EF33200AA58CD /* Explosion.sks */; };
@@ -595,7 +596,6 @@
 				42A93BF723FC1E1800A15FD2 /* MyContentView.swift */,
 				42C5566723ABE7E70001DBD8 /* NSEvent+KeyCode.swift */,
 				422B903A23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift */,
-				42CCD61C23C3CF660021CBE7 /* SpriteKitContainer.swift */,
 			);
 			path = AppMac;
 			sourceTree = "<group>";
@@ -633,6 +633,7 @@
 				42967E45234FBF3C0098A79D /* SnakeUserInput.swift */,
 				42CC22C82337C28500CF3D96 /* SnakeWallNode.swift */,
 				42C3182B2386F17000468D1F /* Sounds */,
+				42CCD61C23C3CF660021CBE7 /* SpriteKitContainer.swift */,
 				4290531B243E9659004EFFB6 /* Themes */,
 			);
 			path = AppShared;
@@ -1403,6 +1404,7 @@
 				42BE1626243E90050031C88B /* SnakePlannedPathNode.swift in Sources */,
 				42FB0588243C99C4006BEE8D /* GameScene.swift in Sources */,
 				42FB058A243C99C4006BEE8D /* GameViewController.swift in Sources */,
+				4290533E243EA6F8004EFFB6 /* SpriteKitContainer.swift in Sources */,
 				42685C47243E8DF5000C5511 /* SnakeWallNode.swift in Sources */,
 				4290533C243EA41C004EFFB6 /* SnakeLevelSelectorNode.swift in Sources */,
 				42905334243E9BDF004EFFB6 /* SnakeGameSKView.swift in Sources */,

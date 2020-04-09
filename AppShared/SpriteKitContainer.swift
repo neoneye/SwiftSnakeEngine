@@ -1,12 +1,30 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
-import Cocoa
 import SpriteKit
-import SwiftUI
-import EngineMac
 import Combine
+import SwiftUI
+
+#if os(iOS)
+import UIKit
+import EngineIOS
+#elseif os(macOS)
+import Cocoa
+import EngineMac
+#else
+#error("Unknown OS")
+#endif
 
 
-struct SpriteKitContainer: NSViewRepresentable {
+#if os(iOS)
+typealias ViewRepresentableType = UIViewRepresentable
+#elseif os(macOS)
+typealias ViewRepresentableType = NSViewRepresentable
+#else
+#error("Unknown OS")
+#endif
+
+
+
+struct SpriteKitContainer: ViewRepresentableType {
     @Binding var player1Length: UInt
     @Binding var player2Length: UInt
     @Binding var player1Info: String
@@ -59,7 +77,7 @@ struct SpriteKitContainer: NSViewRepresentable {
 		return Coordinator(self)
 	}
 
-	func makeNSView(context: Context) -> SnakeGameSKView {
+	func inner_makeView(context: Context) -> SnakeGameSKView {
 		SnakeLevelManager.setup()
 		let view = SnakeGameSKView(frame: .zero)
         view.onSendInfoEvent = { (event: SnakeGameInfoEvent) in
@@ -89,9 +107,23 @@ struct SpriteKitContainer: NSViewRepresentable {
 		return view
 	}
 
+    #if os(iOS)
+    func makeUIView(context: Context) -> SnakeGameSKView {
+        return inner_makeView(context: context)
+    }
+    #elseif os(macOS)
+    func makeNSView(context: Context) -> SnakeGameSKView {
+        return inner_makeView(context: context)
+    }
+    #endif
 
-	func updateNSView(_ view: SnakeGameSKView, context: Context) {
-	}
+    #if os(iOS)
+    func updateUIView(_ uiView: SnakeGameSKView, context: Context) {
+    }
+    #elseif os(macOS)
+    func updateNSView(_ view: SnakeGameSKView, context: Context) {
+    }
+    #endif
 }
 
 struct SpriteKitContainer_Previews : PreviewProvider {
