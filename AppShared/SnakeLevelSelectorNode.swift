@@ -135,9 +135,11 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 			self.addChild(n)
 		}
 
-		for _ in self.gameStates {
+        for (index, _) in self.gameStates.enumerated() {
 			let n = SnakeGameNode()
 			n.configure()
+            n.name = "level \(index)"
+            n.isUserInteractionEnabled = false
 			gameNodes.append(n)
 			n.zPosition = 2
 			self.addChild(n)

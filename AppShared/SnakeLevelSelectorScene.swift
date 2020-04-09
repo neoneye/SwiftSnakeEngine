@@ -46,7 +46,47 @@ class SnakeLevelSelectorScene: SKScene {
 
     #if os(iOS)
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        launchGame()
+        guard let touch: UITouch = touches.first else {
+            return
+        }
+
+        let touchPoint: CGPoint = touch.location(in: self)
+
+        let currentSelectedIndex: Int? = self.levelSelectorNode.selectedIndex
+        var newSelectedIndex: Int = -1
+
+        let nodes: [SKNode] = self.nodes(at: touchPoint)
+        for node in nodes {
+            // IDEA: It's confusing that I'm using `SnakeGameNode`.
+            // Make a `SnakeLevelSelectorItemNode`, that contains the `SnakeGameNode`,
+            // so that inspecting the nodes will have a meaningful type.
+            guard let n = node as? SnakeGameNode else {
+                //log.debug("tap on unknown node: \(type(of: node))")
+                continue
+            }
+            let name: String = n.name ?? "unnamed node"
+            log.debug("tap on SnakeGameNode.  '\(name)'")
+            let parts: Array<Substring> = name.split(separator: " ")
+            guard let lastPart: Substring = parts.last else {
+                log.error("Expected the SnakeGameNode name to have an uint suffix, but got none. name: '\(name)'")
+                continue
+            }
+            guard let i = Int(lastPart) else {
+                log.error("Expected the SnakeGameNode name to have an uint suffix, but it's garbage. name: '\(name)'")
+                continue
+            }
+            newSelectedIndex = i
+        }
+
+        guard newSelectedIndex >= 0 else {
+            return
+        }
+        if currentSelectedIndex != newSelectedIndex {
+            self.levelSelectorNode.selectedIndex = newSelectedIndex
+            self.levelSelectorNode.redraw()
+        } else {
+            launchGame()
+        }
     }
     #endif
 
