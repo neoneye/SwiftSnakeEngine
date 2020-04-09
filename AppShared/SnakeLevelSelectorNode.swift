@@ -1,6 +1,13 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import SpriteKit
+
+#if os(iOS)
+import EngineIOS
+#elseif os(macOS)
 import EngineMac
+#else
+#error("Unknown OS")
+#endif
 
 class SnakeLevelSelectorNode: SKSpriteNode {
 	let xCellCount: Int
@@ -84,8 +91,19 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 	}
 
 	func createGameStates() {
-		let role1: SnakePlayerRole = UserDefaults.standard.player1RoleMenuItem.role
-		let role2: SnakePlayerRole = UserDefaults.standard.player2RoleMenuItem.role
+        let role1: SnakePlayerRole
+        #if os(macOS)
+		role1 = UserDefaults.standard.player1RoleMenuItem.role
+        #else
+        role1 = SnakePlayerRole.human
+        #endif
+
+        let role2: SnakePlayerRole
+        #if os(macOS)
+        role2 = UserDefaults.standard.player2RoleMenuItem.role
+        #else
+        role2 = SnakePlayerRole.none
+        #endif
 
 		let levelNames: [String] = SnakeLevelManager.shared.levelNames
 		let gameStates: [SnakeGameState] = levelNames.map {
@@ -99,7 +117,12 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 		self.removeAllChildren()
 
 		do {
-			let color = SKColor(calibratedRed: 0.1, green: 0.8, blue: 0.9, alpha: 1.0)
+            let color: SKColor
+            #if os(macOS)
+			color = SKColor(calibratedRed: 0.1, green: 0.8, blue: 0.9, alpha: 1.0)
+            #else
+            color = SKColor(red: 0.1, green: 0.8, blue: 0.9, alpha: 1.0)
+            #endif
 			let n = SKSpriteNode(color: color, size: CGSize(width: 100, height: 100))
 			n.zPosition = 1
 			selectionIndicator = n
