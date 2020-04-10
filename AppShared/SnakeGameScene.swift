@@ -126,28 +126,6 @@ class SnakeGameScene: SKScene {
         let touchPoint: CGPoint = touch.location(in: self)
         touchBeganAtPosition = touchPoint
         touchMoveDirection = TouchMoveDirection.undecided
-
-//        let gridPoint: CGPoint = gridPointFromGameNodeLocation(touchPoint)
-//
-//        let head: SnakeHead = gameState.player1.snakeBody.head
-//
-//        let dx: Int32 = head.position.x - Int32(gridPoint.x)
-//        let dy: Int32 = head.position.y - Int32(gridPoint.y)
-//        log.debug("diff: \(dx) \(dy)")
-//
-//        if dx > 0 {
-//            userInputForPlayer1(.arrowLeft)
-//        }
-//        if dx < 0 {
-//            userInputForPlayer1(.arrowRight)
-//        }
-//        if dy > 0 {
-//            userInputForPlayer1(.arrowDown)
-//        }
-//        if dy < 0 {
-//            userInputForPlayer1(.arrowUp)
-//        }
-
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
