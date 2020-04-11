@@ -1,5 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
-swift_version = "5.0"
+swift_version = "5.2"
 use_frameworks!
 
 def my_shared_pods
@@ -15,7 +15,7 @@ end
 
 def my_pod_sseventflow
 	# https://github.com/neoneye/SSEventFlow/commits/master
-	pod 'SSEventFlow', :git => 'https://github.com/neoneye/SSEventFlow.git', :commit => 'f81413764a7cece32e5ffb1601a41f31884c1f88'
+	pod 'SSEventFlow', :git => 'https://github.com/neoneye/SSEventFlow.git', :commit => '089bbf2707e046165a298a59e1fcc694a4042d82'
 end
 
 abstract_target 'BasePodsIOS' do
