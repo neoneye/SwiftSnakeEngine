@@ -16,6 +16,7 @@ struct MyContentView: View {
     @State private var player2Length: UInt = 2
     @State private var player1Info = "Player 1 (green)\nAlive\nLength 29"
     @State private var player2Info = "Player 2 (blue)\nDead by collision with wall\nLength 14"
+    @State var presentingModal = false
     var isPreview: Bool = false
     let player1ColorAlive: Color = .green
     let player2ColorAlive: Color = .blue
@@ -148,13 +149,33 @@ struct MyContentView: View {
     var body: some View {
         VStack(spacing: 1) {
             
-            SpriteKitContainer(
-                player1Length: self.$player1Length,
-                player2Length: self.$player2Length,
-                player1Info: self.$player1Info,
-                player2Info: self.$player2Info,
-                isPreview: self.isPreview
-            )
+            ZStack {
+                SpriteKitContainer(
+                    player1Length: self.$player1Length,
+                    player2Length: self.$player2Length,
+                    player1Info: self.$player1Info,
+                    player2Info: self.$player2Info,
+                    isPreview: self.isPreview
+                )
+
+                VStack {
+                    HStack {
+                        Button(action: {
+                            log.debug("pause button pressed")
+                            self.presentingModal = true
+                        }) {
+                            Image("PauseButton")
+                                .scaleEffect(0.6)
+                                .padding(15)
+                        }
+                        .sheet(isPresented: $presentingModal) { MyPauseView(presentedAsModal: self.$presentingModal) }
+
+                        Spacer()
+                    }
+                    Spacer()
+                }
+
+            }
 
             ZStack {
                 stripeImage
