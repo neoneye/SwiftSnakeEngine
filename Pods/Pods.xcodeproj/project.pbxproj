@@ -1978,6 +1978,44 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		026A200C80B54216A8023AC27476131F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D44CDF0BE195F9035DD93AC9F9E94B4C /* SSEventFlow-macOS.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_PREFIX_HEADER = "Target Support Files/SSEventFlow-macOS/SSEventFlow-macOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SSEventFlow-macOS/SSEventFlow-macOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MODULEMAP_FILE = "Target Support Files/SSEventFlow-macOS/SSEventFlow-macOS.modulemap";
+				PRODUCT_MODULE_NAME = SSEventFlow;
+				PRODUCT_NAME = SSEventFlow;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.2;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		1043656ADB0DF4D9973A5721A7FE6B6D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1554CC5A2F3EA277997A42EB3B835196 /* SwiftyBeaver-macOS.xcconfig */;
@@ -2169,44 +2207,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		23D9361712197A663308E3EB2A89D2EC /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D44CDF0BE195F9035DD93AC9F9E94B4C /* SSEventFlow-macOS.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_VERSION = A;
-				GCC_PREFIX_HEADER = "Target Support Files/SSEventFlow-macOS/SSEventFlow-macOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SSEventFlow-macOS/SSEventFlow-macOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
-				MODULEMAP_FILE = "Target Support Files/SSEventFlow-macOS/SSEventFlow-macOS.modulemap";
-				PRODUCT_MODULE_NAME = SSEventFlow;
-				PRODUCT_NAME = SSEventFlow;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		35AD79FCC8DAA9C097BCFCE6C2EEC7A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2441,43 +2441,6 @@
 			};
 			name = Debug;
 		};
-		458327315C62B3986B6948E112703452 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3F7C0D6F1AD1EF91E5D92B4C58EBFD7 /* SSEventFlow-iOS.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SSEventFlow-iOS/SSEventFlow-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SSEventFlow-iOS/SSEventFlow-iOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/SSEventFlow-iOS/SSEventFlow-iOS.modulemap";
-				PRODUCT_MODULE_NAME = SSEventFlow;
-				PRODUCT_NAME = SSEventFlow;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		47F683ACF32B3D58A01039A78557760B /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 77DE97B4AED24518FA7227A6135588C2 /* Pods-BasePodsMAC-EngineMacTests.release.xcconfig */;
@@ -2704,6 +2667,42 @@
 			};
 			name = Release;
 		};
+		88CEAEA123C528729DFFFCAD97E7B769 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3F7C0D6F1AD1EF91E5D92B4C58EBFD7 /* SSEventFlow-iOS.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SSEventFlow-iOS/SSEventFlow-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SSEventFlow-iOS/SSEventFlow-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/SSEventFlow-iOS/SSEventFlow-iOS.modulemap";
+				PRODUCT_MODULE_NAME = SSEventFlow;
+				PRODUCT_NAME = SSEventFlow;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		9076AA01074D9087843848808DDC99E7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 602ADA0611E5B1A11A6FF95D01EF8AA9 /* SwiftCSV-macOS.xcconfig */;
@@ -2897,7 +2896,7 @@
 			};
 			name = Debug;
 		};
-		B875802DCC3D828556204961B98959B1 /* Debug */ = {
+		D55CF2F21A59BED97E2BB8FE0739B0B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D44CDF0BE195F9035DD93AC9F9E94B4C /* SSEventFlow-macOS.xcconfig */;
 			buildSettings = {
@@ -2922,18 +2921,55 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MODULEMAP_FILE = "Target Support Files/SSEventFlow-macOS/SSEventFlow-macOS.modulemap";
 				PRODUCT_MODULE_NAME = SSEventFlow;
 				PRODUCT_NAME = SSEventFlow;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.2;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		D5BDBF879DDAD5DEBA417E265DA4B767 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3F7C0D6F1AD1EF91E5D92B4C58EBFD7 /* SSEventFlow-iOS.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SSEventFlow-iOS/SSEventFlow-iOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SSEventFlow-iOS/SSEventFlow-iOS-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/SSEventFlow-iOS/SSEventFlow-iOS.modulemap";
+				PRODUCT_MODULE_NAME = SSEventFlow;
+				PRODUCT_NAME = SSEventFlow;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		D7C22D4F0923B81C774C16E0D97A315C /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -3048,42 +3084,6 @@
 			};
 			name = Release;
 		};
-		FD4B753C5A4A7B09EA0B4E4385C5E9E3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3F7C0D6F1AD1EF91E5D92B4C58EBFD7 /* SSEventFlow-iOS.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SSEventFlow-iOS/SSEventFlow-iOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SSEventFlow-iOS/SSEventFlow-iOS-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/SSEventFlow-iOS/SSEventFlow-iOS.modulemap";
-				PRODUCT_MODULE_NAME = SSEventFlow;
-				PRODUCT_NAME = SSEventFlow;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3144,8 +3144,8 @@
 		90D09297E044AA4CA328FD1E281870EC /* Build configuration list for PBXNativeTarget "SSEventFlow-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B875802DCC3D828556204961B98959B1 /* Debug */,
-				23D9361712197A663308E3EB2A89D2EC /* Release */,
+				D55CF2F21A59BED97E2BB8FE0739B0B5 /* Debug */,
+				026A200C80B54216A8023AC27476131F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3207,8 +3207,8 @@
 		D931B2ADA7DE27F4CB3C049EFEE842B1 /* Build configuration list for PBXNativeTarget "SSEventFlow-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FD4B753C5A4A7B09EA0B4E4385C5E9E3 /* Debug */,
-				458327315C62B3986B6948E112703452 /* Release */,
+				88CEAEA123C528729DFFFCAD97E7B769 /* Debug */,
+				D5BDBF879DDAD5DEBA417E265DA4B767 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

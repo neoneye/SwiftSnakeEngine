@@ -1,18 +1,18 @@
 PODS:
-  - SSEventFlow (1.2.0)
+  - SSEventFlow (1.3.0)
   - SwiftCSV (0.5.5)
   - SwiftProtobuf (1.8.0)
   - SwiftyBeaver (1.8.4)
 
 DEPENDENCIES:
-  - SSEventFlow (from `https://github.com/neoneye/SSEventFlow.git`, commit `f81413764a7cece32e5ffb1601a41f31884c1f88`)
+  - SSEventFlow (from `https://github.com/neoneye/SSEventFlow.git`, commit `089bbf2707e046165a298a59e1fcc694a4042d82`)
   - SwiftCSV (from `https://github.com/swiftcsv/SwiftCSV.git`, commit `22dc4dd1272e990da64ea87a8bc84bb606eb177e`)
   - SwiftProtobuf (from `https://github.com/apple/swift-protobuf.git`, commit `d596aaf6568ff26285679e769769660a8b03b801`)
   - SwiftyBeaver (from `https://github.com/SwiftyBeaver/SwiftyBeaver.git`, commit `99057ecb615e7bb3145f68b8fdf85af1c8ae4af5`)
 
 EXTERNAL SOURCES:
   SSEventFlow:
-    :commit: f81413764a7cece32e5ffb1601a41f31884c1f88
+    :commit: 089bbf2707e046165a298a59e1fcc694a4042d82
     :git: https://github.com/neoneye/SSEventFlow.git
   SwiftCSV:
     :commit: 22dc4dd1272e990da64ea87a8bc84bb606eb177e
@@ -26,7 +26,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SSEventFlow:
-    :commit: f81413764a7cece32e5ffb1601a41f31884c1f88
+    :commit: 089bbf2707e046165a298a59e1fcc694a4042d82
     :git: https://github.com/neoneye/SSEventFlow.git
   SwiftCSV:
     :commit: 22dc4dd1272e990da64ea87a8bc84bb606eb177e
@@ -39,11 +39,11 @@ CHECKOUT OPTIONS:
     :git: https://github.com/SwiftyBeaver/SwiftyBeaver.git
 
 SPEC CHECKSUMS:
-  SSEventFlow: bd55cd210324b598180475df633a90e56f52f3c2
+  SSEventFlow: 66a14acc907bdd8b53107b4235a671f6e157fbf1
   SwiftCSV: 664cb23fd6a2fe98b0bcfde5e9f5afe781217f0c
   SwiftProtobuf: 2cbd9409689b7df170d82a92a33443c8e3e14a70
   SwiftyBeaver: f9a9aba96a6a6166e21682377804d728b0d20b95
 
-PODFILE CHECKSUM: 29d1b261c440f510a069e4eb55c8fc0d20f6eff0
+PODFILE CHECKSUM: b3b84e2c3bcda638fa9cc4864b339b9c7e403234
 
 COCOAPODS: 1.8.4
