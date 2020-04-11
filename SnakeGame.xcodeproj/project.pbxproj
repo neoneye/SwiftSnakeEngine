@@ -611,9 +611,9 @@
 		42685C46243E8DE2000C5511 /* AppShared */ = {
 			isa = PBXGroup;
 			children = (
-				4255CA17232F8A2300A230AF /* Assets.xcassets */,
 				4255CA11232F8A2100A230AF /* Actions.sks */,
 				429CD0D423495DF300098E68 /* AppConstant.swift */,
+				4255CA17232F8A2300A230AF /* Assets.xcassets */,
 				4294DA40233EF33200AA58CD /* Explosion.sks */,
 				42905330243E99DD004EFFB6 /* Fonts */,
 				42A93BF723FC1E1800A15FD2 /* MyContentView.swift */,
