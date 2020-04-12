@@ -159,18 +159,22 @@ struct MyContentView: View {
         }
     }
 
+    var spriteKitContainer: some View {
+        SpriteKitContainer(
+            player1Length: self.$player1Length,
+            player2Length: self.$player2Length,
+            player1Info: self.$player1Info,
+            player2Info: self.$player2Info,
+            isPreview: self.isPreview
+        )
+    }
+
 
     var body: some View {
         VStack(spacing: 1) {
             
             ZStack {
-                SpriteKitContainer(
-                    player1Length: self.$player1Length,
-                    player2Length: self.$player2Length,
-                    player1Info: self.$player1Info,
-                    player2Info: self.$player2Info,
-                    isPreview: self.isPreview
-                )
+                spriteKitContainer
 
                 VStack {
                     HStack {
