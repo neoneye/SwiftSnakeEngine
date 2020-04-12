@@ -145,6 +145,20 @@ struct MyContentView: View {
         }
     }
 
+    private var pauseButton: some View {
+        Button(action: {
+            log.debug("pause button pressed")
+            self.presentingModal = true
+        }) {
+            Image("PauseButton")
+                .scaleEffect(0.6)
+                .padding(15)
+        }
+        .sheet(isPresented: $presentingModal) {
+            MyPauseView(presentedAsModal: self.$presentingModal)
+        }
+    }
+
 
     var body: some View {
         VStack(spacing: 1) {
@@ -160,15 +174,7 @@ struct MyContentView: View {
 
                 VStack {
                     HStack {
-                        Button(action: {
-                            log.debug("pause button pressed")
-                            self.presentingModal = true
-                        }) {
-                            Image("PauseButton")
-                                .scaleEffect(0.6)
-                                .padding(15)
-                        }
-                        .sheet(isPresented: $presentingModal) { MyPauseView(presentedAsModal: self.$presentingModal) }
+                        pauseButton
 
                         Spacer()
                     }
