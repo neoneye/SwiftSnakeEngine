@@ -304,17 +304,7 @@ class SnakeGameScene: SKScene {
 
     #if os(macOS)
 	override func mouseUp(with event: NSEvent) {
-		let transition = SKTransition.doorway(withDuration: 0.75)
-//		let transition = SKTransition.crossFade(withDuration: 1)
-//		let transition = SKTransition.flipHorizontal(withDuration: 1)
-//		let transition = SKTransition.fade(withDuration: 1)
-//		let transition = SKTransition.reveal(with: .down, duration: 1)
-//		let transition = SKTransition.moveIn(with: .right, duration: 1)
-//		let transition = SKTransition.doorsOpenHorizontal(withDuration: 1)
-//		let transition = SKTransition.doorsCloseHorizontal(withDuration: 1)
-
-		let newScene = SnakeLevelSelectorScene.create()
-		scene?.view?.presentScene(newScene, transition: transition)
+        scene?.transitionToLevelSelectorScene()
 	}
     #endif
 

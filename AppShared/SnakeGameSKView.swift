@@ -36,4 +36,10 @@ extension SKScene {
         log.debug("send info event: \(event)")
         sceneView.sendInfoEvent(event)
     }
+
+    func transitionToLevelSelectorScene() {
+        let transition = SKTransition.doorway(withDuration: 0.75)
+        let newScene = SnakeLevelSelectorScene.create()
+        view?.presentScene(newScene, transition: transition)
+    }
 }
