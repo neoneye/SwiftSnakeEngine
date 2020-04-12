@@ -11,6 +11,34 @@ import EngineMac
 
 struct MyPauseView: View {
     @Binding var presentedAsModal: Bool
+    @State var showExitGameAlert = false
+
+    var exitGameAlert: Alert {
+        return Alert(
+            title: Text("Do you want to exit game?"),
+            message: Text("This will delete your current snake game progress."),
+            primaryButton: Alert.Button.destructive(Text("Exit game"), action: {
+                log.debug("Exit game. Yes, I'm sure!")
+            }),
+            secondaryButton: Alert.Button.cancel()
+        )
+    }
+
+    var exitGameButton: some View {
+        return Button(action: {
+            log.debug("show exit game alert")
+            self.showExitGameAlert.toggle()
+        }) {
+            Text("Exit Game")
+                .foregroundColor(.white)
+                .padding(.all)
+        }
+        .background(Color.red)
+        .cornerRadius(5)
+        .alert(isPresented: $showExitGameAlert, content: {
+            exitGameAlert
+        })
+    }
 
     #if os(iOS)
 
@@ -23,15 +51,7 @@ struct MyPauseView: View {
 
             Spacer()
 
-            Button(action: {
-                log.debug("exit")
-            }) {
-                Text("Exit Game")
-                    .foregroundColor(.white)
-                    .padding(.all)
-            }
-            .background(Color.red)
-            .cornerRadius(5)
+            exitGameButton
         }
         .padding(EdgeInsets(top: 40, leading: 0, bottom: 40, trailing: 0))
     }
