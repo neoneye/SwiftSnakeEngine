@@ -10,6 +10,8 @@ import EngineMac
 #endif
 
 struct MyContentView: View {
+    @ObservedObject var model: MyModel
+
     @State private var player1Dead: Bool = false
     @State private var player2Dead: Bool = false
     @State private var player1Length: UInt = 1
@@ -155,12 +157,25 @@ struct MyContentView: View {
                 .padding(15)
         }
         .sheet(isPresented: $presentingModal) {
-            MyPauseView(presentedAsModal: self.$presentingModal)
+            MyPauseView(model: self.model, presentedAsModal: self.$presentingModal)
         }
     }
 
-    var spriteKitContainer: some View {
+    private var pauseButton1: some View {
+        Button(action: {
+            log.debug("pause button pressed")
+            self.model.jumpToLevelSelector = true
+        }) {
+            Image("PauseButton")
+                .scaleEffect(0.6)
+                .padding(15)
+        }
+    }
+
+    var spriteKitContainer: SpriteKitContainer {
         SpriteKitContainer(
+            model: self.model,
+            jumpToLevelSelector: $model.jumpToLevelSelector,
             player1Length: self.$player1Length,
             player2Length: self.$player2Length,
             player1Info: self.$player1Info,
@@ -213,12 +228,13 @@ struct MyContentView: View {
 struct ContentView_Previews : PreviewProvider {
 
     static var previews: some View {
-        Group {
-            MyContentView(isPreview: true)
+        let model = MyModel()
+        return Group {
+            MyContentView(model: model, isPreview: true)
                 .previewLayout(.fixed(width: 130, height: 200))
-            MyContentView(isPreview: true)
+            MyContentView(model: model, isPreview: true)
                 .previewLayout(.fixed(width: 300, height: 200))
-            MyContentView(isPreview: true)
+            MyContentView(model: model, isPreview: true)
                 .previewLayout(.fixed(width: 500, height: 150))
         }
     }

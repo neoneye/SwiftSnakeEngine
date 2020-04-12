@@ -25,7 +25,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //		let game = SnakeGameHeadless()
 //		game.run()
 
-        let contentView = MyContentView()
+        let model = MyModel()
+        let contentView = MyContentView(model: model)
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 600, height: 500),
             styleMask: [.titled, .closable, .miniaturizable, .resizable],

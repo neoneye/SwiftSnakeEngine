@@ -25,6 +25,8 @@ typealias ViewRepresentableType = NSViewRepresentable
 
 
 struct SpriteKitContainer: ViewRepresentableType {
+    @ObservedObject var model: MyModel
+    @Binding var jumpToLevelSelector: Bool
     @Binding var player1Length: UInt
     @Binding var player2Length: UInt
     @Binding var player1Info: String
@@ -39,6 +41,7 @@ struct SpriteKitContainer: ViewRepresentableType {
         }
 
         func sendInfoEvent(_ event: SnakeGameInfoEvent) {
+            return
             switch event {
             case .showLevelSelector:
                 if !parent.isPreview {
@@ -106,6 +109,10 @@ struct SpriteKitContainer: ViewRepresentableType {
             scene = SnakeGameScene.createBotVsNone()
 		}
 		view.presentScene(scene)
+//        view.onReceive(model.$jumpToLevelSelector, perform: { newValue in
+//            log.debug("yay")
+//        })
+
 		return view
 	}
 
@@ -121,6 +128,23 @@ struct SpriteKitContainer: ViewRepresentableType {
 
     #if os(iOS)
     func updateUIView(_ uiView: SnakeGameSKView, context: Context) {
+//        log.debug("update: \(model.jumpToLevelSelector)")
+        log.debug("111 jumpToLevelSelector: \(jumpToLevelSelector)")
+        if jumpToLevelSelector {
+            log.debug("222 jumpToLevelSelector")
+//            let event = SnakeGameInfoEvent.showLevelSelector
+//            uiView.sendInfoEvent(event)
+            uiView.scene?.transitionToLevelSelectorScene()
+
+            log.debug("333 jumpToLevelSelector")
+//            DispatchQueue.main.async() {
+//                let event = SnakeGameInfoEvent.showLevelSelector
+//                context.coordinator.sendInfoEvent(event)
+//                log.debug("444 jumpToLevelSelector")
+//            }
+//            let event = SnakeGameInfoEvent.showLevelSelector
+//            context.coordinator.sendInfoEvent(event)
+        }
     }
     #elseif os(macOS)
     func updateNSView(_ view: SnakeGameSKView, context: Context) {
@@ -131,10 +155,11 @@ struct SpriteKitContainer: ViewRepresentableType {
 struct SpriteKitContainer_Previews : PreviewProvider {
 
 	static var previews: some View {
-		Group {
-            SpriteKitContainer(player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 125, height: 200))
-			SpriteKitContainer(player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 150, height: 150))
-			SpriteKitContainer(player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 200, height: 125))
+        let model = MyModel()
+        return Group {
+            SpriteKitContainer(model: model, jumpToLevelSelector: .constant(false), player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 125, height: 200))
+			SpriteKitContainer(model: model, jumpToLevelSelector: .constant(false), player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 150, height: 150))
+            SpriteKitContainer(model: model, jumpToLevelSelector: .constant(false), player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 200, height: 125))
 		}
 	}
 

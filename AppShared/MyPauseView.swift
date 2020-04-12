@@ -10,6 +10,7 @@ import EngineMac
 #endif
 
 struct MyPauseView: View {
+    @ObservedObject var model: MyModel
     @Binding var presentedAsModal: Bool
     @State var showExitGameAlert = false
 
@@ -19,6 +20,8 @@ struct MyPauseView: View {
             message: Text("This will delete your current snake game progress."),
             primaryButton: Alert.Button.destructive(Text("Exit game"), action: {
                 log.debug("Exit game. Yes, I'm sure!")
+                self.presentedAsModal = false
+                self.model.jumpToLevelSelector = true
             }),
             secondaryButton: Alert.Button.cancel()
         )
@@ -74,6 +77,7 @@ struct MyPauseView: View {
 
 struct MyPauseView_Previews: PreviewProvider {
     static var previews: some View {
-        MyPauseView(presentedAsModal: .constant(true))
+        let model = MyModel()
+        return MyPauseView(model: model, presentedAsModal: .constant(true))
     }
 }
