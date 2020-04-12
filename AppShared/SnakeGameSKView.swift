@@ -30,8 +30,10 @@ class SnakeGameSKView: SKView {
 extension SKScene {
     func sendInfoEvent(_ event: SnakeGameInfoEvent) {
         guard let sceneView: SnakeGameSKView = scene?.view as? SnakeGameSKView else {
+            log.error("Expected scene.view to be of type SnakeGameSKView. Cannot send info event: \(event)")
             return
         }
+        log.debug("send info event: \(event)")
         sceneView.sendInfoEvent(event)
     }
 }
