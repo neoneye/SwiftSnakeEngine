@@ -55,7 +55,7 @@ class SnakeLevelSelectorScene: SKScene {
     }
     #endif
 
-    func tapOnItem(at point: CGPoint) {
+    private func tapOnItem(at point: CGPoint) {
         let currentSelectedIndex: Int? = self.levelSelectorNode.selectedIndex
         var newSelectedIndex: Int = -1
 
@@ -93,7 +93,7 @@ class SnakeLevelSelectorScene: SKScene {
         }
     }
 
-    func didChangeSelectedLevelIndex(_ selectedIndex: Int) {
+    private func didChangeSelectedLevelIndex(_ selectedIndex: Int) {
         #if os(macOS)
         // Remember the current selected index, so the UI next time shows the same selected item.
         NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
@@ -102,7 +102,7 @@ class SnakeLevelSelectorScene: SKScene {
         needSendingLevelInfo = true
     }
 
-	func launchGame() {
+	private func launchGame() {
 		guard let gameState: SnakeGameState = levelSelectorNode.gameStateForSelectedIndex() else {
 			log.error("Expected gameStateForSelectedIndex() to be non-nil, but got nil")
 			return
