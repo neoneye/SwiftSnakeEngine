@@ -2,12 +2,14 @@
 import SwiftUI
 import SSEventFlow
 
-/// This is a workaround.
-///
-/// The `SKScene.mouseMoved()` function doesn't get invoked. I suspect it has to do with I'm using SwiftUI.
-/// So I'm now listening for events inside the `NSTrackingArea`.
-class TrackingNSHostingView<Content>: NSHostingView<Content> where Content : View {
-    required init(rootView: Content) {
+class GameNSView: NSHostingView<MyContentView> {
+    static func create() -> GameNSView {
+        let model = MyModel()
+        let view = MyContentView(model: model)
+        return GameNSView(rootView: view)
+    }
+
+    required init(rootView: MyContentView) {
         super.init(rootView: rootView)
         setupTrackingArea()
     }
@@ -16,17 +18,21 @@ class TrackingNSHostingView<Content>: NSHostingView<Content> where Content : Vie
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// This is a workaround.
+    ///
+    /// The `SKScene.mouseMoved()` function doesn't get invoked. I suspect it has to do with I'm using SwiftUI.
+    /// So I'm now listening for events inside the `NSTrackingArea`.
     func setupTrackingArea() {
         let options: NSTrackingArea.Options = [.mouseMoved, .activeInKeyWindow, .inVisibleRect]
         self.addTrackingArea(NSTrackingArea(rect: .zero, options: options, owner: self, userInfo: nil))
     }
 
     override func mouseMoved(with event: NSEvent) {
-        FlowEvent_TrackingNSHostingView_MouseMoved(nsEvent: event).fire()
+        FlowEvent_GameNSView_MouseMoved(nsEvent: event).fire()
     }
 }
 
-class FlowEvent_TrackingNSHostingView_MouseMoved: FlowEvent {
+class FlowEvent_GameNSView_MouseMoved: FlowEvent {
     let nsEvent: NSEvent
     init(nsEvent: NSEvent) {
         self.nsEvent = nsEvent

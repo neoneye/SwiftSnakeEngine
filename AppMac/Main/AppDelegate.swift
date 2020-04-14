@@ -25,8 +25,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //		let game = SnakeGameHeadless()
 //		game.run()
 
-        let model = MyModel()
-        let contentView = MyContentView(model: model)
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 600, height: 500),
             styleMask: [.titled, .closable, .miniaturizable, .resizable],
@@ -35,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
         window.center()
         window.setFrameAutosaveName("Main Window")
-        window.contentView = TrackingNSHostingView(rootView: contentView)
+        window.contentView = GameNSView.create()
         window.makeKeyAndOrderFront(nil)
     }
     
