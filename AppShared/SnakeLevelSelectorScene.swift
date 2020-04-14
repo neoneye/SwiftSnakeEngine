@@ -40,7 +40,8 @@ class SnakeLevelSelectorScene: SKScene {
 
     #if os(macOS)
 	override func mouseUp(with event: NSEvent) {
-		launchGame()
+        let mousePosition: CGPoint = event.location(in: self)
+        tapOnItem(at: mousePosition)
 	}
     #endif
 
@@ -49,13 +50,16 @@ class SnakeLevelSelectorScene: SKScene {
         guard let touch: UITouch = touches.first else {
             return
         }
-
         let touchPoint: CGPoint = touch.location(in: self)
+        tapOnItem(at: touchPoint)
+    }
+    #endif
 
+    func tapOnItem(at point: CGPoint) {
         let currentSelectedIndex: Int? = self.levelSelectorNode.selectedIndex
         var newSelectedIndex: Int = -1
 
-        let nodes: [SKNode] = self.nodes(at: touchPoint)
+        let nodes: [SKNode] = self.nodes(at: point)
         for node in nodes {
             // IDEA: It's confusing that I'm using `SnakeGameNode`.
             // Make a `SnakeLevelSelectorItemNode`, that contains the `SnakeGameNode`,
@@ -88,8 +92,6 @@ class SnakeLevelSelectorScene: SKScene {
             launchGame()
         }
     }
-    #endif
-
 
 	func launchGame() {
 		guard let gameState: SnakeGameState = levelSelectorNode.gameStateForSelectedIndex() else {
