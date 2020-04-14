@@ -87,10 +87,19 @@ class SnakeLevelSelectorScene: SKScene {
         }
         if currentSelectedIndex != newSelectedIndex {
             self.levelSelectorNode.selectedIndex = newSelectedIndex
-            self.levelSelectorNode.redraw()
+            didChangeSelectedLevelIndex(newSelectedIndex)
         } else {
             launchGame()
         }
+    }
+
+    func didChangeSelectedLevelIndex(_ selectedIndex: Int) {
+        #if os(macOS)
+        // Remember the current selected index, so the UI next time shows the same selected item.
+        NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
+        #endif
+        needRedraw = true
+        needSendingLevelInfo = true
     }
 
 	func launchGame() {
@@ -170,24 +179,16 @@ class SnakeLevelSelectorScene: SKScene {
             NSApp.terminate(self)
         case .arrowLeft:
 			levelSelectorNode.moveSelectionLeft()
-			NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
-			needRedraw = true
-            needSendingLevelInfo = true
+            didChangeSelectedLevelIndex(levelSelectorNode.selectedIndex ?? 0)
         case .arrowRight:
 			levelSelectorNode.moveSelectionRight()
-			NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
-			needRedraw = true
-            needSendingLevelInfo = true
+            didChangeSelectedLevelIndex(levelSelectorNode.selectedIndex ?? 0)
         case .arrowDown:
 			levelSelectorNode.moveSelectionDown()
-			NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
-			needRedraw = true
-            needSendingLevelInfo = true
+            didChangeSelectedLevelIndex(levelSelectorNode.selectedIndex ?? 0)
         case .arrowUp:
 			levelSelectorNode.moveSelectionUp()
-			NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
-			needRedraw = true
-            needSendingLevelInfo = true
+            didChangeSelectedLevelIndex(levelSelectorNode.selectedIndex ?? 0)
         default:
             log.debug("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
         }
