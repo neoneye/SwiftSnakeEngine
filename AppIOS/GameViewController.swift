@@ -1,43 +1,54 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
-import UIKit
-import SpriteKit
-import GameplayKit
+import SwiftUI
+import EngineIOS
 
-class GameViewController: UIViewController {
+class GameViewController: UIHostingController<MyContentView> {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        if let view = self.view as! SKView? {
-            // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
-                // Set the scale mode to scale to fit the window
-                scene.scaleMode = .aspectFill
-                
-                // Present the scene
-                view.presentScene(scene)
-            }
-            
-            view.ignoresSiblingOrder = true
-            
-            view.showsFPS = true
-            view.showsNodeCount = true
-        }
+    static func create() -> GameViewController {
+        let model = MyModel()
+        let view = MyContentView(model: model)
+        return GameViewController(rootView: view)
     }
 
-    override var shouldAutorotate: Bool {
-        return true
+    override init(rootView: MyContentView) {
+        super.init(rootView: rootView)
     }
 
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return .allButUpsideDown
-        } else {
-            return .all
-        }
+    @objc required dynamic init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
-    override var prefersStatusBarHidden: Bool {
-        return true
+    override func becomeFirstResponder() -> Bool {
+        true
+    }
+
+    override var keyCommands: [UIKeyCommand]? {
+        return  [
+            UIKeyCommand(input: UIKeyCommand.inputUpArrow, modifierFlags: [], action: #selector(upPressed)),
+            UIKeyCommand(input: UIKeyCommand.inputDownArrow, modifierFlags: [], action: #selector(downPressed)),
+            UIKeyCommand(input: UIKeyCommand.inputLeftArrow, modifierFlags: [], action: #selector(leftPressed)),
+            UIKeyCommand(input: UIKeyCommand.inputRightArrow, modifierFlags: [], action: #selector(rightPressed)),
+            UIKeyCommand(input: "\r", modifierFlags: [], action: #selector(enterPressed)),
+        ]
+    }
+
+    @objc func upPressed() {
+        log.debug("Up")
+    }
+
+    @objc func downPressed() {
+        log.debug("Down")
+    }
+
+    @objc func leftPressed() {
+        log.debug("Left")
+    }
+
+    @objc func rightPressed() {
+        log.debug("Right")
+    }
+
+    @objc func enterPressed() {
+        log.debug("Enter")
     }
 }
