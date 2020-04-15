@@ -15,8 +15,6 @@ struct MyContentView: View {
 
     @State private var player1Dead: Bool = false
     @State private var player2Dead: Bool = false
-    @State private var player1Length: UInt = 1
-    @State private var player2Length: UInt = 2
     @State private var player1Info = "Player 1 (green)\nAlive\nLength 29"
     @State private var player2Info = "Player 2 (blue)\nDead by collision with wall\nLength 14"
     @State var presentingModal = false
@@ -48,12 +46,13 @@ struct MyContentView: View {
                 self.player1Dead.toggle()
             }
             Button("+") {
-                self.player1Length += 1
+                let length: UInt = self.model.player1Length
+                self.model.player1Length = length + 1
             }
             Button("-") {
-                let length: UInt = self.player1Length
+                let length: UInt = self.model.player1Length
                 if length >= 1 {
-                    self.player1Length = length - 1
+                    self.model.player1Length = length - 1
                 }
             }
         }
@@ -65,12 +64,13 @@ struct MyContentView: View {
                 self.player2Dead.toggle()
             }
             Button("+") {
-                self.player2Length += 1
+                let length: UInt = self.model.player2Length
+                self.model.player2Length = length + 1
             }
             Button("-") {
-                let length: UInt = self.player2Length
+                let length: UInt = self.model.player2Length
                 if length >= 1 {
-                    self.player2Length = length - 1
+                    self.model.player2Length = length - 1
                 }
             }
         }
@@ -99,9 +99,9 @@ struct MyContentView: View {
 
             }
 
-            if self.$player1Length.wrappedValue >= 1 {
+            if model.player1Length >= 1 {
                 PlayerScoreView(
-                    playerLength: self.$player1Length,
+                    playerLength: $model.player1Length,
                     color: self.player1Color
                 )
             }
@@ -110,9 +110,9 @@ struct MyContentView: View {
 
     var rightSide: some View {
         HStack(spacing: 1) {
-            if self.$player2Length.wrappedValue >= 1 {
+            if model.player2Length >= 1 {
                 PlayerScoreView(
-                    playerLength: self.$player2Length,
+                    playerLength: $model.player2Length,
                     color: self.player2Color
                 )
             }
@@ -133,7 +133,7 @@ struct MyContentView: View {
     }
 
     var leftSideOpacity: Double {
-        if self.$player1Length.wrappedValue >= 1 {
+        if model.player1Length >= 1 {
             return 1
         } else {
             return 0
@@ -141,7 +141,7 @@ struct MyContentView: View {
     }
 
     var rightSideOpacity: Double {
-        if self.$player2Length.wrappedValue >= 1 {
+        if model.player2Length >= 1 {
             return 1
         } else {
             return 0
@@ -176,8 +176,6 @@ struct MyContentView: View {
     var spriteKitContainer: SpriteKitContainer {
         SpriteKitContainer(
             model: self.model,
-            player1Length: self.$player1Length,
-            player2Length: self.$player2Length,
             player1Info: self.$player1Info,
             player2Info: self.$player2Info,
             isPreview: self.isPreview

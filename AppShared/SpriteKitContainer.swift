@@ -26,8 +26,6 @@ typealias ViewRepresentableType = NSViewRepresentable
 
 struct SpriteKitContainer: ViewRepresentableType {
     @ObservedObject var model: MyModel
-    @Binding var player1Length: UInt
-    @Binding var player2Length: UInt
     @Binding var player1Info: String
     @Binding var player2Info: String
 	var isPreview: Bool = false
@@ -46,23 +44,17 @@ struct SpriteKitContainer: ViewRepresentableType {
                 if !parent.isPreview {
                     parent.player1Info = ""
                     parent.player2Info = ""
-                    parent.player1Length = 0
-                    parent.player2Length = 0
                 }
             case let .showLevelDetail(gameState):
                 parent.player1Info = gameState.player1.humanReadableRole
                 parent.player2Info = gameState.player2.humanReadableRole
-                parent.player1Length = gameState.player1.lengthOfInstalledSnake()
-                parent.player2Length = gameState.player2.lengthOfInstalledSnake()
             case let .beginNewGame(gameState):
                 parent.player1Info = gameState.player1.humanReadableRole
                 parent.player2Info = gameState.player2.humanReadableRole
-                parent.player1Length = gameState.player1.lengthOfInstalledSnake()
-                parent.player2Length = gameState.player2.lengthOfInstalledSnake()
             case let .player1_didUpdateLength(length):
-                parent.player1Length = length
+                ()
             case let .player2_didUpdateLength(length):
-                parent.player2Length = length
+                ()
             case let .player1_killed(killEvents):
                 let deathExplanations: [String] = killEvents.map { $0.humanReadableDeathExplanation }
                 let info: String = deathExplanations.joined(separator: "\n-\n")
@@ -82,7 +74,8 @@ struct SpriteKitContainer: ViewRepresentableType {
 	func inner_makeView(context: Context) -> SnakeGameSKView {
 		SnakeLevelManager.setup()
 		let view = SnakeGameSKView(frame: .zero)
-        view.onSendInfoEvent = { (event: SnakeGameInfoEvent) in
+        view.onSendInfoEvent = { [weak model] (event: SnakeGameInfoEvent) in
+            model?.sendInfoEvent(event)
             context.coordinator.sendInfoEvent(event)
         }
 		if isPreview {
@@ -158,9 +151,9 @@ struct SpriteKitContainer_Previews : PreviewProvider {
 	static var previews: some View {
         let model = MyModel()
         return Group {
-            SpriteKitContainer(model: model, player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 125, height: 200))
-			SpriteKitContainer(model: model, player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 150, height: 150))
-            SpriteKitContainer(model: model, player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 200, height: 125))
+            SpriteKitContainer(model: model, player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 125, height: 200))
+			SpriteKitContainer(model: model, player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 150, height: 150))
+            SpriteKitContainer(model: model, player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 200, height: 125))
 		}
 	}
 
