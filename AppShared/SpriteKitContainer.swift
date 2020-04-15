@@ -26,57 +26,23 @@ typealias ViewRepresentableType = NSViewRepresentable
 
 struct SpriteKitContainer: ViewRepresentableType {
     @ObservedObject var model: MyModel
-    @Binding var player1Info: String
-    @Binding var player2Info: String
 	var isPreview: Bool = false
 
-    class Coordinator: NSObject {
+    class Coordinator {
         var cancellable = Set<AnyCancellable>()
-        var parent: SpriteKitContainer
-
-        init(_ parent: SpriteKitContainer) {
-            self.parent = parent
-        }
-
-        func sendInfoEvent(_ event: SnakeGameInfoEvent) {
-            switch event {
-            case .showLevelSelector:
-                if !parent.isPreview {
-                    parent.player1Info = ""
-                    parent.player2Info = ""
-                }
-            case let .showLevelDetail(gameState):
-                parent.player1Info = gameState.player1.humanReadableRole
-                parent.player2Info = gameState.player2.humanReadableRole
-            case let .beginNewGame(gameState):
-                parent.player1Info = gameState.player1.humanReadableRole
-                parent.player2Info = gameState.player2.humanReadableRole
-            case let .player1_didUpdateLength(length):
-                ()
-            case let .player2_didUpdateLength(length):
-                ()
-            case let .player1_killed(killEvents):
-                let deathExplanations: [String] = killEvents.map { $0.humanReadableDeathExplanation }
-                let info: String = deathExplanations.joined(separator: "\n-\n")
-                parent.player1Info = info
-            case let .player2_killed(killEvents):
-                let deathExplanations: [String] = killEvents.map { $0.humanReadableDeathExplanation }
-                let info: String = deathExplanations.joined(separator: "\n-\n")
-                parent.player2Info = info
-            }
-        }
     }
 
 	func makeCoordinator() -> Coordinator {
-		return Coordinator(self)
+		return Coordinator()
 	}
 
 	func inner_makeView(context: Context) -> SnakeGameSKView {
 		SnakeLevelManager.setup()
 		let view = SnakeGameSKView(frame: .zero)
-        view.onSendInfoEvent = { [weak model] (event: SnakeGameInfoEvent) in
-            model?.sendInfoEvent(event)
-            context.coordinator.sendInfoEvent(event)
+        if !isPreview {
+            view.onSendInfoEvent = { [weak model] (event: SnakeGameInfoEvent) in
+                model?.sendInfoEvent(event)
+            }
         }
 		if isPreview {
 			view.preferredFramesPerSecond = 1
@@ -151,9 +117,9 @@ struct SpriteKitContainer_Previews : PreviewProvider {
 	static var previews: some View {
         let model = MyModel()
         return Group {
-            SpriteKitContainer(model: model, player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 125, height: 200))
-			SpriteKitContainer(model: model, player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 150, height: 150))
-            SpriteKitContainer(model: model, player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 200, height: 125))
+            SpriteKitContainer(model: model, isPreview: true).previewLayout(.fixed(width: 125, height: 200))
+			SpriteKitContainer(model: model, isPreview: true).previewLayout(.fixed(width: 150, height: 150))
+            SpriteKitContainer(model: model, isPreview: true).previewLayout(.fixed(width: 200, height: 125))
 		}
 	}
 

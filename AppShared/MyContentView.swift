@@ -15,8 +15,6 @@ struct MyContentView: View {
 
     @State private var player1Dead: Bool = false
     @State private var player2Dead: Bool = false
-    @State private var player1Info = "Player 1 (green)\nAlive\nLength 29"
-    @State private var player2Info = "Player 2 (blue)\nDead by collision with wall\nLength 14"
     @State var presentingModal = false
     var isPreview: Bool = false
     let player1ColorAlive: Color = .green
@@ -87,7 +85,7 @@ struct MyContentView: View {
         HStack(spacing: 1) {
             VStack(alignment: .leading, spacing: 0) {
 
-                Text(player1Info)
+                Text(model.player1Info)
                     .padding(10)
                     .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                     .background(self.player1Color)
@@ -119,7 +117,7 @@ struct MyContentView: View {
 
             VStack(alignment: .leading, spacing: 0) {
 
-                Text(player2Info)
+                Text(model.player2Info)
                     .padding(10)
                     .frame(minWidth: 80, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                     .background(self.player2Color)
@@ -176,8 +174,6 @@ struct MyContentView: View {
     var spriteKitContainer: SpriteKitContainer {
         SpriteKitContainer(
             model: self.model,
-            player1Info: self.$player1Info,
-            player2Info: self.$player2Info,
             isPreview: self.isPreview
         )
     }
