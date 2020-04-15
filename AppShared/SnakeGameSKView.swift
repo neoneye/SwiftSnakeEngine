@@ -33,7 +33,7 @@ extension SKScene {
             log.error("Expected scene.view to be of type SnakeGameSKView. Cannot send info event: \(event)")
             return
         }
-        log.debug("send info event: \(event)")
+        //log.debug("send info event: \(event)")
         sceneView.sendInfoEvent(event)
     }
 

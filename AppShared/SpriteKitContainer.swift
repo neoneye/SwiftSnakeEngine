@@ -41,7 +41,6 @@ struct SpriteKitContainer: ViewRepresentableType {
         }
 
         func sendInfoEvent(_ event: SnakeGameInfoEvent) {
-            return
             switch event {
             case .showLevelSelector:
                 if !parent.isPreview {
