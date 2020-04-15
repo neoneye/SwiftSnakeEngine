@@ -1,5 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import SwiftUI
+import Combine
 
 #if os(iOS)
 import EngineIOS
@@ -21,7 +22,7 @@ struct MyPauseView: View {
             primaryButton: Alert.Button.destructive(Text("Exit game"), action: {
                 log.debug("Exit game. Yes, I'm sure!")
                 self.presentedAsModal = false
-                self.model.jumpToLevelSelector = true
+                self.model.jumpToLevelSelector.send()
             }),
             secondaryButton: Alert.Button.cancel()
         )

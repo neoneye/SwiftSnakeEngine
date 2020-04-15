@@ -4,5 +4,5 @@ import Combine
 import SwiftUI
 
 public class MyModel: ObservableObject {
-    @Published public var jumpToLevelSelector: Bool = false
+    public let jumpToLevelSelector = PassthroughSubject<Void, Never>()
 }

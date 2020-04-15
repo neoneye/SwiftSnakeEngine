@@ -26,7 +26,6 @@ typealias ViewRepresentableType = NSViewRepresentable
 
 struct SpriteKitContainer: ViewRepresentableType {
     @ObservedObject var model: MyModel
-    @Binding var jumpToLevelSelector: Bool
     @Binding var player1Length: UInt
     @Binding var player2Length: UInt
     @Binding var player1Info: String
@@ -34,6 +33,7 @@ struct SpriteKitContainer: ViewRepresentableType {
 	var isPreview: Bool = false
 
     class Coordinator: NSObject {
+        var cancellable = Set<AnyCancellable>()
         var parent: SpriteKitContainer
 
         init(_ parent: SpriteKitContainer) {
@@ -109,9 +109,15 @@ struct SpriteKitContainer: ViewRepresentableType {
             scene = SnakeGameScene.createBotVsNone()
 		}
 		view.presentScene(scene)
-//        view.onReceive(model.$jumpToLevelSelector, perform: { newValue in
-//            log.debug("yay")
-//        })
+
+        // The user is currently in a game with the pause screen shown.
+        // The user now chooses to exit the game and jump to the level selector.
+        model.jumpToLevelSelector
+            .sink { [weak view] in
+                log.debug("jumpToLevelSelector")
+                view?.scene?.transitionToLevelSelectorScene()
+            }
+            .store(in: &context.coordinator.cancellable)
 
 		return view
 	}
@@ -127,24 +133,20 @@ struct SpriteKitContainer: ViewRepresentableType {
     #endif
 
     #if os(iOS)
-    func updateUIView(_ uiView: SnakeGameSKView, context: Context) {
-//        log.debug("update: \(model.jumpToLevelSelector)")
-        log.debug("111 jumpToLevelSelector: \(jumpToLevelSelector)")
-        if jumpToLevelSelector {
-            log.debug("222 jumpToLevelSelector")
-//            let event = SnakeGameInfoEvent.showLevelSelector
-//            uiView.sendInfoEvent(event)
-            uiView.scene?.transitionToLevelSelectorScene()
+    static func dismantleUIView(_ uiView: SnakeGameSKView, coordinator: Coordinator) {
+        log.debug("cancellable.removeAll")
+        coordinator.cancellable.removeAll()
+    }
+    #elseif os(macOS)
+    static func dismantleNSView(_ nsView: SnakeGameSKView, coordinator: Coordinator) {
+        log.debug("cancellable.removeAll")
+        coordinator.cancellable.removeAll()
+    }
+    #endif
 
-            log.debug("333 jumpToLevelSelector")
-//            DispatchQueue.main.async() {
-//                let event = SnakeGameInfoEvent.showLevelSelector
-//                context.coordinator.sendInfoEvent(event)
-//                log.debug("444 jumpToLevelSelector")
-//            }
-//            let event = SnakeGameInfoEvent.showLevelSelector
-//            context.coordinator.sendInfoEvent(event)
-        }
+
+    #if os(iOS)
+    func updateUIView(_ uiView: SnakeGameSKView, context: Context) {
     }
     #elseif os(macOS)
     func updateNSView(_ view: SnakeGameSKView, context: Context) {
@@ -157,9 +159,9 @@ struct SpriteKitContainer_Previews : PreviewProvider {
 	static var previews: some View {
         let model = MyModel()
         return Group {
-            SpriteKitContainer(model: model, jumpToLevelSelector: .constant(false), player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 125, height: 200))
-			SpriteKitContainer(model: model, jumpToLevelSelector: .constant(false), player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 150, height: 150))
-            SpriteKitContainer(model: model, jumpToLevelSelector: .constant(false), player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 200, height: 125))
+            SpriteKitContainer(model: model, player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 125, height: 200))
+			SpriteKitContainer(model: model, player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 150, height: 150))
+            SpriteKitContainer(model: model, player1Length: .constant(3), player2Length: .constant(3), player1Info: .constant("TEST"), player2Info: .constant("TEST"), isPreview: true).previewLayout(.fixed(width: 200, height: 125))
 		}
 	}
 

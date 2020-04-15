@@ -1,5 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import SwiftUI
+import Combine
 
 #if os(iOS)
 import EngineIOS
@@ -164,7 +165,7 @@ struct MyContentView: View {
     private var pauseButton1: some View {
         Button(action: {
             log.debug("pause button pressed")
-            self.model.jumpToLevelSelector = true
+            self.model.jumpToLevelSelector.send()
         }) {
             Image("PauseButton")
                 .scaleEffect(0.6)
@@ -175,7 +176,6 @@ struct MyContentView: View {
     var spriteKitContainer: SpriteKitContainer {
         SpriteKitContainer(
             model: self.model,
-            jumpToLevelSelector: $model.jumpToLevelSelector,
             player1Length: self.$player1Length,
             player2Length: self.$player2Length,
             player1Info: self.$player1Info,
