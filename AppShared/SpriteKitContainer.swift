@@ -39,11 +39,6 @@ struct SpriteKitContainer: ViewRepresentableType {
 	func inner_makeView(context: Context) -> SnakeGameSKView {
 		SnakeLevelManager.setup()
 		let view = SnakeGameSKView(model: model)
-        if !isPreview {
-            view.onSendInfoEvent = { [weak model] (event: SnakeGameInfoEvent) in
-                model?.sendInfoEvent(event)
-            }
-        }
 		if isPreview {
 			view.preferredFramesPerSecond = 1
 		} else {

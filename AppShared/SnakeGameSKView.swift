@@ -31,12 +31,6 @@ class SnakeGameSKView: SKView {
     required init?(coder: NSCoder) {
         fatalError()
     }
-
-    var onSendInfoEvent: ((_ event: SnakeGameInfoEvent) -> Void)?
-
-    func sendInfoEvent(_ event: SnakeGameInfoEvent) {
-        onSendInfoEvent?(event)
-    }
 }
 
 extension SKScene {
@@ -46,7 +40,7 @@ extension SKScene {
             return
         }
 //        log.debug("send info event: \(event)")
-        skView.sendInfoEvent(event)
+        skView.model.sendInfoEvent(event)
     }
 
     func transitionToLevelSelectorScene() {
