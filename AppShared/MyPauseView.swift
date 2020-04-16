@@ -47,7 +47,7 @@ struct MyPauseView: View {
     var bodyWithoutNavigationBar: some View {
         VStack(spacing: 20) {
             #if os(macOS)
-            Button("Continue") { self.presentedAsModal = false }
+            Button("Continue Game") { self.presentedAsModal = false }
             #endif
 
             HStack(spacing: 40) {
@@ -68,7 +68,7 @@ struct MyPauseView: View {
             bodyWithoutNavigationBar
                 .navigationBarTitle("Game Paused")
                 .navigationBarItems(leading:
-                    Button("Continue") { self.presentedAsModal = false }
+                    Button("Continue Game") { self.presentedAsModal = false }
                 )
         }
     }
