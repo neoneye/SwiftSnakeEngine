@@ -1,4 +1,5 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
+import SwiftUI
 import SpriteKit
 
 #if os(iOS)
@@ -49,8 +50,7 @@ class SnakeGameScene: SKScene {
 	let sound_snakeStep = SKAction.playSoundFileNamed("snake_step.wav", waitForCompletion: false)
 
 	class func create() -> SnakeGameScene {
-		let scene = SnakeGameScene(size: CGSize(width: 100, height: 100))
-		scene.scaleMode = .resizeFill
+		let scene = SnakeGameScene()
 		return scene
 	}
 
@@ -75,15 +75,16 @@ class SnakeGameScene: SKScene {
         return newScene
     }
 
-	override init(size: CGSize) {
-		self.trainingSessionUUID = UUID()
-		self.trainingSessionURLs = []
-		self.initialGameState = SnakeGameScene.defaultInitialGameState()
-		self.gameState = SnakeGameState.empty()
-		self.gameNode = SnakeGameNode()
+    override init() {
+        self.trainingSessionUUID = UUID()
+        self.trainingSessionURLs = []
+        self.initialGameState = SnakeGameScene.defaultInitialGameState()
+        self.gameState = SnakeGameState.empty()
+        self.gameNode = SnakeGameNode()
         self.gameNodeNeedRedraw.insert(.newGame)
-		super.init(size: size)
-	}
+        super.init(size: CGSize(width: 100, height: 100))
+        self.scaleMode = .resizeFill
+    }
 
 	required init?(coder aDecoder: NSCoder) {
         fatalError()
@@ -304,7 +305,11 @@ class SnakeGameScene: SKScene {
 
     #if os(macOS)
 	override func mouseUp(with event: NSEvent) {
-        scene?.transitionToLevelSelectorScene()
+        guard let skView: SnakeGameSKView = self.view as? SnakeGameSKView else {
+            log.error("Expected self.view to be of type SnakeGameSKView.")
+            return
+        }
+        skView.model.jumpToLevelSelector.send()
 	}
     #endif
 

@@ -9,6 +9,7 @@ public class MyModel: ObservableObject {
     @Published var player2Length: UInt = 1
     @Published var player1Info = "Player 1 (green)\nAlive\nLength 29"
     @Published var player2Info = "Player 2 (blue)\nDead by collision with wall\nLength 14"
+    @Published var showPauseButton: Bool = true
 
     func sendInfoEvent(_ event: SnakeGameInfoEvent) {
         switch event {
@@ -17,6 +18,7 @@ public class MyModel: ObservableObject {
             player2Info = ""
             player1Length = 0
             player2Length = 0
+            showPauseButton = false
         case let .showLevelDetail(gameState):
             player1Info = gameState.player1.humanReadableRole
             player2Info = gameState.player2.humanReadableRole
@@ -27,6 +29,7 @@ public class MyModel: ObservableObject {
             player2Info = gameState.player2.humanReadableRole
             player1Length = gameState.player1.lengthOfInstalledSnake()
             player2Length = gameState.player2.lengthOfInstalledSnake()
+            showPauseButton = true
         case let .player1_didUpdateLength(length):
             player1Length = length
         case let .player2_didUpdateLength(length):

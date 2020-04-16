@@ -38,7 +38,7 @@ struct SpriteKitContainer: ViewRepresentableType {
 
 	func inner_makeView(context: Context) -> SnakeGameSKView {
 		SnakeLevelManager.setup()
-		let view = SnakeGameSKView(frame: .zero)
+		let view = SnakeGameSKView(model: model)
         if !isPreview {
             view.onSendInfoEvent = { [weak model] (event: SnakeGameInfoEvent) in
                 model?.sendInfoEvent(event)
@@ -58,24 +58,31 @@ struct SpriteKitContainer: ViewRepresentableType {
 		view.ignoresSiblingOrder = true
 
 		let scene: SKScene
+        let showPauseButton: Bool
 		switch AppConstant.mode {
 		case .production:
-			scene = SnakeLevelSelectorScene.create()
+            scene = SnakeLevelSelectorScene.create()
+            showPauseButton = false
 		case .develop_humanVsNone:
-			scene = SnakeGameScene.createHumanVsNone()
+            scene = SnakeGameScene.createHumanVsNone()
+            showPauseButton = true
         case .develop_botVsNone:
             scene = SnakeGameScene.createBotVsNone()
+            showPauseButton = true
 		}
 		view.presentScene(scene)
 
         // The user is currently in a game with the pause screen shown.
         // The user now chooses to exit the game and jump to the level selector.
         model.jumpToLevelSelector
-            .sink { [weak view] in
+            .sink { [weak view, weak model] in
                 log.debug("jumpToLevelSelector")
+                model?.showPauseButton = false
                 view?.scene?.transitionToLevelSelectorScene()
             }
             .store(in: &context.coordinator.cancellable)
+
+        model.showPauseButton = showPauseButton
 
 		return view
 	}

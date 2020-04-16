@@ -146,6 +146,13 @@ struct MyContentView: View {
         }
     }
 
+    private var spriteKitContainer: SpriteKitContainer {
+        SpriteKitContainer(
+            model: self.model,
+            isPreview: self.isPreview
+        )
+    }
+
     private var pauseButton: some View {
         Button(action: {
             log.debug("pause button pressed")
@@ -160,22 +167,14 @@ struct MyContentView: View {
         }
     }
 
-    private var pauseButton1: some View {
-        Button(action: {
-            log.debug("pause button pressed")
-            self.model.jumpToLevelSelector.send()
-        }) {
-            Image("PauseButton")
-                .scaleEffect(0.6)
-                .padding(15)
+    private var overlayWithPauseButton: some View {
+        VStack {
+            HStack {
+                pauseButton
+                Spacer()
+            }
+            Spacer()
         }
-    }
-
-    var spriteKitContainer: SpriteKitContainer {
-        SpriteKitContainer(
-            model: self.model,
-            isPreview: self.isPreview
-        )
     }
 
 
@@ -185,15 +184,11 @@ struct MyContentView: View {
             ZStack {
                 spriteKitContainer
 
-                VStack {
-                    HStack {
-                        pauseButton
+                EmptyView()
 
-                        Spacer()
-                    }
-                    Spacer()
+                if model.showPauseButton {
+                    overlayWithPauseButton
                 }
-
             }
 
             ZStack {

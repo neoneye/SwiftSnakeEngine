@@ -1,4 +1,5 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
+import SwiftUI
 import SpriteKit
 
 #if os(iOS)
@@ -23,19 +24,18 @@ class SnakeLevelSelectorScene: SKScene {
 	var levelSelectorNode: SnakeLevelSelectorNode
 
 	class func create() -> SnakeLevelSelectorScene {
-		let scene = SnakeLevelSelectorScene(size: CGSize.zero)
-		scene.scaleMode = .resizeFill
+        let scene = SnakeLevelSelectorScene()
 		return scene
 	}
 
-	override init(size: CGSize) {
+    override init() {
 		self.levelSelectorNode = SnakeLevelSelectorNode.create()
-		super.init(size: size)
+		super.init(size: CGSize.zero)
+        self.scaleMode = .resizeFill
 	}
 
 	required init?(coder aDecoder: NSCoder) {
-		self.levelSelectorNode = SnakeLevelSelectorNode.create()
-		super.init(coder: aDecoder)
+        fatalError()
 	}
 
     #if os(macOS)
@@ -118,7 +118,7 @@ class SnakeLevelSelectorScene: SKScene {
 //		let transition = SKTransition.doorsCloseHorizontal(withDuration: 1)
 
 
-		let newScene = SnakeGameScene.create()
+        let newScene = SnakeGameScene.create()
 		newScene.initialGameState = gameState
 		scene?.view?.presentScene(newScene, transition: transition)
 	}

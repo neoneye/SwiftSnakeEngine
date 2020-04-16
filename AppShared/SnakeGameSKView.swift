@@ -1,4 +1,5 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
+import SwiftUI
 import SpriteKit
 
 #if os(iOS)
@@ -20,6 +21,17 @@ enum SnakeGameInfoEvent {
 }
 
 class SnakeGameSKView: SKView {
+    @ObservedObject var model: MyModel
+
+    init(model: MyModel) {
+        self.model = model
+        super.init(frame: .zero)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+
     var onSendInfoEvent: ((_ event: SnakeGameInfoEvent) -> Void)?
 
     func sendInfoEvent(_ event: SnakeGameInfoEvent) {
