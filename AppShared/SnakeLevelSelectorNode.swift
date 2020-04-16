@@ -152,7 +152,7 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 		}
 
 		let grid = GridComputer(
-			spacing: 90,
+			cellSpacing: 90,
 			margin: 40,
 			xCellCount: self.xCellCount,
 			yCellCount: self.yCellCount,
@@ -182,7 +182,7 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 }
 
 fileprivate struct GridComputer {
-	let spacing: CGFloat
+	let cellSpacing: CGFloat
 	let margin: CGFloat
 	let xCellCount: Int
 	let yCellCount: Int
@@ -192,27 +192,27 @@ fileprivate struct GridComputer {
 	let gameNodeSize: CGSize
 	let selectionNodeSize: CGSize
 
-	init(spacing: CGFloat, margin: CGFloat, xCellCount: Int, yCellCount: Int, size: CGSize) {
-		guard spacing >= 0 && margin >= 0 && xCellCount >= 1 && yCellCount >= 1 && size.width >= 0 && size.height >= 0 else {
+	init(cellSpacing: CGFloat, margin: CGFloat, xCellCount: Int, yCellCount: Int, size: CGSize) {
+		guard cellSpacing >= 0 && margin >= 0 && xCellCount >= 1 && yCellCount >= 1 && size.width >= 0 && size.height >= 0 else {
 			fatalError()
 		}
-		self.spacing = spacing
+		self.cellSpacing = cellSpacing
 		self.margin = margin
 		self.xCellCount = xCellCount
 		self.yCellCount = yCellCount
 		self.size = size
 		self.halfSize = CGSize(width: size.width / 2, height: size.height / 2)
 		self.sizeWithoutMargin = CGSize(
-			width: size.width - ((margin * 2) + (spacing * CGFloat(xCellCount - 1))),
-			height: size.height - ((margin * 2) + (spacing * CGFloat(yCellCount - 1)))
+			width: size.width - ((margin * 2) + (cellSpacing * CGFloat(xCellCount - 1))),
+			height: size.height - ((margin * 2) + (cellSpacing * CGFloat(yCellCount - 1)))
 		)
 		self.gameNodeSize = CGSize(
 			width: (sizeWithoutMargin.width) / CGFloat(xCellCount),
 			height: (sizeWithoutMargin.height) / CGFloat(yCellCount)
 		)
 		self.selectionNodeSize = CGSize(
-			width: gameNodeSize.width + spacing,
-			height: gameNodeSize.height + spacing
+			width: gameNodeSize.width + cellSpacing,
+			height: gameNodeSize.height + cellSpacing
 		)
 	}
 
@@ -222,8 +222,8 @@ fileprivate struct GridComputer {
 		let x = CGFloat(xx)
 		let y = CGFloat(yCellCount - 1 - yy)
 		return CGPoint(
-			x: ((gameNodeSize.width + spacing) * x) + (gameNodeSize.width / 2) + margin - halfSize.width,
-			y: ((gameNodeSize.height + spacing) * y) + (gameNodeSize.height / 2) + margin - halfSize.height
+			x: ((gameNodeSize.width + cellSpacing) * x) + (gameNodeSize.width / 2) + margin - halfSize.width,
+			y: ((gameNodeSize.height + cellSpacing) * y) + (gameNodeSize.height / 2) + margin - halfSize.height
 		)
 	}
 }
