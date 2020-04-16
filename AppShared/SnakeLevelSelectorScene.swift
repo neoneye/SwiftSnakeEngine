@@ -61,13 +61,23 @@ class SnakeLevelSelectorScene: SKScene {
         flow_start()
         #endif
 
+        #if os(iOS)
         // Used while the level selector is visible.
         // Here the user can enable/disable playing against a bot.
         skView.model.$levelSelector_humanVsBot
-            .sink { (value) in
+            .sink { [weak self] (value) in
                 log.debug("human vs bot. value: \(value)")
+                let playerMode: PlayerMode
+                if value {
+                    playerMode = .twoPlayer_humanBot
+                } else {
+                    playerMode = .singlePlayer_human
+                }
+                PlayerModeController().changePlayerMode(to: playerMode)
+                self?.didChangePlayerSettings()
             }
             .store(in: &cancellable)
+        #endif
     }
 
     /// Tells you when the scene is about to be removed from a view

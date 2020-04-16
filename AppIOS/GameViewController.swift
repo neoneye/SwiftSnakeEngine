@@ -5,7 +5,16 @@ import EngineIOS
 class GameViewController: UIHostingController<MyContentView> {
 
     static func create() -> GameViewController {
+        let playerMode: PlayerMode = PlayerModeController().currentPlayerMode
+        let initialValue: Bool
+        switch playerMode {
+        case .twoPlayer_humanBot:
+            initialValue = true
+        case .singlePlayer_human:
+            initialValue = false
+        }
         let model = MyModel()
+        model.levelSelector_humanVsBot = initialValue
         let view = MyContentView(model: model)
         return GameViewController(rootView: view)
     }
