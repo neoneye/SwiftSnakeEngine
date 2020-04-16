@@ -184,11 +184,11 @@ struct MyContentView: View {
             ZStack {
                 spriteKitContainer
 
-                EmptyView()
-
+                #if os(iOS)
                 if model.showPauseButton {
                     overlayWithPauseButton
                 }
+                #endif
             }
 
             ZStack {
