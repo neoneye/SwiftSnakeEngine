@@ -1,5 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import SwiftUI
+import Combine
 import SpriteKit
 
 #if os(iOS)
@@ -15,6 +16,7 @@ import SSEventFlow
 #endif
 
 class SnakeLevelSelectorScene: SKScene {
+    var cancellable = Set<AnyCancellable>()
 	var contentCreated = false
 	var needRedraw = false
 	var needLayout = false
@@ -37,6 +39,66 @@ class SnakeLevelSelectorScene: SKScene {
 	required init?(coder aDecoder: NSCoder) {
         fatalError()
 	}
+
+    /// Tells you when the scene is presented by a view.
+    override func didMove(to view: SKView) {
+        guard let skView: SnakeGameSKView = view as? SnakeGameSKView else {
+            fatalError("Expected view to be of type SnakeGameSKView. Cannot subscribe to events.")
+        }
+
+        super.didMove(to: view)
+
+        if !contentCreated {
+            createContent()
+            contentCreated = true
+        }
+
+        needLayout = true
+        needRedraw = true
+        needBecomeFirstResponder = true
+
+        #if os(macOS)
+        flow_start()
+        #endif
+
+        // Used while the level selector is visible.
+        // Here the user can enable/disable playing against a bot.
+        skView.model.$levelSelector_humanVsBot
+            .sink { (value) in
+                log.debug("human vs bot. value: \(value)")
+            }
+            .store(in: &cancellable)
+    }
+
+    /// Tells you when the scene is about to be removed from a view
+    override func willMove(from view: SKView) {
+        super.willMove(from: view)
+
+        #if os(macOS)
+        flow_stop()
+        #endif
+
+        cancellable.removeAll()
+    }
+
+    func createContent() {
+        let camera = SKCameraNode()
+        self.camera = camera
+        addChild(camera)
+
+        guard levelSelectorNode.parent == nil else {
+            fatalError("Expected levelSelectorNode.parent to be nil, but got non-nil.")
+        }
+        #if os(macOS)
+        levelSelectorNode.selectedIndex = NSUserDefaultsController.shared.selectedLevelIndex
+        #else
+        levelSelectorNode.selectedIndex = 0
+        #endif
+        needSendingLevelInfo = true
+        levelSelectorNode.createGameStates()
+        levelSelectorNode.createGameNodes()
+        self.addChild(levelSelectorNode)
+    }
 
     #if os(macOS)
 	override func mouseUp(with event: NSEvent) {
@@ -121,49 +183,6 @@ class SnakeLevelSelectorScene: SKScene {
         let newScene = SnakeGameScene.create()
 		newScene.initialGameState = gameState
 		scene?.view?.presentScene(newScene, transition: transition)
-	}
-
-    override func didMove(to view: SKView) {
-		super.didMove(to: view)
-
-		if !contentCreated {
-			createContent()
-			contentCreated = true
-		}
-
-		needLayout = true
-		needRedraw = true
-		needBecomeFirstResponder = true
-
-        #if os(macOS)
-		flow_start()
-        #endif
-	}
-
-	func createContent() {
-		let camera = SKCameraNode()
-		self.camera = camera
-		addChild(camera)
-
-		guard levelSelectorNode.parent == nil else {
-			fatalError("Expected levelSelectorNode.parent to be nil, but got non-nil.")
-		}
-        #if os(macOS)
-        levelSelectorNode.selectedIndex = NSUserDefaultsController.shared.selectedLevelIndex
-        #else
-        levelSelectorNode.selectedIndex = 0
-        #endif
-        needSendingLevelInfo = true
-		levelSelectorNode.createGameStates()
-		levelSelectorNode.createGameNodes()
-		self.addChild(levelSelectorNode)
-    }
-
-	override func willMove(from view: SKView) {
-		super.willMove(from: view)
-        #if os(macOS)
-		flow_stop()
-        #endif
 	}
 
     #if os(macOS)

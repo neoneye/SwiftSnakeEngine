@@ -62,14 +62,6 @@ struct SpriteKitContainer: ViewRepresentableType {
             }
             .store(in: &context.coordinator.cancellable)
 
-        // Used while the level selector is visible.
-        // Here the user can enable/disable playing against a bot.
-        model.$levelSelector_humanVsBot
-            .sink { (value) in
-                log.debug("human vs bot. value: \(value)")
-            }
-            .store(in: &context.coordinator.cancellable)
-
 		let scene: SKScene
         let showPauseButton: Bool
 		switch AppConstant.mode {
