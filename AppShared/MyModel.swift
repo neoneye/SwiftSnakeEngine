@@ -12,6 +12,7 @@ public class MyModel: ObservableObject {
     @Published var showPauseButton: Bool = true
     @Published var levelSelector_humanVsBot = true
     @Published var levelSelector_visible = true
+    @Published var levelSelector_insetTop: CGFloat = 0
 
 
     func sendInfoEvent(_ event: SnakeGameInfoEvent) {

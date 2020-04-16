@@ -22,6 +22,7 @@ class SnakeLevelSelectorScene: SKScene {
 	var needLayout = false
 	var needBecomeFirstResponder = false
     var needSendingLevelInfo = true
+    var insetTop: CGFloat = 0
 
 	var levelSelectorNode: SnakeLevelSelectorNode
 
@@ -75,6 +76,17 @@ class SnakeLevelSelectorScene: SKScene {
                 }
                 PlayerModeController().changePlayerMode(to: playerMode)
                 self?.didChangePlayerSettings()
+            }
+            .store(in: &cancellable)
+
+        // Used while the level selector is visible.
+        // This is whenever the user adjust font sizes.
+        // Or the user changes the orientation of the device.
+        skView.model.$levelSelector_insetTop
+            .sink { [weak self] (value: CGFloat) in
+                log.debug("insetTop. value: \(value)")
+                self?.insetTop = value
+                self?.needRedraw = true
             }
             .store(in: &cancellable)
         #endif
@@ -257,7 +269,7 @@ class SnakeLevelSelectorScene: SKScene {
 
 		if needRedraw {
 			needRedraw = false
-			levelSelectorNode.redraw()
+            levelSelectorNode.redraw(insetTop: self.insetTop)
 		}
 
 		if needLayout {

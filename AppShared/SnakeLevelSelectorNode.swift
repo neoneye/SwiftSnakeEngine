@@ -146,16 +146,17 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 		}
 	}
 
-	func redraw() {
+    func redraw(insetTop: CGFloat) {
 		guard gameNodes.count == gameStates.count else {
 			log.error("Expected same number of nodes and states")
 			return
 		}
 
-        let margin = EdgeInsets(top: 40, leading: 40, bottom: 40, trailing: 40)
+        let clampedInsetTop: CGFloat = min(max(insetTop, 0), 300)
+        let margin = EdgeInsets(top: clampedInsetTop + 50, leading: 50, bottom: 50, trailing: 50)
 		let grid = GridComputer(
             margin: margin,
-			cellSpacing: 90,
+			cellSpacing: 80,
 			xCellCount: self.xCellCount,
 			yCellCount: self.yCellCount,
             size: self.size

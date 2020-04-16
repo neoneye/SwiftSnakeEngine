@@ -190,8 +190,9 @@ struct MyContentView: View {
             }
         }
         .modifier(ViewHeightGetter())
-        .onPreferenceChange(ViewHeightPreferenceKey.self) {
-            log.debug("height of view: \($0)")
+        .onPreferenceChange(ViewHeightPreferenceKey.self) { [weak model] (viewHeight: CGFloat) in
+            log.debug("height of view: \(viewHeight)")
+            model?.levelSelector_insetTop = viewHeight
         }
         .background(Color.white.opacity(0.5))
     }
