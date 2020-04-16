@@ -11,6 +11,7 @@ public class MyModel: ObservableObject {
     @Published var player2Info = "Player 2 (blue)\nDead by collision with wall\nLength 14"
     @Published var showPauseButton: Bool = true
     @Published var levelSelector_humanVsBot = true
+    @Published var levelSelector_visible = true
 
 
     func sendInfoEvent(_ event: SnakeGameInfoEvent) {

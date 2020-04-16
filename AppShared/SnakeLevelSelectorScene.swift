@@ -78,6 +78,8 @@ class SnakeLevelSelectorScene: SKScene {
             }
             .store(in: &cancellable)
         #endif
+
+        skView.model.levelSelector_visible = true
     }
 
     /// Tells you when the scene is about to be removed from a view

@@ -90,6 +90,56 @@ class SnakeGameScene: SKScene {
         fatalError()
 	}
 
+    override func didMove(to view: SKView) {
+        guard let skView: SnakeGameSKView = view as? SnakeGameSKView else {
+            fatalError("Expected view to be of type SnakeGameSKView. Cannot subscribe to events.")
+        }
+
+        super.didMove(to: view)
+
+        if !contentCreated {
+            createContent()
+            contentCreated = true
+        }
+
+        needLayout = true
+        gameNodeNeedRedraw.insert(.didMoveToView)
+        needBecomeFirstResponder = true
+
+        #if os(macOS)
+        flow_start()
+        #endif
+
+        #if os(iOS)
+        tapGestureRecognizer.addTarget(self, action: #selector(tapAction(sender:)))
+        self.view?.addGestureRecognizer(tapGestureRecognizer)
+
+        longPressGestureRecognizer.addTarget(self, action: #selector(longPressAction(sender:)))
+        self.view?.addGestureRecognizer(longPressGestureRecognizer)
+        #endif
+
+        skView.model.levelSelector_visible = false
+    }
+
+    override func willMove(from view: SKView) {
+        super.willMove(from: view)
+        #if os(macOS)
+        flow_stop()
+        #endif
+    }
+
+    func createContent() {
+        let camera = SKCameraNode()
+        self.camera = camera
+        addChild(camera)
+
+        gameNode.configure()
+        self.addChild(gameNode)
+
+        restartGame()
+    }
+
+
     #if os(iOS)
 
     let tapGestureRecognizer = UITapGestureRecognizer()
@@ -324,49 +374,6 @@ class SnakeGameScene: SKScene {
         log.debug("grid position: \(gridPosition.string1)")
     }
     #endif
-
-    override func didMove(to view: SKView) {
-		super.didMove(to: view)
-
-		if !contentCreated {
-			createContent()
-			contentCreated = true
-		}
-
-		needLayout = true
-        gameNodeNeedRedraw.insert(.didMoveToView)
-		needBecomeFirstResponder = true
-
-        #if os(macOS)
-		flow_start()
-        #endif
-
-        #if os(iOS)
-        tapGestureRecognizer.addTarget(self, action: #selector(tapAction(sender:)))
-        self.view?.addGestureRecognizer(tapGestureRecognizer)
-
-        longPressGestureRecognizer.addTarget(self, action: #selector(longPressAction(sender:)))
-        self.view?.addGestureRecognizer(longPressGestureRecognizer)
-        #endif
-	}
-
-	func createContent() {
-		let camera = SKCameraNode()
-		self.camera = camera
-		addChild(camera)
-
-		gameNode.configure()
-		self.addChild(gameNode)
-
-		restartGame()
-    }
-	
-	override func willMove(from view: SKView) {
-		super.willMove(from: view)
-        #if os(macOS)
-		flow_stop()
-        #endif
-	}
 
 	func restartGame() {
 		//log.debug("restartGame")

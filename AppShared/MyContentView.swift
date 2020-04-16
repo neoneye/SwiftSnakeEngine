@@ -191,14 +191,16 @@ struct MyContentView: View {
                 #endif
             }
 
-            Toggle(isOn: $model.levelSelector_humanVsBot) {
-                Text("Human vs BOT")
-            }.padding()
+            if model.levelSelector_visible {
+                Toggle(isOn: $model.levelSelector_humanVsBot) {
+                    Text("Human vs BOT")
+                }.padding()
 
-            if model.levelSelector_humanVsBot {
-                Text("2 player game: Human vs bot")
-            } else {
-                Text("1 player game: Human only")
+                if model.levelSelector_humanVsBot {
+                    Text("2 player game: Human vs bot")
+                } else {
+                    Text("1 player game: Human only")
+                }
             }
 
             ZStack {
