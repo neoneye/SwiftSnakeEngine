@@ -167,7 +167,7 @@ struct MyContentView: View {
         }
     }
 
-    private var overlayWithPauseButton: some View {
+    private var iOS_overlayWithPauseButton: some View {
         VStack {
             HStack {
                 pauseButton
@@ -177,6 +177,42 @@ struct MyContentView: View {
         }
     }
 
+    private var iOS_footer: some View {
+        return VStack {
+            Toggle(isOn: $model.levelSelector_humanVsBot) {
+                Text("Human against BOT")
+            }.padding()
+
+            if model.levelSelector_humanVsBot {
+                Text("Two player game: Human vs bot")
+            } else {
+                Text("Single player game: Human only")
+            }
+        }
+        .frame(minWidth: 80, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
+        .background(Color.white)
+        .foregroundColor(Color.black)
+    }
+
+    private var macOS_footer: some View {
+        ZStack {
+            stripeImage
+
+            HStack(spacing: 1) {
+
+                leftSide
+                    .opacity(leftSideOpacity)
+                    .frame(maxWidth: .infinity)
+
+                rightSide
+                    .opacity(rightSideOpacity)
+                    .frame(maxWidth: .infinity)
+
+            }
+
+        }
+        .frame(minWidth: 80, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
+    }
 
     var body: some View {
         VStack(spacing: 1) {
@@ -186,40 +222,18 @@ struct MyContentView: View {
 
                 #if os(iOS)
                 if model.showPauseButton {
-                    overlayWithPauseButton
+                    iOS_overlayWithPauseButton
                 }
                 #endif
             }
 
+            #if os(macOS)
+            macOS_footer
+            #else
             if model.levelSelector_visible {
-                Toggle(isOn: $model.levelSelector_humanVsBot) {
-                    Text("Human vs BOT")
-                }.padding()
-
-                if model.levelSelector_humanVsBot {
-                    Text("2 player game: Human vs bot")
-                } else {
-                    Text("1 player game: Human only")
-                }
+                iOS_footer
             }
-
-            ZStack {
-                stripeImage
-
-                HStack(spacing: 1) {
-
-                    leftSide
-                        .opacity(leftSideOpacity)
-                        .frame(maxWidth: .infinity)
-
-                    rightSide
-                        .opacity(rightSideOpacity)
-                        .frame(maxWidth: .infinity)
-
-                }
-
-            }
-            .frame(minWidth: 80, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
+            #endif
         }
         .edgesIgnoringSafeArea(.all)
         .frame(minWidth: isPreview ? 100 : 400, maxWidth: .infinity, minHeight: isPreview ? 80 : 400, maxHeight: .infinity)
