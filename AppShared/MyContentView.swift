@@ -177,20 +177,24 @@ struct MyContentView: View {
         }
     }
 
-    private var iOS_footer: some View {
+    private var iOS_overlayWithHeader: some View {
         return VStack {
-            Toggle(isOn: $model.levelSelector_humanVsBot) {
-                Text("Human against BOT")
-            }.padding()
+            VStack {
+                Toggle(isOn: $model.levelSelector_humanVsBot) {
+                    Text("Human against BOT")
+                }.padding(EdgeInsets(top: 20, leading: 10, bottom: 10, trailing: 10))
 
-            if model.levelSelector_humanVsBot {
-                Text("Two player game: Human vs bot")
-            } else {
-                Text("Single player game: Human only")
+                if model.levelSelector_humanVsBot {
+                    Text("Two player game: Human vs bot")
+                } else {
+                    Text("Single player game: Human only")
+                }
             }
+            .frame(minWidth: 80, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
+            .background(Color.white.opacity(0.5))
+
+            Spacer()
         }
-        .frame(minWidth: 80, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
-        .background(Color.white)
         .foregroundColor(Color.black)
     }
 
@@ -225,18 +229,15 @@ struct MyContentView: View {
     }
 
     var iOS_body: some View {
-        VStack(spacing: 1) {
+        ZStack {
+            spriteKitContainer
 
-            ZStack {
-                spriteKitContainer
-
-                if model.showPauseButton {
-                    iOS_overlayWithPauseButton
-                }
+            if model.showPauseButton {
+                iOS_overlayWithPauseButton
             }
 
             if model.levelSelector_visible {
-                iOS_footer
+                iOS_overlayWithHeader
             }
         }
         .edgesIgnoringSafeArea(.all)
