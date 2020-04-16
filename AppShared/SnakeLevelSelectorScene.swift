@@ -65,7 +65,7 @@ class SnakeLevelSelectorScene: SKScene {
         // Used while the level selector is visible.
         // Here the user can enable/disable playing against a bot.
         skView.model.$levelSelector_humanVsBot
-            .sink { [weak self] (value) in
+            .sink { [weak self] (value: Bool) in
                 log.debug("human vs bot. value: \(value)")
                 let playerMode: PlayerMode
                 if value {
