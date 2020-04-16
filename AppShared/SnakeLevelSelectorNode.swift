@@ -152,8 +152,8 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 		}
 
 		let grid = GridComputer(
+            margin: 40,
 			cellSpacing: 90,
-			margin: 40,
 			xCellCount: self.xCellCount,
 			yCellCount: self.yCellCount,
 			size: self.size
@@ -182,8 +182,8 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 }
 
 fileprivate struct GridComputer {
+    let margin: CGFloat
 	let cellSpacing: CGFloat
-	let margin: CGFloat
 	let xCellCount: Int
 	let yCellCount: Int
 	let size: CGSize
@@ -192,8 +192,8 @@ fileprivate struct GridComputer {
 	let gameNodeSize: CGSize
 	let selectionNodeSize: CGSize
 
-	init(cellSpacing: CGFloat, margin: CGFloat, xCellCount: Int, yCellCount: Int, size: CGSize) {
-		guard cellSpacing >= 0 && margin >= 0 && xCellCount >= 1 && yCellCount >= 1 && size.width >= 0 && size.height >= 0 else {
+	init(margin: CGFloat, cellSpacing: CGFloat, xCellCount: Int, yCellCount: Int, size: CGSize) {
+		guard margin >= 0 && cellSpacing >= 0 && xCellCount >= 1 && yCellCount >= 1 && size.width >= 0 && size.height >= 0 else {
 			fatalError()
 		}
 		self.cellSpacing = cellSpacing
