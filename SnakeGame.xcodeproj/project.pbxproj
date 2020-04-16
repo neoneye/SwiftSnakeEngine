@@ -171,6 +171,8 @@
 		42BE1629243E941D0031C88B /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA40233EF33200AA58CD /* Explosion.sks */; };
 		42BE162A243E94270031C88B /* SKScene+Explode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */; };
 		42C1930924489A5C00697159 /* PlayerMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1930824489A5C00697159 /* PlayerMode.swift */; };
+		42C1930B244913A500697159 /* ViewHeightGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1930A244913A500697159 /* ViewHeightGetter.swift */; };
+		42C1930C244913A500697159 /* ViewHeightGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1930A244913A500697159 /* ViewHeightGetter.swift */; };
 		42C236EB2332F4BB00241639 /* T2002_SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C236EA2332F4BB00241639 /* T2002_SnakeBody.swift */; };
 		42C236ED2333033700241639 /* MeasureAreaSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C236EC2333033700241639 /* MeasureAreaSize.swift */; };
 		42C31822237F27AF00468D1F /* Array2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C31821237F27AF00468D1F /* Array2.swift */; };
@@ -363,6 +365,7 @@
 		42ABC111243CAD1100E05FF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42B96D942347EE000073CAAA /* SnakeLevelSelectorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeLevelSelectorNode.swift; sourceTree = "<group>"; };
 		42C1930824489A5C00697159 /* PlayerMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMode.swift; sourceTree = "<group>"; };
+		42C1930A244913A500697159 /* ViewHeightGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHeightGetter.swift; sourceTree = "<group>"; };
 		42C236EA2332F4BB00241639 /* T2002_SnakeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2002_SnakeBody.swift; sourceTree = "<group>"; };
 		42C236EC2333033700241639 /* MeasureAreaSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureAreaSize.swift; sourceTree = "<group>"; };
 		42C3181F237D6E2700468D1F /* IntVec2+CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntVec2+CGPoint.swift"; sourceTree = "<group>"; };
@@ -641,6 +644,7 @@
 				42C3182B2386F17000468D1F /* Sounds */,
 				42CCD61C23C3CF660021CBE7 /* SpriteKitContainer.swift */,
 				4290531B243E9659004EFFB6 /* Themes */,
+				42C1930A244913A500697159 /* ViewHeightGetter.swift */,
 			);
 			path = AppShared;
 			sourceTree = "<group>";
@@ -1325,6 +1329,7 @@
 				4255CA14232F8A2100A230AF /* SnakeGameScene.swift in Sources */,
 				429CD0D12348F93E00098E68 /* NSUserDefaultsController+Settings.swift in Sources */,
 				4294DA43233FA3AF00AA58CD /* SKScene+Explode.swift in Sources */,
+				42C1930C244913A500697159 /* ViewHeightGetter.swift in Sources */,
 				42CC22C92337C28500CF3D96 /* SnakeWallNode.swift in Sources */,
 				42B96D952347EE000073CAAA /* SnakeLevelSelectorNode.swift in Sources */,
 				42ECBCCB237CA50700758303 /* DebugMenu.swift in Sources */,
@@ -1413,6 +1418,7 @@
 				4290533C243EA41C004EFFB6 /* SnakeLevelSelectorNode.swift in Sources */,
 				42905334243E9BDF004EFFB6 /* SnakeGameSKView.swift in Sources */,
 				42905338243E9E89004EFFB6 /* PlayerSkinMenuItem.swift in Sources */,
+				42C1930B244913A500697159 /* ViewHeightGetter.swift in Sources */,
 				4290533D243EA53C004EFFB6 /* SnakeLevelSelectorScene.swift in Sources */,
 				42905333243E9A3F004EFFB6 /* PlayerScoreView.swift in Sources */,
 				42A3899B24462DF200552363 /* GameViewController.swift in Sources */,

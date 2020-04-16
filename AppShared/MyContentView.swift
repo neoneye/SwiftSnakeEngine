@@ -177,21 +177,28 @@ struct MyContentView: View {
         }
     }
 
+    private var iOS_overlayWithHeader_inner: some View {
+        return VStack {
+            Toggle(isOn: $model.levelSelector_humanVsBot) {
+                Text("Human against BOT")
+            }.padding(EdgeInsets(top: 30, leading: 30, bottom: 10, trailing: 30))
+
+            if model.levelSelector_humanVsBot {
+                Text("Two player game: Human vs bot")
+            } else {
+                Text("Single player game: Human only")
+            }
+        }
+        .modifier(ViewHeightGetter())
+        .onPreferenceChange(ViewHeightPreferenceKey.self) {
+            log.debug("height of view: \($0)")
+        }
+        .background(Color.white.opacity(0.5))
+    }
+
     private var iOS_overlayWithHeader: some View {
         return VStack {
-            VStack {
-                Toggle(isOn: $model.levelSelector_humanVsBot) {
-                    Text("Human against BOT")
-                }.padding(EdgeInsets(top: 20, leading: 10, bottom: 10, trailing: 10))
-
-                if model.levelSelector_humanVsBot {
-                    Text("Two player game: Human vs bot")
-                } else {
-                    Text("Single player game: Human only")
-                }
-            }
-            .frame(minWidth: 80, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
-            .background(Color.white.opacity(0.5))
+            iOS_overlayWithHeader_inner
 
             Spacer()
         }
