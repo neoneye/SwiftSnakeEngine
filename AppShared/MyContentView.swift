@@ -214,30 +214,43 @@ struct MyContentView: View {
         .frame(minWidth: 80, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
     }
 
-    var body: some View {
+    var macOS_body: some View {
         VStack(spacing: 1) {
-            
-            ZStack {
-                spriteKitContainer
+            spriteKitContainer
 
-                #if os(iOS)
-                if model.showPauseButton {
-                    iOS_overlayWithPauseButton
-                }
-                #endif
-            }
-
-            #if os(macOS)
             macOS_footer
-            #else
-            if model.levelSelector_visible {
-                iOS_footer
-            }
-            #endif
         }
         .edgesIgnoringSafeArea(.all)
         .frame(minWidth: isPreview ? 100 : 400, maxWidth: .infinity, minHeight: isPreview ? 80 : 400, maxHeight: .infinity)
     }
+
+    var iOS_body: some View {
+        VStack(spacing: 1) {
+
+            ZStack {
+                spriteKitContainer
+
+                if model.showPauseButton {
+                    iOS_overlayWithPauseButton
+                }
+            }
+
+            if model.levelSelector_visible {
+                iOS_footer
+            }
+        }
+        .edgesIgnoringSafeArea(.all)
+        .frame(minWidth: isPreview ? 100 : 400, maxWidth: .infinity, minHeight: isPreview ? 80 : 400, maxHeight: .infinity)
+    }
+
+    var body: some View {
+        #if os(macOS)
+        return macOS_body
+        #else
+        return iOS_body
+        #endif
+    }
+
 }
 
 struct ContentView_Previews : PreviewProvider {
