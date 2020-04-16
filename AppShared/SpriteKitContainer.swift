@@ -52,6 +52,24 @@ struct SpriteKitContainer: ViewRepresentableType {
 
 		view.ignoresSiblingOrder = true
 
+        // Used while the user is ingame with the pause screen shown.
+        // Here the user can choose to exit the game and jump to the level selector.
+        model.jumpToLevelSelector
+            .sink { [weak view, weak model] in
+                log.debug("jumpToLevelSelector")
+                model?.showPauseButton = false
+                view?.scene?.transitionToLevelSelectorScene()
+            }
+            .store(in: &context.coordinator.cancellable)
+
+        // Used while the level selector is visible.
+        // Here the user can enable/disable playing against a bot.
+        model.$levelSelector_humanVsBot
+            .sink { (value) in
+                log.debug("human vs bot. value: \(value)")
+            }
+            .store(in: &context.coordinator.cancellable)
+
 		let scene: SKScene
         let showPauseButton: Bool
 		switch AppConstant.mode {
@@ -66,17 +84,6 @@ struct SpriteKitContainer: ViewRepresentableType {
             showPauseButton = true
 		}
 		view.presentScene(scene)
-
-        // The user is currently in a game with the pause screen shown.
-        // The user now chooses to exit the game and jump to the level selector.
-        model.jumpToLevelSelector
-            .sink { [weak view, weak model] in
-                log.debug("jumpToLevelSelector")
-                model?.showPauseButton = false
-                view?.scene?.transitionToLevelSelectorScene()
-            }
-            .store(in: &context.coordinator.cancellable)
-
         model.showPauseButton = showPauseButton
 
 		return view
