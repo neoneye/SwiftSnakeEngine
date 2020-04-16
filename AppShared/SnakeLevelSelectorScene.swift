@@ -262,17 +262,21 @@ class SnakeLevelSelectorScene: SKScene {
             }
         }
 	}
+
+    func didChangePlayerSettings() {
+        log.debug("player settings did change")
+        levelSelectorNode.createGameStates()
+        levelSelectorNode.createGameNodes()
+        needRedraw = true
+        needSendingLevelInfo = true
+    }
 }
 
 #if os(macOS)
 extension SnakeLevelSelectorScene: FlowDispatcher {
 	func flow_dispatch(_ event: FlowEvent) {
 		if event is FlowEvent_DidChangePlayerSetting {
-			log.debug("player settings did change")
-			levelSelectorNode.createGameStates()
-			levelSelectorNode.createGameNodes()
-			needRedraw = true
-            needSendingLevelInfo = true
+            didChangePlayerSettings()
 		}
 	}
 }
