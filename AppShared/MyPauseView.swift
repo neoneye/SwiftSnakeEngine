@@ -44,13 +44,15 @@ struct MyPauseView: View {
         })
     }
 
-    #if os(iOS)
-
-    var contentArea: some View {
+    var bodyWithoutNavigationBar: some View {
         VStack(spacing: 20) {
+            #if os(macOS)
+            Button("Continue") { self.presentedAsModal = false }
+            #endif
+
             HStack(spacing: 40) {
-                Text("Human\nLength 14")
-                Text("Computer\nLength 18")
+                Text("Human\nLength \(self.model.player1Length)")
+                Text("Computer\nLength \(self.model.player2Length)")
             }
 
             Spacer()
@@ -60,9 +62,10 @@ struct MyPauseView: View {
         .padding(EdgeInsets(top: 40, leading: 0, bottom: 40, trailing: 0))
     }
 
+    #if os(iOS)
     var body: some View {
         NavigationView {
-            contentArea
+            bodyWithoutNavigationBar
                 .navigationBarTitle("Game Paused")
                 .navigationBarItems(leading:
                     Button("Continue") { self.presentedAsModal = false }
@@ -71,7 +74,7 @@ struct MyPauseView: View {
     }
     #else
     var body: some View {
-        Button("Continue") { self.presentedAsModal = false }
+        bodyWithoutNavigationBar
     }
     #endif
 }
