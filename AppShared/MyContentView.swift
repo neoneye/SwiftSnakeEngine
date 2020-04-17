@@ -179,16 +179,19 @@ struct MyContentView: View {
 
     private var iOS_overlayWithHeader_inner: some View {
         return VStack {
-            Toggle(isOn: $model.levelSelector_humanVsBot) {
-                Text("Human against BOT")
-            }.padding(EdgeInsets(top: 30, leading: 30, bottom: 10, trailing: 30))
+            HStack {
+                Text("Battle the AI")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding()
 
-            if model.levelSelector_humanVsBot {
-                Text("Two player game: Human vs bot")
-            } else {
-                Text("Single player game: Human only")
+                Toggle("Battle the AI", isOn: $model.levelSelector_humanVsBot)
+                .labelsHidden()
             }
+            .padding(EdgeInsets(top: 30, leading: 30, bottom: 10, trailing: 30))
+
         }
+        .frame(minWidth: 80, maxWidth: .infinity)
         .modifier(ViewHeightGetter())
         .onPreferenceChange(ViewHeightPreferenceKey.self) { [weak model] (viewHeight: CGFloat) in
             log.debug("height of view: \(viewHeight)")
