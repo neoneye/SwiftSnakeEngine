@@ -10,7 +10,7 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
-struct MyPauseView: View {
+struct PauseSheetView: View {
     @ObservedObject var model: MyModel
     @Binding var presentedAsModal: Bool
     @State var showExitGameAlert = false
@@ -79,9 +79,9 @@ struct MyPauseView: View {
     #endif
 }
 
-struct MyPauseView_Previews: PreviewProvider {
+struct PauseSheetView_Previews: PreviewProvider {
     static var previews: some View {
         let model = MyModel()
-        return MyPauseView(model: model, presentedAsModal: .constant(true))
+        return PauseSheetView(model: model, presentedAsModal: .constant(true))
     }
 }
