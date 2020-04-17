@@ -9,7 +9,7 @@ enum PlayerMode: String, CaseIterable {
 
 /// Keeps track of the users preferred `player mode`.
 class PlayerModeController {
-    private(set) lazy var currentPlayerMode = loadMode()
+    private(set) lazy var currentPlayerMode = initialValue()
     private let defaults: UserDefaults
     private let defaultsKey = "SNAKE_PLAYERMODE"
 
@@ -23,10 +23,10 @@ class PlayerModeController {
         defaults.setValue(playerMode.rawValue, forKey: defaultsKey)
     }
 
-    private func loadMode() -> PlayerMode {
+    private func initialValue() -> PlayerMode {
         let rawValue: String? = defaults.string(forKey: defaultsKey)
-        let playerMode: PlayerMode = rawValue.flatMap(PlayerMode.init) ?? .twoPlayer_humanBot
-        log.debug("get player mode: \(playerMode)")
-        return playerMode
+        let value: PlayerMode = rawValue.flatMap(PlayerMode.init) ?? .twoPlayer_humanBot
+        log.debug("get player mode: \(value)")
+        return value
     }
 }
