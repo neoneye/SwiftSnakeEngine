@@ -598,11 +598,15 @@
 		4255CA0C232F8A2100A230AF /* AppMac */ = {
 			isa = PBXGroup;
 			children = (
+				4255CA0D232F8A2100A230AF /* AppDelegate.swift */,
 				4255CA1D232F8A2300A230AF /* AppMac.entitlements */,
+				42ECBCCA237CA50700758303 /* DebugMenu.swift */,
+				421A9E32243922ED00A85B6F /* GameNSView.swift */,
 				4255CA1C232F8A2300A230AF /* Info.plist */,
-				42C31826238187F600468D1F /* Main */,
 				4255CA19232F8A2300A230AF /* Main.storyboard */,
 				42C5566723ABE7E70001DBD8 /* NSEvent+KeyCode.swift */,
+				429CD0D02348F93E00098E68 /* NSUserDefaultsController+Settings.swift */,
+				4246C440235BB07E00324965 /* PlayerMenu.swift */,
 				422B903A23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift */,
 			);
 			path = AppMac;
@@ -721,18 +725,6 @@
 				422423BF233E79090006D02D /* Snake */,
 			);
 			path = EngineShared;
-			sourceTree = "<group>";
-		};
-		42C31826238187F600468D1F /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				4255CA0D232F8A2100A230AF /* AppDelegate.swift */,
-				42ECBCCA237CA50700758303 /* DebugMenu.swift */,
-				421A9E32243922ED00A85B6F /* GameNSView.swift */,
-				429CD0D02348F93E00098E68 /* NSUserDefaultsController+Settings.swift */,
-				4246C440235BB07E00324965 /* PlayerMenu.swift */,
-			);
-			path = Main;
 			sourceTree = "<group>";
 		};
 		42C3182B2386F17000468D1F /* Sounds */ = {
