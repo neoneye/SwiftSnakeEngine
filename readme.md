@@ -1,4 +1,13 @@
-# SwiftSnakeEngine for macOS
+<p align="left">
+<a href="https://raw.githubusercontent.com/neoneye/SwiftSnakeEngine/develop/screenshots/SwiftSnakeEngine_iOS0.png" rel="nofollow"><img src="screenshots/SwiftSnakeEngine_iOS0_Thumb.png" alt="Screenshot 0" style="max-width:100%;"></a>
+<a href="https://raw.githubusercontent.com/neoneye/SwiftSnakeEngine/develop/screenshots/SwiftSnakeEngine_iOS1.png" rel="nofollow"><img src="screenshots/SwiftSnakeEngine_iOS1_Thumb.png" alt="Screenshot 1" style="max-width:100%;"></a>
+<a href="https://raw.githubusercontent.com/neoneye/SwiftSnakeEngine/develop/screenshots/SwiftSnakeEngine_iOS2.png" rel="nofollow"><img src="screenshots/SwiftSnakeEngine_iOS2_Thumb.png" alt="Screenshot 2" style="max-width:100%;"></a>
+<a href="https://raw.githubusercontent.com/neoneye/SwiftSnakeEngine/develop/screenshots/SwiftSnakeEngine_iOS3.png" rel="nofollow"><img src="screenshots/SwiftSnakeEngine_iOS3_Thumb.png" alt="Screenshot 3" style="max-width:100%;"></a>
+<a href="https://raw.githubusercontent.com/neoneye/SwiftSnakeEngine/develop/screenshots/SwiftSnakeEngine_macOS4.png" rel="nofollow"><img src="screenshots/SwiftSnakeEngine_macOS4_Thumb.png" alt="Screenshot 4" style="max-width:100%;"></a>
+<a href="https://raw.githubusercontent.com/neoneye/SwiftSnakeEngine/develop/screenshots/SwiftSnakeEngine_macOS5.png" rel="nofollow"><img src="screenshots/SwiftSnakeEngine_macOS5_Thumb.png" alt="Screenshot 5" style="max-width:100%;"></a>
+</p>
+
+### SwiftSnakeEngine is a snake AI, for iOS and macOS
 
 Hi, I'm Simon Strandgaard and this is my lab, where I experiment with coding a snake AI.
 
@@ -73,6 +82,6 @@ ESCape = quit game, useful during development for faster feedback cycle.
 
 # Compiling this project
 
-Xcode 11.3.1
+Xcode 11.4
 
 
