@@ -2,7 +2,7 @@
 import Foundation
 import EngineIOS
 
-enum PlayerMode: String, CaseIterable {
+enum PlayerMode: String {
     case twoPlayer_humanBot = "twoPlayer_humanBot"
     case singlePlayer_human = "singlePlayer_human"
 }
