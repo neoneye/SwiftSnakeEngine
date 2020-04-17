@@ -3,7 +3,7 @@ import Foundation
 
 /// Remembers the selected level, so it's the same the next time the app is launched.
 class SelectedLevelController {
-    private(set) lazy var currentSelectedLevel = initialValue()
+    private(set) lazy var value = initialValue()
     private let defaults: UserDefaults
     private let defaultsKey = "SELECTED_LEVEL"
 
@@ -11,9 +11,9 @@ class SelectedLevelController {
         self.defaults = defaults
     }
 
-    func changeSelectedLevel(to selectedLevel: Int) {
-        currentSelectedLevel = selectedLevel
-        defaults.setValue(Int(selectedLevel), forKey: defaultsKey)
+    func set(_ newValue: Int) {
+        value = newValue
+        defaults.setValue(newValue, forKey: defaultsKey)
     }
 
     private func initialValue() -> Int {
