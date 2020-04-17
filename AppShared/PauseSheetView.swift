@@ -71,6 +71,7 @@ struct PauseSheetView: View {
                     Button("Continue Game") { self.presentedAsModal = false }
                 )
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     #else
     var body: some View {
