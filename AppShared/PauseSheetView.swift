@@ -28,6 +28,17 @@ struct PauseSheetView: View {
         )
     }
 
+    var soundEffectsButton: some View {
+        #if os(iOS)
+        return HStack {
+            Text("Sound effects")
+            Toggle("Sound effects", isOn: self.$model.iOS_soundEffectsEnabled).labelsHidden()
+        }
+        #else
+        return Text("Sound effects")
+        #endif
+    }
+
     var exitGameButton: some View {
         return Button(action: {
             log.debug("show exit game alert")
@@ -54,6 +65,10 @@ struct PauseSheetView: View {
                 Text("Human\nLength \(self.model.player1Length)")
                 Text("Computer\nLength \(self.model.player2Length)")
             }
+
+            Spacer()
+
+            soundEffectsButton
 
             Spacer()
 
