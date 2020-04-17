@@ -42,8 +42,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4255C9ED232F703E00A230AF"
-               BuildableName = "SnakeGameTests.xctest"
-               BlueprintName = "SnakeGameTests"
+               BuildableName = "EngineMacTests.xctest"
+               BlueprintName = "EngineMacTests"
                ReferencedContainer = "container:SnakeGame.xcodeproj">
             </BuildableReference>
          </TestableReference>

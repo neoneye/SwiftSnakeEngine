@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Cocoa
 import SwiftUI
-import SnakeGame
+import EngineMac
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -25,7 +25,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //		let game = SnakeGameHeadless()
 //		game.run()
 
-        let contentView = MyContentView()
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 600, height: 500),
             styleMask: [.titled, .closable, .miniaturizable, .resizable],
@@ -34,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
         window.center()
         window.setFrameAutosaveName("Main Window")
-        window.contentView = TrackingNSHostingView(rootView: contentView)
+        window.contentView = GameNSView.create()
         window.makeKeyAndOrderFront(nil)
     }
     

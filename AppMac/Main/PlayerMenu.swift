@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Cocoa
 import SSEventFlow
-import SnakeGame
+import EngineMac
 
 class FlowEvent_DidChangePlayerSetting: FlowEvent {}
 
@@ -109,30 +109,6 @@ public class PlayerRoleMenuItemFactory {
 		return self.bots.last ?? self.none
 	}
 }
-
-
-public enum PlayerSkinMenuItem: String, CaseIterable {
-	case retroGreen
-	case retroBlue
-	case cuteGreen
-	case cuteBlue
-}
-
-extension PlayerSkinMenuItem {
-	fileprivate var menuItemTitle: String {
-		switch self {
-		case .retroGreen:
-			return "Retro - Green"
-		case .retroBlue:
-			return "Retro - Blue"
-		case .cuteGreen:
-			return "Cute - Green"
-		case .cuteBlue:
-			return "Cute - Blue"
-		}
-	}
-}
-
 
 
 extension UserDefaults {

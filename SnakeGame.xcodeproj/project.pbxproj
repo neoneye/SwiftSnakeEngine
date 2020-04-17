@@ -8,15 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		4214300824259647003A58FB /* T2001_SnakeBodyMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4214300724259647003A58FB /* T2001_SnakeBodyMovement.swift */; };
-		4217E4E623FD47DA00D8779A /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 4217E4E523FD47DA00D8779A /* Fonts */; };
 		4217EEA6240E77830066B8C0 /* T2000_SnakeHeadDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */; };
 		4217EEA8240E7D220066B8C0 /* SnakeBodyMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */; };
 		4217EEAA240F00740066B8C0 /* SnakePlannedPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */; };
 		421A9E2F2437E2CA00A85B6F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E2E2437E2CA00A85B6F /* Dashboard.swift */; };
 		421A9E312439004600A85B6F /* FloatFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E302439004600A85B6F /* FloatFormatting.swift */; };
-		421A9E33243922ED00A85B6F /* TrackingNSHostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E32243922ED00A85B6F /* TrackingNSHostingView.swift */; };
-		422158D4234BCE830011DA67 /* level_theme1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 422158D3234BCE830011DA67 /* level_theme1.atlas */; };
-		422158D6234BCE8A0011DA67 /* level_theme2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 422158D5234BCE8A0011DA67 /* level_theme2.atlas */; };
+		421A9E33243922ED00A85B6F /* GameNSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E32243922ED00A85B6F /* GameNSView.swift */; };
 		4221EFDC2332F0F00026A8A0 /* SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */; };
 		422423B4233CE40A0006D02D /* SnakeCollisionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B3233CE40A0006D02D /* SnakeCollisionDetector.swift */; };
 		422423B6233D46F30006D02D /* SnakeGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B5233D46F30006D02D /* SnakeGameState.swift */; };
@@ -36,7 +33,7 @@
 		4253C5432336349800210611 /* UIntVec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5422336349800210611 /* UIntVec2.swift */; };
 		4253C5462336350100210611 /* T1002_UIntVec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5442336350100210611 /* T1002_UIntVec2.swift */; };
 		4253C5472336350100210611 /* T1100_SeededGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5452336350100210611 /* T1100_SeededGenerator.swift */; };
-		4255C9EF232F703E00A230AF /* SnakeGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4255C9E5232F703E00A230AF /* SnakeGame.framework */; };
+		4255C9EF232F703E00A230AF /* EngineMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4255C9E5232F703E00A230AF /* EngineMac.framework */; };
 		4255CA01232F70F800A230AF /* remap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255C9FF232F70F800A230AF /* remap.swift */; };
 		4255CA02232F70F800A230AF /* sigmoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA00232F70F800A230AF /* sigmoid.swift */; };
 		4255CA04232F76F400A230AF /* T1000_Sigmoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA03232F76F400A230AF /* T1000_Sigmoid.swift */; };
@@ -48,7 +45,10 @@
 		4255CA24232FD2D700A230AF /* T1001_IntVec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA23232FD2D700A230AF /* T1001_IntVec2.swift */; };
 		4255CA26232FD31900A230AF /* IntVec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA25232FD31900A230AF /* IntVec2.swift */; };
 		4255CA2A233180B500A230AF /* SeededGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA29233180B500A230AF /* SeededGenerator.swift */; };
-		4255CA2E2331810100A230AF /* SnakeGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4255C9E5232F703E00A230AF /* SnakeGame.framework */; };
+		4255CA2E2331810100A230AF /* EngineMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4255C9E5232F703E00A230AF /* EngineMac.framework */; };
+		42685C44243E8BAE000C5511 /* SnakePlayerKillEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42685C43243E8BAE000C5511 /* SnakePlayerKillEvent.swift */; };
+		42685C45243E8BAE000C5511 /* SnakePlayerKillEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42685C43243E8BAE000C5511 /* SnakePlayerKillEvent.swift */; };
+		42685C47243E8DF5000C5511 /* SnakeWallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22C82337C28500CF3D96 /* SnakeWallNode.swift */; };
 		426891F9233267E900B97E29 /* AdjacencyListGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F1233267E900B97E29 /* AdjacencyListGraph.swift */; };
 		426891FA233267E900B97E29 /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F2233267E900B97E29 /* Edge.swift */; };
 		426891FB233267E900B97E29 /* AdjacencyMatrixGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F3233267E900B97E29 /* AdjacencyMatrixGraph.swift */; };
@@ -59,8 +59,34 @@
 		426892032332682100B97E29 /* GraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426892012332682100B97E29 /* GraphTests.swift */; };
 		426892042332682100B97E29 /* SSSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426892022332682100B97E29 /* SSSPTests.swift */; };
 		42822A23239817CA00DA4461 /* SnakeBot6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42822A22239817CA00DA4461 /* SnakeBot6.swift */; };
-		4285BC0E234BB4FE00FBE99E /* snakeskin_green.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4285BC0B234BB4FE00FBE99E /* snakeskin_green.atlas */; };
-		4285BC0F234BB4FE00FBE99E /* snakeskin_blue.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4285BC0C234BB4FE00FBE99E /* snakeskin_blue.atlas */; };
+		42905320243E9659004EFFB6 /* snakeskin_blue.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531C243E9659004EFFB6 /* snakeskin_blue.atlas */; };
+		42905321243E9659004EFFB6 /* snakeskin_blue.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531C243E9659004EFFB6 /* snakeskin_blue.atlas */; };
+		42905322243E9659004EFFB6 /* snakeskin_green.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531D243E9659004EFFB6 /* snakeskin_green.atlas */; };
+		42905323243E9659004EFFB6 /* snakeskin_green.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531D243E9659004EFFB6 /* snakeskin_green.atlas */; };
+		42905324243E9659004EFFB6 /* level_theme2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531E243E9659004EFFB6 /* level_theme2.atlas */; };
+		42905325243E9659004EFFB6 /* level_theme2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531E243E9659004EFFB6 /* level_theme2.atlas */; };
+		42905326243E9659004EFFB6 /* level_theme1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531F243E9659004EFFB6 /* level_theme1.atlas */; };
+		42905327243E9659004EFFB6 /* level_theme1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531F243E9659004EFFB6 /* level_theme1.atlas */; };
+		42905328243E96B9004EFFB6 /* snake_dies.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA47233FC05100AA58CD /* snake_dies.wav */; };
+		42905329243E96BD004EFFB6 /* snake_eats.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA46233FC05100AA58CD /* snake_eats.wav */; };
+		4290532A243E96C1004EFFB6 /* snake_step.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA4A233FC96300AA58CD /* snake_step.wav */; };
+		4290532B243E98D9004EFFB6 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4255CA11232F8A2100A230AF /* Actions.sks */; };
+		42905331243E99DD004EFFB6 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 42905330243E99DD004EFFB6 /* Fonts */; };
+		42905332243E99DD004EFFB6 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 42905330243E99DD004EFFB6 /* Fonts */; };
+		42905333243E9A3F004EFFB6 /* PlayerScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F35E6023FD877400A4795B /* PlayerScoreView.swift */; };
+		42905334243E9BDF004EFFB6 /* SnakeGameSKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC337123FEAC20004A50E7 /* SnakeGameSKView.swift */; };
+		42905335243E9CA4004EFFB6 /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429CD0D423495DF300098E68 /* AppConstant.swift */; };
+		42905336243E9D4D004EFFB6 /* SnakeGameNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4294DA502341377900AA58CD /* SnakeGameNode.swift */; };
+		42905338243E9E89004EFFB6 /* PlayerSkinMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42905337243E9E89004EFFB6 /* PlayerSkinMenuItem.swift */; };
+		42905339243E9E89004EFFB6 /* PlayerSkinMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42905337243E9E89004EFFB6 /* PlayerSkinMenuItem.swift */; };
+		4290533A243E9F9B004EFFB6 /* SnakeGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA13232F8A2100A230AF /* SnakeGameScene.swift */; };
+		4290533B243EA036004EFFB6 /* SnakeUserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42967E45234FBF3C0098A79D /* SnakeUserInput.swift */; };
+		4290533C243EA41C004EFFB6 /* SnakeLevelSelectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B96D942347EE000073CAAA /* SnakeLevelSelectorNode.swift */; };
+		4290533D243EA53C004EFFB6 /* SnakeLevelSelectorScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423494FB234D151D009C0030 /* SnakeLevelSelectorScene.swift */; };
+		4290533E243EA6F8004EFFB6 /* SpriteKitContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCD61C23C3CF660021CBE7 /* SpriteKitContainer.swift */; };
+		4290533F243EABD8004EFFB6 /* MyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A93BF723FC1E1800A15FD2 /* MyContentView.swift */; };
+		42905361243EAE0B004EFFB6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42905360243EAE0B004EFFB6 /* SceneDelegate.swift */; };
+		42905362243EB578004EFFB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4255CA17232F8A2300A230AF /* Assets.xcassets */; };
 		429122BF23520D3000B3E32A /* SnakeBot1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429122BE23520D3000B3E32A /* SnakeBot1.swift */; };
 		4294DA3F233EF09900AA58CD /* SKSpriteNode+Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */; };
 		4294DA41233EF33200AA58CD /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA40233EF33200AA58CD /* Explosion.sks */; };
@@ -74,10 +100,79 @@
 		429CD0D523495DF300098E68 /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429CD0D423495DF300098E68 /* AppConstant.swift */; };
 		429D336623FAF46E00EF9B37 /* StuckSnakeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429D336523FAF46E00EF9B37 /* StuckSnakeDetector.swift */; };
 		429D336823FB056300EF9B37 /* T3100_StuckSnakeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429D336723FB056300EF9B37 /* T3100_StuckSnakeDetector.swift */; };
+		42A06C1E2441D90600877CB9 /* MyPauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A06C1D2441D90600877CB9 /* MyPauseView.swift */; };
+		42A06C1F2441D90600877CB9 /* MyPauseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A06C1D2441D90600877CB9 /* MyPauseView.swift */; };
+		42A3899B24462DF200552363 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A3899A24462DF200552363 /* GameViewController.swift */; };
 		42A8B6FC2331B3CC00E618CF /* SnakeFifo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A8B6FB2331B3CC00E618CF /* SnakeFifo.swift */; };
 		42A8B6FE2331B4AE00E618CF /* SnakeHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A8B6FD2331B4AE00E618CF /* SnakeHead.swift */; };
 		42A93BF823FC1E1800A15FD2 /* MyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A93BF723FC1E1800A15FD2 /* MyContentView.swift */; };
+		42ABC112243CAD1100E05FF3 /* EngineIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 42ABC110243CAD1100E05FF3 /* EngineIOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42ABC115243CAD1100E05FF3 /* EngineIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42ABC10E243CAD1100E05FF3 /* EngineIOS.framework */; };
+		42ABC116243CAD1100E05FF3 /* EngineIOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42ABC10E243CAD1100E05FF3 /* EngineIOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		42ABC11B243D137D00E05FF3 /* SnakeBot_MoveForward.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C318292384117500468D1F /* SnakeBot_MoveForward.swift */; };
+		42ABC11C243D137D00E05FF3 /* SnakeBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22CC23397D9700CF3D96 /* SnakeBot.swift */; };
+		42ABC11D243D137D00E05FF3 /* SnakeBot1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429122BE23520D3000B3E32A /* SnakeBot1.swift */; };
+		42ABC11E243D137D00E05FF3 /* SnakeBot4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCBD236F305600758303 /* SnakeBot4.swift */; };
+		42ABC11F243D137D00E05FF3 /* SnakeBot5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3182C2386FBDC00468D1F /* SnakeBot5.swift */; };
+		42ABC120243D137D00E05FF3 /* SnakeBot6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42822A22239817CA00DA4461 /* SnakeBot6.swift */; };
+		42ABC121243D138300E05FF3 /* Array2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C31821237F27AF00468D1F /* Array2.swift */; };
+		42ABC122243D138300E05FF3 /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCD61023BE65FD0021CBE7 /* BoundingBox.swift */; };
+		42ABC123243D138300E05FF3 /* ComputeShortestPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B1233400D3007AC6F9 /* ComputeShortestPath.swift */; };
+		42ABC124243D138300E05FF3 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E2E2437E2CA00A85B6F /* Dashboard.swift */; };
+		42ABC125243D138300E05FF3 /* Data+SHA1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCD61223BEB04B0021CBE7 /* Data+SHA1.swift */; };
+		42ABC126243D138300E05FF3 /* FloatFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E302439004600A85B6F /* FloatFormatting.swift */; };
+		42ABC127243D138300E05FF3 /* IntVec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA25232FD31900A230AF /* IntVec2.swift */; };
+		42ABC128243D138300E05FF3 /* IntVec2+CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3181F237D6E2700468D1F /* IntVec2+CGPoint.swift */; };
+		42ABC129243D138300E05FF3 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423C4F52240C4B5B00786F49 /* Logging.swift */; };
+		42ABC12A243D138300E05FF3 /* MeasureAreaSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C236EC2333033700241639 /* MeasureAreaSize.swift */; };
+		42ABC12B243D138300E05FF3 /* MeasureTurnCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4228915123341CCC00273A0F /* MeasureTurnCount.swift */; };
+		42ABC12C243D138300E05FF3 /* OSLogDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423C4F53240C4B5B00786F49 /* OSLogDestination.swift */; };
+		42ABC12D243D138300E05FF3 /* remap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255C9FF232F70F800A230AF /* remap.swift */; };
+		42ABC12E243D138300E05FF3 /* SeededGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA29233180B500A230AF /* SeededGenerator.swift */; };
+		42ABC12F243D138300E05FF3 /* sigmoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA00232F70F800A230AF /* sigmoid.swift */; };
+		42ABC130243D138800E05FF3 /* UIntVec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5422336349800210611 /* UIntVec2.swift */; };
+		42ABC131243D138800E05FF3 /* URL+temporaryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7C0123F283FC00229CEA /* URL+temporaryFile.swift */; };
+		42ABC132243D139300E05FF3 /* AdjacencyListGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F1233267E900B97E29 /* AdjacencyListGraph.swift */; };
+		42ABC133243D139300E05FF3 /* AdjacencyMatrixGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F3233267E900B97E29 /* AdjacencyMatrixGraph.swift */; };
+		42ABC134243D139300E05FF3 /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F2233267E900B97E29 /* Edge.swift */; };
+		42ABC135243D139300E05FF3 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F4233267E900B97E29 /* Graph.swift */; };
+		42ABC136243D139300E05FF3 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F5233267E900B97E29 /* Vertex.swift */; };
+		42ABC137243D139300E05FF3 /* BellmanFord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F8233267E900B97E29 /* BellmanFord.swift */; };
+		42ABC138243D139300E05FF3 /* SSSP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F7233267E900B97E29 /* SSSP.swift */; };
+		42ABC139243D13A200E05FF3 /* SnakeLevel_Cluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCD60A23BD5DF40021CBE7 /* SnakeLevel_Cluster.swift */; };
+		42ABC13A243D13A200E05FF3 /* SnakeLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B523340DEE007AC6F9 /* SnakeLevel.swift */; };
+		42ABC13B243D13A200E05FF3 /* SnakeLevel+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5402335A9D100210611 /* SnakeLevel+Load.swift */; };
+		42ABC13C243D13A200E05FF3 /* SnakeLevelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCD60C23BE62CE0021CBE7 /* SnakeLevelBuilder.swift */; };
+		42ABC13D243D13A200E05FF3 /* SnakeLevelCacheModel.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCBF23735BF500758303 /* SnakeLevelCacheModel.pb.swift */; };
+		42ABC13E243D13A200E05FF3 /* SnakeLevelCacheModel.proto in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCC42373608600758303 /* SnakeLevelCacheModel.proto */; };
+		42ABC13F243D13A200E05FF3 /* SnakeLevelDistanceMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3182E2388839100468D1F /* SnakeLevelDistanceMap.swift */; };
+		42ABC140243D13A200E05FF3 /* SnakeLevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCD61723C1054C0021CBE7 /* SnakeLevelManager.swift */; };
+		42ABC141243D13AB00E05FF3 /* SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */; };
+		42ABC142243D13AB00E05FF3 /* SnakeBodyMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */; };
+		42ABC143243D13AB00E05FF3 /* SnakeCollisionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B3233CE40A0006D02D /* SnakeCollisionDetector.swift */; };
+		42ABC144243D13AB00E05FF3 /* SnakeFifo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A8B6FB2331B3CC00E618CF /* SnakeFifo.swift */; };
+		42ABC145243D13AB00E05FF3 /* SnakeFoodGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B7233D71E80006D02D /* SnakeFoodGenerator.swift */; };
+		42ABC146243D13AB00E05FF3 /* SnakeGameExecuter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423BB233D9ABD0006D02D /* SnakeGameExecuter.swift */; };
+		42ABC147243D13AB00E05FF3 /* SnakeGameHeadless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423BD233D9B760006D02D /* SnakeGameHeadless.swift */; };
+		42ABC148243D13AB00E05FF3 /* SnakeGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B5233D46F30006D02D /* SnakeGameState.swift */; };
+		42ABC149243D13AB00E05FF3 /* SnakeGameState+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B9233D9A590006D02D /* SnakeGameState+Create.swift */; };
+		42ABC14A243D13AB00E05FF3 /* SnakeGameState+SaveTrainingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7C0323F2873B00229CEA /* SnakeGameState+SaveTrainingData.swift */; };
+		42ABC14B243D13AB00E05FF3 /* SnakeGameStateModel.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7BFF23F2105000229CEA /* SnakeGameStateModel.pb.swift */; };
+		42ABC14C243D13AB00E05FF3 /* SnakeGameStateModel.proto in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7BFD23F1FD9D00229CEA /* SnakeGameStateModel.proto */; };
+		42ABC14D243D13AB00E05FF3 /* SnakeHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A8B6FD2331B4AE00E618CF /* SnakeHead.swift */; };
+		42ABC14E243D13AB00E05FF3 /* SnakeHeadDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */; };
+		42ABC14F243D13AB00E05FF3 /* SnakePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22CA23397D1300CF3D96 /* SnakePlayer.swift */; };
+		42ABC150243D13AB00E05FF3 /* StuckSnakeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429D336523FAF46E00EF9B37 /* StuckSnakeDetector.swift */; };
+		42ABC151243D13B400E05FF3 /* SnakeLevels.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4253C53E23359FB000210611 /* SnakeLevels.bundle */; };
 		42B96D952347EE000073CAAA /* SnakeLevelSelectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B96D942347EE000073CAAA /* SnakeLevelSelectorNode.swift */; };
+		42BE1626243E90050031C88B /* SnakePlannedPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */; };
+		42BE1627243E93650031C88B /* SnakeBodyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */; };
+		42BE1628243E93E10031C88B /* SKSpriteNode+Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */; };
+		42BE1629243E941D0031C88B /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 4294DA40233EF33200AA58CD /* Explosion.sks */; };
+		42BE162A243E94270031C88B /* SKScene+Explode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */; };
+		42C1930924489A5C00697159 /* PlayerMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1930824489A5C00697159 /* PlayerMode.swift */; };
+		42C1930B244913A500697159 /* ViewHeightGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1930A244913A500697159 /* ViewHeightGetter.swift */; };
+		42C1930C244913A500697159 /* ViewHeightGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1930A244913A500697159 /* ViewHeightGetter.swift */; };
 		42C236EB2332F4BB00241639 /* T2002_SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C236EA2332F4BB00241639 /* T2002_SnakeBody.swift */; };
 		42C236ED2333033700241639 /* MeasureAreaSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C236EC2333033700241639 /* MeasureAreaSize.swift */; };
 		42C31822237F27AF00468D1F /* Array2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C31821237F27AF00468D1F /* Array2.swift */; };
@@ -87,6 +182,8 @@
 		42C3182F2388839100468D1F /* SnakeLevelDistanceMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3182E2388839100468D1F /* SnakeLevelDistanceMap.swift */; };
 		42C5566823ABE7E70001DBD8 /* NSEvent+KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C5566723ABE7E70001DBD8 /* NSEvent+KeyCode.swift */; };
 		42C6512F23F5A2FD00B2669E /* T1007_SnakeFifo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C6512E23F5A2FD00B2669E /* T1007_SnakeFifo.swift */; };
+		42CBF1CC2443B31F001A5D04 /* MyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CBF1CB2443B31F001A5D04 /* MyModel.swift */; };
+		42CBF1CD2443B31F001A5D04 /* MyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CBF1CB2443B31F001A5D04 /* MyModel.swift */; };
 		42CC22C72336EFF200CF3D96 /* SnakeBodyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */; };
 		42CC22C92337C28500CF3D96 /* SnakeWallNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22C82337C28500CF3D96 /* SnakeWallNode.swift */; };
 		42CC22CB23397D1300CF3D96 /* SnakePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22CA23397D1300CF3D96 /* SnakePlayer.swift */; };
@@ -112,14 +209,18 @@
 		42ECBCBE236F305600758303 /* SnakeBot4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCBD236F305600758303 /* SnakeBot4.swift */; };
 		42ECBCC023735BF600758303 /* SnakeLevelCacheModel.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCBF23735BF500758303 /* SnakeLevelCacheModel.pb.swift */; };
 		42ECBCCB237CA50700758303 /* DebugMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCCA237CA50700758303 /* DebugMenu.swift */; };
-		42EFB41923E57E18002B6191 /* SnakeGame.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EFB41823E57E18002B6191 /* SnakeGame.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		42EFB41923E57E18002B6191 /* EngineMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EFB41823E57E18002B6191 /* EngineMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F35E6123FD877400A4795B /* PlayerScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F35E6023FD877400A4795B /* PlayerScoreView.swift */; };
 		42F4538823E5A3AD00B90297 /* IntVec2+CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3181F237D6E2700468D1F /* IntVec2+CGPoint.swift */; };
 		42F4538C23E5B41400B90297 /* SnakeHeadDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */; };
+		42FB0582243C99C4006BEE8D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FB0581243C99C4006BEE8D /* AppDelegate.swift */; };
+		42FB0592243C99C7006BEE8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42FB0590243C99C7006BEE8D /* LaunchScreen.storyboard */; };
 		42FC337223FEAC20004A50E7 /* SnakeGameSKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC337123FEAC20004A50E7 /* SnakeGameSKView.swift */; };
-		538970531674616122658DBA /* Pods_BasePods_AppMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4766643D46103B8402E69B4 /* Pods_BasePods_AppMac.framework */; };
-		80A23E690666DEBEB20BBC41 /* Pods_BasePods_SnakeGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9358128FC1D23A57135818A1 /* Pods_BasePods_SnakeGame.framework */; };
-		8FCF09EC0CECABDC8E2C13F8 /* Pods_BasePods_SnakeGameTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB44FDAE3974C5798FE49F5 /* Pods_BasePods_SnakeGameTests.framework */; };
+		7E9ADD44DF7E88915F23BF8A /* Pods_BasePodsMAC_AppMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28C49A90829DF8FE48C8D9AF /* Pods_BasePodsMAC_AppMac.framework */; };
+		7FC2E2426392287D91097671 /* Pods_BasePodsIOS_AppIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B3760762484E831AFA3BBBD /* Pods_BasePodsIOS_AppIOS.framework */; };
+		817A0A8C46BE76DE48D77EB6 /* Pods_BasePodsMAC_EngineMacTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6186561E02F2BD7CBE54F596 /* Pods_BasePodsMAC_EngineMacTests.framework */; };
+		B49F638FFC61F46DD5A86683 /* Pods_BasePodsMAC_EngineMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1415E0FB44E85AF5705D25E0 /* Pods_BasePodsMAC_EngineMac.framework */; };
+		EF696B5FFFC95CA7D20D24E2 /* Pods_BasePodsIOS_EngineIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A04DDEAA0A390B1DDB92538 /* Pods_BasePodsIOS_EngineIOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,20 +245,48 @@
 			remoteGlobalIDString = 4255C9E4232F703E00A230AF;
 			remoteInfo = NeuralNet4;
 		};
+		42ABC113243CAD1100E05FF3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4255C9DC232F703E00A230AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 42ABC10D243CAD1100E05FF3;
+			remoteInfo = SnakeGameIOS;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		42ABC117243CAD1100E05FF3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				42ABC116243CAD1100E05FF3 /* EngineIOS.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		09D3447DF739C0FBB949BCDC /* Pods-AppMac-SnakeGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppMac-SnakeGame.release.xcconfig"; path = "Target Support Files/Pods-AppMac-SnakeGame/Pods-AppMac-SnakeGame.release.xcconfig"; sourceTree = "<group>"; };
+		0E8B73CBD1F1CD3BB524D5AA /* Pods-AppMac-SnakeGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppMac-SnakeGame.debug.xcconfig"; path = "Target Support Files/Pods-AppMac-SnakeGame/Pods-AppMac-SnakeGame.debug.xcconfig"; sourceTree = "<group>"; };
+		1415E0FB44E85AF5705D25E0 /* Pods_BasePodsMAC_EngineMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasePodsMAC_EngineMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2543A45A88D7A652FC39BD2A /* Pods-BasePods-AppIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePods-AppIOS.release.xcconfig"; path = "Target Support Files/Pods-BasePods-AppIOS/Pods-BasePods-AppIOS.release.xcconfig"; sourceTree = "<group>"; };
+		26683D108E6DC73B81F6DB9D /* Pods-BasePodsIOS-SnakeGameIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsIOS-SnakeGameIOS.debug.xcconfig"; path = "Target Support Files/Pods-BasePodsIOS-SnakeGameIOS/Pods-BasePodsIOS-SnakeGameIOS.debug.xcconfig"; sourceTree = "<group>"; };
+		26DC487D57A3E5C2473ACA94 /* Pods-BasePodsMAC-SnakeGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-SnakeGame.release.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-SnakeGame/Pods-BasePodsMAC-SnakeGame.release.xcconfig"; sourceTree = "<group>"; };
+		28C49A90829DF8FE48C8D9AF /* Pods_BasePodsMAC_AppMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasePodsMAC_AppMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B3760762484E831AFA3BBBD /* Pods_BasePodsIOS_AppIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasePodsIOS_AppIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35C4C097824F5A32B5434DAE /* Pods-BasePods-AppMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePods-AppMac.debug.xcconfig"; path = "Target Support Files/Pods-BasePods-AppMac/Pods-BasePods-AppMac.debug.xcconfig"; sourceTree = "<group>"; };
+		3D35A103F0B879CC6FD0D85D /* Pods-BasePodsMAC-EngineMacTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-EngineMacTests.release.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-EngineMacTests/Pods-BasePodsMAC-EngineMacTests.release.xcconfig"; sourceTree = "<group>"; };
+		3D7C5502B95DADFE8A9A7ECA /* Pods-BasePodsIOS-AppIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsIOS-AppIOS.release.xcconfig"; path = "Target Support Files/Pods-BasePodsIOS-AppIOS/Pods-BasePodsIOS-AppIOS.release.xcconfig"; sourceTree = "<group>"; };
 		4214300724259647003A58FB /* T2001_SnakeBodyMovement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2001_SnakeBodyMovement.swift; sourceTree = "<group>"; };
-		4217E4E523FD47DA00D8779A /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2000_SnakeHeadDirection.swift; sourceTree = "<group>"; };
 		4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBodyMovement.swift; sourceTree = "<group>"; };
 		4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakePlannedPathNode.swift; sourceTree = "<group>"; };
 		421A9E2E2437E2CA00A85B6F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		421A9E302439004600A85B6F /* FloatFormatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatFormatting.swift; sourceTree = "<group>"; };
-		421A9E32243922ED00A85B6F /* TrackingNSHostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingNSHostingView.swift; sourceTree = "<group>"; };
-		422158D3234BCE830011DA67 /* level_theme1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme1.atlas; sourceTree = "<group>"; };
-		422158D5234BCE8A0011DA67 /* level_theme2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme2.atlas; sourceTree = "<group>"; };
+		421A9E32243922ED00A85B6F /* GameNSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNSView.swift; sourceTree = "<group>"; };
 		4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBody.swift; sourceTree = "<group>"; };
 		422423B3233CE40A0006D02D /* SnakeCollisionDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeCollisionDetector.swift; sourceTree = "<group>"; };
 		422423B5233D46F30006D02D /* SnakeGameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameState.swift; sourceTree = "<group>"; };
@@ -177,9 +306,9 @@
 		4253C5422336349800210611 /* UIntVec2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIntVec2.swift; sourceTree = "<group>"; };
 		4253C5442336350100210611 /* T1002_UIntVec2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T1002_UIntVec2.swift; sourceTree = "<group>"; };
 		4253C5452336350100210611 /* T1100_SeededGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T1100_SeededGenerator.swift; sourceTree = "<group>"; };
-		4255C9E5232F703E00A230AF /* SnakeGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnakeGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4255C9E5232F703E00A230AF /* EngineMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EngineMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4255C9E9232F703E00A230AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4255C9EE232F703E00A230AF /* SnakeGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnakeGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4255C9EE232F703E00A230AF /* EngineMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EngineMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4255C9F5232F703E00A230AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4255C9FF232F70F800A230AF /* remap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = remap.swift; sourceTree = "<group>"; };
 		4255CA00232F70F800A230AF /* sigmoid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sigmoid.swift; sourceTree = "<group>"; };
@@ -195,6 +324,7 @@
 		4255CA23232FD2D700A230AF /* T1001_IntVec2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1001_IntVec2.swift; sourceTree = "<group>"; };
 		4255CA25232FD31900A230AF /* IntVec2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntVec2.swift; sourceTree = "<group>"; };
 		4255CA29233180B500A230AF /* SeededGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededGenerator.swift; sourceTree = "<group>"; };
+		42685C43243E8BAE000C5511 /* SnakePlayerKillEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakePlayerKillEvent.swift; sourceTree = "<group>"; };
 		426891F1233267E900B97E29 /* AdjacencyListGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdjacencyListGraph.swift; sourceTree = "<group>"; };
 		426891F2233267E900B97E29 /* Edge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Edge.swift; sourceTree = "<group>"; };
 		426891F3233267E900B97E29 /* AdjacencyMatrixGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdjacencyMatrixGraph.swift; sourceTree = "<group>"; };
@@ -205,8 +335,13 @@
 		426892012332682100B97E29 /* GraphTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphTests.swift; sourceTree = "<group>"; };
 		426892022332682100B97E29 /* SSSPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSSPTests.swift; sourceTree = "<group>"; };
 		42822A22239817CA00DA4461 /* SnakeBot6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeBot6.swift; sourceTree = "<group>"; };
-		4285BC0B234BB4FE00FBE99E /* snakeskin_green.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = snakeskin_green.atlas; sourceTree = "<group>"; };
-		4285BC0C234BB4FE00FBE99E /* snakeskin_blue.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = snakeskin_blue.atlas; sourceTree = "<group>"; };
+		4290531C243E9659004EFFB6 /* snakeskin_blue.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = snakeskin_blue.atlas; sourceTree = "<group>"; };
+		4290531D243E9659004EFFB6 /* snakeskin_green.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = snakeskin_green.atlas; sourceTree = "<group>"; };
+		4290531E243E9659004EFFB6 /* level_theme2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme2.atlas; sourceTree = "<group>"; };
+		4290531F243E9659004EFFB6 /* level_theme1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme1.atlas; sourceTree = "<group>"; };
+		42905330243E99DD004EFFB6 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
+		42905337243E9E89004EFFB6 /* PlayerSkinMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSkinMenuItem.swift; sourceTree = "<group>"; };
+		42905360243EAE0B004EFFB6 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		429122BE23520D3000B3E32A /* SnakeBot1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBot1.swift; sourceTree = "<group>"; };
 		4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKSpriteNode+Pulse.swift"; sourceTree = "<group>"; };
 		4294DA40233EF33200AA58CD /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
@@ -220,10 +355,17 @@
 		429CD0D423495DF300098E68 /* AppConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
 		429D336523FAF46E00EF9B37 /* StuckSnakeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StuckSnakeDetector.swift; sourceTree = "<group>"; };
 		429D336723FB056300EF9B37 /* T3100_StuckSnakeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T3100_StuckSnakeDetector.swift; sourceTree = "<group>"; };
+		42A06C1D2441D90600877CB9 /* MyPauseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPauseView.swift; sourceTree = "<group>"; };
+		42A3899A24462DF200552363 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		42A8B6FB2331B3CC00E618CF /* SnakeFifo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeFifo.swift; sourceTree = "<group>"; };
 		42A8B6FD2331B4AE00E618CF /* SnakeHead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeHead.swift; sourceTree = "<group>"; };
 		42A93BF723FC1E1800A15FD2 /* MyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyContentView.swift; sourceTree = "<group>"; };
+		42ABC10E243CAD1100E05FF3 /* EngineIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EngineIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42ABC110243CAD1100E05FF3 /* EngineIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EngineIOS.h; sourceTree = "<group>"; };
+		42ABC111243CAD1100E05FF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42B96D942347EE000073CAAA /* SnakeLevelSelectorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeLevelSelectorNode.swift; sourceTree = "<group>"; };
+		42C1930824489A5C00697159 /* PlayerMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMode.swift; sourceTree = "<group>"; };
+		42C1930A244913A500697159 /* ViewHeightGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHeightGetter.swift; sourceTree = "<group>"; };
 		42C236EA2332F4BB00241639 /* T2002_SnakeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2002_SnakeBody.swift; sourceTree = "<group>"; };
 		42C236EC2333033700241639 /* MeasureAreaSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureAreaSize.swift; sourceTree = "<group>"; };
 		42C3181F237D6E2700468D1F /* IntVec2+CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntVec2+CGPoint.swift"; sourceTree = "<group>"; };
@@ -234,6 +376,7 @@
 		42C3182E2388839100468D1F /* SnakeLevelDistanceMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeLevelDistanceMap.swift; sourceTree = "<group>"; };
 		42C5566723ABE7E70001DBD8 /* NSEvent+KeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSEvent+KeyCode.swift"; sourceTree = "<group>"; };
 		42C6512E23F5A2FD00B2669E /* T1007_SnakeFifo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1007_SnakeFifo.swift; sourceTree = "<group>"; };
+		42CBF1CB2443B31F001A5D04 /* MyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyModel.swift; sourceTree = "<group>"; };
 		42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBodyNode.swift; sourceTree = "<group>"; };
 		42CC22C82337C28500CF3D96 /* SnakeWallNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeWallNode.swift; sourceTree = "<group>"; };
 		42CC22CA23397D1300CF3D96 /* SnakePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakePlayer.swift; sourceTree = "<group>"; };
@@ -248,6 +391,7 @@
 		42CCD61723C1054C0021CBE7 /* SnakeLevelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeLevelManager.swift; sourceTree = "<group>"; };
 		42CCD61923C2AA9A0021CBE7 /* T3000_SnakeLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T3000_SnakeLevel.swift; sourceTree = "<group>"; };
 		42CCD61C23C3CF660021CBE7 /* SpriteKitContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitContainer.swift; sourceTree = "<group>"; };
+		42CF349E6C439CD0ACDE948C /* Pods-BasePodsMAC-SnakeGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-SnakeGame.debug.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-SnakeGame/Pods-BasePodsMAC-SnakeGame.debug.xcconfig"; sourceTree = "<group>"; };
 		42E042B1233400D3007AC6F9 /* ComputeShortestPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputeShortestPath.swift; sourceTree = "<group>"; };
 		42E042B3233402CD007AC6F9 /* T1200_ComputeShortestPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1200_ComputeShortestPath.swift; sourceTree = "<group>"; };
 		42E042B523340DEE007AC6F9 /* SnakeLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeLevel.swift; sourceTree = "<group>"; };
@@ -259,18 +403,35 @@
 		42ECBCBF23735BF500758303 /* SnakeLevelCacheModel.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeLevelCacheModel.pb.swift; sourceTree = "<group>"; };
 		42ECBCC42373608600758303 /* SnakeLevelCacheModel.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = SnakeLevelCacheModel.proto; sourceTree = "<group>"; };
 		42ECBCCA237CA50700758303 /* DebugMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenu.swift; sourceTree = "<group>"; };
-		42EFB41823E57E18002B6191 /* SnakeGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnakeGame.h; sourceTree = "<group>"; };
+		42EFB41823E57E18002B6191 /* EngineMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EngineMac.h; sourceTree = "<group>"; };
 		42F35E6023FD877400A4795B /* PlayerScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScoreView.swift; sourceTree = "<group>"; };
 		42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeHeadDirection.swift; sourceTree = "<group>"; };
+		42FB057F243C99C4006BEE8D /* AppIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		42FB0581243C99C4006BEE8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		42FB0591243C99C7006BEE8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		42FB0593243C99C7006BEE8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42FC337123FEAC20004A50E7 /* SnakeGameSKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeGameSKView.swift; sourceTree = "<group>"; };
+		4920C7D059E99B147A90D4D3 /* Pods-BasePodsMAC-EngineMacTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-EngineMacTests.debug.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-EngineMacTests/Pods-BasePodsMAC-EngineMacTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4A04DDEAA0A390B1DDB92538 /* Pods_BasePodsIOS_EngineIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasePodsIOS_EngineIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		52109A9E363C770400D95B42 /* Pods-BasePods-SnakeGameTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePods-SnakeGameTests.release.xcconfig"; path = "Target Support Files/Pods-BasePods-SnakeGameTests/Pods-BasePods-SnakeGameTests.release.xcconfig"; sourceTree = "<group>"; };
+		6186561E02F2BD7CBE54F596 /* Pods_BasePodsMAC_EngineMacTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasePodsMAC_EngineMacTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6918FB21CFCDE54061004E69 /* Pods-BasePodsMAC-AppMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-AppMac.release.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-AppMac/Pods-BasePodsMAC-AppMac.release.xcconfig"; sourceTree = "<group>"; };
+		69C74973D02245CA21EA159E /* Pods-BasePodsIOS-SnakeGameIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsIOS-SnakeGameIOS.release.xcconfig"; path = "Target Support Files/Pods-BasePodsIOS-SnakeGameIOS/Pods-BasePodsIOS-SnakeGameIOS.release.xcconfig"; sourceTree = "<group>"; };
+		80EEF318693DC6F701282B8F /* Pods-AppMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppMac.release.xcconfig"; path = "Target Support Files/Pods-AppMac/Pods-AppMac.release.xcconfig"; sourceTree = "<group>"; };
 		8AF26EB06CC2C2212A22833A /* Pods-BasePods-SnakeGameTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePods-SnakeGameTests.debug.xcconfig"; path = "Target Support Files/Pods-BasePods-SnakeGameTests/Pods-BasePods-SnakeGameTests.debug.xcconfig"; sourceTree = "<group>"; };
-		8FB44FDAE3974C5798FE49F5 /* Pods_BasePods_SnakeGameTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasePods_SnakeGameTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9358128FC1D23A57135818A1 /* Pods_BasePods_SnakeGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasePods_SnakeGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		910F51B72DD9132E0F96BCFE /* Pods-BasePodsIOS-EngineIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsIOS-EngineIOS.debug.xcconfig"; path = "Target Support Files/Pods-BasePodsIOS-EngineIOS/Pods-BasePodsIOS-EngineIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		9EC295C3AED460279791ACB7 /* Pods-BasePods-AppMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePods-AppMac.release.xcconfig"; path = "Target Support Files/Pods-BasePods-AppMac/Pods-BasePods-AppMac.release.xcconfig"; sourceTree = "<group>"; };
-		B4766643D46103B8402E69B4 /* Pods_BasePods_AppMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BasePods_AppMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA56EE5C064022B56C27588A /* Pods-AppMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppMac.debug.xcconfig"; path = "Target Support Files/Pods-AppMac/Pods-AppMac.debug.xcconfig"; sourceTree = "<group>"; };
+		B20282B8343F9DAADA6EEB76 /* Pods-BasePodsIOS-EngineIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsIOS-EngineIOS.release.xcconfig"; path = "Target Support Files/Pods-BasePodsIOS-EngineIOS/Pods-BasePodsIOS-EngineIOS.release.xcconfig"; sourceTree = "<group>"; };
+		B3F4E87CA88D528AF301AB05 /* Pods-BasePods-AppIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePods-AppIOS.debug.xcconfig"; path = "Target Support Files/Pods-BasePods-AppIOS/Pods-BasePods-AppIOS.debug.xcconfig"; sourceTree = "<group>"; };
+		C11C2D82A89EC2BFC1882A4C /* Pods-BasePodsMAC-EngineMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-EngineMac.release.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-EngineMac/Pods-BasePodsMAC-EngineMac.release.xcconfig"; sourceTree = "<group>"; };
+		CFF50E34512AD7285F917461 /* Pods-BasePodsMAC-SnakeGameTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-SnakeGameTests.debug.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-SnakeGameTests/Pods-BasePodsMAC-SnakeGameTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D296F9E8C7FDFDFC75EEE45B /* Pods-BasePodsMAC-EngineMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-EngineMac.debug.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-EngineMac/Pods-BasePodsMAC-EngineMac.debug.xcconfig"; sourceTree = "<group>"; };
+		D78152075369475EA4B8C05D /* Pods-BasePodsMAC-SnakeGameTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-SnakeGameTests.release.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-SnakeGameTests/Pods-BasePodsMAC-SnakeGameTests.release.xcconfig"; sourceTree = "<group>"; };
 		D8979D627100CC49DFE3B335 /* Pods-BasePods-SnakeGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePods-SnakeGame.release.xcconfig"; path = "Target Support Files/Pods-BasePods-SnakeGame/Pods-BasePods-SnakeGame.release.xcconfig"; sourceTree = "<group>"; };
+		DB4C6E8BB4655A0782C5916E /* Pods-BasePodsIOS-AppIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsIOS-AppIOS.debug.xcconfig"; path = "Target Support Files/Pods-BasePodsIOS-AppIOS/Pods-BasePodsIOS-AppIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E23F4E283B4E8893064CA145 /* Pods-BasePods-SnakeGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePods-SnakeGame.debug.xcconfig"; path = "Target Support Files/Pods-BasePods-SnakeGame/Pods-BasePods-SnakeGame.debug.xcconfig"; sourceTree = "<group>"; };
+		E44C90DD77A7648958EDE4F2 /* Pods-BasePodsMAC-AppMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-AppMac.debug.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-AppMac/Pods-BasePodsMAC-AppMac.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,7 +439,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80A23E690666DEBEB20BBC41 /* Pods_BasePods_SnakeGame.framework in Frameworks */,
+				B49F638FFC61F46DD5A86683 /* Pods_BasePodsMAC_EngineMac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,8 +447,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4255C9EF232F703E00A230AF /* SnakeGame.framework in Frameworks */,
-				8FCF09EC0CECABDC8E2C13F8 /* Pods_BasePods_SnakeGameTests.framework in Frameworks */,
+				4255C9EF232F703E00A230AF /* EngineMac.framework in Frameworks */,
+				817A0A8C46BE76DE48D77EB6 /* Pods_BasePodsMAC_EngineMacTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,8 +456,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4255CA2E2331810100A230AF /* SnakeGame.framework in Frameworks */,
-				538970531674616122658DBA /* Pods_BasePods_AppMac.framework in Frameworks */,
+				4255CA2E2331810100A230AF /* EngineMac.framework in Frameworks */,
+				7E9ADD44DF7E88915F23BF8A /* Pods_BasePodsMAC_AppMac.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42ABC10B243CAD1100E05FF3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF696B5FFFC95CA7D20D24E2 /* Pods_BasePodsIOS_EngineIOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42FB057C243C99C4006BEE8D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42ABC115243CAD1100E05FF3 /* EngineIOS.framework in Frameworks */,
+				7FC2E2426392287D91097671 /* Pods_BasePodsIOS_AppIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +499,7 @@
 				42A8B6FD2331B4AE00E618CF /* SnakeHead.swift */,
 				42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */,
 				42CC22CA23397D1300CF3D96 /* SnakePlayer.swift */,
+				42685C43243E8BAE000C5511 /* SnakePlayerKillEvent.swift */,
 				429D336523FAF46E00EF9B37 /* StuckSnakeDetector.swift */,
 			);
 			path = Snake;
@@ -351,24 +530,17 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		4246C44A235BD54000324965 /* Themes */ = {
-			isa = PBXGroup;
-			children = (
-				422158D3234BCE830011DA67 /* level_theme1.atlas */,
-				422158D5234BCE8A0011DA67 /* level_theme2.atlas */,
-				4285BC0C234BB4FE00FBE99E /* snakeskin_blue.atlas */,
-				4285BC0B234BB4FE00FBE99E /* snakeskin_green.atlas */,
-			);
-			name = Themes;
-			sourceTree = "<group>";
-		};
 		4255C9DB232F703E00A230AF = {
 			isa = PBXGroup;
 			children = (
-				4255CA2D2331810100A230AF /* Frameworks */,
+				42FB0580243C99C4006BEE8D /* AppIOS */,
 				4255CA0C232F8A2100A230AF /* AppMac */,
-				4255C9E7232F703E00A230AF /* SnakeGame */,
-				4255C9F2232F703E00A230AF /* SnakeGameTests */,
+				42685C46243E8DE2000C5511 /* AppShared */,
+				42ABC10F243CAD1100E05FF3 /* EngineIOS */,
+				4255C9E7232F703E00A230AF /* EngineMac */,
+				4255C9F2232F703E00A230AF /* EngineMacTests */,
+				42BF1869243DC75D00CD9F06 /* EngineShared */,
+				4255CA2D2331810100A230AF /* Frameworks */,
 				88BCF870F0A6A03EA7495181 /* Pods */,
 				4255C9E6232F703E00A230AF /* Products */,
 			);
@@ -377,27 +549,25 @@
 		4255C9E6232F703E00A230AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4255C9E5232F703E00A230AF /* SnakeGame.framework */,
-				4255C9EE232F703E00A230AF /* SnakeGameTests.xctest */,
+				4255C9E5232F703E00A230AF /* EngineMac.framework */,
+				4255C9EE232F703E00A230AF /* EngineMacTests.xctest */,
 				4255CA0B232F8A2100A230AF /* Snake.app */,
+				42FB057F243C99C4006BEE8D /* AppIOS.app */,
+				42ABC10E243CAD1100E05FF3 /* EngineIOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4255C9E7232F703E00A230AF /* SnakeGame */ = {
+		4255C9E7232F703E00A230AF /* EngineMac */ = {
 			isa = PBXGroup;
 			children = (
-				42F4538923E5AFA200B90297 /* Bot */,
-				422423C0233E79240006D02D /* Common */,
 				4255C9E9232F703E00A230AF /* Info.plist */,
-				42F4538A23E5B0A200B90297 /* Level */,
-				422423BF233E79090006D02D /* Snake */,
-				42EFB41823E57E18002B6191 /* SnakeGame.h */,
+				42EFB41823E57E18002B6191 /* EngineMac.h */,
 			);
-			path = SnakeGame;
+			path = EngineMac;
 			sourceTree = "<group>";
 		};
-		4255C9F2232F703E00A230AF /* SnakeGameTests */ = {
+		4255C9F2232F703E00A230AF /* EngineMacTests */ = {
 			isa = PBXGroup;
 			children = (
 				4255C9F5232F703E00A230AF /* Info.plist */,
@@ -419,25 +589,47 @@
 				42CCD60823BD54F70021CBE7 /* T3001_SnakeLevel_Cluster.swift */,
 				429D336723FB056300EF9B37 /* T3100_StuckSnakeDetector.swift */,
 			);
-			path = SnakeGameTests;
+			path = EngineMacTests;
 			sourceTree = "<group>";
 		};
 		4255CA0C232F8A2100A230AF /* AppMac */ = {
 			isa = PBXGroup;
 			children = (
-				4255CA11232F8A2100A230AF /* Actions.sks */,
-				429CD0D423495DF300098E68 /* AppConstant.swift */,
 				4255CA1D232F8A2300A230AF /* AppMac.entitlements */,
-				4255CA17232F8A2300A230AF /* Assets.xcassets */,
-				4294DA40233EF33200AA58CD /* Explosion.sks */,
-				4217E4E523FD47DA00D8779A /* Fonts */,
 				4255CA1C232F8A2300A230AF /* Info.plist */,
 				42C31826238187F600468D1F /* Main */,
 				4255CA19232F8A2300A230AF /* Main.storyboard */,
-				42A93BF723FC1E1800A15FD2 /* MyContentView.swift */,
 				42C5566723ABE7E70001DBD8 /* NSEvent+KeyCode.swift */,
-				42F35E6023FD877400A4795B /* PlayerScoreView.swift */,
 				422B903A23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift */,
+			);
+			path = AppMac;
+			sourceTree = "<group>";
+		};
+		4255CA2D2331810100A230AF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2B3760762484E831AFA3BBBD /* Pods_BasePodsIOS_AppIOS.framework */,
+				28C49A90829DF8FE48C8D9AF /* Pods_BasePodsMAC_AppMac.framework */,
+				4A04DDEAA0A390B1DDB92538 /* Pods_BasePodsIOS_EngineIOS.framework */,
+				6186561E02F2BD7CBE54F596 /* Pods_BasePodsMAC_EngineMacTests.framework */,
+				1415E0FB44E85AF5705D25E0 /* Pods_BasePodsMAC_EngineMac.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		42685C46243E8DE2000C5511 /* AppShared */ = {
+			isa = PBXGroup;
+			children = (
+				4255CA11232F8A2100A230AF /* Actions.sks */,
+				429CD0D423495DF300098E68 /* AppConstant.swift */,
+				4255CA17232F8A2300A230AF /* Assets.xcassets */,
+				4294DA40233EF33200AA58CD /* Explosion.sks */,
+				42905330243E99DD004EFFB6 /* Fonts */,
+				42A93BF723FC1E1800A15FD2 /* MyContentView.swift */,
+				42CBF1CB2443B31F001A5D04 /* MyModel.swift */,
+				42A06C1D2441D90600877CB9 /* MyPauseView.swift */,
+				42F35E6023FD877400A4795B /* PlayerScoreView.swift */,
+				42905337243E9E89004EFFB6 /* PlayerSkinMenuItem.swift */,
 				4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */,
 				4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */,
 				42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */,
@@ -451,19 +643,10 @@
 				42CC22C82337C28500CF3D96 /* SnakeWallNode.swift */,
 				42C3182B2386F17000468D1F /* Sounds */,
 				42CCD61C23C3CF660021CBE7 /* SpriteKitContainer.swift */,
-				4246C44A235BD54000324965 /* Themes */,
+				4290531B243E9659004EFFB6 /* Themes */,
+				42C1930A244913A500697159 /* ViewHeightGetter.swift */,
 			);
-			path = AppMac;
-			sourceTree = "<group>";
-		};
-		4255CA2D2331810100A230AF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				9358128FC1D23A57135818A1 /* Pods_BasePods_SnakeGame.framework */,
-				8FB44FDAE3974C5798FE49F5 /* Pods_BasePods_SnakeGameTests.framework */,
-				B4766643D46103B8402E69B4 /* Pods_BasePods_AppMac.framework */,
-			);
-			name = Frameworks;
+			path = AppShared;
 			sourceTree = "<group>";
 		};
 		426891EF233267E900B97E29 /* swift-algorithm-club */ = {
@@ -505,14 +688,45 @@
 			path = "swift-algorithm-club";
 			sourceTree = "<group>";
 		};
+		4290531B243E9659004EFFB6 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				4290531F243E9659004EFFB6 /* level_theme1.atlas */,
+				4290531E243E9659004EFFB6 /* level_theme2.atlas */,
+				4290531C243E9659004EFFB6 /* snakeskin_blue.atlas */,
+				4290531D243E9659004EFFB6 /* snakeskin_green.atlas */,
+			);
+			path = Themes;
+			sourceTree = "<group>";
+		};
+		42ABC10F243CAD1100E05FF3 /* EngineIOS */ = {
+			isa = PBXGroup;
+			children = (
+				42ABC111243CAD1100E05FF3 /* Info.plist */,
+				42ABC110243CAD1100E05FF3 /* EngineIOS.h */,
+			);
+			path = EngineIOS;
+			sourceTree = "<group>";
+		};
+		42BF1869243DC75D00CD9F06 /* EngineShared */ = {
+			isa = PBXGroup;
+			children = (
+				42F4538923E5AFA200B90297 /* Bot */,
+				422423C0233E79240006D02D /* Common */,
+				42F4538A23E5B0A200B90297 /* Level */,
+				422423BF233E79090006D02D /* Snake */,
+			);
+			path = EngineShared;
+			sourceTree = "<group>";
+		};
 		42C31826238187F600468D1F /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				4255CA0D232F8A2100A230AF /* AppDelegate.swift */,
 				42ECBCCA237CA50700758303 /* DebugMenu.swift */,
+				421A9E32243922ED00A85B6F /* GameNSView.swift */,
 				429CD0D02348F93E00098E68 /* NSUserDefaultsController+Settings.swift */,
 				4246C440235BB07E00324965 /* PlayerMenu.swift */,
-				421A9E32243922ED00A85B6F /* TrackingNSHostingView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -556,6 +770,19 @@
 			path = Level;
 			sourceTree = "<group>";
 		};
+		42FB0580243C99C4006BEE8D /* AppIOS */ = {
+			isa = PBXGroup;
+			children = (
+				42FB0581243C99C4006BEE8D /* AppDelegate.swift */,
+				42A3899A24462DF200552363 /* GameViewController.swift */,
+				42FB0593243C99C7006BEE8D /* Info.plist */,
+				42FB0590243C99C7006BEE8D /* LaunchScreen.storyboard */,
+				42C1930824489A5C00697159 /* PlayerMode.swift */,
+				42905360243EAE0B004EFFB6 /* SceneDelegate.swift */,
+			);
+			path = AppIOS;
+			sourceTree = "<group>";
+		};
 		88BCF870F0A6A03EA7495181 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -565,6 +792,28 @@
 				52109A9E363C770400D95B42 /* Pods-BasePods-SnakeGameTests.release.xcconfig */,
 				35C4C097824F5A32B5434DAE /* Pods-BasePods-AppMac.debug.xcconfig */,
 				9EC295C3AED460279791ACB7 /* Pods-BasePods-AppMac.release.xcconfig */,
+				AA56EE5C064022B56C27588A /* Pods-AppMac.debug.xcconfig */,
+				80EEF318693DC6F701282B8F /* Pods-AppMac.release.xcconfig */,
+				0E8B73CBD1F1CD3BB524D5AA /* Pods-AppMac-SnakeGame.debug.xcconfig */,
+				09D3447DF739C0FBB949BCDC /* Pods-AppMac-SnakeGame.release.xcconfig */,
+				B3F4E87CA88D528AF301AB05 /* Pods-BasePods-AppIOS.debug.xcconfig */,
+				2543A45A88D7A652FC39BD2A /* Pods-BasePods-AppIOS.release.xcconfig */,
+				DB4C6E8BB4655A0782C5916E /* Pods-BasePodsIOS-AppIOS.debug.xcconfig */,
+				3D7C5502B95DADFE8A9A7ECA /* Pods-BasePodsIOS-AppIOS.release.xcconfig */,
+				26683D108E6DC73B81F6DB9D /* Pods-BasePodsIOS-SnakeGameIOS.debug.xcconfig */,
+				69C74973D02245CA21EA159E /* Pods-BasePodsIOS-SnakeGameIOS.release.xcconfig */,
+				E44C90DD77A7648958EDE4F2 /* Pods-BasePodsMAC-AppMac.debug.xcconfig */,
+				6918FB21CFCDE54061004E69 /* Pods-BasePodsMAC-AppMac.release.xcconfig */,
+				42CF349E6C439CD0ACDE948C /* Pods-BasePodsMAC-SnakeGame.debug.xcconfig */,
+				26DC487D57A3E5C2473ACA94 /* Pods-BasePodsMAC-SnakeGame.release.xcconfig */,
+				CFF50E34512AD7285F917461 /* Pods-BasePodsMAC-SnakeGameTests.debug.xcconfig */,
+				D78152075369475EA4B8C05D /* Pods-BasePodsMAC-SnakeGameTests.release.xcconfig */,
+				910F51B72DD9132E0F96BCFE /* Pods-BasePodsIOS-EngineIOS.debug.xcconfig */,
+				B20282B8343F9DAADA6EEB76 /* Pods-BasePodsIOS-EngineIOS.release.xcconfig */,
+				4920C7D059E99B147A90D4D3 /* Pods-BasePodsMAC-EngineMacTests.debug.xcconfig */,
+				3D35A103F0B879CC6FD0D85D /* Pods-BasePodsMAC-EngineMacTests.release.xcconfig */,
+				D296F9E8C7FDFDFC75EEE45B /* Pods-BasePodsMAC-EngineMac.debug.xcconfig */,
+				C11C2D82A89EC2BFC1882A4C /* Pods-BasePodsMAC-EngineMac.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -576,16 +825,24 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42EFB41923E57E18002B6191 /* SnakeGame.h in Headers */,
+				42EFB41923E57E18002B6191 /* EngineMac.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42ABC109243CAD1100E05FF3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42ABC112243CAD1100E05FF3 /* EngineIOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		4255C9E4232F703E00A230AF /* SnakeGame */ = {
+		4255C9E4232F703E00A230AF /* EngineMac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4255C9F9232F703E00A230AF /* Build configuration list for PBXNativeTarget "SnakeGame" */;
+			buildConfigurationList = 4255C9F9232F703E00A230AF /* Build configuration list for PBXNativeTarget "EngineMac" */;
 			buildPhases = (
 				85A85CAD5C872669DF1A06D0 /* [CP] Check Pods Manifest.lock */,
 				4255C9E0232F703E00A230AF /* Headers */,
@@ -597,20 +854,20 @@
 			);
 			dependencies = (
 			);
-			name = SnakeGame;
+			name = EngineMac;
 			productName = NeuralNet4;
-			productReference = 4255C9E5232F703E00A230AF /* SnakeGame.framework */;
+			productReference = 4255C9E5232F703E00A230AF /* EngineMac.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		4255C9ED232F703E00A230AF /* SnakeGameTests */ = {
+		4255C9ED232F703E00A230AF /* EngineMacTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4255C9FC232F703E00A230AF /* Build configuration list for PBXNativeTarget "SnakeGameTests" */;
+			buildConfigurationList = 4255C9FC232F703E00A230AF /* Build configuration list for PBXNativeTarget "EngineMacTests" */;
 			buildPhases = (
-				B069A3518912E3963876443D /* [CP] Check Pods Manifest.lock */,
+				01BC8C2B4A85E15C928EEBE9 /* [CP] Check Pods Manifest.lock */,
 				4255C9EA232F703E00A230AF /* Sources */,
 				4255C9EB232F703E00A230AF /* Frameworks */,
 				4255C9EC232F703E00A230AF /* Resources */,
-				8E99CD32B536FA6B106E1118 /* [CP] Embed Pods Frameworks */,
+				C5B8421900215481BEB6618D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -618,9 +875,9 @@
 				4255C9F1232F703E00A230AF /* PBXTargetDependency */,
 				4255CA28232FD62500A230AF /* PBXTargetDependency */,
 			);
-			name = SnakeGameTests;
+			name = EngineMacTests;
 			productName = NeuralNet4Tests;
-			productReference = 4255C9EE232F703E00A230AF /* SnakeGameTests.xctest */;
+			productReference = 4255C9EE232F703E00A230AF /* EngineMacTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		4255CA0A232F8A2100A230AF /* AppMac */ = {
@@ -643,13 +900,53 @@
 			productReference = 4255CA0B232F8A2100A230AF /* Snake.app */;
 			productType = "com.apple.product-type.application";
 		};
+		42ABC10D243CAD1100E05FF3 /* EngineIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42ABC11A243CAD1100E05FF3 /* Build configuration list for PBXNativeTarget "EngineIOS" */;
+			buildPhases = (
+				134ECBDFE008A7BEDB3DDE50 /* [CP] Check Pods Manifest.lock */,
+				42ABC109243CAD1100E05FF3 /* Headers */,
+				42ABC10A243CAD1100E05FF3 /* Sources */,
+				42ABC10B243CAD1100E05FF3 /* Frameworks */,
+				42ABC10C243CAD1100E05FF3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EngineIOS;
+			productName = SnakeGameIOS;
+			productReference = 42ABC10E243CAD1100E05FF3 /* EngineIOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		42FB057E243C99C4006BEE8D /* AppIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42FB0596243C99C7006BEE8D /* Build configuration list for PBXNativeTarget "AppIOS" */;
+			buildPhases = (
+				7C6F485F0BDBA841D971B65E /* [CP] Check Pods Manifest.lock */,
+				42FB057B243C99C4006BEE8D /* Sources */,
+				42FB057C243C99C4006BEE8D /* Frameworks */,
+				42FB057D243C99C4006BEE8D /* Resources */,
+				42ABC117243CAD1100E05FF3 /* Embed Frameworks */,
+				D8A35CC0BC11B000A9323646 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				42ABC114243CAD1100E05FF3 /* PBXTargetDependency */,
+			);
+			name = AppIOS;
+			productName = AppIOS;
+			productReference = 42FB057F243C99C4006BEE8D /* AppIOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		4255C9DC232F703E00A230AF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1030;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = "Simon Strandgaard";
 				TargetAttributes = {
@@ -663,6 +960,12 @@
 					};
 					4255CA0A232F8A2100A230AF = {
 						CreatedOnToolsVersion = 10.3;
+					};
+					42ABC10D243CAD1100E05FF3 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					42FB057E243C99C4006BEE8D = {
+						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
 			};
@@ -679,9 +982,11 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				42FB057E243C99C4006BEE8D /* AppIOS */,
 				4255CA0A232F8A2100A230AF /* AppMac */,
-				4255C9E4232F703E00A230AF /* SnakeGame */,
-				4255C9ED232F703E00A230AF /* SnakeGameTests */,
+				4255C9E4232F703E00A230AF /* EngineMac */,
+				4255C9ED232F703E00A230AF /* EngineMacTests */,
+				42ABC10D243CAD1100E05FF3 /* EngineIOS */,
 			);
 		};
 /* End PBXProject section */
@@ -708,22 +1013,93 @@
 			files = (
 				4294DA41233EF33200AA58CD /* Explosion.sks in Resources */,
 				4255CA18232F8A2300A230AF /* Assets.xcassets in Resources */,
-				4285BC0E234BB4FE00FBE99E /* snakeskin_green.atlas in Resources */,
-				422158D4234BCE830011DA67 /* level_theme1.atlas in Resources */,
-				4217E4E623FD47DA00D8779A /* Fonts in Resources */,
 				4255CA12232F8A2100A230AF /* Actions.sks in Resources */,
+				42905332243E99DD004EFFB6 /* Fonts in Resources */,
+				42905327243E9659004EFFB6 /* level_theme1.atlas in Resources */,
 				4294DA49233FC05200AA58CD /* snake_dies.wav in Resources */,
-				4285BC0F234BB4FE00FBE99E /* snakeskin_blue.atlas in Resources */,
+				42905321243E9659004EFFB6 /* snakeskin_blue.atlas in Resources */,
 				4294DA48233FC05200AA58CD /* snake_eats.wav in Resources */,
-				422158D6234BCE8A0011DA67 /* level_theme2.atlas in Resources */,
+				42905323243E9659004EFFB6 /* snakeskin_green.atlas in Resources */,
+				42905325243E9659004EFFB6 /* level_theme2.atlas in Resources */,
 				4255CA1B232F8A2300A230AF /* Main.storyboard in Resources */,
 				4294DA4B233FC96300AA58CD /* snake_step.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42ABC10C243CAD1100E05FF3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42ABC151243D13B400E05FF3 /* SnakeLevels.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42FB057D243C99C4006BEE8D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42905326243E9659004EFFB6 /* level_theme1.atlas in Resources */,
+				42905328243E96B9004EFFB6 /* snake_dies.wav in Resources */,
+				4290532A243E96C1004EFFB6 /* snake_step.wav in Resources */,
+				42905324243E9659004EFFB6 /* level_theme2.atlas in Resources */,
+				42905331243E99DD004EFFB6 /* Fonts in Resources */,
+				42905329243E96BD004EFFB6 /* snake_eats.wav in Resources */,
+				4290532B243E98D9004EFFB6 /* Actions.sks in Resources */,
+				42FB0592243C99C7006BEE8D /* LaunchScreen.storyboard in Resources */,
+				42905320243E9659004EFFB6 /* snakeskin_blue.atlas in Resources */,
+				42BE1629243E941D0031C88B /* Explosion.sks in Resources */,
+				42905362243EB578004EFFB6 /* Assets.xcassets in Resources */,
+				42905322243E9659004EFFB6 /* snakeskin_green.atlas in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		01BC8C2B4A85E15C928EEBE9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BasePodsMAC-EngineMacTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		134ECBDFE008A7BEDB3DDE50 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BasePodsIOS-EngineIOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2D66CC6555AC8F3FBB3E4046 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -739,7 +1115,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BasePods-AppMac-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BasePodsMAC-AppMac-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -752,15 +1128,37 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BasePods-AppMac/Pods-BasePods-AppMac-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BasePodsMAC-AppMac/Pods-BasePodsMAC-AppMac-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BasePods-AppMac/Pods-BasePods-AppMac-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BasePodsMAC-AppMac/Pods-BasePodsMAC-AppMac-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BasePods-AppMac/Pods-BasePods-AppMac-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BasePodsMAC-AppMac/Pods-BasePodsMAC-AppMac-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7C6F485F0BDBA841D971B65E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BasePodsIOS-AppIOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		85A85CAD5C872669DF1A06D0 /* [CP] Check Pods Manifest.lock */ = {
@@ -778,50 +1176,45 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BasePods-SnakeGame-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BasePodsMAC-EngineMac-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8E99CD32B536FA6B106E1118 /* [CP] Embed Pods Frameworks */ = {
+		C5B8421900215481BEB6618D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BasePods-SnakeGameTests/Pods-BasePods-SnakeGameTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BasePodsMAC-EngineMacTests/Pods-BasePodsMAC-EngineMacTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BasePods-SnakeGameTests/Pods-BasePods-SnakeGameTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-BasePodsMAC-EngineMacTests/Pods-BasePodsMAC-EngineMacTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BasePods-SnakeGameTests/Pods-BasePods-SnakeGameTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BasePodsMAC-EngineMacTests/Pods-BasePodsMAC-EngineMacTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B069A3518912E3963876443D /* [CP] Check Pods Manifest.lock */ = {
+		D8A35CC0BC11B000A9323646 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BasePodsIOS-AppIOS/Pods-BasePodsIOS-AppIOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BasePods-SnakeGameTests-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-BasePodsIOS-AppIOS/Pods-BasePodsIOS-AppIOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BasePodsIOS-AppIOS/Pods-BasePodsIOS-AppIOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -856,6 +1249,7 @@
 				42CCD61823C1054C0021CBE7 /* SnakeLevelManager.swift in Sources */,
 				4221EFDC2332F0F00026A8A0 /* SnakeBody.swift in Sources */,
 				4255CA02232F70F800A230AF /* sigmoid.swift in Sources */,
+				42685C44243E8BAE000C5511 /* SnakePlayerKillEvent.swift in Sources */,
 				42EB7C0223F283FC00229CEA /* URL+temporaryFile.swift in Sources */,
 				4253C5432336349800210611 /* UIntVec2.swift in Sources */,
 				42C3182D2386FBDC00468D1F /* SnakeBot5.swift in Sources */,
@@ -920,6 +1314,7 @@
 				42C5566823ABE7E70001DBD8 /* NSEvent+KeyCode.swift in Sources */,
 				422B903B23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift in Sources */,
 				42F35E6123FD877400A4795B /* PlayerScoreView.swift in Sources */,
+				42A06C1F2441D90600877CB9 /* MyPauseView.swift in Sources */,
 				4294DA512341377900AA58CD /* SnakeGameNode.swift in Sources */,
 				4217EEAA240F00740066B8C0 /* SnakePlannedPathNode.swift in Sources */,
 				42CC22C72336EFF200CF3D96 /* SnakeBodyNode.swift in Sources */,
@@ -927,18 +1322,113 @@
 				4246C441235BB07E00324965 /* PlayerMenu.swift in Sources */,
 				4294DA3F233EF09900AA58CD /* SKSpriteNode+Pulse.swift in Sources */,
 				42A93BF823FC1E1800A15FD2 /* MyContentView.swift in Sources */,
+				42905339243E9E89004EFFB6 /* PlayerSkinMenuItem.swift in Sources */,
 				42967E46234FBF3C0098A79D /* SnakeUserInput.swift in Sources */,
-				421A9E33243922ED00A85B6F /* TrackingNSHostingView.swift in Sources */,
+				421A9E33243922ED00A85B6F /* GameNSView.swift in Sources */,
 				42CCD61D23C3CF660021CBE7 /* SpriteKitContainer.swift in Sources */,
 				4255CA14232F8A2100A230AF /* SnakeGameScene.swift in Sources */,
 				429CD0D12348F93E00098E68 /* NSUserDefaultsController+Settings.swift in Sources */,
 				4294DA43233FA3AF00AA58CD /* SKScene+Explode.swift in Sources */,
+				42C1930C244913A500697159 /* ViewHeightGetter.swift in Sources */,
 				42CC22C92337C28500CF3D96 /* SnakeWallNode.swift in Sources */,
 				42B96D952347EE000073CAAA /* SnakeLevelSelectorNode.swift in Sources */,
 				42ECBCCB237CA50700758303 /* DebugMenu.swift in Sources */,
 				423494FC234D151D009C0030 /* SnakeLevelSelectorScene.swift in Sources */,
+				42CBF1CD2443B31F001A5D04 /* MyModel.swift in Sources */,
 				4255CA0E232F8A2100A230AF /* AppDelegate.swift in Sources */,
 				429CD0D523495DF300098E68 /* AppConstant.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42ABC10A243CAD1100E05FF3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42ABC11D243D137D00E05FF3 /* SnakeBot1.swift in Sources */,
+				42ABC13D243D13A200E05FF3 /* SnakeLevelCacheModel.pb.swift in Sources */,
+				42ABC129243D138300E05FF3 /* Logging.swift in Sources */,
+				42ABC11F243D137D00E05FF3 /* SnakeBot5.swift in Sources */,
+				42ABC128243D138300E05FF3 /* IntVec2+CGPoint.swift in Sources */,
+				42ABC138243D139300E05FF3 /* SSSP.swift in Sources */,
+				42ABC125243D138300E05FF3 /* Data+SHA1.swift in Sources */,
+				42ABC136243D139300E05FF3 /* Vertex.swift in Sources */,
+				42ABC148243D13AB00E05FF3 /* SnakeGameState.swift in Sources */,
+				42ABC130243D138800E05FF3 /* UIntVec2.swift in Sources */,
+				42ABC140243D13A200E05FF3 /* SnakeLevelManager.swift in Sources */,
+				42ABC135243D139300E05FF3 /* Graph.swift in Sources */,
+				42ABC124243D138300E05FF3 /* Dashboard.swift in Sources */,
+				42ABC14C243D13AB00E05FF3 /* SnakeGameStateModel.proto in Sources */,
+				42ABC133243D139300E05FF3 /* AdjacencyMatrixGraph.swift in Sources */,
+				42ABC141243D13AB00E05FF3 /* SnakeBody.swift in Sources */,
+				42ABC12A243D138300E05FF3 /* MeasureAreaSize.swift in Sources */,
+				42ABC146243D13AB00E05FF3 /* SnakeGameExecuter.swift in Sources */,
+				42ABC11E243D137D00E05FF3 /* SnakeBot4.swift in Sources */,
+				42ABC149243D13AB00E05FF3 /* SnakeGameState+Create.swift in Sources */,
+				42ABC145243D13AB00E05FF3 /* SnakeFoodGenerator.swift in Sources */,
+				42ABC126243D138300E05FF3 /* FloatFormatting.swift in Sources */,
+				42ABC12C243D138300E05FF3 /* OSLogDestination.swift in Sources */,
+				42ABC14B243D13AB00E05FF3 /* SnakeGameStateModel.pb.swift in Sources */,
+				42ABC132243D139300E05FF3 /* AdjacencyListGraph.swift in Sources */,
+				42685C45243E8BAE000C5511 /* SnakePlayerKillEvent.swift in Sources */,
+				42ABC13F243D13A200E05FF3 /* SnakeLevelDistanceMap.swift in Sources */,
+				42ABC123243D138300E05FF3 /* ComputeShortestPath.swift in Sources */,
+				42ABC13C243D13A200E05FF3 /* SnakeLevelBuilder.swift in Sources */,
+				42ABC122243D138300E05FF3 /* BoundingBox.swift in Sources */,
+				42ABC14F243D13AB00E05FF3 /* SnakePlayer.swift in Sources */,
+				42ABC120243D137D00E05FF3 /* SnakeBot6.swift in Sources */,
+				42ABC14D243D13AB00E05FF3 /* SnakeHead.swift in Sources */,
+				42ABC11C243D137D00E05FF3 /* SnakeBot.swift in Sources */,
+				42ABC14A243D13AB00E05FF3 /* SnakeGameState+SaveTrainingData.swift in Sources */,
+				42ABC137243D139300E05FF3 /* BellmanFord.swift in Sources */,
+				42ABC13A243D13A200E05FF3 /* SnakeLevel.swift in Sources */,
+				42ABC11B243D137D00E05FF3 /* SnakeBot_MoveForward.swift in Sources */,
+				42ABC134243D139300E05FF3 /* Edge.swift in Sources */,
+				42ABC142243D13AB00E05FF3 /* SnakeBodyMovement.swift in Sources */,
+				42ABC147243D13AB00E05FF3 /* SnakeGameHeadless.swift in Sources */,
+				42ABC127243D138300E05FF3 /* IntVec2.swift in Sources */,
+				42ABC121243D138300E05FF3 /* Array2.swift in Sources */,
+				42ABC13B243D13A200E05FF3 /* SnakeLevel+Load.swift in Sources */,
+				42ABC12F243D138300E05FF3 /* sigmoid.swift in Sources */,
+				42ABC12E243D138300E05FF3 /* SeededGenerator.swift in Sources */,
+				42ABC131243D138800E05FF3 /* URL+temporaryFile.swift in Sources */,
+				42ABC144243D13AB00E05FF3 /* SnakeFifo.swift in Sources */,
+				42ABC143243D13AB00E05FF3 /* SnakeCollisionDetector.swift in Sources */,
+				42ABC12D243D138300E05FF3 /* remap.swift in Sources */,
+				42ABC14E243D13AB00E05FF3 /* SnakeHeadDirection.swift in Sources */,
+				42ABC12B243D138300E05FF3 /* MeasureTurnCount.swift in Sources */,
+				42ABC139243D13A200E05FF3 /* SnakeLevel_Cluster.swift in Sources */,
+				42ABC13E243D13A200E05FF3 /* SnakeLevelCacheModel.proto in Sources */,
+				42ABC150243D13AB00E05FF3 /* StuckSnakeDetector.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42FB057B243C99C4006BEE8D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4290533B243EA036004EFFB6 /* SnakeUserInput.swift in Sources */,
+				42905336243E9D4D004EFFB6 /* SnakeGameNode.swift in Sources */,
+				42BE162A243E94270031C88B /* SKScene+Explode.swift in Sources */,
+				42905335243E9CA4004EFFB6 /* AppConstant.swift in Sources */,
+				42BE1626243E90050031C88B /* SnakePlannedPathNode.swift in Sources */,
+				4290533F243EABD8004EFFB6 /* MyContentView.swift in Sources */,
+				42A06C1E2441D90600877CB9 /* MyPauseView.swift in Sources */,
+				4290533E243EA6F8004EFFB6 /* SpriteKitContainer.swift in Sources */,
+				42685C47243E8DF5000C5511 /* SnakeWallNode.swift in Sources */,
+				4290533C243EA41C004EFFB6 /* SnakeLevelSelectorNode.swift in Sources */,
+				42905334243E9BDF004EFFB6 /* SnakeGameSKView.swift in Sources */,
+				42905338243E9E89004EFFB6 /* PlayerSkinMenuItem.swift in Sources */,
+				42C1930B244913A500697159 /* ViewHeightGetter.swift in Sources */,
+				4290533D243EA53C004EFFB6 /* SnakeLevelSelectorScene.swift in Sources */,
+				42905333243E9A3F004EFFB6 /* PlayerScoreView.swift in Sources */,
+				42A3899B24462DF200552363 /* GameViewController.swift in Sources */,
+				42905361243EAE0B004EFFB6 /* SceneDelegate.swift in Sources */,
+				42BE1628243E93E10031C88B /* SKSpriteNode+Pulse.swift in Sources */,
+				4290533A243E9F9B004EFFB6 /* SnakeGameScene.swift in Sources */,
+				42C1930924489A5C00697159 /* PlayerMode.swift in Sources */,
+				42CBF1CC2443B31F001A5D04 /* MyModel.swift in Sources */,
+				42BE1627243E93650031C88B /* SnakeBodyNode.swift in Sources */,
+				42FB0582243C99C4006BEE8D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -947,7 +1437,7 @@
 /* Begin PBXTargetDependency section */
 		4255C9F1232F703E00A230AF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4255C9E4232F703E00A230AF /* SnakeGame */;
+			target = 4255C9E4232F703E00A230AF /* EngineMac */;
 			targetProxy = 4255C9F0232F703E00A230AF /* PBXContainerItemProxy */;
 		};
 		4255CA28232FD62500A230AF /* PBXTargetDependency */ = {
@@ -957,8 +1447,13 @@
 		};
 		4255CA2C233180EE00A230AF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4255C9E4232F703E00A230AF /* SnakeGame */;
+			target = 4255C9E4232F703E00A230AF /* EngineMac */;
 			targetProxy = 4255CA2B233180EE00A230AF /* PBXContainerItemProxy */;
+		};
+		42ABC114243CAD1100E05FF3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 42ABC10D243CAD1100E05FF3 /* EngineIOS */;
+			targetProxy = 42ABC113243CAD1100E05FF3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -969,6 +1464,14 @@
 				4255CA1A232F8A2300A230AF /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		42FB0590243C99C7006BEE8D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				42FB0591243C99C7006BEE8D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1097,7 +1600,7 @@
 		};
 		4255C9FA232F703E00A230AF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E23F4E283B4E8893064CA145 /* Pods-BasePods-SnakeGame.debug.xcconfig */;
+			baseConfigurationReference = D296F9E8C7FDFDFC75EEE45B /* Pods-BasePodsMAC-EngineMac.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1109,7 +1612,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = SnakeGame/Info.plist;
+				INFOPLIST_FILE = EngineMac/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1126,7 +1629,7 @@
 		};
 		4255C9FB232F703E00A230AF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D8979D627100CC49DFE3B335 /* Pods-BasePods-SnakeGame.release.xcconfig */;
+			baseConfigurationReference = C11C2D82A89EC2BFC1882A4C /* Pods-BasePodsMAC-EngineMac.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1138,7 +1641,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = SnakeGame/Info.plist;
+				INFOPLIST_FILE = EngineMac/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1154,19 +1657,19 @@
 		};
 		4255C9FD232F703E00A230AF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8AF26EB06CC2C2212A22833A /* Pods-BasePods-SnakeGameTests.debug.xcconfig */;
+			baseConfigurationReference = 4920C7D059E99B147A90D4D3 /* Pods-BasePodsMAC-EngineMacTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 22DR89XVRF;
-				INFOPLIST_FILE = SnakeGameTests/Info.plist;
+				INFOPLIST_FILE = EngineMacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = neoneye.SnakeGameTests;
+				PRODUCT_BUNDLE_IDENTIFIER = neoneye.EngineMacTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Snake.app/Contents/MacOS/Snake";
@@ -1175,19 +1678,19 @@
 		};
 		4255C9FE232F703E00A230AF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52109A9E363C770400D95B42 /* Pods-BasePods-SnakeGameTests.release.xcconfig */;
+			baseConfigurationReference = 3D35A103F0B879CC6FD0D85D /* Pods-BasePodsMAC-EngineMacTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 22DR89XVRF;
-				INFOPLIST_FILE = SnakeGameTests/Info.plist;
+				INFOPLIST_FILE = EngineMacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = neoneye.SnakeGameTests;
+				PRODUCT_BUNDLE_IDENTIFIER = neoneye.EngineMacTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Snake.app/Contents/MacOS/Snake";
@@ -1196,7 +1699,7 @@
 		};
 		4255CA1F232F8A2300A230AF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35C4C097824F5A32B5434DAE /* Pods-BasePods-AppMac.debug.xcconfig */;
+			baseConfigurationReference = E44C90DD77A7648958EDE4F2 /* Pods-BasePodsMAC-AppMac.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AppMac/AppMac.entitlements;
@@ -1217,7 +1720,7 @@
 		};
 		4255CA20232F8A2300A230AF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9EC295C3AED460279791ACB7 /* Pods-BasePods-AppMac.release.xcconfig */;
+			baseConfigurationReference = 6918FB21CFCDE54061004E69 /* Pods-BasePodsMAC-AppMac.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AppMac/AppMac.entitlements;
@@ -1236,6 +1739,106 @@
 			};
 			name = Release;
 		};
+		42ABC118243CAD1100E05FF3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 910F51B72DD9132E0F96BCFE /* Pods-BasePodsIOS-EngineIOS.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 22DR89XVRF;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = EngineIOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = neoneye.EngineIOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		42ABC119243CAD1100E05FF3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B20282B8343F9DAADA6EEB76 /* Pods-BasePodsIOS-EngineIOS.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 22DR89XVRF;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = EngineIOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = neoneye.EngineIOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		42FB0594243C99C7006BEE8D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB4C6E8BB4655A0782C5916E /* Pods-BasePodsIOS-AppIOS.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 22DR89XVRF;
+				INFOPLIST_FILE = AppIOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = neoneye.AppIOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		42FB0595243C99C7006BEE8D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D7C5502B95DADFE8A9A7ECA /* Pods-BasePodsIOS-AppIOS.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 22DR89XVRF;
+				INFOPLIST_FILE = AppIOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = neoneye.AppIOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1248,7 +1851,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4255C9F9232F703E00A230AF /* Build configuration list for PBXNativeTarget "SnakeGame" */ = {
+		4255C9F9232F703E00A230AF /* Build configuration list for PBXNativeTarget "EngineMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4255C9FA232F703E00A230AF /* Debug */,
@@ -1257,7 +1860,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4255C9FC232F703E00A230AF /* Build configuration list for PBXNativeTarget "SnakeGameTests" */ = {
+		4255C9FC232F703E00A230AF /* Build configuration list for PBXNativeTarget "EngineMacTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4255C9FD232F703E00A230AF /* Debug */,
@@ -1271,6 +1874,24 @@
 			buildConfigurations = (
 				4255CA1F232F8A2300A230AF /* Debug */,
 				4255CA20232F8A2300A230AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42ABC11A243CAD1100E05FF3 /* Build configuration list for PBXNativeTarget "EngineIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42ABC118243CAD1100E05FF3 /* Debug */,
+				42ABC119243CAD1100E05FF3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42FB0596243C99C7006BEE8D /* Build configuration list for PBXNativeTarget "AppIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42FB0594243C99C7006BEE8D /* Debug */,
+				42FB0595243C99C7006BEE8D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
