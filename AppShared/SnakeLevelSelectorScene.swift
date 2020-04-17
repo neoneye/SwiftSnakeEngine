@@ -74,7 +74,7 @@ class SnakeLevelSelectorScene: SKScene {
                 } else {
                     playerMode = .singlePlayer_human
                 }
-                PlayerModeController().changePlayerMode(to: playerMode)
+                PlayerModeController().set(playerMode)
                 self?.didChangePlayerSettings()
             }
             .store(in: &cancellable)

@@ -101,7 +101,7 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 
         role1 = SnakePlayerRole.human
 
-        let playerMode: PlayerMode = PlayerModeController().currentPlayerMode
+        let playerMode: PlayerMode = PlayerModeController().value
         switch playerMode {
         case .twoPlayer_humanBot:
             let snakeBotType: SnakeBot.Type = SnakeBotFactory.snakeBotTypes.last!
