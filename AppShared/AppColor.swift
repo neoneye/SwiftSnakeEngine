@@ -20,6 +20,8 @@ enum AppColor: String {
     case player2_plannedPath
     case player1_snakeBody
     case player2_snakeBody
+    case exitGameButton_fill
+    case exitGameButton_text
 }
 
 extension AppColor {
