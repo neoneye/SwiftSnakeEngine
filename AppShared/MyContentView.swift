@@ -158,7 +158,8 @@ struct MyContentView: View {
             log.debug("pause button pressed")
             self.presentingModal = true
         }) {
-            Image("PauseButton")
+            Image("ingame_pauseButton_image")
+                .foregroundColor(AppColor.ingame_pauseButton.color)
                 .scaleEffect(0.6)
                 .padding(15)
         }
