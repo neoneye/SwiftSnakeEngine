@@ -46,7 +46,7 @@ class SnakePlannedPathNode: SKEffectNode {
         #if os(macOS)
         showPlannedPath = NSUserDefaultsController.shared.isShowPlannedPathEnabled
         #else
-        showPlannedPath = true
+        showPlannedPath = false
         #endif
         
         if showPlannedPath && player.isBot && player.isAlive {
