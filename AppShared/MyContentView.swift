@@ -181,6 +181,7 @@ struct MyContentView: View {
         return VStack {
             HStack {
                 Text("Battle the AI")
+                    .foregroundColor(.primary)
                     .font(.largeTitle)
                     .bold()
                     .padding()
@@ -197,7 +198,7 @@ struct MyContentView: View {
             log.debug("height of view: \(viewHeight)")
             model?.levelSelector_insetTop = viewHeight
         }
-        .background(Color.white.opacity(0.5))
+        .background(AppColor.levelSelector_header.color)
     }
 
     private var iOS_overlayWithHeader: some View {

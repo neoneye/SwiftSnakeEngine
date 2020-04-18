@@ -17,6 +17,7 @@ import EngineMac
 enum AppColor: String {
     case levelSelector_background
     case levelSelector_border
+    case levelSelector_header
     case player1_plannedPath
     case player2_plannedPath
     case player1_snakeBody
