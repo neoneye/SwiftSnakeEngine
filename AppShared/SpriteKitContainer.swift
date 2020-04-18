@@ -66,7 +66,7 @@ struct SpriteKitContainer: ViewRepresentableType {
         let showPauseButton: Bool
 		switch AppConstant.mode {
 		case .production:
-            scene = LevelSelectorScene.create()
+            scene = LevelSelectorScene()
             showPauseButton = false
 		case .develop_humanVsNone:
             scene = IngameScene.createHumanVsNone()

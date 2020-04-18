@@ -26,11 +26,6 @@ class LevelSelectorScene: SKScene {
 
 	var levelSelectorNode: LevelSelectorNode
 
-	class func create() -> LevelSelectorScene {
-        let scene = LevelSelectorScene()
-		return scene
-	}
-
     override init() {
 		self.levelSelectorNode = LevelSelectorNode.create()
 		super.init(size: CGSize.zero)
