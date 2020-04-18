@@ -15,7 +15,7 @@ import EngineMac
 import SSEventFlow
 #endif
 
-class SnakeLevelSelectorScene: SKScene {
+class LevelSelectorScene: SKScene {
     var cancellable = Set<AnyCancellable>()
 	var contentCreated = false
 	var needRedraw = false
@@ -26,8 +26,8 @@ class SnakeLevelSelectorScene: SKScene {
 
 	var levelSelectorNode: SnakeLevelSelectorNode
 
-	class func create() -> SnakeLevelSelectorScene {
-        let scene = SnakeLevelSelectorScene()
+	class func create() -> LevelSelectorScene {
+        let scene = LevelSelectorScene()
 		return scene
 	}
 
@@ -292,7 +292,7 @@ class SnakeLevelSelectorScene: SKScene {
 }
 
 #if os(macOS)
-extension SnakeLevelSelectorScene: FlowDispatcher {
+extension LevelSelectorScene: FlowDispatcher {
 	func flow_dispatch(_ event: FlowEvent) {
 		if event is FlowEvent_DidChangePlayerSetting {
             didChangePlayerSettings()

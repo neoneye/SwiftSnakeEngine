@@ -45,7 +45,7 @@ extension SKScene {
 
     func transitionToLevelSelectorScene() {
         let transition = SKTransition.doorway(withDuration: 0.75)
-        let newScene = SnakeLevelSelectorScene.create()
+        let newScene = LevelSelectorScene.create()
         view?.presentScene(newScene, transition: transition)
     }
 }
