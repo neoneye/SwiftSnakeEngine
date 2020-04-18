@@ -27,6 +27,11 @@ class GameViewController: UIHostingController<MyContentView> {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
+    // Listening for keyboard events.
     override func becomeFirstResponder() -> Bool {
         true
     }
