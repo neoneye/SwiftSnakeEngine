@@ -30,7 +30,6 @@ class LevelSelectorScene: SKScene {
 		self.levelSelectorNode = LevelSelectorNode.create()
 		super.init(size: CGSize.zero)
         self.scaleMode = .resizeFill
-        self.backgroundColor = AppColor.levelSelector_background.skColor
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -45,18 +44,20 @@ class LevelSelectorScene: SKScene {
 
         super.didMove(to: view)
 
-        if !contentCreated {
-            createContent()
-            contentCreated = true
-        }
-
-        needLayout = true
-        needRedraw = true
-        needBecomeFirstResponder = true
+        createContent()
 
         #if os(macOS)
         flow_start()
         #endif
+
+        // Rebuild the UI whenever there are changes to Display light/dark appearance.
+        skView.model.userInterfaceStyle
+            .sink { [weak self] in
+                log.debug("userInterfaceStyle did change")
+                self?.contentCreated = false
+                self?.createContent()
+            }
+            .store(in: &cancellable)
 
         #if os(iOS)
         // Used while the level selector is visible.
@@ -102,6 +103,16 @@ class LevelSelectorScene: SKScene {
     }
 
     func createContent() {
+        if contentCreated {
+            return
+        }
+        contentCreated = true
+
+        //log.debug("creating content")
+        self.removeAllChildren()
+
+        self.backgroundColor = AppColor.levelSelector_background.skColor
+
         let camera = SKCameraNode()
         self.camera = camera
         addChild(camera)
@@ -114,6 +125,10 @@ class LevelSelectorScene: SKScene {
         levelSelectorNode.createGameStates()
         levelSelectorNode.createGameNodes()
         self.addChild(levelSelectorNode)
+
+        needLayout = true
+        needRedraw = true
+        needBecomeFirstResponder = true
     }
 
     #if os(macOS)

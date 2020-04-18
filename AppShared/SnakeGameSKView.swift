@@ -31,6 +31,14 @@ class SnakeGameSKView: SKView {
     required init?(coder: NSCoder) {
         fatalError()
     }
+
+    #if os(macOS)
+    /// Called whenever there are changes to Light/Dark appearance
+    override func viewDidChangeEffectiveAppearance() {
+        super.viewDidChangeEffectiveAppearance()
+        self.model.userInterfaceStyle.send()
+    }
+    #endif
 }
 
 extension SKScene {

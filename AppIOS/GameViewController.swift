@@ -27,9 +27,40 @@ class GameViewController: UIHostingController<MyContentView> {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Light/Dark appearance
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard UIApplication.shared.applicationState == .inactive else {
+            //log.debug("the app is inactive, ignoring")
+            return
+        }
+        let oldStyle: UIUserInterfaceStyle? = previousTraitCollection?.userInterfaceStyle
+        let newStyle: UIUserInterfaceStyle = traitCollection.userInterfaceStyle
+        if oldStyle != newStyle {
+            updateImageForCurrentTraitCollection()
+        }
+    }
+
+    private func updateImageForCurrentTraitCollection() {
+        switch traitCollection.userInterfaceStyle {
+        case .dark:
+            log.debug("new style dark")
+        case .light:
+            log.debug("new style light")
+        default:
+            log.debug("did change. unknown style: \(traitCollection.userInterfaceStyle.rawValue)")
+        }
+        self.rootView.model.userInterfaceStyle.send()
+    }
+
+    // MARK: - Status bar
+
     override var prefersStatusBarHidden: Bool {
         return true
     }
+
+    // MARK: - Keyboard handling
 
     // Listening for keyboard events.
     override func becomeFirstResponder() -> Bool {
