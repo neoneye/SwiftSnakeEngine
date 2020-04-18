@@ -123,12 +123,7 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 		self.removeAllChildren()
 
 		do {
-            let color: SKColor
-            #if os(macOS)
-			color = SKColor(calibratedRed: 0.7, green: 0.8, blue: 0.9, alpha: 1.0)
-            #else
-            color = SKColor(red: 0.7, green: 0.8, blue: 0.9, alpha: 1.0)
-            #endif
+            let color: SKColor = AppColor.levelSelector_border.skColor
 			let n = SKSpriteNode(color: color, size: CGSize(width: 100, height: 100))
 			n.zPosition = 1
 			selectionIndicator = n
