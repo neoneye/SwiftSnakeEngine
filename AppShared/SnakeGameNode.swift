@@ -64,7 +64,7 @@ class SnakeGameNode: SKNode {
 		do {
             let radius: CGFloat = (AppConstant.tileSize / 2) - 1
             let shapeNode = SKShapeNode(circleOfRadius: radius)
-			shapeNode.fillColor = SKColor(named: "Theme1_FoodColor") ?? SKColor.red
+            shapeNode.fillColor = AppColor.theme1_food.skColor
             shapeNode.lineWidth = 0
             let node = SKSpriteNode()
             node.addChild(shapeNode)
@@ -75,13 +75,13 @@ class SnakeGameNode: SKNode {
 		do {
 			let texture = atlas.textureNamed("wall")
 			let node = SKSpriteNode(texture: texture)
-			node.color = SKColor(named: "Theme1_WallColor") ?? SKColor.brown
+            node.color = AppColor.theme1_wall.skColor
 			node.colorBlendFactor = 1
 			self.addChild(node)
 			self.node_wall = node
 		}
 		do {
-			self.floorColor = SKColor(named: "Theme1_FloorColor") ?? SKColor.darkGray
+            self.floorColor = AppColor.theme1_floor.skColor
 		}
 	}
 
@@ -100,7 +100,7 @@ class SnakeGameNode: SKNode {
 			self.node_wall = node
 		}
 		do {
-			self.floorColor = SKColor(named: "Theme2_FloorColor") ?? SKColor.darkGray
+            self.floorColor = AppColor.theme2_floor.skColor
 		}
 	}
 
