@@ -18,10 +18,8 @@ class SoundEffectController {
 
     private func initialValue() -> Bool {
         if defaults.object(forKey: defaultsKey) == nil {
-            print("ERROR: no object for key: \(defaultsKey)")
             return true
         }
-        print("success for key: \(defaultsKey)")
         return defaults.bool(forKey: defaultsKey)
     }
 }
