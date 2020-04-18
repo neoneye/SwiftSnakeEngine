@@ -46,9 +46,9 @@ class SnakeBodyNode: SKEffectNode {
         let color: SKColor
         switch playerId {
         case .player1:
-            color = SKColor(named: "snakeskin_simple_green") ?? SKColor.green
+            color = AppColor.player1_snakeBody.skColor
         case .player2:
-            color = SKColor(named: "snakeskin_simple_blue") ?? SKColor.blue
+            color = AppColor.player2_snakeBody.skColor
         }
         self.theme = Theme.retro
         self.strokeColor = color

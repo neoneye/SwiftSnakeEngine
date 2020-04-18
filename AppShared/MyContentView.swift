@@ -17,8 +17,8 @@ struct MyContentView: View {
     @State private var player2Dead: Bool = false
     @State var presentingModal = false
     var isPreview: Bool = false
-    let player1ColorAlive: Color = .green
-    let player2ColorAlive: Color = .blue
+    let player1ColorAlive: Color = AppColor.player1_snakeBody.color
+    let player2ColorAlive: Color = AppColor.player2_snakeBody.color
 
     let showDebugPanels = false
 

@@ -18,6 +18,8 @@ enum AppColor: String {
     case levelSelector_border
     case player1_plannedPath
     case player2_plannedPath
+    case player1_snakeBody
+    case player2_snakeBody
 }
 
 extension AppColor {
