@@ -69,10 +69,10 @@ struct SpriteKitContainer: ViewRepresentableType {
             scene = LevelSelectorScene.create()
             showPauseButton = false
 		case .develop_humanVsNone:
-            scene = SnakeGameScene.createHumanVsNone()
+            scene = IngameScene.createHumanVsNone()
             showPauseButton = true
         case .develop_botVsNone:
-            scene = SnakeGameScene.createBotVsNone()
+            scene = IngameScene.createBotVsNone()
             showPauseButton = true
 		}
 		view.presentScene(scene)

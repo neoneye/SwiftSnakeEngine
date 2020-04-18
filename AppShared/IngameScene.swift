@@ -30,7 +30,7 @@ enum UpdateAction {
     }
 }
 
-class SnakeGameScene: SKScene {
+class IngameScene: SKScene {
 	var contentCreated = false
     var gameNodeNeedRedraw: GameNodeNeedRedraw = []
 	var needLayout = false
@@ -49,13 +49,13 @@ class SnakeGameScene: SKScene {
 	let sound_snakeEats = SKAction.playSoundFileNamed("snake_eats.wav", waitForCompletion: false)
 	let sound_snakeStep = SKAction.playSoundFileNamed("snake_step.wav", waitForCompletion: false)
 
-	class func create() -> SnakeGameScene {
-		let scene = SnakeGameScene()
+	class func create() -> IngameScene {
+		let scene = IngameScene()
 		return scene
 	}
 
-	class func createHumanVsNone() -> SnakeGameScene {
-		let newScene = SnakeGameScene.create()
+	class func createHumanVsNone() -> IngameScene {
+		let newScene = IngameScene.create()
 		newScene.initialGameState = SnakeGameState.create(
 			player1: .human,
 			player2: .none,
@@ -64,8 +64,8 @@ class SnakeGameScene: SKScene {
 		return newScene
 	}
 
-    class func createBotVsNone() -> SnakeGameScene {
-        let newScene = SnakeGameScene.create()
+    class func createBotVsNone() -> IngameScene {
+        let newScene = IngameScene.create()
         let snakeBotType: SnakeBot.Type = SnakeBotFactory.snakeBotTypes.last ?? SnakeBotFactory.emptyBotType()
         newScene.initialGameState = SnakeGameState.create(
             player1: .bot(snakeBotType: snakeBotType),
@@ -78,7 +78,7 @@ class SnakeGameScene: SKScene {
     override init() {
         self.trainingSessionUUID = UUID()
         self.trainingSessionURLs = []
-        self.initialGameState = SnakeGameScene.defaultInitialGameState()
+        self.initialGameState = IngameScene.defaultInitialGameState()
         self.gameState = SnakeGameState.empty()
         self.gameNode = SnakeGameNode()
         self.gameNodeNeedRedraw.insert(.newGame)
@@ -718,7 +718,7 @@ class SnakeGameScene: SKScene {
 }
 
 #if os(macOS)
-extension SnakeGameScene: FlowDispatcher {
+extension IngameScene: FlowDispatcher {
 	func flow_dispatch(_ event: FlowEvent) {
 		if event is FlowEvent_PerformUndo {
 			schedule_stepBackwardOnce()
