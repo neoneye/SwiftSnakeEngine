@@ -35,6 +35,7 @@ class SnakeLevelSelectorScene: SKScene {
 		self.levelSelectorNode = SnakeLevelSelectorNode.create()
 		super.init(size: CGSize.zero)
         self.scaleMode = .resizeFill
+        self.backgroundColor = AppColor.levelSelector_background.skColor
 	}
 
 	required init?(coder aDecoder: NSCoder) {
