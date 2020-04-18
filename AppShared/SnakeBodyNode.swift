@@ -60,9 +60,9 @@ class SnakeBodyNode: SKEffectNode {
         let name: String
         switch playerId {
         case .player1:
-            name = "snakeskin_green"
-        case .player2:
             name = "snakeskin_blue"
+        case .player2:
+            name = "snakeskin_green"
         }
         self.theme = Theme.textured
 		self.strokeColor = SKColor.black
