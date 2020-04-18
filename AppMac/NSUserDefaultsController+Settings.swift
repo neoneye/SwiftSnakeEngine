@@ -14,15 +14,6 @@ extension NSUserDefaultsController {
 		}
 	}
 
-	var selectedLevelIndex: Int {
-		set {
-			defaults.set(newValue, forKey: "selectedLevelIndex")
-		}
-		get {
-			return defaults.integer(forKey: "selectedLevelIndex")
-		}
-	}
-
 	@objc dynamic var isShowPlannedPathEnabled: Bool {
 		set {
 			defaults.set(newValue, forKey: "isShowPlannedPathEnabled")

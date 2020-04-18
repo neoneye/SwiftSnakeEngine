@@ -10,7 +10,7 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
-struct MyPauseView: View {
+struct PauseSheetView: View {
     @ObservedObject var model: MyModel
     @Binding var presentedAsModal: Bool
     @State var showExitGameAlert = false
@@ -26,6 +26,17 @@ struct MyPauseView: View {
             }),
             secondaryButton: Alert.Button.cancel()
         )
+    }
+
+    var soundEffectsButton: some View {
+        #if os(iOS)
+        return HStack {
+            Text("Sound effects")
+            Toggle("Sound effects", isOn: self.$model.iOS_soundEffectsEnabled).labelsHidden()
+        }
+        #else
+        return Text("Sound effects")
+        #endif
     }
 
     var exitGameButton: some View {
@@ -57,6 +68,10 @@ struct MyPauseView: View {
 
             Spacer()
 
+            soundEffectsButton
+
+            Spacer()
+
             exitGameButton
         }
         .padding(EdgeInsets(top: 40, leading: 0, bottom: 40, trailing: 0))
@@ -71,6 +86,7 @@ struct MyPauseView: View {
                     Button("Continue Game") { self.presentedAsModal = false }
                 )
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     #else
     var body: some View {
@@ -79,9 +95,9 @@ struct MyPauseView: View {
     #endif
 }
 
-struct MyPauseView_Previews: PreviewProvider {
+struct PauseSheetView_Previews: PreviewProvider {
     static var previews: some View {
         let model = MyModel()
-        return MyPauseView(model: model, presentedAsModal: .constant(true))
+        return PauseSheetView(model: model, presentedAsModal: .constant(true))
     }
 }

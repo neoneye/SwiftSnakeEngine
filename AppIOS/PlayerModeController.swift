@@ -2,14 +2,14 @@
 import Foundation
 import EngineIOS
 
-enum PlayerMode: String, CaseIterable {
+enum PlayerMode: String {
     case twoPlayer_humanBot = "twoPlayer_humanBot"
     case singlePlayer_human = "singlePlayer_human"
 }
 
 /// Keeps track of the users preferred `player mode`.
 class PlayerModeController {
-    private(set) lazy var currentPlayerMode = loadMode()
+    private(set) lazy var value = initialValue()
     private let defaults: UserDefaults
     private let defaultsKey = "SNAKE_PLAYERMODE"
 
@@ -17,16 +17,13 @@ class PlayerModeController {
         self.defaults = defaults
     }
 
-    func changePlayerMode(to playerMode: PlayerMode) {
-        log.debug("set player mode: \(playerMode)")
-        currentPlayerMode = playerMode
-        defaults.setValue(playerMode.rawValue, forKey: defaultsKey)
+    func set(_ newValue: PlayerMode) {
+        value = newValue
+        defaults.setValue(newValue.rawValue, forKey: defaultsKey)
     }
 
-    private func loadMode() -> PlayerMode {
+    private func initialValue() -> PlayerMode {
         let rawValue: String? = defaults.string(forKey: defaultsKey)
-        let playerMode: PlayerMode = rawValue.flatMap(PlayerMode.init) ?? .twoPlayer_humanBot
-        log.debug("get player mode: \(playerMode)")
-        return playerMode
+        return rawValue.flatMap(PlayerMode.init) ?? .twoPlayer_humanBot
     }
 }

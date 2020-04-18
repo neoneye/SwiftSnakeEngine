@@ -218,6 +218,14 @@ class SnakeGameNode: SKNode {
 		rebuildSnakes()
 	}
 
+    func sizeOfLevel() -> CGSize {
+        let levelSize: UIntVec2 = gameState.level.size
+        let gridSize: CGFloat = AppConstant.tileSize
+        let levelWidth = CGFloat(levelSize.x) * gridSize
+        let levelHeight = CGFloat(levelSize.y) * gridSize
+        return CGSize(width: levelWidth, height: levelHeight)
+    }
+
 	func setScaleToAspectFit(_ size: CGSize) {
 		let levelSize: UIntVec2 = gameState.level.size
 		let gridSize: CGFloat = AppConstant.tileSize

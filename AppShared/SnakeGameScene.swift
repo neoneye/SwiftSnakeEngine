@@ -685,10 +685,12 @@ class SnakeGameScene: SKScene {
 		guard NSUserDefaultsController.shared.isSoundEffectsEnabled else {
 			return
 		}
-		run(action)
         #elseif os(iOS)
-        run(action)
+        guard SoundEffectController().value else {
+            return
+        }
         #endif
+        run(action)
 	}
 
 	func cgPointFromGridPoint(_ point: IntVec2) -> CGPoint {

@@ -14,6 +14,11 @@ public class MyModel: ObservableObject {
     @Published var levelSelector_visible = true
     @Published var levelSelector_insetTop: CGFloat = 0
 
+    #if os(iOS)
+    @Published var iOS_soundEffectsEnabled: Bool = SoundEffectController().value {
+        didSet { SoundEffectController().set(self.iOS_soundEffectsEnabled) }
+    }
+    #endif
 
     func sendInfoEvent(_ event: SnakeGameInfoEvent) {
         switch event {

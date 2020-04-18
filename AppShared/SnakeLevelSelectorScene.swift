@@ -74,7 +74,7 @@ class SnakeLevelSelectorScene: SKScene {
                 } else {
                     playerMode = .singlePlayer_human
                 }
-                PlayerModeController().changePlayerMode(to: playerMode)
+                PlayerModeController().set(playerMode)
                 self?.didChangePlayerSettings()
             }
             .store(in: &cancellable)
@@ -113,11 +113,7 @@ class SnakeLevelSelectorScene: SKScene {
         guard levelSelectorNode.parent == nil else {
             fatalError("Expected levelSelectorNode.parent to be nil, but got non-nil.")
         }
-        #if os(macOS)
-        levelSelectorNode.selectedIndex = NSUserDefaultsController.shared.selectedLevelIndex
-        #else
-        levelSelectorNode.selectedIndex = 0
-        #endif
+        levelSelectorNode.selectedIndex = SelectedLevelController().value
         needSendingLevelInfo = true
         levelSelectorNode.createGameStates()
         levelSelectorNode.createGameNodes()
@@ -180,10 +176,8 @@ class SnakeLevelSelectorScene: SKScene {
     }
 
     private func didChangeSelectedLevelIndex(_ selectedIndex: Int) {
-        #if os(macOS)
         // Remember the current selected index, so the UI next time shows the same selected item.
-        NSUserDefaultsController.shared.selectedLevelIndex = levelSelectorNode.selectedIndex ?? 0
-        #endif
+        SelectedLevelController().set(levelSelectorNode.selectedIndex ?? 0)
         needRedraw = true
         needSendingLevelInfo = true
     }

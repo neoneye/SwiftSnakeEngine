@@ -101,7 +101,7 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 
         role1 = SnakePlayerRole.human
 
-        let playerMode: PlayerMode = PlayerModeController().currentPlayerMode
+        let playerMode: PlayerMode = PlayerModeController().value
         switch playerMode {
         case .twoPlayer_humanBot:
             let snakeBotType: SnakeBot.Type = SnakeBotFactory.snakeBotTypes.last!
@@ -125,9 +125,9 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 		do {
             let color: SKColor
             #if os(macOS)
-			color = SKColor(calibratedRed: 0.1, green: 0.8, blue: 0.9, alpha: 1.0)
+			color = SKColor(calibratedRed: 0.7, green: 0.8, blue: 0.9, alpha: 1.0)
             #else
-            color = SKColor(red: 0.1, green: 0.8, blue: 0.9, alpha: 1.0)
+            color = SKColor(red: 0.7, green: 0.8, blue: 0.9, alpha: 1.0)
             #endif
 			let n = SKSpriteNode(color: color, size: CGSize(width: 100, height: 100))
 			n.zPosition = 1
@@ -140,9 +140,9 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 			n.configure()
             n.name = "level \(index)"
             n.isUserInteractionEnabled = false
+            self.addChild(n)
+            n.zPosition = 2
 			gameNodes.append(n)
-			n.zPosition = 2
-			self.addChild(n)
 		}
 	}
 
@@ -153,7 +153,7 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 		}
 
         let clampedInsetTop: CGFloat = min(max(insetTop, 0), 300)
-        let margin = EdgeInsets(top: clampedInsetTop + 50, leading: 50, bottom: 50, trailing: 50)
+        let margin = EdgeInsets(top: clampedInsetTop + 80, leading: 80, bottom: 80, trailing: 80)
 		let grid = GridComputer(
             margin: margin,
 			cellSpacing: 80,
@@ -164,20 +164,41 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 
 		for i in gameStates.indices {
 			let gameState: SnakeGameState = gameStates[i]
+            let gameNode: SnakeGameNode = gameNodes[i]
+            gameNode.gameState = gameState
+        }
+
+        let borderSize: CGFloat = 8
+        for i in gameStates.indices {
 			let gameNode: SnakeGameNode = gameNodes[i]
 
-			gameNode.position = grid.position(index: i)
+            // Make the selected level slightly bigger than the non-selected levels.
+            var size: CGSize = grid.gameNodeSize
+            if i == self.selectedIndex {
+                let extra: CGFloat = ceil(grid.cellSpacing * 0.3) * 2 - borderSize
+                size.width += extra
+                size.height += extra
+            }
 
-			gameNode.gameState = gameState
-			gameNode.setScaleToAspectFit(grid.gameNodeSize)
+            gameNode.position = grid.position(index: i)
+            gameNode.setScaleToAspectFit(size)
 
 			gameNode.redraw()
+
+            // Draw a thin border around the selected level.
+            if i == self.selectedIndex {
+                var sizeOfLevel: CGSize = gameNode.sizeOfLevel()
+                sizeOfLevel.width *= gameNode.xScale
+                sizeOfLevel.height *= gameNode.yScale
+                sizeOfLevel.width += borderSize
+                sizeOfLevel.height += borderSize
+                self.selectionIndicator?.size = sizeOfLevel
+                self.selectionIndicator?.position = gameNode.position
+            }
 		}
 
-		if let node = self.selectionIndicator, let index: Int = self.selectedIndex {
-			node.isHidden = false
-			node.position = grid.position(index: index)
-			node.scale(to: grid.selectionNodeSize)
+		if self.selectedIndex != nil {
+			self.selectionIndicator?.isHidden = false
 		} else {
 			self.selectionIndicator?.isHidden = true
 		}

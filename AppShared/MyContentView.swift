@@ -163,7 +163,7 @@ struct MyContentView: View {
                 .padding(15)
         }
         .sheet(isPresented: $presentingModal) {
-            MyPauseView(model: self.model, presentedAsModal: self.$presentingModal)
+            PauseSheetView(model: self.model, presentedAsModal: self.$presentingModal)
         }
     }
 
