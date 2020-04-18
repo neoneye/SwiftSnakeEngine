@@ -60,7 +60,7 @@ class SnakeGameNode: SKNode {
     }()
 
 	func configureTheme1() {
-		let atlas: SKTextureAtlas = SKTextureAtlas(named: "level_theme1")
+        let atlas: SKTextureAtlas = SKTextureAtlas(named: "level_theme1")
 		do {
             let radius: CGFloat = (AppConstant.tileSize / 2) - 1
             let shapeNode = SKShapeNode(circleOfRadius: radius)
@@ -86,7 +86,7 @@ class SnakeGameNode: SKNode {
 	}
 
 	func configureTheme2() {
-		let atlas: SKTextureAtlas = SKTextureAtlas(named: "level_theme2")
+        let atlas: SKTextureAtlas = SKTextureAtlas(named: "level_theme2")
 		do {
 			let texture = atlas.textureNamed("nuke")
 			let node = SKSpriteNode(texture: texture)
@@ -113,17 +113,10 @@ class SnakeGameNode: SKNode {
 			configureTheme2()
 		}
 
-        #if os(macOS)
-		snakeBodyNode1.configure(skin: UserDefaults.standard.player1SkinMenuItem)
-		snakeBodyNode2.configure(skin: UserDefaults.standard.player2SkinMenuItem)
+        snakeBodyNode1.configure(playerId: .player1)
+        snakeBodyNode2.configure(playerId: .player2)
         snakePlannedPathNode1.configure(playerId: .player1)
         snakePlannedPathNode2.configure(playerId: .player2)
-        #else
-        snakeBodyNode1.configure(skin: PlayerSkinMenuItem.retroGreen)
-        snakeBodyNode2.configure(skin: PlayerSkinMenuItem.retroBlue)
-        snakePlannedPathNode1.configure(playerId: .player1)
-        snakePlannedPathNode2.configure(playerId: .player2)
-        #endif
 
 		self.node_food?.zPosition = 10
 		self.node_wall?.zPosition = 20

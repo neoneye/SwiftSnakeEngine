@@ -82,8 +82,6 @@
 		42905334243E9BDF004EFFB6 /* SnakeGameSKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FC337123FEAC20004A50E7 /* SnakeGameSKView.swift */; };
 		42905335243E9CA4004EFFB6 /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429CD0D423495DF300098E68 /* AppConstant.swift */; };
 		42905336243E9D4D004EFFB6 /* SnakeGameNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4294DA502341377900AA58CD /* SnakeGameNode.swift */; };
-		42905338243E9E89004EFFB6 /* PlayerSkinMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42905337243E9E89004EFFB6 /* PlayerSkinMenuItem.swift */; };
-		42905339243E9E89004EFFB6 /* PlayerSkinMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42905337243E9E89004EFFB6 /* PlayerSkinMenuItem.swift */; };
 		4290533A243E9F9B004EFFB6 /* SnakeGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4255CA13232F8A2100A230AF /* SnakeGameScene.swift */; };
 		4290533B243EA036004EFFB6 /* SnakeUserInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42967E45234FBF3C0098A79D /* SnakeUserInput.swift */; };
 		4290533C243EA41C004EFFB6 /* SnakeLevelSelectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B96D942347EE000073CAAA /* SnakeLevelSelectorNode.swift */; };
@@ -348,7 +346,6 @@
 		4290531E243E9659004EFFB6 /* level_theme2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme2.atlas; sourceTree = "<group>"; };
 		4290531F243E9659004EFFB6 /* level_theme1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = level_theme1.atlas; sourceTree = "<group>"; };
 		42905330243E99DD004EFFB6 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
-		42905337243E9E89004EFFB6 /* PlayerSkinMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSkinMenuItem.swift; sourceTree = "<group>"; };
 		42905360243EAE0B004EFFB6 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		429122BE23520D3000B3E32A /* SnakeBot1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBot1.swift; sourceTree = "<group>"; };
 		4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKSpriteNode+Pulse.swift"; sourceTree = "<group>"; };
@@ -642,7 +639,6 @@
 				42CBF1CB2443B31F001A5D04 /* MyModel.swift */,
 				42A06C1D2441D90600877CB9 /* PauseSheetView.swift */,
 				42F35E6023FD877400A4795B /* PlayerScoreView.swift */,
-				42905337243E9E89004EFFB6 /* PlayerSkinMenuItem.swift */,
 				4211C32C244A063600C25514 /* SelectedLevelController.swift */,
 				4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */,
 				4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */,
@@ -1326,7 +1322,6 @@
 				4246C441235BB07E00324965 /* PlayerMenu.swift in Sources */,
 				4294DA3F233EF09900AA58CD /* SKSpriteNode+Pulse.swift in Sources */,
 				42A93BF823FC1E1800A15FD2 /* MyContentView.swift in Sources */,
-				42905339243E9E89004EFFB6 /* PlayerSkinMenuItem.swift in Sources */,
 				42967E46234FBF3C0098A79D /* SnakeUserInput.swift in Sources */,
 				421A9E33243922ED00A85B6F /* GameNSView.swift in Sources */,
 				42CCD61D23C3CF660021CBE7 /* SpriteKitContainer.swift in Sources */,
@@ -1423,7 +1418,6 @@
 				42685C47243E8DF5000C5511 /* SnakeWallNode.swift in Sources */,
 				4290533C243EA41C004EFFB6 /* SnakeLevelSelectorNode.swift in Sources */,
 				42905334243E9BDF004EFFB6 /* SnakeGameSKView.swift in Sources */,
-				42905338243E9E89004EFFB6 /* PlayerSkinMenuItem.swift in Sources */,
 				42C1930B244913A500697159 /* ViewHeightGetter.swift in Sources */,
 				4211C32D244A063600C25514 /* SelectedLevelController.swift in Sources */,
 				4290533D243EA53C004EFFB6 /* SnakeLevelSelectorScene.swift in Sources */,
