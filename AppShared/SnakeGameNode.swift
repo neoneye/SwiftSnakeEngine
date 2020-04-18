@@ -116,13 +116,13 @@ class SnakeGameNode: SKNode {
         #if os(macOS)
 		snakeBodyNode1.configure(skin: UserDefaults.standard.player1SkinMenuItem)
 		snakeBodyNode2.configure(skin: UserDefaults.standard.player2SkinMenuItem)
-        snakePlannedPathNode1.configure(skin: UserDefaults.standard.player1SkinMenuItem)
-        snakePlannedPathNode2.configure(skin: UserDefaults.standard.player2SkinMenuItem)
+        snakePlannedPathNode1.configure(playerId: .player1)
+        snakePlannedPathNode2.configure(playerId: .player2)
         #else
         snakeBodyNode1.configure(skin: PlayerSkinMenuItem.retroGreen)
         snakeBodyNode2.configure(skin: PlayerSkinMenuItem.retroBlue)
-        snakePlannedPathNode1.configure(skin: PlayerSkinMenuItem.retroGreen)
-        snakePlannedPathNode2.configure(skin: PlayerSkinMenuItem.retroBlue)
+        snakePlannedPathNode1.configure(playerId: .player1)
+        snakePlannedPathNode2.configure(playerId: .player2)
         #endif
 
 		self.node_food?.zPosition = 10

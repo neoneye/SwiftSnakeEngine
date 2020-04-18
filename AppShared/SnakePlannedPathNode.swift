@@ -20,11 +20,11 @@ class SnakePlannedPathNode: SKEffectNode {
         return convertCoordinate?(position) ?? CGPoint.zero
     }
 
-    public func configure(skin: PlayerSkinMenuItem) {
-        switch skin {
-        case .retroGreen, .cuteGreen:
+    public func configure(playerId: SnakePlayerId) {
+        switch playerId {
+        case .player1:
             colorHighConfidence = AppColor.player1_plannedPath.skColor
-        case .retroBlue, .cuteBlue:
+        case .player2:
             colorHighConfidence = AppColor.player2_plannedPath.skColor
         }
         colorLowConfidence = colorHighConfidence.colorWithOpacity(0.5)
