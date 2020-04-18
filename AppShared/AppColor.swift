@@ -18,6 +18,7 @@ enum AppColor: String {
     case levelSelector_background
     case levelSelector_border
     case levelSelector_header
+    case ingame_background
     case player1_plannedPath
     case player2_plannedPath
     case player1_snakeBody

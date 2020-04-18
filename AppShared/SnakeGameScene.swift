@@ -84,6 +84,7 @@ class SnakeGameScene: SKScene {
         self.gameNodeNeedRedraw.insert(.newGame)
         super.init(size: CGSize(width: 100, height: 100))
         self.scaleMode = .resizeFill
+        self.backgroundColor = AppColor.ingame_background.skColor
     }
 
 	required init?(coder aDecoder: NSCoder) {
