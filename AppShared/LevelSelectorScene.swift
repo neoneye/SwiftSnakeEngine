@@ -24,7 +24,7 @@ class LevelSelectorScene: SKScene {
     var needSendingLevelInfo = true
     var insetTop: CGFloat = 0
 
-	var levelSelectorNode: SnakeLevelSelectorNode
+	var levelSelectorNode: LevelSelectorNode
 
 	class func create() -> LevelSelectorScene {
         let scene = LevelSelectorScene()
@@ -32,7 +32,7 @@ class LevelSelectorScene: SKScene {
 	}
 
     override init() {
-		self.levelSelectorNode = SnakeLevelSelectorNode.create()
+		self.levelSelectorNode = LevelSelectorNode.create()
 		super.init(size: CGSize.zero)
         self.scaleMode = .resizeFill
         self.backgroundColor = AppColor.levelSelector_background.skColor

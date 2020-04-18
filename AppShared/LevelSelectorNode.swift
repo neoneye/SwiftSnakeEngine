@@ -10,7 +10,7 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
-class SnakeLevelSelectorNode: SKSpriteNode {
+class LevelSelectorNode: SKSpriteNode {
 	let xCellCount: Int
 	let yCellCount: Int
 	var gameStates: [SnakeGameState] = []
@@ -31,9 +31,9 @@ class SnakeLevelSelectorNode: SKSpriteNode {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	class func create() -> SnakeLevelSelectorNode {
+	class func create() -> LevelSelectorNode {
 		let size = CGSize(width: 1000, height: 1000)
-		let node = SnakeLevelSelectorNode(
+		let node = LevelSelectorNode(
 			xCellCount: 3,
 			yCellCount: 3,
 			color: SKColor.clear,
