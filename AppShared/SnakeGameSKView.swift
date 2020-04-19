@@ -36,6 +36,7 @@ class SnakeGameSKView: SKView {
     /// Called whenever there are changes to Light/Dark appearance
     override func viewDidChangeEffectiveAppearance() {
         super.viewDidChangeEffectiveAppearance()
+        AppColorManager.shared.resolveNSColors()
         self.model.userInterfaceStyle.send()
     }
     #endif
