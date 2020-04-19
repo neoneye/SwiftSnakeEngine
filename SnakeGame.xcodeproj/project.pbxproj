@@ -26,6 +26,7 @@
 		422423BA233D9A590006D02D /* SnakeGameState+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B9233D9A590006D02D /* SnakeGameState+Create.swift */; };
 		422423BC233D9ABD0006D02D /* SnakeGameExecuter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423BB233D9ABD0006D02D /* SnakeGameExecuter.swift */; };
 		422423BE233D9B760006D02D /* SnakeGameHeadless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423BD233D9B760006D02D /* SnakeGameHeadless.swift */; };
+		42247FF9244D0E08003EB9E9 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42247FF8244D0E08003EB9E9 /* GameKit.framework */; };
 		4228915223341CCC00273A0F /* MeasureTurnCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4228915123341CCC00273A0F /* MeasureTurnCount.swift */; };
 		4228915423341D2100273A0F /* T1006_MeasureTurnCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4228915323341D2100273A0F /* T1006_MeasureTurnCount.swift */; };
 		422B903B23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422B903A23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift */; };
@@ -300,6 +301,8 @@
 		422423B9233D9A590006D02D /* SnakeGameState+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnakeGameState+Create.swift"; sourceTree = "<group>"; };
 		422423BB233D9ABD0006D02D /* SnakeGameExecuter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameExecuter.swift; sourceTree = "<group>"; };
 		422423BD233D9B760006D02D /* SnakeGameHeadless.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameHeadless.swift; sourceTree = "<group>"; };
+		42247FF8244D0E08003EB9E9 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.4.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
+		42247FFA244D0E1E003EB9E9 /* AppIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppIOS.entitlements; sourceTree = "<group>"; };
 		4228915123341CCC00273A0F /* MeasureTurnCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureTurnCount.swift; sourceTree = "<group>"; };
 		4228915323341D2100273A0F /* T1006_MeasureTurnCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1006_MeasureTurnCount.swift; sourceTree = "<group>"; };
 		422B903A23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKScene+BecomeFirstResponder.swift"; sourceTree = "<group>"; };
@@ -411,7 +414,7 @@
 		42EFB41823E57E18002B6191 /* EngineMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EngineMac.h; sourceTree = "<group>"; };
 		42F35E6023FD877400A4795B /* PlayerScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScoreView.swift; sourceTree = "<group>"; };
 		42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeHeadDirection.swift; sourceTree = "<group>"; };
-		42FB057F243C99C4006BEE8D /* AppIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		42FB057F243C99C4006BEE8D /* Snake Puzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Snake Puzzle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		42FB0581243C99C4006BEE8D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42FB0591243C99C7006BEE8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		42FB0593243C99C7006BEE8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -478,6 +481,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42247FF9244D0E08003EB9E9 /* GameKit.framework in Frameworks */,
 				42ABC115243CAD1100E05FF3 /* EngineIOS.framework in Frameworks */,
 				7FC2E2426392287D91097671 /* Pods_BasePodsIOS_AppIOS.framework in Frameworks */,
 			);
@@ -557,7 +561,7 @@
 				4255C9E5232F703E00A230AF /* EngineMac.framework */,
 				4255C9EE232F703E00A230AF /* EngineMacTests.xctest */,
 				4255CA0B232F8A2100A230AF /* Snake.app */,
-				42FB057F243C99C4006BEE8D /* AppIOS.app */,
+				42FB057F243C99C4006BEE8D /* Snake Puzzle.app */,
 				42ABC10E243CAD1100E05FF3 /* EngineIOS.framework */,
 			);
 			name = Products;
@@ -617,6 +621,7 @@
 		4255CA2D2331810100A230AF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				42247FF8244D0E08003EB9E9 /* GameKit.framework */,
 				2B3760762484E831AFA3BBBD /* Pods_BasePodsIOS_AppIOS.framework */,
 				28C49A90829DF8FE48C8D9AF /* Pods_BasePodsMAC_AppMac.framework */,
 				4A04DDEAA0A390B1DDB92538 /* Pods_BasePodsIOS_EngineIOS.framework */,
@@ -772,6 +777,7 @@
 			isa = PBXGroup;
 			children = (
 				42FB0581243C99C4006BEE8D /* AppDelegate.swift */,
+				42247FFA244D0E1E003EB9E9 /* AppIOS.entitlements */,
 				42A3899A24462DF200552363 /* GameViewController.swift */,
 				42FB0593243C99C7006BEE8D /* Info.plist */,
 				42FB0590243C99C7006BEE8D /* LaunchScreen.storyboard */,
@@ -936,7 +942,7 @@
 			);
 			name = AppIOS;
 			productName = AppIOS;
-			productReference = 42FB057F243C99C4006BEE8D /* AppIOS.app */;
+			productReference = 42FB057F243C99C4006BEE8D /* Snake Puzzle.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1802,6 +1808,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AppIOS/AppIOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 22DR89XVRF;
 				INFOPLIST_FILE = AppIOS/Info.plist;
@@ -1810,8 +1817,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = neoneye.AppIOS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 2020.4.20;
+				PRODUCT_BUNDLE_IDENTIFIER = neoneye.game.snakepuzzle;
+				PRODUCT_NAME = "Snake Puzzle";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1824,6 +1832,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AppIOS/AppIOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 22DR89XVRF;
 				INFOPLIST_FILE = AppIOS/Info.plist;
@@ -1832,8 +1841,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = neoneye.AppIOS;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 2020.4.20;
+				PRODUCT_BUNDLE_IDENTIFIER = neoneye.game.snakepuzzle;
+				PRODUCT_NAME = "Snake Puzzle";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
