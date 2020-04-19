@@ -488,6 +488,7 @@ class IngameScene: SKScene {
 		}
 		let movement: SnakeBodyMovement = userInput.newMovement(oldDirection: gameState.player1.snakeBody.head.direction)
         guard movement != SnakeBodyMovement.dontMove else {
+            userInput_stepBackwardOnce_ifSingleHuman()
             return
         }
 		let newGameState: SnakeGameState = gameState.updatePendingMovementForPlayer1(movement)
@@ -502,6 +503,7 @@ class IngameScene: SKScene {
 		}
 		let movement: SnakeBodyMovement = userInput.newMovement(oldDirection: gameState.player2.snakeBody.head.direction)
         guard movement != SnakeBodyMovement.dontMove else {
+            userInput_stepBackwardOnce_ifSingleHuman()
             return
         }
 		let newGameState: SnakeGameState = gameState.updatePendingMovementForPlayer2(movement)
@@ -509,6 +511,25 @@ class IngameScene: SKScene {
 		self.isPaused = false
 		self.pendingUpdateAction = .stepForwardContinuously
 	}
+
+    func userInput_stepBackwardOnce_ifSingleHuman() {
+        var numberOfHumans: UInt = 0
+        if gameState.player1.isInstalled && gameState.player1.role == .human {
+            numberOfHumans += 1
+        }
+        if gameState.player2.isInstalled && gameState.player2.role == .human {
+            numberOfHumans += 1
+        }
+        guard numberOfHumans > 0 else {
+            log.debug("In a game without human players, it makes no sense to perform undo")
+            return
+        }
+        guard numberOfHumans < 2 else {
+            log.debug("In a game with multiple human players. Then both players have to agree when to undo, and use the undo key for it.")
+            return
+        }
+        schedule_stepBackwardOnce()
+    }
 
 	lazy var foodGenerator: SnakeFoodGenerator = {
 		return SnakeFoodGenerator()
