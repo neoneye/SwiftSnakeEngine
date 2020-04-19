@@ -49,13 +49,8 @@ class IngameScene: SKScene {
 	let sound_snakeEats = SKAction.playSoundFileNamed("snake_eats.wav", waitForCompletion: false)
 	let sound_snakeStep = SKAction.playSoundFileNamed("snake_step.wav", waitForCompletion: false)
 
-	class func create() -> IngameScene {
-		let scene = IngameScene()
-		return scene
-	}
-
 	class func createHumanVsNone() -> IngameScene {
-		let newScene = IngameScene.create()
+		let newScene = IngameScene()
 		newScene.initialGameState = SnakeGameState.create(
 			player1: .human,
 			player2: .none,
@@ -65,7 +60,7 @@ class IngameScene: SKScene {
 	}
 
     class func createBotVsNone() -> IngameScene {
-        let newScene = IngameScene.create()
+        let newScene = IngameScene()
         let snakeBotType: SnakeBot.Type = SnakeBotFactory.snakeBotTypes.last ?? SnakeBotFactory.emptyBotType()
         newScene.initialGameState = SnakeGameState.create(
             player1: .bot(snakeBotType: snakeBotType),
