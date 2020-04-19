@@ -127,11 +127,16 @@ class IngameScene: SKScene {
     /// Tells you when the scene is about to be removed from a view
     override func willMove(from view: SKView) {
         super.willMove(from: view)
+        cancellable.removeAll()
+
         #if os(macOS)
         flow_stop()
         #endif
 
-        cancellable.removeAll()
+        #if os(iOS)
+        self.view?.removeGestureRecognizer(tapGestureRecognizer)
+        self.view?.removeGestureRecognizer(longPressGestureRecognizer)
+        #endif
     }
 
     func createContent() {
