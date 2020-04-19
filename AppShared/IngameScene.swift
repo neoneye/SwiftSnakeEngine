@@ -116,9 +116,6 @@ class IngameScene: SKScene {
         #if os(iOS)
         tapGestureRecognizer.addTarget(self, action: #selector(tapAction(sender:)))
         self.view?.addGestureRecognizer(tapGestureRecognizer)
-
-        longPressGestureRecognizer.addTarget(self, action: #selector(longPressAction(sender:)))
-        self.view?.addGestureRecognizer(longPressGestureRecognizer)
         #endif
 
         skView.model.levelSelector_visible = false
@@ -135,7 +132,6 @@ class IngameScene: SKScene {
 
         #if os(iOS)
         self.view?.removeGestureRecognizer(tapGestureRecognizer)
-        self.view?.removeGestureRecognizer(longPressGestureRecognizer)
         #endif
     }
 
@@ -164,18 +160,9 @@ class IngameScene: SKScene {
     #if os(iOS)
 
     let tapGestureRecognizer = UITapGestureRecognizer()
-    let longPressGestureRecognizer = UILongPressGestureRecognizer()
 
     @objc func tapAction(sender: UITapGestureRecognizer) {
         userInputForPlayer1Forward()
-    }
-
-    @objc func longPressAction(sender: UILongPressGestureRecognizer) {
-        guard sender.state == .began else {
-            // Prevent long press gesture recognizer from firing multiple times
-            return
-        }
-        schedule_stepBackwardOnce()
     }
 
     var touchBeganAtPosition: CGPoint = CGPoint.zero
