@@ -1,5 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import SwiftUI
+import Combine
 import SpriteKit
 
 #if os(iOS)
@@ -31,6 +32,7 @@ enum UpdateAction {
 }
 
 class IngameScene: SKScene {
+    var cancellable = Set<AnyCancellable>()
 	var contentCreated = false
     var gameNodeNeedRedraw: GameNodeNeedRedraw = []
 	var needLayout = false
@@ -79,13 +81,13 @@ class IngameScene: SKScene {
         self.gameNodeNeedRedraw.insert(.newGame)
         super.init(size: CGSize(width: 100, height: 100))
         self.scaleMode = .resizeFill
-        self.backgroundColor = AppColor.ingame_background.skColor
     }
 
 	required init?(coder aDecoder: NSCoder) {
         fatalError()
 	}
 
+    /// Tells you when the scene is presented by a view.
     override func didMove(to view: SKView) {
         guard let skView: SnakeGameSKView = view as? SnakeGameSKView else {
             fatalError("Expected view to be of type SnakeGameSKView. Cannot subscribe to events.")
@@ -93,18 +95,23 @@ class IngameScene: SKScene {
 
         super.didMove(to: view)
 
-        if !contentCreated {
-            createContent()
-            contentCreated = true
-        }
-
-        needLayout = true
+        createContent()
         gameNodeNeedRedraw.insert(.didMoveToView)
-        needBecomeFirstResponder = true
+        restartGame()
 
         #if os(macOS)
         flow_start()
         #endif
+
+        // Rebuild the UI whenever there are changes to Display light/dark appearance.
+        skView.model.userInterfaceStyle
+            .sink { [weak self] in
+                log.debug("userInterfaceStyle did change")
+                self?.contentCreated = false
+                self?.createContent()
+                self?.gameNodeNeedRedraw.insert(.userInterfaceStyle)
+            }
+            .store(in: &cancellable)
 
         #if os(iOS)
         tapGestureRecognizer.addTarget(self, action: #selector(tapAction(sender:)))
@@ -117,14 +124,26 @@ class IngameScene: SKScene {
         skView.model.levelSelector_visible = false
     }
 
+    /// Tells you when the scene is about to be removed from a view
     override func willMove(from view: SKView) {
         super.willMove(from: view)
         #if os(macOS)
         flow_stop()
         #endif
+
+        cancellable.removeAll()
     }
 
     func createContent() {
+        if contentCreated {
+            return
+        }
+        contentCreated = true
+
+        self.removeAllChildren()
+
+        self.backgroundColor = AppColor.ingame_background.skColor
+
         let camera = SKCameraNode()
         self.camera = camera
         addChild(camera)
@@ -132,7 +151,8 @@ class IngameScene: SKScene {
         gameNode.configure()
         self.addChild(gameNode)
 
-        restartGame()
+        needLayout = true
+        needBecomeFirstResponder = true
     }
 
 
@@ -734,6 +754,7 @@ struct GameNodeNeedRedraw: OptionSet {
     static let newGame                = GameNodeNeedRedraw(rawValue: 1 << 1)
     static let stepForward            = GameNodeNeedRedraw(rawValue: 1 << 2)
     static let stepBackward           = GameNodeNeedRedraw(rawValue: 1 << 3)
+    static let userInterfaceStyle     = GameNodeNeedRedraw(rawValue: 1 << 4)
 }
 
 extension GameNodeNeedRedraw: CustomStringConvertible, CustomDebugStringConvertible {
@@ -741,7 +762,8 @@ extension GameNodeNeedRedraw: CustomStringConvertible, CustomDebugStringConverti
         (.didMoveToView, "didMoveToView"),
         (.newGame, "newGame"),
         (.stepForward, "stepForward"),
-        (.stepBackward, "stepBackward")
+        (.stepBackward, "stepBackward"),
+        (.userInterfaceStyle, "userInterfaceStyle")
     ]
 
     var debugDescription: String {

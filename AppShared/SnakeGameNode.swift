@@ -59,52 +59,8 @@ class SnakeGameNode: SKNode {
         return instance
     }()
 
-	func configureTheme1() {
-        let atlas: SKTextureAtlas = SKTextureAtlas(named: "level_theme1")
-		do {
-            let radius: CGFloat = (AppConstant.tileSize / 2) - 1
-            let shapeNode = SKShapeNode(circleOfRadius: radius)
-            shapeNode.fillColor = AppColor.theme1_food.skColor
-            shapeNode.lineWidth = 0
-            let node = SKSpriteNode()
-            node.addChild(shapeNode)
-            node.colorBlendFactor = 1
-			self.addChild(node)
-			self.node_food = node
-		}
-		do {
-			let texture = atlas.textureNamed("wall")
-			let node = SKSpriteNode(texture: texture)
-            node.color = AppColor.theme1_wall.skColor
-			node.colorBlendFactor = 1
-			self.addChild(node)
-			self.node_wall = node
-		}
-		do {
-            self.floorColor = AppColor.theme1_floor.skColor
-		}
-	}
-
-	func configureTheme2() {
-        let atlas: SKTextureAtlas = SKTextureAtlas(named: "level_theme2")
-		do {
-			let texture = atlas.textureNamed("nuke")
-			let node = SKSpriteNode(texture: texture)
-			self.addChild(node)
-			self.node_food = node
-		}
-		do {
-			let texture = atlas.textureNamed("wall")
-			let node = SKSpriteNode(texture: texture)
-			self.addChild(node)
-			self.node_wall = node
-		}
-		do {
-            self.floorColor = AppColor.theme2_floor.skColor
-		}
-	}
-
 	func configure() {
+        self.removeAllChildren()
 
 		switch AppConstant.theme {
 		case .theme1:
@@ -143,6 +99,51 @@ class SnakeGameNode: SKNode {
 
 		node_food?.repeatPulseEffectForEver(rectOf: 50)
 	}
+
+    func configureTheme1() {
+        let atlas: SKTextureAtlas = SKTextureAtlas(named: "level_theme1")
+        do {
+            let radius: CGFloat = (AppConstant.tileSize / 2) - 1
+            let shapeNode = SKShapeNode(circleOfRadius: radius)
+            shapeNode.fillColor = AppColor.theme1_food.skColor
+            shapeNode.lineWidth = 0
+            let node = SKSpriteNode()
+            node.addChild(shapeNode)
+            node.colorBlendFactor = 1
+            self.addChild(node)
+            self.node_food = node
+        }
+        do {
+            let texture = atlas.textureNamed("wall")
+            let node = SKSpriteNode(texture: texture)
+            node.color = AppColor.theme1_wall.skColor
+            node.colorBlendFactor = 1
+            self.addChild(node)
+            self.node_wall = node
+        }
+        do {
+            self.floorColor = AppColor.theme1_floor.skColor
+        }
+    }
+
+    func configureTheme2() {
+        let atlas: SKTextureAtlas = SKTextureAtlas(named: "level_theme2")
+        do {
+            let texture = atlas.textureNamed("nuke")
+            let node = SKSpriteNode(texture: texture)
+            self.addChild(node)
+            self.node_food = node
+        }
+        do {
+            let texture = atlas.textureNamed("wall")
+            let node = SKSpriteNode(texture: texture)
+            self.addChild(node)
+            self.node_wall = node
+        }
+        do {
+            self.floorColor = AppColor.theme2_floor.skColor
+        }
+    }
 
 	func rebuildSnakes() {
 		//log.debug("player1: \(gameState.player1.snakeBody.fifoContentString)")
