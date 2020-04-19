@@ -1,5 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import SwiftUI
+import Combine
 import SpriteKit
 
 #if os(iOS)
@@ -30,7 +31,8 @@ enum UpdateAction {
     }
 }
 
-class SnakeGameScene: SKScene {
+class IngameScene: SKScene {
+    var cancellable = Set<AnyCancellable>()
 	var contentCreated = false
     var gameNodeNeedRedraw: GameNodeNeedRedraw = []
 	var needLayout = false
@@ -49,13 +51,8 @@ class SnakeGameScene: SKScene {
 	let sound_snakeEats = SKAction.playSoundFileNamed("snake_eats.wav", waitForCompletion: false)
 	let sound_snakeStep = SKAction.playSoundFileNamed("snake_step.wav", waitForCompletion: false)
 
-	class func create() -> SnakeGameScene {
-		let scene = SnakeGameScene()
-		return scene
-	}
-
-	class func createHumanVsNone() -> SnakeGameScene {
-		let newScene = SnakeGameScene.create()
+	class func createHumanVsNone() -> IngameScene {
+		let newScene = IngameScene()
 		newScene.initialGameState = SnakeGameState.create(
 			player1: .human,
 			player2: .none,
@@ -64,8 +61,8 @@ class SnakeGameScene: SKScene {
 		return newScene
 	}
 
-    class func createBotVsNone() -> SnakeGameScene {
-        let newScene = SnakeGameScene.create()
+    class func createBotVsNone() -> IngameScene {
+        let newScene = IngameScene()
         let snakeBotType: SnakeBot.Type = SnakeBotFactory.snakeBotTypes.last ?? SnakeBotFactory.emptyBotType()
         newScene.initialGameState = SnakeGameState.create(
             player1: .bot(snakeBotType: snakeBotType),
@@ -78,7 +75,7 @@ class SnakeGameScene: SKScene {
     override init() {
         self.trainingSessionUUID = UUID()
         self.trainingSessionURLs = []
-        self.initialGameState = SnakeGameScene.defaultInitialGameState()
+        self.initialGameState = IngameScene.defaultInitialGameState()
         self.gameState = SnakeGameState.empty()
         self.gameNode = SnakeGameNode()
         self.gameNodeNeedRedraw.insert(.newGame)
@@ -90,6 +87,7 @@ class SnakeGameScene: SKScene {
         fatalError()
 	}
 
+    /// Tells you when the scene is presented by a view.
     override func didMove(to view: SKView) {
         guard let skView: SnakeGameSKView = view as? SnakeGameSKView else {
             fatalError("Expected view to be of type SnakeGameSKView. Cannot subscribe to events.")
@@ -97,18 +95,23 @@ class SnakeGameScene: SKScene {
 
         super.didMove(to: view)
 
-        if !contentCreated {
-            createContent()
-            contentCreated = true
-        }
-
-        needLayout = true
+        createContent()
         gameNodeNeedRedraw.insert(.didMoveToView)
-        needBecomeFirstResponder = true
+        restartGame()
 
         #if os(macOS)
         flow_start()
         #endif
+
+        // Rebuild the UI whenever there are changes to Display light/dark appearance.
+        skView.model.userInterfaceStyle
+            .sink { [weak self] in
+                log.debug("userInterfaceStyle did change")
+                self?.contentCreated = false
+                self?.createContent()
+                self?.gameNodeNeedRedraw.insert(.userInterfaceStyle)
+            }
+            .store(in: &cancellable)
 
         #if os(iOS)
         tapGestureRecognizer.addTarget(self, action: #selector(tapAction(sender:)))
@@ -121,14 +124,26 @@ class SnakeGameScene: SKScene {
         skView.model.levelSelector_visible = false
     }
 
+    /// Tells you when the scene is about to be removed from a view
     override func willMove(from view: SKView) {
         super.willMove(from: view)
         #if os(macOS)
         flow_stop()
         #endif
+
+        cancellable.removeAll()
     }
 
     func createContent() {
+        if contentCreated {
+            return
+        }
+        contentCreated = true
+
+        self.removeAllChildren()
+
+        self.backgroundColor = AppColor.ingame_background.skColor
+
         let camera = SKCameraNode()
         self.camera = camera
         addChild(camera)
@@ -136,7 +151,8 @@ class SnakeGameScene: SKScene {
         gameNode.configure()
         self.addChild(gameNode)
 
-        restartGame()
+        needLayout = true
+        needBecomeFirstResponder = true
     }
 
 
@@ -717,7 +733,7 @@ class SnakeGameScene: SKScene {
 }
 
 #if os(macOS)
-extension SnakeGameScene: FlowDispatcher {
+extension IngameScene: FlowDispatcher {
 	func flow_dispatch(_ event: FlowEvent) {
 		if event is FlowEvent_PerformUndo {
 			schedule_stepBackwardOnce()
@@ -738,6 +754,7 @@ struct GameNodeNeedRedraw: OptionSet {
     static let newGame                = GameNodeNeedRedraw(rawValue: 1 << 1)
     static let stepForward            = GameNodeNeedRedraw(rawValue: 1 << 2)
     static let stepBackward           = GameNodeNeedRedraw(rawValue: 1 << 3)
+    static let userInterfaceStyle     = GameNodeNeedRedraw(rawValue: 1 << 4)
 }
 
 extension GameNodeNeedRedraw: CustomStringConvertible, CustomDebugStringConvertible {
@@ -745,7 +762,8 @@ extension GameNodeNeedRedraw: CustomStringConvertible, CustomDebugStringConverti
         (.didMoveToView, "didMoveToView"),
         (.newGame, "newGame"),
         (.stepForward, "stepForward"),
-        (.stepBackward, "stepBackward")
+        (.stepBackward, "stepBackward"),
+        (.userInterfaceStyle, "userInterfaceStyle")
     ]
 
     var debugDescription: String {

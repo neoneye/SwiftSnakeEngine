@@ -33,27 +33,42 @@ class SnakeBodyNode: SKEffectNode {
 		return convertCoordinate?(position) ?? CGPoint.zero
 	}
 
-	public func configure(skin: PlayerSkinMenuItem) {
-		switch skin {
-		case .retroGreen:
-			let colorGreen: SKColor = SKColor(named: "snakeskin_simple_green") ?? SKColor.green
-			configure_retroTheme(color: colorGreen)
-		case .retroBlue:
-			let colorBlue: SKColor = SKColor(named: "snakeskin_simple_blue") ?? SKColor.blue
-			configure_retroTheme(color: colorBlue)
-		case .cuteGreen:
-			configure_texturedTheme(named: "snakeskin_green")
-		case .cuteBlue:
-			configure_texturedTheme(named: "snakeskin_blue")
-		}
+	public func configure(playerId: SnakePlayerId) {
+        switch AppConstant.theme {
+        case .theme1:
+            configureTheme1(playerId: playerId)
+        case .theme2:
+            configureTheme2(playerId: playerId)
+        }
 	}
 
-	private func configure_texturedTheme(named: String) {
+    private func configureTheme1(playerId: SnakePlayerId) {
+        let color: SKColor
+        switch playerId {
+        case .player1:
+            color = AppColor.player1_snakeBody.skColor
+        case .player2:
+            color = AppColor.player2_snakeBody.skColor
+        }
+        self.theme = Theme.retro
+        self.strokeColor = color
+        self.drawLines = false
+        self.lineWidth = 90
+    }
+
+	private func configureTheme2(playerId: SnakePlayerId) {
+        let name: String
+        switch playerId {
+        case .player1:
+            name = "snakeskin_blue"
+        case .player2:
+            name = "snakeskin_green"
+        }
         self.theme = Theme.textured
 		self.strokeColor = SKColor.black
 		self.drawLines = true
 		self.lineWidth = 40
-		let atlas = SKTextureAtlas(named: named)
+		let atlas = SKTextureAtlas(named: name)
 
 		func load(_ textureName: String) -> SKSpriteNode {
 			let texture = atlas.textureNamed(textureName)
@@ -67,13 +82,6 @@ class SnakeBodyNode: SKEffectNode {
 		self.node_snakeFood = load("body_food")
 
 		self.node_snakeBody?.setScale(0.7)
-	}
-
-	private func configure_retroTheme(color: SKColor) {
-        self.theme = Theme.retro
-		self.strokeColor = color
-		self.drawLines = false
-		self.lineWidth = 90
 	}
 
     func rebuild(player: SnakePlayer) {

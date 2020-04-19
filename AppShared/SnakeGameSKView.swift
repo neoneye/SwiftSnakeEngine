@@ -31,6 +31,15 @@ class SnakeGameSKView: SKView {
     required init?(coder: NSCoder) {
         fatalError()
     }
+
+    #if os(macOS)
+    /// Called whenever there are changes to Light/Dark appearance
+    override func viewDidChangeEffectiveAppearance() {
+        super.viewDidChangeEffectiveAppearance()
+        AppColorManager.shared.resolveNSColors()
+        self.model.userInterfaceStyle.send()
+    }
+    #endif
 }
 
 extension SKScene {
@@ -45,7 +54,7 @@ extension SKScene {
 
     func transitionToLevelSelectorScene() {
         let transition = SKTransition.doorway(withDuration: 0.75)
-        let newScene = SnakeLevelSelectorScene.create()
+        let newScene = LevelSelectorScene()
         view?.presentScene(newScene, transition: transition)
     }
 }

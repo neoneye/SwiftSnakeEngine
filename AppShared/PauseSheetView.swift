@@ -45,10 +45,10 @@ struct PauseSheetView: View {
             self.showExitGameAlert.toggle()
         }) {
             Text("Exit Game")
-                .foregroundColor(.white)
+                .foregroundColor(AppColor.exitGameButton_text.color)
                 .padding(.all)
         }
-        .background(Color.red)
+        .background(AppColor.exitGameButton_fill.color)
         .cornerRadius(5)
         .alert(isPresented: $showExitGameAlert, content: {
             exitGameAlert

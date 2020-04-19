@@ -17,8 +17,8 @@ struct MyContentView: View {
     @State private var player2Dead: Bool = false
     @State var presentingModal = false
     var isPreview: Bool = false
-    let player1ColorAlive: Color = .green
-    let player2ColorAlive: Color = .blue
+    let player1ColorAlive: Color = AppColor.player1_snakeBody.color
+    let player2ColorAlive: Color = AppColor.player2_snakeBody.color
 
     let showDebugPanels = false
 
@@ -158,7 +158,8 @@ struct MyContentView: View {
             log.debug("pause button pressed")
             self.presentingModal = true
         }) {
-            Image("PauseButton")
+            Image("ingame_pauseButton_image")
+                .foregroundColor(AppColor.ingame_pauseButton.color)
                 .scaleEffect(0.6)
                 .padding(15)
         }
@@ -181,6 +182,7 @@ struct MyContentView: View {
         return VStack {
             HStack {
                 Text("Battle the AI")
+                    .foregroundColor(.primary)
                     .font(.largeTitle)
                     .bold()
                     .padding()
@@ -197,7 +199,7 @@ struct MyContentView: View {
             log.debug("height of view: \(viewHeight)")
             model?.levelSelector_insetTop = viewHeight
         }
-        .background(Color.white.opacity(0.5))
+        .background(AppColor.levelSelector_header.color)
     }
 
     private var iOS_overlayWithHeader: some View {

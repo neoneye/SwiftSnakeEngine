@@ -5,6 +5,7 @@ import SwiftUI
 
 public class MyModel: ObservableObject {
     public let jumpToLevelSelector = PassthroughSubject<Void, Never>()
+    public let userInterfaceStyle = PassthroughSubject<Void, Never>()
     @Published var player1Length: UInt = 1
     @Published var player2Length: UInt = 1
     @Published var player1Info = "Player 1 (green)\nAlive\nLength 29"

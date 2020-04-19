@@ -15,7 +15,7 @@ import EngineMac
 import SSEventFlow
 #endif
 
-class SnakeLevelSelectorScene: SKScene {
+class LevelSelectorScene: SKScene {
     var cancellable = Set<AnyCancellable>()
 	var contentCreated = false
 	var needRedraw = false
@@ -24,15 +24,10 @@ class SnakeLevelSelectorScene: SKScene {
     var needSendingLevelInfo = true
     var insetTop: CGFloat = 0
 
-	var levelSelectorNode: SnakeLevelSelectorNode
-
-	class func create() -> SnakeLevelSelectorScene {
-        let scene = SnakeLevelSelectorScene()
-		return scene
-	}
+	var levelSelectorNode: LevelSelectorNode
 
     override init() {
-		self.levelSelectorNode = SnakeLevelSelectorNode.create()
+		self.levelSelectorNode = LevelSelectorNode.create()
 		super.init(size: CGSize.zero)
         self.scaleMode = .resizeFill
 	}
@@ -49,18 +44,20 @@ class SnakeLevelSelectorScene: SKScene {
 
         super.didMove(to: view)
 
-        if !contentCreated {
-            createContent()
-            contentCreated = true
-        }
-
-        needLayout = true
-        needRedraw = true
-        needBecomeFirstResponder = true
+        createContent()
 
         #if os(macOS)
         flow_start()
         #endif
+
+        // Rebuild the UI whenever there are changes to Display light/dark appearance.
+        skView.model.userInterfaceStyle
+            .sink { [weak self] in
+                log.debug("userInterfaceStyle did change")
+                self?.contentCreated = false
+                self?.createContent()
+            }
+            .store(in: &cancellable)
 
         #if os(iOS)
         // Used while the level selector is visible.
@@ -106,6 +103,16 @@ class SnakeLevelSelectorScene: SKScene {
     }
 
     func createContent() {
+        if contentCreated {
+            return
+        }
+        contentCreated = true
+
+        //log.debug("creating content")
+        self.removeAllChildren()
+
+        self.backgroundColor = AppColor.levelSelector_background.skColor
+
         let camera = SKCameraNode()
         self.camera = camera
         addChild(camera)
@@ -118,6 +125,10 @@ class SnakeLevelSelectorScene: SKScene {
         levelSelectorNode.createGameStates()
         levelSelectorNode.createGameNodes()
         self.addChild(levelSelectorNode)
+
+        needLayout = true
+        needRedraw = true
+        needBecomeFirstResponder = true
     }
 
     #if os(macOS)
@@ -198,7 +209,7 @@ class SnakeLevelSelectorScene: SKScene {
 //		let transition = SKTransition.doorsCloseHorizontal(withDuration: 1)
 
 
-        let newScene = SnakeGameScene.create()
+        let newScene = IngameScene()
 		newScene.initialGameState = gameState
 		scene?.view?.presentScene(newScene, transition: transition)
 	}
@@ -291,7 +302,7 @@ class SnakeLevelSelectorScene: SKScene {
 }
 
 #if os(macOS)
-extension SnakeLevelSelectorScene: FlowDispatcher {
+extension LevelSelectorScene: FlowDispatcher {
 	func flow_dispatch(_ event: FlowEvent) {
 		if event is FlowEvent_DidChangePlayerSetting {
             didChangePlayerSettings()

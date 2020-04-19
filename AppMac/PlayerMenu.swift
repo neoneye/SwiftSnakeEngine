@@ -145,34 +145,6 @@ extension UserDefaults {
 			return playerRoleMenuItem
 		}
 	}
-
-	public var player1SkinMenuItem: PlayerSkinMenuItem {
-		set {
-			let string: String = newValue.rawValue
-			self.set(string, forKey: "player1SkinMenuItem")
-			FlowEvent_DidChangePlayerSetting().fire()
-		}
-		get {
-			guard let string: String = self.string(forKey: "player1SkinMenuItem") else {
-				return PlayerSkinMenuItem.retroGreen
-			}
-			return PlayerSkinMenuItem(rawValue: string) ?? .retroGreen
-		}
-	}
-
-	public var player2SkinMenuItem: PlayerSkinMenuItem {
-		set {
-			let string: String = newValue.rawValue
-			self.set(string, forKey: "player2SkinMenuItem")
-			FlowEvent_DidChangePlayerSetting().fire()
-		}
-		get {
-			guard let string: String = self.string(forKey: "player2SkinMenuItem") else {
-				return PlayerSkinMenuItem.retroBlue
-			}
-			return PlayerSkinMenuItem(rawValue: string) ?? .retroBlue
-		}
-	}
 }
 
 public class PlayerMenu: NSMenu {
@@ -199,23 +171,11 @@ public class PlayerMenu: NSMenu {
 			self.addItem(item)
 		}
 
-		self.addItem(NSMenuItem.separator())
-
-		for skin in PlayerSkinMenuItem.allCases {
-			let item = NSMenuItem()
-			item.title = skin.menuItemTitle
-			item.target = self
-			item.action = #selector(skinAction)
-			item.representedObject = skin
-			self.addItem(item)
-		}
-
 		updateSelection()
 	}
 
 	private func updateSelection() {
 		let selectedRole: PlayerRoleMenuItem = self.selectedRoleMenuItem
-		let selectedSkin: PlayerSkinMenuItem = self.selectedSkinMenuItem
 		for item: NSMenuItem in self.items {
 			if item.isSeparatorItem {
 				continue
@@ -232,15 +192,7 @@ public class PlayerMenu: NSMenu {
 				}
 				continue
 			}
-			if let itemSkin = item.representedObject as? PlayerSkinMenuItem {
-				if itemSkin == selectedSkin {
-					item.state = .on
-				} else {
-					item.state = .off
-				}
-				continue
-			}
-			log.error("Expected item.representedObject to be either PlayerRoleMenuItem or PlayerSkinMenuItem, but got: \(type(of: representedObject))")
+			log.error("Expected item.representedObject to be PlayerRoleMenuItem, but got: \(type(of: representedObject))")
 		}
 	}
 
@@ -250,15 +202,6 @@ public class PlayerMenu: NSMenu {
 			return
 		}
 		self.selectedRoleMenuItem = role
-		updateSelection()
-	}
-
-	@objc private func skinAction(_ sender: NSMenuItem) {
-		guard let skin: PlayerSkinMenuItem = sender.representedObject as? PlayerSkinMenuItem else {
-			log.error("Expected sender.representedObject to be a PlayerSkinMenuItem, but got nil.")
-			return
-		}
-		self.selectedSkinMenuItem = skin
 		updateSelection()
 	}
 
@@ -277,25 +220,6 @@ public class PlayerMenu: NSMenu {
 				return UserDefaults.standard.player1RoleMenuItem
 			case .player2:
 				return UserDefaults.standard.player2RoleMenuItem
-			}
-		}
-	}
-
-	private var selectedSkinMenuItem: PlayerSkinMenuItem {
-		set {
-			switch self.menuMode {
-			case .player1:
-				UserDefaults.standard.player1SkinMenuItem = newValue
-			case .player2:
-				UserDefaults.standard.player2SkinMenuItem = newValue
-			}
-		}
-		get {
-			switch self.menuMode {
-			case .player1:
-				return UserDefaults.standard.player1SkinMenuItem
-			case .player2:
-				return UserDefaults.standard.player2SkinMenuItem
 			}
 		}
 	}
