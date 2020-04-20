@@ -11,7 +11,7 @@ import EngineMac
 #endif
 
 struct PauseSheetView: View {
-    @ObservedObject var model: MyModel
+    @ObservedObject var model: GameViewModel
     @Binding var presentedAsModal: Bool
     @State var showExitGameAlert = false
 
@@ -97,7 +97,7 @@ struct PauseSheetView: View {
 
 struct PauseSheetView_Previews: PreviewProvider {
     static var previews: some View {
-        let model = MyModel()
+        let model = GameViewModel()
         return PauseSheetView(model: model, presentedAsModal: .constant(true))
     }
 }

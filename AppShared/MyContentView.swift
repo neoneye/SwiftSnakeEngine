@@ -11,7 +11,7 @@ import EngineMac
 #endif
 
 struct MyContentView: View {
-    @ObservedObject var model: MyModel
+    @ObservedObject var model: GameViewModel
 
     @State private var player1Dead: Bool = false
     @State private var player2Dead: Bool = false
@@ -270,7 +270,7 @@ struct MyContentView: View {
 struct ContentView_Previews : PreviewProvider {
 
     static var previews: some View {
-        let model = MyModel()
+        let model = GameViewModel()
         return Group {
             MyContentView(model: model, isPreview: true)
                 .previewLayout(.fixed(width: 130, height: 200))

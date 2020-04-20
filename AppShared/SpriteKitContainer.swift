@@ -25,7 +25,7 @@ typealias ViewRepresentableType = NSViewRepresentable
 
 
 struct SpriteKitContainer: ViewRepresentableType {
-    @ObservedObject var model: MyModel
+    @ObservedObject var model: GameViewModel
 	var isPreview: Bool = false
 
     class Coordinator {
@@ -116,7 +116,7 @@ struct SpriteKitContainer: ViewRepresentableType {
 struct SpriteKitContainer_Previews : PreviewProvider {
 
 	static var previews: some View {
-        let model = MyModel()
+        let model = GameViewModel()
         return Group {
             SpriteKitContainer(model: model, isPreview: true).previewLayout(.fixed(width: 125, height: 200))
 			SpriteKitContainer(model: model, isPreview: true).previewLayout(.fixed(width: 150, height: 150))

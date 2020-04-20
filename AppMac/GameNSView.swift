@@ -4,7 +4,7 @@ import SSEventFlow
 
 class GameNSView: NSHostingView<MyContentView> {
     static func create() -> GameNSView {
-        let model = MyModel()
+        let model = GameViewModel()
         let view = MyContentView(model: model)
         return GameNSView(rootView: view)
     }

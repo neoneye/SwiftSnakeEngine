@@ -3,7 +3,7 @@ import Foundation
 import Combine
 import SwiftUI
 
-public class MyModel: ObservableObject {
+public class GameViewModel: ObservableObject {
     public let jumpToLevelSelector = PassthroughSubject<Void, Never>()
     public let userInterfaceStyle = PassthroughSubject<Void, Never>()
     @Published var player1Length: UInt = 1

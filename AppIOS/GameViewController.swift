@@ -13,7 +13,7 @@ class GameViewController: UIHostingController<MyContentView> {
         case .singlePlayer_human:
             initialValue = false
         }
-        let model = MyModel()
+        let model = GameViewModel()
         model.levelSelector_humanVsBot = initialValue
         let view = MyContentView(model: model)
         return GameViewController(rootView: view)

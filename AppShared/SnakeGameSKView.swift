@@ -21,9 +21,9 @@ enum SnakeGameInfoEvent {
 }
 
 class SnakeGameSKView: SKView {
-    @ObservedObject var model: MyModel
+    @ObservedObject var model: GameViewModel
 
-    init(model: MyModel) {
+    init(model: GameViewModel) {
         self.model = model
         super.init(frame: .zero)
     }
