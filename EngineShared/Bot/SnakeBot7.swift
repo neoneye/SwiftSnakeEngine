@@ -21,6 +21,16 @@ fileprivate struct Cell {
     static let food = Cell(cellType: .food, dx: 0, dy: 0)
 }
 
+fileprivate class CellBufferStep {
+    let cellBuffer: CellBuffer
+    let player0Positions: [IntVec2]
+
+    init(cellBuffer: CellBuffer, player0Positions: [IntVec2]) {
+        self.cellBuffer = cellBuffer
+        self.player0Positions = player0Positions
+    }
+}
+
 fileprivate class CellBuffer {
     let size: UIntVec2
     private var cells: [Cell]
@@ -123,7 +133,7 @@ fileprivate class CellBuffer {
         }
     }
 
-    func stepForward() -> (CellBuffer, IntVec2) {
+    func step() -> CellBufferStep {
         let newBuffer = CellBuffer(size: self.size)
 
         // Non-moving items
@@ -179,7 +189,7 @@ fileprivate class CellBuffer {
             }
         }
 
-        var pickedPosition: IntVec2 = IntVec2.zero
+        var player0Positions = [IntVec2]()
 
         // Head of moving items, check for collisions
         for y in 0..<size.y {
@@ -214,13 +224,7 @@ fileprivate class CellBuffer {
                         }
                         return isPossibleMove
                     }
-                    // IDEA: if a choice is bad, then backtrack and try again with another seed for the random generator
-                    if let newPosition: IntVec2 = newPositions1.randomElement() {
-                        pickedPosition = newPosition
-                        newBuffer.set(cell: cell, at: newPosition)
-                    } else {
-                        log.error("snake is stuck and unable to move")
-                    }
+                    player0Positions = newPositions1
                 case .player1:
                     ()
                 case .player1Head:
@@ -228,7 +232,11 @@ fileprivate class CellBuffer {
                 }
             }
         }
-        return (newBuffer, pickedPosition)
+
+        return CellBufferStep(
+            cellBuffer: newBuffer,
+            player0Positions: player0Positions
+        )
     }
 
     func dump(prefix: String) {
@@ -297,8 +305,20 @@ public class SnakeBot7: SnakeBot {
 
         buffer.dump(prefix: "b0")
 
-        let (buffer2, pickedPosition) = buffer.stepForward()
-        buffer2.dump(prefix: "b1")
+
+        let step: CellBufferStep = buffer.step()
+
+        step.cellBuffer.dump(prefix: "b1")
+
+        // IDEA: if a choice is bad, then backtrack and try again with another seed for the random generator
+        var pickedPosition: IntVec2 = player.snakeBody.head.position
+        if let newPosition: IntVec2 = step.player0Positions.randomElement() {
+            pickedPosition = newPosition
+//            newBuffer.set(cell: cell, at: newPosition)
+        } else {
+            log.error("snake is stuck and unable to move")
+        }
+
 
         let dx: Int32 = player.snakeBody.head.position.x - pickedPosition.x
         let dy: Int32 = player.snakeBody.head.position.y - pickedPosition.y
