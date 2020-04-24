@@ -11,10 +11,12 @@ fileprivate enum CellType {
 
 fileprivate struct Cell {
     var cellType: CellType
+    var dx: Int
+    var dy: Int
 
-    static let empty = Cell(cellType: .empty)
-    static let wall = Cell(cellType: .wall)
-    static let food = Cell(cellType: .food)
+    static let empty = Cell(cellType: .empty, dx: 0, dy: 0)
+    static let wall = Cell(cellType: .wall, dx: 0, dy: 0)
+    static let food = Cell(cellType: .food, dx: 0, dy: 0)
 }
 
 fileprivate class CellBuffer {
@@ -107,17 +109,77 @@ fileprivate class CellBuffer {
         let positionArray: [IntVec2] = player.snakeBody.positionArray()
         for (index, position) in positionArray.enumerated() {
             if index == 0 {
-                self.set(cell: Cell(cellType: .player0), at: position)
                 continue
             }
             let previousPosition: IntVec2 = positionArray[index - 1]
-            let diffx: Int32 = position.x - previousPosition.x
-            let diffy: Int32 = position.y - previousPosition.y
-            self.set(cell: Cell(cellType: .player0), at: position)
+            let dx: Int = Int(position.x - previousPosition.x)
+            let dy: Int = Int(position.y - previousPosition.y)
+            self.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: previousPosition)
+        }
+        if let position: IntVec2 = positionArray.last {
+            self.set(cell: Cell(cellType: .player0, dx: 0, dy: 0), at: position)
         }
     }
 
-    func dump() {
+    func stepForward() -> CellBuffer {
+        let newBuffer = CellBuffer(size: self.size)
+
+        // Non-moving items
+        for y in 0..<size.y {
+            for x in 0..<size.x {
+                let position = IntVec2(x: Int32(x), y: Int32(y))
+                let cell: Cell = self.get(at: position) ?? Cell.empty
+                let keep: Bool
+                switch cell.cellType {
+                case .empty:
+                    keep = false
+                case .wall:
+                    keep = true
+                case .food:
+                    keep = true
+                case .player0:
+                    keep = false
+                case .player1:
+                    keep = false
+                }
+                if keep {
+                    newBuffer.set(cell: cell, at: position)
+                }
+            }
+        }
+
+        // Moving items
+        for y in 0..<size.y {
+            for x in 0..<size.x {
+                let position = IntVec2(x: Int32(x), y: Int32(y))
+                let cell: Cell = self.get(at: position) ?? Cell.empty
+                switch cell.cellType {
+                case .empty:
+                    ()
+                case .wall:
+                    ()
+                case .food:
+                    ()
+                case .player0:
+                    let newPosition: IntVec2 = position.offsetBy(dx: Int32(cell.dx), dy: Int32(cell.dy))
+                    if let existingCell: Cell = newBuffer.get(at: newPosition) {
+                        if existingCell.cellType == .empty {
+                            newBuffer.set(cell: cell, at: newPosition)
+                        } else {
+                            log.error("cell is already occupied")
+                        }
+                    } else {
+                        log.error("new position is outside buffer")
+                    }
+                case .player1:
+                    ()
+                }
+            }
+        }
+        return newBuffer
+    }
+
+    func dump(prefix: String) {
         for y in 0..<Int(size.y) {
             let yflipped = Int(size.y) - y - 1
             var row = [String]()
@@ -141,7 +203,7 @@ fileprivate class CellBuffer {
                 row.append(s)
             }
             let prettyRow = row.joined(separator: "")
-            log.debug("row: \(y) = \(prettyRow)")
+            log.debug("\(prefix)#\(y) = \(prettyRow)")
         }
     }
 }
@@ -172,7 +234,10 @@ public class SnakeBot7: SnakeBot {
         buffer.drawOptionalFood(foodPosition)
         buffer.drawPlayer(player)
 
-        buffer.dump()
+        buffer.dump(prefix: "b0")
+
+        let buffer2 = buffer.stepForward()
+        buffer2.dump(prefix: "b1")
 
         return self
     }
