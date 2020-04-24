@@ -7,6 +7,8 @@ fileprivate enum CellType {
     case food
     case player0
     case player1
+    case player0Head
+    case player1Head
 }
 
 fileprivate struct Cell {
@@ -107,6 +109,8 @@ fileprivate class CellBuffer {
             return
         }
         let positionArray: [IntVec2] = player.snakeBody.positionArray()
+        var last_dx: Int = 0
+        var last_dy: Int = 0
         for (index, position) in positionArray.enumerated() {
             if index == 0 {
                 continue
@@ -115,9 +119,11 @@ fileprivate class CellBuffer {
             let dx: Int = Int(position.x - previousPosition.x)
             let dy: Int = Int(position.y - previousPosition.y)
             self.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: previousPosition)
+            last_dx = dx
+            last_dy = dy
         }
         if let position: IntVec2 = positionArray.last {
-            self.set(cell: Cell(cellType: .player0, dx: 0, dy: 0), at: position)
+            self.set(cell: Cell(cellType: .player0Head, dx: last_dx, dy: last_dy), at: position)
         }
     }
 
@@ -131,15 +137,11 @@ fileprivate class CellBuffer {
                 let cell: Cell = self.get(at: position) ?? Cell.empty
                 let keep: Bool
                 switch cell.cellType {
-                case .empty:
-                    keep = false
                 case .wall:
                     keep = true
                 case .food:
                     keep = true
-                case .player0:
-                    keep = false
-                case .player1:
+                default:
                     keep = false
                 }
                 if keep {
@@ -148,7 +150,7 @@ fileprivate class CellBuffer {
             }
         }
 
-        // Moving items
+        // Body of moving items
         for y in 0..<size.y {
             for x in 0..<size.x {
                 let position = IntVec2(x: Int32(x), y: Int32(y))
@@ -171,7 +173,44 @@ fileprivate class CellBuffer {
                     } else {
                         log.error("new position is outside buffer")
                     }
+                case .player0Head:
+                    ()
                 case .player1:
+                    ()
+                case .player1Head:
+                    ()
+                }
+            }
+        }
+
+        // Head of moving items, check for collisions
+        for y in 0..<size.y {
+            for x in 0..<size.x {
+                let position = IntVec2(x: Int32(x), y: Int32(y))
+                let cell: Cell = self.get(at: position) ?? Cell.empty
+                switch cell.cellType {
+                case .empty:
+                    ()
+                case .wall:
+                    ()
+                case .food:
+                    ()
+                case .player0:
+                    ()
+                case .player0Head:
+                    let newPosition: IntVec2 = position.offsetBy(dx: Int32(cell.dx), dy: Int32(cell.dy))
+                    if let existingCell: Cell = newBuffer.get(at: newPosition) {
+                        if existingCell.cellType == .empty {
+                            newBuffer.set(cell: cell, at: newPosition)
+                        } else {
+                            log.error("cell is already occupied")
+                        }
+                    } else {
+                        log.error("new position is outside buffer")
+                    }
+                case .player1:
+                    ()
+                case .player1Head:
                     ()
                 }
             }
@@ -198,6 +237,10 @@ fileprivate class CellBuffer {
                 case .player0:
                     s = "0"
                 case .player1:
+                    s = "1"
+                case .player0Head:
+                    s = "0"
+                case .player1Head:
                     s = "1"
                 }
                 row.append(s)
