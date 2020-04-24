@@ -10,19 +10,19 @@ public enum PlayerMenuMode {
 }
 
 public protocol PlayerRoleMenuItem {
+    var id: UUID { get }
 	var role: SnakePlayerRole { get }
-	var userDefaultIdentifier: String { get }
 	func menuItemTitle(menuMode: PlayerMenuMode) -> String
 }
 
 private class PlayerRoleMenuItemImpl: PlayerRoleMenuItem {
+    let id: UUID
 	let role: SnakePlayerRole
-	let userDefaultIdentifier: String
 	let menuItemTitle: String
 
-	init(role: SnakePlayerRole, userDefaultIdentifier: String, menuItemTitle: String) {
+	init(id: UUID, role: SnakePlayerRole, menuItemTitle: String) {
+        self.id = id
 		self.role = role
-		self.userDefaultIdentifier = userDefaultIdentifier
 		self.menuItemTitle = menuItemTitle
 	}
 
@@ -32,14 +32,14 @@ private class PlayerRoleMenuItemImpl: PlayerRoleMenuItem {
 }
 
 private class PlayerRoleMenuItemWithCustomTitleImpl: PlayerRoleMenuItem {
+    let id: UUID
 	let role: SnakePlayerRole
-	let userDefaultIdentifier: String
 	let menuItemTitle_player1: String
 	let menuItemTitle_player2: String
 
-	init(role: SnakePlayerRole, userDefaultIdentifier: String, menuItemTitle_player1: String, menuItemTitle_player2: String) {
+	init(id: UUID, role: SnakePlayerRole, menuItemTitle_player1: String, menuItemTitle_player2: String) {
+        self.id = id
 		self.role = role
-		self.userDefaultIdentifier = userDefaultIdentifier
 		self.menuItemTitle_player1 = menuItemTitle_player1
 		self.menuItemTitle_player2 = menuItemTitle_player2
 	}
@@ -59,16 +59,16 @@ public class PlayerRoleMenuItemFactory {
 
 	public lazy var none: PlayerRoleMenuItem = {
 		PlayerRoleMenuItemImpl(
+            id: UUID(uuidString: "a036c9e1-ca00-46f5-a960-16451d66390e")!,
 			role: .none,
-			userDefaultIdentifier: "none",
 			menuItemTitle: "None"
 		)
 	}()
 
 	public lazy var human: PlayerRoleMenuItem = {
 		PlayerRoleMenuItemWithCustomTitleImpl(
+            id: UUID(uuidString: "c7ccdf6d-56ac-491c-857b-be6a80bc6598")!,
 			role: .human,
-			userDefaultIdentifier: "human",
 			menuItemTitle_player1: "Human - Arrows",
 			menuItemTitle_player2: "Human - WASD"
 		)
@@ -79,8 +79,8 @@ public class PlayerRoleMenuItemFactory {
 		for snakeBotType: SnakeBot.Type in SnakeBotFactory.snakeBotTypes {
 			let info: SnakeBotInfo = snakeBotType.info
 			let playerRoleMenuItem = PlayerRoleMenuItemImpl(
+                id: info.id,
 				role: SnakePlayerRole.bot(snakeBotType: snakeBotType),
-                userDefaultIdentifier: info.id.uuidString,
 				menuItemTitle: "Bot - \(info.humanReadableName)"
 			)
 			registered.append(playerRoleMenuItem)
@@ -96,9 +96,9 @@ public class PlayerRoleMenuItemFactory {
 		return array
 	}()
 
-	public func find(userDefaultIdentifier: String) -> PlayerRoleMenuItem? {
+	public func find(id: UUID) -> PlayerRoleMenuItem? {
 		for playerRoleMenuItem: PlayerRoleMenuItem in self.allCases {
-			if playerRoleMenuItem.userDefaultIdentifier == userDefaultIdentifier {
+			if playerRoleMenuItem.id == id {
 				return playerRoleMenuItem
 			}
 		}
@@ -114,15 +114,18 @@ public class PlayerRoleMenuItemFactory {
 extension UserDefaults {
 	public var player1RoleMenuItem: PlayerRoleMenuItem {
 		set {
-			let string: String = newValue.userDefaultIdentifier
+            let string: String = newValue.id.uuidString
 			self.set(string, forKey: "player1RoleMenuItem")
 			FlowEvent_DidChangePlayerSetting().fire()
 		}
 		get {
-			guard let string: String = self.string(forKey: "player1RoleMenuItem") else {
+			guard let uuidString: String = self.string(forKey: "player1RoleMenuItem") else {
 				return PlayerRoleMenuItemFactory.shared.human
 			}
-			guard let playerRoleMenuItem: PlayerRoleMenuItem = PlayerRoleMenuItemFactory.shared.find(userDefaultIdentifier: string) else {
+            guard let id: UUID = UUID(uuidString: uuidString) else {
+                return PlayerRoleMenuItemFactory.shared.human
+            }
+			guard let playerRoleMenuItem: PlayerRoleMenuItem = PlayerRoleMenuItemFactory.shared.find(id: id) else {
 				return PlayerRoleMenuItemFactory.shared.human
 			}
 			return playerRoleMenuItem
@@ -131,15 +134,18 @@ extension UserDefaults {
 
 	public var player2RoleMenuItem: PlayerRoleMenuItem {
 		set {
-			let string: String = newValue.userDefaultIdentifier
+            let string: String = newValue.id.uuidString
 			self.set(string, forKey: "player2RoleMenuItem")
 			FlowEvent_DidChangePlayerSetting().fire()
 		}
 		get {
-			guard let string: String = self.string(forKey: "player2RoleMenuItem") else {
-				return PlayerRoleMenuItemFactory.shared.defaultBotOrNone()
-			}
-			guard let playerRoleMenuItem: PlayerRoleMenuItem = PlayerRoleMenuItemFactory.shared.find(userDefaultIdentifier: string) else {
+            guard let uuidString: String = self.string(forKey: "player2RoleMenuItem") else {
+                return PlayerRoleMenuItemFactory.shared.defaultBotOrNone()
+            }
+            guard let id: UUID = UUID(uuidString: uuidString) else {
+                return PlayerRoleMenuItemFactory.shared.defaultBotOrNone()
+            }
+            guard let playerRoleMenuItem: PlayerRoleMenuItem = PlayerRoleMenuItemFactory.shared.find(id: id) else {
 				return PlayerRoleMenuItemFactory.shared.defaultBotOrNone()
 			}
 			return playerRoleMenuItem
@@ -185,7 +191,7 @@ public class PlayerMenu: NSMenu {
 				continue
 			}
 			if let itemRole = item.representedObject as? PlayerRoleMenuItem {
-				if itemRole.userDefaultIdentifier == selectedRole.userDefaultIdentifier {
+				if itemRole.id == selectedRole.id {
 					item.state = .on
 				} else {
 					item.state = .off
