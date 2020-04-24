@@ -123,7 +123,7 @@ fileprivate class CellBuffer {
         }
     }
 
-    func stepForward() -> CellBuffer {
+    func stepForward() -> (CellBuffer, IntVec2) {
         let newBuffer = CellBuffer(size: self.size)
 
         // Non-moving items
@@ -179,6 +179,8 @@ fileprivate class CellBuffer {
             }
         }
 
+        var pickedPosition: IntVec2 = IntVec2.zero
+
         // Head of moving items, check for collisions
         for y in 0..<size.y {
             for x in 0..<size.x {
@@ -212,8 +214,9 @@ fileprivate class CellBuffer {
                         }
                         return isPossibleMove
                     }
-                    // IDEA: pick a random position
-                    if let newPosition: IntVec2 = newPositions1.first {
+                    // IDEA: if a choice is bad, then backtrack and try again with another seed for the random generator
+                    if let newPosition: IntVec2 = newPositions1.randomElement() {
+                        pickedPosition = newPosition
                         newBuffer.set(cell: cell, at: newPosition)
                     } else {
                         log.error("snake is stuck and unable to move")
@@ -225,7 +228,7 @@ fileprivate class CellBuffer {
                 }
             }
         }
-        return newBuffer
+        return (newBuffer, pickedPosition)
     }
 
     func dump(prefix: String) {
@@ -269,15 +272,20 @@ public class SnakeBot7: SnakeBot {
         )
     }
 
-    required public init() {
+    public let plannedMovement: SnakeBodyMovement
+    private let iteration: UInt
+
+    private init(iteration: UInt, plannedMovement: SnakeBodyMovement) {
+        self.iteration = iteration
+        self.plannedMovement = plannedMovement
+    }
+
+    required public convenience init() {
+        self.init(iteration: 0, plannedMovement: .dontMove)
     }
 
     public var plannedPath: [IntVec2] {
         []
-    }
-
-    public var plannedMovement: SnakeBodyMovement {
-        .moveForward
     }
 
     public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
@@ -289,9 +297,71 @@ public class SnakeBot7: SnakeBot {
 
         buffer.dump(prefix: "b0")
 
-        let buffer2 = buffer.stepForward()
+        let (buffer2, pickedPosition) = buffer.stepForward()
         buffer2.dump(prefix: "b1")
 
-        return self
+        let dx: Int32 = player.snakeBody.head.position.x - pickedPosition.x
+        let dy: Int32 = player.snakeBody.head.position.y - pickedPosition.y
+        var pendingMovement: SnakeBodyMovement = .moveForward
+        switch player.snakeBody.head.direction {
+        case .up:
+            if dy > 0 {
+                pendingMovement = .moveCW
+            }
+            if dy < 0 {
+                pendingMovement = .moveForward
+            }
+            if dx > 0 {
+                pendingMovement = .moveCCW
+            }
+            if dx < 0 {
+                pendingMovement = .moveCW
+            }
+        case .down:
+            if dy > 0 {
+                pendingMovement = .moveForward
+            }
+            if dy < 0 {
+                pendingMovement = .moveCW
+            }
+            if dx > 0 {
+                pendingMovement = .moveCW
+            }
+            if dx < 0 {
+                pendingMovement = .moveCCW
+            }
+        case .left:
+            if dy > 0 {
+                pendingMovement = .moveCCW
+            }
+            if dy < 0 {
+                pendingMovement = .moveCW
+            }
+            if dx > 0 {
+                pendingMovement = .moveForward
+            }
+            if dx < 0 {
+                pendingMovement = .moveCCW
+            }
+        case .right:
+            if dy > 0 {
+                pendingMovement = .moveCW
+            }
+            if dy < 0 {
+                pendingMovement = .moveCCW
+            }
+            if dx > 0 {
+                pendingMovement = .moveCCW
+            }
+            if dx < 0 {
+                pendingMovement = .moveForward
+            }
+        }
+
+
+        return SnakeBot7(
+            iteration: self.iteration + 1,
+            plannedMovement: pendingMovement
+        )
     }
 }
