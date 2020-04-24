@@ -109,8 +109,6 @@ fileprivate class CellBuffer {
             return
         }
         let positionArray: [IntVec2] = player.snakeBody.positionArray()
-        var last_dx: Int = 0
-        var last_dy: Int = 0
         for (index, position) in positionArray.enumerated() {
             if index == 0 {
                 continue
@@ -119,11 +117,9 @@ fileprivate class CellBuffer {
             let dx: Int = Int(position.x - previousPosition.x)
             let dy: Int = Int(position.y - previousPosition.y)
             self.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: previousPosition)
-            last_dx = dx
-            last_dy = dy
         }
         if let position: IntVec2 = positionArray.last {
-            self.set(cell: Cell(cellType: .player0Head, dx: last_dx, dy: last_dy), at: position)
+            self.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: position)
         }
     }
 
@@ -198,15 +194,29 @@ fileprivate class CellBuffer {
                 case .player0:
                     ()
                 case .player0Head:
-                    let newPosition: IntVec2 = position.offsetBy(dx: Int32(cell.dx), dy: Int32(cell.dy))
-                    if let existingCell: Cell = newBuffer.get(at: newPosition) {
-                        if existingCell.cellType == .empty {
-                            newBuffer.set(cell: cell, at: newPosition)
-                        } else {
-                            log.error("cell is already occupied")
+                    let newPositions0: [IntVec2] = [
+                        position.offsetBy(dx: Int32(0), dy: Int32(-1)),
+                        position.offsetBy(dx: Int32(0), dy: Int32(1)),
+                        position.offsetBy(dx: Int32(-1), dy: Int32(0)),
+                        position.offsetBy(dx: Int32(1), dy: Int32(0))
+                    ]
+                    let newPositions1: [IntVec2] = newPositions0.filter { (newPosition) in
+                        var isPossibleMove: Bool = false
+                        if let existingCell: Cell = newBuffer.get(at: newPosition) {
+                            if existingCell.cellType == .empty {
+                                isPossibleMove = true
+                            }
+                            if existingCell.cellType == .food {
+                                isPossibleMove = true
+                            }
                         }
+                        return isPossibleMove
+                    }
+                    // IDEA: pick a random position
+                    if let newPosition: IntVec2 = newPositions1.first {
+                        newBuffer.set(cell: cell, at: newPosition)
                     } else {
-                        log.error("new position is outside buffer")
+                        log.error("snake is stuck and unable to move")
                     }
                 case .player1:
                     ()
