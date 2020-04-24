@@ -24,10 +24,20 @@ fileprivate struct Cell {
 fileprivate class CellBufferStep {
     let cellBuffer: CellBuffer
     let player0Positions: [IntVec2]
+    var depth: UInt = 0
+    var permutation: UInt = 0
 
     init(cellBuffer: CellBuffer, player0Positions: [IntVec2]) {
         self.cellBuffer = cellBuffer
         self.player0Positions = player0Positions
+    }
+
+    func increment() {
+        permutation += 1
+    }
+
+    var nextPermutation: UInt {
+        return permutation + 1
     }
 }
 
@@ -39,6 +49,12 @@ fileprivate class CellBuffer {
         self.size = size
         let count = Int(size.x * size.y)
         self.cells = Array<Cell>(repeating: Cell.empty, count: count)
+    }
+
+    func copy() -> CellBuffer {
+        let buffer = CellBuffer(size: self.size)
+        buffer.cells = Array(self.cells)
+        return buffer
     }
 
     // MARK: - Get cell
@@ -267,7 +283,7 @@ fileprivate class CellBuffer {
                 row.append(s)
             }
             let prettyRow = row.joined(separator: "")
-            log.debug("\(prefix)#\(y) = \(prettyRow)")
+            log.debug("\(prefix) = \(prettyRow)")
         }
     }
 }
@@ -303,22 +319,63 @@ public class SnakeBot7: SnakeBot {
         buffer.drawOptionalFood(foodPosition)
         buffer.drawPlayer(player)
 
-        buffer.dump(prefix: "b0")
+//        buffer.dump(prefix: "b0")
 
+        var foundDepth: Int = -1
+        var foundPosition: IntVec2 = IntVec2.zero
 
-        let step: CellBufferStep = buffer.step()
+        var stack = Array<CellBufferStep>()
+        var currentDepth: UInt = 0
+        var buffer2: CellBuffer = buffer
+        log.debug("start")
+        for i in 0..<10 {
+            if let lastStep: CellBufferStep = stack.last {
 
-        step.cellBuffer.dump(prefix: "b1")
+                // pop from stack, if all choices have been explored
+                let nextPermutation: UInt = lastStep.nextPermutation
+                if nextPermutation >= lastStep.player0Positions.count {
+                    stack.removeLast()
+                    log.debug("\(i) pop")
+                    continue
+                }
 
-        // IDEA: if a choice is bad, then backtrack and try again with another seed for the random generator
-        var pickedPosition: IntVec2 = player.snakeBody.head.position
-        if let newPosition: IntVec2 = step.player0Positions.randomElement() {
-            pickedPosition = newPosition
-//            newBuffer.set(cell: cell, at: newPosition)
-        } else {
-            log.error("snake is stuck and unable to move")
+                currentDepth = lastStep.depth
+                buffer2 = lastStep.cellBuffer.copy()
+                lastStep.increment()
+                let position: IntVec2 = lastStep.player0Positions[Int(lastStep.permutation)]
+                buffer2.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: position)
+            }
+
+            let step: CellBufferStep = buffer2.step()
+//            step.cellBuffer.dump(prefix: "b\(i)")
+            step.depth = currentDepth + 1
+            if i == 0 || step.player0Positions.count >= 2 {
+                stack.append(step)
+            }
+
+            guard let newPosition: IntVec2 = step.player0Positions.first else {
+                // Reached a dead end. Back track, and explore another permutation.
+                log.debug("\(i) reached a dead end")
+                continue
+            }
+
+            if Int(step.depth) > foundDepth {
+                foundDepth = Int(step.depth)
+                if let firstStep = stack.first {
+                    log.debug("found: \(foundDepth)")
+                    foundPosition = firstStep.player0Positions[Int(firstStep.permutation)]
+                }
+            }
+
+            buffer2 = step.cellBuffer.copy()
+            buffer2.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: newPosition)
+            log.debug("\(i) append")
         }
 
+        var pickedPosition: IntVec2 = player.snakeBody.head.position
+        if foundDepth >= 0 {
+            pickedPosition = foundPosition
+        }
 
         let dx: Int32 = player.snakeBody.head.position.x - pickedPosition.x
         let dy: Int32 = player.snakeBody.head.position.y - pickedPosition.y
