@@ -8,8 +8,8 @@ fileprivate struct PreviousIterationData {
 public class SnakeBot6: SnakeBot {
 	public static var info: SnakeBotInfo {
 		SnakeBotInfoImpl(
-			humanReadableName: "Monte Carlo 2",
-			userDefaultIdentifier: "bot6"
+            id: UUID(uuidString: "cfc36470-2ecd-4372-9946-84ac60806e27")!,
+			humanReadableName: "Monte Carlo 2"
 		)
 	}
 

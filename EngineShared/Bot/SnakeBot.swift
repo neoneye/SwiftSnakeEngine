@@ -2,8 +2,14 @@
 import Foundation
 
 public protocol SnakeBotInfo {
-	var humanReadableName: String { get }
-	var userDefaultIdentifier: String { get }
+    /// A version4 UUID that uniquely identifies the bot.
+    /// This uuid is saved to userdefaults, so that the same player-configuration can be retrieved later.
+    ///
+    /// For generating a new uuid, use an online tool.
+    /// https://www.uuidgenerator.net/
+    var id: UUID { get }
+
+    var humanReadableName: String { get }
 }
 
 public protocol SnakeBot: class {
@@ -21,12 +27,12 @@ public protocol SnakeBot: class {
 }
 
 internal class SnakeBotInfoImpl: SnakeBotInfo {
+    let id: UUID
 	let humanReadableName: String
-	let userDefaultIdentifier: String
 
-	init(humanReadableName: String, userDefaultIdentifier: String) {
+	init(id: UUID, humanReadableName: String) {
+        self.id = id
 		self.humanReadableName = humanReadableName
-		self.userDefaultIdentifier = userDefaultIdentifier
 	}
 }
 

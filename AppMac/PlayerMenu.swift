@@ -80,7 +80,7 @@ public class PlayerRoleMenuItemFactory {
 			let info: SnakeBotInfo = snakeBotType.info
 			let playerRoleMenuItem = PlayerRoleMenuItemImpl(
 				role: SnakePlayerRole.bot(snakeBotType: snakeBotType),
-				userDefaultIdentifier: info.userDefaultIdentifier,
+                userDefaultIdentifier: info.id.uuidString,
 				menuItemTitle: "Bot - \(info.humanReadableName)"
 			)
 			registered.append(playerRoleMenuItem)

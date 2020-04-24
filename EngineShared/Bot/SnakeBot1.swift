@@ -4,8 +4,8 @@ import Foundation
 public class SnakeBot1: SnakeBot {
 	public static var info: SnakeBotInfo {
 		SnakeBotInfoImpl(
-			humanReadableName: "Shortest Path",
-			userDefaultIdentifier: "bot1"
+            id: UUID(uuidString: "e16676d8-a090-49ba-8965-3708bd29cf30")!,
+			humanReadableName: "Shortest Path"
 		)
 	}
 

@@ -17,8 +17,8 @@ fileprivate struct PreviousIterationData {
 public class SnakeBot5: SnakeBot {
 	public static var info: SnakeBotInfo {
 		SnakeBotInfoImpl(
-			humanReadableName: "Monte Carlo 1",
-			userDefaultIdentifier: "bot5"
+            id: UUID(uuidString: "7fce9835-cd5c-4299-889f-72f57cb835bf")!,
+			humanReadableName: "Monte Carlo 1"
 		)
 	}
 

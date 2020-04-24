@@ -4,8 +4,8 @@ import Foundation
 public class SnakeBot_MoveForward: SnakeBot {
 	public static var info: SnakeBotInfo {
 		SnakeBotInfoImpl(
-			humanReadableName: "Bot - Always Move Forward",
-			userDefaultIdentifier: "bot_move_forward"
+            id: UUID(uuidString: "ac009b0e-6d2d-4fe5-8dc5-22e3e7c0177d")!,
+			humanReadableName: "Bot - Always Move Forward"
 		)
 	}
 
