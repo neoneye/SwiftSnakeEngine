@@ -15,6 +15,8 @@
 		421A9E2F2437E2CA00A85B6F /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E2E2437E2CA00A85B6F /* Dashboard.swift */; };
 		421A9E312439004600A85B6F /* FloatFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E302439004600A85B6F /* FloatFormatting.swift */; };
 		421A9E33243922ED00A85B6F /* GameNSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A9E32243922ED00A85B6F /* GameNSView.swift */; };
+		421BC991245330C70070F3EB /* SnakeBot7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421BC990245330C70070F3EB /* SnakeBot7.swift */; };
+		421BC992245330C70070F3EB /* SnakeBot7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421BC990245330C70070F3EB /* SnakeBot7.swift */; };
 		4220E55D244A26AF0088C3C1 /* SelectedLevelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4211C32C244A063600C25514 /* SelectedLevelController.swift */; };
 		4220E55F244A40770088C3C1 /* SoundEffectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4220E55E244A40770088C3C1 /* SoundEffectController.swift */; };
 		4220E565244B54B80088C3C1 /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4220E564244B54B80088C3C1 /* AppColor.swift */; };
@@ -292,6 +294,7 @@
 		421A9E2E2437E2CA00A85B6F /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 		421A9E302439004600A85B6F /* FloatFormatting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatFormatting.swift; sourceTree = "<group>"; };
 		421A9E32243922ED00A85B6F /* GameNSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNSView.swift; sourceTree = "<group>"; };
+		421BC990245330C70070F3EB /* SnakeBot7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBot7.swift; sourceTree = "<group>"; };
 		4220E55E244A40770088C3C1 /* SoundEffectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundEffectController.swift; sourceTree = "<group>"; };
 		4220E564244B54B80088C3C1 /* AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
 		4221EFDB2332F0F00026A8A0 /* SnakeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBody.swift; sourceTree = "<group>"; };
@@ -753,6 +756,7 @@
 				42ECBCBD236F305600758303 /* SnakeBot4.swift */,
 				42C3182C2386FBDC00468D1F /* SnakeBot5.swift */,
 				42822A22239817CA00DA4461 /* SnakeBot6.swift */,
+				421BC990245330C70070F3EB /* SnakeBot7.swift */,
 			);
 			path = Bot;
 			sourceTree = "<group>";
@@ -1269,6 +1273,7 @@
 				42CC22CB23397D1300CF3D96 /* SnakePlayer.swift in Sources */,
 				421A9E2F2437E2CA00A85B6F /* Dashboard.swift in Sources */,
 				42C236ED2333033700241639 /* MeasureAreaSize.swift in Sources */,
+				421BC991245330C70070F3EB /* SnakeBot7.swift in Sources */,
 				42CCD61123BE65FD0021CBE7 /* BoundingBox.swift in Sources */,
 				426891FE233267E900B97E29 /* SSSP.swift in Sources */,
 				422423B8233D71E80006D02D /* SnakeFoodGenerator.swift in Sources */,
@@ -1390,6 +1395,7 @@
 				42ABC11B243D137D00E05FF3 /* SnakeBot_MoveForward.swift in Sources */,
 				42ABC134243D139300E05FF3 /* Edge.swift in Sources */,
 				42ABC142243D13AB00E05FF3 /* SnakeBodyMovement.swift in Sources */,
+				421BC992245330C70070F3EB /* SnakeBot7.swift in Sources */,
 				42ABC147243D13AB00E05FF3 /* SnakeGameHeadless.swift in Sources */,
 				42ABC127243D138300E05FF3 /* IntVec2.swift in Sources */,
 				42ABC121243D138300E05FF3 /* Array2.swift in Sources */,
