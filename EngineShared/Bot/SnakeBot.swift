@@ -49,4 +49,9 @@ public class SnakeBotFactory {
 	public static func emptyBotType() -> SnakeBot.Type {
 		return SnakeBot_MoveForward.self
 	}
+
+    /// The bot that currently outperforms the other bots, in most scenarios.
+    public static func smartestBotType() -> SnakeBot.Type {
+        return SnakeBot6.self
+    }
 }

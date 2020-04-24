@@ -63,7 +63,7 @@ class IngameScene: SKScene {
 
     class func createBotVsNone() -> IngameScene {
         let newScene = IngameScene()
-        let snakeBotType: SnakeBot.Type = SnakeBotFactory.snakeBotTypes.last ?? SnakeBotFactory.emptyBotType()
+        let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
         newScene.initialGameState = SnakeGameState.create(
             player1: .bot(snakeBotType: snakeBotType),
             player2: .none,
@@ -399,7 +399,7 @@ class IngameScene: SKScene {
 	}
 
 	class func defaultInitialGameState() -> SnakeGameState {
-		let snakeBotType: SnakeBot.Type = SnakeBotFactory.snakeBotTypes.first ?? SnakeBotFactory.emptyBotType()
+		let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
 		return SnakeGameState.create(
 			player1: .human,
 			player2: .bot(snakeBotType: snakeBotType),

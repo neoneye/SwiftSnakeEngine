@@ -105,8 +105,12 @@ public class PlayerRoleMenuItemFactory {
 		return nil
 	}
 
-	public func defaultBotOrNone() -> PlayerRoleMenuItem {
-		return self.bots.last ?? self.none
+	fileprivate func smartestBotOrNone() -> PlayerRoleMenuItem {
+        let id: UUID = SnakeBotFactory.smartestBotType().info.id
+        guard let menuItem: PlayerRoleMenuItem = self.find(id: id) else {
+            return self.none
+        }
+		return menuItem
 	}
 }
 
@@ -140,13 +144,13 @@ extension UserDefaults {
 		}
 		get {
             guard let uuidString: String = self.string(forKey: "player2RoleMenuItem") else {
-                return PlayerRoleMenuItemFactory.shared.defaultBotOrNone()
+                return PlayerRoleMenuItemFactory.shared.smartestBotOrNone()
             }
             guard let id: UUID = UUID(uuidString: uuidString) else {
-                return PlayerRoleMenuItemFactory.shared.defaultBotOrNone()
+                return PlayerRoleMenuItemFactory.shared.smartestBotOrNone()
             }
             guard let playerRoleMenuItem: PlayerRoleMenuItem = PlayerRoleMenuItemFactory.shared.find(id: id) else {
-				return PlayerRoleMenuItemFactory.shared.defaultBotOrNone()
+				return PlayerRoleMenuItemFactory.shared.smartestBotOrNone()
 			}
 			return playerRoleMenuItem
 		}

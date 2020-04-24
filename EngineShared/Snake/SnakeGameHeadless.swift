@@ -15,8 +15,7 @@ public class SnakeGameHeadless {
 	}
 
 	public func run() {
-		let snakeBotTypes: [SnakeBot.Type] = SnakeBotFactory.snakeBotTypes
-		let snakeBotType0: SnakeBot.Type = snakeBotTypes.first ?? SnakeBotFactory.emptyBotType()
+        let snakeBotType0: SnakeBot.Type = SnakeBotFactory.smartestBotType()
 		let bot = SnakePlayerRole.bot(snakeBotType: snakeBotType0)
 
 		var gameState = SnakeGameState.create(
