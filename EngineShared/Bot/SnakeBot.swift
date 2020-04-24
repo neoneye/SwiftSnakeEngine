@@ -43,7 +43,8 @@ public class SnakeBotFactory {
 		SnakeBot1.self,
 		SnakeBot4.self,
 		SnakeBot5.self,
-		SnakeBot6.self
+		SnakeBot6.self,
+        SnakeBot7.self,
 	]
 
 	public static func emptyBotType() -> SnakeBot.Type {
