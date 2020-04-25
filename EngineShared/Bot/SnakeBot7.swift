@@ -160,23 +160,20 @@ fileprivate class CellBuffer {
     func step() -> CellBufferStep {
         let newBuffer = CellBuffer(size: self.size)
 
-        // Non-moving items
+        // Non-moving items. Preserve their direction (dx, dy)
         for y in 0..<size.y {
             for x in 0..<size.x {
                 let position = IntVec2(x: Int32(x), y: Int32(y))
-                let cell: Cell = self.get(at: position) ?? Cell.empty
-                let keep: Bool
+                var cell: Cell = self.get(at: position) ?? Cell.empty
                 switch cell.cellType {
                 case .wall:
-                    keep = true
+                    ()
                 case .food:
-                    keep = true
+                    ()
                 default:
-                    keep = false
+                    cell.cellType = .empty
                 }
-                if keep {
-                    newBuffer.set(cell: cell, at: position)
-                }
+                newBuffer.set(cell: cell, at: position)
             }
         }
 
@@ -196,7 +193,9 @@ fileprivate class CellBuffer {
                     let newPosition: IntVec2 = position.offsetBy(dx: Int32(cell.dx), dy: Int32(cell.dy))
                     if let existingCell: Cell = newBuffer.get(at: newPosition) {
                         if existingCell.cellType == .empty {
-                            newBuffer.set(cell: cell, at: newPosition)
+                            var newCell: Cell = existingCell
+                            newCell.cellType = cell.cellType
+                            newBuffer.set(cell: newCell, at: newPosition)
                         } else {
                             log.error("cell is already occupied \(position) -> \(newPosition)  dx: \(cell.dx)  dy: \(cell.dy)   cellType: \(existingCell.cellType)")
                             log.error("breakpoint")
@@ -341,7 +340,9 @@ public class SnakeBot7: SnakeBot {
         var stack = Array<CellBufferStep>()
         log.debug("I")
         let step0: CellBufferStep = buffer.step()
+        step0.shuffle()
         log.debug("J")
+        log.debug("possible positions: \(step0.player0Positions)")
         //log.debug("before")
         stack.append(step0)
 //        step0.cellBuffer.dump(prefix: "step0")
@@ -350,7 +351,7 @@ public class SnakeBot7: SnakeBot {
         var currentRootPermutation: UInt = 0
         var buffer2: CellBuffer = buffer
         //log.debug("start")
-        for i in 0..<1 {
+        for i in 0..<10 {
             if let lastStep: CellBufferStep = stack.last {
 
                 // pop from stack, when all choices have been explored
@@ -368,7 +369,6 @@ public class SnakeBot7: SnakeBot {
                 let dx: Int = Int(newPosition.x - oldPosition.x)
                 let dy: Int = Int(newPosition.y - oldPosition.y)
                 log.debug("X")
-                buffer2.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: oldPosition)
                 log.debug("update direction for cell at: \(oldPosition)  dx: \(dx)  dy: \(dy)")
                 buffer2.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: oldPosition)
                 log.debug("insert head at: \(newPosition)")
@@ -403,7 +403,7 @@ public class SnakeBot7: SnakeBot {
                 foundDepth = Int(step.depth)
                 if let firstStep = stack.first {
                     let count: Int = firstStep.player0Positions.count
-                    //log.debug("found: \(foundDepth)  index \(currentRootPermutation) of \(count)")
+                    log.debug("found: \(foundDepth)  index \(currentRootPermutation) of \(count)")
                     foundPosition = firstStep.player0Positions[Int(currentRootPermutation)]
                 }
             }
