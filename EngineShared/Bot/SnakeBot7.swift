@@ -270,24 +270,25 @@ fileprivate class CellBuffer {
                 let s: String
                 switch cell.cellType {
                 case .empty:
-                    s = "_"
+                    s = "⬜️"
                 case .wall:
-                    s = "w"
+                    s = "⬛️"
                 case .food:
-                    s = "f"
+                    s = "🔴"
                 case .player0:
-                    s = "0"
+                    s = "🟨"
                 case .player1:
-                    s = "1"
+                    s = "🟦"
                 case .player0Head:
-                    s = "0"
+                    s = "🟡"
                 case .player1Head:
-                    s = "1"
+                    s = "🔵"
                 }
                 row.append(s)
             }
+            let ymod10: Int = y % 10
             let prettyRow = row.joined(separator: "")
-            log.debug("\(prefix) = \(prettyRow)")
+            log.debug("\(prefix) \(ymod10)\(prettyRow)")
         }
     }
 }
