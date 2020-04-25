@@ -23,12 +23,14 @@ fileprivate struct Cell {
 
 fileprivate class CellBufferStep {
     let cellBuffer: CellBuffer
+    let previousPlayer0HeadPosition: IntVec2
     var player0Positions: [IntVec2]
     var depth: UInt = 0
     var permutation: UInt = 0
 
-    init(cellBuffer: CellBuffer, player0Positions: [IntVec2]) {
+    init(cellBuffer: CellBuffer, previousPlayer0HeadPosition: IntVec2, player0Positions: [IntVec2]) {
         self.cellBuffer = cellBuffer
+        self.previousPlayer0HeadPosition = previousPlayer0HeadPosition
         self.player0Positions = player0Positions
     }
 
@@ -146,10 +148,12 @@ fileprivate class CellBuffer {
             let previousPosition: IntVec2 = positionArray[index - 1]
             let dx: Int = Int(position.x - previousPosition.x)
             let dy: Int = Int(position.y - previousPosition.y)
+            log.debug("player \(previousPosition) -> \(position)  dx: \(dx)  dy: \(dy)")
             self.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: previousPosition)
         }
         if let position: IntVec2 = positionArray.last {
             self.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: position)
+            log.debug("player head \(position)")
         }
     }
 
@@ -194,7 +198,8 @@ fileprivate class CellBuffer {
                         if existingCell.cellType == .empty {
                             newBuffer.set(cell: cell, at: newPosition)
                         } else {
-                            log.error("cell is already occupied \(cell.dx) \(cell.dy)   cellType: \(existingCell.cellType)")
+                            log.error("cell is already occupied \(position) -> \(newPosition)  dx: \(cell.dx)  dy: \(cell.dy)   cellType: \(existingCell.cellType)")
+                            log.error("breakpoint")
                         }
                     } else {
                         log.error("new position is outside buffer")
@@ -210,6 +215,7 @@ fileprivate class CellBuffer {
         }
 
         var player0Positions = [IntVec2]()
+        var previousPlayer0HeadPosition = IntVec2.zero
 
         // Head of moving items, check for collisions
         for y in 0..<size.y {
@@ -244,6 +250,7 @@ fileprivate class CellBuffer {
                         }
                         return isPossibleMove
                     }
+                    previousPlayer0HeadPosition = position
                     player0Positions = newPositions1
                 case .player1:
                     ()
@@ -255,16 +262,17 @@ fileprivate class CellBuffer {
 
         return CellBufferStep(
             cellBuffer: newBuffer,
+            previousPlayer0HeadPosition: previousPlayer0HeadPosition,
             player0Positions: player0Positions
         )
     }
 
     func dump(prefix: String) {
-        for y in 0..<Int(size.y) {
-            let yflipped = Int(size.y) - y - 1
+        for yflipped in 0..<Int(size.y) {
+            let y = Int(size.y) - yflipped - 1
             var row = [String]()
             for x in 0..<Int(size.x) {
-                guard let cell: Cell = self.get(x: x, y: yflipped) else {
+                guard let cell: Cell = self.get(x: x, y: y) else {
                     continue
                 }
                 let s: String
@@ -324,22 +332,25 @@ public class SnakeBot7: SnakeBot {
         buffer.drawOptionalFood(foodPosition)
         buffer.drawPlayer(player)
 
-//        buffer.dump(prefix: "b0")
+        log.debug("---")
+        buffer.dump(prefix: "start")
 
         var foundDepth: Int = -1
         var foundPosition: IntVec2 = IntVec2.zero
 
         var stack = Array<CellBufferStep>()
+        log.debug("I")
         let step0: CellBufferStep = buffer.step()
+        log.debug("J")
         //log.debug("before")
         stack.append(step0)
-        //step0.cellBuffer.dump(prefix: "step0")
+//        step0.cellBuffer.dump(prefix: "step0")
 
         var currentDepth: UInt = 0
         var currentRootPermutation: UInt = 0
         var buffer2: CellBuffer = buffer
         //log.debug("start")
-        for i in 0..<10 {
+        for i in 0..<1 {
             if let lastStep: CellBufferStep = stack.last {
 
                 // pop from stack, when all choices have been explored
@@ -351,16 +362,29 @@ public class SnakeBot7: SnakeBot {
 
                 currentDepth = lastStep.depth
                 buffer2 = lastStep.cellBuffer.copy()
-                let position: IntVec2 = lastStep.player0Positions[Int(lastStep.permutation)]
-                buffer2.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: position)
+                let oldPosition: IntVec2 = lastStep.previousPlayer0HeadPosition
+                let newPosition: IntVec2 = lastStep.player0Positions[Int(lastStep.permutation)]
+
+                let dx: Int = Int(newPosition.x - oldPosition.x)
+                let dy: Int = Int(newPosition.y - oldPosition.y)
+                log.debug("X")
+                buffer2.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: oldPosition)
+                log.debug("update direction for cell at: \(oldPosition)  dx: \(dx)  dy: \(dy)")
+                buffer2.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: oldPosition)
+                log.debug("insert head at: \(newPosition)")
+                buffer2.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: newPosition)
+                log.debug("Y")
                 if stack.count == 1 {
                     //log.debug("currentRootPermutation = \(currentRootPermutation)")
                     currentRootPermutation = lastStep.permutation
                 }
                 lastStep.increment()
+                buffer2.dump(prefix: "step\(i+1)")
             }
 
+            log.debug("S")
             let step: CellBufferStep = buffer2.step()
+            log.debug("T")
             step.shuffle()
             //step.cellBuffer.dump(prefix: "step\(i+1)")
 
@@ -384,8 +408,18 @@ public class SnakeBot7: SnakeBot {
                 }
             }
 
-            buffer2 = step.cellBuffer.copy()
-            buffer2.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: newPosition)
+            do {
+                log.debug("A")
+                buffer2 = step.cellBuffer.copy()
+                let oldPosition: IntVec2 = step.previousPlayer0HeadPosition
+                let dx: Int = Int(newPosition.x - oldPosition.x)
+                let dy: Int = Int(newPosition.y - oldPosition.y)
+                log.debug("update direction for cell at: \(oldPosition)  dx: \(dx)  dy: \(dy)")
+                buffer2.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: oldPosition)
+                log.debug("insert head at: \(newPosition)")
+                buffer2.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: newPosition)
+                log.debug("B")
+            }
             //log.debug("\(i) append")
         }
 
