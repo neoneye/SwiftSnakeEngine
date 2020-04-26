@@ -107,74 +107,20 @@ public class SnakeBot1: SnakeBot {
 
             return SnakeBot1(plannedPath: [], plannedPathWithoutHead: [], plannedMovement: pendingMovement)
 		}
+
 		let position0: IntVec2 = player.snakeBody.head.position
 		let position1: IntVec2 = path[1]
-		let dx: Int = Int(position0.x) - Int(position1.x)
-		let dy: Int = Int(position0.y) - Int(position1.y)
-		let distance: Int = dx * dx + dy * dy
-		//		log.debug("dx: \(dx)  dy: \(dy)  distance: \(distance)")
-		guard distance == 1 else {
-			log.error("way too long distance to nearest neighbour. dx: \(dx)  dy: \(dy)  distance: \(distance)")
+
+        guard let pendingMovement: SnakeBodyMovement = player.snakeBody.head.moveToward(position1) else {
+            log.error("The snake cannot go backwards. The snake is probably dead. \(position0) \(position1)")
             return SnakeBot1(plannedPath: [], plannedPathWithoutHead: [], plannedMovement: .moveForward)
-		}
+        }
+        guard pendingMovement != .dontMove else {
+            log.error("The planned new position is the same as the old position. \(position0) \(position1)")
+            return SnakeBot1(plannedPath: [], plannedPathWithoutHead: [], plannedMovement: .moveForward)
+        }
 
-		var pendingMovement: SnakeBodyMovement = .moveForward
-		switch player.snakeBody.head.direction {
-		case .up:
-			if dy > 0 {
-				pendingMovement = .moveCW
-			}
-			if dy < 0 {
-				pendingMovement = .moveForward
-			}
-			if dx > 0 {
-				pendingMovement = .moveCCW
-			}
-			if dx < 0 {
-				pendingMovement = .moveCW
-			}
-		case .down:
-			if dy > 0 {
-				pendingMovement = .moveForward
-			}
-			if dy < 0 {
-				pendingMovement = .moveCW
-			}
-			if dx > 0 {
-				pendingMovement = .moveCW
-			}
-			if dx < 0 {
-				pendingMovement = .moveCCW
-			}
-		case .left:
-			if dy > 0 {
-				pendingMovement = .moveCCW
-			}
-			if dy < 0 {
-				pendingMovement = .moveCW
-			}
-			if dx > 0 {
-				pendingMovement = .moveForward
-			}
-			if dx < 0 {
-				pendingMovement = .moveCCW
-			}
-		case .right:
-			if dy > 0 {
-				pendingMovement = .moveCW
-			}
-			if dy < 0 {
-				pendingMovement = .moveCCW
-			}
-			if dx > 0 {
-				pendingMovement = .moveCCW
-			}
-			if dx < 0 {
-				pendingMovement = .moveForward
-			}
-		}
-
-        let newPlannedPathWithHead: [IntVec2] = [player.snakeBody.head.position] + newPlannedPathWithoutHead
+        let newPlannedPathWithHead: [IntVec2] = [position0] + newPlannedPathWithoutHead
         return SnakeBot1(
             plannedPath: newPlannedPathWithHead,
             plannedPathWithoutHead: newPlannedPathWithoutHead,
