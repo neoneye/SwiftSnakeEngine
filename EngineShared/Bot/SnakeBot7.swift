@@ -1,6 +1,104 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
+public class SnakeBot7: SnakeBot {
+    public static var info: SnakeBotInfo {
+        SnakeBotInfoImpl(
+            id: UUID(uuidString: "5b905e9c-58b3-4412-97c1-375787c79560")!,
+            humanReadableName: "Cellular Automata"
+        )
+    }
+
+    public let plannedMovement: SnakeBodyMovement
+    private let iteration: UInt
+
+    private init(iteration: UInt, plannedMovement: SnakeBodyMovement) {
+        self.iteration = iteration
+        self.plannedMovement = plannedMovement
+    }
+
+    required public convenience init() {
+        self.init(iteration: 0, plannedMovement: .dontMove)
+    }
+
+    public var plannedPath: [IntVec2] {
+        []
+    }
+
+    public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
+
+        let buffer = CellBuffer(size: level.size)
+        buffer.drawLevel(level)
+        buffer.drawOptionalFood(foodPosition)
+        buffer.drawPlayer(player)
+
+        //buffer.dump(prefix: "start")
+
+        let step0: CellBufferStep = buffer.step()
+        step0.shuffle()
+        //log.debug("initial available positions: \(step0.player0Positions)")
+
+        guard !step0.player0Positions.isEmpty else {
+            log.debug("The snake is already dead. There are nowhere for the snake to go!")
+            return SnakeBot7(
+                iteration: self.iteration + 1,
+                plannedMovement: .moveForward
+            )
+        }
+
+        var foundScore: Int = -1
+        var foundPosition: IntVec2 = IntVec2.zero
+
+        let explorer = Explorer(player: player, step0: step0)
+        for (index, player0Position) in step0.player0Positions.enumerated() {
+            let scoreUnsigned: UInt = explorer.explore(player0Position: player0Position, permutationIndex: UInt(index))
+            let score = Int(scoreUnsigned)
+            if score > foundScore {
+                foundScore = score
+                foundPosition = player0Position
+            }
+        }
+
+        guard foundScore >= 0 else {
+            log.debug("Unable to find a path. The snake is dead. There are nowhere for the snake to go!")
+            return SnakeBot7(
+                iteration: self.iteration + 1,
+                plannedMovement: .moveForward
+            )
+        }
+        let pickedPosition: IntVec2 = foundPosition
+
+        guard pickedPosition != player.snakeBody.head.position else {
+            log.error("Expected the planned position to be different than the current head position.")
+            return SnakeBot7(
+                iteration: self.iteration + 1,
+                plannedMovement: .moveForward
+            )
+        }
+        guard let pendingMovement: SnakeBodyMovement = player.snakeBody.head.moveToward(pickedPosition) else {
+            log.error("The snake cannot go backwards, but the bot planned a backward position.")
+            return SnakeBot7(
+                iteration: self.iteration + 1,
+                plannedMovement: .moveForward
+            )
+        }
+        guard pendingMovement != .dontMove else {
+            log.error("Expected moveTowards() to never return 'dontMove', when given two different positions")
+            return SnakeBot7(
+                iteration: self.iteration + 1,
+                plannedMovement: .moveForward
+            )
+        }
+
+        //log.debug("pendingMovement: \(pendingMovement)")
+
+        return SnakeBot7(
+            iteration: self.iteration + 1,
+            plannedMovement: pendingMovement
+        )
+    }
+}
+
 fileprivate enum CellType {
     case empty
     case wall
@@ -380,103 +478,5 @@ fileprivate class Explorer {
         }
 
         return foundDepthScore
-    }
-}
-
-public class SnakeBot7: SnakeBot {
-    public static var info: SnakeBotInfo {
-        SnakeBotInfoImpl(
-            id: UUID(uuidString: "5b905e9c-58b3-4412-97c1-375787c79560")!,
-            humanReadableName: "Cellular Automata"
-        )
-    }
-
-    public let plannedMovement: SnakeBodyMovement
-    private let iteration: UInt
-
-    private init(iteration: UInt, plannedMovement: SnakeBodyMovement) {
-        self.iteration = iteration
-        self.plannedMovement = plannedMovement
-    }
-
-    required public convenience init() {
-        self.init(iteration: 0, plannedMovement: .dontMove)
-    }
-
-    public var plannedPath: [IntVec2] {
-        []
-    }
-
-    public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
-
-        let buffer = CellBuffer(size: level.size)
-        buffer.drawLevel(level)
-        buffer.drawOptionalFood(foodPosition)
-        buffer.drawPlayer(player)
-
-        //buffer.dump(prefix: "start")
-
-        let step0: CellBufferStep = buffer.step()
-        step0.shuffle()
-        //log.debug("initial available positions: \(step0.player0Positions)")
-
-        guard !step0.player0Positions.isEmpty else {
-            log.debug("The snake is already dead. There are nowhere for the snake to go!")
-            return SnakeBot7(
-                iteration: self.iteration + 1,
-                plannedMovement: .moveForward
-            )
-        }
-
-        var foundScore: Int = -1
-        var foundPosition: IntVec2 = IntVec2.zero
-
-        let explorer = Explorer(player: player, step0: step0)
-        for (index, player0Position) in step0.player0Positions.enumerated() {
-            let scoreUnsigned: UInt = explorer.explore(player0Position: player0Position, permutationIndex: UInt(index))
-            let score = Int(scoreUnsigned)
-            if score > foundScore {
-                foundScore = score
-                foundPosition = player0Position
-            }
-        }
-
-        guard foundScore >= 0 else {
-            log.debug("Unable to find a path. The snake is dead. There are nowhere for the snake to go!")
-            return SnakeBot7(
-                iteration: self.iteration + 1,
-                plannedMovement: .moveForward
-            )
-        }
-        let pickedPosition: IntVec2 = foundPosition
-
-        guard pickedPosition != player.snakeBody.head.position else {
-            log.error("Expected the planned position to be different than the current head position.")
-            return SnakeBot7(
-                iteration: self.iteration + 1,
-                plannedMovement: .moveForward
-            )
-        }
-        guard let pendingMovement: SnakeBodyMovement = player.snakeBody.head.moveToward(pickedPosition) else {
-            log.error("The snake cannot go backwards, but the bot planned a backward position.")
-            return SnakeBot7(
-                iteration: self.iteration + 1,
-                plannedMovement: .moveForward
-            )
-        }
-        guard pendingMovement != .dontMove else {
-            log.error("Expected moveTowards() to never return 'dontMove', when given two different positions")
-            return SnakeBot7(
-                iteration: self.iteration + 1,
-                plannedMovement: .moveForward
-            )
-        }
-
-        //log.debug("pendingMovement: \(pendingMovement)")
-
-        return SnakeBot7(
-            iteration: self.iteration + 1,
-            plannedMovement: pendingMovement
-        )
     }
 }
