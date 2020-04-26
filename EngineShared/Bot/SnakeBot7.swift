@@ -30,8 +30,8 @@ public class SnakeBot7: SnakeBot {
         let buffer = CellBuffer(size: level.size)
         buffer.drawLevel(level)
         buffer.drawOptionalFood(foodPosition)
-        buffer.drawPlayer(player)
-        // IDEA: drawPlayer(oppositePlayer), so that two-player mode can work. Currently single-player mode only.
+        buffer.drawPlayer(player, head: .player1Head, body: .player1)
+        buffer.drawPlayer(oppositePlayer, head: .player2Head, body: .player2)
 
         //buffer.dump(prefix: "start")
 
@@ -104,6 +104,7 @@ fileprivate enum CellType {
     case empty
     case wall
     case food
+    case deadPlayer
     case player1
     case player2
     case player1Head
@@ -118,6 +119,7 @@ fileprivate struct Cell {
     static let empty = Cell(cellType: .empty, dx: 0, dy: 0)
     static let wall = Cell(cellType: .wall, dx: 0, dy: 0)
     static let food = Cell(cellType: .food, dx: 0, dy: 0)
+    static let deadPlayer = Cell(cellType: .deadPlayer, dx: 0, dy: 0)
 }
 
 fileprivate class CellBufferStep {
@@ -235,11 +237,18 @@ fileprivate class CellBuffer {
         self.set(cell: Cell.food, at: position)
     }
 
-    func drawPlayer(_ player: SnakePlayer) {
+    func drawPlayer(_ player: SnakePlayer, head: CellType, body: CellType) {
         guard player.isInstalled else {
             return
         }
         let positionArray: [IntVec2] = player.snakeBody.positionArray()
+        guard player.isAlive else {
+            // Treat the dead player as a non-movable object.
+            for position in positionArray {
+                self.set(cell: Cell.deadPlayer, at: position)
+            }
+            return
+        }
         for (index, position) in positionArray.enumerated() {
             if index == 0 {
                 continue
@@ -248,10 +257,10 @@ fileprivate class CellBuffer {
             let dx: Int = Int(position.x - previousPosition.x)
             let dy: Int = Int(position.y - previousPosition.y)
             //log.debug("player \(previousPosition) -> \(position)  dx: \(dx)  dy: \(dy)")
-            self.set(cell: Cell(cellType: .player1, dx: dx, dy: dy), at: previousPosition)
+            self.set(cell: Cell(cellType: body, dx: dx, dy: dy), at: previousPosition)
         }
         if let position: IntVec2 = positionArray.last {
-            self.set(cell: Cell(cellType: .player1Head, dx: 0, dy: 0), at: position)
+            self.set(cell: Cell(cellType: head, dx: 0, dy: 0), at: position)
             //log.debug("player head \(position)")
         }
     }
@@ -269,6 +278,8 @@ fileprivate class CellBuffer {
                     ()
                 case .food:
                     ()
+                case .deadPlayer:
+                    ()
                 default:
                     cell.cellType = .empty
                 }
@@ -281,14 +292,16 @@ fileprivate class CellBuffer {
             for x in 0..<size.x {
                 let position = IntVec2(x: Int32(x), y: Int32(y))
                 let cell: Cell = self.get(at: position) ?? Cell.empty
+                let performMove: Bool
                 switch cell.cellType {
-                case .empty:
-                    ()
-                case .wall:
-                    ()
-                case .food:
-                    ()
                 case .player1:
+                    performMove = true
+                case .player2:
+                    performMove = true
+                default:
+                    performMove = false
+                }
+                if performMove {
                     let newPosition: IntVec2 = position.offsetBy(dx: Int32(cell.dx), dy: Int32(cell.dy))
                     if let existingCell: Cell = newBuffer.get(at: newPosition) {
                         if existingCell.cellType == .empty {
@@ -301,13 +314,6 @@ fileprivate class CellBuffer {
                     } else {
                         log.error("new position is outside buffer")
                     }
-                case .player1Head:
-                    ()
-                case .player2:
-                    // IDEA: draw the opposite player, so it becomes a two-player bot. Currently it's single player only.
-                    ()
-                case .player2Head:
-                    ()
                 }
             }
         }
@@ -326,6 +332,8 @@ fileprivate class CellBuffer {
                 case .wall:
                     ()
                 case .food:
+                    ()
+                case .deadPlayer:
                     ()
                 case .player1:
                     ()
@@ -383,6 +391,8 @@ fileprivate class CellBuffer {
                     s = "⬛️"
                 case .food:
                     s = "🔴"
+                case .deadPlayer:
+                    s = "⬛️"
                 case .player1:
                     s = "🟨"
                 case .player2:
@@ -413,10 +423,7 @@ fileprivate class Explorer {
     /// Returns the max depth score that the snake can go.
     func explore(player0Position: IntVec2, permutationIndex: UInt) -> UInt {
         var foundDepthScore: UInt = 0
-
-        var stack = Array<CellBufferStep>()
-        stack.append(step0)
-
+        var stack: [CellBufferStep] = [step0]
         var currentDepth: UInt = 0
         var buffer: CellBuffer = step0.cellBuffer.copy()
         //log.debug("start")
