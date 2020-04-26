@@ -9,8 +9,8 @@ fileprivate struct Constant {
 public class SnakeBot4: SnakeBot {
 	public static var info: SnakeBotInfo {
 		SnakeBotInfoImpl(
-			humanReadableName: "Tree search",
-			userDefaultIdentifier: "bot4"
+            id: UUID(uuidString: "5563adb7-44ee-4dbb-bf80-dd0dc7989a2c")!,
+			humanReadableName: "Tree search"
 		)
 	}
 

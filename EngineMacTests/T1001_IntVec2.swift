@@ -71,7 +71,20 @@ class T1001_IntVec2: XCTestCase {
 		}
 	}
 
-	func test5_customDebugStringConvertible() {
+    func test5_subtract() {
+        do {
+            let a = IntVec2(x: 1001, y: 1000002).subtract(IntVec2(x: 1, y: 2))
+            let b = IntVec2(x: 1000, y: 1000000)
+            XCTAssertEqual(a, b)
+        }
+        do {
+            let a = IntVec2.zero.subtract(IntVec2(x: 1, y: 2))
+            let b = IntVec2(x: -1, y: -2)
+            XCTAssertEqual(a, b)
+        }
+    }
+
+	func test6_customDebugStringConvertible() {
 		do {
 			let s = String(reflecting: IntVec2.zero)
 			XCTAssertEqual(s, "(0, 0)")
@@ -86,7 +99,7 @@ class T1001_IntVec2: XCTestCase {
 		}
 	}
 
-	func test6_convertToUIntVec2() {
+	func test7_convertToUIntVec2() {
 		do {
 			let point: UIntVec2? = IntVec2(x: 100, y: 100).uintVec2()
 			XCTAssertNotNil(point)
@@ -105,7 +118,7 @@ class T1001_IntVec2: XCTestCase {
 		}
 	}
 
-	func test7_convertToCGPoint() {
+	func test8_convertToCGPoint() {
 		do {
 			let point: CGPoint = IntVec2.zero.cgPoint
 			XCTAssertEqual(point.x, 0.0, accuracy: 0.0001)
@@ -123,7 +136,7 @@ class T1001_IntVec2: XCTestCase {
 		}
 	}
 
-	func test8_manhattanDistance() {
+	func test9_manhattanDistance() {
 		do {
 			let point = IntVec2(x: 0, y: 0)
 			let actual: UInt32 = point.manhattanDistance(point)
@@ -149,7 +162,7 @@ class T1001_IntVec2: XCTestCase {
 		}
 	}
 
-	func test9_comparable() {
+	func test10_comparable() {
 		do {
 			let a = IntVec2(x: 0, y: 0)
 			let b = IntVec2(x: 0, y: 0)

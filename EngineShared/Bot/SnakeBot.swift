@@ -2,8 +2,14 @@
 import Foundation
 
 public protocol SnakeBotInfo {
-	var humanReadableName: String { get }
-	var userDefaultIdentifier: String { get }
+    /// A version4 UUID that uniquely identifies the bot.
+    /// This uuid is saved to userdefaults, so that the same player-configuration can be retrieved later.
+    ///
+    /// For generating a new uuid, use an online tool.
+    /// https://www.uuidgenerator.net/
+    var id: UUID { get }
+
+    var humanReadableName: String { get }
 }
 
 public protocol SnakeBot: class {
@@ -21,12 +27,12 @@ public protocol SnakeBot: class {
 }
 
 internal class SnakeBotInfoImpl: SnakeBotInfo {
+    let id: UUID
 	let humanReadableName: String
-	let userDefaultIdentifier: String
 
-	init(humanReadableName: String, userDefaultIdentifier: String) {
+	init(id: UUID, humanReadableName: String) {
+        self.id = id
 		self.humanReadableName = humanReadableName
-		self.userDefaultIdentifier = userDefaultIdentifier
 	}
 }
 
@@ -37,10 +43,16 @@ public class SnakeBotFactory {
 		SnakeBot1.self,
 		SnakeBot4.self,
 		SnakeBot5.self,
-		SnakeBot6.self
+		SnakeBot6.self,
+        SnakeBot7.self,
 	]
 
 	public static func emptyBotType() -> SnakeBot.Type {
 		return SnakeBot_MoveForward.self
 	}
+
+    /// The bot that currently outperforms the other bots, in most scenarios.
+    public static func smartestBotType() -> SnakeBot.Type {
+        return SnakeBot6.self
+    }
 }
