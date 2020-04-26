@@ -30,8 +30,8 @@ public class SnakeBot7: SnakeBot {
         let buffer = CellBuffer(size: level.size)
         buffer.drawLevel(level)
         buffer.drawOptionalFood(foodPosition)
-        buffer.drawPlayer(player, head: .player1Head, body: .player1)
-        buffer.drawPlayer(oppositePlayer, head: .player2Head, body: .player2)
+        buffer.drawPlayer(player, head: .player1Head, body: .player1Body)
+        buffer.drawPlayer(oppositePlayer, head: .player2Head, body: .player2Body)
 
         //buffer.dump(prefix: "start")
 
@@ -105,8 +105,8 @@ fileprivate enum CellType {
     case wall
     case food
     case deadPlayer
-    case player1
-    case player2
+    case player1Body
+    case player2Body
     case player1Head
     case player2Head
 }
@@ -293,9 +293,9 @@ fileprivate class CellBuffer {
                 let cell: Cell = self.get(at: position) ?? Cell.empty
                 let performMove: Bool
                 switch cell.cellType {
-                case .player1:
+                case .player1Body:
                     performMove = true
-                case .player2:
+                case .player2Body:
                     performMove = true
                 default:
                     performMove = false
@@ -334,7 +334,7 @@ fileprivate class CellBuffer {
                     ()
                 case .deadPlayer:
                     ()
-                case .player1:
+                case .player1Body:
                     ()
                 case .player1Head:
                     let newPositions0: [IntVec2] = [
@@ -357,7 +357,7 @@ fileprivate class CellBuffer {
                     }
                     previousPlayer1HeadPosition = position
                     player1Positions = newPositions1
-                case .player2:
+                case .player2Body:
                     ()
                 case .player2Head:
                     // IDEA: draw the opposite player, so it becomes a two-player bot. Currently it's single player only.
@@ -392,9 +392,9 @@ fileprivate class CellBuffer {
                     s = "🔴"
                 case .deadPlayer:
                     s = "⬛️"
-                case .player1:
+                case .player1Body:
                     s = "🟨"
-                case .player2:
+                case .player2Body:
                     s = "🟦"
                 case .player1Head:
                     s = "🟡"
@@ -443,7 +443,7 @@ fileprivate class Explorer {
                 let newPosition: IntVec2 = lastStep.player1Positions[Int(lastStep.permutation)]
                 let diff: IntVec2 = newPosition.subtract(oldPosition)
                 //log.debug("update direction for cell at: \(oldPosition)  diff: \(diff)")
-                buffer.set(cell: Cell(cellType: .player1, dx: Int(diff.x), dy: Int(diff.y)), at: oldPosition)
+                buffer.set(cell: Cell(cellType: .player1Body, dx: Int(diff.x), dy: Int(diff.y)), at: oldPosition)
                 //log.debug("insert head at: \(newPosition)")
                 buffer.set(cell: Cell(cellType: .player1Head, dx: 0, dy: 0), at: newPosition)
                 lastStep.increment()
@@ -480,7 +480,7 @@ fileprivate class Explorer {
                 let oldPosition: IntVec2 = step.previousPlayer1HeadPosition
                 let diff: IntVec2 = newPosition.subtract(oldPosition)
                 //log.debug("update direction for cell at: \(oldPosition)  diff: \(diff)")
-                buffer.set(cell: Cell(cellType: .player1, dx: Int(diff.x), dy: Int(diff.y)), at: oldPosition)
+                buffer.set(cell: Cell(cellType: .player1Body, dx: Int(diff.x), dy: Int(diff.y)), at: oldPosition)
                 //log.debug("insert head at: \(newPosition)")
                 buffer.set(cell: Cell(cellType: .player1Head, dx: 0, dy: 0), at: newPosition)
             }
