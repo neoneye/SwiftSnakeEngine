@@ -309,8 +309,8 @@ fileprivate class Explorer {
     }
 
     /// Returns the max depth score that the snake can go.
-    func explore(player0Position: IntVec2, permutationIndex: UInt) -> Int {
-        var foundDepthScore: Int = -1
+    func explore(player0Position: IntVec2, permutationIndex: UInt) -> UInt {
+        var foundDepthScore: UInt = 0
 
         var stack = Array<CellBufferStep>()
         stack.append(step0)
@@ -359,7 +359,7 @@ fileprivate class Explorer {
                 continue
             }
 
-            let newDepthScore = Int(step.depth) * 3 + step.player0Positions.count
+            let newDepthScore = step.depth * 3 + UInt(step.player0Positions.count)
             if newDepthScore > foundDepthScore {
                 foundDepthScore = newDepthScore
                 //log.debug("new depth: \(newDepthScore)")
@@ -432,7 +432,8 @@ public class SnakeBot7: SnakeBot {
 
         let explorer = Explorer(player: player, step0: step0)
         for (index, player0Position) in step0.player0Positions.enumerated() {
-            let score: Int = explorer.explore(player0Position: player0Position, permutationIndex: UInt(index))
+            let scoreUnsigned: UInt = explorer.explore(player0Position: player0Position, permutationIndex: UInt(index))
+            let score = Int(scoreUnsigned)
             if score > foundScore {
                 foundScore = score
                 foundPosition = player0Position
