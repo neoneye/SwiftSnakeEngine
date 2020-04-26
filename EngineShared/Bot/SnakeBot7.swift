@@ -300,6 +300,95 @@ fileprivate class CellBuffer {
     }
 }
 
+fileprivate class Explorer {
+    let player: SnakePlayer
+    let step0: CellBufferStep
+
+    init(player: SnakePlayer, step0: CellBufferStep) {
+        self.player = player
+        self.step0 = step0
+    }
+
+    /// Returns the max depth that the snake can go.
+    func explore(player0Position: IntVec2, permutationIndex: UInt) -> Int {
+        var foundDepth: Int = -1
+
+        var stack = Array<CellBufferStep>()
+        stack.append(step0)
+
+        var currentDepth: UInt = 0
+        var currentRootPermutation: UInt = 0
+        var buffer2: CellBuffer = step0.cellBuffer.copy()
+        //log.debug("start")
+        for i in 0..<2 {
+            if let lastStep: CellBufferStep = stack.last {
+
+                // pop from stack, when all choices have been explored
+                if lastStep.permutation >= lastStep.player0Positions.count {
+                    //log.debug("\(i) pop   \(lastStep.permutation) >= \(lastStep.player0Positions.count)")
+                    stack.removeLast()
+                    continue
+                }
+
+                currentDepth = lastStep.depth
+                buffer2 = lastStep.cellBuffer.copy()
+                let oldPosition: IntVec2 = lastStep.previousPlayer0HeadPosition
+                let newPosition: IntVec2 = lastStep.player0Positions[Int(lastStep.permutation)]
+
+                let dx: Int = Int(newPosition.x - oldPosition.x)
+                let dy: Int = Int(newPosition.y - oldPosition.y)
+                log.debug("update direction for cell at: \(oldPosition)  dx: \(dx)  dy: \(dy)")
+                buffer2.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: oldPosition)
+                log.debug("insert head at: \(newPosition)")
+                buffer2.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: newPosition)
+                if stack.count == 1 {
+                    //log.debug("currentRootPermutation = \(currentRootPermutation)")
+                    currentRootPermutation = lastStep.permutation
+                }
+                lastStep.increment()
+                buffer2.dump(prefix: "step\(i+1)")
+            }
+
+            let step: CellBufferStep = buffer2.step()
+            step.shuffle()
+            //step.cellBuffer.dump(prefix: "step\(i+1)")
+
+            step.depth = currentDepth + 1
+            if step.player0Positions.count >= 2 {
+                stack.append(step)
+            }
+
+            guard let newPosition: IntVec2 = step.player0Positions.first else {
+                // Reached a dead end. Back track, and explore another permutation.
+                //log.debug("\(i) reached a dead end")
+                continue
+            }
+
+            if Int(step.depth) > foundDepth {
+                foundDepth = Int(step.depth)
+                if let firstStep = stack.first {
+                    let count: Int = firstStep.player0Positions.count
+                    log.debug("found: \(foundDepth)  index \(currentRootPermutation) of \(count)")
+                }
+            }
+
+            do {
+                buffer2 = step.cellBuffer.copy()
+                let oldPosition: IntVec2 = step.previousPlayer0HeadPosition
+                let dx: Int = Int(newPosition.x - oldPosition.x)
+                let dy: Int = Int(newPosition.y - oldPosition.y)
+                log.debug("update direction for cell at: \(oldPosition)  dx: \(dx)  dy: \(dy)")
+                buffer2.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: oldPosition)
+                log.debug("insert head at: \(newPosition)")
+                buffer2.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: newPosition)
+            }
+            //log.debug("\(i) append")
+        }
+
+        return foundDepth
+    }
+}
+
 public class SnakeBot7: SnakeBot {
     public static var info: SnakeBotInfo {
         SnakeBotInfoImpl(
@@ -331,119 +420,63 @@ public class SnakeBot7: SnakeBot {
         buffer.drawOptionalFood(foodPosition)
         buffer.drawPlayer(player)
 
-        log.debug("---")
         buffer.dump(prefix: "start")
+
+        let step0: CellBufferStep = buffer.step()
+        log.debug("available positions: \(step0.player0Positions)")
+
+        guard !step0.player0Positions.isEmpty else {
+            log.debug("The snake is already dead. There are nowhere for the snake to go!")
+            return SnakeBot7(
+                iteration: self.iteration + 1,
+                plannedMovement: .moveForward
+            )
+        }
 
         var foundDepth: Int = -1
         var foundPosition: IntVec2 = IntVec2.zero
 
-        var stack = Array<CellBufferStep>()
-        log.debug("I")
-        let step0: CellBufferStep = buffer.step()
-        step0.shuffle()
-        log.debug("J")
-        log.debug("possible positions: \(step0.player0Positions)")
-        //log.debug("before")
-        stack.append(step0)
-//        step0.cellBuffer.dump(prefix: "step0")
-
-        var currentDepth: UInt = 0
-        var currentRootPermutation: UInt = 0
-        var buffer2: CellBuffer = buffer
-        //log.debug("start")
-        for i in 0..<10 {
-            if let lastStep: CellBufferStep = stack.last {
-
-                // pop from stack, when all choices have been explored
-                if lastStep.permutation >= lastStep.player0Positions.count {
-                    //log.debug("\(i) pop   \(lastStep.permutation) >= \(lastStep.player0Positions.count)")
-                    stack.removeLast()
-                    continue
-                }
-
-                currentDepth = lastStep.depth
-                buffer2 = lastStep.cellBuffer.copy()
-                let oldPosition: IntVec2 = lastStep.previousPlayer0HeadPosition
-                let newPosition: IntVec2 = lastStep.player0Positions[Int(lastStep.permutation)]
-
-                let dx: Int = Int(newPosition.x - oldPosition.x)
-                let dy: Int = Int(newPosition.y - oldPosition.y)
-                log.debug("X")
-                log.debug("update direction for cell at: \(oldPosition)  dx: \(dx)  dy: \(dy)")
-                buffer2.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: oldPosition)
-                log.debug("insert head at: \(newPosition)")
-                buffer2.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: newPosition)
-                log.debug("Y")
-                if stack.count == 1 {
-                    //log.debug("currentRootPermutation = \(currentRootPermutation)")
-                    currentRootPermutation = lastStep.permutation
-                }
-                lastStep.increment()
-                buffer2.dump(prefix: "step\(i+1)")
+        let explorer = Explorer(player: player, step0: step0)
+        for (index, player0Position) in step0.player0Positions.enumerated() {
+            let depth: Int = explorer.explore(player0Position: player0Position, permutationIndex: UInt(index))
+            if depth > foundDepth {
+                foundDepth = depth
+                foundPosition = player0Position
             }
-
-            log.debug("S")
-            let step: CellBufferStep = buffer2.step()
-            log.debug("T")
-            step.shuffle()
-            //step.cellBuffer.dump(prefix: "step\(i+1)")
-
-            step.depth = currentDepth + 1
-            if step.player0Positions.count >= 2 {
-                stack.append(step)
-            }
-
-            guard let newPosition: IntVec2 = step.player0Positions.first else {
-                // Reached a dead end. Back track, and explore another permutation.
-                //log.debug("\(i) reached a dead end")
-                continue
-            }
-
-            if Int(step.depth) > foundDepth {
-                foundDepth = Int(step.depth)
-                if let firstStep = stack.first {
-                    let count: Int = firstStep.player0Positions.count
-                    log.debug("found: \(foundDepth)  index \(currentRootPermutation) of \(count)")
-                    foundPosition = firstStep.player0Positions[Int(currentRootPermutation)]
-                }
-            }
-
-            do {
-                log.debug("A")
-                buffer2 = step.cellBuffer.copy()
-                let oldPosition: IntVec2 = step.previousPlayer0HeadPosition
-                let dx: Int = Int(newPosition.x - oldPosition.x)
-                let dy: Int = Int(newPosition.y - oldPosition.y)
-                log.debug("update direction for cell at: \(oldPosition)  dx: \(dx)  dy: \(dy)")
-                buffer2.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: oldPosition)
-                log.debug("insert head at: \(newPosition)")
-                buffer2.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: newPosition)
-                log.debug("B")
-            }
-            //log.debug("\(i) append")
         }
 
-        let pickedPosition: IntVec2
-        if foundDepth >= 0 {
-            pickedPosition = foundPosition
-        } else {
-            log.debug("The snake is dead. There are nowhere for the snake to go!")
-            pickedPosition = player.snakeBody.head.position
+        guard foundDepth >= 0 else {
+            log.debug("Unable to find a path. The snake is dead. There are nowhere for the snake to go!")
+            return SnakeBot7(
+                iteration: self.iteration + 1,
+                plannedMovement: .moveForward
+            )
+        }
+        let pickedPosition: IntVec2 = foundPosition
+
+        guard pickedPosition != player.snakeBody.head.position else {
+            log.error("Expected the planned position to be different than the current head position.")
+            return SnakeBot7(
+                iteration: self.iteration + 1,
+                plannedMovement: .moveForward
+            )
+        }
+        guard let pendingMovement: SnakeBodyMovement = player.snakeBody.head.moveToward(pickedPosition) else {
+            log.error("The snake cannot go backwards, but the bot planned a backward position.")
+            return SnakeBot7(
+                iteration: self.iteration + 1,
+                plannedMovement: .moveForward
+            )
+        }
+        guard pendingMovement != .dontMove else {
+            log.error("Expected moveTowards() to never return 'dontMove', when given two different positions")
+            return SnakeBot7(
+                iteration: self.iteration + 1,
+                plannedMovement: .moveForward
+            )
         }
 
-        let pendingMovement: SnakeBodyMovement
-        if let movement: SnakeBodyMovement = player.snakeBody.head.moveToward(pickedPosition) {
-            if movement != .dontMove {
-                log.debug("best movement: \(movement)")
-                pendingMovement = movement
-            } else {
-                log.error("The planned position is the same as the current position. Moving forward.")
-                pendingMovement = .moveForward
-            }
-        } else {
-            log.error("The snake cannot go backwards. The snake is probably dead.")
-            pendingMovement = .moveForward
-        }
+        log.debug("pendingMovement: \(pendingMovement)")
 
         return SnakeBot7(
             iteration: self.iteration + 1,
