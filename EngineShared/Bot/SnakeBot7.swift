@@ -254,10 +254,9 @@ fileprivate class CellBuffer {
                 continue
             }
             let previousPosition: IntVec2 = positionArray[index - 1]
-            let dx: Int = Int(position.x - previousPosition.x)
-            let dy: Int = Int(position.y - previousPosition.y)
-            //log.debug("player \(previousPosition) -> \(position)  dx: \(dx)  dy: \(dy)")
-            self.set(cell: Cell(cellType: body, dx: dx, dy: dy), at: previousPosition)
+            let diff: IntVec2 = position.subtract(previousPosition)
+            //log.debug("player \(previousPosition) -> \(position)  diff: \(diff)")
+            self.set(cell: Cell(cellType: body, dx: Int(diff.x), dy: Int(diff.y)), at: previousPosition)
         }
         if let position: IntVec2 = positionArray.last {
             self.set(cell: Cell(cellType: head, dx: 0, dy: 0), at: position)
@@ -442,11 +441,9 @@ fileprivate class Explorer {
                 buffer = lastStep.cellBuffer.copy()
                 let oldPosition: IntVec2 = lastStep.previousPlayer1HeadPosition
                 let newPosition: IntVec2 = lastStep.player1Positions[Int(lastStep.permutation)]
-
-                let dx: Int = Int(newPosition.x - oldPosition.x)
-                let dy: Int = Int(newPosition.y - oldPosition.y)
-                //log.debug("update direction for cell at: \(oldPosition)  dx: \(dx)  dy: \(dy)")
-                buffer.set(cell: Cell(cellType: .player1, dx: dx, dy: dy), at: oldPosition)
+                let diff: IntVec2 = newPosition.subtract(oldPosition)
+                //log.debug("update direction for cell at: \(oldPosition)  diff: \(diff)")
+                buffer.set(cell: Cell(cellType: .player1, dx: Int(diff.x), dy: Int(diff.y)), at: oldPosition)
                 //log.debug("insert head at: \(newPosition)")
                 buffer.set(cell: Cell(cellType: .player1Head, dx: 0, dy: 0), at: newPosition)
                 lastStep.increment()
@@ -481,10 +478,9 @@ fileprivate class Explorer {
             do {
                 buffer = step.cellBuffer.copy()
                 let oldPosition: IntVec2 = step.previousPlayer1HeadPosition
-                let dx: Int = Int(newPosition.x - oldPosition.x)
-                let dy: Int = Int(newPosition.y - oldPosition.y)
-                //log.debug("update direction for cell at: \(oldPosition)  dx: \(dx)  dy: \(dy)")
-                buffer.set(cell: Cell(cellType: .player1, dx: dx, dy: dy), at: oldPosition)
+                let diff: IntVec2 = newPosition.subtract(oldPosition)
+                //log.debug("update direction for cell at: \(oldPosition)  diff: \(diff)")
+                buffer.set(cell: Cell(cellType: .player1, dx: Int(diff.x), dy: Int(diff.y)), at: oldPosition)
                 //log.debug("insert head at: \(newPosition)")
                 buffer.set(cell: Cell(cellType: .player1Head, dx: 0, dy: 0), at: newPosition)
             }
