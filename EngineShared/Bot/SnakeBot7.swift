@@ -433,7 +433,13 @@ public class SnakeBot7: SnakeBot {
 
         let pendingMovement: SnakeBodyMovement
         if let movement: SnakeBodyMovement = player.snakeBody.head.moveToward(pickedPosition) {
-            pendingMovement = movement
+            if movement != .dontMove {
+                log.debug("best movement: \(movement)")
+                pendingMovement = movement
+            } else {
+                log.error("The planned position is the same as the current position. Moving forward.")
+                pendingMovement = .moveForward
+            }
         } else {
             log.error("The snake cannot go backwards. The snake is probably dead.")
             pendingMovement = .moveForward
