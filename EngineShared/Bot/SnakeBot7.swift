@@ -31,6 +31,7 @@ public class SnakeBot7: SnakeBot {
         buffer.drawLevel(level)
         buffer.drawOptionalFood(foodPosition)
         buffer.drawPlayer(player)
+        // IDEA: drawPlayer(oppositePlayer), so that two-player mode can work. Currently single-player mode only.
 
         //buffer.dump(prefix: "start")
 
@@ -303,6 +304,7 @@ fileprivate class CellBuffer {
                 case .player1Head:
                     ()
                 case .player2:
+                    // IDEA: draw the opposite player, so it becomes a two-player bot. Currently it's single player only.
                     ()
                 case .player2Head:
                     ()
@@ -351,6 +353,8 @@ fileprivate class CellBuffer {
                 case .player2:
                     ()
                 case .player2Head:
+                    // IDEA: draw the opposite player, so it becomes a two-player bot. Currently it's single player only.
+                    // IDEA: determine the best choices available for the opposite player.
                     ()
                 }
             }
@@ -459,6 +463,8 @@ fileprivate class Explorer {
 
             let newDepthScore = step.depth * 3 + UInt(step.player1Positions.count)
             // IDEA: if this path leads to certain death, then this new+better score should be ignored.
+            // IDEA: determine the distance to the food.
+            // IDEA: determine risk of bumping into the opponent player.
             if newDepthScore > foundDepthScore {
                 foundDepthScore = newDepthScore
                 //log.debug("new depth: \(newDepthScore)")
