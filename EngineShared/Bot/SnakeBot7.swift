@@ -421,6 +421,7 @@ fileprivate class Explorer {
         var buffer: CellBuffer = step0.cellBuffer.copy()
         //log.debug("start")
         for i in 0..<3 {
+            _ = i
             if let lastStep: CellBufferStep = stack.last {
 
                 // pop from stack, when all choices have been explored
