@@ -316,7 +316,7 @@ fileprivate class Explorer {
         stack.append(step0)
 
         var currentDepth: UInt = 0
-        var buffer2: CellBuffer = step0.cellBuffer.copy()
+        var buffer: CellBuffer = step0.cellBuffer.copy()
         //log.debug("start")
         for i in 0..<3 {
             if let lastStep: CellBufferStep = stack.last {
@@ -329,21 +329,21 @@ fileprivate class Explorer {
                 }
 
                 currentDepth = lastStep.depth
-                buffer2 = lastStep.cellBuffer.copy()
+                buffer = lastStep.cellBuffer.copy()
                 let oldPosition: IntVec2 = lastStep.previousPlayer0HeadPosition
                 let newPosition: IntVec2 = lastStep.player0Positions[Int(lastStep.permutation)]
 
                 let dx: Int = Int(newPosition.x - oldPosition.x)
                 let dy: Int = Int(newPosition.y - oldPosition.y)
                 //log.debug("update direction for cell at: \(oldPosition)  dx: \(dx)  dy: \(dy)")
-                buffer2.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: oldPosition)
+                buffer.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: oldPosition)
                 //log.debug("insert head at: \(newPosition)")
-                buffer2.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: newPosition)
+                buffer.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: newPosition)
                 lastStep.increment()
 //                buffer2.dump(prefix: "step\(i+1)")
             }
 
-            let step: CellBufferStep = buffer2.step()
+            let step: CellBufferStep = buffer.step()
             step.shuffle()
             //log.debug("available positions: \(step.player0Positions)")
             //step.cellBuffer.dump(prefix: "step\(i+1)")
@@ -360,20 +360,21 @@ fileprivate class Explorer {
             }
 
             let newDepthScore = step.depth * 3 + UInt(step.player0Positions.count)
+            // IDEA: if this path leads to certain death, then this new+better score should be ignored.
             if newDepthScore > foundDepthScore {
                 foundDepthScore = newDepthScore
                 //log.debug("new depth: \(newDepthScore)")
             }
 
             do {
-                buffer2 = step.cellBuffer.copy()
+                buffer = step.cellBuffer.copy()
                 let oldPosition: IntVec2 = step.previousPlayer0HeadPosition
                 let dx: Int = Int(newPosition.x - oldPosition.x)
                 let dy: Int = Int(newPosition.y - oldPosition.y)
                 //log.debug("update direction for cell at: \(oldPosition)  dx: \(dx)  dy: \(dy)")
-                buffer2.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: oldPosition)
+                buffer.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: oldPosition)
                 //log.debug("insert head at: \(newPosition)")
-                buffer2.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: newPosition)
+                buffer.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: newPosition)
             }
             //log.debug("\(i) append")
         }
