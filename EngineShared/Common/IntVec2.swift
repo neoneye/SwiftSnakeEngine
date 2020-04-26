@@ -23,6 +23,11 @@ extension IntVec2 {
 		return IntVec2(x: self.x + dx, y: self.y + dy)
 	}
 
+    /// Returns a new vector with the result of `self - other`.
+    public func subtract(_ other: IntVec2) -> IntVec2 {
+        return IntVec2(x: self.x - other.x, y: self.y - other.y)
+    }
+
 	/// The vector with the value `(0, 0)`.
 	public static var zero: IntVec2 {
 		return IntVec2(x: 0, y: 0)
