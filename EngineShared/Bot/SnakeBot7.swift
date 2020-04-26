@@ -309,15 +309,14 @@ fileprivate class Explorer {
         self.step0 = step0
     }
 
-    /// Returns the max depth that the snake can go.
+    /// Returns the max depth score that the snake can go.
     func explore(player0Position: IntVec2, permutationIndex: UInt) -> Int {
-        var foundDepth: Int = -1
+        var foundDepthScore: Int = -1
 
         var stack = Array<CellBufferStep>()
         stack.append(step0)
 
         var currentDepth: UInt = 0
-        var currentRootPermutation: UInt = 0
         var buffer2: CellBuffer = step0.cellBuffer.copy()
         //log.debug("start")
         for i in 0..<2 {
@@ -341,17 +340,14 @@ fileprivate class Explorer {
                 buffer2.set(cell: Cell(cellType: .player0, dx: dx, dy: dy), at: oldPosition)
                 log.debug("insert head at: \(newPosition)")
                 buffer2.set(cell: Cell(cellType: .player0Head, dx: 0, dy: 0), at: newPosition)
-                if stack.count == 1 {
-                    //log.debug("currentRootPermutation = \(currentRootPermutation)")
-                    currentRootPermutation = lastStep.permutation
-                }
                 lastStep.increment()
-                buffer2.dump(prefix: "step\(i+1)")
+//                buffer2.dump(prefix: "step\(i+1)")
             }
 
             let step: CellBufferStep = buffer2.step()
             step.shuffle()
-            //step.cellBuffer.dump(prefix: "step\(i+1)")
+            log.debug("available positions: \(step.player0Positions)")
+            step.cellBuffer.dump(prefix: "step\(i+1)")
 
             step.depth = currentDepth + 1
             if step.player0Positions.count >= 2 {
@@ -360,16 +356,14 @@ fileprivate class Explorer {
 
             guard let newPosition: IntVec2 = step.player0Positions.first else {
                 // Reached a dead end. Back track, and explore another permutation.
-                //log.debug("\(i) reached a dead end")
+                log.debug("\(i) reached a dead end. Will backtrack.")
                 continue
             }
 
-            if Int(step.depth) > foundDepth {
-                foundDepth = Int(step.depth)
-                if let firstStep = stack.first {
-                    let count: Int = firstStep.player0Positions.count
-                    log.debug("found: \(foundDepth)  index \(currentRootPermutation) of \(count)")
-                }
+            let newDepthScore = Int(step.depth) * 3 + step.player0Positions.count
+            if newDepthScore > foundDepthScore {
+                foundDepthScore = newDepthScore
+                log.debug("new depth: \(newDepthScore)")
             }
 
             do {
@@ -385,7 +379,7 @@ fileprivate class Explorer {
             //log.debug("\(i) append")
         }
 
-        return foundDepth
+        return foundDepthScore
     }
 }
 
@@ -423,7 +417,7 @@ public class SnakeBot7: SnakeBot {
         buffer.dump(prefix: "start")
 
         let step0: CellBufferStep = buffer.step()
-        log.debug("available positions: \(step0.player0Positions)")
+        log.debug("initial available positions: \(step0.player0Positions)")
 
         guard !step0.player0Positions.isEmpty else {
             log.debug("The snake is already dead. There are nowhere for the snake to go!")
@@ -433,19 +427,19 @@ public class SnakeBot7: SnakeBot {
             )
         }
 
-        var foundDepth: Int = -1
+        var foundScore: Int = -1
         var foundPosition: IntVec2 = IntVec2.zero
 
         let explorer = Explorer(player: player, step0: step0)
         for (index, player0Position) in step0.player0Positions.enumerated() {
-            let depth: Int = explorer.explore(player0Position: player0Position, permutationIndex: UInt(index))
-            if depth > foundDepth {
-                foundDepth = depth
+            let score: Int = explorer.explore(player0Position: player0Position, permutationIndex: UInt(index))
+            if score > foundScore {
+                foundScore = score
                 foundPosition = player0Position
             }
         }
 
-        guard foundDepth >= 0 else {
+        guard foundScore >= 0 else {
             log.debug("Unable to find a path. The snake is dead. There are nowhere for the snake to go!")
             return SnakeBot7(
                 iteration: self.iteration + 1,
