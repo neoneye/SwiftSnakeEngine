@@ -329,10 +329,10 @@ fileprivate class CellBuffer {
                     ()
                 case .player1Head:
                     let newPositions0: [IntVec2] = [
-                        position.offsetBy(dx: Int32(0), dy: Int32(-1)),
-                        position.offsetBy(dx: Int32(0), dy: Int32(1)),
-                        position.offsetBy(dx: Int32(-1), dy: Int32(0)),
-                        position.offsetBy(dx: Int32(1), dy: Int32(0))
+                        position.offsetBy(dx:  0, dy: -1),
+                        position.offsetBy(dx:  0, dy:  1),
+                        position.offsetBy(dx: -1, dy:  0),
+                        position.offsetBy(dx:  1, dy:  0)
                     ]
                     let newPositions1: [IntVec2] = newPositions0.filter { (newPosition) in
                         var isPossibleMove: Bool = false
