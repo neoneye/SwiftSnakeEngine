@@ -2,7 +2,7 @@
 import XCTest
 @testable import EngineMac
 
-class T2002_SnakeBody: XCTestCase {
+class T2003_SnakeBody: XCTestCase {
     func test0_create() {
 		let state: SnakeBody = SnakeBody.create(
 			position: IntVec2(x: 10, y: 10),

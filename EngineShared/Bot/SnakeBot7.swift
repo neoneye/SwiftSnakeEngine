@@ -423,69 +423,21 @@ public class SnakeBot7: SnakeBot {
             //log.debug("\(i) append")
         }
 
-        var pickedPosition: IntVec2 = player.snakeBody.head.position
+        let pickedPosition: IntVec2
         if foundDepth >= 0 {
             pickedPosition = foundPosition
+        } else {
+            log.debug("The snake is dead. There are nowhere for the snake to go!")
+            pickedPosition = player.snakeBody.head.position
         }
 
-        let dx: Int32 = player.snakeBody.head.position.x - pickedPosition.x
-        let dy: Int32 = player.snakeBody.head.position.y - pickedPosition.y
-        var pendingMovement: SnakeBodyMovement = .moveForward
-        switch player.snakeBody.head.direction {
-        case .up:
-            if dy > 0 {
-                pendingMovement = .moveCW
-            }
-            if dy < 0 {
-                pendingMovement = .moveForward
-            }
-            if dx > 0 {
-                pendingMovement = .moveCCW
-            }
-            if dx < 0 {
-                pendingMovement = .moveCW
-            }
-        case .down:
-            if dy > 0 {
-                pendingMovement = .moveForward
-            }
-            if dy < 0 {
-                pendingMovement = .moveCW
-            }
-            if dx > 0 {
-                pendingMovement = .moveCW
-            }
-            if dx < 0 {
-                pendingMovement = .moveCCW
-            }
-        case .left:
-            if dy > 0 {
-                pendingMovement = .moveCCW
-            }
-            if dy < 0 {
-                pendingMovement = .moveCW
-            }
-            if dx > 0 {
-                pendingMovement = .moveForward
-            }
-            if dx < 0 {
-                pendingMovement = .moveCCW
-            }
-        case .right:
-            if dy > 0 {
-                pendingMovement = .moveCW
-            }
-            if dy < 0 {
-                pendingMovement = .moveCCW
-            }
-            if dx > 0 {
-                pendingMovement = .moveCCW
-            }
-            if dx < 0 {
-                pendingMovement = .moveForward
-            }
+        let pendingMovement: SnakeBodyMovement
+        if let movement: SnakeBodyMovement = player.snakeBody.head.moveToward(pickedPosition) {
+            pendingMovement = movement
+        } else {
+            log.error("The snake cannot go backwards. The snake is probably dead.")
+            pendingMovement = .moveForward
         }
-
 
         return SnakeBot7(
             iteration: self.iteration + 1,
