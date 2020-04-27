@@ -46,6 +46,10 @@ struct SnakeGameStateModelPlayer {
   var alive: Bool = false
 
   /// The array start is the snake head. The array tail is the snake tail.
+  /// Two adjacent positions have a distance of exactly 1 unit.
+  /// The positions does not overlap with the level walls.
+  /// The positions does not overlap the player itself (no duplicate positions).
+  /// The positions does not overlap with an opponent player.
   var bodyPositions: [SnakeGameStateModelPosition] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -76,8 +80,14 @@ struct SnakeGameStateModelLevel {
   init() {}
 }
 
-/// Full snapshot of the grid in a single time step.
-/// This snapshot can easily be check for collisions/cheating.
+/// Full snapshot of the grid for a single time step.
+///
+/// Benefit of a full snapshot. It can easily be checked for collisions/cheating.
+///
+/// Benefit of a full snapshot. Jump directly to a particular timestep.
+/// No need to replay 345 time steps, to recreate a particular moment in a game.
+///
+/// Drawback of a full snapshot: Lots of data stored.
 struct SnakeGameStateIngameModel {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -107,6 +117,16 @@ struct SnakeGameStateIngameModel {
   }
 
   /// While ingame it's uncertain which of the players becomes the winner or the looser.
+  /// This is determined after the game have ended.
+  ///
+  /// When one of the player dies, then assign "alive=false".
+  /// The player is never set to "nil".
+  ///
+  /// In a two player game, there are both player_a and player_b.
+  /// Both players are "non-nil" througout the entire game.
+  ///
+  /// In a single player game, there is either player_a or player_b.
+  /// The opponent player is "nil" thoughout the entire game.
   var optionalPlayerA: OneOf_OptionalPlayerA? {
     get {return _storage._optionalPlayerA}
     set {_uniqueStorage()._optionalPlayerA = newValue}
@@ -149,6 +169,16 @@ struct SnakeGameStateIngameModel {
   }
 
   /// While ingame it's uncertain which of the players becomes the winner or the looser.
+  /// This is determined after the game have ended.
+  ///
+  /// When one of the player dies, then assign "alive=false".
+  /// The player is never set to "nil".
+  ///
+  /// In a two player game, there are both player_a and player_b.
+  /// Both players are "non-nil" througout the entire game.
+  ///
+  /// In a single player game, there is either player_a or player_b.
+  /// The opponent player is "nil" thoughout the entire game.
   enum OneOf_OptionalPlayerA: Equatable {
     case playerA(SnakeGameStateModelPlayer)
 
