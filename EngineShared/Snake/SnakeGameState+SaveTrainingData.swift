@@ -52,42 +52,39 @@ extension SnakeLevel {
 }
 
 extension SnakeGameState {
-	private func toSnakeGameStateIngameModel() -> SnakeGameStateIngameModel {
-		let level: SnakeGameStateModelLevel = self.level.toSnakeGameStateModelLevel()
-
+	private func toSnakeGameStateStepModel() -> SnakeGameStateStepModel {
 		// Food
-		var optionalFoodPosition: SnakeGameStateIngameModel.OneOf_OptionalFoodPosition? = nil
+		var optionalFoodPosition: SnakeGameStateStepModel.OneOf_OptionalFoodPosition? = nil
 		if let position: UIntVec2 = self.foodPosition?.uintVec2() {
 			let foodPosition = SnakeGameStateModelPosition.with {
 				$0.x = position.x
 				$0.y = position.y
 			}
-			optionalFoodPosition = SnakeGameStateIngameModel.OneOf_OptionalFoodPosition.foodPosition(foodPosition)
+			optionalFoodPosition = SnakeGameStateStepModel.OneOf_OptionalFoodPosition.foodPosition(foodPosition)
 		}
 
 		// Player A
-		var optionalPlayerA: SnakeGameStateIngameModel.OneOf_OptionalPlayerA? = nil
+		var optionalPlayerA: SnakeGameStateStepModel.OneOf_OptionalPlayerA? = nil
 		do {
 			let player: SnakePlayer = self.player1
 			if player.isInstalled {
 				let model: SnakeGameStateModelPlayer = player.toSnakeGameStateModelPlayer()
-				optionalPlayerA = SnakeGameStateIngameModel.OneOf_OptionalPlayerA.playerA(model)
+				optionalPlayerA = SnakeGameStateStepModel.OneOf_OptionalPlayerA.playerA(model)
 			}
 		}
 
 		// Player B
-		var optionalPlayerB: SnakeGameStateIngameModel.OneOf_OptionalPlayerB? = nil
+		var optionalPlayerB: SnakeGameStateStepModel.OneOf_OptionalPlayerB? = nil
 		do {
 			let player: SnakePlayer = self.player2
 			if player.isInstalled {
 				let model: SnakeGameStateModelPlayer = player.toSnakeGameStateModelPlayer()
-				optionalPlayerB = SnakeGameStateIngameModel.OneOf_OptionalPlayerB.playerB(model)
+				optionalPlayerB = SnakeGameStateStepModel.OneOf_OptionalPlayerB.playerB(model)
 			}
 		}
 
 		// Model
-		let model = SnakeGameStateIngameModel.with {
-			$0.level = level
+		let model = SnakeGameStateStepModel.with {
 			$0.optionalFoodPosition = optionalFoodPosition
 			$0.optionalPlayerA = optionalPlayerA
 			$0.optionalPlayerB = optionalPlayerB
@@ -96,7 +93,12 @@ extension SnakeGameState {
 	}
 
 	public func saveTrainingData(trainingSessionUUID: UUID) -> URL {
-		let model: SnakeGameStateIngameModel = self.toSnakeGameStateIngameModel()
+        let levelModel: SnakeGameStateModelLevel = self.level.toSnakeGameStateModelLevel()
+        let stepModel: SnakeGameStateStepModel = self.toSnakeGameStateStepModel()
+        let model = SnakeGameStateIngameModel.with {
+            $0.level = levelModel
+            $0.step = stepModel
+        }
 		let stepIndex: String = "step\(self.numberOfSteps)"
 
 		// Serialize to binary protobuf format

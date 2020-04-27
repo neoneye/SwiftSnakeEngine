@@ -102,6 +102,27 @@ struct SnakeGameStateIngameModel {
   /// Clears the value of `level`. Subsequent reads from it will return its default value.
   mutating func clearLevel() {_uniqueStorage()._level = nil}
 
+  var step: SnakeGameStateStepModel {
+    get {return _storage._step ?? SnakeGameStateStepModel()}
+    set {_uniqueStorage()._step = newValue}
+  }
+  /// Returns true if `step` has been explicitly set.
+  var hasStep: Bool {return _storage._step != nil}
+  /// Clears the value of `step`. Subsequent reads from it will return its default value.
+  mutating func clearStep() {_uniqueStorage()._step = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct SnakeGameStateStepModel {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
   /// There may be food or there may be no food.
   var optionalFoodPosition: OneOf_OptionalFoodPosition? {
     get {return _storage._optionalFoodPosition}
@@ -160,7 +181,7 @@ struct SnakeGameStateIngameModel {
     case foodPosition(SnakeGameStateModelPosition)
 
   #if !swift(>=4.1)
-    static func ==(lhs: SnakeGameStateIngameModel.OneOf_OptionalFoodPosition, rhs: SnakeGameStateIngameModel.OneOf_OptionalFoodPosition) -> Bool {
+    static func ==(lhs: SnakeGameStateStepModel.OneOf_OptionalFoodPosition, rhs: SnakeGameStateStepModel.OneOf_OptionalFoodPosition) -> Bool {
       switch (lhs, rhs) {
       case (.foodPosition(let l), .foodPosition(let r)): return l == r
       }
@@ -183,7 +204,7 @@ struct SnakeGameStateIngameModel {
     case playerA(SnakeGameStateModelPlayer)
 
   #if !swift(>=4.1)
-    static func ==(lhs: SnakeGameStateIngameModel.OneOf_OptionalPlayerA, rhs: SnakeGameStateIngameModel.OneOf_OptionalPlayerA) -> Bool {
+    static func ==(lhs: SnakeGameStateStepModel.OneOf_OptionalPlayerA, rhs: SnakeGameStateStepModel.OneOf_OptionalPlayerA) -> Bool {
       switch (lhs, rhs) {
       case (.playerA(let l), .playerA(let r)): return l == r
       }
@@ -195,7 +216,7 @@ struct SnakeGameStateIngameModel {
     case playerB(SnakeGameStateModelPlayer)
 
   #if !swift(>=4.1)
-    static func ==(lhs: SnakeGameStateIngameModel.OneOf_OptionalPlayerB, rhs: SnakeGameStateIngameModel.OneOf_OptionalPlayerB) -> Bool {
+    static func ==(lhs: SnakeGameStateStepModel.OneOf_OptionalPlayerB, rhs: SnakeGameStateStepModel.OneOf_OptionalPlayerB) -> Bool {
       switch (lhs, rhs) {
       case (.playerB(let l), .playerB(let r)): return l == r
       }
@@ -433,16 +454,12 @@ extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._Messa
   static let protoMessageName: String = "SnakeGameStateIngameModel"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "level"),
-    2: .standard(proto: "food_position"),
-    3: .standard(proto: "player_a"),
-    4: .standard(proto: "player_b"),
+    2: .same(proto: "step"),
   ]
 
   fileprivate class _StorageClass {
     var _level: SnakeGameStateModelLevel? = nil
-    var _optionalFoodPosition: SnakeGameStateIngameModel.OneOf_OptionalFoodPosition?
-    var _optionalPlayerA: SnakeGameStateIngameModel.OneOf_OptionalPlayerA?
-    var _optionalPlayerB: SnakeGameStateIngameModel.OneOf_OptionalPlayerB?
+    var _step: SnakeGameStateStepModel? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -450,6 +467,76 @@ extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._Messa
 
     init(copying source: _StorageClass) {
       _level = source._level
+      _step = source._step
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._level)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._step)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._level {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._step {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SnakeGameStateIngameModel, rhs: SnakeGameStateIngameModel) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._level != rhs_storage._level {return false}
+        if _storage._step != rhs_storage._step {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SnakeGameStateStepModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "SnakeGameStateStepModel"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "food_position"),
+    2: .standard(proto: "player_a"),
+    3: .standard(proto: "player_b"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _optionalFoodPosition: SnakeGameStateStepModel.OneOf_OptionalFoodPosition?
+    var _optionalPlayerA: SnakeGameStateStepModel.OneOf_OptionalPlayerA?
+    var _optionalPlayerB: SnakeGameStateStepModel.OneOf_OptionalPlayerB?
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
       _optionalFoodPosition = source._optionalFoodPosition
       _optionalPlayerA = source._optionalPlayerA
       _optionalPlayerB = source._optionalPlayerB
@@ -468,8 +555,7 @@ extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._Messa
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._level)
-        case 2:
+        case 1:
           var v: SnakeGameStateModelPosition?
           if let current = _storage._optionalFoodPosition {
             try decoder.handleConflictingOneOf()
@@ -477,7 +563,7 @@ extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._Messa
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._optionalFoodPosition = .foodPosition(v)}
-        case 3:
+        case 2:
           var v: SnakeGameStateModelPlayer?
           if let current = _storage._optionalPlayerA {
             try decoder.handleConflictingOneOf()
@@ -485,7 +571,7 @@ extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._Messa
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._optionalPlayerA = .playerA(v)}
-        case 4:
+        case 3:
           var v: SnakeGameStateModelPlayer?
           if let current = _storage._optionalPlayerB {
             try decoder.handleConflictingOneOf()
@@ -501,28 +587,24 @@ extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._Messa
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._level {
+      if case .foodPosition(let v)? = _storage._optionalFoodPosition {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
-      if case .foodPosition(let v)? = _storage._optionalFoodPosition {
+      if case .playerA(let v)? = _storage._optionalPlayerA {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
       }
-      if case .playerA(let v)? = _storage._optionalPlayerA {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      }
       if case .playerB(let v)? = _storage._optionalPlayerB {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SnakeGameStateIngameModel, rhs: SnakeGameStateIngameModel) -> Bool {
+  static func ==(lhs: SnakeGameStateStepModel, rhs: SnakeGameStateStepModel) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._level != rhs_storage._level {return false}
         if _storage._optionalFoodPosition != rhs_storage._optionalFoodPosition {return false}
         if _storage._optionalPlayerA != rhs_storage._optionalPlayerA {return false}
         if _storage._optionalPlayerB != rhs_storage._optionalPlayerB {return false}

@@ -44,10 +44,13 @@ message SnakeGameStateModelLevel {
 // Drawback of a full snapshot: Lots of data stored.
 message SnakeGameStateIngameModel {
 	SnakeGameStateModelLevel level = 1;
+    SnakeGameStateStepModel step = 2;
+}
 
+message SnakeGameStateStepModel {
 	// There may be food or there may be no food.
 	oneof optional_food_position {
-		SnakeGameStateModelPosition food_position = 2;
+		SnakeGameStateModelPosition food_position = 1;
 	}
 
 	// While ingame it's uncertain which of the players becomes the winner or the looser.
@@ -62,10 +65,10 @@ message SnakeGameStateIngameModel {
     // In a single player game, there is either player_a or player_b.
     // The opponent player is "nil" thoughout the entire game.
 	oneof optional_player_a {
-		SnakeGameStateModelPlayer player_a = 3;
+		SnakeGameStateModelPlayer player_a = 2;
 	}
 	oneof optional_player_b {
-		SnakeGameStateModelPlayer player_b = 4;
+		SnakeGameStateModelPlayer player_b = 3;
 	}
 }
 
