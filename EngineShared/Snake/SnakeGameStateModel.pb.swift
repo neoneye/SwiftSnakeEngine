@@ -150,10 +150,15 @@ struct SnakeGameStateModelLevel {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// The level has a size: width * height.
-  var levelWidth: UInt32 = 0
+  /// Reference to the level file, stored in CSV file format.
+  /// PROBLEM: The level file can be renamed, so it's fragile to refer to its filename.
+  /// SOLUTION: Use a version4 UUID, so it's possible finding the original level file.
+  var uuid: String = String()
 
-  var levelHeight: UInt32 = 0
+  /// The level has a size: width * height.
+  var width: UInt32 = 0
+
+  var height: UInt32 = 0
 
   /// Places where the snake can go.
   var emptyPositions: [SnakeGameStateModelPosition] = []
@@ -163,6 +168,8 @@ struct SnakeGameStateModelLevel {
   init() {}
 }
 
+/// Full snapshot of the grid in a single time step.
+/// This snapshot can easily be check for collisions/cheating.
 struct SnakeGameStateIngameModel {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -464,38 +471,44 @@ extension SnakeGameStateModelPlayer.Action: SwiftProtobuf._ProtoNameProviding {
 extension SnakeGameStateModelLevel: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = "SnakeGameStateModelLevel"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "level_width"),
-    2: .standard(proto: "level_height"),
-    3: .standard(proto: "empty_positions"),
+    1: .same(proto: "uuid"),
+    2: .same(proto: "width"),
+    3: .same(proto: "height"),
+    4: .standard(proto: "empty_positions"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularUInt32Field(value: &self.levelWidth)
-      case 2: try decoder.decodeSingularUInt32Field(value: &self.levelHeight)
-      case 3: try decoder.decodeRepeatedMessageField(value: &self.emptyPositions)
+      case 1: try decoder.decodeSingularStringField(value: &self.uuid)
+      case 2: try decoder.decodeSingularUInt32Field(value: &self.width)
+      case 3: try decoder.decodeSingularUInt32Field(value: &self.height)
+      case 4: try decoder.decodeRepeatedMessageField(value: &self.emptyPositions)
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.levelWidth != 0 {
-      try visitor.visitSingularUInt32Field(value: self.levelWidth, fieldNumber: 1)
+    if !self.uuid.isEmpty {
+      try visitor.visitSingularStringField(value: self.uuid, fieldNumber: 1)
     }
-    if self.levelHeight != 0 {
-      try visitor.visitSingularUInt32Field(value: self.levelHeight, fieldNumber: 2)
+    if self.width != 0 {
+      try visitor.visitSingularUInt32Field(value: self.width, fieldNumber: 2)
+    }
+    if self.height != 0 {
+      try visitor.visitSingularUInt32Field(value: self.height, fieldNumber: 3)
     }
     if !self.emptyPositions.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.emptyPositions, fieldNumber: 3)
+      try visitor.visitRepeatedMessageField(value: self.emptyPositions, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SnakeGameStateModelLevel, rhs: SnakeGameStateModelLevel) -> Bool {
-    if lhs.levelWidth != rhs.levelWidth {return false}
-    if lhs.levelHeight != rhs.levelHeight {return false}
+    if lhs.uuid != rhs.uuid {return false}
+    if lhs.width != rhs.width {return false}
+    if lhs.height != rhs.height {return false}
     if lhs.emptyPositions != rhs.emptyPositions {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

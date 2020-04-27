@@ -68,8 +68,9 @@ extension SnakeLevel {
 
 		// Overall level info
 		let model = SnakeGameStateModelLevel.with {
-			$0.levelWidth = self.size.x
-			$0.levelHeight = self.size.y
+            $0.uuid = self.id.uuidString
+			$0.width = self.size.x
+			$0.height = self.size.y
 			$0.emptyPositions = emptyPositions
 		}
 		return model

@@ -29,14 +29,21 @@ message SnakeGameStateModelPlayer {
 }
 
 message SnakeGameStateModelLevel {
+    // Reference to the level file, stored in CSV file format.
+    // PROBLEM: The level file can be renamed, so it's fragile to refer to its filename.
+    // SOLUTION: Use a version4 UUID, so it's possible finding the original level file.
+    string uuid = 1;
+
 	// The level has a size: width * height.
-	uint32 level_width = 1;
-	uint32 level_height = 2;
+	uint32 width = 2;
+	uint32 height = 3;
 
 	// Places where the snake can go.
-	repeated SnakeGameStateModelPosition empty_positions = 3;
+	repeated SnakeGameStateModelPosition empty_positions = 4;
 }
 
+// Full snapshot of the grid in a single time step.
+// This snapshot can easily be check for collisions/cheating.
 message SnakeGameStateIngameModel {
 	SnakeGameStateModelLevel level = 1;
 
