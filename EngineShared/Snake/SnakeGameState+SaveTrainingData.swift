@@ -141,7 +141,7 @@ public class PostProcessTrainingData {
 	}
 
 	private func saveResult() {
-		let model = SnakeGameStateWinnerLooserModel.with {
+		let model = SnakeGameResultModel.with {
 			$0.level = self.sharedLevel
 			// IDEA: assign $0.steps with the accumulated SnakeGameStateWinnerLooserModelStep's
 		}
