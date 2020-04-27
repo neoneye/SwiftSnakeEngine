@@ -35,6 +35,15 @@ extension SnakeLevel {
 		}
 		let csvChecksum: String = csvData.sha1
 
+        guard let uuidString: String = csv.header.first else {
+            log.error("Expected level csv header to start with an UUID string. url: \(csvUrl)")
+            fatalError()
+        }
+        guard let uuid = UUID(uuidString: uuidString) else {
+            log.error("Expected level csv header to start with an valid UUID. url: \(csvUrl)")
+            fatalError()
+        }
+
 		let cacheUrl: URL = csvUrl.deletingPathExtension().appendingPathExtension("cache")
 		var cacheModel: SnakeLevelCacheModel?
 		if let cacheData: Data = try? Data(contentsOf: cacheUrl) {
@@ -63,7 +72,7 @@ extension SnakeLevel {
 			log.error("Expected level width to be 3 or greater")
 			fatalError()
 		}
-		let builder = SnakeLevelBuilder(size: UIntVec2(x: width, y: height))
+        let builder = SnakeLevelBuilder(id: uuid, size: UIntVec2(x: width, y: height))
 
 		func modifyCell(_ token: String, at position: UIntVec2) {
 			guard !token.isEmpty else {

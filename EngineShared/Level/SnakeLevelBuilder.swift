@@ -2,6 +2,7 @@
 import Foundation
 
 public class SnakeLevelBuilder {
+    public let id: UUID
 	private let cells: Array2<SnakeLevelCell>
 	internal let clusters: Array2<SnakeLevel_ClusterId>
 	public let size: UIntVec2
@@ -14,7 +15,8 @@ public class SnakeLevelBuilder {
 	public var player2_initialHeadDirection: SnakeHeadDirection = .right
 	public var precomputed_distanceBetweenClusters: [SnakeLevel_ClusterPair: Int]?
 
-	public init(size: UIntVec2) {
+	public init(id: UUID, size: UIntVec2) {
+        self.id = id
 		self.cells = Array2<SnakeLevelCell>(size: size, defaultValue: SnakeLevelCell.empty)
 		self.clusters = Array2<SnakeLevel_ClusterId>(size: size, defaultValue: 0)
 		self.size = size
@@ -33,6 +35,7 @@ public class SnakeLevelBuilder {
 		}
 
 		return SnakeLevel(
+            id: self.id,
 			cells: self.cells,
 			clusters: self.clusters,
 			distanceBetweenClusters: distanceBetweenClusters,
