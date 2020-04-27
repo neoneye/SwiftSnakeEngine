@@ -7,6 +7,7 @@ public enum SnakeLevelCell {
 }
 
 public class SnakeLevel {
+    public let id: UUID
 	private let cells: Array2<SnakeLevelCell>
 	internal let clusters: Array2<SnakeLevel_ClusterId>
 	internal let distanceBetweenClusters: [SnakeLevel_ClusterPair: Int]
@@ -22,12 +23,14 @@ public class SnakeLevel {
 	public let emptyPositionSet: Set<IntVec2>
 
 	public class func empty() -> SnakeLevel {
-		let builder = SnakeLevelBuilder(size: UIntVec2.zero)
+        let uuid = UUID(uuidString: "d5a1eea4-5b9c-4f77-b432-503a169ebfaf")!
+        let builder = SnakeLevelBuilder(id: uuid, size: UIntVec2.zero)
 		return builder.level()
 	}
 
 	/// A `SnakeLevel` can only be create via the `SnakeLevelBuilder` class.
 	internal init(
+        id: UUID,
 		cells: Array2<SnakeLevelCell>,
 		clusters: Array2<SnakeLevel_ClusterId>,
 		distanceBetweenClusters: [SnakeLevel_ClusterPair: Int],
@@ -42,6 +45,7 @@ public class SnakeLevel {
 		emptyPositionArray: [IntVec2],
 		emptyPositionSet: Set<IntVec2>
 	) {
+        self.id = id
 		self.cells = cells
 		self.clusters = clusters
 		self.distanceBetweenClusters = distanceBetweenClusters

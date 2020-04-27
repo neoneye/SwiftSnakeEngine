@@ -6,7 +6,7 @@ class T3000_SnakeLevel: XCTestCase {
 
     func test0_adjacentClusterPairs() {
 		do {
-			let b = SnakeLevelBuilder(size: UIntVec2(x: 3, y: 1))
+            let b = SnakeLevelBuilder(id: UUID(), size: UIntVec2(x: 3, y: 1))
 			b.assignCluster(100, at: UIntVec2(x: 0, y: 0))
 			b.installWall(at: UIntVec2(x: 1, y: 0))
 			b.assignCluster(102, at: UIntVec2(x: 2, y: 0))
@@ -14,7 +14,7 @@ class T3000_SnakeLevel: XCTestCase {
 			XCTAssertTrue(pairs.isEmpty)
 		}
 		do {
-			let b = SnakeLevelBuilder(size: UIntVec2(x: 6, y: 1))
+			let b = SnakeLevelBuilder(id: UUID(), size: UIntVec2(x: 6, y: 1))
 			b.assignCluster(100, at: UIntVec2(x: 0, y: 0))
 			b.assignCluster(100, at: UIntVec2(x: 1, y: 0))
 			b.assignCluster(101, at: UIntVec2(x: 2, y: 0))
@@ -27,7 +27,7 @@ class T3000_SnakeLevel: XCTestCase {
 			XCTAssertTrue(pairs.contains(SnakeLevel_ClusterPair.create(101, 102)))
 		}
 		do {
-			let b = SnakeLevelBuilder(size: UIntVec2(x: 2, y: 2))
+			let b = SnakeLevelBuilder(id: UUID(), size: UIntVec2(x: 2, y: 2))
 			b.assignCluster(100, at: UIntVec2(x: 0, y: 0))
 			b.assignCluster(101, at: UIntVec2(x: 1, y: 0))
 			b.assignCluster(111, at: UIntVec2(x: 0, y: 1))
