@@ -123,6 +123,8 @@ extension SnakeGameState {
 public class PostProcessTrainingData {
 	private let trainingSessionUUID: UUID
 	private let sharedLevel: SnakeGameStateModelLevel
+    private var stepArray: [SnakeGameStateStepModel] = []
+
 	private init(trainingSessionUUID: UUID, sharedLevel: SnakeGameStateModelLevel) {
 		self.trainingSessionUUID = trainingSessionUUID
 		self.sharedLevel = sharedLevel
@@ -137,13 +139,25 @@ public class PostProcessTrainingData {
 			log.error("Unable to load file at url: '\(url)'. \(error)")
 			return
 		}
-		// IDEA: convert into a SnakeGameStateWinnerLooserModelStep
+        guard model.hasLevel else {
+            log.error("Expected the file to have a reference to level, but got none. '\(url)'")
+            return
+        }
+        guard model.hasStep else {
+            log.error("Expected the file to 'step' instance, but got nil. url: '\(url)'")
+            return
+        }
+        guard model.level.isEqualTo(message: self.sharedLevel) else {
+            log.error("Inconsistent level info. Expected all the files in a session to refer to the same level. '\(url)'")
+            return
+        }
+        stepArray.append(model.step)
 	}
 
 	private func saveResult() {
 		let model = SnakeGameResultModel.with {
 			$0.level = self.sharedLevel
-			// IDEA: assign $0.steps with the accumulated SnakeGameStateWinnerLooserModelStep's
+            $0.steps = self.stepArray
 		}
 
 		// Serialize to binary protobuf format
@@ -164,12 +178,6 @@ public class PostProcessTrainingData {
 	}
 
 	/// Post processing of all the generated files by a training session.
-	///
-	/// After the entire game have played out, then swap player A and player B in such way that:
-	///
-	/// - Player A is the winner.
-	///
-	/// - Player B is the looser, if there is a player B.
 	///
 	/// The level data is only stored once. Greatly reducing the size of the training data.
 	public class func process(trainingSessionUUID: UUID, urls: [URL]) {
