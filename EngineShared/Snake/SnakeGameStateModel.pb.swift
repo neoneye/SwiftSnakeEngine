@@ -42,108 +42,16 @@ struct SnakeGameStateModelPlayer {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var headDirection: SnakeGameStateModelPlayer.HeadDirection = .up
+  /// Is the snake alive/dead.
+  var alive: Bool = false
 
+  /// The array start is the snake head. The array tail is the snake tail.
   var bodyPositions: [SnakeGameStateModelPosition] = []
-
-  var action: SnakeGameStateModelPlayer.Action = .die
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  enum HeadDirection: SwiftProtobuf.Enum {
-    typealias RawValue = Int
-    case up // = 0
-    case left // = 1
-    case right // = 2
-    case down // = 3
-    case UNRECOGNIZED(Int)
-
-    init() {
-      self = .up
-    }
-
-    init?(rawValue: Int) {
-      switch rawValue {
-      case 0: self = .up
-      case 1: self = .left
-      case 2: self = .right
-      case 3: self = .down
-      default: self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    var rawValue: Int {
-      switch self {
-      case .up: return 0
-      case .left: return 1
-      case .right: return 2
-      case .down: return 3
-      case .UNRECOGNIZED(let i): return i
-      }
-    }
-
-  }
-
-  enum Action: SwiftProtobuf.Enum {
-    typealias RawValue = Int
-    case die // = 0
-    case moveForward // = 1
-    case moveCw // = 2
-    case moveCcw // = 3
-    case UNRECOGNIZED(Int)
-
-    init() {
-      self = .die
-    }
-
-    init?(rawValue: Int) {
-      switch rawValue {
-      case 0: self = .die
-      case 1: self = .moveForward
-      case 2: self = .moveCw
-      case 3: self = .moveCcw
-      default: self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    var rawValue: Int {
-      switch self {
-      case .die: return 0
-      case .moveForward: return 1
-      case .moveCw: return 2
-      case .moveCcw: return 3
-      case .UNRECOGNIZED(let i): return i
-      }
-    }
-
-  }
-
   init() {}
 }
-
-#if swift(>=4.2)
-
-extension SnakeGameStateModelPlayer.HeadDirection: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [SnakeGameStateModelPlayer.HeadDirection] = [
-    .up,
-    .left,
-    .right,
-    .down,
-  ]
-}
-
-extension SnakeGameStateModelPlayer.Action: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [SnakeGameStateModelPlayer.Action] = [
-    .die,
-    .moveForward,
-    .moveCw,
-    .moveCcw,
-  ]
-}
-
-#endif  // swift(>=4.2)
 
 struct SnakeGameStateModelLevel {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -412,60 +320,36 @@ extension SnakeGameStateModelPosition: SwiftProtobuf.Message, SwiftProtobuf._Mes
 extension SnakeGameStateModelPlayer: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = "SnakeGameStateModelPlayer"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "head_direction"),
+    1: .same(proto: "alive"),
     2: .standard(proto: "body_positions"),
-    3: .same(proto: "action"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.headDirection)
+      case 1: try decoder.decodeSingularBoolField(value: &self.alive)
       case 2: try decoder.decodeRepeatedMessageField(value: &self.bodyPositions)
-      case 3: try decoder.decodeSingularEnumField(value: &self.action)
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.headDirection != .up {
-      try visitor.visitSingularEnumField(value: self.headDirection, fieldNumber: 1)
+    if self.alive != false {
+      try visitor.visitSingularBoolField(value: self.alive, fieldNumber: 1)
     }
     if !self.bodyPositions.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.bodyPositions, fieldNumber: 2)
-    }
-    if self.action != .die {
-      try visitor.visitSingularEnumField(value: self.action, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SnakeGameStateModelPlayer, rhs: SnakeGameStateModelPlayer) -> Bool {
-    if lhs.headDirection != rhs.headDirection {return false}
+    if lhs.alive != rhs.alive {return false}
     if lhs.bodyPositions != rhs.bodyPositions {return false}
-    if lhs.action != rhs.action {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
-}
-
-extension SnakeGameStateModelPlayer.HeadDirection: SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "UP"),
-    1: .same(proto: "LEFT"),
-    2: .same(proto: "RIGHT"),
-    3: .same(proto: "DOWN"),
-  ]
-}
-
-extension SnakeGameStateModelPlayer.Action: SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "DIE"),
-    1: .same(proto: "MOVE_FORWARD"),
-    2: .same(proto: "MOVE_CW"),
-    3: .same(proto: "MOVE_CCW"),
-  ]
 }
 
 extension SnakeGameStateModelLevel: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

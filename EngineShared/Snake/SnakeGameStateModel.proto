@@ -9,23 +9,11 @@ message SnakeGameStateModelPosition {
 }
 
 message SnakeGameStateModelPlayer {
-	enum HeadDirection {
-		UP = 0;
-		LEFT = 1;
-		RIGHT = 2;
-		DOWN = 3;
-	}
-	HeadDirection head_direction = 1;
+    // Is the snake alive/dead.
+    bool alive = 1;
 
+    // The array start is the snake head. The array tail is the snake tail.
 	repeated SnakeGameStateModelPosition body_positions = 2;
-
-	enum Action {
-		DIE = 0;
-		MOVE_FORWARD = 1;
-		MOVE_CW = 2;
-		MOVE_CCW = 3;
-	}
-	Action action = 3;
 }
 
 message SnakeGameStateModelLevel {

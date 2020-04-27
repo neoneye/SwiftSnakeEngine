@@ -4,19 +4,6 @@ import Foundation
 extension SnakePlayer {
 	fileprivate func toSnakeGameStateModelPlayer() -> SnakeGameStateModelPlayer {
 
-		// Direction of the snake head
-		let headDirection: SnakeGameStateModelPlayer.HeadDirection
-		switch self.snakeBody.head.direction {
-		case .up:
-			headDirection = .up
-		case .left:
-			headDirection = .left
-		case .right:
-			headDirection = .right
-		case .down:
-			headDirection = .down
-		}
-
 		// Positions of all the snake body parts
 		var bodyPositions = [SnakeGameStateModelPosition]()
 		for signedPosition: IntVec2 in self.snakeBody.positionArray() {
@@ -30,22 +17,9 @@ extension SnakePlayer {
 			bodyPositions.append(position)
 		}
 
-		let action: SnakeGameStateModelPlayer.Action
-		switch self.pendingMovement {
-		case .dontMove:
-			action = .die
-		case .moveForward:
-			action = .moveForward
-		case .moveCW:
-			action = .moveCw
-		case .moveCCW:
-			action = .moveCcw
-		}
-
-		let model = SnakeGameStateModelPlayer.with {
-			$0.headDirection = headDirection
+        let model = SnakeGameStateModelPlayer.with {
+            $0.alive = self.isAlive
 			$0.bodyPositions = bodyPositions
-			$0.action = action
 		}
 		return model
 	}
