@@ -313,10 +313,10 @@ class IngameScene: SKScene {
         }
 
         if dx > 0 {
-            userInputForPlayer1(.arrowLeft)
+            userInputForPlayer1(.left)
         }
         if dx < 0 {
-            userInputForPlayer1(.arrowRight)
+            userInputForPlayer1(.right)
         }
 
         touchUp_snapIntoPlace()
@@ -333,10 +333,10 @@ class IngameScene: SKScene {
         }
 
         if dy > 0 {
-            userInputForPlayer1(.arrowDown)
+            userInputForPlayer1(.down)
         }
         if dy < 0 {
-            userInputForPlayer1(.arrowUp)
+            userInputForPlayer1(.up)
         }
         touchUp_snapIntoPlace()
     }
@@ -415,13 +415,13 @@ class IngameScene: SKScene {
 		}
         switch event.keyCodeEnum {
 		case .letterW:
-			userInputForPlayer2(.arrowUp)
+			userInputForPlayer2(.up)
 		case .letterA:
-			userInputForPlayer2(.arrowLeft)
+			userInputForPlayer2(.left)
 		case .letterS:
-			userInputForPlayer2(.arrowDown)
+			userInputForPlayer2(.down)
 		case .letterD:
-			userInputForPlayer2(.arrowRight)
+			userInputForPlayer2(.right)
 		case .letterZ:
 			schedule_stepBackwardOnce()
 		case .letterT:
@@ -446,13 +446,13 @@ class IngameScene: SKScene {
 		case .escape:
             NSApp.terminate(self)
 		case .arrowUp:
-			userInputForPlayer1(.arrowUp)
+			userInputForPlayer1(.up)
 		case .arrowLeft:
-			userInputForPlayer1(.arrowLeft)
+			userInputForPlayer1(.left)
 		case .arrowRight:
-			userInputForPlayer1(.arrowRight)
+			userInputForPlayer1(.right)
 		case .arrowDown:
-			userInputForPlayer1(.arrowDown)
+			userInputForPlayer1(.down)
         default:
             log.debug("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
         }
@@ -469,35 +469,48 @@ class IngameScene: SKScene {
         self.pendingUpdateAction = .stepForwardContinuously
     }
 
-	func userInputForPlayer1(_ userInput: SnakeUserInput) {
-		guard gameState.player1.isAlive && gameState.player1.role == .human else {
-			return
-		}
-		let movement: SnakeBodyMovement = userInput.newMovement(oldDirection: gameState.player1.snakeBody.head.direction)
-        guard movement != SnakeBodyMovement.dontMove else {
-            userInput_stepBackwardOnce_ifSingleHuman()
-            return
-        }
-		let newGameState: SnakeGameState = gameState.updatePendingMovementForPlayer1(movement)
-		self.gameState = newGameState
-		self.isPaused = false
-		self.pendingUpdateAction = .stepForwardContinuously
-	}
+    func userInputForPlayer1(_ desiredHeadDirection: SnakeHeadDirection) {
+        userInputForPlayer(player: gameState.player1, desiredHeadDirection: desiredHeadDirection)
+    }
 
-	func userInputForPlayer2(_ userInput: SnakeUserInput) {
-		guard gameState.player2.isAlive && gameState.player2.role == .human else {
-			return
-		}
-		let movement: SnakeBodyMovement = userInput.newMovement(oldDirection: gameState.player2.snakeBody.head.direction)
+    func userInputForPlayer2(_ desiredHeadDirection: SnakeHeadDirection) {
+        userInputForPlayer(player: gameState.player2, desiredHeadDirection: desiredHeadDirection)
+    }
+
+    private func userInputForPlayer(player: SnakePlayer, desiredHeadDirection: SnakeHeadDirection) {
+        guard player.isAlive && player.role == .human else {
+            return
+        }
+        let dx: Int32
+        let dy: Int32
+        switch desiredHeadDirection {
+        case .up:
+            (dx, dy) = (0, 1)
+        case .down:
+            (dx, dy) = (0, -1)
+        case .left:
+            (dx, dy) = (-1, 0)
+        case .right:
+            (dx, dy) = (1, 0)
+        }
+        let head: SnakeHead = player.snakeBody.head
+        let newPosition: IntVec2 = head.position.offsetBy(dx: dx, dy: dy)
+        let movement: SnakeBodyMovement = head.moveToward(newPosition) ?? SnakeBodyMovement.dontMove
         guard movement != SnakeBodyMovement.dontMove else {
             userInput_stepBackwardOnce_ifSingleHuman()
             return
         }
-		let newGameState: SnakeGameState = gameState.updatePendingMovementForPlayer2(movement)
-		self.gameState = newGameState
-		self.isPaused = false
-		self.pendingUpdateAction = .stepForwardContinuously
-	}
+        let newGameState: SnakeGameState
+        switch player.id {
+        case .player1:
+            newGameState = gameState.updatePendingMovementForPlayer1(movement)
+        case .player2:
+            newGameState = gameState.updatePendingMovementForPlayer2(movement)
+        }
+        self.gameState = newGameState
+        self.isPaused = false
+        self.pendingUpdateAction = .stepForwardContinuously
+    }
 
     func userInput_stepBackwardOnce_ifSingleHuman() {
         var numberOfHumans: UInt = 0
