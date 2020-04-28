@@ -4,9 +4,15 @@ import Foundation
 extension SnakePlayer {
 	fileprivate func toSnakeGameStateModelPlayer() -> SnakeGameStateModelPlayer {
 
+        // Flip the position array, so that:
+        // The start of the array correspond to the snake head position.
+        // The end of the array correspond to the snake tail position.
+        let headLast_positionArray: [IntVec2] = self.snakeBody.positionArray()
+        let headFirst_positionArray: [IntVec2] = headLast_positionArray.reversed()
+
 		// Positions of all the snake body parts
 		var bodyPositions = [SnakeGameStateModelPosition]()
-		for signedPosition: IntVec2 in self.snakeBody.positionArray() {
+		for signedPosition: IntVec2 in headFirst_positionArray {
 			guard let unsignedPosition: UIntVec2 = signedPosition.uintVec2() else {
 				fatalError("Encountered a negative position. \(signedPosition). The snake game is supposed to always use unsigned coordinates.")
 			}

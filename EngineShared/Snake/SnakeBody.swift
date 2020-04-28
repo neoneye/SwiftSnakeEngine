@@ -77,6 +77,11 @@ public struct SnakeBody: Hashable {
 		return Set<IntVec2>(bodyAndTailWithoutHead_positionArray())
 	}
 
+    /// A reversed array with all the positions of the snake.
+    ///
+    /// The first array element correspond to the tail of the snake.
+    ///
+    /// The last array element correspond to the head of the snake.
 	public func positionArray() -> [IntVec2] {
 		return fifo.array.map { $0.position }
 	}
