@@ -1,7 +1,31 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-public class SnakeGameExecuter {
+public protocol SnakeGameExecuter: class {
+    func reset()
+    func undo()
+    func executeStep(_ currentGameState: SnakeGameState) -> SnakeGameState
+    func computeNextBotMovement(_ oldGameState: SnakeGameState) -> SnakeGameState
+}
+
+public class SnakeGameExecuterReplay: SnakeGameExecuter {
+    public func reset() {
+    }
+
+    public func undo() {
+    }
+
+    public func executeStep(_ currentGameState: SnakeGameState) -> SnakeGameState {
+        return currentGameState
+    }
+
+    public func computeNextBotMovement(_ oldGameState: SnakeGameState) -> SnakeGameState {
+        return oldGameState
+    }
+}
+
+
+public class SnakeGameExecuterInteractive: SnakeGameExecuter {
     private var stuckSnakeDetector1 = StuckSnakeDetector(humanReadableName: "Player1")
     private var stuckSnakeDetector2 = StuckSnakeDetector(humanReadableName: "Player2")
 

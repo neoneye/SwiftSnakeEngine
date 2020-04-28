@@ -3,7 +3,7 @@ import Foundation
 
 public class SnakeGameHeadless {
 	private let foodGenerator = SnakeFoodGenerator()
-    private let gameExecuter = SnakeGameExecuter()
+    private let gameExecuter: SnakeGameExecuter = SnakeGameExecuterInteractive()
 
 	public init() {}
 
