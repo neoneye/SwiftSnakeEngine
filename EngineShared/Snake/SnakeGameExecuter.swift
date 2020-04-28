@@ -5,10 +5,54 @@ public protocol SnakeGameExecuter: class {
     func reset()
     func undo()
     func executeStep(_ currentGameState: SnakeGameState) -> SnakeGameState
+
+    /// Decide about optimal path to get to the food.
     func computeNextBotMovement(_ oldGameState: SnakeGameState) -> SnakeGameState
 }
 
+public class SnakeGameExecuterFactory {
+    public static func create() -> SnakeGameExecuter {
+//        return SnakeGameExecuterReplay.create()
+        return SnakeGameExecuterInteractive()
+    }
+}
+
+/// Replay the moves of a historic game.
 public class SnakeGameExecuterReplay: SnakeGameExecuter {
+    let playerAPositions: [UIntVec2]
+    let playerBPositions: [UIntVec2]
+    var currentIteration: UInt
+
+    private init(playerAPositions: [UIntVec2], playerBPositions: [UIntVec2]) {
+        self.playerAPositions = playerAPositions
+        self.playerBPositions = playerBPositions
+        self.currentIteration = 0
+    }
+
+    fileprivate static func create() -> SnakeGameExecuterReplay {
+        let data: Data = SnakeDatasetBundle.load("0.snakeDataset")
+        let model: SnakeGameResultModel
+        do {
+            model = try SnakeGameResultModel(serializedData: data)
+        } catch {
+            log.error("Unable to load file: \(error)")
+            fatalError()
+        }
+        log.debug("successfully loaded model")
+
+        let playerAPositions: [UIntVec2] = model.playerAPositions.map { UIntVec2(x: $0.x, y: $0.y) }
+        let playerBPositions: [UIntVec2] = model.playerBPositions.map { UIntVec2(x: $0.x, y: $0.y) }
+
+        log.debug("level.id: '\(model.level.uuid)'")
+        log.debug("playerAPositions.count: \(playerAPositions.count)")
+        log.debug("playerBPositions.count: \(playerBPositions.count)")
+
+        return SnakeGameExecuterReplay(
+            playerAPositions: playerAPositions,
+            playerBPositions: playerBPositions
+        )
+    }
+
     public func reset() {
     }
 
@@ -16,12 +60,84 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
     }
 
     public func executeStep(_ currentGameState: SnakeGameState) -> SnakeGameState {
-        return currentGameState
+        var gameState: SnakeGameState = currentGameState
+        let newGameState = gameState.detectCollision()
+        gameState = newGameState
+
+        if gameState.player1.isAlive {
+            var player: SnakePlayer = gameState.player1
+            let snakeBody: SnakeBody = player.snakeBody.stateForTick(
+                movement: player.pendingMovement,
+                act: player.pendingAct
+            )
+            player = player.playerWithNewSnakeBody(snakeBody)
+            player = player.updatePendingMovement(.dontMove)
+            player = player.updatePendingAct(.doNothing)
+//            player = stuckSnakeDetector1.killBotIfStuckInLoop(player)
+            gameState = gameState.stateWithNewPlayer1(player)
+        }
+
+        if gameState.player2.isAlive {
+            var player: SnakePlayer = gameState.player2
+            let snakeBody: SnakeBody = player.snakeBody.stateForTick(
+                movement: player.pendingMovement,
+                act: player.pendingAct
+            )
+            player = player.playerWithNewSnakeBody(snakeBody)
+            player = player.updatePendingMovement(.dontMove)
+            player = player.updatePendingAct(.doNothing)
+//            player = stuckSnakeDetector2.killBotIfStuckInLoop(player)
+            gameState = gameState.stateWithNewPlayer2(player)
+        }
+
+        gameState = gameState.incrementNumberOfSteps()
+        return gameState
     }
 
+
     public func computeNextBotMovement(_ oldGameState: SnakeGameState) -> SnakeGameState {
-        return oldGameState
+        var newGameState: SnakeGameState = oldGameState
+
+        if newGameState.player1.isAlive {
+            if currentIteration >= playerAPositions.count {
+                log.debug("Player A is dead. Reached end of playerAPositions array.")
+                newGameState = newGameState.killPlayer1(.killAfterAFewTimeSteps)
+            } else {
+                let position: UIntVec2 = playerAPositions[Int(currentIteration)]
+                let head: SnakeHead = newGameState.player1.snakeBody.head
+                let movement: SnakeBodyMovement = head.moveToward(position.intVec2) ?? SnakeBodyMovement.dontMove
+                if movement == .dontMove {
+                    log.error("Killing player A. The snake is supposed to move, but doesn't. Iteration: \(currentIteration)")
+                    newGameState = newGameState.killPlayer1(.killAfterAFewTimeSteps)
+                } else {
+                    log.debug("#\(currentIteration) player A: movement \(movement)")
+                    newGameState = newGameState.updatePendingMovementForPlayer1(movement)
+                }
+            }
+        }
+
+        if newGameState.player2.isAlive {
+            if currentIteration >= playerBPositions.count {
+                log.debug("Player B is dead. Reached end of playerBPositions array.")
+                newGameState = newGameState.killPlayer2(.killAfterAFewTimeSteps)
+            } else {
+                let position: UIntVec2 = playerBPositions[Int(currentIteration)]
+                let head: SnakeHead = newGameState.player2.snakeBody.head
+                let movement: SnakeBodyMovement = head.moveToward(position.intVec2) ?? SnakeBodyMovement.dontMove
+                if movement == .dontMove {
+                    log.error("Killing player B. The snake is supposed to move, but doesn't. Iteration: \(currentIteration)")
+                    newGameState = newGameState.killPlayer2(.killAfterAFewTimeSteps)
+                } else {
+                    log.debug("#\(currentIteration) player B: movement \(movement)")
+                    newGameState = newGameState.updatePendingMovementForPlayer2(movement)
+                }
+            }
+        }
+
+        currentIteration += 1
+        return newGameState
     }
+
 }
 
 
@@ -76,7 +192,6 @@ public class SnakeGameExecuterInteractive: SnakeGameExecuter {
         return gameState
     }
 
-    /// Decide about optimal path to get to the food
 	public func computeNextBotMovement(_ oldGameState: SnakeGameState) -> SnakeGameState {
         let oldPlayer1: SnakePlayer = oldGameState.player1
         let oldPlayer2: SnakePlayer = oldGameState.player2

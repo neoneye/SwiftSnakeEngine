@@ -45,7 +45,7 @@ class IngameScene: SKScene {
 	var initialGameState: SnakeGameState
 	var gameState: SnakeGameState
 	var gameNode: SnakeGameNode
-    var gameExecuter: SnakeGameExecuter = SnakeGameExecuterInteractive()
+    var gameExecuter: SnakeGameExecuter = SnakeGameExecuterFactory.create()
 	var previousGameStates: [SnakeGameState] = []
 	let sound_snakeDies = SKAction.playSoundFileNamed("snake_dies.wav", waitForCompletion: false)
 	let sound_snakeEats = SKAction.playSoundFileNamed("snake_eats.wav", waitForCompletion: false)
