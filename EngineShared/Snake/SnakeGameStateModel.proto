@@ -9,68 +9,86 @@ message SnakeGameStateModelPosition {
 }
 
 message SnakeGameStateModelPlayer {
-	enum HeadDirection {
-		UP = 0;
-		LEFT = 1;
-		RIGHT = 2;
-		DOWN = 3;
-	}
-	HeadDirection head_direction = 1;
+    // Is the snake alive/dead.
+    bool alive = 1;
 
+    // The array start is the snake head. The array tail is the snake tail.
+    // Two adjacent positions have a distance of exactly 1 unit.
+    // The positions does not overlap with the level walls.
+    // The positions does not overlap the player itself (no duplicate positions).
+    // The positions does not overlap with an opponent player.
 	repeated SnakeGameStateModelPosition body_positions = 2;
-
-	enum Action {
-		DIE = 0;
-		MOVE_FORWARD = 1;
-		MOVE_CW = 2;
-		MOVE_CCW = 3;
-	}
-	Action action = 3;
 }
 
 message SnakeGameStateModelLevel {
+    // Reference to the level file, stored in CSV file format.
+    // PROBLEM: The level file can be renamed, so it's fragile to refer to its filename.
+    // SOLUTION: Use a version4 UUID, so it's possible finding the original level file.
+    string uuid = 1;
+
 	// The level has a size: width * height.
-	uint32 level_width = 1;
-	uint32 level_height = 2;
+	uint32 width = 2;
+	uint32 height = 3;
 
 	// Places where the snake can go.
-	repeated SnakeGameStateModelPosition empty_positions = 3;
+	repeated SnakeGameStateModelPosition empty_positions = 4;
 }
 
+// Full snapshot of the grid for a single time step.
+//
+// Benefit of a full snapshot. It can easily be checked for collisions/cheating.
+//
+// Benefit of a full snapshot. Jump directly to a particular timestep.
+// No need to replay 345 time steps, to recreate a particular moment in a game.
+//
+// Drawback of a full snapshot: Lots of data stored.
 message SnakeGameStateIngameModel {
 	SnakeGameStateModelLevel level = 1;
-
-	// There may be food or there may be no food.
-	oneof optional_food_position {
-		SnakeGameStateModelPosition food_position = 2;
-	}
-
-	// While ingame it's uncertain which of the players becomes the winner or the looser.
-	oneof optional_player_a {
-		SnakeGameStateModelPlayer player_a = 3;
-	}
-	oneof optional_player_b {
-		SnakeGameStateModelPlayer player_b = 4;
-	}
+    SnakeGameStateStepModel step = 2;
 }
 
-message SnakeGameStateWinnerLooserModelStep {
+message SnakeGameStateStepModel {
 	// There may be food or there may be no food.
 	oneof optional_food_position {
 		SnakeGameStateModelPosition food_position = 1;
 	}
 
-	// There is always the player A (the winner).
-	SnakeGameStateModelPlayer player_a = 2;
-
-	// There may be an opponent player B (the looser).
+	// While ingame it's uncertain which of the players becomes the winner or the looser.
+    // This is determined after the game have ended.
+    //
+    // When one of the player dies, then assign "alive=false".
+    // The player is never set to "nil".
+    //
+    // In a two player game, there are both player_a and player_b.
+    // Both players are "non-nil" througout the entire game.
+    //
+    // In a single player game, there is either player_a or player_b.
+    // The opponent player is "nil" thoughout the entire game.
+	oneof optional_player_a {
+		SnakeGameStateModelPlayer player_a = 2;
+	}
 	oneof optional_player_b {
 		SnakeGameStateModelPlayer player_b = 3;
 	}
 }
 
-message SnakeGameStateWinnerLooserModel {
+message SnakeGameResultModel {
+    // The game is taking place inside a level with this uuid and these properties.
 	SnakeGameStateModelLevel level = 1;
 
-	repeated SnakeGameStateWinnerLooserModelStep steps = 2;
+    // Snapshot of what the grid looks like in the very first step.
+    SnakeGameStateStepModel first_step = 2;
+
+    // Snapshot of what the grid looks like in the very last step.
+    SnakeGameStateStepModel last_step = 3;
+
+    // Food positions throughout the game.
+    // Magic value is (0,0), this means that there is no food position.
+    repeated SnakeGameStateModelPosition food_positions = 4;
+
+    // Head positions of "player_a" througout the game.
+    repeated SnakeGameStateModelPosition player_a_positions = 5;
+
+    // Head positions of "player_b" througout the game.
+    repeated SnakeGameStateModelPosition player_b_positions = 6;
 }

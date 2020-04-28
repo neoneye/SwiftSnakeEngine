@@ -4,19 +4,6 @@ import Foundation
 extension SnakePlayer {
 	fileprivate func toSnakeGameStateModelPlayer() -> SnakeGameStateModelPlayer {
 
-		// Direction of the snake head
-		let headDirection: SnakeGameStateModelPlayer.HeadDirection
-		switch self.snakeBody.head.direction {
-		case .up:
-			headDirection = .up
-		case .left:
-			headDirection = .left
-		case .right:
-			headDirection = .right
-		case .down:
-			headDirection = .down
-		}
-
 		// Positions of all the snake body parts
 		var bodyPositions = [SnakeGameStateModelPosition]()
 		for signedPosition: IntVec2 in self.snakeBody.positionArray() {
@@ -30,22 +17,9 @@ extension SnakePlayer {
 			bodyPositions.append(position)
 		}
 
-		let action: SnakeGameStateModelPlayer.Action
-		switch self.pendingMovement {
-		case .dontMove:
-			action = .die
-		case .moveForward:
-			action = .moveForward
-		case .moveCW:
-			action = .moveCw
-		case .moveCCW:
-			action = .moveCcw
-		}
-
-		let model = SnakeGameStateModelPlayer.with {
-			$0.headDirection = headDirection
+        let model = SnakeGameStateModelPlayer.with {
+            $0.alive = self.isAlive
 			$0.bodyPositions = bodyPositions
-			$0.action = action
 		}
 		return model
 	}
@@ -68,8 +42,9 @@ extension SnakeLevel {
 
 		// Overall level info
 		let model = SnakeGameStateModelLevel.with {
-			$0.levelWidth = self.size.x
-			$0.levelHeight = self.size.y
+            $0.uuid = self.id.uuidString
+			$0.width = self.size.x
+			$0.height = self.size.y
 			$0.emptyPositions = emptyPositions
 		}
 		return model
@@ -77,42 +52,39 @@ extension SnakeLevel {
 }
 
 extension SnakeGameState {
-	private func toSnakeGameStateIngameModel() -> SnakeGameStateIngameModel {
-		let level: SnakeGameStateModelLevel = self.level.toSnakeGameStateModelLevel()
-
+	private func toSnakeGameStateStepModel() -> SnakeGameStateStepModel {
 		// Food
-		var optionalFoodPosition: SnakeGameStateIngameModel.OneOf_OptionalFoodPosition? = nil
+		var optionalFoodPosition: SnakeGameStateStepModel.OneOf_OptionalFoodPosition? = nil
 		if let position: UIntVec2 = self.foodPosition?.uintVec2() {
 			let foodPosition = SnakeGameStateModelPosition.with {
 				$0.x = position.x
 				$0.y = position.y
 			}
-			optionalFoodPosition = SnakeGameStateIngameModel.OneOf_OptionalFoodPosition.foodPosition(foodPosition)
+			optionalFoodPosition = SnakeGameStateStepModel.OneOf_OptionalFoodPosition.foodPosition(foodPosition)
 		}
 
 		// Player A
-		var optionalPlayerA: SnakeGameStateIngameModel.OneOf_OptionalPlayerA? = nil
+		var optionalPlayerA: SnakeGameStateStepModel.OneOf_OptionalPlayerA? = nil
 		do {
 			let player: SnakePlayer = self.player1
 			if player.isInstalled {
 				let model: SnakeGameStateModelPlayer = player.toSnakeGameStateModelPlayer()
-				optionalPlayerA = SnakeGameStateIngameModel.OneOf_OptionalPlayerA.playerA(model)
+				optionalPlayerA = SnakeGameStateStepModel.OneOf_OptionalPlayerA.playerA(model)
 			}
 		}
 
 		// Player B
-		var optionalPlayerB: SnakeGameStateIngameModel.OneOf_OptionalPlayerB? = nil
+		var optionalPlayerB: SnakeGameStateStepModel.OneOf_OptionalPlayerB? = nil
 		do {
 			let player: SnakePlayer = self.player2
 			if player.isInstalled {
 				let model: SnakeGameStateModelPlayer = player.toSnakeGameStateModelPlayer()
-				optionalPlayerB = SnakeGameStateIngameModel.OneOf_OptionalPlayerB.playerB(model)
+				optionalPlayerB = SnakeGameStateStepModel.OneOf_OptionalPlayerB.playerB(model)
 			}
 		}
 
 		// Model
-		let model = SnakeGameStateIngameModel.with {
-			$0.level = level
+		let model = SnakeGameStateStepModel.with {
 			$0.optionalFoodPosition = optionalFoodPosition
 			$0.optionalPlayerA = optionalPlayerA
 			$0.optionalPlayerB = optionalPlayerB
@@ -121,7 +93,12 @@ extension SnakeGameState {
 	}
 
 	public func saveTrainingData(trainingSessionUUID: UUID) -> URL {
-		let model: SnakeGameStateIngameModel = self.toSnakeGameStateIngameModel()
+        let levelModel: SnakeGameStateModelLevel = self.level.toSnakeGameStateModelLevel()
+        let stepModel: SnakeGameStateStepModel = self.toSnakeGameStateStepModel()
+        let model = SnakeGameStateIngameModel.with {
+            $0.level = levelModel
+            $0.step = stepModel
+        }
 		let stepIndex: String = "step\(self.numberOfSteps)"
 
 		// Serialize to binary protobuf format
@@ -146,6 +123,8 @@ extension SnakeGameState {
 public class PostProcessTrainingData {
 	private let trainingSessionUUID: UUID
 	private let sharedLevel: SnakeGameStateModelLevel
+    private var stepArray: [SnakeGameStateStepModel] = []
+
 	private init(trainingSessionUUID: UUID, sharedLevel: SnakeGameStateModelLevel) {
 		self.trainingSessionUUID = trainingSessionUUID
 		self.sharedLevel = sharedLevel
@@ -160,13 +139,83 @@ public class PostProcessTrainingData {
 			log.error("Unable to load file at url: '\(url)'. \(error)")
 			return
 		}
-		// IDEA: convert into a SnakeGameStateWinnerLooserModelStep
+        guard model.hasLevel else {
+            log.error("Expected the file to have a reference to level, but got none. '\(url)'")
+            return
+        }
+        guard model.hasStep else {
+            log.error("Expected the file to 'step' instance, but got nil. url: '\(url)'")
+            return
+        }
+        guard model.level.isEqualTo(message: self.sharedLevel) else {
+            log.error("Inconsistent level info. Expected all the files in a session to refer to the same level. '\(url)'")
+            return
+        }
+        stepArray.append(model.step)
 	}
 
 	private func saveResult() {
-		let model = SnakeGameStateWinnerLooserModel.with {
+        guard let firstStep: SnakeGameStateStepModel = self.stepArray.first,
+            let lastStep: SnakeGameStateStepModel = self.stepArray.last else {
+            fatalError("Expected the stepArray to be non-empty, but it's empty. Cannot create result file.")
+        }
+        var foodPositions: [SnakeGameStateModelPosition] = []
+        for step in stepArray {
+            foodPositions.append(step.foodPosition)
+        }
+
+        // Extract "head positions" for "Player A"
+        var playerAPositions: [SnakeGameStateModelPosition] = []
+        for (index, step) in stepArray.enumerated() {
+            guard case .playerA(let player)? = step.optionalPlayerA else {
+                if index >= 1 {
+                    log.error("Expected player A, but got none. Index#\(index).")
+                }
+                break
+            }
+            guard player.alive else {
+                log.debug("Player A is dead.  Index: \(index)")
+                break
+            }
+            guard let headPosition: SnakeGameStateModelPosition = player.bodyPositions.first else {
+                log.error("Expected player A bodyPositions to be non-empty, but it's empty. Index: \(index).")
+                break
+            }
+            playerAPositions.append(headPosition)
+        }
+
+        // Extract "head positions" for "Player B"
+        var playerBPositions: [SnakeGameStateModelPosition] = []
+        for (index, step) in stepArray.enumerated() {
+            guard case .playerB(let player)? = step.optionalPlayerB else {
+                if index >= 1 {
+                    log.error("Expected player B, but got none. Index#\(index).")
+                }
+                break
+            }
+            guard player.alive else {
+                log.debug("Player B is dead.  Index: \(index)")
+                break
+            }
+            guard let headPosition: SnakeGameStateModelPosition = player.bodyPositions.first else {
+                log.error("Expected player B bodyPositions to be non-empty, but it's empty. Index: \(index).")
+                break
+            }
+            playerBPositions.append(headPosition)
+        }
+
+        log.debug("level.uuid: '\(self.sharedLevel.uuid)'")
+        log.debug("foodPositions.count: \(foodPositions.count)")
+        log.debug("playerAPositions.count: \(playerAPositions.count)")
+        log.debug("playerBPositions.count: \(playerBPositions.count)")
+
+		let model = SnakeGameResultModel.with {
 			$0.level = self.sharedLevel
-			// IDEA: assign $0.steps with the accumulated SnakeGameStateWinnerLooserModelStep's
+            $0.firstStep = firstStep
+            $0.lastStep = lastStep
+            $0.foodPositions = foodPositions
+            $0.playerAPositions = playerAPositions
+            $0.playerBPositions = playerBPositions
 		}
 
 		// Serialize to binary protobuf format
@@ -187,12 +236,6 @@ public class PostProcessTrainingData {
 	}
 
 	/// Post processing of all the generated files by a training session.
-	///
-	/// After the entire game have played out, then swap player A and player B in such way that:
-	///
-	/// - Player A is the winner.
-	///
-	/// - Player B is the looser, if there is a player B.
 	///
 	/// The level data is only stored once. Greatly reducing the size of the training data.
 	public class func process(trainingSessionUUID: UUID, urls: [URL]) {
