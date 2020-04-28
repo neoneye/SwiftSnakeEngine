@@ -567,7 +567,7 @@ class IngameScene: SKScene {
 		super.update(currentTime)
 
         if gameNodeNeedRedraw.contains(.newGame) {
-            self.gameState = self.gameState.computeNextBotMovement()
+            self.gameState = self.gameExecuter.computeNextBotMovement(gameState)
         }
 
         let updateAction = self.pendingUpdateAction
@@ -664,7 +664,7 @@ class IngameScene: SKScene {
 			}
 		}
 
-        self.gameState = self.gameState.computeNextBotMovement()
+        self.gameState = self.gameExecuter.computeNextBotMovement(gameState)
 
 		let human1Alive: Bool = gameState.player1.role == .human && gameState.player1.isAlive
 		let human2Alive: Bool = gameState.player2.role == .human && gameState.player2.isAlive
