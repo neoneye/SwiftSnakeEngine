@@ -155,9 +155,67 @@ public class PostProcessTrainingData {
 	}
 
 	private func saveResult() {
+        guard let firstStep: SnakeGameStateStepModel = self.stepArray.first,
+            let lastStep: SnakeGameStateStepModel = self.stepArray.last else {
+            fatalError("Expected the stepArray to be non-empty, but it's empty. Cannot create result file.")
+        }
+        var foodPositions: [SnakeGameStateModelPosition] = []
+        for step in stepArray {
+            foodPositions.append(step.foodPosition)
+        }
+
+        // Extract "head positions" for "Player A"
+        var playerAPositions: [SnakeGameStateModelPosition] = []
+        for (index, step) in stepArray.enumerated() {
+            guard case .playerA(let player)? = step.optionalPlayerA else {
+                if index >= 1 {
+                    log.error("Expected player A, but got none. Index#\(index).")
+                }
+                break
+            }
+            guard player.alive else {
+                log.debug("Player A is dead.  Index: \(index)")
+                break
+            }
+            guard let headPosition: SnakeGameStateModelPosition = player.bodyPositions.first else {
+                log.error("Expected player A bodyPositions to be non-empty, but it's empty. Index: \(index).")
+                break
+            }
+            playerAPositions.append(headPosition)
+        }
+
+        // Extract "head positions" for "Player B"
+        var playerBPositions: [SnakeGameStateModelPosition] = []
+        for (index, step) in stepArray.enumerated() {
+            guard case .playerB(let player)? = step.optionalPlayerB else {
+                if index >= 1 {
+                    log.error("Expected player B, but got none. Index#\(index).")
+                }
+                break
+            }
+            guard player.alive else {
+                log.debug("Player B is dead.  Index: \(index)")
+                break
+            }
+            guard let headPosition: SnakeGameStateModelPosition = player.bodyPositions.first else {
+                log.error("Expected player B bodyPositions to be non-empty, but it's empty. Index: \(index).")
+                break
+            }
+            playerBPositions.append(headPosition)
+        }
+
+        log.debug("level.uuid: '\(self.sharedLevel.uuid)'")
+        log.debug("foodPositions.count: \(foodPositions.count)")
+        log.debug("playerAPositions.count: \(playerAPositions.count)")
+        log.debug("playerBPositions.count: \(playerBPositions.count)")
+
 		let model = SnakeGameResultModel.with {
 			$0.level = self.sharedLevel
-            $0.steps = self.stepArray
+            $0.firstStep = firstStep
+            $0.lastStep = lastStep
+            $0.foodPositions = foodPositions
+            $0.playerAPositions = playerAPositions
+            $0.playerBPositions = playerBPositions
 		}
 
 		// Serialize to binary protobuf format

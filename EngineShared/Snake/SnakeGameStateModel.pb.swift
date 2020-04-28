@@ -234,6 +234,7 @@ struct SnakeGameResultModel {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// The game is taking place inside a level with this uuid and these properties.
   var level: SnakeGameStateModelLevel {
     get {return _storage._level ?? SnakeGameStateModelLevel()}
     set {_uniqueStorage()._level = newValue}
@@ -243,9 +244,43 @@ struct SnakeGameResultModel {
   /// Clears the value of `level`. Subsequent reads from it will return its default value.
   mutating func clearLevel() {_uniqueStorage()._level = nil}
 
-  var steps: [SnakeGameStateStepModel] {
-    get {return _storage._steps}
-    set {_uniqueStorage()._steps = newValue}
+  /// Snapshot of what the grid looks like in the very first step.
+  var firstStep: SnakeGameStateStepModel {
+    get {return _storage._firstStep ?? SnakeGameStateStepModel()}
+    set {_uniqueStorage()._firstStep = newValue}
+  }
+  /// Returns true if `firstStep` has been explicitly set.
+  var hasFirstStep: Bool {return _storage._firstStep != nil}
+  /// Clears the value of `firstStep`. Subsequent reads from it will return its default value.
+  mutating func clearFirstStep() {_uniqueStorage()._firstStep = nil}
+
+  /// Snapshot of what the grid looks like in the very last step.
+  var lastStep: SnakeGameStateStepModel {
+    get {return _storage._lastStep ?? SnakeGameStateStepModel()}
+    set {_uniqueStorage()._lastStep = newValue}
+  }
+  /// Returns true if `lastStep` has been explicitly set.
+  var hasLastStep: Bool {return _storage._lastStep != nil}
+  /// Clears the value of `lastStep`. Subsequent reads from it will return its default value.
+  mutating func clearLastStep() {_uniqueStorage()._lastStep = nil}
+
+  /// Food positions throughout the game.
+  /// Magic value is (0,0), this means that there is no food position.
+  var foodPositions: [SnakeGameStateModelPosition] {
+    get {return _storage._foodPositions}
+    set {_uniqueStorage()._foodPositions = newValue}
+  }
+
+  /// Head positions of "player_a" througout the game.
+  var playerAPositions: [SnakeGameStateModelPosition] {
+    get {return _storage._playerAPositions}
+    set {_uniqueStorage()._playerAPositions = newValue}
+  }
+
+  /// Head positions of "player_b" througout the game.
+  var playerBPositions: [SnakeGameStateModelPosition] {
+    get {return _storage._playerBPositions}
+    set {_uniqueStorage()._playerBPositions = newValue}
   }
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -545,12 +580,20 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   static let protoMessageName: String = "SnakeGameResultModel"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "level"),
-    2: .same(proto: "steps"),
+    2: .standard(proto: "first_step"),
+    3: .standard(proto: "last_step"),
+    4: .standard(proto: "food_positions"),
+    5: .standard(proto: "player_a_positions"),
+    6: .standard(proto: "player_b_positions"),
   ]
 
   fileprivate class _StorageClass {
     var _level: SnakeGameStateModelLevel? = nil
-    var _steps: [SnakeGameStateStepModel] = []
+    var _firstStep: SnakeGameStateStepModel? = nil
+    var _lastStep: SnakeGameStateStepModel? = nil
+    var _foodPositions: [SnakeGameStateModelPosition] = []
+    var _playerAPositions: [SnakeGameStateModelPosition] = []
+    var _playerBPositions: [SnakeGameStateModelPosition] = []
 
     static let defaultInstance = _StorageClass()
 
@@ -558,7 +601,11 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
 
     init(copying source: _StorageClass) {
       _level = source._level
-      _steps = source._steps
+      _firstStep = source._firstStep
+      _lastStep = source._lastStep
+      _foodPositions = source._foodPositions
+      _playerAPositions = source._playerAPositions
+      _playerBPositions = source._playerBPositions
     }
   }
 
@@ -575,7 +622,11 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._level)
-        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._steps)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._firstStep)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._lastStep)
+        case 4: try decoder.decodeRepeatedMessageField(value: &_storage._foodPositions)
+        case 5: try decoder.decodeRepeatedMessageField(value: &_storage._playerAPositions)
+        case 6: try decoder.decodeRepeatedMessageField(value: &_storage._playerBPositions)
         default: break
         }
       }
@@ -587,8 +638,20 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
       if let v = _storage._level {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
-      if !_storage._steps.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._steps, fieldNumber: 2)
+      if let v = _storage._firstStep {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if let v = _storage._lastStep {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+      if !_storage._foodPositions.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._foodPositions, fieldNumber: 4)
+      }
+      if !_storage._playerAPositions.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._playerAPositions, fieldNumber: 5)
+      }
+      if !_storage._playerBPositions.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._playerBPositions, fieldNumber: 6)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -600,7 +663,11 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._level != rhs_storage._level {return false}
-        if _storage._steps != rhs_storage._steps {return false}
+        if _storage._firstStep != rhs_storage._firstStep {return false}
+        if _storage._lastStep != rhs_storage._lastStep {return false}
+        if _storage._foodPositions != rhs_storage._foodPositions {return false}
+        if _storage._playerAPositions != rhs_storage._playerAPositions {return false}
+        if _storage._playerBPositions != rhs_storage._playerBPositions {return false}
         return true
       }
       if !storagesAreEqual {return false}

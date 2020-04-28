@@ -73,7 +73,22 @@ message SnakeGameStateStepModel {
 }
 
 message SnakeGameResultModel {
+    // The game is taking place inside a level with this uuid and these properties.
 	SnakeGameStateModelLevel level = 1;
 
-	repeated SnakeGameStateStepModel steps = 2;
+    // Snapshot of what the grid looks like in the very first step.
+    SnakeGameStateStepModel first_step = 2;
+
+    // Snapshot of what the grid looks like in the very last step.
+    SnakeGameStateStepModel last_step = 3;
+
+    // Food positions throughout the game.
+    // Magic value is (0,0), this means that there is no food position.
+    repeated SnakeGameStateModelPosition food_positions = 4;
+
+    // Head positions of "player_a" througout the game.
+    repeated SnakeGameStateModelPosition player_a_positions = 5;
+
+    // Head positions of "player_b" througout the game.
+    repeated SnakeGameStateModelPosition player_b_positions = 6;
 }
