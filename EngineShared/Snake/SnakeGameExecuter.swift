@@ -4,14 +4,14 @@ import Foundation
 public protocol SnakeGameExecuter: class {
     func reset()
     func undo()
-    func executeStep(_ currentGameState: SnakeGameState) -> SnakeGameState
+    func executeStep(_ gameState: SnakeGameState) -> SnakeGameState
 
     /// Decide about optimal path to get to the food.
-    func computeNextBotMovement(_ oldGameState: SnakeGameState) -> SnakeGameState
+    func computeNextBotMovement(_ gameState: SnakeGameState) -> SnakeGameState
 
-    func placeNewFood(_ oldGameState: SnakeGameState) -> SnakeGameState
+    func placeNewFood(_ gameState: SnakeGameState) -> SnakeGameState
 
-    func endOfStep(_ oldGameState: SnakeGameState) -> SnakeGameState
+    func endOfStep(_ gameState: SnakeGameState) -> SnakeGameState
 }
 
 public class SnakeGameExecuterFactory {
