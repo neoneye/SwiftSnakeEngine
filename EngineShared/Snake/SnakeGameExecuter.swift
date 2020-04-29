@@ -19,11 +19,13 @@ public class SnakeGameExecuterFactory {
 
 /// Replay the moves of a historic game.
 public class SnakeGameExecuterReplay: SnakeGameExecuter {
+    let foodPositions: [IntVec2]
     let player1Positions: [IntVec2]
     let player2Positions: [IntVec2]
     var currentIteration: UInt
 
-    private init(player1Positions: [IntVec2], player2Positions: [IntVec2]) {
+    private init(foodPositions: [IntVec2], player1Positions: [IntVec2], player2Positions: [IntVec2]) {
+        self.foodPositions = foodPositions
         self.player1Positions = player1Positions
         self.player2Positions = player2Positions
         self.currentIteration = 1
@@ -40,16 +42,22 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         }
         log.debug("successfully loaded model")
 
-        let player1Positions: [IntVec2] = model.playerAPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
-        let player2Positions: [IntVec2] = model.playerBPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
+        func convert(_ modelPositionArray: [SnakeGameStateModelPosition]) -> [IntVec2] {
+            return modelPositionArray.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
+        }
+        let foodPositions: [IntVec2] = convert(model.foodPositions)
+        let player1Positions: [IntVec2] = convert(model.playerAPositions)
+        let player2Positions: [IntVec2] = convert(model.playerBPositions)
 
         // IDEA: validate positions are inside the level coordinates
 
         log.debug("level.id: '\(model.level.uuid)'")
+        log.debug("food positions.count: \(foodPositions.count)")
         log.debug("player1 positions.count: \(player1Positions.count)")
         log.debug("player2 positions.count: \(player2Positions.count)")
 
         return SnakeGameExecuterReplay(
+            foodPositions: foodPositions,
             player1Positions: player1Positions,
             player2Positions: player2Positions
         )
