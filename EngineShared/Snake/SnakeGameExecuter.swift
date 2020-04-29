@@ -19,13 +19,13 @@ public class SnakeGameExecuterFactory {
 
 /// Replay the moves of a historic game.
 public class SnakeGameExecuterReplay: SnakeGameExecuter {
-    let playerAPositions: [IntVec2]
-    let playerBPositions: [IntVec2]
+    let player1Positions: [IntVec2]
+    let player2Positions: [IntVec2]
     var currentIteration: UInt
 
-    private init(playerAPositions: [IntVec2], playerBPositions: [IntVec2]) {
-        self.playerAPositions = playerAPositions
-        self.playerBPositions = playerBPositions
+    private init(player1Positions: [IntVec2], player2Positions: [IntVec2]) {
+        self.player1Positions = player1Positions
+        self.player2Positions = player2Positions
         self.currentIteration = 1
     }
 
@@ -40,18 +40,18 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         }
         log.debug("successfully loaded model")
 
-        let playerAPositions: [IntVec2] = model.playerAPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
-        let playerBPositions: [IntVec2] = model.playerBPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
+        let player1Positions: [IntVec2] = model.playerAPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
+        let player2Positions: [IntVec2] = model.playerBPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
 
         // IDEA: validate positions are inside the level coordinates
 
         log.debug("level.id: '\(model.level.uuid)'")
-        log.debug("playerAPositions.count: \(playerAPositions.count)")
-        log.debug("playerBPositions.count: \(playerBPositions.count)")
+        log.debug("player1 positions.count: \(player1Positions.count)")
+        log.debug("player2 positions.count: \(player2Positions.count)")
 
         return SnakeGameExecuterReplay(
-            playerAPositions: playerAPositions,
-            playerBPositions: playerBPositions
+            player1Positions: player1Positions,
+            player2Positions: player2Positions
         )
     }
 
@@ -102,38 +102,38 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         var newGameState: SnakeGameState = oldGameState
 
         if newGameState.player1.isAlive {
-            if currentIteration >= playerAPositions.count {
-                log.debug("Player A is dead. Reached end of playerAPositions array.")
+            if currentIteration >= player1Positions.count {
+                log.debug("Player1 is dead. Reached end of player1Positions array.")
                 newGameState = newGameState.killPlayer1(.killAfterAFewTimeSteps)
             } else {
-                let position: IntVec2 = playerAPositions[Int(currentIteration)]
+                let position: IntVec2 = player1Positions[Int(currentIteration)]
                 let head: SnakeHead = newGameState.player1.snakeBody.head
                 let movement: SnakeBodyMovement = head.moveToward(position) ?? SnakeBodyMovement.dontMove
                 //log.debug("move from \(head.position) to \(position)   movement: \(movement)")
                 if movement == .dontMove {
-                    log.error("Killing player A. The snake is supposed to move, but doesn't. Iteration: \(currentIteration)")
+                    log.error("Killing player1. The snake is supposed to move, but doesn't. Iteration: \(currentIteration)")
                     newGameState = newGameState.killPlayer1(.killAfterAFewTimeSteps)
                 } else {
-//                    log.debug("#\(currentIteration) player A: movement \(movement)")
+//                    log.debug("#\(currentIteration) player1: movement \(movement)")
                     newGameState = newGameState.updatePendingMovementForPlayer1(movement)
                 }
             }
         }
 
         if newGameState.player2.isAlive {
-            if currentIteration >= playerBPositions.count {
-                log.debug("Player B is dead. Reached end of playerBPositions array.")
+            if currentIteration >= player2Positions.count {
+                log.debug("Player2 is dead. Reached end of player2Positions array.")
                 newGameState = newGameState.killPlayer2(.killAfterAFewTimeSteps)
             } else {
-                let position: IntVec2 = playerBPositions[Int(currentIteration)]
+                let position: IntVec2 = player2Positions[Int(currentIteration)]
                 let head: SnakeHead = newGameState.player2.snakeBody.head
                 let movement: SnakeBodyMovement = head.moveToward(position) ?? SnakeBodyMovement.dontMove
                 //log.debug("move from \(head.position) to \(position)   movement: \(movement)")
                 if movement == .dontMove {
-                    log.error("Killing player B. The snake is supposed to move, but doesn't. Iteration: \(currentIteration)")
+                    log.error("Killing player2. The snake is supposed to move, but doesn't. Iteration: \(currentIteration)")
                     newGameState = newGameState.killPlayer2(.killAfterAFewTimeSteps)
                 } else {
-//                    log.debug("#\(currentIteration) player B: movement \(movement)")
+//                    log.debug("#\(currentIteration) player2: movement \(movement)")
                     newGameState = newGameState.updatePendingMovementForPlayer2(movement)
                 }
             }
