@@ -6,7 +6,7 @@ This `.snakeDataset` file, can be used for these things:
 
 - Create a video, with one player move per frame.
 - Replay of a historical game, for later inspection of the game state.
-- Train data for a neural network.
+- Training data for a neural network.
 - Verify that no cheating was going on.
 
 ---
