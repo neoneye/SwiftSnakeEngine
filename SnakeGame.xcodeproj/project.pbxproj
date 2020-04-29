@@ -207,6 +207,8 @@
 		42CCDB67245A1F2F0086A3C3 /* ValidateDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCDB66245A1F2F0086A3C3 /* ValidateDistance.swift */; };
 		42CCDB68245A1F2F0086A3C3 /* ValidateDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCDB66245A1F2F0086A3C3 /* ValidateDistance.swift */; };
 		42CCDB6A245A1FBF0086A3C3 /* T4000_ValidateDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCDB69245A1FBF0086A3C3 /* T4000_ValidateDistance.swift */; };
+		42CCDB6C245A29260086A3C3 /* SnakeGameState+PreventHumanCollisions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCDB6B245A29260086A3C3 /* SnakeGameState+PreventHumanCollisions.swift */; };
+		42CCDB6D245A29260086A3C3 /* SnakeGameState+PreventHumanCollisions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCDB6B245A29260086A3C3 /* SnakeGameState+PreventHumanCollisions.swift */; };
 		42E042B2233400D3007AC6F9 /* ComputeShortestPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B1233400D3007AC6F9 /* ComputeShortestPath.swift */; };
 		42E042B4233402CD007AC6F9 /* T1200_ComputeShortestPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B3233402CD007AC6F9 /* T1200_ComputeShortestPath.swift */; };
 		42E042B623340DEE007AC6F9 /* SnakeLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B523340DEE007AC6F9 /* SnakeLevel.swift */; };
@@ -411,6 +413,7 @@
 		42CCDB65245A03050086A3C3 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 		42CCDB66245A1F2F0086A3C3 /* ValidateDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateDistance.swift; sourceTree = "<group>"; };
 		42CCDB69245A1FBF0086A3C3 /* T4000_ValidateDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T4000_ValidateDistance.swift; sourceTree = "<group>"; };
+		42CCDB6B245A29260086A3C3 /* SnakeGameState+PreventHumanCollisions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnakeGameState+PreventHumanCollisions.swift"; sourceTree = "<group>"; };
 		42CF349E6C439CD0ACDE948C /* Pods-BasePodsMAC-SnakeGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-SnakeGame.debug.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-SnakeGame/Pods-BasePodsMAC-SnakeGame.debug.xcconfig"; sourceTree = "<group>"; };
 		42E042B1233400D3007AC6F9 /* ComputeShortestPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputeShortestPath.swift; sourceTree = "<group>"; };
 		42E042B3233402CD007AC6F9 /* T1200_ComputeShortestPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1200_ComputeShortestPath.swift; sourceTree = "<group>"; };
@@ -516,6 +519,7 @@
 				422423BD233D9B760006D02D /* SnakeGameHeadless.swift */,
 				422423B5233D46F30006D02D /* SnakeGameState.swift */,
 				422423B9233D9A590006D02D /* SnakeGameState+Create.swift */,
+				42CCDB6B245A29260086A3C3 /* SnakeGameState+PreventHumanCollisions.swift */,
 				42EB7C0323F2873B00229CEA /* SnakeGameState+SaveTrainingData.swift */,
 				42EB7BFF23F2105000229CEA /* SnakeGameStateModel.pb.swift */,
 				42EB7BFD23F1FD9D00229CEA /* SnakeGameStateModel.proto */,
@@ -1277,6 +1281,7 @@
 				423C4F54240C4B5B00786F49 /* Logging.swift in Sources */,
 				426891FA233267E900B97E29 /* Edge.swift in Sources */,
 				4255CA2A233180B500A230AF /* SeededGenerator.swift in Sources */,
+				42CCDB6C245A29260086A3C3 /* SnakeGameState+PreventHumanCollisions.swift in Sources */,
 				426891FD233267E900B97E29 /* Vertex.swift in Sources */,
 				429D336623FAF46E00EF9B37 /* StuckSnakeDetector.swift in Sources */,
 				4217EEA8240E7D220066B8C0 /* SnakeBodyMovement.swift in Sources */,
@@ -1402,6 +1407,7 @@
 				42ABC14C243D13AB00E05FF3 /* SnakeGameStateModel.proto in Sources */,
 				42ABC133243D139300E05FF3 /* AdjacencyMatrixGraph.swift in Sources */,
 				42ABC141243D13AB00E05FF3 /* SnakeBody.swift in Sources */,
+				42CCDB6D245A29260086A3C3 /* SnakeGameState+PreventHumanCollisions.swift in Sources */,
 				42ABC12A243D138300E05FF3 /* MeasureAreaSize.swift in Sources */,
 				42ABC146243D13AB00E05FF3 /* SnakeGameExecuter.swift in Sources */,
 				42ABC11E243D137D00E05FF3 /* SnakeBot4.swift in Sources */,
