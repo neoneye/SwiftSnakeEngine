@@ -53,6 +53,20 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
 
         // IDEA: validate positions are inside the level coordinates
 
+        guard ValidateDistance.manhattanDistanceIsOne(player1Positions) else {
+            log.error("Invalid player1 positions. All moves must be by a distance of 1 unit.")
+            fatalError()
+        }
+        guard ValidateDistance.manhattanDistanceIsOne(player2Positions) else {
+            log.error("Invalid player2 positions. All moves must be by a distance of 1 unit.")
+            fatalError()
+        }
+
+//        let a: ArraySlice<IntVec2> = player1Positions[0..<3]
+//        log.debug("player1: \(a)")
+//        let b: ArraySlice<IntVec2> = player2Positions[0..<3]
+//        log.debug("player2: \(b)")
+
         log.debug("level.id: '\(model.level.uuid)'")
         log.debug("food positions.count: \(foodPositions.count)")
         log.debug("player1 positions.count: \(player1Positions.count)")
