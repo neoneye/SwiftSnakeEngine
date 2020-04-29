@@ -395,7 +395,7 @@ class IngameScene: SKScene {
 		trainingSessionUUID = UUID()
 		trainingSessionURLs = []
         gameExecuter.reset()
-		placeNewFood()
+        gameState = gameExecuter.placeNewFood(gameState)
 	}
 
 	class func defaultInitialGameState() -> SnakeGameState {
@@ -530,20 +530,6 @@ class IngameScene: SKScene {
         }
         schedule_stepBackwardOnce()
     }
-
-	lazy var foodGenerator: SnakeFoodGenerator = {
-		return SnakeFoodGenerator()
-	}()
-
-	func placeNewFood() {
-		if self.gameState.foodPosition != nil {
-			return
-		}
-		// IDEA: Generate CSV file with statistics about food eating frequency
-		//let steps: UInt64 = self.gameState.numberOfSteps
-		//log.debug("place new food: \(steps)")
-		self.gameState = foodGenerator.placeNewFood(self.gameState)
-	}
 
 	func updateCamera() {
 		let levelSize: UIntVec2 = gameState.level.size
@@ -692,12 +678,14 @@ class IngameScene: SKScene {
 			return
 		}
 
-		placeNewFood()
+        self.gameState = gameExecuter.placeNewFood(self.gameState)
 
 		if AppConstant.saveTrainingData {
 			let url: URL = oldGameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
 			trainingSessionURLs.append(url)
 		}
+
+        self.gameState = self.gameExecuter.endOfStep(self.gameState)
     }
 
 	func stepBackward() {

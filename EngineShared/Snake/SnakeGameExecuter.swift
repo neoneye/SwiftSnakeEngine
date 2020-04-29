@@ -8,6 +8,10 @@ public protocol SnakeGameExecuter: class {
 
     /// Decide about optimal path to get to the food.
     func computeNextBotMovement(_ oldGameState: SnakeGameState) -> SnakeGameState
+
+    func placeNewFood(_ oldGameState: SnakeGameState) -> SnakeGameState
+
+    func endOfStep(_ oldGameState: SnakeGameState) -> SnakeGameState
 }
 
 public class SnakeGameExecuterFactory {
@@ -22,13 +26,11 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
     let foodPositions: [IntVec2]
     let player1Positions: [IntVec2]
     let player2Positions: [IntVec2]
-    var currentIteration: UInt
 
     private init(foodPositions: [IntVec2], player1Positions: [IntVec2], player2Positions: [IntVec2]) {
         self.foodPositions = foodPositions
         self.player1Positions = player1Positions
         self.player2Positions = player2Positions
-        self.currentIteration = 1
     }
 
     fileprivate static func create() -> SnakeGameExecuterReplay {
@@ -64,7 +66,6 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
     }
 
     public func reset() {
-        self.currentIteration = 1
     }
 
     public func undo() {
@@ -101,12 +102,11 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
             gameState = gameState.stateWithNewPlayer2(player)
         }
 
-        gameState = gameState.incrementNumberOfSteps()
         return gameState
     }
 
-
     public func computeNextBotMovement(_ oldGameState: SnakeGameState) -> SnakeGameState {
+        let currentIteration: UInt64 = oldGameState.numberOfSteps + 2
         var newGameState: SnakeGameState = oldGameState
 
         if newGameState.player1.isAlive {
@@ -147,16 +147,42 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
             }
         }
 
-        currentIteration += 1
         return newGameState
     }
 
+    public func placeNewFood(_ oldGameState: SnakeGameState) -> SnakeGameState {
+        let currentIteration: UInt64 = oldGameState.numberOfSteps + 1
+        guard currentIteration < foodPositions.count else {
+            log.debug("Reached end of foodPositions array.  Iteration: \(currentIteration)")
+            return oldGameState
+        }
+        let position: IntVec2 = foodPositions[Int(currentIteration)]
+        guard position != oldGameState.foodPosition else {
+            log.debug("#\(currentIteration) food is unchanged. position: \(position)")
+            return oldGameState
+        }
+        log.debug("#\(currentIteration) placing new food at \(position)")
+        return oldGameState.stateWithNewFoodPosition(position)
+    }
+
+    static let printNumberOfSteps = false
+
+    public func endOfStep(_ oldGameState: SnakeGameState) -> SnakeGameState {
+        let step0: UInt64 = oldGameState.numberOfSteps
+        let newGameState: SnakeGameState = oldGameState.incrementNumberOfSteps()
+        let step1: UInt64 = newGameState.numberOfSteps
+        if Self.printNumberOfSteps {
+            log.debug("----------- numberOfSteps \(step0) -> \(step1) -----------")
+        }
+        return newGameState
+    }
 }
 
 
 public class SnakeGameExecuterInteractive: SnakeGameExecuter {
     private var stuckSnakeDetector1 = StuckSnakeDetector(humanReadableName: "Player1")
     private var stuckSnakeDetector2 = StuckSnakeDetector(humanReadableName: "Player2")
+    private var foodGenerator: SnakeFoodGenerator = SnakeFoodGenerator()
 
     public init() {}
 
@@ -201,7 +227,6 @@ public class SnakeGameExecuterInteractive: SnakeGameExecuter {
             gameState = gameState.stateWithNewPlayer2(player)
         }
 
-        gameState = gameState.incrementNumberOfSteps()
         return gameState
     }
 
@@ -258,6 +283,28 @@ public class SnakeGameExecuterInteractive: SnakeGameExecuter {
         //log.debug("did compute")
 		return newGameState
 	}
+
+    public func placeNewFood(_ oldGameState: SnakeGameState) -> SnakeGameState {
+        if oldGameState.foodPosition != nil {
+            return oldGameState
+        }
+        // IDEA: Generate CSV file with statistics about food eating frequency
+        //let steps: UInt64 = self.gameState.numberOfSteps
+        //log.debug("place new food: \(steps)")
+        return foodGenerator.placeNewFood(oldGameState)
+    }
+
+    static let printNumberOfSteps = false
+
+    public func endOfStep(_ oldGameState: SnakeGameState) -> SnakeGameState {
+        let step0: UInt64 = oldGameState.numberOfSteps
+        let newGameState: SnakeGameState = oldGameState.incrementNumberOfSteps()
+        let step1: UInt64 = newGameState.numberOfSteps
+        if Self.printNumberOfSteps {
+            log.debug("----------- numberOfSteps \(step0) -> \(step1) -----------")
+        }
+        return newGameState
+    }
 }
 
 extension SnakeGameState {
