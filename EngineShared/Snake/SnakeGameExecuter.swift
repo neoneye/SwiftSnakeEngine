@@ -19,11 +19,11 @@ public class SnakeGameExecuterFactory {
 
 /// Replay the moves of a historic game.
 public class SnakeGameExecuterReplay: SnakeGameExecuter {
-    let playerAPositions: [UIntVec2]
-    let playerBPositions: [UIntVec2]
+    let playerAPositions: [IntVec2]
+    let playerBPositions: [IntVec2]
     var currentIteration: UInt
 
-    private init(playerAPositions: [UIntVec2], playerBPositions: [UIntVec2]) {
+    private init(playerAPositions: [IntVec2], playerBPositions: [IntVec2]) {
         self.playerAPositions = playerAPositions
         self.playerBPositions = playerBPositions
         self.currentIteration = 1
@@ -40,8 +40,10 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         }
         log.debug("successfully loaded model")
 
-        let playerAPositions: [UIntVec2] = model.playerAPositions.map { UIntVec2(x: $0.x, y: $0.y) }
-        let playerBPositions: [UIntVec2] = model.playerBPositions.map { UIntVec2(x: $0.x, y: $0.y) }
+        let playerAPositions: [IntVec2] = model.playerAPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
+        let playerBPositions: [IntVec2] = model.playerBPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
+
+        // IDEA: validate positions are inside the level coordinates
 
         log.debug("level.id: '\(model.level.uuid)'")
         log.debug("playerAPositions.count: \(playerAPositions.count)")
@@ -104,8 +106,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
                 log.debug("Player A is dead. Reached end of playerAPositions array.")
                 newGameState = newGameState.killPlayer1(.killAfterAFewTimeSteps)
             } else {
-                let positionUnsigned: UIntVec2 = playerAPositions[Int(currentIteration)]
-                let position: IntVec2 = positionUnsigned.intVec2
+                let position: IntVec2 = playerAPositions[Int(currentIteration)]
                 let head: SnakeHead = newGameState.player1.snakeBody.head
                 let movement: SnakeBodyMovement = head.moveToward(position) ?? SnakeBodyMovement.dontMove
                 //log.debug("move from \(head.position) to \(position)   movement: \(movement)")
@@ -124,8 +125,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
                 log.debug("Player B is dead. Reached end of playerBPositions array.")
                 newGameState = newGameState.killPlayer2(.killAfterAFewTimeSteps)
             } else {
-                let positionUnsigned: UIntVec2 = playerBPositions[Int(currentIteration)]
-                let position: IntVec2 = positionUnsigned.intVec2
+                let position: IntVec2 = playerBPositions[Int(currentIteration)]
                 let head: SnakeHead = newGameState.player2.snakeBody.head
                 let movement: SnakeBodyMovement = head.moveToward(position) ?? SnakeBodyMovement.dontMove
                 //log.debug("move from \(head.position) to \(position)   movement: \(movement)")
