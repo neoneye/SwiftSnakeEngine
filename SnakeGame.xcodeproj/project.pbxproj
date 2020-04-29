@@ -405,6 +405,7 @@
 		42CCD61723C1054C0021CBE7 /* SnakeLevelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeLevelManager.swift; sourceTree = "<group>"; };
 		42CCD61923C2AA9A0021CBE7 /* T3000_SnakeLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T3000_SnakeLevel.swift; sourceTree = "<group>"; };
 		42CCD61C23C3CF660021CBE7 /* SpriteKitContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitContainer.swift; sourceTree = "<group>"; };
+		42CCDB65245A03050086A3C3 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 		42CF349E6C439CD0ACDE948C /* Pods-BasePodsMAC-SnakeGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-SnakeGame.debug.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-SnakeGame/Pods-BasePodsMAC-SnakeGame.debug.xcconfig"; sourceTree = "<group>"; };
 		42E042B1233400D3007AC6F9 /* ComputeShortestPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputeShortestPath.swift; sourceTree = "<group>"; };
 		42E042B3233402CD007AC6F9 /* T1200_ComputeShortestPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1200_ComputeShortestPath.swift; sourceTree = "<group>"; };
@@ -786,6 +787,7 @@
 		42FA3C472458BEF10064C76C /* Dataset */ = {
 			isa = PBXGroup;
 			children = (
+				42CCDB65245A03050086A3C3 /* readme.md */,
 				42FA3C412458BB8F0064C76C /* SnakeDataset.bundle */,
 				42FA3C442458BC5D0064C76C /* SnakeDatasetBundle.swift */,
 			);
