@@ -599,9 +599,9 @@ class IngameScene: SKScene {
 	func stepForward() {
         self.gameState = self.gameState.preventHumanCollisions()
 
-		let isWaiting = self.gameState.isWaitingForHumanInput()
+		let isWaiting = self.gameState.isWaitingForInput()
 		if isWaiting {
-			//log.debug("waiting for players")
+			//log.debug("waiting for input")
 			return
 		}
 

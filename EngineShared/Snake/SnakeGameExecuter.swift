@@ -322,21 +322,6 @@ public class SnakeGameExecuterInteractive: SnakeGameExecuter {
 }
 
 extension SnakeGameState {
-	public func isWaitingForHumanInput() -> Bool {
-		var waitingForPlayers = false
-		if self.player1.isAlive && self.player1.pendingMovement == .dontMove {
-			waitingForPlayers = true
-		}
-		if self.player2.isAlive && self.player2.pendingMovement == .dontMove {
-			waitingForPlayers = true
-		}
-		if waitingForPlayers {
-			//log.debug("waiting for players")
-			return true
-		} else {
-			return false
-		}
-	}
 
 	/// Deal with collision when both the player1 and the player2 is installed
 	/// Deal with collision only if either the player1 or player2 is installed
