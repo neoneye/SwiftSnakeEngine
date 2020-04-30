@@ -91,3 +91,9 @@ public class SnakeLevel {
 		return UInt32(distance) * 10
 	}
 }
+
+extension SnakeLevel: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        return "SnakeLevel(size: \(size), id: \(id), empty.count: \(emptyPositionArray.count))"
+    }
+}
