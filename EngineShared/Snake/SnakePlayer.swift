@@ -219,7 +219,7 @@ extension SnakePlayer: CustomDebugStringConvertible {
 		let botDescription = String(describing: bot)
         let installed: String = isInstalled ? "installed" : "notinstalled"
         let alive: String = isAlive ? "alive" : "dead"
-		return "SnakePlayer(\(id), \(installed), \(alive), \(role), \(snakeBody.head.position), \(snakeBody.head.direction), \(botDescription) \(pendingMovement), \(pendingAct), \(killEvents))"
+		return "SnakePlayer(\(id), \(installed), \(alive), \(snakeBody.head.position), \(snakeBody.head.direction), \(pendingMovement), \(pendingAct), \(killEvents), \(role), \(botDescription))"
 	}
 }
 
