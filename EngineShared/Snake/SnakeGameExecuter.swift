@@ -201,9 +201,11 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         log.debug("length: \(length)")
         log.debug("headDirection: \(headDirection)")
 
-        builder.player1_initialPosition = headPosition
-        builder.player1_initialLength = length
-        builder.player1_initialHeadDirection = headDirection
+        builder.player1_body = SnakeBody.create(
+            position: headPosition.intVec2,
+            headDirection: headDirection,
+            length: length
+        )
     }
 
     public func reset() {
