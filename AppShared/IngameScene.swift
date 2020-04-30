@@ -42,7 +42,7 @@ class IngameScene: SKScene {
 
 	var trainingSessionUUID: UUID
 	var trainingSessionURLs: [URL]
-	var initialGameState: SnakeGameState
+	private let initialGameState: SnakeGameState
 	var gameState: SnakeGameState
 	var gameNode: SnakeGameNode
     var gameExecuter: SnakeGameExecuter = SnakeGameExecuterFactory.create()
@@ -52,35 +52,37 @@ class IngameScene: SKScene {
 	let sound_snakeStep = SKAction.playSoundFileNamed("snake_step.wav", waitForCompletion: false)
 
 	class func createHumanVsNone() -> IngameScene {
-		let newScene = IngameScene()
-		newScene.initialGameState = SnakeGameState.create(
+		let gameState = SnakeGameState.create(
 			player1: .human,
 			player2: .none,
 			levelName: "Level 0.csv"
 		)
-		return newScene
+        return IngameScene(initialGameState: gameState)
 	}
 
     class func createBotVsNone() -> IngameScene {
-        let newScene = IngameScene()
         let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
-        newScene.initialGameState = SnakeGameState.create(
+        let gameState = SnakeGameState.create(
             player1: .bot(snakeBotType: snakeBotType),
             player2: .none,
             levelName: "Level 0.csv"
         )
-        return newScene
+        return IngameScene(initialGameState: gameState)
     }
 
-    override init() {
+    init(initialGameState: SnakeGameState) {
         self.trainingSessionUUID = UUID()
         self.trainingSessionURLs = []
-        self.initialGameState = IngameScene.defaultInitialGameState()
-        self.gameState = SnakeGameState.empty()
+        self.initialGameState = initialGameState
+        self.gameState = initialGameState
         self.gameNode = SnakeGameNode()
         self.gameNodeNeedRedraw.insert(.newGame)
         super.init(size: CGSize(width: 100, height: 100))
         self.scaleMode = .resizeFill
+    }
+
+    override init() {
+        fatalError()
     }
 
 	required init?(coder aDecoder: NSCoder) {
@@ -396,15 +398,6 @@ class IngameScene: SKScene {
 		trainingSessionURLs = []
         gameExecuter.reset()
         gameState = gameExecuter.placeNewFood(gameState)
-	}
-
-	class func defaultInitialGameState() -> SnakeGameState {
-		let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
-		return SnakeGameState.create(
-			player1: .human,
-			player2: .bot(snakeBotType: snakeBotType),
-			levelName: SnakeLevelManager.shared.defaultLevelName
-		)
 	}
 
     #if os(macOS)
