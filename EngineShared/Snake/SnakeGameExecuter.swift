@@ -152,70 +152,21 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
             log.error("Expected player A, but got none.")
             return
         }
-
         guard player.alive else {
             log.debug("player1 is not alive, so no need to install")
             return
         }
 
-        let bodyPositions: [IntVec2] = player.bodyPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
+        let positions: [IntVec2] = player.bodyPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
 
-        #if false
-        guard let body = SnakeBody.create(positions: bodyPositions) else {
-            log.error("Unable to create snake from the positions.")
+        guard let body = SnakeBody.create(positions: positions.reversed()) else {
+            log.error("Unable to create snake from the positions: \(positions)")
             return
         }
+        log.debug("headPosition: \(body.head.position)")
+        log.debug("length: \(body.length)")
+        log.debug("headDirection: \(body.head.direction)")
         builder.player1_body = body
-        return
-        #endif
-
-
-        guard bodyPositions.count >= 3 else {
-            log.error("Expected the snake to be 3 units or longer, but it's shorter.")
-            return
-        }
-        guard let headPosition: IntVec2 = bodyPositions.first else {
-            fatalError("Unable to extract first position")
-        }
-        guard let tailPosition: IntVec2 = bodyPositions.last else {
-            fatalError("Unable to extract last position")
-        }
-
-        let position0: IntVec2 = headPosition
-        let position1: IntVec2 = tailPosition
-        let diff: IntVec2 = position0.subtract(position1)
-        let absoluteDifference = UInt(abs(diff.x) + abs(diff.y))
-
-        let length = UInt(bodyPositions.count)
-
-        guard length == absoluteDifference + 1 else {
-            log.error("The snake can only be in the horizontal plane or the vertical plane. \(absoluteDifference) != \(length), \(position0), \(position1)")
-            return
-        }
-
-        var headDirection: SnakeHeadDirection = .right
-        if diff.x > 0 {
-            headDirection = .right
-        }
-        if diff.x < 0 {
-            headDirection = .left
-        }
-        if diff.y > 0 {
-            headDirection = .up
-        }
-        if diff.y < 0 {
-            headDirection = .down
-        }
-
-        log.debug("headPosition: \(headPosition)")
-        log.debug("length: \(length)")
-        log.debug("headDirection: \(headDirection)")
-
-        builder.player1_body = SnakeBody.create(
-            position: headPosition,
-            headDirection: headDirection,
-            length: length
-        )
     }
 
     public func reset() {
