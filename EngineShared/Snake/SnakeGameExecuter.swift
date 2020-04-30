@@ -23,10 +23,10 @@ public class SnakeGameExecuterFactory {
 
 /// Replay the moves of a historic game.
 public class SnakeGameExecuterReplay: SnakeGameExecuter {
-    let initialGameState: SnakeGameState
-    let foodPositions: [IntVec2]
-    let player1Positions: [IntVec2]
-    let player2Positions: [IntVec2]
+    public let initialGameState: SnakeGameState
+    private let foodPositions: [IntVec2]
+    private let player1Positions: [IntVec2]
+    private let player2Positions: [IntVec2]
 
     private init(initialGameState: SnakeGameState, foodPositions: [IntVec2], player1Positions: [IntVec2], player2Positions: [IntVec2]) {
         self.initialGameState = initialGameState
@@ -35,7 +35,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         self.player2Positions = player2Positions
     }
 
-    fileprivate static func create() -> SnakeGameExecuterReplay {
+    public static func create() -> SnakeGameExecuterReplay {
         let data: Data = SnakeDatasetBundle.load("0.snakeDataset")
         let model: SnakeGameResultModel
         do {
