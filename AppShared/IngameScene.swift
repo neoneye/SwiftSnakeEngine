@@ -32,24 +32,24 @@ enum UpdateAction {
 }
 
 class IngameScene: SKScene {
-    var cancellable = Set<AnyCancellable>()
-	var contentCreated = false
-    var gameNodeNeedRedraw: GameNodeNeedRedraw = []
-	var needLayout = false
-	var needBecomeFirstResponder = false
-	var pendingUpdateAction = UpdateAction.initialUpdateAction
-    var needSendingBeginNewGame = true
+    private let initialGameState: SnakeGameState
+    private let sound_snakeDies = SKAction.playSoundFileNamed("snake_dies.wav", waitForCompletion: false)
+    private let sound_snakeEats = SKAction.playSoundFileNamed("snake_eats.wav", waitForCompletion: false)
+    private let sound_snakeStep = SKAction.playSoundFileNamed("snake_step.wav", waitForCompletion: false)
 
-	var trainingSessionUUID: UUID
-	var trainingSessionURLs: [URL]
-	private let initialGameState: SnakeGameState
-	var gameState: SnakeGameState
-	var gameNode: SnakeGameNode
-    var gameExecuter: SnakeGameExecuter = SnakeGameExecuterFactory.create()
-	var previousGameStates: [SnakeGameState] = []
-	let sound_snakeDies = SKAction.playSoundFileNamed("snake_dies.wav", waitForCompletion: false)
-	let sound_snakeEats = SKAction.playSoundFileNamed("snake_eats.wav", waitForCompletion: false)
-	let sound_snakeStep = SKAction.playSoundFileNamed("snake_step.wav", waitForCompletion: false)
+    private var cancellable = Set<AnyCancellable>()
+	private var contentCreated = false
+    private var gameNodeNeedRedraw: GameNodeNeedRedraw = []
+	private var needLayout = false
+	private var needBecomeFirstResponder = false
+	private var pendingUpdateAction = UpdateAction.initialUpdateAction
+    private var needSendingBeginNewGame = true
+	private var trainingSessionUUID: UUID
+	private var trainingSessionURLs: [URL]
+	private var gameState: SnakeGameState
+	private var gameNode: SnakeGameNode
+    private var gameExecuter: SnakeGameExecuter = SnakeGameExecuterFactory.create()
+	private var previousGameStates: [SnakeGameState] = []
 
 	class func createHumanVsNone() -> IngameScene {
 		let gameState = SnakeGameState.create(
