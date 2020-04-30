@@ -84,6 +84,9 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
 //        log.debug("food: \(c)")
 
         // IDEA: validate positions are inside the level coordinates
+        // IDEA: validate that none of the snakes overlap with each other
+        // IDEA: validate that the snakes only occupy empty cells
+        // IDEA: validate that the food is placed on an empty cell
 
         guard ValidateDistance.manhattanDistanceIsOne(player1Positions) else {
             log.error("Invalid player1 positions. All moves must be by a distance of 1 unit.")
