@@ -158,10 +158,10 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         for y: UInt32 in 0..<size.y {
             for x: UInt32 in 0..<size.x {
                 let position = UIntVec2(x: x, y: y)
-                guard emptyPositionSet.contains(position) else {
-                    continue
+                let isEmpty: Bool = emptyPositionSet.contains(position)
+                if !isEmpty {
+                    builder.installWall(at: position)
                 }
-                builder.installWall(at: position)
             }
         }
 
