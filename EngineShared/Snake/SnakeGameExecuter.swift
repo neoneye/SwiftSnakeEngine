@@ -158,21 +158,31 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
             return
         }
 
-        let bodyPositions: [UIntVec2] = player.bodyPositions.map { UIntVec2(x: $0.x, y: $0.y) }
+        let bodyPositions: [IntVec2] = player.bodyPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
+
+        #if false
+        guard let body = SnakeBody.create(positions: bodyPositions) else {
+            log.error("Unable to create snake from the positions.")
+            return
+        }
+        builder.player1_body = body
+        return
+        #endif
+
 
         guard bodyPositions.count >= 3 else {
             log.error("Expected the snake to be 3 units or longer, but it's shorter.")
             return
         }
-        guard let headPosition: UIntVec2 = bodyPositions.first else {
+        guard let headPosition: IntVec2 = bodyPositions.first else {
             fatalError("Unable to extract first position")
         }
-        guard let tailPosition: UIntVec2 = bodyPositions.last else {
+        guard let tailPosition: IntVec2 = bodyPositions.last else {
             fatalError("Unable to extract last position")
         }
 
-        let position0: IntVec2 = headPosition.intVec2
-        let position1: IntVec2 = tailPosition.intVec2
+        let position0: IntVec2 = headPosition
+        let position1: IntVec2 = tailPosition
         let diff: IntVec2 = position0.subtract(position1)
         let absoluteDifference = UInt(abs(diff.x) + abs(diff.y))
 
@@ -202,7 +212,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         log.debug("headDirection: \(headDirection)")
 
         builder.player1_body = SnakeBody.create(
-            position: headPosition.intVec2,
+            position: headPosition,
             headDirection: headDirection,
             length: length
         )
