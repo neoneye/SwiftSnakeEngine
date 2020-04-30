@@ -525,8 +525,6 @@
 				42CCDB6E245A2A3C0086A3C3 /* SnakeGameState+IsWaitingForInput.swift */,
 				42CCDB6B245A29260086A3C3 /* SnakeGameState+PreventHumanCollisions.swift */,
 				42EB7C0323F2873B00229CEA /* SnakeGameState+SaveTrainingData.swift */,
-				42EB7BFF23F2105000229CEA /* SnakeGameStateModel.pb.swift */,
-				42EB7BFD23F1FD9D00229CEA /* SnakeGameStateModel.proto */,
 				42A8B6FD2331B4AE00E618CF /* SnakeHead.swift */,
 				42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */,
 				42CC22CA23397D1300CF3D96 /* SnakePlayer.swift */,
@@ -804,6 +802,8 @@
 				42CCDB65245A03050086A3C3 /* readme.md */,
 				42FA3C412458BB8F0064C76C /* SnakeDataset.bundle */,
 				42FA3C442458BC5D0064C76C /* SnakeDatasetBundle.swift */,
+				42EB7BFF23F2105000229CEA /* SnakeGameStateModel.pb.swift */,
+				42EB7BFD23F1FD9D00229CEA /* SnakeGameStateModel.proto */,
 				42CCDB66245A1F2F0086A3C3 /* ValidateDistance.swift */,
 			);
 			path = Dataset;
