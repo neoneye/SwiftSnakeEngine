@@ -142,7 +142,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         builder.initialFoodPosition = UIntVec2(x: foodPositionModel.x, y: foodPositionModel.y)
 
         populateBuilderWithPlayerA(builder: builder, stepModel: stepModel)
-        //IDEA: populateBuilderWithPlayerB(builder: builder, stepModel: stepModel)
+        populateBuilderWithPlayerB(builder: builder, stepModel: stepModel)
 
         return builder.level()
     }
@@ -167,6 +167,28 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         log.debug("length: \(body.length)")
         log.debug("headDirection: \(body.head.direction)")
         builder.player1_body = body
+    }
+
+    private static func populateBuilderWithPlayerB(builder: SnakeLevelBuilder, stepModel: SnakeGameStateStepModel) {
+        guard case .playerB(let player)? = stepModel.optionalPlayerB else {
+            log.error("Expected player B, but got none.")
+            return
+        }
+        guard player.alive else {
+            log.debug("player2 is not alive, so no need to install")
+            return
+        }
+
+        let positions: [IntVec2] = player.bodyPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
+
+        guard let body = SnakeBody.create(positions: positions.reversed()) else {
+            log.error("Unable to create snake from the positions: \(positions)")
+            return
+        }
+        log.debug("headPosition: \(body.head.position)")
+        log.debug("length: \(body.length)")
+        log.debug("headDirection: \(body.head.direction)")
+        builder.player2_body = body
     }
 
     public func reset() {
