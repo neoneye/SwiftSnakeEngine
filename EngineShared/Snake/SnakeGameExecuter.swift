@@ -42,7 +42,27 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
             log.error("Unable to load file: \(error)")
             fatalError()
         }
-        log.debug("successfully loaded model")
+
+        guard model.hasLevel else {
+            log.error("Expected the file to contain a 'level' snapshot of the board, but got none.")
+            fatalError()
+        }
+        guard model.hasFirstStep else {
+            log.error("Expected the file to contain a 'firstStep' snapshot of the board, but got none.")
+            fatalError()
+        }
+        guard model.hasLastStep else {
+            log.error("Expected the file to contain a 'lastStep' snapshot of the board, but got none.")
+            fatalError()
+        }
+        log.debug("successfully loaded file")
+
+        let step0: SnakeGameStateStepModel = model.firstStep
+
+        let level: SnakeLevel = createLevel(levelModel: model.level, stepModel: step0)
+        log.debug("level: \(level)")
+        // IDEA: make use of the loaded level. Pass it on to the IngameScene.
+        // IDEA: check hashes of the loaded level with the level in the file system.
 
         func convert(_ modelPositionArray: [SnakeGameStateModelPosition]) -> [IntVec2] {
             return modelPositionArray.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
@@ -60,6 +80,8 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
 //        log.debug("player1: \(a)")
 //        let b: ArraySlice<IntVec2> = player2Positions[0..<3]
 //        log.debug("player2: \(b)")
+//        let c: ArraySlice<IntVec2> = foodPositions[0..<3]
+//        log.debug("food: \(c)")
 
         // IDEA: validate positions are inside the level coordinates
 
@@ -77,6 +99,111 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
             player1Positions: player1Positions,
             player2Positions: player2Positions
         )
+    }
+
+    static func createLevel(levelModel: SnakeGameStateModelLevel, stepModel: SnakeGameStateStepModel) -> SnakeLevel {
+        let uuidString: String = levelModel.uuid
+        guard let uuid: UUID = UUID(uuidString: uuidString) else {
+            log.error("Expected a valid uuid, but got: '\(uuidString)'")
+            fatalError()
+        }
+        log.debug("level uuid: '\(uuid)'")
+
+        guard levelModel.width > 3 && levelModel.height > 3 else {
+            log.error("Expected size of level to be 3 or more, but got less. Cannot create level.")
+            fatalError()
+        }
+        let size = UIntVec2(x: levelModel.width, y: levelModel.height)
+        log.debug("level size: '\(size)'")
+
+        let emptyPositions: [UIntVec2] = levelModel.emptyPositions.map { UIntVec2(x: $0.x, y: $0.y) }
+        log.debug("number of empty positions: \(emptyPositions.count)")
+        let emptyPositionSet = Set<UIntVec2>(emptyPositions)
+
+
+        let builder = SnakeLevelBuilder(id: uuid, size: size)
+
+        // Install walls on the non-empty positions
+        for y: UInt32 in 0..<size.y {
+            for x: UInt32 in 0..<size.x {
+                let position = UIntVec2(x: x, y: y)
+                guard emptyPositionSet.contains(position) else {
+                    continue
+                }
+                builder.installWall(at: position)
+            }
+        }
+
+        // Insert food
+        guard case .foodPosition(let foodPositionModel)? = stepModel.optionalFoodPosition else {
+            log.error("Expected file to contain a food position for the first step, but got none.")
+            fatalError()
+        }
+        builder.initialFoodPosition = UIntVec2(x: foodPositionModel.x, y: foodPositionModel.y)
+
+        populateBuilderWithPlayerA(builder: builder, stepModel: stepModel)
+        //IDEA: populateBuilderWithPlayerB(builder: builder, stepModel: stepModel)
+
+        return builder.level()
+    }
+
+    private static func populateBuilderWithPlayerA(builder: SnakeLevelBuilder, stepModel: SnakeGameStateStepModel) {
+        guard case .playerA(let player)? = stepModel.optionalPlayerA else {
+            log.error("Expected player A, but got none.")
+            return
+        }
+
+        guard player.alive else {
+            log.debug("player1 is not alive, so no need to install")
+            return
+        }
+
+        let bodyPositions: [UIntVec2] = player.bodyPositions.map { UIntVec2(x: $0.x, y: $0.y) }
+
+        guard bodyPositions.count >= 3 else {
+            log.error("Expected the snake to be 3 units or longer, but it's shorter.")
+            return
+        }
+        guard let headPosition: UIntVec2 = bodyPositions.first else {
+            fatalError("Unable to extract first position")
+        }
+        guard let tailPosition: UIntVec2 = bodyPositions.last else {
+            fatalError("Unable to extract last position")
+        }
+
+        let position0: IntVec2 = headPosition.intVec2
+        let position1: IntVec2 = tailPosition.intVec2
+        let diff: IntVec2 = position0.subtract(position1)
+        let absoluteDifference = UInt(abs(diff.x) + abs(diff.y))
+
+        let length = UInt(bodyPositions.count)
+
+        guard length == absoluteDifference + 1 else {
+            log.error("The snake can only be in the horizontal plane or the vertical plane. \(absoluteDifference) != \(length), \(position0), \(position1)")
+            return
+        }
+
+        var headDirection: SnakeHeadDirection = .right
+        if diff.x > 0 {
+            headDirection = .right
+        }
+        if diff.x < 0 {
+            headDirection = .left
+        }
+        if diff.y > 0 {
+            headDirection = .up
+        }
+        if diff.y < 0 {
+            headDirection = .down
+        }
+
+        log.debug("headPosition: \(headPosition)")
+        log.debug("length: \(length)")
+        log.debug("headDirection: \(headDirection)")
+
+        builder.player1_initialPosition = headPosition
+        builder.player1_initialLength = length
+        builder.player1_initialHeadDirection = headDirection
     }
 
     public func reset() {
@@ -172,7 +299,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         }
         let position: IntVec2 = foodPositions[Int(currentIteration)]
         guard position != oldGameState.foodPosition else {
-            log.debug("#\(currentIteration) food is unchanged. position: \(position)")
+//            log.debug("#\(currentIteration) food is unchanged. position: \(position)")
             return oldGameState
         }
         log.debug("#\(currentIteration) placing new food at \(position)")
