@@ -2,7 +2,7 @@
 import XCTest
 @testable import EngineMac
 
-class T4000_ValidateDistance: XCTestCase {
+class T1008_ValidateDistance: XCTestCase {
 
     func test0_manhattanDistanceIsOne() {
         do {
