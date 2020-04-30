@@ -4,6 +4,37 @@ public struct SnakeHead: Hashable {
 	public let position: IntVec2
 	public let direction: SnakeHeadDirection
 
+    public init(position: IntVec2, direction: SnakeHeadDirection) {
+        self.position = position
+        self.direction = direction
+    }
+
+    /// Create a `SnakeHead` instance using two neighbouring positions.
+    ///
+    /// The coordinate system have its origin in the bottom/left corner.
+    ///
+    /// - parameter headPosition: The position of the snake head.
+    /// - parameter directionPosition: Used for determining the direction the snake head is pointing.
+    /// - returns: `nil` if the two positions aren't neighbours.
+    public static func create(headPosition: IntVec2, directionPosition: IntVec2) -> SnakeHead? {
+        let diff: IntVec2 = headPosition.subtract(directionPosition)
+        let xx: Int32 = abs(diff.x)
+        let yy: Int32 = abs(diff.y)
+        guard xx + yy == 1 else {
+            // If the positions are the same, then it's impossible to determine the direction.
+            // If the positions are diagonally, then it becomes too messy determining what the direction may be.
+            // If the positions are too far away, then for simplicity sake, `nil` is returned.
+            return nil
+        }
+        let direction: SnakeHeadDirection
+        if yy != 0 {
+            direction = (diff.y > 0) ? .down : .up
+        } else {
+            direction = (diff.x > 0) ? .left : .right
+        }
+        return SnakeHead(position: headPosition, direction: direction)
+    }
+
 	public func simulateTick(movement: SnakeBodyMovement) -> SnakeHead {
 		var newHeadDirection: SnakeHeadDirection = self.direction
 		switch movement {

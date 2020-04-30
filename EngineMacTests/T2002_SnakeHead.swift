@@ -4,7 +4,53 @@ import XCTest
 
 class T2002_SnakeHead: XCTestCase {
 
-    func test0_moveToward_nearestNeighbour() {
+    func test0_create_success() {
+        do {
+            guard let head = SnakeHead.create(headPosition: IntVec2(x: 10, y: 10), directionPosition: IntVec2(x: 10, y: 11)) else {
+                XCTFail("No head was created")
+                return
+            }
+            XCTAssertEqual(head.position, IntVec2(x: 10, y: 10))
+            XCTAssertEqual(head.direction, .up)
+        }
+        do {
+            guard let head = SnakeHead.create(headPosition: IntVec2(x: 10, y: 10), directionPosition: IntVec2(x: 10, y: 9)) else {
+                XCTFail("No head was created")
+                return
+            }
+            XCTAssertEqual(head.position, IntVec2(x: 10, y: 10))
+            XCTAssertEqual(head.direction, .down)
+        }
+        do {
+            guard let head = SnakeHead.create(headPosition: IntVec2(x: 10, y: 10), directionPosition: IntVec2(x: 9, y: 10)) else {
+                XCTFail("No head was created")
+                return
+            }
+            XCTAssertEqual(head.position, IntVec2(x: 10, y: 10))
+            XCTAssertEqual(head.direction, .left)
+        }
+        do {
+            guard let head = SnakeHead.create(headPosition: IntVec2(x: 10, y: 10), directionPosition: IntVec2(x: 11, y: 10)) else {
+                XCTFail("No head was created")
+                return
+            }
+            XCTAssertEqual(head.position, IntVec2(x: 10, y: 10))
+            XCTAssertEqual(head.direction, .right)
+        }
+    }
+
+    func test1_create_garbage() {
+        do {
+            let head: SnakeHead? = SnakeHead.create(headPosition: IntVec2(x: 10, y: 10), directionPosition: IntVec2(x: 10, y: 10))
+            XCTAssertNil(head, "Same position. Positions must be different from each other, by 1 unit.")
+        }
+        do {
+            let head: SnakeHead? = SnakeHead.create(headPosition: IntVec2(x: 10, y: 10), directionPosition: IntVec2(x: 20, y: 20))
+            XCTAssertNil(head, "Positions are too far away. Positions must differ by 1 unit")
+        }
+    }
+
+    func test2_moveToward_nearestNeighbour() {
         let position_center = IntVec2(x: 100, y: 200)
         let position_up     = IntVec2(x: 100, y: 201)
         let position_down   = IntVec2(x: 100, y: 199)
@@ -44,7 +90,7 @@ class T2002_SnakeHead: XCTestCase {
         }
     }
 
-    func test1_moveToward_diagonal() {
+    func test3_moveToward_diagonal() {
         let position_center = IntVec2(x: 100, y: 200)
         do {
             let position_up_left = position_center.offsetBy(dx: -1, dy: 1)
