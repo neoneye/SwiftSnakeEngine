@@ -5,6 +5,7 @@ public class SnakeLevelManager {
 	public static let shared = SnakeLevelManager()
 
 	private var nameToLevel = [String: SnakeLevel]()
+    private var idToLevel = [UUID: SnakeLevel]()
 
 	public let levelNames: [String]
 	public let defaultLevelName: String
@@ -38,10 +39,17 @@ public class SnakeLevelManager {
 		for levelName in self.levelNames {
 			let snakeLevel: SnakeLevel = SnakeLevel.load(levelName)
 			self.nameToLevel[levelName] = snakeLevel
+
+            let levelId: UUID = snakeLevel.id
+            self.idToLevel[levelId] = snakeLevel
 		}
 	}
 
-	public func level(_ levelName: String) -> SnakeLevel? {
-		return nameToLevel[levelName]
+	public func level(name: String) -> SnakeLevel? {
+		return nameToLevel[name]
 	}
+
+    public func level(id: UUID) -> SnakeLevel? {
+        return idToLevel[id]
+    }
 }

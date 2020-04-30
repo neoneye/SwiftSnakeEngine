@@ -67,6 +67,7 @@
 		426891FF233267E900B97E29 /* BellmanFord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F8233267E900B97E29 /* BellmanFord.swift */; };
 		426892032332682100B97E29 /* GraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426892012332682100B97E29 /* GraphTests.swift */; };
 		426892042332682100B97E29 /* SSSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426892022332682100B97E29 /* SSSPTests.swift */; };
+		4281226E245A658200486CB0 /* T3200_SnakeLevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4281226D245A658200486CB0 /* T3200_SnakeLevelManager.swift */; };
 		42822A23239817CA00DA4461 /* SnakeBot6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42822A22239817CA00DA4461 /* SnakeBot6.swift */; };
 		42905320243E9659004EFFB6 /* snakeskin_blue.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531C243E9659004EFFB6 /* snakeskin_blue.atlas */; };
 		42905321243E9659004EFFB6 /* snakeskin_blue.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 4290531C243E9659004EFFB6 /* snakeskin_blue.atlas */; };
@@ -357,6 +358,7 @@
 		426891F8233267E900B97E29 /* BellmanFord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BellmanFord.swift; sourceTree = "<group>"; };
 		426892012332682100B97E29 /* GraphTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphTests.swift; sourceTree = "<group>"; };
 		426892022332682100B97E29 /* SSSPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSSPTests.swift; sourceTree = "<group>"; };
+		4281226D245A658200486CB0 /* T3200_SnakeLevelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T3200_SnakeLevelManager.swift; sourceTree = "<group>"; };
 		42822A22239817CA00DA4461 /* SnakeBot6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeBot6.swift; sourceTree = "<group>"; };
 		4290531C243E9659004EFFB6 /* snakeskin_blue.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = snakeskin_blue.atlas; sourceTree = "<group>"; };
 		4290531D243E9659004EFFB6 /* snakeskin_green.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = snakeskin_green.atlas; sourceTree = "<group>"; };
@@ -617,6 +619,7 @@
 				42CCD61923C2AA9A0021CBE7 /* T3000_SnakeLevel.swift */,
 				42CCD60823BD54F70021CBE7 /* T3001_SnakeLevel_Cluster.swift */,
 				429D336723FB056300EF9B37 /* T3100_StuckSnakeDetector.swift */,
+				4281226D245A658200486CB0 /* T3200_SnakeLevelManager.swift */,
 				42CCDB69245A1FBF0086A3C3 /* T4000_ValidateDistance.swift */,
 			);
 			path = EngineMacTests;
@@ -1342,6 +1345,7 @@
 				4253C5472336350100210611 /* T1100_SeededGenerator.swift in Sources */,
 				4253C5462336350100210611 /* T1002_UIntVec2.swift in Sources */,
 				429D336823FB056300EF9B37 /* T3100_StuckSnakeDetector.swift in Sources */,
+				4281226E245A658200486CB0 /* T3200_SnakeLevelManager.swift in Sources */,
 				42C6512F23F5A2FD00B2669E /* T1007_SnakeFifo.swift in Sources */,
 				42E042B4233402CD007AC6F9 /* T1200_ComputeShortestPath.swift in Sources */,
 				426892032332682100B97E29 /* GraphTests.swift in Sources */,

@@ -3,7 +3,7 @@ import Foundation
 
 extension SnakeGameState {
 	public class func create(player1: SnakePlayerRole, player2: SnakePlayerRole, levelName: String) -> SnakeGameState {
-		guard let snakeLevel: SnakeLevel = SnakeLevelManager.shared.level(levelName) else {
+        guard let snakeLevel: SnakeLevel = SnakeLevelManager.shared.level(name: levelName) else {
 			fatalError("Cannot find a level with the levelName '\(levelName)'")
 		}
 		
