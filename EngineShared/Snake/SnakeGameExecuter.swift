@@ -23,11 +23,13 @@ public class SnakeGameExecuterFactory {
 
 /// Replay the moves of a historic game.
 public class SnakeGameExecuterReplay: SnakeGameExecuter {
+    let initialGameState: SnakeGameState
     let foodPositions: [IntVec2]
     let player1Positions: [IntVec2]
     let player2Positions: [IntVec2]
 
-    private init(foodPositions: [IntVec2], player1Positions: [IntVec2], player2Positions: [IntVec2]) {
+    private init(initialGameState: SnakeGameState, foodPositions: [IntVec2], player1Positions: [IntVec2], player2Positions: [IntVec2]) {
+        self.initialGameState = initialGameState
         self.foodPositions = foodPositions
         self.player1Positions = player1Positions
         self.player2Positions = player2Positions
@@ -97,7 +99,33 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
             fatalError()
         }
 
+        var gameState = SnakeGameState.empty()
+        gameState = gameState.stateWithNewLevel(level)
+
+        if player1Positions.count >= 2 {
+            var player = SnakePlayer.create(id: .player1, role: .replay)
+            player = player.playerWithNewSnakeBody(level.player1_body)
+            gameState = gameState.stateWithNewPlayer1(player)
+        } else {
+            var player = SnakePlayer.create(id: .player1, role: .none)
+            player = player.uninstall()
+            gameState = gameState.stateWithNewPlayer1(player)
+        }
+
+        if player2Positions.count >= 2 {
+            var player = SnakePlayer.create(id: .player2, role: .replay)
+            player = player.playerWithNewSnakeBody(level.player2_body)
+            gameState = gameState.stateWithNewPlayer2(player)
+        } else {
+            var player = SnakePlayer.create(id: .player2, role: .none)
+            player = player.uninstall()
+            gameState = gameState.stateWithNewPlayer2(player)
+        }
+
+        gameState = gameState.stateWithNewFoodPosition(level.initialFoodPosition.intVec2)
+
         return SnakeGameExecuterReplay(
+            initialGameState: gameState,
             foodPositions: foodPositions,
             player1Positions: player1Positions,
             player2Positions: player2Positions
