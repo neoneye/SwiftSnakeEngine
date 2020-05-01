@@ -32,7 +32,7 @@ extension SnakePlayer {
 }
 
 extension SnakeLevel {
-	fileprivate func toSnakeGameStateModelLevel() -> SnakeGameStateModelLevel {
+	internal func toSnakeGameStateModelLevel() -> SnakeGameStateModelLevel {
 		// Empty positions in the level
 		var emptyPositions = [SnakeGameStateModelPosition]()
 		for signedPosition: IntVec2 in self.emptyPositionArray {
