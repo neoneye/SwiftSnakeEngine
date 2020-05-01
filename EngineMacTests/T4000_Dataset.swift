@@ -5,15 +5,19 @@ import XCTest
 class T4000_Dataset: XCTestCase {
 
     func test100_level() {
+        // This test verifies that a full serialization/deserialization roundtrip works.
+        // 1st step: convert from a model representation to a protobuf representation.
+        // 2nd step: convert back to a model representation.
+        // 3rd step: verify that the desired model data has been preserved.
+
         let uuid = UUID(uuidString: "cdeeadf2-31c9-48f4-852f-778b58086dd0")!
         guard let originalLevel: SnakeLevel = SnakeLevelManager.shared.level(id: uuid) else {
             XCTFail("Unable to locate level with uuid: '\(uuid)'")
             return
         }
 
-        let model: SnakeGameStateModelLevel = originalLevel.toSnakeGameStateModelLevel()
-
-        let builder: SnakeLevelBuilder = DatasetLoader.snakeLevelBuilder(levelModel: model)
+        let protobufRepresentation: SnakeGameStateModelLevel = originalLevel.toSnakeGameStateModelLevel()
+        let builder: SnakeLevelBuilder = DatasetLoader.snakeLevelBuilder(levelModel: protobufRepresentation)
         let level: SnakeLevel = builder.level()
 
         // Things that are preserved from the original level
@@ -26,6 +30,8 @@ class T4000_Dataset: XCTestCase {
         // And these properties are subject to change.
         XCTAssertEqual(level.initialFoodPosition, UIntVec2.zero)
         XCTAssertTrue(level.distanceBetweenClusters.isEmpty)
+        XCTAssertEqual(level.player1_body.head.position, IntVec2.zero)
+        XCTAssertEqual(level.player2_body.head.position, IntVec2.zero)
     }
 
 }

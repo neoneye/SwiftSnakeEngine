@@ -7,8 +7,8 @@ public class SnakeLevelBuilder {
 	internal let clusters: Array2<SnakeLevel_ClusterId>
 	public let size: UIntVec2
 	public var initialFoodPosition: UIntVec2 = UIntVec2.zero
-    public var player1_body: SnakeBody?
-    public var player2_body: SnakeBody?
+    public var player1_body: SnakeBody = SnakeBody.empty()
+    public var player2_body: SnakeBody = SnakeBody.empty()
 	public var precomputed_distanceBetweenClusters: [SnakeLevel_ClusterPair: Int]?
 
 	public init(id: UUID, size: UIntVec2) {
@@ -30,9 +30,6 @@ public class SnakeLevelBuilder {
 			distanceBetweenClusters = SnakeLevelBuilder.computeDistancesBetweenClusters(emptyPositionArray: emptyPositionArray, clusters: self.clusters, ignoreTheseAdjacentClusterPairs: ignoreTheseAdjacentClusterPairs)
 		}
 
-        let player1_body: SnakeBody = self.player1_body ?? SnakeBody.create(position: IntVec2.zero, headDirection: .right, length: 3)
-        let player2_body: SnakeBody = self.player2_body ?? SnakeBody.create(position: IntVec2.zero, headDirection: .right, length: 3)
-
 		return SnakeLevel(
             id: self.id,
 			cells: self.cells,
@@ -40,8 +37,8 @@ public class SnakeLevelBuilder {
 			distanceBetweenClusters: distanceBetweenClusters,
 			size: self.size,
 			initialFoodPosition: self.initialFoodPosition,
-            player1_body: player1_body,
-            player2_body: player2_body,
+            player1_body: self.player1_body,
+            player2_body: self.player2_body,
 			emptyPositionArray: emptyPositionArray,
 			emptyPositionSet: emptyPositionSet
 		)
