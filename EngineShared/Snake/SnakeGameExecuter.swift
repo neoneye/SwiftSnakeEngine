@@ -14,12 +14,6 @@ public protocol SnakeGameExecuter: class {
     func endOfStep(_ gameState: SnakeGameState) -> SnakeGameState
 }
 
-public class SnakeGameExecuterFactory {
-    public static func create() -> SnakeGameExecuter {
-//        return SnakeGameExecuterReplay.create()
-        return SnakeGameExecuterInteractive()
-    }
-}
 
 /// Replay the moves of a historic game.
 public class SnakeGameExecuterReplay: SnakeGameExecuter {

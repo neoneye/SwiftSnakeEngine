@@ -48,11 +48,11 @@ class IngameScene: SKScene {
 	private var trainingSessionURLs: [URL]
 	private var gameState: SnakeGameState
 	private var gameNode: SnakeGameNode
-    private var gameExecuter: SnakeGameExecuter = SnakeGameExecuterFactory.create()
+    private let gameExecuter: SnakeGameExecuter
 	private var previousGameStates: [SnakeGameState] = []
 
 	class func createHumanVsNone() -> IngameScene {
-        let gameExecuter: SnakeGameExecuter = SnakeGameExecuterFactory.create()
+        let gameExecuter: SnakeGameExecuter = SnakeGameExecuterInteractive()
 		let gameState = SnakeGameState.create(
 			player1: .human,
 			player2: .none,
@@ -62,7 +62,7 @@ class IngameScene: SKScene {
 	}
 
     class func createBotVsNone() -> IngameScene {
-        let gameExecuter: SnakeGameExecuter = SnakeGameExecuterFactory.create()
+        let gameExecuter: SnakeGameExecuter = SnakeGameExecuterInteractive()
         let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
         let gameState = SnakeGameState.create(
             player1: .bot(snakeBotType: snakeBotType),
