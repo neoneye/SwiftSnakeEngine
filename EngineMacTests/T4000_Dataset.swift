@@ -2,14 +2,40 @@
 import XCTest
 @testable import EngineMac
 
+/// These tests verifies that a full serialization/deserialization roundtrip works.
+/// 1st step: convert from a model representation to a protobuf representation.
+/// 2nd step: convert back to a model representation.
+/// 3rd step: verify that the desired model data has been preserved.
 class T4000_Dataset: XCTestCase {
 
-    func test100_level() throws {
-        // This test verifies that a full serialization/deserialization roundtrip works.
-        // 1st step: convert from a model representation to a protobuf representation.
-        // 2nd step: convert back to a model representation.
-        // 3rd step: verify that the desired model data has been preserved.
+    func createSnakePlayer() -> SnakePlayer {
+        let positions: [IntVec2] = [
+            IntVec2(x: 10, y: 10),
+            IntVec2(x: 11, y: 10),
+            IntVec2(x: 12, y: 10),
+            IntVec2(x: 12, y:  9),
+            IntVec2(x: 12, y:  8),
+        ]
+        guard let body: SnakeBody = SnakeBody.create(positions: positions) else {
+            fatalError("This is supposed to always result in a valid snake")
+        }
+        var player: SnakePlayer = SnakePlayer.create(id: .player1, role: .human)
+        player = player.playerWithNewSnakeBody(body)
+        return player
+    }
 
+    func test100_serializationRoundtrip_player() throws {
+        let originalPlayer: SnakePlayer = createSnakePlayer()
+        let protobufRepresentation: SnakeGameStateModelPlayer = originalPlayer.toSnakeGameStateModelPlayer()
+
+        let result: DatasetLoader.SnakePlayerResult = try DatasetLoader.snakePlayerResult(playerModel: protobufRepresentation)
+
+        // Things that are preserved from the original player
+        XCTAssertTrue(result.isAlive)
+        XCTAssertEqual(result.snakeBody, originalPlayer.snakeBody)
+    }
+
+    func test101_serializationRoundtrip_level() throws {
         let uuid = UUID(uuidString: "cdeeadf2-31c9-48f4-852f-778b58086dd0")!
         guard let originalLevel: SnakeLevel = SnakeLevelManager.shared.level(id: uuid) else {
             XCTFail("Unable to locate level with uuid: '\(uuid)'")

@@ -2,7 +2,7 @@
 import Foundation
 
 extension SnakePlayer {
-	fileprivate func toSnakeGameStateModelPlayer() -> SnakeGameStateModelPlayer {
+	internal func toSnakeGameStateModelPlayer() -> SnakeGameStateModelPlayer {
 
         // Flip the position array, so that:
         // The start of the array correspond to the snake head position.

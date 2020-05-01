@@ -148,24 +148,20 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
 
     private static func populateBuilderWithPlayerA(builder: SnakeLevelBuilder, stepModel: SnakeGameStateStepModel) {
         guard case .playerA(let player)? = stepModel.optionalPlayerA else {
-            log.error("Expected player A, but got none.")
-            return
-        }
-        guard player.alive else {
-            log.debug("player1 is not alive, so no need to install")
+            log.error("Expected player 1, but got none.")
             return
         }
 
-        let positions: [IntVec2] = player.bodyPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
-
-        guard let body = SnakeBody.create(positions: positions.reversed()) else {
-            log.error("Unable to create snake from the positions: \(positions)")
+        let result: DatasetLoader.SnakePlayerResult
+        do {
+            result = try DatasetLoader.snakePlayerResult(playerModel: player)
+        } catch {
+            log.error("Unable to parse player 1. \(error)")
             return
         }
-        log.debug("headPosition: \(body.head.position)")
-        log.debug("length: \(body.length)")
-        log.debug("headDirection: \(body.head.direction)")
-        builder.player1_body = body
+        if result.isAlive {
+            builder.player1_body = result.snakeBody
+        }
     }
 
     private static func populateBuilderWithPlayerB(builder: SnakeLevelBuilder, stepModel: SnakeGameStateStepModel) {
@@ -173,21 +169,17 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
             log.error("Expected player B, but got none.")
             return
         }
-        guard player.alive else {
-            log.debug("player2 is not alive, so no need to install")
+
+        let result: DatasetLoader.SnakePlayerResult
+        do {
+            result = try DatasetLoader.snakePlayerResult(playerModel: player)
+        } catch {
+            log.error("Unable to parse player 2. \(error)")
             return
         }
-
-        let positions: [IntVec2] = player.bodyPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
-
-        guard let body = SnakeBody.create(positions: positions.reversed()) else {
-            log.error("Unable to create snake from the positions: \(positions)")
-            return
+        if result.isAlive {
+            builder.player2_body = result.snakeBody
         }
-        log.debug("headPosition: \(body.head.position)")
-        log.debug("length: \(body.length)")
-        log.debug("headDirection: \(body.head.direction)")
-        builder.player2_body = body
     }
 
     public func reset() {

@@ -2,17 +2,17 @@
 import Foundation
 
 public class DatasetLoader {
-    enum SnakeLevelBuilderError: Error {
+    enum DatasetLoaderError: Error {
         case runtimeError(message: String)
     }
 
     internal static func snakeLevelBuilder(levelModel: SnakeGameStateModelLevel) throws -> SnakeLevelBuilder {
         let uuidString: String = levelModel.uuid
         guard let uuid: UUID = UUID(uuidString: uuidString) else {
-            throw SnakeLevelBuilderError.runtimeError(message: "Expected a valid uuid, but got: '\(uuidString)'")
+            throw DatasetLoaderError.runtimeError(message: "Expected a valid uuid, but got: '\(uuidString)'")
         }
         guard levelModel.width >= 3 && levelModel.height >= 3 else {
-            throw SnakeLevelBuilderError.runtimeError(message: "Expected size of level to be 3 or more, but got less. Cannot create level.")
+            throw DatasetLoaderError.runtimeError(message: "Expected size of level to be 3 or more, but got less. Cannot create level.")
         }
         let size = UIntVec2(x: levelModel.width, y: levelModel.height)
         let emptyPositions: [UIntVec2] = levelModel.emptyPositions.map { UIntVec2(x: $0.x, y: $0.y) }
@@ -30,6 +30,20 @@ public class DatasetLoader {
             }
         }
         return builder
+    }
+
+    internal struct SnakePlayerResult {
+        let isAlive: Bool
+        let snakeBody: SnakeBody
+    }
+
+    internal static func snakePlayerResult(playerModel: SnakeGameStateModelPlayer) throws -> SnakePlayerResult {
+        guard playerModel.alive else {
+            return SnakePlayerResult(isAlive: false, snakeBody: SnakeBody.empty())
+        }
+        let positions: [IntVec2] = playerModel.bodyPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
+        let snakeBody: SnakeBody = try SnakeBodyAdvancedCreate.create(positions: positions.reversed())
+        return SnakePlayerResult(isAlive: true, snakeBody: snakeBody)
     }
 
 }
