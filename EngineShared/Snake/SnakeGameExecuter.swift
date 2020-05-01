@@ -94,8 +94,9 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         var gameState = SnakeGameState.empty()
         gameState = gameState.stateWithNewLevel(level)
 
+        // IDEA: restore the player role from the protobuf file
         if player1Positions.count >= 2 {
-            var player = SnakePlayer.create(id: .player1, role: .replay)
+            var player = SnakePlayer.create(id: .player1, role: .human)
             player = player.playerWithNewSnakeBody(level.player1_body)
             gameState = gameState.stateWithNewPlayer1(player)
         } else {
@@ -105,7 +106,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         }
 
         if player2Positions.count >= 2 {
-            var player = SnakePlayer.create(id: .player2, role: .replay)
+            var player = SnakePlayer.create(id: .player2, role: .human)
             player = player.playerWithNewSnakeBody(level.player2_body)
             gameState = gameState.stateWithNewPlayer2(player)
         } else {

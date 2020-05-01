@@ -5,7 +5,6 @@ public enum SnakePlayerRole {
 	case none
 	case human
 	case bot(snakeBotType: SnakeBot.Type)
-    case replay
 }
 
 public enum SnakePlayerId {
@@ -23,8 +22,6 @@ extension SnakePlayerRole: Equatable {
 		case let (.bot(bot0), .bot(bot1)):
 			let isEqual_snakeBotType: Bool = bot0 == bot1
 			return isEqual_snakeBotType
-        case (.replay, .replay):
-            return true
 		default:
 			return false
 		}
@@ -54,8 +51,6 @@ public class SnakePlayer {
 			return false
 		case .bot:
 			return true
-        case .replay:
-            return false
 		}
 	}
 
@@ -92,8 +87,6 @@ public class SnakePlayer {
 			snakeBotType = SnakeBotFactory.emptyBotType()
 		case let .bot(snakeBotType2):
 			snakeBotType = snakeBotType2
-        case .replay:
-            snakeBotType = SnakeBotFactory.emptyBotType()
 		}
 
 		let bot: SnakeBot = snakeBotType.init()
@@ -238,8 +231,6 @@ extension SnakePlayer {
         case let .bot(botType):
             let name: String = botType.self.info.humanReadableName
             return "BOT - \(name)"
-        case .replay:
-            return "Replay"
         }
     }
 }
