@@ -72,12 +72,10 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         log.debug("player1 positions.count: \(player1Positions.count)")
         log.debug("player2 positions.count: \(player2Positions.count)")
 
-//        let a: ArraySlice<IntVec2> = player1Positions[0..<3]
-//        log.debug("player1: \(a)")
-//        let b: ArraySlice<IntVec2> = player2Positions[0..<3]
-//        log.debug("player2: \(b)")
-//        let c: ArraySlice<IntVec2> = foodPositions[0..<3]
-//        log.debug("food: \(c)")
+        let pretty = PrettyPrintArray.simple
+        log.debug("player1: \(pretty.format(player1Positions))")
+        log.debug("player2: \(pretty.format(player2Positions))")
+        log.debug("food: \(pretty.format(foodPositions))")
 
         // IDEA: validate positions are inside the level coordinates
         // IDEA: validate that none of the snakes overlap with each other

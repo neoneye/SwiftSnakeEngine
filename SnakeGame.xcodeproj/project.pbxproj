@@ -215,6 +215,9 @@
 		42CFF5B4245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CFF5B3245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift */; };
 		42CFF5B5245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CFF5B3245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift */; };
 		42CFF5B7245B514000590D62 /* T2004_SnakeBodyAdvancedCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CFF5B6245B514000590D62 /* T2004_SnakeBodyAdvancedCreate.swift */; };
+		42CFF5BB245BB7D400590D62 /* PrettyPrintArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CFF5BA245BB7D400590D62 /* PrettyPrintArray.swift */; };
+		42CFF5BC245BB7D400590D62 /* PrettyPrintArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CFF5BA245BB7D400590D62 /* PrettyPrintArray.swift */; };
+		42CFF5BE245BBB1300590D62 /* T1009_PrettyPrintArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CFF5BD245BBB1300590D62 /* T1009_PrettyPrintArray.swift */; };
 		42E042B2233400D3007AC6F9 /* ComputeShortestPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B1233400D3007AC6F9 /* ComputeShortestPath.swift */; };
 		42E042B4233402CD007AC6F9 /* T1200_ComputeShortestPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B3233402CD007AC6F9 /* T1200_ComputeShortestPath.swift */; };
 		42E042B623340DEE007AC6F9 /* SnakeLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B523340DEE007AC6F9 /* SnakeLevel.swift */; };
@@ -425,6 +428,8 @@
 		42CF349E6C439CD0ACDE948C /* Pods-BasePodsMAC-SnakeGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-SnakeGame.debug.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-SnakeGame/Pods-BasePodsMAC-SnakeGame.debug.xcconfig"; sourceTree = "<group>"; };
 		42CFF5B3245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBodyAdvancedCreate.swift; sourceTree = "<group>"; };
 		42CFF5B6245B514000590D62 /* T2004_SnakeBodyAdvancedCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2004_SnakeBodyAdvancedCreate.swift; sourceTree = "<group>"; };
+		42CFF5BA245BB7D400590D62 /* PrettyPrintArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrettyPrintArray.swift; sourceTree = "<group>"; };
+		42CFF5BD245BBB1300590D62 /* T1009_PrettyPrintArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = T1009_PrettyPrintArray.swift; sourceTree = "<group>"; };
 		42E042B1233400D3007AC6F9 /* ComputeShortestPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputeShortestPath.swift; sourceTree = "<group>"; };
 		42E042B3233402CD007AC6F9 /* T1200_ComputeShortestPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1200_ComputeShortestPath.swift; sourceTree = "<group>"; };
 		42E042B523340DEE007AC6F9 /* SnakeLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeLevel.swift; sourceTree = "<group>"; };
@@ -556,6 +561,7 @@
 				42C236EC2333033700241639 /* MeasureAreaSize.swift */,
 				4228915123341CCC00273A0F /* MeasureTurnCount.swift */,
 				423C4F53240C4B5B00786F49 /* OSLogDestination.swift */,
+				42CFF5BA245BB7D400590D62 /* PrettyPrintArray.swift */,
 				4255C9FF232F70F800A230AF /* remap.swift */,
 				4255CA29233180B500A230AF /* SeededGenerator.swift */,
 				4255CA00232F70F800A230AF /* sigmoid.swift */,
@@ -618,6 +624,7 @@
 				4228915323341D2100273A0F /* T1006_MeasureTurnCount.swift */,
 				42C6512E23F5A2FD00B2669E /* T1007_SnakeFifo.swift */,
 				42CCDB69245A1FBF0086A3C3 /* T1008_ValidateDistance.swift */,
+				42CFF5BD245BBB1300590D62 /* T1009_PrettyPrintArray.swift */,
 				4253C5452336350100210611 /* T1100_SeededGenerator.swift */,
 				42E042B3233402CD007AC6F9 /* T1200_ComputeShortestPath.swift */,
 				4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */,
@@ -1322,6 +1329,7 @@
 				42C236ED2333033700241639 /* MeasureAreaSize.swift in Sources */,
 				421BC991245330C70070F3EB /* SnakeBot7.swift in Sources */,
 				42CCD61123BE65FD0021CBE7 /* BoundingBox.swift in Sources */,
+				42CFF5BB245BB7D400590D62 /* PrettyPrintArray.swift in Sources */,
 				42CFF5B4245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift in Sources */,
 				42CCDB6F245A2A3C0086A3C3 /* SnakeGameState+IsWaitingForInput.swift in Sources */,
 				426891FE233267E900B97E29 /* SSSP.swift in Sources */,
@@ -1345,6 +1353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42CFF5BE245BBB1300590D62 /* T1009_PrettyPrintArray.swift in Sources */,
 				42CCD61523BEB0C50021CBE7 /* T1005_DataSHA1.swift in Sources */,
 				42CFF5B7245B514000590D62 /* T2004_SnakeBodyAdvancedCreate.swift in Sources */,
 				4214300824259647003A58FB /* T2001_SnakeBodyMovement.swift in Sources */,
@@ -1452,6 +1461,7 @@
 				42ABC142243D13AB00E05FF3 /* SnakeBodyMovement.swift in Sources */,
 				421BC992245330C70070F3EB /* SnakeBot7.swift in Sources */,
 				42ABC147243D13AB00E05FF3 /* SnakeGameHeadless.swift in Sources */,
+				42CFF5BC245BB7D400590D62 /* PrettyPrintArray.swift in Sources */,
 				42CFF5B5245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift in Sources */,
 				42CCDB70245A2A3C0086A3C3 /* SnakeGameState+IsWaitingForInput.swift in Sources */,
 				42ABC127243D138300E05FF3 /* IntVec2.swift in Sources */,
