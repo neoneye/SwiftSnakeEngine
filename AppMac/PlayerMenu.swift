@@ -59,6 +59,7 @@ public class PlayerRoleMenuItemFactory {
 
 	public lazy var none: PlayerRoleMenuItem = {
 		PlayerRoleMenuItemImpl(
+            // IDEA: move uuid to be in the SnakePlayer class
             id: UUID(uuidString: "a036c9e1-ca00-46f5-a960-16451d66390e")!,
 			role: .none,
 			menuItemTitle: "None"
@@ -67,6 +68,7 @@ public class PlayerRoleMenuItemFactory {
 
 	public lazy var human: PlayerRoleMenuItem = {
 		PlayerRoleMenuItemWithCustomTitleImpl(
+            // IDEA: move uuid to be in the SnakePlayer class
             id: UUID(uuidString: "c7ccdf6d-56ac-491c-857b-be6a80bc6598")!,
 			role: .human,
 			menuItemTitle_player1: "Human - Arrows",
