@@ -36,7 +36,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
     }
 
     public static func create() -> SnakeGameExecuterReplay {
-        let data: Data = SnakeDatasetBundle.load("0.snakeDataset")
+        let data: Data = SnakeDatasetBundle.load("1.snakeDataset")
         let model: SnakeGameResultModel
         do {
             model = try SnakeGameResultModel(serializedData: data)
