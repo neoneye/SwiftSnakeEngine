@@ -24,7 +24,7 @@ public struct SnakeBodyAdvancedCreate {
             throw CreateError.tooFewPositions
         }
 
-        guard ValidateDistance.manhattanDistanceIsOne(positions) else {
+        guard ValidateDistance.distanceIsOne(positions) else {
             // Expected all positions to have a distance of 1 unit, but one or more doesn't satisfy this.
             throw CreateError.distanceOfOne
         }

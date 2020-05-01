@@ -11,7 +11,7 @@ public class ValidateDistance {
     /// Rule violation: The snake must never stand still, so it cannot move by 0 unit.
     ///
     /// Rule violation: The snake must not move by more than 1 unit.
-    public static func manhattanDistanceIsOne(_ positions: [IntVec2]) -> Bool {
+    public static func distanceIsOne(_ positions: [IntVec2]) -> Bool {
         for (index, position) in positions.enumerated() {
             if index == 0 {
                 continue
