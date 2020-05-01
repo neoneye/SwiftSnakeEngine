@@ -125,7 +125,13 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
     }
 
     static func createLevel(levelModel: SnakeGameStateModelLevel, stepModel: SnakeGameStateStepModel) -> SnakeLevel {
-        let builder: SnakeLevelBuilder = DatasetLoader.snakeLevelBuilder(levelModel: levelModel)
+        let builder: SnakeLevelBuilder
+        do {
+            builder = try DatasetLoader.snakeLevelBuilder(levelModel: levelModel)
+        } catch {
+            log.error("Unable to parse level. \(error)")
+            fatalError()
+        }
 
         // Insert food
         guard case .foodPosition(let foodPositionModel)? = stepModel.optionalFoodPosition else {

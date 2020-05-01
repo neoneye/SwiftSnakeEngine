@@ -4,7 +4,7 @@ import XCTest
 
 class T4000_Dataset: XCTestCase {
 
-    func test100_level() {
+    func test100_level() throws {
         // This test verifies that a full serialization/deserialization roundtrip works.
         // 1st step: convert from a model representation to a protobuf representation.
         // 2nd step: convert back to a model representation.
@@ -17,7 +17,7 @@ class T4000_Dataset: XCTestCase {
         }
 
         let protobufRepresentation: SnakeGameStateModelLevel = originalLevel.toSnakeGameStateModelLevel()
-        let builder: SnakeLevelBuilder = DatasetLoader.snakeLevelBuilder(levelModel: protobufRepresentation)
+        let builder: SnakeLevelBuilder = try DatasetLoader.snakeLevelBuilder(levelModel: protobufRepresentation)
         let level: SnakeLevel = builder.level()
 
         // Things that are preserved from the original level
