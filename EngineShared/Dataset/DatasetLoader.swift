@@ -38,12 +38,12 @@ public class DatasetLoader {
     }
 
     internal static func snakePlayerResult(playerModel: SnakeGameStateModelPlayer) throws -> SnakePlayerResult {
-        guard playerModel.alive else {
-            return SnakePlayerResult(isAlive: false, snakeBody: SnakeBody.empty())
-        }
         let positions: [IntVec2] = playerModel.bodyPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
         let snakeBody: SnakeBody = try SnakeBodyAdvancedCreate.create(positions: positions.reversed())
-        return SnakePlayerResult(isAlive: true, snakeBody: snakeBody)
+        return SnakePlayerResult(
+            isAlive: playerModel.alive,
+            snakeBody: snakeBody
+        )
     }
 
 }

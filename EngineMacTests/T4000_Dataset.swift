@@ -24,7 +24,7 @@ class T4000_Dataset: XCTestCase {
         return player
     }
 
-    func test100_serializationRoundtrip_player() throws {
+    func test100_serializationRoundtrip_player_alive() throws {
         let originalPlayer: SnakePlayer = createSnakePlayer()
         let protobufRepresentation: SnakeGameStateModelPlayer = originalPlayer.toSnakeGameStateModelPlayer()
 
@@ -35,7 +35,19 @@ class T4000_Dataset: XCTestCase {
         XCTAssertEqual(result.snakeBody, originalPlayer.snakeBody)
     }
 
-    func test101_serializationRoundtrip_level() throws {
+    func test101_serializationRoundtrip_player_dead() throws {
+        let originalPlayer: SnakePlayer = createSnakePlayer().kill(.collisionWithWall)
+
+        let protobufRepresentation: SnakeGameStateModelPlayer = originalPlayer.toSnakeGameStateModelPlayer()
+
+        let result: DatasetLoader.SnakePlayerResult = try DatasetLoader.snakePlayerResult(playerModel: protobufRepresentation)
+
+        // Things that are preserved from the original player
+        XCTAssertFalse(result.isAlive)
+        XCTAssertEqual(result.snakeBody, originalPlayer.snakeBody)
+    }
+
+    func test200_serializationRoundtrip_level() throws {
         let uuid = UUID(uuidString: "cdeeadf2-31c9-48f4-852f-778b58086dd0")!
         guard let originalLevel: SnakeLevel = SnakeLevelManager.shared.level(id: uuid) else {
             XCTFail("Unable to locate level with uuid: '\(uuid)'")
