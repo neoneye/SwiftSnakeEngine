@@ -10,11 +10,15 @@ public class SnakeLevel {
     public let id: UUID
 	private let cells: Array2<SnakeLevelCell>
 	internal let clusters: Array2<SnakeLevel_ClusterId>
+
+    // IDEA: Use UInt, since the distances can never be negative.
 	internal let distanceBetweenClusters: [SnakeLevel_ClusterPair: Int]
 	public let size: UIntVec2
 	public let initialFoodPosition: UIntVec2
     public let player1_body: SnakeBody
     public let player2_body: SnakeBody
+
+    // IDEA: Use UIntVec2, since the empty positions can never be negative.
 	public let emptyPositionArray: [IntVec2]
 	public let emptyPositionSet: Set<IntVec2>
 
