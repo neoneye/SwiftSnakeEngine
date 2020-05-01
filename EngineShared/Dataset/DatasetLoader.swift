@@ -8,7 +8,7 @@ public class DatasetLoader {
             log.error("Expected a valid uuid, but got: '\(uuidString)'")
             fatalError()
         }
-        guard levelModel.width > 3 && levelModel.height > 3 else {
+        guard levelModel.width >= 3 && levelModel.height >= 3 else {
             log.error("Expected size of level to be 3 or more, but got less. Cannot create level.")
             fatalError()
         }
