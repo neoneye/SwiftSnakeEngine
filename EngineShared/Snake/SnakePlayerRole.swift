@@ -22,3 +22,16 @@ extension SnakePlayerRole: Equatable {
         }
     }
 }
+
+extension SnakePlayerRole {
+    public var id: UUID {
+        switch self {
+        case .none:
+            return UUID(uuidString: "a036c9e1-ca00-46f5-a960-16451d66390e")!
+        case .human:
+            return UUID(uuidString: "c7ccdf6d-56ac-491c-857b-be6a80bc6598")!
+        case .bot(let snakeBotType):
+            return snakeBotType.info.id
+        }
+    }
+}
