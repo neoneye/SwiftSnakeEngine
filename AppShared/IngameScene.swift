@@ -52,28 +52,43 @@ class IngameScene: SKScene {
 	private var previousGameStates: [SnakeGameState] = []
 
 	class func createHumanVsNone() -> IngameScene {
+        let gameExecuter: SnakeGameExecuter = SnakeGameExecuterFactory.create()
 		let gameState = SnakeGameState.create(
 			player1: .human,
 			player2: .none,
 			levelName: "Level 0.csv"
 		)
-        return IngameScene(initialGameState: gameState)
+        return IngameScene(initialGameState: gameState, gameExecuter: gameExecuter)
 	}
 
     class func createBotVsNone() -> IngameScene {
+        let gameExecuter: SnakeGameExecuter = SnakeGameExecuterFactory.create()
         let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
         let gameState = SnakeGameState.create(
             player1: .bot(snakeBotType: snakeBotType),
             player2: .none,
             levelName: "Level 0.csv"
         )
-        return IngameScene(initialGameState: gameState)
+        return IngameScene(initialGameState: gameState, gameExecuter: gameExecuter)
     }
 
-    init(initialGameState: SnakeGameState) {
+    class func createReplay() -> IngameScene {
+        let gameExecuter = SnakeGameExecuterReplay.create()
+        let gameState: SnakeGameState = gameExecuter.initialGameState
+        return IngameScene(initialGameState: gameState, gameExecuter: gameExecuter)
+    }
+
+    init(initialGameState: SnakeGameState, gameExecuter: SnakeGameExecuter) {
+        log.debug("level: \(initialGameState.level)")
+        log.debug("player1: \(initialGameState.player1)")
+        log.debug("player2: \(initialGameState.player2)")
+        let initialFoodPosition: String = initialGameState.foodPosition?.debugDescription ?? "No food"
+        log.debug("food position: \(initialFoodPosition)")
+
+        self.initialGameState = initialGameState
+        self.gameExecuter = gameExecuter
         self.trainingSessionUUID = UUID()
         self.trainingSessionURLs = []
-        self.initialGameState = initialGameState
         self.gameState = initialGameState
         self.gameNode = SnakeGameNode()
         self.gameNodeNeedRedraw.insert(.newGame)

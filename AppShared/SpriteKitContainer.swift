@@ -74,6 +74,9 @@ struct SpriteKitContainer: ViewRepresentableType {
         case .develop_botVsNone:
             scene = IngameScene.createBotVsNone()
             showPauseButton = true
+        case .develop_replay:
+            scene = IngameScene.createReplay()
+            showPauseButton = true
 		}
 		view.presentScene(scene)
         model.showPauseButton = showPauseButton
