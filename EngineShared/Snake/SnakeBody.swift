@@ -77,6 +77,11 @@ public struct SnakeBody: Hashable {
 		return Set<IntVec2>(bodyAndTailWithoutHead_positionArray())
 	}
 
+    /// A reversed array with all the positions of the snake.
+    ///
+    /// The first array element correspond to the tail of the snake.
+    ///
+    /// The last array element correspond to the head of the snake.
 	public func positionArray() -> [IntVec2] {
 		return fifo.array.map { $0.position }
 	}
@@ -103,6 +108,9 @@ public struct SnakeBody: Hashable {
 		return UInt(fifo.array.count)
 	}
 
+    /// Simple creation of a `SnakeBody` instance.
+    ///
+    /// - returns: Always returns a `SnakeBody` instance, no matter what kind of parameters it's given.
 	public static func create(position: IntVec2, headDirection: SnakeHeadDirection, length: UInt) -> SnakeBody {
 		let n = Int32(length)
 		var dx: Int32 = 0
@@ -136,6 +144,23 @@ public struct SnakeBody: Hashable {
 		// At this point the snake has a lot of food items inside its stomach, so we have to clear the stomach.
 		return state.clearedContentOfStomach()
 	}
+
+    /// Advanced creation of a snake.
+    ///
+    /// For simpler and more robust function use `create(position:headDirection:length:)`.
+    ///
+    /// This function is more advanced, and also more fragile and will return `nil` in lots of cases.
+    ///
+    /// - parameter positions: At least 2 positions must be provided. All positions must be neighbours. The positions must not overlap.
+    /// - returns: `nil` if there is a problem with the `positions` given.
+    public static func create(positions: [IntVec2]) -> SnakeBody? {
+        do {
+            return try SnakeBodyAdvancedCreate.create(positions: positions)
+        } catch {
+            log.error("Unable to create SnakeBody. error: \(error.localizedDescription)")
+            return nil
+        }
+    }
 
 	/// Clears the content of the stomach, so that there is no food inside the snake
 	public func clearedContentOfStomach() -> SnakeBody {

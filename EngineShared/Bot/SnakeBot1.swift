@@ -2,12 +2,10 @@
 import Foundation
 
 public class SnakeBot1: SnakeBot {
-	public static var info: SnakeBotInfo {
-		SnakeBotInfoImpl(
-            id: UUID(uuidString: "e16676d8-a090-49ba-8965-3708bd29cf30")!,
-			humanReadableName: "Shortest Path"
-		)
-	}
+    public static var info = SnakeBotInfo(
+        uuid: "e16676d8-a090-49ba-8965-3708bd29cf30",
+        name: "Shortest Path"
+    )
 
     public let plannedPath: [IntVec2]
     public let plannedMovement: SnakeBodyMovement

@@ -1,42 +1,20 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-public enum SnakePlayerRole {
-	case none
-	case human
-	case bot(snakeBotType: SnakeBot.Type)
-}
-
 public enum SnakePlayerId {
     case player1
     case player2
 }
 
-extension SnakePlayerRole: Equatable {
-	public static func == (lhs: SnakePlayerRole, rhs: SnakePlayerRole) -> Bool {
-		switch (lhs, rhs) {
-		case (.none, .none):
-			return true
-		case (.human, .human):
-			return true
-		case let (.bot(bot0), .bot(bot1)):
-			let isEqual_snakeBotType: Bool = bot0 == bot1
-			return isEqual_snakeBotType
-		default:
-			return false
-		}
-	}
-}
-
 public class SnakePlayer {
     public let id: SnakePlayerId
+    public let isInstalled: Bool
 	public let isAlive: Bool
-	public let isInstalled: Bool
 	public let role: SnakePlayerRole
 	public let snakeBody: SnakeBody
 	public let pendingMovement: SnakeBodyMovement
 	public let pendingAct: SnakeBodyAct
-    public let killEvents: [SnakePlayerKillEvent]
+    public let causesOfDeath: [SnakeCauseOfDeath]
 	public let bot: SnakeBot
 
 	public var isDead: Bool {
@@ -66,15 +44,15 @@ public class SnakePlayer {
         return snakeBody.length
     }
 
-    private init(id: SnakePlayerId, isAlive: Bool, isInstalled: Bool, role: SnakePlayerRole, snakeBody: SnakeBody, pendingMovement: SnakeBodyMovement, pendingAct: SnakeBodyAct, killEvents: [SnakePlayerKillEvent], bot: SnakeBot) {
+    private init(id: SnakePlayerId, isInstalled: Bool, isAlive: Bool, role: SnakePlayerRole, snakeBody: SnakeBody, pendingMovement: SnakeBodyMovement, pendingAct: SnakeBodyAct, causesOfDeath: [SnakeCauseOfDeath], bot: SnakeBot) {
         self.id = id
+        self.isInstalled = isInstalled
 		self.isAlive = isAlive
-		self.isInstalled = isInstalled
 		self.role = role
 		self.snakeBody = snakeBody
 		self.pendingMovement = pendingMovement
 		self.pendingAct = pendingAct
-        self.killEvents = killEvents
+        self.causesOfDeath = causesOfDeath
 		self.bot = bot
 	}
 
@@ -93,13 +71,13 @@ public class SnakePlayer {
 
 		return SnakePlayer(
             id: id,
+            isInstalled: true,
 			isAlive: true,
-			isInstalled: true,
 			role: role,
 			snakeBody: SnakeBody.create(position: IntVec2.zero, headDirection: .right, length: 1),
 			pendingMovement: .dontMove,
 			pendingAct: .doNothing,
-            killEvents: [],
+            causesOfDeath: [],
 			bot: bot
 		)
 	}
@@ -107,13 +85,13 @@ public class SnakePlayer {
 	public func updatePendingMovement(_ newPendingMovement: SnakeBodyMovement) -> SnakePlayer {
 		return SnakePlayer(
             id: id,
+            isInstalled: isInstalled,
 			isAlive: isAlive,
-			isInstalled: isInstalled,
 			role: role,
 			snakeBody: snakeBody,
 			pendingMovement: newPendingMovement,
 			pendingAct: pendingAct,
-            killEvents: killEvents,
+            causesOfDeath: causesOfDeath,
 			bot: bot
 		)
 	}
@@ -121,13 +99,13 @@ public class SnakePlayer {
 	public func updatePendingAct(_ newPendingAct: SnakeBodyAct) -> SnakePlayer {
 		return SnakePlayer(
             id: id,
+            isInstalled: isInstalled,
 			isAlive: isAlive,
-			isInstalled: isInstalled,
 			role: role,
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: newPendingAct,
-            killEvents: killEvents,
+            causesOfDeath: causesOfDeath,
 			bot: bot
 		)
 	}
@@ -138,28 +116,28 @@ public class SnakePlayer {
 		}
 		return SnakePlayer(
             id: id,
+            isInstalled: isInstalled,
 			isAlive: isAlive,
-			isInstalled: isInstalled,
 			role: role,
 			snakeBody: snakeBody,
 			pendingMovement: .dontMove,
 			pendingAct: .doNothing,
-            killEvents: killEvents,
+            causesOfDeath: causesOfDeath,
 			bot: bot
 		)
 	}
 
     /// Examples of how the snake can die: stuck, collision with wall, collision with self, collision with opponent.
-    public func kill(_ killEvent: SnakePlayerKillEvent) -> SnakePlayer {
+    public func kill(_ causeOfDeath: SnakeCauseOfDeath) -> SnakePlayer {
 		return SnakePlayer(
             id: id,
+            isInstalled: isInstalled,
 			isAlive: false,
-			isInstalled: isInstalled,
 			role: role,
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: pendingAct,
-            killEvents: killEvents + [killEvent],
+            causesOfDeath: causesOfDeath + [causeOfDeath],
 			bot: bot
 		)
 	}
@@ -167,13 +145,13 @@ public class SnakePlayer {
 	public func uninstall() -> SnakePlayer {
 		return SnakePlayer(
             id: id,
+            isInstalled: false,
 			isAlive: false,
-			isInstalled: false,
 			role: .none,
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: pendingAct,
-            killEvents: killEvents,
+            causesOfDeath: causesOfDeath,
 			bot: bot
 		)
 	}
@@ -181,13 +159,13 @@ public class SnakePlayer {
 	public func playerWithNewSnakeBody(_ newSnakeBody: SnakeBody) -> SnakePlayer {
 		return SnakePlayer(
             id: id,
+            isInstalled: isInstalled,
 			isAlive: isAlive,
-			isInstalled: isInstalled,
 			role: role,
 			snakeBody: newSnakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: pendingAct,
-            killEvents: killEvents,
+            causesOfDeath: causesOfDeath,
 			bot: bot
 		)
 	}
@@ -195,13 +173,13 @@ public class SnakePlayer {
 	public func updateBot(_ newBot: SnakeBot) -> SnakePlayer {
 		return SnakePlayer(
             id: id,
+            isInstalled: isInstalled,
 			isAlive: isAlive,
-			isInstalled: isInstalled,
 			role: role,
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: pendingAct,
-            killEvents: killEvents,
+            causesOfDeath: causesOfDeath,
 			bot: newBot
 		)
 	}
@@ -210,7 +188,9 @@ public class SnakePlayer {
 extension SnakePlayer: CustomDebugStringConvertible {
 	public var debugDescription: String {
 		let botDescription = String(describing: bot)
-		return "\(id) \(snakeBody.head.position) \(snakeBody.head.direction) \(botDescription) \(pendingMovement) \(pendingAct)"
+        let installed: String = isInstalled ? "installed" : "notinstalled"
+        let alive: String = isAlive ? "alive" : "dead"
+		return "SnakePlayer(\(id), \(installed), \(alive), \(snakeBody.head.position), \(snakeBody.head.direction), \(pendingMovement), \(pendingAct), \(causesOfDeath), \(role), \(botDescription))"
 	}
 }
 

@@ -15,6 +15,7 @@ struct AppConstant {
 		case production
 		case develop_humanVsNone
         case develop_botVsNone
+        case develop_replay
 	}
 	static let mode: Mode = .production
 

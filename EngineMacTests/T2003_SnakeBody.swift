@@ -3,7 +3,7 @@ import XCTest
 @testable import EngineMac
 
 class T2003_SnakeBody: XCTestCase {
-    func test0_create() {
+    func test0_createSimple() {
 		let state: SnakeBody = SnakeBody.create(
 			position: IntVec2(x: 10, y: 10),
 			headDirection: .right,
@@ -160,6 +160,23 @@ class T2003_SnakeBody: XCTestCase {
 		XCTAssertEqual(set0.count, 1)
 		XCTAssertTrue(set0.contains(body1))
 	}
+
+    func test6_createAdvanced() {
+        let positions: [IntVec2] = [
+            IntVec2(x: 11, y: 12),
+            IntVec2(x: 10, y: 12),
+            IntVec2(x: 10, y: 11),
+            IntVec2(x: 10, y: 10),
+            IntVec2(x:  9, y: 10),
+        ]
+        guard let body: SnakeBody = SnakeBody.create(positions: positions) else {
+            XCTFail("Unable to create snake")
+            return
+        }
+        XCTAssertEqual(body.head, SnakeHead.test_create(9, 10, .left))
+        XCTAssertEqual(body.length, 5)
+        XCTAssertEqual(body.positionArray(), positions)
+    }
 }
 
 extension SnakeHead {

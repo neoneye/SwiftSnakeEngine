@@ -2,6 +2,8 @@
 // PROMPT> protoc --swift_out=. SnakeGameStateModel.proto
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
 message SnakeGameStateModelPosition {
 	// The coordinate system origin is in the left/bottom corner.
 	uint32 x = 1;
@@ -18,6 +20,12 @@ message SnakeGameStateModelPlayer {
     // The positions does not overlap the player itself (no duplicate positions).
     // The positions does not overlap with an opponent player.
 	repeated SnakeGameStateModelPosition body_positions = 2;
+
+    // Reference to what player it is. Is it human or bot.
+    // If it's a bot, then what particular bot is it.
+    // PROBLEM: The bot can be renamed, so it's fragile refering to its bot-name.
+    // SOLUTION: Use a version4 UUID, so it's possible finding the original bot implementation.
+    string uuid = 3;
 }
 
 message SnakeGameStateModelLevel {
@@ -91,4 +99,7 @@ message SnakeGameResultModel {
 
     // Head positions of "player_b" througout the game.
     repeated SnakeGameStateModelPosition player_b_positions = 6;
+
+    // When was this dataset generated.
+    google.protobuf.Timestamp timestamp = 7;
 }

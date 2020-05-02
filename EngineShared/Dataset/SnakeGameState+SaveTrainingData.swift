@@ -1,12 +1,19 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
+import SwiftProtobuf
 
 extension SnakePlayer {
-	fileprivate func toSnakeGameStateModelPlayer() -> SnakeGameStateModelPlayer {
+	internal func toSnakeGameStateModelPlayer() -> SnakeGameStateModelPlayer {
+
+        // Flip the position array, so that:
+        // The start of the array correspond to the snake head position.
+        // The end of the array correspond to the snake tail position.
+        let headLast_positionArray: [IntVec2] = self.snakeBody.positionArray()
+        let headFirst_positionArray: [IntVec2] = headLast_positionArray.reversed()
 
 		// Positions of all the snake body parts
 		var bodyPositions = [SnakeGameStateModelPosition]()
-		for signedPosition: IntVec2 in self.snakeBody.positionArray() {
+		for signedPosition: IntVec2 in headFirst_positionArray {
 			guard let unsignedPosition: UIntVec2 = signedPosition.uintVec2() else {
 				fatalError("Encountered a negative position. \(signedPosition). The snake game is supposed to always use unsigned coordinates.")
 			}
@@ -17,7 +24,11 @@ extension SnakePlayer {
 			bodyPositions.append(position)
 		}
 
+        // This uuid identifies what this player is; a human, or a particular type of bot, or none.
+        let uuidString: String = self.role.id.uuidString
+
         let model = SnakeGameStateModelPlayer.with {
+            $0.uuid = uuidString
             $0.alive = self.isAlive
 			$0.bodyPositions = bodyPositions
 		}
@@ -26,7 +37,7 @@ extension SnakePlayer {
 }
 
 extension SnakeLevel {
-	fileprivate func toSnakeGameStateModelLevel() -> SnakeGameStateModelLevel {
+	internal func toSnakeGameStateModelLevel() -> SnakeGameStateModelLevel {
 		// Empty positions in the level
 		var emptyPositions = [SnakeGameStateModelPosition]()
 		for signedPosition: IntVec2 in self.emptyPositionArray {
@@ -204,10 +215,13 @@ public class PostProcessTrainingData {
             playerBPositions.append(headPosition)
         }
 
+        let date = Date()
+
         log.debug("level.uuid: '\(self.sharedLevel.uuid)'")
         log.debug("foodPositions.count: \(foodPositions.count)")
         log.debug("playerAPositions.count: \(playerAPositions.count)")
         log.debug("playerBPositions.count: \(playerBPositions.count)")
+        log.debug("timestamp: \(date)")
 
 		let model = SnakeGameResultModel.with {
 			$0.level = self.sharedLevel
@@ -216,6 +230,7 @@ public class PostProcessTrainingData {
             $0.foodPositions = foodPositions
             $0.playerAPositions = playerAPositions
             $0.playerBPositions = playerBPositions
+            $0.timestamp = Google_Protobuf_Timestamp(date: date)
 		}
 
 		// Serialize to binary protobuf format

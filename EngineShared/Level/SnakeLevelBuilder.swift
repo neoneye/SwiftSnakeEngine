@@ -7,12 +7,8 @@ public class SnakeLevelBuilder {
 	internal let clusters: Array2<SnakeLevel_ClusterId>
 	public let size: UIntVec2
 	public var initialFoodPosition: UIntVec2 = UIntVec2.zero
-	public var player1_initialPosition: UIntVec2 = UIntVec2.zero
-	public var player1_initialLength: UInt = 3
-	public var player1_initialHeadDirection: SnakeHeadDirection = .right
-	public var player2_initialPosition: UIntVec2 = UIntVec2.zero
-	public var player2_initialLength: UInt = 3
-	public var player2_initialHeadDirection: SnakeHeadDirection = .right
+    public var player1_body: SnakeBody = SnakeBody.empty()
+    public var player2_body: SnakeBody = SnakeBody.empty()
 	public var precomputed_distanceBetweenClusters: [SnakeLevel_ClusterPair: Int]?
 
 	public init(id: UUID, size: UIntVec2) {
@@ -41,12 +37,8 @@ public class SnakeLevelBuilder {
 			distanceBetweenClusters: distanceBetweenClusters,
 			size: self.size,
 			initialFoodPosition: self.initialFoodPosition,
-			player1_initialPosition: self.player1_initialPosition,
-			player1_initialLength: self.player1_initialLength,
-			player1_initialHeadDirection: self.player1_initialHeadDirection,
-			player2_initialPosition: self.player2_initialPosition,
-			player2_initialLength: self.player2_initialLength,
-			player2_initialHeadDirection: self.player2_initialHeadDirection,
+            player1_body: self.player1_body,
+            player2_body: self.player2_body,
 			emptyPositionArray: emptyPositionArray,
 			emptyPositionSet: emptyPositionSet
 		)

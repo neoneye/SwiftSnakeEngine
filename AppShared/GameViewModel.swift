@@ -44,12 +44,12 @@ public class GameViewModel: ObservableObject {
             player1Length = length
         case let .player2_didUpdateLength(length):
             player2Length = length
-        case let .player1_killed(killEvents):
-            let deathExplanations: [String] = killEvents.map { $0.humanReadableDeathExplanation }
+        case let .player1_dead(causesOfDeath):
+            let deathExplanations: [String] = causesOfDeath.map { $0.humanReadableDeathExplanation }
             let info: String = deathExplanations.joined(separator: "\n-\n")
             player1Info = info
-        case let .player2_killed(killEvents):
-            let deathExplanations: [String] = killEvents.map { $0.humanReadableDeathExplanation }
+        case let .player2_dead(causesOfDeath):
+            let deathExplanations: [String] = causesOfDeath.map { $0.humanReadableDeathExplanation }
             let info: String = deathExplanations.joined(separator: "\n-\n")
             player2Info = info
         }

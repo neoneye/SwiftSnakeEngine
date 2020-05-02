@@ -10,15 +10,15 @@ public class SnakeLevel {
     public let id: UUID
 	private let cells: Array2<SnakeLevelCell>
 	internal let clusters: Array2<SnakeLevel_ClusterId>
+
+    // IDEA: Use UInt, since the distances can never be negative.
 	internal let distanceBetweenClusters: [SnakeLevel_ClusterPair: Int]
 	public let size: UIntVec2
 	public let initialFoodPosition: UIntVec2
-	public let player1_initialPosition: UIntVec2
-	public let player1_initialLength: UInt
-	public let player1_initialHeadDirection: SnakeHeadDirection
-	public let player2_initialPosition: UIntVec2
-	public let player2_initialLength: UInt
-	public let player2_initialHeadDirection: SnakeHeadDirection
+    public let player1_body: SnakeBody
+    public let player2_body: SnakeBody
+
+    // IDEA: Use UIntVec2, since the empty positions can never be negative.
 	public let emptyPositionArray: [IntVec2]
 	public let emptyPositionSet: Set<IntVec2>
 
@@ -36,12 +36,8 @@ public class SnakeLevel {
 		distanceBetweenClusters: [SnakeLevel_ClusterPair: Int],
 		size: UIntVec2,
 		initialFoodPosition: UIntVec2,
-		player1_initialPosition: UIntVec2,
-		player1_initialLength: UInt,
-		player1_initialHeadDirection: SnakeHeadDirection,
-		player2_initialPosition: UIntVec2,
-		player2_initialLength: UInt,
-		player2_initialHeadDirection: SnakeHeadDirection,
+        player1_body: SnakeBody,
+        player2_body: SnakeBody,
 		emptyPositionArray: [IntVec2],
 		emptyPositionSet: Set<IntVec2>
 	) {
@@ -51,12 +47,8 @@ public class SnakeLevel {
 		self.distanceBetweenClusters = distanceBetweenClusters
 		self.size = size
 		self.initialFoodPosition = initialFoodPosition
-		self.player1_initialPosition = player1_initialPosition
-		self.player1_initialLength = player1_initialLength
-		self.player1_initialHeadDirection = player1_initialHeadDirection
-		self.player2_initialPosition = player2_initialPosition
-		self.player2_initialLength = player2_initialLength
-		self.player2_initialHeadDirection = player2_initialHeadDirection
+        self.player1_body = player1_body
+        self.player2_body = player2_body
 		self.emptyPositionArray = emptyPositionArray
 		self.emptyPositionSet = emptyPositionSet
 	}
@@ -90,4 +82,10 @@ public class SnakeLevel {
 		}
 		return UInt32(distance) * 10
 	}
+}
+
+extension SnakeLevel: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        return "SnakeLevel(size: \(size), id: \(id), empty.count: \(emptyPositionArray.count))"
+    }
 }

@@ -108,14 +108,18 @@ extension SnakeLevel {
 				}
 				let length: UInt = UInt(snakeLengthString) ?? 2
 				if playerIdString == "1" {
-					builder.player1_initialPosition = position
-					builder.player1_initialHeadDirection = headDirection
-					builder.player1_initialLength = length
+                    builder.player1_body = SnakeBody.create(
+                        position: position.intVec2,
+                        headDirection: headDirection,
+                        length: length
+                    )
 				}
 				if playerIdString == "2" {
-					builder.player2_initialPosition = position
-					builder.player2_initialHeadDirection = headDirection
-					builder.player2_initialLength = length
+                    builder.player2_body = SnakeBody.create(
+                        position: position.intVec2,
+                        headDirection: headDirection,
+                        length: length
+                    )
 				}
 			case "C": // the cluster that this cell belongs to
 				let integerString: String = String(token.dropFirst())

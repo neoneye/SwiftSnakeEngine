@@ -7,12 +7,10 @@ fileprivate struct Constant {
 }
 
 public class SnakeBot4: SnakeBot {
-	public static var info: SnakeBotInfo {
-		SnakeBotInfoImpl(
-            id: UUID(uuidString: "5563adb7-44ee-4dbb-bf80-dd0dc7989a2c")!,
-			humanReadableName: "Tree search"
-		)
-	}
+	public static var info = SnakeBotInfo(
+        uuid: "5563adb7-44ee-4dbb-bf80-dd0dc7989a2c",
+        name: "Tree search"
+    )
 
     public let plannedMovement: SnakeBodyMovement
 	private let iteration: UInt
