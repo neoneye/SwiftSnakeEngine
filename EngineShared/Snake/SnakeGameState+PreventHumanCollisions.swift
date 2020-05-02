@@ -5,33 +5,60 @@ extension SnakeGameState {
     /// Checks the human inputs and prevent humans from colliding with walls/snakes
     public func preventHumanCollisions() -> SnakeGameState {
         var gameState: SnakeGameState = self
-
-        if gameState.player1.role == .human && gameState.player1.isAlive && gameState.player1.pendingMovement != .dontMove {
-            let detector = SnakeCollisionDetector.create(
-                level: gameState.level,
-                foodPosition: gameState.foodPosition,
-                player1: gameState.player1,
-                player2: gameState.player2
-            )
-            detector.process()
-            if detector.player1Alive == false {
-                log.info("player1 will collide with something. \(detector.collisionType1). Preventing this movement.")
-                gameState = gameState.updatePendingMovementForPlayer1(.dontMove)
-            }
-        }
-        if gameState.player2.role == .human && gameState.player2.isAlive && gameState.player2.pendingMovement != .dontMove {
-            let detector = SnakeCollisionDetector.create(
-                level: gameState.level,
-                foodPosition: gameState.foodPosition,
-                player1: gameState.player1,
-                player2: gameState.player2
-            )
-            detector.process()
-            if detector.player2Alive == false {
-                log.info("player2 will collide with something. \(detector.collisionType2). Preventing this movement.")
-                gameState = gameState.updatePendingMovementForPlayer2(.dontMove)
-            }
-        }
+        gameState = gameState.preventHumanCollisions_player1()
+        gameState = gameState.preventHumanCollisions_player2()
         return gameState
+    }
+
+    private func preventHumanCollisions_player1() -> SnakeGameState {
+        guard self.player1.isHumanWithPendingMovement else {
+            return self
+        }
+        let detector = SnakeCollisionDetector.create(
+            level: self.level,
+            foodPosition: self.foodPosition,
+            player1: self.player1,
+            player2: self.player2
+        )
+        detector.process()
+        guard !detector.player1Alive else {
+            return self
+        }
+        log.info("player1 will collide with something. \(detector.collisionType1). Preventing this movement.")
+        return self.updatePendingMovementForPlayer1(.dontMove)
+    }
+
+    private func preventHumanCollisions_player2() -> SnakeGameState {
+        guard self.player2.isHumanWithPendingMovement else {
+            return self
+        }
+        let detector = SnakeCollisionDetector.create(
+            level: self.level,
+            foodPosition: self.foodPosition,
+            player1: self.player1,
+            player2: self.player2
+        )
+        detector.process()
+        guard !detector.player2Alive else {
+            return self
+        }
+        log.info("player2 will collide with something. \(detector.collisionType2). Preventing this movement.")
+        return self.updatePendingMovementForPlayer2(.dontMove)
+    }
+}
+
+extension SnakePlayer {
+    fileprivate var isHumanWithPendingMovement: Bool {
+        guard isInstalled else {
+            return false
+        }
+        guard isAlive else {
+            return false
+        }
+        guard role == .human else {
+            return false
+        }
+        let hasPendingMovement: Bool = self.pendingMovement != .dontMove
+        return hasPendingMovement
     }
 }
