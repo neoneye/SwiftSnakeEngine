@@ -80,7 +80,7 @@ message SnakeDatasetStep {
 	}
 }
 
-message SnakeGameResultModel {
+message SnakeDatasetResult {
     // The game is taking place inside a level with this uuid and these properties.
 	SnakeDatasetLevel level = 1;
 

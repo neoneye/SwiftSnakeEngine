@@ -223,7 +223,7 @@ public class PostProcessTrainingData {
         log.debug("playerBPositions.count: \(playerBPositions.count)")
         log.debug("timestamp: \(date)")
 
-		let model = SnakeGameResultModel.with {
+		let model = SnakeDatasetResult.with {
 			$0.level = self.sharedLevel
             $0.firstStep = firstStep
             $0.lastStep = lastStep

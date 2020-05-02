@@ -235,7 +235,7 @@ struct SnakeDatasetStep {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct SnakeGameResultModel {
+struct SnakeDatasetResult {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -598,8 +598,8 @@ extension SnakeDatasetStep: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
   }
 }
 
-extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "SnakeGameResultModel"
+extension SnakeDatasetResult: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "SnakeDatasetResult"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "level"),
     2: .standard(proto: "first_step"),
@@ -686,7 +686,7 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SnakeGameResultModel, rhs: SnakeGameResultModel) -> Bool {
+  static func ==(lhs: SnakeDatasetResult, rhs: SnakeDatasetResult) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0

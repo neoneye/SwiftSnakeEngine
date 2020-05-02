@@ -32,9 +32,9 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
 
     public static func create() -> SnakeGameExecuterReplay {
         let data: Data = SnakeDatasetBundle.load("3.snakeDataset")
-        let model: SnakeGameResultModel
+        let model: SnakeDatasetResult
         do {
-            model = try SnakeGameResultModel(serializedData: data)
+            model = try SnakeDatasetResult(serializedData: data)
         } catch {
             log.error("Unable to load file: \(error)")
             fatalError()
