@@ -1,5 +1,5 @@
 // Regenerate swift file
-// PROMPT> protoc --swift_out=. SnakeGameStateModel.proto
+// PROMPT> protoc --swift_out=. SnakeDataset.proto
 syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
