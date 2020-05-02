@@ -118,7 +118,7 @@ public class SnakeGameState {
 		)
 	}
 
-	public func killPlayer1(_ killEvent: SnakePlayerKillEvent) -> SnakeGameState {
+	public func killPlayer1(_ killEvent: SnakeCauseOfDeath) -> SnakeGameState {
 		return SnakeGameState(
 			level: level,
 			foodPosition: foodPosition,
@@ -130,7 +130,7 @@ public class SnakeGameState {
 		)
 	}
 
-	public func killPlayer2(_ killEvent: SnakePlayerKillEvent) -> SnakeGameState {
+	public func killPlayer2(_ killEvent: SnakeCauseOfDeath) -> SnakeGameState {
 		return SnakeGameState(
 			level: level,
 			foodPosition: foodPosition,

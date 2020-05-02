@@ -14,7 +14,7 @@ public class SnakePlayer {
 	public let snakeBody: SnakeBody
 	public let pendingMovement: SnakeBodyMovement
 	public let pendingAct: SnakeBodyAct
-    public let killEvents: [SnakePlayerKillEvent]
+    public let killEvents: [SnakeCauseOfDeath]
 	public let bot: SnakeBot
 
 	public var isDead: Bool {
@@ -44,7 +44,7 @@ public class SnakePlayer {
         return snakeBody.length
     }
 
-    private init(id: SnakePlayerId, isInstalled: Bool, isAlive: Bool, role: SnakePlayerRole, snakeBody: SnakeBody, pendingMovement: SnakeBodyMovement, pendingAct: SnakeBodyAct, killEvents: [SnakePlayerKillEvent], bot: SnakeBot) {
+    private init(id: SnakePlayerId, isInstalled: Bool, isAlive: Bool, role: SnakePlayerRole, snakeBody: SnakeBody, pendingMovement: SnakeBodyMovement, pendingAct: SnakeBodyAct, killEvents: [SnakeCauseOfDeath], bot: SnakeBot) {
         self.id = id
         self.isInstalled = isInstalled
 		self.isAlive = isAlive
@@ -128,7 +128,7 @@ public class SnakePlayer {
 	}
 
     /// Examples of how the snake can die: stuck, collision with wall, collision with self, collision with opponent.
-    public func kill(_ killEvent: SnakePlayerKillEvent) -> SnakePlayer {
+    public func kill(_ killEvent: SnakeCauseOfDeath) -> SnakePlayer {
 		return SnakePlayer(
             id: id,
             isInstalled: isInstalled,

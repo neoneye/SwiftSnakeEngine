@@ -16,8 +16,8 @@ enum SnakeGameInfoEvent {
     case beginNewGame(_ gameState: SnakeGameState)
     case player1_didUpdateLength(_ length: UInt)
     case player2_didUpdateLength(_ length: UInt)
-    case player1_killed(_ killEvents: [SnakePlayerKillEvent])
-    case player2_killed(_ killEvents: [SnakePlayerKillEvent])
+    case player1_killed(_ killEvents: [SnakeCauseOfDeath])
+    case player2_killed(_ killEvents: [SnakeCauseOfDeath])
 }
 
 class SnakeGameSKView: SKView {

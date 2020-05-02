@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-public enum SnakePlayerKillEvent {
+public enum SnakeCauseOfDeath {
     case collisionWithWall
     case collisionWithItself
     case collisionWithOpponent
@@ -10,7 +10,7 @@ public enum SnakePlayerKillEvent {
     case killAfterAFewTimeSteps
 }
 
-extension SnakePlayerKillEvent {
+extension SnakeCauseOfDeath {
     public var humanReadableDeathExplanation: String {
         let s0 = self.deathExplanation_title
         let s1 = self.deathExplanation_subtitle

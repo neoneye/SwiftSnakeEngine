@@ -31,7 +31,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
     }
 
     public static func create() -> SnakeGameExecuterReplay {
-        let data: Data = SnakeDatasetBundle.load("1.snakeDataset")
+        let data: Data = SnakeDatasetBundle.load("3.snakeDataset")
         let model: SnakeGameResultModel
         do {
             model = try SnakeGameResultModel(serializedData: data)
@@ -487,7 +487,7 @@ extension SnakeGameState {
 
 extension SnakeCollisionType {
     /// Convert from a `CollisionType` to its corresponding `KillEvent`.
-    fileprivate var killEvent: SnakePlayerKillEvent {
+    fileprivate var killEvent: SnakeCauseOfDeath {
         switch self {
         case .noCollision:
             fatalError("Inconsistency. A collision happened, but no collision is registered. Should never happen!")
