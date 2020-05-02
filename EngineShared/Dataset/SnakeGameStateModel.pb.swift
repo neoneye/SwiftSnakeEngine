@@ -52,6 +52,12 @@ struct SnakeGameStateModelPlayer {
   /// The positions does not overlap with an opponent player.
   var bodyPositions: [SnakeGameStateModelPosition] = []
 
+  /// Reference to what player it is. Is it human or bot.
+  /// If it's a bot, then what particular bot is it.
+  /// PROBLEM: The bot can be renamed, so it's fragile refering to its bot-name.
+  /// SOLUTION: Use a version4 UUID, so it's possible finding the original bot implementation.
+  var uuid: String = String()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -332,6 +338,7 @@ extension SnakeGameStateModelPlayer: SwiftProtobuf.Message, SwiftProtobuf._Messa
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "alive"),
     2: .standard(proto: "body_positions"),
+    3: .same(proto: "uuid"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -339,6 +346,7 @@ extension SnakeGameStateModelPlayer: SwiftProtobuf.Message, SwiftProtobuf._Messa
       switch fieldNumber {
       case 1: try decoder.decodeSingularBoolField(value: &self.alive)
       case 2: try decoder.decodeRepeatedMessageField(value: &self.bodyPositions)
+      case 3: try decoder.decodeSingularStringField(value: &self.uuid)
       default: break
       }
     }
@@ -351,12 +359,16 @@ extension SnakeGameStateModelPlayer: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if !self.bodyPositions.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.bodyPositions, fieldNumber: 2)
     }
+    if !self.uuid.isEmpty {
+      try visitor.visitSingularStringField(value: self.uuid, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: SnakeGameStateModelPlayer, rhs: SnakeGameStateModelPlayer) -> Bool {
     if lhs.alive != rhs.alive {return false}
     if lhs.bodyPositions != rhs.bodyPositions {return false}
+    if lhs.uuid != rhs.uuid {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

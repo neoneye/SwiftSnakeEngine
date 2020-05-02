@@ -23,8 +23,12 @@ extension SnakePlayer {
 			bodyPositions.append(position)
 		}
 
+        // This uuid identifies what this player is; a human, or a particular type of bot, or none.
+        let uuidString: String = self.role.id.uuidString
+
         let model = SnakeGameStateModelPlayer.with {
             $0.alive = self.isAlive
+            $0.uuid = uuidString
 			$0.bodyPositions = bodyPositions
 		}
 		return model

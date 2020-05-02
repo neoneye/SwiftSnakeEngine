@@ -18,6 +18,12 @@ message SnakeGameStateModelPlayer {
     // The positions does not overlap the player itself (no duplicate positions).
     // The positions does not overlap with an opponent player.
 	repeated SnakeGameStateModelPosition body_positions = 2;
+
+    // Reference to what player it is. Is it human or bot.
+    // If it's a bot, then what particular bot is it.
+    // PROBLEM: The bot can be renamed, so it's fragile refering to its bot-name.
+    // SOLUTION: Use a version4 UUID, so it's possible finding the original bot implementation.
+    string uuid = 3;
 }
 
 message SnakeGameStateModelLevel {
