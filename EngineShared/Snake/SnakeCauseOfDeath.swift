@@ -5,8 +5,8 @@ public enum SnakeCauseOfDeath {
     case collisionWithWall
     case collisionWithItself
     case collisionWithOpponent
-    case noMoreFood
     case stuckInALoop
+    case noMoreFood
     case killAfterAFewTimeSteps
 }
 
@@ -25,10 +25,10 @@ extension SnakeCauseOfDeath {
             return "Self-cannibalism!"
         case .collisionWithOpponent:
             return "Eating opponent!"
-        case .noMoreFood:
-            return "Starvation!"
         case .stuckInALoop:
             return "Stuck in a loop!"
+        case .noMoreFood:
+            return "Starvation!"
         case .killAfterAFewTimeSteps:
             return "Autokill!"
         }
@@ -42,10 +42,10 @@ extension SnakeCauseOfDeath {
             return "Eating oneself is deadly."
         case .collisionWithOpponent:
             return "The snakes cannot eat each other, since it's deadly."
-        case .noMoreFood:
-            return "There is no more food."
         case .stuckInALoop:
             return "Expected the snake to make progress growing, but the snake continues doing the same moves over and over."
+        case .noMoreFood:
+            return "There is no more food."
         case .killAfterAFewTimeSteps:
             return "Killed automatically after a few steps.\nThis is useful during development."
         }
