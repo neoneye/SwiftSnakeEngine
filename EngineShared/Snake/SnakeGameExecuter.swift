@@ -54,7 +54,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         }
         log.debug("successfully loaded file")
 
-        let step0: SnakeGameStateStepModel = model.firstStep
+        let step0: SnakeDatasetStep = model.firstStep
 
         let levelBuilder: SnakeLevelBuilder
         do {
@@ -163,7 +163,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         )
     }
 
-    static func assignFoodPosition(levelBuilder: SnakeLevelBuilder, stepModel: SnakeGameStateStepModel) {
+    static func assignFoodPosition(levelBuilder: SnakeLevelBuilder, stepModel: SnakeDatasetStep) {
         guard case .foodPosition(let foodPositionModel)? = stepModel.optionalFoodPosition else {
             log.error("Expected file to contain a food position for the first step, but got none.")
             fatalError()
@@ -171,7 +171,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         levelBuilder.initialFoodPosition = UIntVec2(x: foodPositionModel.x, y: foodPositionModel.y)
     }
 
-    private static func snakePlayerResultWithPlayerA(stepModel: SnakeGameStateStepModel) -> DatasetLoader.SnakePlayerResult? {
+    private static func snakePlayerResultWithPlayerA(stepModel: SnakeDatasetStep) -> DatasetLoader.SnakePlayerResult? {
         guard case .playerA(let player)? = stepModel.optionalPlayerA else {
             log.error("Expected player A, but got none.")
             return nil
@@ -184,7 +184,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         }
     }
 
-    private static func snakePlayerResultWithPlayerB(stepModel: SnakeGameStateStepModel) -> DatasetLoader.SnakePlayerResult? {
+    private static func snakePlayerResultWithPlayerB(stepModel: SnakeDatasetStep) -> DatasetLoader.SnakePlayerResult? {
         guard case .playerB(let player)? = stepModel.optionalPlayerB else {
             log.error("Expected player B, but got none.")
             return nil

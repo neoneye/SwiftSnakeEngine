@@ -108,8 +108,8 @@ struct SnakeDatasetIngame {
   /// Clears the value of `level`. Subsequent reads from it will return its default value.
   mutating func clearLevel() {_uniqueStorage()._level = nil}
 
-  var step: SnakeGameStateStepModel {
-    get {return _storage._step ?? SnakeGameStateStepModel()}
+  var step: SnakeDatasetStep {
+    get {return _storage._step ?? SnakeDatasetStep()}
     set {_uniqueStorage()._step = newValue}
   }
   /// Returns true if `step` has been explicitly set.
@@ -124,7 +124,7 @@ struct SnakeDatasetIngame {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
-struct SnakeGameStateStepModel {
+struct SnakeDatasetStep {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -187,7 +187,7 @@ struct SnakeGameStateStepModel {
     case foodPosition(SnakeDatasetPosition)
 
   #if !swift(>=4.1)
-    static func ==(lhs: SnakeGameStateStepModel.OneOf_OptionalFoodPosition, rhs: SnakeGameStateStepModel.OneOf_OptionalFoodPosition) -> Bool {
+    static func ==(lhs: SnakeDatasetStep.OneOf_OptionalFoodPosition, rhs: SnakeDatasetStep.OneOf_OptionalFoodPosition) -> Bool {
       switch (lhs, rhs) {
       case (.foodPosition(let l), .foodPosition(let r)): return l == r
       }
@@ -210,7 +210,7 @@ struct SnakeGameStateStepModel {
     case playerA(SnakeDatasetPlayer)
 
   #if !swift(>=4.1)
-    static func ==(lhs: SnakeGameStateStepModel.OneOf_OptionalPlayerA, rhs: SnakeGameStateStepModel.OneOf_OptionalPlayerA) -> Bool {
+    static func ==(lhs: SnakeDatasetStep.OneOf_OptionalPlayerA, rhs: SnakeDatasetStep.OneOf_OptionalPlayerA) -> Bool {
       switch (lhs, rhs) {
       case (.playerA(let l), .playerA(let r)): return l == r
       }
@@ -222,7 +222,7 @@ struct SnakeGameStateStepModel {
     case playerB(SnakeDatasetPlayer)
 
   #if !swift(>=4.1)
-    static func ==(lhs: SnakeGameStateStepModel.OneOf_OptionalPlayerB, rhs: SnakeGameStateStepModel.OneOf_OptionalPlayerB) -> Bool {
+    static func ==(lhs: SnakeDatasetStep.OneOf_OptionalPlayerB, rhs: SnakeDatasetStep.OneOf_OptionalPlayerB) -> Bool {
       switch (lhs, rhs) {
       case (.playerB(let l), .playerB(let r)): return l == r
       }
@@ -251,8 +251,8 @@ struct SnakeGameResultModel {
   mutating func clearLevel() {_uniqueStorage()._level = nil}
 
   /// Snapshot of what the grid looks like in the very first step.
-  var firstStep: SnakeGameStateStepModel {
-    get {return _storage._firstStep ?? SnakeGameStateStepModel()}
+  var firstStep: SnakeDatasetStep {
+    get {return _storage._firstStep ?? SnakeDatasetStep()}
     set {_uniqueStorage()._firstStep = newValue}
   }
   /// Returns true if `firstStep` has been explicitly set.
@@ -261,8 +261,8 @@ struct SnakeGameResultModel {
   mutating func clearFirstStep() {_uniqueStorage()._firstStep = nil}
 
   /// Snapshot of what the grid looks like in the very last step.
-  var lastStep: SnakeGameStateStepModel {
-    get {return _storage._lastStep ?? SnakeGameStateStepModel()}
+  var lastStep: SnakeDatasetStep {
+    get {return _storage._lastStep ?? SnakeDatasetStep()}
     set {_uniqueStorage()._lastStep = newValue}
   }
   /// Returns true if `lastStep` has been explicitly set.
@@ -440,7 +440,7 @@ extension SnakeDatasetIngame: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
 
   fileprivate class _StorageClass {
     var _level: SnakeDatasetLevel? = nil
-    var _step: SnakeGameStateStepModel? = nil
+    var _step: SnakeDatasetStep? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -500,8 +500,8 @@ extension SnakeDatasetIngame: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
   }
 }
 
-extension SnakeGameStateStepModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "SnakeGameStateStepModel"
+extension SnakeDatasetStep: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "SnakeDatasetStep"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "food_position"),
     2: .standard(proto: "player_a"),
@@ -509,9 +509,9 @@ extension SnakeGameStateStepModel: SwiftProtobuf.Message, SwiftProtobuf._Message
   ]
 
   fileprivate class _StorageClass {
-    var _optionalFoodPosition: SnakeGameStateStepModel.OneOf_OptionalFoodPosition?
-    var _optionalPlayerA: SnakeGameStateStepModel.OneOf_OptionalPlayerA?
-    var _optionalPlayerB: SnakeGameStateStepModel.OneOf_OptionalPlayerB?
+    var _optionalFoodPosition: SnakeDatasetStep.OneOf_OptionalFoodPosition?
+    var _optionalPlayerA: SnakeDatasetStep.OneOf_OptionalPlayerA?
+    var _optionalPlayerB: SnakeDatasetStep.OneOf_OptionalPlayerB?
 
     static let defaultInstance = _StorageClass()
 
@@ -581,7 +581,7 @@ extension SnakeGameStateStepModel: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SnakeGameStateStepModel, rhs: SnakeGameStateStepModel) -> Bool {
+  static func ==(lhs: SnakeDatasetStep, rhs: SnakeDatasetStep) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
@@ -612,8 +612,8 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
 
   fileprivate class _StorageClass {
     var _level: SnakeDatasetLevel? = nil
-    var _firstStep: SnakeGameStateStepModel? = nil
-    var _lastStep: SnakeGameStateStepModel? = nil
+    var _firstStep: SnakeDatasetStep? = nil
+    var _lastStep: SnakeDatasetStep? = nil
     var _foodPositions: [SnakeDatasetPosition] = []
     var _playerAPositions: [SnakeDatasetPosition] = []
     var _playerBPositions: [SnakeDatasetPosition] = []

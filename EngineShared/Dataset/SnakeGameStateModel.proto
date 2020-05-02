@@ -52,10 +52,10 @@ message SnakeDatasetLevel {
 // Drawback of a full snapshot: Lots of data stored.
 message SnakeDatasetIngame {
 	SnakeDatasetLevel level = 1;
-    SnakeGameStateStepModel step = 2;
+    SnakeDatasetStep step = 2;
 }
 
-message SnakeGameStateStepModel {
+message SnakeDatasetStep {
 	// There may be food or there may be no food.
 	oneof optional_food_position {
 		SnakeDatasetPosition food_position = 1;
@@ -85,10 +85,10 @@ message SnakeGameResultModel {
 	SnakeDatasetLevel level = 1;
 
     // Snapshot of what the grid looks like in the very first step.
-    SnakeGameStateStepModel first_step = 2;
+    SnakeDatasetStep first_step = 2;
 
     // Snapshot of what the grid looks like in the very last step.
-    SnakeGameStateStepModel last_step = 3;
+    SnakeDatasetStep last_step = 3;
 
     // Food positions throughout the game.
     // Magic value is (0,0), this means that there is no food position.

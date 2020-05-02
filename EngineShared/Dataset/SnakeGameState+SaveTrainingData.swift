@@ -63,39 +63,39 @@ extension SnakeLevel {
 }
 
 extension SnakeGameState {
-	private func toSnakeGameStateStepModel() -> SnakeGameStateStepModel {
+	private func toSnakeDatasetStep() -> SnakeDatasetStep {
 		// Food
-		var optionalFoodPosition: SnakeGameStateStepModel.OneOf_OptionalFoodPosition? = nil
+		var optionalFoodPosition: SnakeDatasetStep.OneOf_OptionalFoodPosition? = nil
 		if let position: UIntVec2 = self.foodPosition?.uintVec2() {
 			let foodPosition = SnakeDatasetPosition.with {
 				$0.x = position.x
 				$0.y = position.y
 			}
-			optionalFoodPosition = SnakeGameStateStepModel.OneOf_OptionalFoodPosition.foodPosition(foodPosition)
+			optionalFoodPosition = SnakeDatasetStep.OneOf_OptionalFoodPosition.foodPosition(foodPosition)
 		}
 
 		// Player A
-		var optionalPlayerA: SnakeGameStateStepModel.OneOf_OptionalPlayerA? = nil
+		var optionalPlayerA: SnakeDatasetStep.OneOf_OptionalPlayerA? = nil
 		do {
 			let player: SnakePlayer = self.player1
 			if player.isInstalled {
 				let model: SnakeDatasetPlayer = player.toSnakeDatasetPlayer()
-				optionalPlayerA = SnakeGameStateStepModel.OneOf_OptionalPlayerA.playerA(model)
+				optionalPlayerA = SnakeDatasetStep.OneOf_OptionalPlayerA.playerA(model)
 			}
 		}
 
 		// Player B
-		var optionalPlayerB: SnakeGameStateStepModel.OneOf_OptionalPlayerB? = nil
+		var optionalPlayerB: SnakeDatasetStep.OneOf_OptionalPlayerB? = nil
 		do {
 			let player: SnakePlayer = self.player2
 			if player.isInstalled {
 				let model: SnakeDatasetPlayer = player.toSnakeDatasetPlayer()
-				optionalPlayerB = SnakeGameStateStepModel.OneOf_OptionalPlayerB.playerB(model)
+				optionalPlayerB = SnakeDatasetStep.OneOf_OptionalPlayerB.playerB(model)
 			}
 		}
 
 		// Model
-		let model = SnakeGameStateStepModel.with {
+		let model = SnakeDatasetStep.with {
 			$0.optionalFoodPosition = optionalFoodPosition
 			$0.optionalPlayerA = optionalPlayerA
 			$0.optionalPlayerB = optionalPlayerB
@@ -105,7 +105,7 @@ extension SnakeGameState {
 
 	public func saveTrainingData(trainingSessionUUID: UUID) -> URL {
         let levelModel: SnakeDatasetLevel = self.level.toSnakeDatasetLevel()
-        let stepModel: SnakeGameStateStepModel = self.toSnakeGameStateStepModel()
+        let stepModel: SnakeDatasetStep = self.toSnakeDatasetStep()
         let model = SnakeDatasetIngame.with {
             $0.level = levelModel
             $0.step = stepModel
@@ -134,7 +134,7 @@ extension SnakeGameState {
 public class PostProcessTrainingData {
 	private let trainingSessionUUID: UUID
 	private let sharedLevel: SnakeDatasetLevel
-    private var stepArray: [SnakeGameStateStepModel] = []
+    private var stepArray: [SnakeDatasetStep] = []
 
 	private init(trainingSessionUUID: UUID, sharedLevel: SnakeDatasetLevel) {
 		self.trainingSessionUUID = trainingSessionUUID
@@ -166,8 +166,8 @@ public class PostProcessTrainingData {
 	}
 
 	private func saveResult() {
-        guard let firstStep: SnakeGameStateStepModel = self.stepArray.first,
-            let lastStep: SnakeGameStateStepModel = self.stepArray.last else {
+        guard let firstStep: SnakeDatasetStep = self.stepArray.first,
+            let lastStep: SnakeDatasetStep = self.stepArray.last else {
             fatalError("Expected the stepArray to be non-empty, but it's empty. Cannot create result file.")
         }
         var foodPositions: [SnakeDatasetPosition] = []
