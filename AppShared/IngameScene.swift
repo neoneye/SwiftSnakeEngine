@@ -672,10 +672,10 @@ class IngameScene: SKScene {
 			playSoundEffect(sound_snakeDies)
 		}
         if player1Dies {
-            sendInfoEvent(.player1_killed(self.gameState.player1.killEvents))
+            sendInfoEvent(.player1_dead(self.gameState.player1.causesOfDeath))
         }
         if player2Dies {
-            sendInfoEvent(.player2_killed(self.gameState.player2.killEvents))
+            sendInfoEvent(.player2_dead(self.gameState.player2.causesOfDeath))
         }
 
 		if gameState.player1.isDead && gameState.player2.isDead {

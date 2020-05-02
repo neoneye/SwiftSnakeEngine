@@ -118,11 +118,11 @@ public class SnakeGameState {
 		)
 	}
 
-	public func killPlayer1(_ killEvent: SnakeCauseOfDeath) -> SnakeGameState {
+	public func killPlayer1(_ causeOfDeath: SnakeCauseOfDeath) -> SnakeGameState {
 		return SnakeGameState(
 			level: level,
 			foodPosition: foodPosition,
-			player1: player1.kill(killEvent),
+			player1: player1.kill(causeOfDeath),
 			player2: player2,
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
 			foodRandomGenerator_count: foodRandomGenerator_count,
@@ -130,12 +130,12 @@ public class SnakeGameState {
 		)
 	}
 
-	public func killPlayer2(_ killEvent: SnakeCauseOfDeath) -> SnakeGameState {
+	public func killPlayer2(_ causeOfDeath: SnakeCauseOfDeath) -> SnakeGameState {
 		return SnakeGameState(
 			level: level,
 			foodPosition: foodPosition,
 			player1: player1,
-			player2: player2.kill(killEvent),
+			player2: player2.kill(causeOfDeath),
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
 			foodRandomGenerator_count: foodRandomGenerator_count,
 			numberOfSteps: numberOfSteps

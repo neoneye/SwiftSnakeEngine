@@ -14,7 +14,7 @@ public class SnakePlayer {
 	public let snakeBody: SnakeBody
 	public let pendingMovement: SnakeBodyMovement
 	public let pendingAct: SnakeBodyAct
-    public let killEvents: [SnakeCauseOfDeath]
+    public let causesOfDeath: [SnakeCauseOfDeath]
 	public let bot: SnakeBot
 
 	public var isDead: Bool {
@@ -44,7 +44,7 @@ public class SnakePlayer {
         return snakeBody.length
     }
 
-    private init(id: SnakePlayerId, isInstalled: Bool, isAlive: Bool, role: SnakePlayerRole, snakeBody: SnakeBody, pendingMovement: SnakeBodyMovement, pendingAct: SnakeBodyAct, killEvents: [SnakeCauseOfDeath], bot: SnakeBot) {
+    private init(id: SnakePlayerId, isInstalled: Bool, isAlive: Bool, role: SnakePlayerRole, snakeBody: SnakeBody, pendingMovement: SnakeBodyMovement, pendingAct: SnakeBodyAct, causesOfDeath: [SnakeCauseOfDeath], bot: SnakeBot) {
         self.id = id
         self.isInstalled = isInstalled
 		self.isAlive = isAlive
@@ -52,7 +52,7 @@ public class SnakePlayer {
 		self.snakeBody = snakeBody
 		self.pendingMovement = pendingMovement
 		self.pendingAct = pendingAct
-        self.killEvents = killEvents
+        self.causesOfDeath = causesOfDeath
 		self.bot = bot
 	}
 
@@ -77,7 +77,7 @@ public class SnakePlayer {
 			snakeBody: SnakeBody.create(position: IntVec2.zero, headDirection: .right, length: 1),
 			pendingMovement: .dontMove,
 			pendingAct: .doNothing,
-            killEvents: [],
+            causesOfDeath: [],
 			bot: bot
 		)
 	}
@@ -91,7 +91,7 @@ public class SnakePlayer {
 			snakeBody: snakeBody,
 			pendingMovement: newPendingMovement,
 			pendingAct: pendingAct,
-            killEvents: killEvents,
+            causesOfDeath: causesOfDeath,
 			bot: bot
 		)
 	}
@@ -105,7 +105,7 @@ public class SnakePlayer {
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: newPendingAct,
-            killEvents: killEvents,
+            causesOfDeath: causesOfDeath,
 			bot: bot
 		)
 	}
@@ -122,13 +122,13 @@ public class SnakePlayer {
 			snakeBody: snakeBody,
 			pendingMovement: .dontMove,
 			pendingAct: .doNothing,
-            killEvents: killEvents,
+            causesOfDeath: causesOfDeath,
 			bot: bot
 		)
 	}
 
     /// Examples of how the snake can die: stuck, collision with wall, collision with self, collision with opponent.
-    public func kill(_ killEvent: SnakeCauseOfDeath) -> SnakePlayer {
+    public func kill(_ causeOfDeath: SnakeCauseOfDeath) -> SnakePlayer {
 		return SnakePlayer(
             id: id,
             isInstalled: isInstalled,
@@ -137,7 +137,7 @@ public class SnakePlayer {
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: pendingAct,
-            killEvents: killEvents + [killEvent],
+            causesOfDeath: causesOfDeath + [causeOfDeath],
 			bot: bot
 		)
 	}
@@ -151,7 +151,7 @@ public class SnakePlayer {
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: pendingAct,
-            killEvents: killEvents,
+            causesOfDeath: causesOfDeath,
 			bot: bot
 		)
 	}
@@ -165,7 +165,7 @@ public class SnakePlayer {
 			snakeBody: newSnakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: pendingAct,
-            killEvents: killEvents,
+            causesOfDeath: causesOfDeath,
 			bot: bot
 		)
 	}
@@ -179,7 +179,7 @@ public class SnakePlayer {
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: pendingAct,
-            killEvents: killEvents,
+            causesOfDeath: causesOfDeath,
 			bot: newBot
 		)
 	}
@@ -190,7 +190,7 @@ extension SnakePlayer: CustomDebugStringConvertible {
 		let botDescription = String(describing: bot)
         let installed: String = isInstalled ? "installed" : "notinstalled"
         let alive: String = isAlive ? "alive" : "dead"
-		return "SnakePlayer(\(id), \(installed), \(alive), \(snakeBody.head.position), \(snakeBody.head.direction), \(pendingMovement), \(pendingAct), \(killEvents), \(role), \(botDescription))"
+		return "SnakePlayer(\(id), \(installed), \(alive), \(snakeBody.head.position), \(snakeBody.head.direction), \(pendingMovement), \(pendingAct), \(causesOfDeath), \(role), \(botDescription))"
 	}
 }
 

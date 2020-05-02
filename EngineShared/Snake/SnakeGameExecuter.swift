@@ -461,12 +461,12 @@ extension SnakeGameState {
 		if gameState.player1.isAlive && detector.player1Alive == false {
             let collisionType: SnakeCollisionType = detector.collisionType1
             log.info("killing player1 because: \(collisionType)")
-            gameState = gameState.killPlayer1(collisionType.killEvent)
+            gameState = gameState.killPlayer1(collisionType.causeOfDeath)
 		}
 		if gameState.player2.isAlive && detector.player2Alive == false {
             let collisionType: SnakeCollisionType = detector.collisionType2
             log.info("killing player2 because: \(collisionType)")
-			gameState = gameState.killPlayer2(collisionType.killEvent)
+			gameState = gameState.killPlayer2(collisionType.causeOfDeath)
 		}
 
 		if detector.player1EatsFood {
@@ -486,8 +486,8 @@ extension SnakeGameState {
 }
 
 extension SnakeCollisionType {
-    /// Convert from a `CollisionType` to its corresponding `KillEvent`.
-    fileprivate var killEvent: SnakeCauseOfDeath {
+    /// Convert from a `CollisionType` to its corresponding `CauseOfDeath`.
+    fileprivate var causeOfDeath: SnakeCauseOfDeath {
         switch self {
         case .noCollision:
             fatalError("Inconsistency. A collision happened, but no collision is registered. Should never happen!")
