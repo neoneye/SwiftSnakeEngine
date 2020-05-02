@@ -10,7 +10,7 @@ message SnakeDatasetPosition {
 	uint32 y = 2;
 }
 
-message SnakeGameStateModelPlayer {
+message SnakeDatasetPlayer {
     // Is the snake alive/dead.
     bool alive = 1;
 
@@ -73,10 +73,10 @@ message SnakeGameStateStepModel {
     // In a single player game, there is either player_a or player_b.
     // The opponent player is "nil" thoughout the entire game.
 	oneof optional_player_a {
-		SnakeGameStateModelPlayer player_a = 2;
+		SnakeDatasetPlayer player_a = 2;
 	}
 	oneof optional_player_b {
-		SnakeGameStateModelPlayer player_b = 3;
+		SnakeDatasetPlayer player_b = 3;
 	}
 }
 

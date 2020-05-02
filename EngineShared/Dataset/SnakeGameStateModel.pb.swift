@@ -37,7 +37,7 @@ struct SnakeDatasetPosition {
   init() {}
 }
 
-struct SnakeGameStateModelPlayer {
+struct SnakeDatasetPlayer {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -159,10 +159,10 @@ struct SnakeGameStateStepModel {
     set {_uniqueStorage()._optionalPlayerA = newValue}
   }
 
-  var playerA: SnakeGameStateModelPlayer {
+  var playerA: SnakeDatasetPlayer {
     get {
       if case .playerA(let v)? = _storage._optionalPlayerA {return v}
-      return SnakeGameStateModelPlayer()
+      return SnakeDatasetPlayer()
     }
     set {_uniqueStorage()._optionalPlayerA = .playerA(newValue)}
   }
@@ -172,10 +172,10 @@ struct SnakeGameStateStepModel {
     set {_uniqueStorage()._optionalPlayerB = newValue}
   }
 
-  var playerB: SnakeGameStateModelPlayer {
+  var playerB: SnakeDatasetPlayer {
     get {
       if case .playerB(let v)? = _storage._optionalPlayerB {return v}
-      return SnakeGameStateModelPlayer()
+      return SnakeDatasetPlayer()
     }
     set {_uniqueStorage()._optionalPlayerB = .playerB(newValue)}
   }
@@ -207,7 +207,7 @@ struct SnakeGameStateStepModel {
   /// In a single player game, there is either player_a or player_b.
   /// The opponent player is "nil" thoughout the entire game.
   enum OneOf_OptionalPlayerA: Equatable {
-    case playerA(SnakeGameStateModelPlayer)
+    case playerA(SnakeDatasetPlayer)
 
   #if !swift(>=4.1)
     static func ==(lhs: SnakeGameStateStepModel.OneOf_OptionalPlayerA, rhs: SnakeGameStateStepModel.OneOf_OptionalPlayerA) -> Bool {
@@ -219,7 +219,7 @@ struct SnakeGameStateStepModel {
   }
 
   enum OneOf_OptionalPlayerB: Equatable {
-    case playerB(SnakeGameStateModelPlayer)
+    case playerB(SnakeDatasetPlayer)
 
   #if !swift(>=4.1)
     static func ==(lhs: SnakeGameStateStepModel.OneOf_OptionalPlayerB, rhs: SnakeGameStateStepModel.OneOf_OptionalPlayerB) -> Bool {
@@ -343,8 +343,8 @@ extension SnakeDatasetPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   }
 }
 
-extension SnakeGameStateModelPlayer: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "SnakeGameStateModelPlayer"
+extension SnakeDatasetPlayer: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "SnakeDatasetPlayer"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "alive"),
     2: .standard(proto: "body_positions"),
@@ -375,7 +375,7 @@ extension SnakeGameStateModelPlayer: SwiftProtobuf.Message, SwiftProtobuf._Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SnakeGameStateModelPlayer, rhs: SnakeGameStateModelPlayer) -> Bool {
+  static func ==(lhs: SnakeDatasetPlayer, rhs: SnakeDatasetPlayer) -> Bool {
     if lhs.alive != rhs.alive {return false}
     if lhs.bodyPositions != rhs.bodyPositions {return false}
     if lhs.uuid != rhs.uuid {return false}
@@ -545,7 +545,7 @@ extension SnakeGameStateStepModel: SwiftProtobuf.Message, SwiftProtobuf._Message
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._optionalFoodPosition = .foodPosition(v)}
         case 2:
-          var v: SnakeGameStateModelPlayer?
+          var v: SnakeDatasetPlayer?
           if let current = _storage._optionalPlayerA {
             try decoder.handleConflictingOneOf()
             if case .playerA(let m) = current {v = m}
@@ -553,7 +553,7 @@ extension SnakeGameStateStepModel: SwiftProtobuf.Message, SwiftProtobuf._Message
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._optionalPlayerA = .playerA(v)}
         case 3:
-          var v: SnakeGameStateModelPlayer?
+          var v: SnakeDatasetPlayer?
           if let current = _storage._optionalPlayerB {
             try decoder.handleConflictingOneOf()
             if case .playerB(let m) = current {v = m}

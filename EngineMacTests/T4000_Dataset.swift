@@ -26,7 +26,7 @@ class T4000_Dataset: XCTestCase {
 
     func test100_serializationRoundtrip_player_human_alive() throws {
         let originalPlayer: SnakePlayer = createSnakePlayer_human()
-        let protobufRepresentation: SnakeGameStateModelPlayer = originalPlayer.toSnakeGameStateModelPlayer()
+        let protobufRepresentation: SnakeDatasetPlayer = originalPlayer.toSnakeDatasetPlayer()
 
         let result: DatasetLoader.SnakePlayerResult = try DatasetLoader.snakePlayerResult(playerModel: protobufRepresentation)
 
@@ -39,7 +39,7 @@ class T4000_Dataset: XCTestCase {
     func test101_serializationRoundtrip_player_human_dead() throws {
         let originalPlayer: SnakePlayer = createSnakePlayer_human().kill(.collisionWithWall)
 
-        let protobufRepresentation: SnakeGameStateModelPlayer = originalPlayer.toSnakeGameStateModelPlayer()
+        let protobufRepresentation: SnakeDatasetPlayer = originalPlayer.toSnakeDatasetPlayer()
 
         let result: DatasetLoader.SnakePlayerResult = try DatasetLoader.snakePlayerResult(playerModel: protobufRepresentation)
 
@@ -67,7 +67,7 @@ class T4000_Dataset: XCTestCase {
 
     func test102_serializationRoundtrip_player_bot_alive() throws {
         let originalPlayer: SnakePlayer = createSnakePlayer_bot()
-        let protobufRepresentation: SnakeGameStateModelPlayer = originalPlayer.toSnakeGameStateModelPlayer()
+        let protobufRepresentation: SnakeDatasetPlayer = originalPlayer.toSnakeDatasetPlayer()
 
         let result: DatasetLoader.SnakePlayerResult = try DatasetLoader.snakePlayerResult(playerModel: protobufRepresentation)
 

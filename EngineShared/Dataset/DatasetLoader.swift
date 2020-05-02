@@ -38,7 +38,7 @@ public class DatasetLoader {
         let snakeBody: SnakeBody
     }
 
-    internal static func snakePlayerResult(playerModel: SnakeGameStateModelPlayer) throws -> SnakePlayerResult {
+    internal static func snakePlayerResult(playerModel: SnakeDatasetPlayer) throws -> SnakePlayerResult {
         guard let uuid: UUID = UUID(uuidString: playerModel.uuid) else {
             throw DatasetLoaderError.runtimeError(message: "Invalid UUID for the player role")
         }

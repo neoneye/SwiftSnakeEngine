@@ -3,7 +3,7 @@ import Foundation
 import SwiftProtobuf
 
 extension SnakePlayer {
-	internal func toSnakeGameStateModelPlayer() -> SnakeGameStateModelPlayer {
+	internal func toSnakeDatasetPlayer() -> SnakeDatasetPlayer {
 
         // Flip the position array, so that:
         // The start of the array correspond to the snake head position.
@@ -27,7 +27,7 @@ extension SnakePlayer {
         // This uuid identifies what this player is; a human, or a particular type of bot, or none.
         let uuidString: String = self.role.id.uuidString
 
-        let model = SnakeGameStateModelPlayer.with {
+        let model = SnakeDatasetPlayer.with {
             $0.uuid = uuidString
             $0.alive = self.isAlive
 			$0.bodyPositions = bodyPositions
@@ -79,7 +79,7 @@ extension SnakeGameState {
 		do {
 			let player: SnakePlayer = self.player1
 			if player.isInstalled {
-				let model: SnakeGameStateModelPlayer = player.toSnakeGameStateModelPlayer()
+				let model: SnakeDatasetPlayer = player.toSnakeDatasetPlayer()
 				optionalPlayerA = SnakeGameStateStepModel.OneOf_OptionalPlayerA.playerA(model)
 			}
 		}
@@ -89,7 +89,7 @@ extension SnakeGameState {
 		do {
 			let player: SnakePlayer = self.player2
 			if player.isInstalled {
-				let model: SnakeGameStateModelPlayer = player.toSnakeGameStateModelPlayer()
+				let model: SnakeDatasetPlayer = player.toSnakeDatasetPlayer()
 				optionalPlayerB = SnakeGameStateStepModel.OneOf_OptionalPlayerB.playerB(model)
 			}
 		}
