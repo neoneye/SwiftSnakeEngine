@@ -208,7 +208,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         let newGameState = gameState.detectCollision()
         gameState = newGameState
 
-        if gameState.player1.isAlive {
+        if gameState.player1.isInstalledAndAlive {
             var player: SnakePlayer = gameState.player1
             let snakeBody: SnakeBody = player.snakeBody.stateForTick(
                 movement: player.pendingMovement,
@@ -221,7 +221,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
             gameState = gameState.stateWithNewPlayer1(player)
         }
 
-        if gameState.player2.isAlive {
+        if gameState.player2.isInstalledAndAlive {
             var player: SnakePlayer = gameState.player2
             let snakeBody: SnakeBody = player.snakeBody.stateForTick(
                 movement: player.pendingMovement,
@@ -241,7 +241,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         let currentIteration: UInt64 = oldGameState.numberOfSteps + 2
         var newGameState: SnakeGameState = oldGameState
 
-        if newGameState.player1.isAlive {
+        if newGameState.player1.isInstalledAndAlive {
             if currentIteration >= player1Positions.count {
                 log.debug("Player1 is dead. Reached end of player1Positions array.")
                 newGameState = newGameState.killPlayer1(.killAfterAFewTimeSteps)
@@ -260,7 +260,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
             }
         }
 
-        if newGameState.player2.isAlive {
+        if newGameState.player2.isInstalledAndAlive {
             if currentIteration >= player2Positions.count {
                 log.debug("Player2 is dead. Reached end of player2Positions array.")
                 newGameState = newGameState.killPlayer2(.killAfterAFewTimeSteps)
@@ -333,7 +333,7 @@ public class SnakeGameExecuterInteractive: SnakeGameExecuter {
         let newGameState = gameState.detectCollision()
         gameState = newGameState
 
-        if gameState.player1.isAlive {
+        if gameState.player1.isInstalledAndAlive {
             var player: SnakePlayer = gameState.player1
             let snakeBody: SnakeBody = player.snakeBody.stateForTick(
                 movement: player.pendingMovement,
@@ -346,7 +346,7 @@ public class SnakeGameExecuterInteractive: SnakeGameExecuter {
             gameState = gameState.stateWithNewPlayer1(player)
         }
 
-        if gameState.player2.isAlive {
+        if gameState.player2.isInstalledAndAlive {
             var player: SnakePlayer = gameState.player2
             let snakeBody: SnakeBody = player.snakeBody.stateForTick(
                 movement: player.pendingMovement,
@@ -368,13 +368,13 @@ public class SnakeGameExecuterInteractive: SnakeGameExecuter {
 
         var computePlayer1 = false
 		if case SnakePlayerRole.bot = oldPlayer1.role {
-			if oldPlayer1.isAlive && oldPlayer1.pendingMovement == .dontMove {
+			if oldPlayer1.isInstalledAndAlive && oldPlayer1.pendingMovement == .dontMove {
                 computePlayer1 = true
             }
         }
         var computePlayer2 = false
         if case SnakePlayerRole.bot = oldPlayer2.role {
-            if oldPlayer2.isAlive && oldPlayer2.pendingMovement == .dontMove {
+            if oldPlayer2.isInstalledAndAlive && oldPlayer2.pendingMovement == .dontMove {
                 computePlayer2 = true
             }
         }
@@ -441,14 +441,17 @@ public class SnakeGameExecuterInteractive: SnakeGameExecuter {
 
 extension SnakeGameState {
 
-	/// Deal with collision when both the player1 and the player2 is installed
-	/// Deal with collision only if either the player1 or player2 is installed
+	/// Deal with collision when one player or both players are installed.
+    /// Do nothing when no players are installed.
 	fileprivate func detectCollision() -> SnakeGameState {
-		var gameState: SnakeGameState = self
-		if gameState.player1.isDead && gameState.player2.isDead {
+        let player1_installedAndAlive: Bool = self.player1.isInstalledAndAlive
+        let player2_installedAndAlive: Bool = self.player2.isInstalledAndAlive
+
+        guard player1_installedAndAlive || player2_installedAndAlive else {
 			log.debug("Both players are dead. No need to check for collision between them. 1")
-			return gameState
+			return self
 		}
+        var gameState: SnakeGameState = self
 
 		let detector = SnakeCollisionDetector.create(
 			level: gameState.level,
@@ -458,12 +461,12 @@ extension SnakeGameState {
 		)
 		detector.process()
 
-		if gameState.player1.isInstalled && gameState.player1.isAlive && detector.player1Alive == false {
+		if player1_installedAndAlive && detector.player1Alive == false {
             let collisionType: SnakeCollisionType = detector.collisionType1
             log.info("killing player1 because: \(collisionType)")
             gameState = gameState.killPlayer1(collisionType.causeOfDeath)
 		}
-		if gameState.player2.isInstalled && gameState.player2.isAlive && detector.player2Alive == false {
+		if player2_installedAndAlive && detector.player2Alive == false {
             let collisionType: SnakeCollisionType = detector.collisionType2
             log.info("killing player2 because: \(collisionType)")
 			gameState = gameState.killPlayer2(collisionType.causeOfDeath)
@@ -506,7 +509,7 @@ extension StuckSnakeDetector {
     /// I'm doing the same patterns over and over.
     /// So this "stuck in loop" detection only applies to bots.
     fileprivate func killBotIfStuckInLoop(_ player: SnakePlayer) -> SnakePlayer {
-        guard player.isBot && player.isAlive else {
+        guard player.isInstalledAndAlive && player.isBot else {
             return player
         }
         self.append(player.snakeBody)
