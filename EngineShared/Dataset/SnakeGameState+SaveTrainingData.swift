@@ -27,8 +27,8 @@ extension SnakePlayer {
         let uuidString: String = self.role.id.uuidString
 
         let model = SnakeGameStateModelPlayer.with {
-            $0.alive = self.isAlive
             $0.uuid = uuidString
+            $0.alive = self.isAlive
 			$0.bodyPositions = bodyPositions
 		}
 		return model

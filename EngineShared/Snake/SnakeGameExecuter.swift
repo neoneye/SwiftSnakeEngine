@@ -55,9 +55,45 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
 
         let step0: SnakeGameStateStepModel = model.firstStep
 
-        let level: SnakeLevel = createLevel(levelModel: model.level, stepModel: step0)
+        let levelBuilder: SnakeLevelBuilder
+        do {
+            levelBuilder = try DatasetLoader.snakeLevelBuilder(levelModel: model.level)
+        } catch {
+            log.error("Unable to parse level. \(error)")
+            fatalError()
+        }
+
+        assignFoodPosition(levelBuilder: levelBuilder, stepModel: step0)
+
+        var player1: SnakePlayer?
+        if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerA(stepModel: step0) {
+            if playerResult.isAlive {
+                levelBuilder.player1_body = playerResult.snakeBody
+
+                if let role: SnakePlayerRole = SnakePlayerRole.create(uuid: playerResult.uuid) {
+                    var player = SnakePlayer.create(id: .player1, role: role)
+                    player = player.playerWithNewSnakeBody(playerResult.snakeBody)
+                    player1 = player
+                }
+            }
+        }
+
+        var player2: SnakePlayer?
+        if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerB(stepModel: step0) {
+            if playerResult.isAlive {
+                levelBuilder.player2_body = playerResult.snakeBody
+
+                if let role: SnakePlayerRole = SnakePlayerRole.create(uuid: playerResult.uuid) {
+                    var player = SnakePlayer.create(id: .player2, role: role)
+                    player = player.playerWithNewSnakeBody(playerResult.snakeBody)
+                    player2 = player
+                }
+            }
+        }
+
+        let level: SnakeLevel = levelBuilder.level()
         log.debug("level: \(level)")
-        // IDEA: make use of the loaded level. Pass it on to the IngameScene.
+
         // IDEA: check hashes of the loaded level with the level in the file system.
 
         func convert(_ modelPositionArray: [SnakeGameStateModelPosition]) -> [IntVec2] {
@@ -94,10 +130,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         var gameState = SnakeGameState.empty()
         gameState = gameState.stateWithNewLevel(level)
 
-        // IDEA: restore the player role from the protobuf file
-        if player1Positions.count >= 2 {
-            var player = SnakePlayer.create(id: .player1, role: .human)
-            player = player.playerWithNewSnakeBody(level.player1_body)
+        if let player: SnakePlayer = player1 {
             gameState = gameState.stateWithNewPlayer1(player)
         } else {
             var player = SnakePlayer.create(id: .player1, role: .none)
@@ -105,9 +138,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
             gameState = gameState.stateWithNewPlayer1(player)
         }
 
-        if player2Positions.count >= 2 {
-            var player = SnakePlayer.create(id: .player2, role: .human)
-            player = player.playerWithNewSnakeBody(level.player2_body)
+        if let player: SnakePlayer = player2 {
             gameState = gameState.stateWithNewPlayer2(player)
         } else {
             var player = SnakePlayer.create(id: .player2, role: .none)
@@ -125,61 +156,37 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         )
     }
 
-    static func createLevel(levelModel: SnakeGameStateModelLevel, stepModel: SnakeGameStateStepModel) -> SnakeLevel {
-        let builder: SnakeLevelBuilder
-        do {
-            builder = try DatasetLoader.snakeLevelBuilder(levelModel: levelModel)
-        } catch {
-            log.error("Unable to parse level. \(error)")
-            fatalError()
-        }
-
-        // Insert food
+    static func assignFoodPosition(levelBuilder: SnakeLevelBuilder, stepModel: SnakeGameStateStepModel) {
         guard case .foodPosition(let foodPositionModel)? = stepModel.optionalFoodPosition else {
             log.error("Expected file to contain a food position for the first step, but got none.")
             fatalError()
         }
-        builder.initialFoodPosition = UIntVec2(x: foodPositionModel.x, y: foodPositionModel.y)
-
-        populateBuilderWithPlayerA(builder: builder, stepModel: stepModel)
-        populateBuilderWithPlayerB(builder: builder, stepModel: stepModel)
-
-        return builder.level()
+        levelBuilder.initialFoodPosition = UIntVec2(x: foodPositionModel.x, y: foodPositionModel.y)
     }
 
-    private static func populateBuilderWithPlayerA(builder: SnakeLevelBuilder, stepModel: SnakeGameStateStepModel) {
+    private static func snakePlayerResultWithPlayerA(stepModel: SnakeGameStateStepModel) -> DatasetLoader.SnakePlayerResult? {
         guard case .playerA(let player)? = stepModel.optionalPlayerA else {
-            log.error("Expected player 1, but got none.")
-            return
+            log.error("Expected player A, but got none.")
+            return nil
         }
-
-        let result: DatasetLoader.SnakePlayerResult
         do {
-            result = try DatasetLoader.snakePlayerResult(playerModel: player)
+            return try DatasetLoader.snakePlayerResult(playerModel: player)
         } catch {
-            log.error("Unable to parse player 1. \(error)")
-            return
-        }
-        if result.isAlive {
-            builder.player1_body = result.snakeBody
+            log.error("Unable to parse player A. \(error)")
+            return nil
         }
     }
 
-    private static func populateBuilderWithPlayerB(builder: SnakeLevelBuilder, stepModel: SnakeGameStateStepModel) {
+    private static func snakePlayerResultWithPlayerB(stepModel: SnakeGameStateStepModel) -> DatasetLoader.SnakePlayerResult? {
         guard case .playerB(let player)? = stepModel.optionalPlayerB else {
             log.error("Expected player B, but got none.")
-            return
+            return nil
         }
-
-        let result: DatasetLoader.SnakePlayerResult
         do {
-            result = try DatasetLoader.snakePlayerResult(playerModel: player)
+            return try DatasetLoader.snakePlayerResult(playerModel: player)
         } catch {
-            log.error("Unable to parse player 2. \(error)")
-            return
-        }
-        if result.isAlive {
-            builder.player2_body = result.snakeBody
+            log.error("Unable to parse player B. \(error)")
+            return nil
         }
     }
 
