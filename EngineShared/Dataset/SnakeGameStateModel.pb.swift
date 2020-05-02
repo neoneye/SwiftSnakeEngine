@@ -22,7 +22,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct SnakeGameStateModelPosition {
+struct SnakeDatasetPosition {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -50,7 +50,7 @@ struct SnakeGameStateModelPlayer {
   /// The positions does not overlap with the level walls.
   /// The positions does not overlap the player itself (no duplicate positions).
   /// The positions does not overlap with an opponent player.
-  var bodyPositions: [SnakeGameStateModelPosition] = []
+  var bodyPositions: [SnakeDatasetPosition] = []
 
   /// Reference to what player it is. Is it human or bot.
   /// If it's a bot, then what particular bot is it.
@@ -79,7 +79,7 @@ struct SnakeGameStateModelLevel {
   var height: UInt32 = 0
 
   /// Places where the snake can go.
-  var emptyPositions: [SnakeGameStateModelPosition] = []
+  var emptyPositions: [SnakeDatasetPosition] = []
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -135,10 +135,10 @@ struct SnakeGameStateStepModel {
     set {_uniqueStorage()._optionalFoodPosition = newValue}
   }
 
-  var foodPosition: SnakeGameStateModelPosition {
+  var foodPosition: SnakeDatasetPosition {
     get {
       if case .foodPosition(let v)? = _storage._optionalFoodPosition {return v}
-      return SnakeGameStateModelPosition()
+      return SnakeDatasetPosition()
     }
     set {_uniqueStorage()._optionalFoodPosition = .foodPosition(newValue)}
   }
@@ -184,7 +184,7 @@ struct SnakeGameStateStepModel {
 
   /// There may be food or there may be no food.
   enum OneOf_OptionalFoodPosition: Equatable {
-    case foodPosition(SnakeGameStateModelPosition)
+    case foodPosition(SnakeDatasetPosition)
 
   #if !swift(>=4.1)
     static func ==(lhs: SnakeGameStateStepModel.OneOf_OptionalFoodPosition, rhs: SnakeGameStateStepModel.OneOf_OptionalFoodPosition) -> Bool {
@@ -272,19 +272,19 @@ struct SnakeGameResultModel {
 
   /// Food positions throughout the game.
   /// Magic value is (0,0), this means that there is no food position.
-  var foodPositions: [SnakeGameStateModelPosition] {
+  var foodPositions: [SnakeDatasetPosition] {
     get {return _storage._foodPositions}
     set {_uniqueStorage()._foodPositions = newValue}
   }
 
   /// Head positions of "player_a" througout the game.
-  var playerAPositions: [SnakeGameStateModelPosition] {
+  var playerAPositions: [SnakeDatasetPosition] {
     get {return _storage._playerAPositions}
     set {_uniqueStorage()._playerAPositions = newValue}
   }
 
   /// Head positions of "player_b" througout the game.
-  var playerBPositions: [SnakeGameStateModelPosition] {
+  var playerBPositions: [SnakeDatasetPosition] {
     get {return _storage._playerBPositions}
     set {_uniqueStorage()._playerBPositions = newValue}
   }
@@ -308,8 +308,8 @@ struct SnakeGameResultModel {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-extension SnakeGameStateModelPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "SnakeGameStateModelPosition"
+extension SnakeDatasetPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "SnakeDatasetPosition"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "x"),
     2: .same(proto: "y"),
@@ -335,7 +335,7 @@ extension SnakeGameStateModelPosition: SwiftProtobuf.Message, SwiftProtobuf._Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SnakeGameStateModelPosition, rhs: SnakeGameStateModelPosition) -> Bool {
+  static func ==(lhs: SnakeDatasetPosition, rhs: SnakeDatasetPosition) -> Bool {
     if lhs.x != rhs.x {return false}
     if lhs.y != rhs.y {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -537,7 +537,7 @@ extension SnakeGameStateStepModel: SwiftProtobuf.Message, SwiftProtobuf._Message
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1:
-          var v: SnakeGameStateModelPosition?
+          var v: SnakeDatasetPosition?
           if let current = _storage._optionalFoodPosition {
             try decoder.handleConflictingOneOf()
             if case .foodPosition(let m) = current {v = m}
@@ -614,9 +614,9 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     var _level: SnakeGameStateModelLevel? = nil
     var _firstStep: SnakeGameStateStepModel? = nil
     var _lastStep: SnakeGameStateStepModel? = nil
-    var _foodPositions: [SnakeGameStateModelPosition] = []
-    var _playerAPositions: [SnakeGameStateModelPosition] = []
-    var _playerBPositions: [SnakeGameStateModelPosition] = []
+    var _foodPositions: [SnakeDatasetPosition] = []
+    var _playerAPositions: [SnakeDatasetPosition] = []
+    var _playerBPositions: [SnakeDatasetPosition] = []
     var _timestamp: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 
     static let defaultInstance = _StorageClass()

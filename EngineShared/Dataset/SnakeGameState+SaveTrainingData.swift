@@ -12,12 +12,12 @@ extension SnakePlayer {
         let headFirst_positionArray: [IntVec2] = headLast_positionArray.reversed()
 
 		// Positions of all the snake body parts
-		var bodyPositions = [SnakeGameStateModelPosition]()
+		var bodyPositions = [SnakeDatasetPosition]()
 		for signedPosition: IntVec2 in headFirst_positionArray {
 			guard let unsignedPosition: UIntVec2 = signedPosition.uintVec2() else {
 				fatalError("Encountered a negative position. \(signedPosition). The snake game is supposed to always use unsigned coordinates.")
 			}
-			let position = SnakeGameStateModelPosition.with {
+			let position = SnakeDatasetPosition.with {
 				$0.x = unsignedPosition.x
 				$0.y = unsignedPosition.y
 			}
@@ -39,12 +39,12 @@ extension SnakePlayer {
 extension SnakeLevel {
 	internal func toSnakeGameStateModelLevel() -> SnakeGameStateModelLevel {
 		// Empty positions in the level
-		var emptyPositions = [SnakeGameStateModelPosition]()
+		var emptyPositions = [SnakeDatasetPosition]()
 		for signedPosition: IntVec2 in self.emptyPositionArray {
 			guard let unsignedPosition: UIntVec2 = signedPosition.uintVec2() else {
 				fatalError("All empty positions must be non-negative, but encountered a negative position: \(signedPosition)")
 			}
-			let position = SnakeGameStateModelPosition.with {
+			let position = SnakeDatasetPosition.with {
 				$0.x = unsignedPosition.x
 				$0.y = unsignedPosition.y
 			}
@@ -67,7 +67,7 @@ extension SnakeGameState {
 		// Food
 		var optionalFoodPosition: SnakeGameStateStepModel.OneOf_OptionalFoodPosition? = nil
 		if let position: UIntVec2 = self.foodPosition?.uintVec2() {
-			let foodPosition = SnakeGameStateModelPosition.with {
+			let foodPosition = SnakeDatasetPosition.with {
 				$0.x = position.x
 				$0.y = position.y
 			}
@@ -170,13 +170,13 @@ public class PostProcessTrainingData {
             let lastStep: SnakeGameStateStepModel = self.stepArray.last else {
             fatalError("Expected the stepArray to be non-empty, but it's empty. Cannot create result file.")
         }
-        var foodPositions: [SnakeGameStateModelPosition] = []
+        var foodPositions: [SnakeDatasetPosition] = []
         for step in stepArray {
             foodPositions.append(step.foodPosition)
         }
 
         // Extract "head positions" for "Player A"
-        var playerAPositions: [SnakeGameStateModelPosition] = []
+        var playerAPositions: [SnakeDatasetPosition] = []
         for (index, step) in stepArray.enumerated() {
             guard case .playerA(let player)? = step.optionalPlayerA else {
                 if index >= 1 {
@@ -188,7 +188,7 @@ public class PostProcessTrainingData {
                 log.debug("Player A is dead.  Index: \(index)")
                 break
             }
-            guard let headPosition: SnakeGameStateModelPosition = player.bodyPositions.first else {
+            guard let headPosition: SnakeDatasetPosition = player.bodyPositions.first else {
                 log.error("Expected player A bodyPositions to be non-empty, but it's empty. Index: \(index).")
                 break
             }
@@ -196,7 +196,7 @@ public class PostProcessTrainingData {
         }
 
         // Extract "head positions" for "Player B"
-        var playerBPositions: [SnakeGameStateModelPosition] = []
+        var playerBPositions: [SnakeDatasetPosition] = []
         for (index, step) in stepArray.enumerated() {
             guard case .playerB(let player)? = step.optionalPlayerB else {
                 if index >= 1 {
@@ -208,7 +208,7 @@ public class PostProcessTrainingData {
                 log.debug("Player B is dead.  Index: \(index)")
                 break
             }
-            guard let headPosition: SnakeGameStateModelPosition = player.bodyPositions.first else {
+            guard let headPosition: SnakeDatasetPosition = player.bodyPositions.first else {
                 log.error("Expected player B bodyPositions to be non-empty, but it's empty. Index: \(index).")
                 break
             }

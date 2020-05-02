@@ -4,7 +4,7 @@ syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 
-message SnakeGameStateModelPosition {
+message SnakeDatasetPosition {
 	// The coordinate system origin is in the left/bottom corner.
 	uint32 x = 1;
 	uint32 y = 2;
@@ -19,7 +19,7 @@ message SnakeGameStateModelPlayer {
     // The positions does not overlap with the level walls.
     // The positions does not overlap the player itself (no duplicate positions).
     // The positions does not overlap with an opponent player.
-	repeated SnakeGameStateModelPosition body_positions = 2;
+	repeated SnakeDatasetPosition body_positions = 2;
 
     // Reference to what player it is. Is it human or bot.
     // If it's a bot, then what particular bot is it.
@@ -39,7 +39,7 @@ message SnakeGameStateModelLevel {
 	uint32 height = 3;
 
 	// Places where the snake can go.
-	repeated SnakeGameStateModelPosition empty_positions = 4;
+	repeated SnakeDatasetPosition empty_positions = 4;
 }
 
 // Full snapshot of the grid for a single time step.
@@ -58,7 +58,7 @@ message SnakeGameStateIngameModel {
 message SnakeGameStateStepModel {
 	// There may be food or there may be no food.
 	oneof optional_food_position {
-		SnakeGameStateModelPosition food_position = 1;
+		SnakeDatasetPosition food_position = 1;
 	}
 
 	// While ingame it's uncertain which of the players becomes the winner or the looser.
@@ -92,13 +92,13 @@ message SnakeGameResultModel {
 
     // Food positions throughout the game.
     // Magic value is (0,0), this means that there is no food position.
-    repeated SnakeGameStateModelPosition food_positions = 4;
+    repeated SnakeDatasetPosition food_positions = 4;
 
     // Head positions of "player_a" througout the game.
-    repeated SnakeGameStateModelPosition player_a_positions = 5;
+    repeated SnakeDatasetPosition player_a_positions = 5;
 
     // Head positions of "player_b" througout the game.
-    repeated SnakeGameStateModelPosition player_b_positions = 6;
+    repeated SnakeDatasetPosition player_b_positions = 6;
 
     // When was this dataset generated.
     google.protobuf.Timestamp timestamp = 7;
