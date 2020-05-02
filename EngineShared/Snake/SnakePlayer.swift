@@ -16,6 +16,10 @@ public class SnakePlayer {
     public let causesOfDeath: Set<SnakeCauseOfDeath>
 	public let bot: SnakeBot
 
+    public var isInstalledAndAlive: Bool {
+        return isInstalled && causesOfDeath.isEmpty
+    }
+
 	public var isAlive: Bool {
         return causesOfDeath.isEmpty
 	}
