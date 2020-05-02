@@ -35,3 +35,18 @@ extension SnakePlayerRole {
         }
     }
 }
+
+extension SnakePlayerRole {
+    public static func create(uuid: UUID) -> SnakePlayerRole? {
+        if uuid == SnakePlayerRole.none.id {
+            return SnakePlayerRole.none
+        }
+        if uuid == SnakePlayerRole.human.id {
+            return SnakePlayerRole.human
+        }
+        if let botType: SnakeBot.Type = SnakeBotFactory.shared.botType(for: uuid) {
+            return SnakePlayerRole.bot(snakeBotType: botType)
+        }
+        return nil
+    }
+}

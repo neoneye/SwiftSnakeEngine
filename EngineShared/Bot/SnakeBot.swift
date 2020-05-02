@@ -41,6 +41,7 @@ public protocol SnakeBot: class {
 public class SnakeBotFactory {
     public let allRegisteredTypes: [SnakeBot.Type]
     public let macOSPlayerMenuTypes: [SnakeBot.Type]
+    private let uuidToType: [UUID: SnakeBot.Type]
 
     private init() {
         self.allRegisteredTypes = [
@@ -59,6 +60,13 @@ public class SnakeBotFactory {
             SnakeBot6.self,
             SnakeBot7.self,
         ]
+
+        var uuidToType = [UUID: SnakeBot.Type]()
+        for snakeBotType: SnakeBot.Type in allRegisteredTypes {
+            let uuid: UUID = snakeBotType.info.id
+            uuidToType[uuid] = snakeBotType
+        }
+        self.uuidToType = uuidToType
     }
 
     public static let shared = SnakeBotFactory()
@@ -70,5 +78,10 @@ public class SnakeBotFactory {
     /// The bot that currently outperforms the other bots, in most scenarios.
     public static func smartestBotType() -> SnakeBot.Type {
         return SnakeBot6.self
+    }
+
+    /// Look up a `SnakeBot` by its `uuid`.
+    public func botType(for uuid: UUID) -> SnakeBot.Type? {
+        return uuidToType[uuid]
     }
 }

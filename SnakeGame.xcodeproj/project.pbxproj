@@ -107,6 +107,7 @@
 		429A1534245CA7ED009F6337 /* DatasetLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429A1532245CA7ED009F6337 /* DatasetLoader.swift */; };
 		429A1536245CE97D009F6337 /* SnakePlayerRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429A1535245CE97D009F6337 /* SnakePlayerRole.swift */; };
 		429A1537245CE97D009F6337 /* SnakePlayerRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429A1535245CE97D009F6337 /* SnakePlayerRole.swift */; };
+		429A1539245D0C32009F6337 /* T2005_SnakePlayerRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429A1538245D0C32009F6337 /* T2005_SnakePlayerRole.swift */; };
 		429CD0D12348F93E00098E68 /* NSUserDefaultsController+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429CD0D02348F93E00098E68 /* NSUserDefaultsController+Settings.swift */; };
 		429CD0D523495DF300098E68 /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429CD0D423495DF300098E68 /* AppConstant.swift */; };
 		429D336623FAF46E00EF9B37 /* StuckSnakeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429D336523FAF46E00EF9B37 /* StuckSnakeDetector.swift */; };
@@ -388,6 +389,7 @@
 		4294DA502341377900AA58CD /* SnakeGameNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameNode.swift; sourceTree = "<group>"; };
 		429A1532245CA7ED009F6337 /* DatasetLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatasetLoader.swift; sourceTree = "<group>"; };
 		429A1535245CE97D009F6337 /* SnakePlayerRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakePlayerRole.swift; sourceTree = "<group>"; };
+		429A1538245D0C32009F6337 /* T2005_SnakePlayerRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2005_SnakePlayerRole.swift; sourceTree = "<group>"; };
 		429CD0D02348F93E00098E68 /* NSUserDefaultsController+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserDefaultsController+Settings.swift"; sourceTree = "<group>"; };
 		429CD0D423495DF300098E68 /* AppConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
 		429D336523FAF46E00EF9B37 /* StuckSnakeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StuckSnakeDetector.swift; sourceTree = "<group>"; };
@@ -641,6 +643,7 @@
 				421BC9932455130D0070F3EB /* T2002_SnakeHead.swift */,
 				42C236EA2332F4BB00241639 /* T2003_SnakeBody.swift */,
 				42CFF5B6245B514000590D62 /* T2004_SnakeBodyAdvancedCreate.swift */,
+				429A1538245D0C32009F6337 /* T2005_SnakePlayerRole.swift */,
 				42CCD61923C2AA9A0021CBE7 /* T3000_SnakeLevel.swift */,
 				42CCD60823BD54F70021CBE7 /* T3001_SnakeLevel_Cluster.swift */,
 				429D336723FB056300EF9B37 /* T3100_StuckSnakeDetector.swift */,
@@ -1386,6 +1389,7 @@
 				421BC9942455130D0070F3EB /* T2002_SnakeHead.swift in Sources */,
 				42CCD60F23BE65EA0021CBE7 /* T1004_BoundingBox.swift in Sources */,
 				426892042332682100B97E29 /* SSSPTests.swift in Sources */,
+				429A1539245D0C32009F6337 /* T2005_SnakePlayerRole.swift in Sources */,
 				42CCD61A23C2AA9A0021CBE7 /* T3000_SnakeLevel.swift in Sources */,
 				42C236EB2332F4BB00241639 /* T2003_SnakeBody.swift in Sources */,
 				42CCD60923BD54F70021CBE7 /* T3001_SnakeLevel_Cluster.swift in Sources */,
