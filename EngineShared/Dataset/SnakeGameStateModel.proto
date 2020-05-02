@@ -50,7 +50,7 @@ message SnakeDatasetLevel {
 // No need to replay 345 time steps, to recreate a particular moment in a game.
 //
 // Drawback of a full snapshot: Lots of data stored.
-message SnakeGameStateIngameModel {
+message SnakeDatasetIngame {
 	SnakeDatasetLevel level = 1;
     SnakeGameStateStepModel step = 2;
 }

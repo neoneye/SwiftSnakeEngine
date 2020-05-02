@@ -94,7 +94,7 @@ struct SnakeDatasetLevel {
 /// No need to replay 345 time steps, to recreate a particular moment in a game.
 ///
 /// Drawback of a full snapshot: Lots of data stored.
-struct SnakeGameStateIngameModel {
+struct SnakeDatasetIngame {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -431,8 +431,8 @@ extension SnakeDatasetLevel: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
   }
 }
 
-extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "SnakeGameStateIngameModel"
+extension SnakeDatasetIngame: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "SnakeDatasetIngame"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "level"),
     2: .same(proto: "step"),
@@ -484,7 +484,7 @@ extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SnakeGameStateIngameModel, rhs: SnakeGameStateIngameModel) -> Bool {
+  static func ==(lhs: SnakeDatasetIngame, rhs: SnakeDatasetIngame) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0

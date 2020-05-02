@@ -106,7 +106,7 @@ extension SnakeGameState {
 	public func saveTrainingData(trainingSessionUUID: UUID) -> URL {
         let levelModel: SnakeDatasetLevel = self.level.toSnakeDatasetLevel()
         let stepModel: SnakeGameStateStepModel = self.toSnakeGameStateStepModel()
-        let model = SnakeGameStateIngameModel.with {
+        let model = SnakeDatasetIngame.with {
             $0.level = levelModel
             $0.step = stepModel
         }
@@ -142,10 +142,10 @@ public class PostProcessTrainingData {
 	}
 
 	private func processFile(at url: URL) {
-		let model: SnakeGameStateIngameModel
+		let model: SnakeDatasetIngame
 		do {
 			let data: Data = try Data(contentsOf: url)
-			model = try SnakeGameStateIngameModel(serializedData: data)
+			model = try SnakeDatasetIngame(serializedData: data)
 		} catch {
 			log.error("Unable to load file at url: '\(url)'. \(error)")
 			return
@@ -264,7 +264,7 @@ public class PostProcessTrainingData {
 		let url0: URL = urls.first!
 		do {
 			let data: Data = try Data(contentsOf: url0)
-			let model: SnakeGameStateIngameModel = try SnakeGameStateIngameModel(serializedData: data)
+			let model: SnakeDatasetIngame = try SnakeDatasetIngame(serializedData: data)
 			sharedLevel = model.level
 		} catch {
 			log.error("Unable to load file at url: '\(url0)'. \(error)")
