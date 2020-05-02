@@ -76,7 +76,7 @@ public class PlayerRoleMenuItemFactory {
 
 	public lazy var bots: [PlayerRoleMenuItem] = {
 		var registered = [PlayerRoleMenuItem]()
-		for snakeBotType: SnakeBot.Type in SnakeBotFactory.snakeBotTypes {
+        for snakeBotType: SnakeBot.Type in SnakeBotFactory.shared.macOSPlayerMenuTypes {
 			let info: SnakeBotInfo = snakeBotType.info
 			let playerRoleMenuItem = PlayerRoleMenuItemImpl(
                 id: info.id,

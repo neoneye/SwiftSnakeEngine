@@ -15,12 +15,10 @@ fileprivate struct PreviousIterationData {
 }
 
 public class SnakeBot5: SnakeBot {
-	public static var info: SnakeBotInfo {
-		SnakeBotInfoImpl(
-            id: UUID(uuidString: "7fce9835-cd5c-4299-889f-72f57cb835bf")!,
-			humanReadableName: "Monte Carlo 1"
-		)
-	}
+	public static var info = SnakeBotInfo(
+        uuid: "7fce9835-cd5c-4299-889f-72f57cb835bf",
+        name: "Monte Carlo 1"
+    )
 
 	private let iteration: UInt
     public let plannedPath: [IntVec2]
