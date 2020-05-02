@@ -6,7 +6,7 @@ public class DatasetLoader {
         case runtimeError(message: String)
     }
 
-    internal static func snakeLevelBuilder(levelModel: SnakeGameStateModelLevel) throws -> SnakeLevelBuilder {
+    internal static func snakeLevelBuilder(levelModel: SnakeDatasetLevel) throws -> SnakeLevelBuilder {
         let uuidString: String = levelModel.uuid
         guard let uuid: UUID = UUID(uuidString: uuidString) else {
             throw DatasetLoaderError.runtimeError(message: "Expected a valid uuid, but got: '\(uuidString)'")
@@ -38,7 +38,7 @@ public class DatasetLoader {
         let snakeBody: SnakeBody
     }
 
-    internal static func snakePlayerResult(playerModel: SnakeGameStateModelPlayer) throws -> SnakePlayerResult {
+    internal static func snakePlayerResult(playerModel: SnakeDatasetPlayer) throws -> SnakePlayerResult {
         guard let uuid: UUID = UUID(uuidString: playerModel.uuid) else {
             throw DatasetLoaderError.runtimeError(message: "Invalid UUID for the player role")
         }
