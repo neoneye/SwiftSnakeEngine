@@ -458,12 +458,12 @@ extension SnakeGameState {
 		)
 		detector.process()
 
-		if gameState.player1.isAlive && detector.player1Alive == false {
+		if gameState.player1.isInstalled && gameState.player1.isAlive && detector.player1Alive == false {
             let collisionType: SnakeCollisionType = detector.collisionType1
             log.info("killing player1 because: \(collisionType)")
             gameState = gameState.killPlayer1(collisionType.causeOfDeath)
 		}
-		if gameState.player2.isAlive && detector.player2Alive == false {
+		if gameState.player2.isInstalled && gameState.player2.isAlive && detector.player2Alive == false {
             let collisionType: SnakeCollisionType = detector.collisionType2
             log.info("killing player2 because: \(collisionType)")
 			gameState = gameState.killPlayer2(collisionType.causeOfDeath)
