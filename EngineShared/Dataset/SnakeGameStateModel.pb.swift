@@ -289,6 +289,16 @@ struct SnakeGameResultModel {
     set {_uniqueStorage()._playerBPositions = newValue}
   }
 
+  /// When was this dataset generated.
+  var timestamp: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _storage._timestamp ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_uniqueStorage()._timestamp = newValue}
+  }
+  /// Returns true if `timestamp` has been explicitly set.
+  var hasTimestamp: Bool {return _storage._timestamp != nil}
+  /// Clears the value of `timestamp`. Subsequent reads from it will return its default value.
+  mutating func clearTimestamp() {_uniqueStorage()._timestamp = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -597,6 +607,7 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     4: .standard(proto: "food_positions"),
     5: .standard(proto: "player_a_positions"),
     6: .standard(proto: "player_b_positions"),
+    7: .same(proto: "timestamp"),
   ]
 
   fileprivate class _StorageClass {
@@ -606,6 +617,7 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
     var _foodPositions: [SnakeGameStateModelPosition] = []
     var _playerAPositions: [SnakeGameStateModelPosition] = []
     var _playerBPositions: [SnakeGameStateModelPosition] = []
+    var _timestamp: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -618,6 +630,7 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
       _foodPositions = source._foodPositions
       _playerAPositions = source._playerAPositions
       _playerBPositions = source._playerBPositions
+      _timestamp = source._timestamp
     }
   }
 
@@ -639,6 +652,7 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
         case 4: try decoder.decodeRepeatedMessageField(value: &_storage._foodPositions)
         case 5: try decoder.decodeRepeatedMessageField(value: &_storage._playerAPositions)
         case 6: try decoder.decodeRepeatedMessageField(value: &_storage._playerBPositions)
+        case 7: try decoder.decodeSingularMessageField(value: &_storage._timestamp)
         default: break
         }
       }
@@ -665,6 +679,9 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
       if !_storage._playerBPositions.isEmpty {
         try visitor.visitRepeatedMessageField(value: _storage._playerBPositions, fieldNumber: 6)
       }
+      if let v = _storage._timestamp {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -680,6 +697,7 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
         if _storage._foodPositions != rhs_storage._foodPositions {return false}
         if _storage._playerAPositions != rhs_storage._playerAPositions {return false}
         if _storage._playerBPositions != rhs_storage._playerBPositions {return false}
+        if _storage._timestamp != rhs_storage._timestamp {return false}
         return true
       }
       if !storagesAreEqual {return false}

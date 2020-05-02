@@ -1,5 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
+import SwiftProtobuf
 
 public protocol SnakeGameExecuter: class {
     func reset()
@@ -112,6 +113,12 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         log.debug("player1: \(pretty.format(player1Positions))")
         log.debug("player2: \(pretty.format(player2Positions))")
         log.debug("food: \(pretty.format(foodPositions))")
+
+        if model.hasTimestamp {
+            let t: Google_Protobuf_Timestamp = model.timestamp
+            let date: Date = t.date
+            log.debug("date: \(date)")
+        }
 
         // IDEA: validate positions are inside the level coordinates
         // IDEA: validate that none of the snakes overlap with each other

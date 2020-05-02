@@ -2,6 +2,8 @@
 // PROMPT> protoc --swift_out=. SnakeGameStateModel.proto
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
 message SnakeGameStateModelPosition {
 	// The coordinate system origin is in the left/bottom corner.
 	uint32 x = 1;
@@ -97,4 +99,7 @@ message SnakeGameResultModel {
 
     // Head positions of "player_b" througout the game.
     repeated SnakeGameStateModelPosition player_b_positions = 6;
+
+    // When was this dataset generated.
+    google.protobuf.Timestamp timestamp = 7;
 }

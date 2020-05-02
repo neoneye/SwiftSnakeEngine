@@ -1,5 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
+import SwiftProtobuf
 
 extension SnakePlayer {
 	internal func toSnakeGameStateModelPlayer() -> SnakeGameStateModelPlayer {
@@ -214,10 +215,13 @@ public class PostProcessTrainingData {
             playerBPositions.append(headPosition)
         }
 
+        let date = Date()
+
         log.debug("level.uuid: '\(self.sharedLevel.uuid)'")
         log.debug("foodPositions.count: \(foodPositions.count)")
         log.debug("playerAPositions.count: \(playerAPositions.count)")
         log.debug("playerBPositions.count: \(playerBPositions.count)")
+        log.debug("timestamp: \(date)")
 
 		let model = SnakeGameResultModel.with {
 			$0.level = self.sharedLevel
@@ -226,6 +230,7 @@ public class PostProcessTrainingData {
             $0.foodPositions = foodPositions
             $0.playerAPositions = playerAPositions
             $0.playerBPositions = playerBPositions
+            $0.timestamp = Google_Protobuf_Timestamp(date: date)
 		}
 
 		// Serialize to binary protobuf format
