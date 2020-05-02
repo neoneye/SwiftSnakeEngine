@@ -14,6 +14,7 @@ extension SnakePlayer {
 		// Positions of all the snake body parts
 		var bodyPositions = [SnakeDatasetPosition]()
 		for signedPosition: IntVec2 in headFirst_positionArray {
+            // IDEA: migrate snake positions to use unsigned integers, so fragile casting can be avoided.
 			guard let unsignedPosition: UIntVec2 = signedPosition.uintVec2() else {
 				fatalError("Encountered a negative position. \(signedPosition). The snake game is supposed to always use unsigned coordinates.")
 			}
