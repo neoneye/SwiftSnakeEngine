@@ -8,7 +8,7 @@ import XCTest
 /// 3rd step: verify that the desired model data has been preserved.
 class T4000_Dataset: XCTestCase {
 
-    func createSnakePlayer() -> SnakePlayer {
+    func createSnakePlayer_human() -> SnakePlayer {
         let positions: [IntVec2] = [
             IntVec2(x: 10, y: 10),
             IntVec2(x: 11, y: 10),
@@ -24,8 +24,8 @@ class T4000_Dataset: XCTestCase {
         return player
     }
 
-    func test100_serializationRoundtrip_player_alive() throws {
-        let originalPlayer: SnakePlayer = createSnakePlayer()
+    func test100_serializationRoundtrip_player_human_alive() throws {
+        let originalPlayer: SnakePlayer = createSnakePlayer_human()
         let protobufRepresentation: SnakeGameStateModelPlayer = originalPlayer.toSnakeGameStateModelPlayer()
 
         let result: DatasetLoader.SnakePlayerResult = try DatasetLoader.snakePlayerResult(playerModel: protobufRepresentation)
@@ -33,10 +33,11 @@ class T4000_Dataset: XCTestCase {
         // Things that are preserved from the original player
         XCTAssertTrue(result.isAlive)
         XCTAssertEqual(result.snakeBody, originalPlayer.snakeBody)
+        XCTAssertEqual(result.uuid, SnakePlayerRole.human.id)
     }
 
-    func test101_serializationRoundtrip_player_dead() throws {
-        let originalPlayer: SnakePlayer = createSnakePlayer().kill(.collisionWithWall)
+    func test101_serializationRoundtrip_player_human_dead() throws {
+        let originalPlayer: SnakePlayer = createSnakePlayer_human().kill(.collisionWithWall)
 
         let protobufRepresentation: SnakeGameStateModelPlayer = originalPlayer.toSnakeGameStateModelPlayer()
 
@@ -45,6 +46,35 @@ class T4000_Dataset: XCTestCase {
         // Things that are preserved from the original player
         XCTAssertFalse(result.isAlive)
         XCTAssertEqual(result.snakeBody, originalPlayer.snakeBody)
+        XCTAssertEqual(result.uuid, SnakePlayerRole.human.id)
+    }
+
+    func createSnakePlayer_bot() -> SnakePlayer {
+        let positions: [IntVec2] = [
+            IntVec2(x: 10, y:  8),
+            IntVec2(x: 10, y:  9),
+            IntVec2(x: 10, y: 10),
+            IntVec2(x:  9, y: 10)
+        ]
+        guard let body: SnakeBody = SnakeBody.create(positions: positions) else {
+            fatalError("This is supposed to always result in a valid snake")
+        }
+        let botType: SnakeBot.Type = SnakeBot_MoveForward.self
+        var player: SnakePlayer = SnakePlayer.create(id: .player1, role: .bot(snakeBotType: botType))
+        player = player.playerWithNewSnakeBody(body)
+        return player
+    }
+
+    func test102_serializationRoundtrip_player_bot_alive() throws {
+        let originalPlayer: SnakePlayer = createSnakePlayer_bot()
+        let protobufRepresentation: SnakeGameStateModelPlayer = originalPlayer.toSnakeGameStateModelPlayer()
+
+        let result: DatasetLoader.SnakePlayerResult = try DatasetLoader.snakePlayerResult(playerModel: protobufRepresentation)
+
+        // Things that are preserved from the original player
+        XCTAssertTrue(result.isAlive)
+        XCTAssertEqual(result.snakeBody, originalPlayer.snakeBody)
+        XCTAssertEqual(result.uuid, SnakeBot_MoveForward.info.id)
     }
 
     func test200_serializationRoundtrip_level() throws {
