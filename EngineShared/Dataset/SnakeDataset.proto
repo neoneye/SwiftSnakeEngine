@@ -10,6 +10,23 @@ message SnakeDatasetPosition {
 	uint32 y = 2;
 }
 
+enum SnakeDatasetCauseOfDeath {
+    // The player have died from one or more unspecified reasons.
+    OTHER = 0;
+
+    // The player attempted to move into a wall, which is deadly.
+    COLLISION_WITH_WALL = 1;
+
+    // The player attempted to move into itself. Eating snake is deadly.
+    COLLISION_WITH_ITSELF = 2;
+
+    // The player attempted to move into the opponent player. Eating another snake is also deadly.
+    COLLISION_WITH_OPPONENT = 3;
+
+    // The AI continued doing the same moves over and over, which is deadly.
+    STUCK_IN_LOOP = 4;
+}
+
 message SnakeDatasetPlayer {
     // Is the snake alive/dead.
     bool alive = 1;
@@ -26,6 +43,9 @@ message SnakeDatasetPlayer {
     // PROBLEM: The bot can be renamed, so it's fragile refering to its bot-name.
     // SOLUTION: Use a version4 UUID, so it's possible finding the original bot implementation.
     string uuid = 3;
+
+    // Conditions resulting in a player's death.
+    SnakeDatasetCauseOfDeath cause_of_death = 4;
 }
 
 message SnakeDatasetLevel {
