@@ -1,5 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 
+// IDEA: rename from `SnakeBodyMovement` to `SnakeHeadMovement`.
 public enum SnakeBodyMovement {
     case dontMove
     case moveCCW
