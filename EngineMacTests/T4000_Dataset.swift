@@ -84,7 +84,7 @@ class T4000_Dataset: XCTestCase {
             return
         }
 
-        let protobufRepresentation: SnakeGameStateModelLevel = originalLevel.toSnakeGameStateModelLevel()
+        let protobufRepresentation: SnakeDatasetLevel = originalLevel.toSnakeDatasetLevel()
         let builder: SnakeLevelBuilder = try DatasetLoader.snakeLevelBuilder(levelModel: protobufRepresentation)
         let level: SnakeLevel = builder.level()
 

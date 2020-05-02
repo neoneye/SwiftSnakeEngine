@@ -63,7 +63,7 @@ struct SnakeDatasetPlayer {
   init() {}
 }
 
-struct SnakeGameStateModelLevel {
+struct SnakeDatasetLevel {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -99,8 +99,8 @@ struct SnakeGameStateIngameModel {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var level: SnakeGameStateModelLevel {
-    get {return _storage._level ?? SnakeGameStateModelLevel()}
+  var level: SnakeDatasetLevel {
+    get {return _storage._level ?? SnakeDatasetLevel()}
     set {_uniqueStorage()._level = newValue}
   }
   /// Returns true if `level` has been explicitly set.
@@ -241,8 +241,8 @@ struct SnakeGameResultModel {
   // methods supported on all messages.
 
   /// The game is taking place inside a level with this uuid and these properties.
-  var level: SnakeGameStateModelLevel {
-    get {return _storage._level ?? SnakeGameStateModelLevel()}
+  var level: SnakeDatasetLevel {
+    get {return _storage._level ?? SnakeDatasetLevel()}
     set {_uniqueStorage()._level = newValue}
   }
   /// Returns true if `level` has been explicitly set.
@@ -384,8 +384,8 @@ extension SnakeDatasetPlayer: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
   }
 }
 
-extension SnakeGameStateModelLevel: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = "SnakeGameStateModelLevel"
+extension SnakeDatasetLevel: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = "SnakeDatasetLevel"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "uuid"),
     2: .same(proto: "width"),
@@ -421,7 +421,7 @@ extension SnakeGameStateModelLevel: SwiftProtobuf.Message, SwiftProtobuf._Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: SnakeGameStateModelLevel, rhs: SnakeGameStateModelLevel) -> Bool {
+  static func ==(lhs: SnakeDatasetLevel, rhs: SnakeDatasetLevel) -> Bool {
     if lhs.uuid != rhs.uuid {return false}
     if lhs.width != rhs.width {return false}
     if lhs.height != rhs.height {return false}
@@ -439,7 +439,7 @@ extension SnakeGameStateIngameModel: SwiftProtobuf.Message, SwiftProtobuf._Messa
   ]
 
   fileprivate class _StorageClass {
-    var _level: SnakeGameStateModelLevel? = nil
+    var _level: SnakeDatasetLevel? = nil
     var _step: SnakeGameStateStepModel? = nil
 
     static let defaultInstance = _StorageClass()
@@ -611,7 +611,7 @@ extension SnakeGameResultModel: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   ]
 
   fileprivate class _StorageClass {
-    var _level: SnakeGameStateModelLevel? = nil
+    var _level: SnakeDatasetLevel? = nil
     var _firstStep: SnakeGameStateStepModel? = nil
     var _lastStep: SnakeGameStateStepModel? = nil
     var _foodPositions: [SnakeDatasetPosition] = []

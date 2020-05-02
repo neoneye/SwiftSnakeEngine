@@ -37,7 +37,7 @@ extension SnakePlayer {
 }
 
 extension SnakeLevel {
-	internal func toSnakeGameStateModelLevel() -> SnakeGameStateModelLevel {
+	internal func toSnakeDatasetLevel() -> SnakeDatasetLevel {
 		// Empty positions in the level
 		var emptyPositions = [SnakeDatasetPosition]()
 		for signedPosition: IntVec2 in self.emptyPositionArray {
@@ -52,7 +52,7 @@ extension SnakeLevel {
 		}
 
 		// Overall level info
-		let model = SnakeGameStateModelLevel.with {
+		let model = SnakeDatasetLevel.with {
             $0.uuid = self.id.uuidString
 			$0.width = self.size.x
 			$0.height = self.size.y
@@ -104,7 +104,7 @@ extension SnakeGameState {
 	}
 
 	public func saveTrainingData(trainingSessionUUID: UUID) -> URL {
-        let levelModel: SnakeGameStateModelLevel = self.level.toSnakeGameStateModelLevel()
+        let levelModel: SnakeDatasetLevel = self.level.toSnakeDatasetLevel()
         let stepModel: SnakeGameStateStepModel = self.toSnakeGameStateStepModel()
         let model = SnakeGameStateIngameModel.with {
             $0.level = levelModel
@@ -133,10 +133,10 @@ extension SnakeGameState {
 
 public class PostProcessTrainingData {
 	private let trainingSessionUUID: UUID
-	private let sharedLevel: SnakeGameStateModelLevel
+	private let sharedLevel: SnakeDatasetLevel
     private var stepArray: [SnakeGameStateStepModel] = []
 
-	private init(trainingSessionUUID: UUID, sharedLevel: SnakeGameStateModelLevel) {
+	private init(trainingSessionUUID: UUID, sharedLevel: SnakeDatasetLevel) {
 		self.trainingSessionUUID = trainingSessionUUID
 		self.sharedLevel = sharedLevel
 	}
@@ -260,7 +260,7 @@ public class PostProcessTrainingData {
 			log.error("Expected 1 or more urls for post processing. There is nothing to process!")
 			return
 		}
-		let sharedLevel: SnakeGameStateModelLevel
+		let sharedLevel: SnakeDatasetLevel
 		let url0: URL = urls.first!
 		do {
 			let data: Data = try Data(contentsOf: url0)

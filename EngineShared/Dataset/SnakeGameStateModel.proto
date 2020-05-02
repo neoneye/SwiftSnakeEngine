@@ -28,7 +28,7 @@ message SnakeDatasetPlayer {
     string uuid = 3;
 }
 
-message SnakeGameStateModelLevel {
+message SnakeDatasetLevel {
     // Reference to the level file, stored in CSV file format.
     // PROBLEM: The level file can be renamed, so it's fragile to refer to its filename.
     // SOLUTION: Use a version4 UUID, so it's possible finding the original level file.
@@ -51,7 +51,7 @@ message SnakeGameStateModelLevel {
 //
 // Drawback of a full snapshot: Lots of data stored.
 message SnakeGameStateIngameModel {
-	SnakeGameStateModelLevel level = 1;
+	SnakeDatasetLevel level = 1;
     SnakeGameStateStepModel step = 2;
 }
 
@@ -82,7 +82,7 @@ message SnakeGameStateStepModel {
 
 message SnakeGameResultModel {
     // The game is taking place inside a level with this uuid and these properties.
-	SnakeGameStateModelLevel level = 1;
+	SnakeDatasetLevel level = 1;
 
     // Snapshot of what the grid looks like in the very first step.
     SnakeGameStateStepModel first_step = 2;
