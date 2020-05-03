@@ -666,8 +666,8 @@ class IngameScene: SKScene {
 			playSoundEffect(sound_snakeStep)
 		}
 		
-		let player1Dies: Bool = oldGameState.player1.isAlive && self.gameState.player1.isDead
-		let player2Dies: Bool = oldGameState.player2.isAlive && self.gameState.player2.isDead
+		let player1Dies: Bool = oldGameState.player1.isInstalledAndAlive && self.gameState.player1.isInstalledAndDead
+		let player2Dies: Bool = oldGameState.player2.isInstalledAndAlive && self.gameState.player2.isInstalledAndDead
 		if player1Dies || player2Dies {
 			playSoundEffect(sound_snakeDies)
 		}
@@ -678,7 +678,10 @@ class IngameScene: SKScene {
             sendInfoEvent(.player2_dead(self.gameState.player2.causesOfDeath))
         }
 
-		if gameState.player1.isDead && gameState.player2.isDead {
+        let player1Alive: Bool = self.gameState.player1.isInstalledAndAlive
+        let player2Alive: Bool = self.gameState.player2.isInstalledAndAlive
+        let oneOrMorePlayersAreAlive: Bool = player1Alive || player2Alive
+		if !oneOrMorePlayersAreAlive {
 			self.isPaused = true
 			// IDEA: Determine the winner: the longest snake, or the longest lived snake, or a combo?
 			// IDEA: pass on which player won/loose.

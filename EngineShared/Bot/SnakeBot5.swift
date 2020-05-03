@@ -67,7 +67,7 @@ public class SnakeBot5: SnakeBot {
 		}
 
 		let emptyPositionSet: Set<IntVec2>
-		if oppositePlayer.isInstalled && oppositePlayer.isDead {
+		if oppositePlayer.isInstalledAndDead {
 			let deadSnakePositionSet: Set<IntVec2> = oppositePlayer.snakeBody.positionSet()
 			emptyPositionSet = level.emptyPositionSet.subtracting(deadSnakePositionSet)
 		} else {

@@ -20,13 +20,13 @@ public class SnakePlayer {
         return isInstalled && causesOfDeath.isEmpty
     }
 
+    public var isInstalledAndDead: Bool {
+        return isInstalled && !causesOfDeath.isEmpty
+    }
+
 	public var isAlive: Bool {
         return causesOfDeath.isEmpty
 	}
-
-    public var isDead: Bool {
-        return !causesOfDeath.isEmpty
-    }
 
 	public var isBot: Bool {
 		switch role {
