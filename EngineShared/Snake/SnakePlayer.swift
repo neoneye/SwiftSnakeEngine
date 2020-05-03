@@ -9,17 +9,20 @@ public enum SnakePlayerId {
 public class SnakePlayer {
     public let id: SnakePlayerId
     public let isInstalled: Bool
-	public let isAlive: Bool
 	public let role: SnakePlayerRole
 	public let snakeBody: SnakeBody
 	public let pendingMovement: SnakeBodyMovement
 	public let pendingAct: SnakeBodyAct
-    public let causesOfDeath: [SnakeCauseOfDeath]
+    public let causesOfDeath: Set<SnakeCauseOfDeath>
 	public let bot: SnakeBot
 
-	public var isDead: Bool {
-		return !isAlive
-	}
+    public var isInstalledAndAlive: Bool {
+        return isInstalled && causesOfDeath.isEmpty
+    }
+
+    public var isInstalledAndDead: Bool {
+        return isInstalled && !causesOfDeath.isEmpty
+    }
 
 	public var isBot: Bool {
 		switch role {
@@ -44,10 +47,9 @@ public class SnakePlayer {
         return snakeBody.length
     }
 
-    private init(id: SnakePlayerId, isInstalled: Bool, isAlive: Bool, role: SnakePlayerRole, snakeBody: SnakeBody, pendingMovement: SnakeBodyMovement, pendingAct: SnakeBodyAct, causesOfDeath: [SnakeCauseOfDeath], bot: SnakeBot) {
+    private init(id: SnakePlayerId, isInstalled: Bool, role: SnakePlayerRole, snakeBody: SnakeBody, pendingMovement: SnakeBodyMovement, pendingAct: SnakeBodyAct, causesOfDeath: Set<SnakeCauseOfDeath>, bot: SnakeBot) {
         self.id = id
         self.isInstalled = isInstalled
-		self.isAlive = isAlive
 		self.role = role
 		self.snakeBody = snakeBody
 		self.pendingMovement = pendingMovement
@@ -72,7 +74,6 @@ public class SnakePlayer {
 		return SnakePlayer(
             id: id,
             isInstalled: true,
-			isAlive: true,
 			role: role,
 			snakeBody: SnakeBody.create(position: IntVec2.zero, headDirection: .right, length: 1),
 			pendingMovement: .dontMove,
@@ -86,7 +87,6 @@ public class SnakePlayer {
 		return SnakePlayer(
             id: id,
             isInstalled: isInstalled,
-			isAlive: isAlive,
 			role: role,
 			snakeBody: snakeBody,
 			pendingMovement: newPendingMovement,
@@ -100,7 +100,6 @@ public class SnakePlayer {
 		return SnakePlayer(
             id: id,
             isInstalled: isInstalled,
-			isAlive: isAlive,
 			role: role,
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
@@ -117,7 +116,6 @@ public class SnakePlayer {
 		return SnakePlayer(
             id: id,
             isInstalled: isInstalled,
-			isAlive: isAlive,
 			role: role,
 			snakeBody: snakeBody,
 			pendingMovement: .dontMove,
@@ -129,15 +127,16 @@ public class SnakePlayer {
 
     /// Examples of how the snake can die: stuck, collision with wall, collision with self, collision with opponent.
     public func kill(_ causeOfDeath: SnakeCauseOfDeath) -> SnakePlayer {
+        var newCausesOfDeath = self.causesOfDeath
+        newCausesOfDeath.insert(causeOfDeath)
 		return SnakePlayer(
             id: id,
             isInstalled: isInstalled,
-			isAlive: false,
 			role: role,
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
 			pendingAct: pendingAct,
-            causesOfDeath: causesOfDeath + [causeOfDeath],
+            causesOfDeath: newCausesOfDeath,
 			bot: bot
 		)
 	}
@@ -146,7 +145,6 @@ public class SnakePlayer {
 		return SnakePlayer(
             id: id,
             isInstalled: false,
-			isAlive: false,
 			role: .none,
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
@@ -160,7 +158,6 @@ public class SnakePlayer {
 		return SnakePlayer(
             id: id,
             isInstalled: isInstalled,
-			isAlive: isAlive,
 			role: role,
 			snakeBody: newSnakeBody,
 			pendingMovement: pendingMovement,
@@ -174,7 +171,6 @@ public class SnakePlayer {
 		return SnakePlayer(
             id: id,
             isInstalled: isInstalled,
-			isAlive: isAlive,
 			role: role,
 			snakeBody: snakeBody,
 			pendingMovement: pendingMovement,
@@ -189,8 +185,13 @@ extension SnakePlayer: CustomDebugStringConvertible {
 	public var debugDescription: String {
 		let botDescription = String(describing: bot)
         let installed: String = isInstalled ? "installed" : "notinstalled"
-        let alive: String = isAlive ? "alive" : "dead"
-		return "SnakePlayer(\(id), \(installed), \(alive), \(snakeBody.head.position), \(snakeBody.head.direction), \(pendingMovement), \(pendingAct), \(causesOfDeath), \(role), \(botDescription))"
+        let aliveOrDead: String
+        if causesOfDeath.isEmpty {
+            aliveOrDead = "alive"
+        } else {
+            aliveOrDead = causesOfDeath.map { "\($0)" }.joined(separator: "+")
+        }
+		return "SnakePlayer(\(id), \(installed), \(aliveOrDead), \(snakeBody.head.position), \(snakeBody.head.direction), \(pendingMovement), \(pendingAct), \(role), \(botDescription))"
 	}
 }
 

@@ -22,6 +22,68 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+enum SnakeDatasetCauseOfDeath: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+
+  /// The player have died from one or more unspecified reasons.
+  case other // = 0
+
+  /// The player attempted to move into a wall, which is deadly.
+  case collisionWithWall // = 1
+
+  /// The player attempted to move into itself. Eating snake is deadly.
+  case collisionWithItself // = 2
+
+  /// The player attempted to move into the opponent player. Eating another snake is also deadly.
+  case collisionWithOpponent // = 3
+
+  /// The AI continued doing the same moves over and over, which is deadly.
+  case stuckInLoop // = 4
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .other
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .other
+    case 1: self = .collisionWithWall
+    case 2: self = .collisionWithItself
+    case 3: self = .collisionWithOpponent
+    case 4: self = .stuckInLoop
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .other: return 0
+    case .collisionWithWall: return 1
+    case .collisionWithItself: return 2
+    case .collisionWithOpponent: return 3
+    case .stuckInLoop: return 4
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension SnakeDatasetCauseOfDeath: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [SnakeDatasetCauseOfDeath] = [
+    .other,
+    .collisionWithWall,
+    .collisionWithItself,
+    .collisionWithOpponent,
+    .stuckInLoop,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct SnakeDatasetPosition {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -57,6 +119,9 @@ struct SnakeDatasetPlayer {
   /// PROBLEM: The bot can be renamed, so it's fragile refering to its bot-name.
   /// SOLUTION: Use a version4 UUID, so it's possible finding the original bot implementation.
   var uuid: String = String()
+
+  /// Conditions resulting in a player's death.
+  var causeOfDeath: SnakeDatasetCauseOfDeath = .other
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -308,6 +373,16 @@ struct SnakeDatasetResult {
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
+extension SnakeDatasetCauseOfDeath: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "OTHER"),
+    1: .same(proto: "COLLISION_WITH_WALL"),
+    2: .same(proto: "COLLISION_WITH_ITSELF"),
+    3: .same(proto: "COLLISION_WITH_OPPONENT"),
+    4: .same(proto: "STUCK_IN_LOOP"),
+  ]
+}
+
 extension SnakeDatasetPosition: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = "SnakeDatasetPosition"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -349,6 +424,7 @@ extension SnakeDatasetPlayer: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     1: .same(proto: "alive"),
     2: .standard(proto: "body_positions"),
     3: .same(proto: "uuid"),
+    4: .standard(proto: "cause_of_death"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -357,6 +433,7 @@ extension SnakeDatasetPlayer: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
       case 1: try decoder.decodeSingularBoolField(value: &self.alive)
       case 2: try decoder.decodeRepeatedMessageField(value: &self.bodyPositions)
       case 3: try decoder.decodeSingularStringField(value: &self.uuid)
+      case 4: try decoder.decodeSingularEnumField(value: &self.causeOfDeath)
       default: break
       }
     }
@@ -372,6 +449,9 @@ extension SnakeDatasetPlayer: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     if !self.uuid.isEmpty {
       try visitor.visitSingularStringField(value: self.uuid, fieldNumber: 3)
     }
+    if self.causeOfDeath != .other {
+      try visitor.visitSingularEnumField(value: self.causeOfDeath, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -379,6 +459,7 @@ extension SnakeDatasetPlayer: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
     if lhs.alive != rhs.alive {return false}
     if lhs.bodyPositions != rhs.bodyPositions {return false}
     if lhs.uuid != rhs.uuid {return false}
+    if lhs.causeOfDeath != rhs.causeOfDeath {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

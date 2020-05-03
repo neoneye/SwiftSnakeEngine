@@ -46,13 +46,9 @@ public class SnakeBot4: SnakeBot {
 //			log.debug("---")
 //		}
 
-		guard player.isInstalled else {
-			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
+        guard player.isInstalledAndAlive else {
+            //log.debug("Do nothing. The bot must be installed and alive. It doesn't make sense to run the bot.")
 			return SnakeBot4()
-		}
-		guard player.isAlive else {
-			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
-            return SnakeBot4()
 		}
 
 //		log.debug("#\(iteration) -")

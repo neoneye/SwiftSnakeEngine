@@ -24,6 +24,10 @@ public class SnakeBot7: SnakeBot {
     }
 
     public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
+        guard player.isInstalledAndAlive else {
+            //log.debug("Do nothing. The bot must be installed and alive. It doesn't make sense to run the bot.")
+            return SnakeBot7()
+        }
 
         let buffer = CellBuffer(size: level.size)
         buffer.drawLevel(level)
@@ -240,7 +244,7 @@ fileprivate class CellBuffer {
             return
         }
         let positionArray: [IntVec2] = player.snakeBody.positionArray()
-        guard player.isAlive else {
+        guard player.isInstalledAndAlive else {
             // Treat the dead player as a non-movable object.
             for position in positionArray {
                 self.set(cell: Cell.deadPlayer, at: position)

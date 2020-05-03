@@ -31,12 +31,8 @@ public class SnakeBot6: SnakeBot {
 	}
 
 	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
-		guard player.isInstalled else {
-			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
-			return SnakeBot6()
-		}
-		guard player.isAlive else {
-			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
+        guard player.isInstalledAndAlive else {
+            //log.debug("Do nothing. The bot must be installed and alive. It doesn't make sense to run the bot.")
 			return SnakeBot6()
 		}
 
@@ -1038,19 +1034,14 @@ fileprivate class BuildTreeVisitor: Visitor {
 		appendScenario(node: node, certainDeath: false)
 	}
 
-	func isAlivePlayerId(_ playerId: UInt) -> Bool {
-		guard self.player[Int(playerId)].isInstalled else {
-			// player[0] must always be installed. Otherwise we cannot perform simulation.
-			// player[1] is optional.
-			return false
-		}
-		guard self.player[Int(playerId)].isAlive else {
-			// As long as player[0] is alive it makes sense to continue simulation.
-			// If player[0] is dead, then it makes sense to terminate the simulation.
-			// player[1] is optional. If it's alive then simulate it. If it's dead, then don't simulate it.
-			return false
-		}
-		return true
+    // player[0] must always be installed. Otherwise we cannot perform simulation.
+    // player[1] is optional.
+    //
+    // As long as player[0] is alive it makes sense to continue simulation.
+    // If player[0] is dead, then it makes sense to terminate the simulation.
+    // player[1] is optional. If it's alive then simulate it. If it's dead, then don't simulate it.
+	func isInstalledAndAlivePlayerId(_ playerId: UInt) -> Bool {
+		return self.player[Int(playerId)].isInstalledAndAlive
 	}
 
 	func nextAlivePlayerId(_ playerId: UInt) -> UInt {
@@ -1061,11 +1052,11 @@ fileprivate class BuildTreeVisitor: Visitor {
 		}
 		var newPlayerId: UInt
 		newPlayerId = (playerId + 1) % UInt(self.player.count)
-		if isAlivePlayerId(newPlayerId) {
+		if isInstalledAndAlivePlayerId(newPlayerId) {
 			return newPlayerId
 		}
 		newPlayerId = (newPlayerId + 1) % UInt(self.player.count)
-		if isAlivePlayerId(newPlayerId) {
+		if isInstalledAndAlivePlayerId(newPlayerId) {
 			return newPlayerId
 		}
 

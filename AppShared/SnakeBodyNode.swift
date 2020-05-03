@@ -134,7 +134,7 @@ class SnakeBodyNode: SKEffectNode {
             self.addChild(shapeNode)
         }
 
-        if player.isAlive {
+        if player.isInstalledAndAlive {
             self.alpha = 1
         } else {
             self.alpha = 0.25
@@ -201,7 +201,7 @@ class SnakeBodyNode: SKEffectNode {
 			}
 		}
 
-		if player.isAlive {
+		if player.isInstalledAndAlive {
 			self.alpha = 1
 		} else {
 			self.alpha = 0.25
