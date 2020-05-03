@@ -31,12 +31,8 @@ public class SnakeBot6: SnakeBot {
 	}
 
 	public func compute(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
-		guard player.isInstalled else {
-			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
-			return SnakeBot6()
-		}
-		guard player.isAlive else {
-			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
+        guard player.isInstalledAndAlive else {
+            //log.debug("Do nothing. The bot must be installed and alive. It doesn't make sense to run the bot.")
 			return SnakeBot6()
 		}
 

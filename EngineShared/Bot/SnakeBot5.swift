@@ -61,12 +61,8 @@ public class SnakeBot5: SnakeBot {
 
 	private func compute_inner(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> SnakeBot {
 
-		guard player.isInstalled else {
-			//log.debug("Do nothing. The player is not installed. It doesn't make sense to run the bot.")
-			return SnakeBot5()
-		}
-		guard player.isAlive else {
-			//log.debug("Do nothing. The player is not alive. It doesn't make sense to run the bot.")
+        guard player.isInstalledAndAlive else {
+            //log.debug("Do nothing. The bot must be installed and alive. It doesn't make sense to run the bot.")
 			return SnakeBot5()
 		}
 
@@ -84,7 +80,7 @@ public class SnakeBot5: SnakeBot {
 			foodPosition: foodPosition
 		)
 
-		if oppositePlayer.isAlive {
+		if oppositePlayer.isInstalledAndAlive {
 			// 2 player mode
 
 			// IDEA: Explore using existing data from the previous iteration.
@@ -486,7 +482,7 @@ fileprivate class ScenarioResultProcessor {
 			let currentHead0: SnakeHead = snakeBody0.head
 			let currentHead1: SnakeHead = snakeBody1.head
 
-			var oppositePlayerAlive: Bool = oppositePlayer.isAlive
+			var oppositePlayerAlive: Bool = oppositePlayer.isInstalledAndAlive
 
 			var availableMovements0 = [SnakeBodyMovement]()
 			var availableMovements1 = [SnakeBodyMovement]()
