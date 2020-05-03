@@ -25,8 +25,8 @@ public class SnakeCollisionDetector {
 	public class func create(level: SnakeLevel, foodPosition: IntVec2?, player1: SnakePlayer, player2: SnakePlayer) -> SnakeCollisionDetector {
 		let player1Installed: Bool = player1.isInstalled
 		let player2Installed: Bool = player2.isInstalled
-		let player1Alive: Bool = player1.isAlive
-		let player2Alive: Bool = player2.isAlive
+		let player1Alive: Bool = player1.isInstalledAndAlive
+		let player2Alive: Bool = player2.isInstalledAndAlive
 
 		func stateForTick(_ player: SnakePlayer) -> SnakeBody {
 			let movement: SnakeBodyMovement

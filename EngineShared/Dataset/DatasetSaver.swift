@@ -30,7 +30,7 @@ extension SnakePlayer {
 
         let model = SnakeDatasetPlayer.with {
             $0.uuid = uuidString
-            $0.alive = self.isAlive
+            $0.alive = self.isInstalledAndAlive
 			$0.bodyPositions = bodyPositions
 		}
 		return model
