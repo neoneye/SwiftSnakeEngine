@@ -274,7 +274,7 @@ class IngameScene: SKScene {
     }
 
     func touchMoved_horizontal(beganAtPosition: CGPoint, currentPosition: CGPoint) {
-        guard gameState.player1.isInstallAndAliveAndHuman else {
+        guard gameState.player1.isInstalledAndAliveAndHuman else {
             return
         }
         let snakeHead: SnakeHead = gameState.player1.snakeBody.head
@@ -297,7 +297,7 @@ class IngameScene: SKScene {
     }
 
     func touchMoved_vertical(beganAtPosition: CGPoint, currentPosition: CGPoint) {
-        guard gameState.player1.isInstallAndAliveAndHuman else {
+        guard gameState.player1.isInstalledAndAliveAndHuman else {
             return
         }
         let snakeHead: SnakeHead = gameState.player1.snakeBody.head
