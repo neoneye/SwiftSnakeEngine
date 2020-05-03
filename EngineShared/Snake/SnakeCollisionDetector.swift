@@ -30,7 +30,7 @@ public class SnakeCollisionDetector {
 
 		func stateForTick(_ player: SnakePlayer) -> SnakeBody {
 			let movement: SnakeBodyMovement
-            if player.isInstalled && player.isAlive {
+            if player.isInstalledAndAlive {
 				movement = player.pendingMovement
 			} else {
 				movement = .dontMove

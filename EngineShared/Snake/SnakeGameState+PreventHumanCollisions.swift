@@ -49,10 +49,7 @@ extension SnakeGameState {
 
 extension SnakePlayer {
     fileprivate var isHumanWithPendingMovement: Bool {
-        guard isInstalled else {
-            return false
-        }
-        guard isAlive else {
+        guard isInstalledAndAlive else {
             return false
         }
         guard role == .human else {
