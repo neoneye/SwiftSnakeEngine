@@ -274,7 +274,7 @@ class IngameScene: SKScene {
     }
 
     func touchMoved_horizontal(beganAtPosition: CGPoint, currentPosition: CGPoint) {
-        guard gameState.player1.isAlive && gameState.player1.role == .human else {
+        guard gameState.player1.isInstallAndAliveAndHuman else {
             return
         }
         let snakeHead: SnakeHead = gameState.player1.snakeBody.head
@@ -297,7 +297,7 @@ class IngameScene: SKScene {
     }
 
     func touchMoved_vertical(beganAtPosition: CGPoint, currentPosition: CGPoint) {
-        guard gameState.player1.isAlive && gameState.player1.role == .human else {
+        guard gameState.player1.isInstallAndAliveAndHuman else {
             return
         }
         let snakeHead: SnakeHead = gameState.player1.snakeBody.head
@@ -440,7 +440,7 @@ class IngameScene: SKScene {
 		case .tab:
 			restartGame()
 		case .spacebar:
-			if gameState.player1.isAlive || gameState.player2.isAlive {
+			if gameState.player1.isInstalledAndAlive || gameState.player2.isInstalledAndAlive {
                 let updateAction = self.pendingUpdateAction
                 switch updateAction {
                 case .doNothing:
@@ -468,7 +468,7 @@ class IngameScene: SKScene {
     #endif
 
     func userInputForPlayer1Forward() {
-        guard gameState.player1.isAlive && gameState.player1.role == .human else {
+        guard gameState.player1.isInstalledAndAliveAndHuman else {
             return
         }
         let newGameState: SnakeGameState = gameState.updatePendingMovementForPlayer1(.moveForward)
@@ -486,7 +486,7 @@ class IngameScene: SKScene {
     }
 
     private func userInputForPlayer(player: SnakePlayer, desiredHeadDirection: SnakeHeadDirection) {
-        guard player.isAlive && player.role == .human else {
+        guard player.isInstalledAndAliveAndHuman else {
             return
         }
         let dx: Int32
@@ -622,7 +622,7 @@ class IngameScene: SKScene {
 		}
 
 		if AppConstant.killPlayer2AfterAFewSteps {
-			if gameState.player2.isAlive && gameState.numberOfSteps == 10 {
+			if gameState.player2.isInstalledAndAlive && gameState.numberOfSteps == 10 {
 				var player: SnakePlayer = gameState.player2
                 player = player.kill(.killAfterAFewTimeSteps)
 				gameState = gameState.stateWithNewPlayer2(player)
@@ -660,8 +660,8 @@ class IngameScene: SKScene {
 
         self.gameState = self.gameExecuter.computeNextBotMovement(gameState)
 
-		let human1Alive: Bool = gameState.player1.role == .human && gameState.player1.isAlive
-		let human2Alive: Bool = gameState.player2.role == .human && gameState.player2.isAlive
+		let human1Alive: Bool = gameState.player1.isInstalledAndAliveAndHuman
+		let human2Alive: Bool = gameState.player2.isInstalledAndAliveAndHuman
 		if human1Alive || human2Alive {
 			playSoundEffect(sound_snakeStep)
 		}
@@ -803,3 +803,8 @@ extension GameNodeNeedRedraw: CustomStringConvertible, CustomDebugStringConverti
     }
 }
 
+extension SnakePlayer {
+    var isInstalledAndAliveAndHuman: Bool {
+        return self.isInstalledAndAlive && self.role == .human
+    }
+}
