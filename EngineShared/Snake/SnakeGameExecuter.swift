@@ -54,7 +54,8 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         }
         log.debug("successfully loaded file")
 
-        let step0: SnakeDatasetStep = model.firstStep
+        let firstStep: SnakeDatasetStep = model.firstStep
+        let lastStep: SnakeDatasetStep = model.lastStep
 
         let levelBuilder: SnakeLevelBuilder
         do {
@@ -64,10 +65,10 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
             fatalError()
         }
 
-        assignFoodPosition(levelBuilder: levelBuilder, stepModel: step0)
+        assignFoodPosition(levelBuilder: levelBuilder, stepModel: firstStep)
 
         var player1: SnakePlayer?
-        if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerA(stepModel: step0) {
+        if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerA(stepModel: firstStep) {
             if playerResult.isAlive {
                 levelBuilder.player1_body = playerResult.snakeBody
 
@@ -80,7 +81,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         }
 
         var player2: SnakePlayer?
-        if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerB(stepModel: step0) {
+        if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerB(stepModel: firstStep) {
             if playerResult.isAlive {
                 levelBuilder.player2_body = playerResult.snakeBody
 
@@ -91,6 +92,15 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
                 }
             }
         }
+
+        // IDEA: When the game ends, show the causeOfDeath in the UI.
+        if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerA(stepModel: lastStep) {
+            log.debug("last step for player 1. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
+        }
+        if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerB(stepModel: lastStep) {
+            log.debug("last step for player 2. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
+        }
+
 
         let level: SnakeLevel = levelBuilder.level()
         log.debug("level: \(level)")

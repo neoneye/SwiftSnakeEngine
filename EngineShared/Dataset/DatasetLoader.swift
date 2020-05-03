@@ -35,6 +35,7 @@ public class DatasetLoader {
     internal struct SnakePlayerResult {
         let uuid: UUID
         let isAlive: Bool
+        let causeOfDeath: SnakeCauseOfDeath
         let snakeBody: SnakeBody
     }
 
@@ -44,9 +45,27 @@ public class DatasetLoader {
         }
         let positions: [IntVec2] = playerModel.bodyPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
         let snakeBody: SnakeBody = try SnakeBodyAdvancedCreate.create(positions: positions.reversed())
+
+        let datasetCauseOfDeath: SnakeDatasetCauseOfDeath = playerModel.causeOfDeath
+        let causeOfDeath: SnakeCauseOfDeath
+        switch datasetCauseOfDeath {
+        case .other:
+            causeOfDeath = .other
+        case .collisionWithWall:
+            causeOfDeath = .collisionWithWall
+        case .collisionWithItself:
+            causeOfDeath = .collisionWithItself
+        case .collisionWithOpponent:
+            causeOfDeath = .collisionWithOpponent
+        case .stuckInLoop:
+            causeOfDeath = .stuckInALoop
+        default:
+            causeOfDeath = .other
+        }
         return SnakePlayerResult(
             uuid: uuid,
             isAlive: playerModel.alive,
+            causeOfDeath: causeOfDeath,
             snakeBody: snakeBody
         )
     }

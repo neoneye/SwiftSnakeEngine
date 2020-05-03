@@ -2,6 +2,27 @@
 import Foundation
 import SwiftProtobuf
 
+extension SnakeCauseOfDeath {
+    internal func toSnakeDatasetCauseOfDeath() -> SnakeDatasetCauseOfDeath {
+        switch self {
+        case .other:
+            return SnakeDatasetCauseOfDeath.other
+        case .collisionWithWall:
+            return SnakeDatasetCauseOfDeath.collisionWithWall
+        case .collisionWithItself:
+            return SnakeDatasetCauseOfDeath.collisionWithItself
+        case .collisionWithOpponent:
+            return SnakeDatasetCauseOfDeath.collisionWithOpponent
+        case .stuckInALoop:
+            return SnakeDatasetCauseOfDeath.stuckInLoop
+        case .noMoreFood:
+            return SnakeDatasetCauseOfDeath.other
+        case .killAfterAFewTimeSteps:
+            return SnakeDatasetCauseOfDeath.other
+        }
+    }
+}
+
 extension SnakePlayer {
 	internal func toSnakeDatasetPlayer() -> SnakeDatasetPlayer {
 
@@ -28,9 +49,20 @@ extension SnakePlayer {
         // This uuid identifies what this player is; a human, or a particular type of bot, or none.
         let uuidString: String = self.role.id.uuidString
 
+        // Conditions resulting in this player's death.
+        var datasetAlive: Bool = false
+        var datasetCauseOfDeath: SnakeDatasetCauseOfDeath = .other
+        if self.isInstalled {
+            datasetAlive = self.isInstalledAndAlive
+            if self.causesOfDeath.count == 1, let cod: SnakeCauseOfDeath = self.causesOfDeath.first {
+                datasetCauseOfDeath = cod.toSnakeDatasetCauseOfDeath()
+            }
+        }
+
         let model = SnakeDatasetPlayer.with {
             $0.uuid = uuidString
-            $0.alive = self.isInstalledAndAlive
+            $0.alive = datasetAlive
+            $0.causeOfDeath = datasetCauseOfDeath
 			$0.bodyPositions = bodyPositions
 		}
 		return model

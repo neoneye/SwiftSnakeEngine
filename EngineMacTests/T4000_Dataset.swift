@@ -32,8 +32,9 @@ class T4000_Dataset: XCTestCase {
 
         // Things that are preserved from the original player
         XCTAssertTrue(result.isAlive)
-        XCTAssertEqual(result.snakeBody, originalPlayer.snakeBody)
+        XCTAssertEqual(result.causeOfDeath, SnakeCauseOfDeath.other)
         XCTAssertEqual(result.uuid, SnakePlayerRole.human.id)
+        XCTAssertEqual(result.snakeBody, originalPlayer.snakeBody)
     }
 
     func test101_serializationRoundtrip_player_human_dead() throws {
@@ -45,8 +46,9 @@ class T4000_Dataset: XCTestCase {
 
         // Things that are preserved from the original player
         XCTAssertFalse(result.isAlive)
-        XCTAssertEqual(result.snakeBody, originalPlayer.snakeBody)
+        XCTAssertEqual(result.causeOfDeath, SnakeCauseOfDeath.collisionWithWall)
         XCTAssertEqual(result.uuid, SnakePlayerRole.human.id)
+        XCTAssertEqual(result.snakeBody, originalPlayer.snakeBody)
     }
 
     func createSnakePlayer_bot() -> SnakePlayer {
@@ -73,8 +75,9 @@ class T4000_Dataset: XCTestCase {
 
         // Things that are preserved from the original player
         XCTAssertTrue(result.isAlive)
-        XCTAssertEqual(result.snakeBody, originalPlayer.snakeBody)
+        XCTAssertEqual(result.causeOfDeath, SnakeCauseOfDeath.other)
         XCTAssertEqual(result.uuid, SnakeBot_MoveForward.info.id)
+        XCTAssertEqual(result.snakeBody, originalPlayer.snakeBody)
     }
 
     func test200_serializationRoundtrip_level() throws {
