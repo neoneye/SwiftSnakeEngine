@@ -629,7 +629,7 @@ class IngameScene: SKScene {
 			}
 		}
 
-		let newGameState2 = environment.executeStep(gameState)
+		let newGameState2 = environment.step(gameState)
 		gameState = newGameState2
 
         gameNodeNeedRedraw.insert(.stepForward)

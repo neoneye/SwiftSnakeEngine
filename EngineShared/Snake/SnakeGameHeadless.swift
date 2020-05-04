@@ -9,7 +9,7 @@ public class SnakeGameHeadless {
 	private func step(_ currentGameState: SnakeGameState) -> SnakeGameState {
 		let state0 = environment.placeNewFood(currentGameState)
         let state1 = environment.computeNextBotMovement(state0)
-		let state2 = environment.executeStep(state1)
+		let state2 = environment.step(state1)
         let state3 = environment.endOfStep(state2)
 		return state3
 	}

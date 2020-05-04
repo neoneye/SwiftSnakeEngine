@@ -5,7 +5,7 @@ import SwiftProtobuf
 public protocol SnakeGameEnvironment: class {
     func reset()
     func undo()
-    func executeStep(_ gameState: SnakeGameState) -> SnakeGameState
+    func step(_ gameState: SnakeGameState) -> SnakeGameState
 
     /// Decide about optimal path to get to the food.
     func computeNextBotMovement(_ gameState: SnakeGameState) -> SnakeGameState
@@ -220,7 +220,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
     public func undo() {
     }
 
-    public func executeStep(_ currentGameState: SnakeGameState) -> SnakeGameState {
+    public func step(_ currentGameState: SnakeGameState) -> SnakeGameState {
         var gameState: SnakeGameState = currentGameState
         let newGameState = gameState.detectCollision()
         gameState = newGameState
@@ -345,7 +345,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         stuckSnakeDetector2.undo()
     }
 
-    public func executeStep(_ currentGameState: SnakeGameState) -> SnakeGameState {
+    public func step(_ currentGameState: SnakeGameState) -> SnakeGameState {
         var gameState: SnakeGameState = currentGameState
         let newGameState = gameState.detectCollision()
         gameState = newGameState
