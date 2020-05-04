@@ -678,25 +678,26 @@ class IngameScene: SKScene {
             sendInfoEvent(.player2_dead(self.gameState.player2.causesOfDeath))
         }
 
-        let player1Alive: Bool = self.gameState.player1.isInstalledAndAlive
-        let player2Alive: Bool = self.gameState.player2.isInstalledAndAlive
-        let oneOrMorePlayersAreAlive: Bool = player1Alive || player2Alive
-		if !oneOrMorePlayersAreAlive {
-			self.isPaused = true
-			// IDEA: Determine the winner: the longest snake, or the longest lived snake, or a combo?
-			// IDEA: pass on which player won/loose.
-			PostProcessTrainingData.process(trainingSessionUUID: self.trainingSessionUUID, urls: self.trainingSessionURLs)
-			return
-		}
-
         self.gameState = gameExecuter.placeNewFood(self.gameState)
 
 		if AppConstant.saveTrainingData {
-			let url: URL = oldGameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
+            let url: URL = self.gameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
 			trainingSessionURLs.append(url)
 		}
 
         self.gameState = self.gameExecuter.endOfStep(self.gameState)
+
+        // The game is over when both players are dead
+        let player1Alive: Bool = self.gameState.player1.isInstalledAndAlive
+        let player2Alive: Bool = self.gameState.player2.isInstalledAndAlive
+        let oneOrMorePlayersAreAlive: Bool = player1Alive || player2Alive
+        if !oneOrMorePlayersAreAlive {
+            self.isPaused = true
+            // IDEA: Determine the winner: the longest snake, or the longest lived snake, or a combo?
+            // IDEA: pass on which player won/loose.
+            PostProcessTrainingData.process(trainingSessionUUID: self.trainingSessionUUID, urls: self.trainingSessionURLs)
+            return
+        }
     }
 
 	func stepBackward() {

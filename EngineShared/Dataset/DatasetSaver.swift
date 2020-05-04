@@ -105,6 +105,7 @@ extension SnakeGameState {
 				$0.y = position.y
 			}
 			optionalFoodPosition = SnakeDatasetStep.OneOf_OptionalFoodPosition.foodPosition(foodPosition)
+            log.debug("#\(self.numberOfSteps) saving food position: \(position)")
 		}
 
 		// Player A
@@ -114,6 +115,10 @@ extension SnakeGameState {
 			if player.isInstalled {
 				let model: SnakeDatasetPlayer = player.toSnakeDatasetPlayer()
 				optionalPlayerA = SnakeDatasetStep.OneOf_OptionalPlayerA.playerA(model)
+
+                let pretty = PrettyPrintArray.simple
+                let positions: [IntVec2] = player.snakeBody.positionArray()
+                log.debug("#\(self.numberOfSteps) saving player1: \(pretty.format(positions))")
 			}
 		}
 
@@ -124,6 +129,10 @@ extension SnakeGameState {
 			if player.isInstalled {
 				let model: SnakeDatasetPlayer = player.toSnakeDatasetPlayer()
 				optionalPlayerB = SnakeDatasetStep.OneOf_OptionalPlayerB.playerB(model)
+
+                let pretty = PrettyPrintArray.simple
+                let positions: [IntVec2] = player.snakeBody.positionArray()
+                log.debug("#\(self.numberOfSteps) saving player2: \(pretty.format(positions))")
 			}
 		}
 
@@ -217,12 +226,13 @@ public class PostProcessTrainingData {
                 }
                 break
             }
-            guard player.alive else {
-                log.debug("Player A is dead.  Index: \(index)")
-                break
-            }
             guard let headPosition: SnakeDatasetPosition = player.bodyPositions.first else {
                 log.error("Expected player A bodyPositions to be non-empty, but it's empty. Index: \(index).")
+                break
+            }
+            let previousPosition: SnakeDatasetPosition? = playerAPositions.last
+            guard previousPosition != headPosition else {
+                log.debug("Player A is dead. The position is no longer changing. Index: \(index)")
                 break
             }
             playerAPositions.append(headPosition)
@@ -237,16 +247,25 @@ public class PostProcessTrainingData {
                 }
                 break
             }
-            guard player.alive else {
-                log.debug("Player B is dead.  Index: \(index)")
-                break
-            }
             guard let headPosition: SnakeDatasetPosition = player.bodyPositions.first else {
                 log.error("Expected player B bodyPositions to be non-empty, but it's empty. Index: \(index).")
                 break
             }
+            let previousPosition: SnakeDatasetPosition? = playerBPositions.last
+            guard previousPosition != headPosition else {
+                log.debug("Player B is dead. The position is no longer changing. Index: \(index)")
+                break
+            }
             playerBPositions.append(headPosition)
         }
+
+        let positions1: [UIntVec2] = playerAPositions.map { UIntVec2(x: $0.x, y: $0.y) }
+        let positions2: [UIntVec2] = playerBPositions.map { UIntVec2(x: $0.x, y: $0.y) }
+
+        let pretty = PrettyPrintArray.simple
+        log.debug("Post processing. all move positions for player1: \(pretty.format(positions1))")
+        log.debug("Post processing. all move positions for player2: \(pretty.format(positions2))")
+
 
         let date = Date()
 
