@@ -7,6 +7,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
     private var stuckSnakeDetector2 = StuckSnakeDetector(humanReadableName: "Player2")
     private var foodGenerator: SnakeFoodGenerator = SnakeFoodGenerator()
     private var gameState: SnakeGameState
+    private var previousGameStates: [SnakeGameState] = []
 
     public init(initialGameState: SnakeGameState) {
         self.initialGameState = initialGameState
@@ -23,17 +24,30 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         stuckSnakeDetector1.reset()
         stuckSnakeDetector2.reset()
 
+        previousGameStates = []
+
         gameState = self.initialGameState
         gameState = self.placeNewFood(gameState)
         return gameState
     }
 
-    public func undo() {
+    public func undo() -> SnakeGameState? {
+        guard var state: SnakeGameState = previousGameStates.popLast() else {
+            log.info("Canot step backward. There is no previous state to rewind back to.")
+            return nil
+        }
+        state = state.clearPendingMovementAndPendingLengthForHumanPlayers()
+
         stuckSnakeDetector1.undo()
         stuckSnakeDetector2.undo()
+
+        self.gameState = state
+        return state
     }
 
     public func step(_ currentGameState: SnakeGameState) -> SnakeGameState {
+        previousGameStates.append(currentGameState)
+
         var gameState: SnakeGameState = currentGameState
         let newGameState = gameState.detectCollision()
         gameState = newGameState

@@ -10,6 +10,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
     private let player2Positions: [IntVec2]
     private let player1CauseOfDeath: SnakeCauseOfDeath
     private let player2CauseOfDeath: SnakeCauseOfDeath
+    private var previousGameStates: [SnakeGameState] = []
 
     private init(initialGameState: SnakeGameState, foodPositions: [IntVec2], player1Positions: [IntVec2], player2Positions: [IntVec2], player1CauseOfDeath: SnakeCauseOfDeath, player2CauseOfDeath: SnakeCauseOfDeath) {
         self.initialGameState = initialGameState
@@ -201,15 +202,25 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
     }
 
     public func reset() -> SnakeGameState {
+        previousGameStates = []
+
         var gameState: SnakeGameState = self.initialGameState
         gameState = self.placeNewFood(gameState)
         return gameState
     }
 
-    public func undo() {
+    public func undo() -> SnakeGameState? {
+        guard var state: SnakeGameState = previousGameStates.popLast() else {
+            log.info("Canot step backward. There is no previous state to rewind back to.")
+            return nil
+        }
+        state = state.clearPendingMovementAndPendingLengthForHumanPlayers()
+        return state
     }
 
     public func step(_ currentGameState: SnakeGameState) -> SnakeGameState {
+        previousGameStates.append(currentGameState)
+
         var gameState: SnakeGameState = currentGameState
         let newGameState = gameState.detectCollision()
         gameState = newGameState

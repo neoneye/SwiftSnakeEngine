@@ -48,7 +48,6 @@ class IngameScene: SKScene {
 	private var gameState: SnakeGameState
 	private var gameNode: SnakeGameNode
     private let environment: SnakeGameEnvironment
-	private var previousGameStates: [SnakeGameState] = []
 
 	class func createHumanVsNone() -> IngameScene {
 		let gameState = SnakeGameState.create(
@@ -175,7 +174,6 @@ class IngameScene: SKScene {
         gameNodeNeedRedraw.insert(.newGame)
         needLayout = true
         needSendingBeginNewGame = true
-        previousGameStates = []
         trainingSessionUUID = UUID()
         trainingSessionURLs = []
 
@@ -608,11 +606,6 @@ class IngameScene: SKScene {
 
 		let oldGameState: SnakeGameState = self.gameState
 		//log.debug("all the players have made their decision")
-		do {
-			let state: SnakeGameState = self.gameState
-//			log.debug("appending: \(state.player2.debugDescription)")
-			previousGameStates.append(state)
-		}
 
 		if AppConstant.killPlayer2AfterAFewSteps {
 			if gameState.player2.isInstalledAndAlive && gameState.numberOfSteps == 10 {
@@ -694,13 +687,11 @@ class IngameScene: SKScene {
     }
 
 	func stepBackward() {
-		guard var state: SnakeGameState = previousGameStates.popLast() else {
+		guard let state: SnakeGameState = environment.undo() else {
             log.info("Canot step backward. There is no previous state to rewind back to.")
 			return
 		}
-        environment.undo()
-		state = state.clearPendingMovementAndPendingLengthForHumanPlayers()
-//		log.debug("rewind to: \(state.player2.debugDescription)")
+
 		gameState = state
         gameNodeNeedRedraw.insert(.stepBackward)
 	}
