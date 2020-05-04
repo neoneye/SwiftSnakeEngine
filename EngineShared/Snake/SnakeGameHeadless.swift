@@ -2,15 +2,15 @@
 import Foundation
 
 public class SnakeGameHeadless {
-    private let gameExecuter: SnakeGameEnvironment = SnakeGameEnvironmentInteractive()
+    private let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive()
 
 	public init() {}
 
 	private func step(_ currentGameState: SnakeGameState) -> SnakeGameState {
-		let state0 = gameExecuter.placeNewFood(currentGameState)
-        let state1 = gameExecuter.computeNextBotMovement(state0)
-		let state2 = gameExecuter.executeStep(state1)
-        let state3 = gameExecuter.endOfStep(state2)
+		let state0 = environment.placeNewFood(currentGameState)
+        let state1 = environment.computeNextBotMovement(state0)
+		let state2 = environment.executeStep(state1)
+        let state3 = environment.endOfStep(state2)
 		return state3
 	}
 

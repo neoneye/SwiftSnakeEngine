@@ -48,37 +48,37 @@ class IngameScene: SKScene {
 	private var trainingSessionURLs: [URL]
 	private var gameState: SnakeGameState
 	private var gameNode: SnakeGameNode
-    private let gameExecuter: SnakeGameEnvironment
+    private let environment: SnakeGameEnvironment
 	private var previousGameStates: [SnakeGameState] = []
 
 	class func createHumanVsNone() -> IngameScene {
-        let gameExecuter: SnakeGameEnvironment = SnakeGameEnvironmentInteractive()
+        let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive()
 		let gameState = SnakeGameState.create(
 			player1: .human,
 			player2: .none,
 			levelName: "Level 0.csv"
 		)
-        return IngameScene(initialGameState: gameState, gameExecuter: gameExecuter)
+        return IngameScene(initialGameState: gameState, environment: environment)
 	}
 
     class func createBotVsNone() -> IngameScene {
-        let gameExecuter: SnakeGameEnvironment = SnakeGameEnvironmentInteractive()
+        let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive()
         let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
         let gameState = SnakeGameState.create(
             player1: .bot(snakeBotType: snakeBotType),
             player2: .none,
             levelName: "Level 0.csv"
         )
-        return IngameScene(initialGameState: gameState, gameExecuter: gameExecuter)
+        return IngameScene(initialGameState: gameState, environment: environment)
     }
 
     class func createReplay() -> IngameScene {
-        let gameExecuter = SnakeGameEnvironmentReplay.create()
-        let gameState: SnakeGameState = gameExecuter.initialGameState
-        return IngameScene(initialGameState: gameState, gameExecuter: gameExecuter)
+        let environment = SnakeGameEnvironmentReplay.create()
+        let gameState: SnakeGameState = environment.initialGameState
+        return IngameScene(initialGameState: gameState, environment: environment)
     }
 
-    init(initialGameState: SnakeGameState, gameExecuter: SnakeGameEnvironment) {
+    init(initialGameState: SnakeGameState, environment: SnakeGameEnvironment) {
         log.debug("level: \(initialGameState.level)")
         log.debug("player1: \(initialGameState.player1)")
         log.debug("player2: \(initialGameState.player2)")
@@ -86,7 +86,7 @@ class IngameScene: SKScene {
         log.debug("food position: \(initialFoodPosition)")
 
         self.initialGameState = initialGameState
-        self.gameExecuter = gameExecuter
+        self.environment = environment
         self.trainingSessionUUID = UUID()
         self.trainingSessionURLs = []
         self.gameState = initialGameState
@@ -411,8 +411,8 @@ class IngameScene: SKScene {
 		gameState = initialGameState
 		trainingSessionUUID = UUID()
 		trainingSessionURLs = []
-        gameExecuter.reset()
-        gameState = gameExecuter.placeNewFood(gameState)
+        environment.reset()
+        gameState = environment.placeNewFood(gameState)
 	}
 
     #if os(macOS)
@@ -561,7 +561,7 @@ class IngameScene: SKScene {
 		super.update(currentTime)
 
         if gameNodeNeedRedraw.contains(.newGame) {
-            self.gameState = self.gameExecuter.computeNextBotMovement(gameState)
+            self.gameState = self.environment.computeNextBotMovement(gameState)
         }
 
         let updateAction = self.pendingUpdateAction
@@ -629,7 +629,7 @@ class IngameScene: SKScene {
 			}
 		}
 
-		let newGameState2 = gameExecuter.executeStep(gameState)
+		let newGameState2 = environment.executeStep(gameState)
 		gameState = newGameState2
 
         gameNodeNeedRedraw.insert(.stepForward)
@@ -658,7 +658,7 @@ class IngameScene: SKScene {
 			}
 		}
 
-        self.gameState = self.gameExecuter.computeNextBotMovement(gameState)
+        self.gameState = self.environment.computeNextBotMovement(gameState)
 
 		let human1Alive: Bool = gameState.player1.isInstalledAndAliveAndHuman
 		let human2Alive: Bool = gameState.player2.isInstalledAndAliveAndHuman
@@ -678,14 +678,14 @@ class IngameScene: SKScene {
             sendInfoEvent(.player2_dead(self.gameState.player2.causesOfDeath))
         }
 
-        self.gameState = gameExecuter.placeNewFood(self.gameState)
+        self.gameState = environment.placeNewFood(self.gameState)
 
 		if AppConstant.saveTrainingData {
             let url: URL = self.gameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
 			trainingSessionURLs.append(url)
 		}
 
-        self.gameState = self.gameExecuter.endOfStep(self.gameState)
+        self.gameState = self.environment.endOfStep(self.gameState)
 
         // The game is over when both players are dead
         let player1Alive: Bool = self.gameState.player1.isInstalledAndAlive
@@ -705,7 +705,7 @@ class IngameScene: SKScene {
             log.info("Canot step backward. There is no previous state to rewind back to.")
 			return
 		}
-        gameExecuter.undo()
+        environment.undo()
 		state = state.clearPendingMovementAndPendingLengthForHumanPlayers()
 //		log.debug("rewind to: \(state.player2.debugDescription)")
 		gameState = state
