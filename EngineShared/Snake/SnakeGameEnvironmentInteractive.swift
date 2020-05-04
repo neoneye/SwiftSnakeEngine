@@ -28,21 +28,23 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
 
         gameState = self.initialGameState
         gameState = self.placeNewFood(gameState)
+        gameState = self.computeNextBotMovement(gameState)
         return gameState
     }
 
     public func undo() -> SnakeGameState? {
-        guard var state: SnakeGameState = previousGameStates.popLast() else {
+        guard var gameState: SnakeGameState = previousGameStates.popLast() else {
             log.info("Canot step backward. There is no previous state to rewind back to.")
             return nil
         }
-        state = state.clearPendingMovementAndPendingLengthForHumanPlayers()
+        gameState = gameState.clearPendingMovementAndPendingLengthForHumanPlayers()
+        gameState = self.computeNextBotMovement(gameState)
 
         stuckSnakeDetector1.undo()
         stuckSnakeDetector2.undo()
 
-        self.gameState = state
-        return state
+        self.gameState = gameState
+        return gameState
     }
 
     public func step(_ currentGameState: SnakeGameState) -> SnakeGameState {
@@ -78,6 +80,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
             gameState = gameState.stateWithNewPlayer2(player)
         }
 
+        gameState = self.computeNextBotMovement(gameState)
         return gameState
     }
 

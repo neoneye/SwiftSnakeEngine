@@ -551,10 +551,6 @@ class IngameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
 		super.update(currentTime)
 
-        if gameNodeNeedRedraw.contains(.newGame) {
-            self.gameState = self.environment.computeNextBotMovement(gameState)
-        }
-
         let updateAction = self.pendingUpdateAction
         switch updateAction {
         case .doNothing:
@@ -620,49 +616,7 @@ class IngameScene: SKScene {
 
         gameNodeNeedRedraw.insert(.stepForward)
 
-        do {
-            let oldLength: UInt = oldGameState.player1.snakeBody.length
-            let newLength: UInt = self.gameState.player1.snakeBody.length
-            if oldLength != newLength {
-                sendInfoEvent(.player1_didUpdateLength(newLength))
-            }
-        }
-
-        do {
-            let oldLength: UInt = oldGameState.player2.snakeBody.length
-            let newLength: UInt = self.gameState.player2.snakeBody.length
-            if oldLength != newLength {
-                sendInfoEvent(.player2_didUpdateLength(newLength))
-            }
-        }
-
-		if oldGameState.foodPosition != self.gameState.foodPosition {
-			if let pos: IntVec2 = oldGameState.foodPosition {
-				let point = cgPointFromGridPoint(pos)
-				explode(at: point, for: 0.25, zPosition: 200) {}
-				playSoundEffect(sound_snakeEats)
-			}
-		}
-
-        self.gameState = self.environment.computeNextBotMovement(gameState)
-
-		let human1Alive: Bool = gameState.player1.isInstalledAndAliveAndHuman
-		let human2Alive: Bool = gameState.player2.isInstalledAndAliveAndHuman
-		if human1Alive || human2Alive {
-			playSoundEffect(sound_snakeStep)
-		}
-		
-		let player1Dies: Bool = oldGameState.player1.isInstalledAndAlive && self.gameState.player1.isInstalledAndDead
-		let player2Dies: Bool = oldGameState.player2.isInstalledAndAlive && self.gameState.player2.isInstalledAndDead
-		if player1Dies || player2Dies {
-			playSoundEffect(sound_snakeDies)
-		}
-        if player1Dies {
-            sendInfoEvent(.player1_dead(self.gameState.player1.causesOfDeath))
-        }
-        if player2Dies {
-            sendInfoEvent(.player2_dead(self.gameState.player2.causesOfDeath))
-        }
+        didUpdateGameState(oldGameState: oldGameState, newGameState: newGameState2)
 
         self.gameState = environment.placeNewFood(self.gameState)
 
@@ -687,14 +641,62 @@ class IngameScene: SKScene {
     }
 
 	func stepBackward() {
-		guard let state: SnakeGameState = environment.undo() else {
+        let oldGameState: SnakeGameState = self.gameState
+
+        guard let newGameState: SnakeGameState = environment.undo() else {
             log.info("Canot step backward. There is no previous state to rewind back to.")
 			return
 		}
 
-		gameState = state
+        self.gameState = newGameState
         gameNodeNeedRedraw.insert(.stepBackward)
+
+        didUpdateGameState(oldGameState: oldGameState, newGameState: newGameState)
 	}
+
+    func didUpdateGameState(oldGameState: SnakeGameState, newGameState: SnakeGameState) {
+        do {
+            let oldLength: UInt = oldGameState.player1.snakeBody.length
+            let newLength: UInt = newGameState.player1.snakeBody.length
+            if oldLength != newLength {
+                sendInfoEvent(.player1_didUpdateLength(newLength))
+            }
+        }
+
+        do {
+            let oldLength: UInt = oldGameState.player2.snakeBody.length
+            let newLength: UInt = newGameState.player2.snakeBody.length
+            if oldLength != newLength {
+                sendInfoEvent(.player2_didUpdateLength(newLength))
+            }
+        }
+
+        if oldGameState.foodPosition != newGameState.foodPosition {
+            if let pos: IntVec2 = oldGameState.foodPosition {
+                let point = cgPointFromGridPoint(pos)
+                explode(at: point, for: 0.25, zPosition: 200) {}
+                playSoundEffect(sound_snakeEats)
+            }
+        }
+
+        let human1Alive: Bool = newGameState.player1.isInstalledAndAliveAndHuman
+        let human2Alive: Bool = newGameState.player2.isInstalledAndAliveAndHuman
+        if human1Alive || human2Alive {
+            playSoundEffect(sound_snakeStep)
+        }
+
+        let player1Dies: Bool = oldGameState.player1.isInstalledAndAlive && newGameState.player1.isInstalledAndDead
+        let player2Dies: Bool = oldGameState.player2.isInstalledAndAlive && newGameState.player2.isInstalledAndDead
+        if player1Dies || player2Dies {
+            playSoundEffect(sound_snakeDies)
+        }
+        if player1Dies {
+            sendInfoEvent(.player1_dead(newGameState.player1.causesOfDeath))
+        }
+        if player2Dies {
+            sendInfoEvent(.player2_dead(newGameState.player2.causesOfDeath))
+        }
+    }
 
 	func schedule_stepBackwardOnce() {
 		pendingUpdateAction = .stepBackwardOnce
