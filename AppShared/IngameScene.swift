@@ -168,6 +168,19 @@ class IngameScene: SKScene {
         needBecomeFirstResponder = true
     }
 
+    func restartGame() {
+        //log.debug("restartGame")
+        pendingUpdateAction = UpdateAction.initialUpdateAction
+        isPaused = false
+        gameNodeNeedRedraw.insert(.newGame)
+        needLayout = true
+        needSendingBeginNewGame = true
+        previousGameStates = []
+        trainingSessionUUID = UUID()
+        trainingSessionURLs = []
+
+        self.gameState = environment.reset()
+    }
 
     #if os(iOS)
 
@@ -394,20 +407,6 @@ class IngameScene: SKScene {
         log.debug("grid position: \(gridPosition.string1)")
     }
     #endif
-
-	func restartGame() {
-		//log.debug("restartGame")
-		pendingUpdateAction = UpdateAction.initialUpdateAction
-		isPaused = false
-        gameNodeNeedRedraw.insert(.newGame)
-		needLayout = true
-        needSendingBeginNewGame = true
-		previousGameStates = []
-		trainingSessionUUID = UUID()
-		trainingSessionURLs = []
-
-        self.gameState = environment.reset()
-	}
 
     #if os(macOS)
     override func keyDown(with event: NSEvent) {
