@@ -32,7 +32,6 @@ enum UpdateAction {
 }
 
 class IngameScene: SKScene {
-    private let initialGameState: SnakeGameState
     private let sound_snakeDies = SKAction.playSoundFileNamed("snake_dies.wav", waitForCompletion: false)
     private let sound_snakeEats = SKAction.playSoundFileNamed("snake_eats.wav", waitForCompletion: false)
     private let sound_snakeStep = SKAction.playSoundFileNamed("snake_step.wav", waitForCompletion: false)
@@ -60,7 +59,7 @@ class IngameScene: SKScene {
         let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
             initialGameState: gameState
         )
-        return IngameScene(initialGameState: gameState, environment: environment)
+        return IngameScene(environment: environment)
 	}
 
     class func createBotVsNone() -> IngameScene {
@@ -73,23 +72,15 @@ class IngameScene: SKScene {
         let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
             initialGameState: gameState
         )
-        return IngameScene(initialGameState: gameState, environment: environment)
+        return IngameScene(environment: environment)
     }
 
     class func createReplay() -> IngameScene {
         let environment = SnakeGameEnvironmentReplay.create()
-        let gameState: SnakeGameState = environment.initialGameState
-        return IngameScene(initialGameState: gameState, environment: environment)
+        return IngameScene(environment: environment)
     }
 
-    init(initialGameState: SnakeGameState, environment: SnakeGameEnvironment) {
-        log.debug("level: \(initialGameState.level)")
-        log.debug("player1: \(initialGameState.player1)")
-        log.debug("player2: \(initialGameState.player2)")
-        let initialFoodPosition: String = initialGameState.foodPosition?.debugDescription ?? "No food"
-        log.debug("food position: \(initialFoodPosition)")
-
-        self.initialGameState = initialGameState
+    init(environment: SnakeGameEnvironment) {
         self.environment = environment
         self.trainingSessionUUID = UUID()
         self.trainingSessionURLs = []

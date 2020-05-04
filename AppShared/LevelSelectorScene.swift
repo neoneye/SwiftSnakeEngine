@@ -211,7 +211,7 @@ class LevelSelectorScene: SKScene {
         let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
             initialGameState: gameState
         )
-        let newScene = IngameScene(initialGameState: gameState, environment: environment)
+        let newScene = IngameScene(environment: environment)
 		scene?.view?.presentScene(newScene, transition: transition)
 	}
 
