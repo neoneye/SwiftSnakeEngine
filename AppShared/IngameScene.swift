@@ -48,11 +48,11 @@ class IngameScene: SKScene {
 	private var trainingSessionURLs: [URL]
 	private var gameState: SnakeGameState
 	private var gameNode: SnakeGameNode
-    private let gameExecuter: SnakeGameExecuter
+    private let gameExecuter: SnakeGameEnvironment
 	private var previousGameStates: [SnakeGameState] = []
 
 	class func createHumanVsNone() -> IngameScene {
-        let gameExecuter: SnakeGameExecuter = SnakeGameExecuterInteractive()
+        let gameExecuter: SnakeGameEnvironment = SnakeGameEnvironmentInteractive()
 		let gameState = SnakeGameState.create(
 			player1: .human,
 			player2: .none,
@@ -62,7 +62,7 @@ class IngameScene: SKScene {
 	}
 
     class func createBotVsNone() -> IngameScene {
-        let gameExecuter: SnakeGameExecuter = SnakeGameExecuterInteractive()
+        let gameExecuter: SnakeGameEnvironment = SnakeGameEnvironmentInteractive()
         let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
         let gameState = SnakeGameState.create(
             player1: .bot(snakeBotType: snakeBotType),
@@ -73,12 +73,12 @@ class IngameScene: SKScene {
     }
 
     class func createReplay() -> IngameScene {
-        let gameExecuter = SnakeGameExecuterReplay.create()
+        let gameExecuter = SnakeGameEnvironmentReplay.create()
         let gameState: SnakeGameState = gameExecuter.initialGameState
         return IngameScene(initialGameState: gameState, gameExecuter: gameExecuter)
     }
 
-    init(initialGameState: SnakeGameState, gameExecuter: SnakeGameExecuter) {
+    init(initialGameState: SnakeGameState, gameExecuter: SnakeGameEnvironment) {
         log.debug("level: \(initialGameState.level)")
         log.debug("player1: \(initialGameState.player1)")
         log.debug("player2: \(initialGameState.player2)")

@@ -2,7 +2,7 @@
 import Foundation
 import SwiftProtobuf
 
-public protocol SnakeGameExecuter: class {
+public protocol SnakeGameEnvironment: class {
     func reset()
     func undo()
     func executeStep(_ gameState: SnakeGameState) -> SnakeGameState
@@ -17,7 +17,7 @@ public protocol SnakeGameExecuter: class {
 
 
 /// Replay the moves of a historic game.
-public class SnakeGameExecuterReplay: SnakeGameExecuter {
+public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
     public let initialGameState: SnakeGameState
     private let foodPositions: [IntVec2]
     private let player1Positions: [IntVec2]
@@ -34,7 +34,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         self.player2CauseOfDeath = player2CauseOfDeath
     }
 
-    public static func create() -> SnakeGameExecuterReplay {
+    public static func create() -> SnakeGameEnvironmentReplay {
         let data: Data = SnakeDatasetBundle.load("2.snakeDataset")
         let model: SnakeDatasetResult
         do {
@@ -170,7 +170,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
 
         gameState = gameState.stateWithNewFoodPosition(level.initialFoodPosition.intVec2)
 
-        return SnakeGameExecuterReplay(
+        return SnakeGameEnvironmentReplay(
             initialGameState: gameState,
             foodPositions: foodPositions,
             player1Positions: player1Positions,
@@ -328,7 +328,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
 }
 
 
-public class SnakeGameExecuterInteractive: SnakeGameExecuter {
+public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
     private var stuckSnakeDetector1 = StuckSnakeDetector(humanReadableName: "Player1")
     private var stuckSnakeDetector2 = StuckSnakeDetector(humanReadableName: "Player2")
     private var foodGenerator: SnakeFoodGenerator = SnakeFoodGenerator()

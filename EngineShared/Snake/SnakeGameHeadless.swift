@@ -2,7 +2,7 @@
 import Foundation
 
 public class SnakeGameHeadless {
-    private let gameExecuter: SnakeGameExecuter = SnakeGameExecuterInteractive()
+    private let gameExecuter: SnakeGameEnvironment = SnakeGameEnvironmentInteractive()
 
 	public init() {}
 
