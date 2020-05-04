@@ -22,12 +22,16 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
     private let foodPositions: [IntVec2]
     private let player1Positions: [IntVec2]
     private let player2Positions: [IntVec2]
+    private let player1CauseOfDeath: SnakeCauseOfDeath
+    private let player2CauseOfDeath: SnakeCauseOfDeath
 
-    private init(initialGameState: SnakeGameState, foodPositions: [IntVec2], player1Positions: [IntVec2], player2Positions: [IntVec2]) {
+    private init(initialGameState: SnakeGameState, foodPositions: [IntVec2], player1Positions: [IntVec2], player2Positions: [IntVec2], player1CauseOfDeath: SnakeCauseOfDeath, player2CauseOfDeath: SnakeCauseOfDeath) {
         self.initialGameState = initialGameState
         self.foodPositions = foodPositions
         self.player1Positions = player1Positions
         self.player2Positions = player2Positions
+        self.player1CauseOfDeath = player1CauseOfDeath
+        self.player2CauseOfDeath = player2CauseOfDeath
     }
 
     public static func create() -> SnakeGameExecuterReplay {
@@ -94,11 +98,15 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         }
 
         // IDEA: When the game ends, show the causeOfDeath in the UI.
+        var player1CauseOfDeath: SnakeCauseOfDeath = .other
         if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerA(stepModel: lastStep) {
             log.debug("last step for player 1. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
+            player1CauseOfDeath = playerResult.causeOfDeath
         }
+        var player2CauseOfDeath: SnakeCauseOfDeath = .other
         if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerB(stepModel: lastStep) {
             log.debug("last step for player 2. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
+            player2CauseOfDeath = playerResult.causeOfDeath
         }
 
 
@@ -169,7 +177,9 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
             initialGameState: gameState,
             foodPositions: foodPositions,
             player1Positions: player1Positions,
-            player2Positions: player2Positions
+            player2Positions: player2Positions,
+            player1CauseOfDeath: player1CauseOfDeath,
+            player2CauseOfDeath: player2CauseOfDeath
         )
     }
 
@@ -253,8 +263,8 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
 
         if newGameState.player1.isInstalledAndAlive {
             if currentIteration >= player1Positions.count {
-                log.debug("Player1 is dead. Reached end of player1Positions array.")
-                newGameState = newGameState.killPlayer1(.killAfterAFewTimeSteps)
+                log.debug("Player1 is dead. Reached end of player1Positions array. \(self.player1CauseOfDeath)")
+                newGameState = newGameState.killPlayer1(self.player1CauseOfDeath)
             } else {
                 let position: IntVec2 = player1Positions[Int(currentIteration)]
                 let head: SnakeHead = newGameState.player1.snakeBody.head
@@ -272,8 +282,8 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
 
         if newGameState.player2.isInstalledAndAlive {
             if currentIteration >= player2Positions.count {
-                log.debug("Player2 is dead. Reached end of player2Positions array.")
-                newGameState = newGameState.killPlayer2(.killAfterAFewTimeSteps)
+                log.debug("Player2 is dead. Reached end of player2Positions array. \(self.player2CauseOfDeath)")
+                newGameState = newGameState.killPlayer2(self.player2CauseOfDeath)
             } else {
                 let position: IntVec2 = player2Positions[Int(currentIteration)]
                 let head: SnakeHead = newGameState.player2.snakeBody.head
