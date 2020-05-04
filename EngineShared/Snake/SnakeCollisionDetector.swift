@@ -170,3 +170,68 @@ public class SnakeCollisionDetector {
 		}
 	}
 }
+
+extension SnakeGameState {
+
+    /// Deal with collision when one player or both players are installed.
+    /// Do nothing when no players are installed.
+    internal func detectCollision() -> SnakeGameState {
+        let player1_installedAndAlive: Bool = self.player1.isInstalledAndAlive
+        let player2_installedAndAlive: Bool = self.player2.isInstalledAndAlive
+
+        guard player1_installedAndAlive || player2_installedAndAlive else {
+            log.debug("Both players are dead. No need to check for collision between them. 1")
+            return self
+        }
+        var gameState: SnakeGameState = self
+
+        let detector = SnakeCollisionDetector.create(
+            level: gameState.level,
+            foodPosition: gameState.foodPosition,
+            player1: gameState.player1,
+            player2: gameState.player2
+        )
+        detector.process()
+
+        if player1_installedAndAlive && detector.player1Alive == false {
+            let collisionType: SnakeCollisionType = detector.collisionType1
+            log.info("killing player1 because: \(collisionType)")
+            gameState = gameState.killPlayer1(collisionType.causeOfDeath)
+        }
+        if player2_installedAndAlive && detector.player2Alive == false {
+            let collisionType: SnakeCollisionType = detector.collisionType2
+            log.info("killing player2 because: \(collisionType)")
+            gameState = gameState.killPlayer2(collisionType.causeOfDeath)
+        }
+
+        if detector.player1EatsFood {
+            gameState = gameState.stateWithNewFoodPosition(nil)
+            var player: SnakePlayer = gameState.player1
+            player = player.updatePendingAct(.eat)
+            gameState = gameState.stateWithNewPlayer1(player)
+        }
+        if detector.player2EatsFood {
+            gameState = gameState.stateWithNewFoodPosition(nil)
+            var player: SnakePlayer = gameState.player2
+            player = player.updatePendingAct(.eat)
+            gameState = gameState.stateWithNewPlayer2(player)
+        }
+        return gameState
+    }
+}
+
+extension SnakeCollisionType {
+    /// Convert from a `CollisionType` to its corresponding `CauseOfDeath`.
+    internal var causeOfDeath: SnakeCauseOfDeath {
+        switch self {
+        case .noCollision:
+            fatalError("Inconsistency. A collision happened, but no collision is registered. Should never happen!")
+        case .snakeCollisionWithWall:
+            return .collisionWithWall
+        case .snakeCollisionWithOpponent:
+            return .collisionWithOpponent
+        case .snakeCollisionWithItself:
+            return .collisionWithItself
+        }
+    }
+}

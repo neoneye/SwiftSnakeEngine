@@ -87,3 +87,20 @@ public class StuckSnakeDetectorForwardHistory {
         }
     }
 }
+
+extension StuckSnakeDetector {
+    /// While playing as a human, I find it annoying to get killed because
+    /// I'm doing the same patterns over and over.
+    /// So this "stuck in loop" detection only applies to bots.
+    internal func killBotIfStuckInLoop(_ player: SnakePlayer) -> SnakePlayer {
+        guard player.isInstalledAndAlive && player.isBot else {
+            return player
+        }
+        self.append(player.snakeBody)
+        if self.isStuck {
+            return player.kill(.stuckInALoop)
+        } else {
+            return player
+        }
+    }
+}
