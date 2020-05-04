@@ -52,22 +52,26 @@ class IngameScene: SKScene {
 	private var previousGameStates: [SnakeGameState] = []
 
 	class func createHumanVsNone() -> IngameScene {
-        let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive()
 		let gameState = SnakeGameState.create(
 			player1: .human,
 			player2: .none,
 			levelName: "Level 0.csv"
 		)
+        let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+            initialGameState: gameState
+        )
         return IngameScene(initialGameState: gameState, environment: environment)
 	}
 
     class func createBotVsNone() -> IngameScene {
-        let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive()
         let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
         let gameState = SnakeGameState.create(
             player1: .bot(snakeBotType: snakeBotType),
             player2: .none,
             levelName: "Level 0.csv"
+        )
+        let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+            initialGameState: gameState
         )
         return IngameScene(initialGameState: gameState, environment: environment)
     }

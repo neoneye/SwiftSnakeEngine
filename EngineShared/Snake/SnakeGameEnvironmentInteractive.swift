@@ -2,11 +2,20 @@
 import Foundation
 
 public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
+    private let initialGameState: SnakeGameState
     private var stuckSnakeDetector1 = StuckSnakeDetector(humanReadableName: "Player1")
     private var stuckSnakeDetector2 = StuckSnakeDetector(humanReadableName: "Player2")
     private var foodGenerator: SnakeFoodGenerator = SnakeFoodGenerator()
 
-    public init() {}
+    public init(initialGameState: SnakeGameState) {
+        self.initialGameState = initialGameState
+
+        log.debug("level: \(initialGameState.level)")
+        log.debug("player1: \(initialGameState.player1)")
+        log.debug("player2: \(initialGameState.player2)")
+        let initialFoodPosition: String = initialGameState.foodPosition?.debugDescription ?? "No food"
+        log.debug("food position: \(initialFoodPosition)")
+    }
 
     public func reset() {
         stuckSnakeDetector1.reset()

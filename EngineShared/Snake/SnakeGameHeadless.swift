@@ -2,9 +2,19 @@
 import Foundation
 
 public class SnakeGameHeadless {
-    private let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive()
+    private let environment: SnakeGameEnvironment
 
-	public init() {}
+	public init() {
+        let snakeBotType0: SnakeBot.Type = SnakeBotFactory.smartestBotType()
+        let bot = SnakePlayerRole.bot(snakeBotType: snakeBotType0)
+
+        let gameState = SnakeGameState.create(
+            player1: bot,
+            player2: bot,
+            levelName: "Level 4.csv"
+        )
+        environment = SnakeGameEnvironmentInteractive(initialGameState: gameState)
+    }
 
 	private func step(_ currentGameState: SnakeGameState) -> SnakeGameState {
 		let state0 = environment.placeNewFood(currentGameState)
