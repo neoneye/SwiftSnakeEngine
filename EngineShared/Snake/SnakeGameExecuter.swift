@@ -35,7 +35,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
     }
 
     public static func create() -> SnakeGameExecuterReplay {
-        let data: Data = SnakeDatasetBundle.load("0.snakeDataset")
+        let data: Data = SnakeDatasetBundle.load("2.snakeDataset")
         let model: SnakeDatasetResult
         do {
             model = try SnakeDatasetResult(serializedData: data)
@@ -127,7 +127,7 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
         log.debug("player1 positions.count: \(player1Positions.count)")
         log.debug("player2 positions.count: \(player2Positions.count)")
 
-        let pretty = PrettyPrintArray.simple
+        let pretty = PrettyPrintArray(prefixLength: 10, suffixLength: 2, separator: ",", ellipsis: "...")
         log.debug("player1: \(pretty.format(player1Positions))")
         log.debug("player2: \(pretty.format(player2Positions))")
         log.debug("food: \(pretty.format(foodPositions))")
