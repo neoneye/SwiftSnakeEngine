@@ -258,7 +258,8 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
         return gameState
     }
 
-    public func computeNextBotMovement(_ oldGameState: SnakeGameState) -> SnakeGameState {
+    /// Decide about optimal path to get to the food.
+    private func computeNextBotMovement(_ oldGameState: SnakeGameState) -> SnakeGameState {
         let currentIteration: UInt64 = oldGameState.numberOfSteps + 2
         var newGameState: SnakeGameState = oldGameState
 

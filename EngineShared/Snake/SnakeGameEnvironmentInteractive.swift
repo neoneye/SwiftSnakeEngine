@@ -84,7 +84,8 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         return gameState
     }
 
-    public func computeNextBotMovement(_ oldGameState: SnakeGameState) -> SnakeGameState {
+    /// Decide about optimal path to get to the food.
+    private func computeNextBotMovement(_ oldGameState: SnakeGameState) -> SnakeGameState {
         let oldPlayer1: SnakePlayer = oldGameState.player1
         let oldPlayer2: SnakePlayer = oldGameState.player2
 
