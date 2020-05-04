@@ -115,12 +115,9 @@ public class SnakeGameExecuterReplay: SnakeGameExecuter {
 
         // IDEA: check hashes of the loaded level with the level in the file system.
 
-        func convert(_ positionArray: [SnakeDatasetPosition]) -> [IntVec2] {
-            return positionArray.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
-        }
-        let foodPositions: [IntVec2] = convert(model.foodPositions)
-        let player1Positions: [IntVec2] = convert(model.playerAPositions)
-        let player2Positions: [IntVec2] = convert(model.playerBPositions)
+        let foodPositions: [IntVec2] = model.foodPositions.toIntVec2Array()
+        let player1Positions: [IntVec2] = model.playerAPositions.toIntVec2Array()
+        let player2Positions: [IntVec2] = model.playerBPositions.toIntVec2Array()
 
         log.debug("level.id: '\(model.level.uuid)'")
         log.debug("food positions.count: \(foodPositions.count)")

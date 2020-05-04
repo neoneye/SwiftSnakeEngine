@@ -15,7 +15,7 @@ public class DatasetLoader {
             throw DatasetLoaderError.runtimeError(message: "Expected size of level to be 3 or more, but got less. Cannot create level.")
         }
         let size = UIntVec2(x: levelModel.width, y: levelModel.height)
-        let emptyPositions: [UIntVec2] = levelModel.emptyPositions.map { UIntVec2(x: $0.x, y: $0.y) }
+        let emptyPositions: [UIntVec2] = levelModel.emptyPositions.toUIntVec2Array()
         let emptyPositionSet = Set<UIntVec2>(emptyPositions)
         let builder = SnakeLevelBuilder(id: uuid, size: size)
 
@@ -43,7 +43,7 @@ public class DatasetLoader {
         guard let uuid: UUID = UUID(uuidString: playerModel.uuid) else {
             throw DatasetLoaderError.runtimeError(message: "Invalid UUID for the player role")
         }
-        let positions: [IntVec2] = playerModel.bodyPositions.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
+        let positions: [IntVec2] = playerModel.bodyPositions.toIntVec2Array()
         let snakeBody: SnakeBody = try SnakeBodyAdvancedCreate.create(positions: positions.reversed())
 
         let datasetCauseOfDeath: SnakeDatasetCauseOfDeath = playerModel.causeOfDeath
@@ -71,3 +71,14 @@ public class DatasetLoader {
     }
 
 }
+
+extension Array where Element == SnakeDatasetPosition {
+    internal func toUIntVec2Array() -> [UIntVec2] {
+        self.map { UIntVec2(x: $0.x, y: $0.y) }
+    }
+
+    internal func toIntVec2Array() -> [IntVec2] {
+        self.map { IntVec2(x: Int32($0.x), y: Int32($0.y)) }
+    }
+}
+

@@ -259,8 +259,8 @@ public class PostProcessTrainingData {
             playerBPositions.append(headPosition)
         }
 
-        let positions1: [UIntVec2] = playerAPositions.map { UIntVec2(x: $0.x, y: $0.y) }
-        let positions2: [UIntVec2] = playerBPositions.map { UIntVec2(x: $0.x, y: $0.y) }
+        let positions1: [UIntVec2] = playerAPositions.toUIntVec2Array()
+        let positions2: [UIntVec2] = playerBPositions.toUIntVec2Array()
 
         let pretty = PrettyPrintArray.simple
         log.debug("Post processing. all move positions for player1: \(pretty.format(positions1))")
