@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 
 public protocol SnakeGameEnvironment: class {
-    func reset()
+    func reset() -> SnakeGameState
     func undo()
     func step(_ gameState: SnakeGameState) -> SnakeGameState
 

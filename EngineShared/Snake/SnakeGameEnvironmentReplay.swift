@@ -200,7 +200,10 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
         }
     }
 
-    public func reset() {
+    public func reset() -> SnakeGameState {
+        var gameState: SnakeGameState = self.initialGameState
+        gameState = self.placeNewFood(gameState)
+        return gameState
     }
 
     public func undo() {

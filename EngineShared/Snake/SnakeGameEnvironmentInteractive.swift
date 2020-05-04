@@ -6,9 +6,11 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
     private var stuckSnakeDetector1 = StuckSnakeDetector(humanReadableName: "Player1")
     private var stuckSnakeDetector2 = StuckSnakeDetector(humanReadableName: "Player2")
     private var foodGenerator: SnakeFoodGenerator = SnakeFoodGenerator()
+    private var gameState: SnakeGameState
 
     public init(initialGameState: SnakeGameState) {
         self.initialGameState = initialGameState
+        self.gameState = initialGameState
 
         log.debug("level: \(initialGameState.level)")
         log.debug("player1: \(initialGameState.player1)")
@@ -17,9 +19,13 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         log.debug("food position: \(initialFoodPosition)")
     }
 
-    public func reset() {
+    public func reset() -> SnakeGameState {
         stuckSnakeDetector1.reset()
         stuckSnakeDetector2.reset()
+
+        gameState = self.initialGameState
+        gameState = self.placeNewFood(gameState)
+        return gameState
     }
 
     public func undo() {

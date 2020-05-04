@@ -93,7 +93,7 @@ class IngameScene: SKScene {
         self.environment = environment
         self.trainingSessionUUID = UUID()
         self.trainingSessionURLs = []
-        self.gameState = initialGameState
+        self.gameState = environment.reset()
         self.gameNode = SnakeGameNode()
         self.gameNodeNeedRedraw.insert(.newGame)
         super.init(size: CGSize(width: 100, height: 100))
@@ -412,11 +412,10 @@ class IngameScene: SKScene {
 		needLayout = true
         needSendingBeginNewGame = true
 		previousGameStates = []
-		gameState = initialGameState
 		trainingSessionUUID = UUID()
 		trainingSessionURLs = []
-        environment.reset()
-        gameState = environment.placeNewFood(gameState)
+
+        self.gameState = environment.reset()
 	}
 
     #if os(macOS)
