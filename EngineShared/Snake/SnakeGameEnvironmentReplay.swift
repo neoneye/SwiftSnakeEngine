@@ -11,6 +11,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
     private let player1CauseOfDeath: SnakeCauseOfDeath
     private let player2CauseOfDeath: SnakeCauseOfDeath
     private var previousGameStates: [SnakeGameState] = []
+    private var gameState: SnakeGameState
 
     private init(initialGameState: SnakeGameState, foodPositions: [IntVec2], player1Positions: [IntVec2], player2Positions: [IntVec2], player1CauseOfDeath: SnakeCauseOfDeath, player2CauseOfDeath: SnakeCauseOfDeath) {
         self.initialGameState = initialGameState
@@ -19,6 +20,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
         self.player2Positions = player2Positions
         self.player1CauseOfDeath = player1CauseOfDeath
         self.player2CauseOfDeath = player2CauseOfDeath
+        self.gameState = initialGameState
     }
 
     public static func create() -> SnakeGameEnvironmentReplay {
@@ -206,7 +208,8 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
 
         var gameState: SnakeGameState = self.initialGameState
         gameState = self.placeNewFood(gameState)
-        gameState = self.computeNextBotMovement(gameState)
+        gameState = self.prepareNextMovements(gameState)
+        self.gameState = gameState
         return gameState
     }
 
@@ -217,19 +220,21 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
         }
         gameState = gameState.clearPendingMovementAndPendingLengthForHumanPlayers()
         gameState = self.placeNewFood(gameState)
-        gameState = self.computeNextBotMovement(gameState)
+        gameState = self.prepareNextMovements(gameState)
+        self.gameState = gameState
         return gameState
     }
 
     public func step(_ currentGameState: SnakeGameState) -> SnakeGameState {
-        previousGameStates.append(currentGameState)
+        let oldGameState = self.gameState
+        previousGameStates.append(oldGameState)
 
-        var gameState: SnakeGameState = currentGameState
-        gameState = gameState.incrementNumberOfSteps()
-        gameState = gameState.detectCollision()
+        var newGameState: SnakeGameState = oldGameState
+        newGameState = newGameState.incrementNumberOfSteps()
+        newGameState = newGameState.detectCollision()
 
-        if gameState.player1.isInstalledAndAlive {
-            var player: SnakePlayer = gameState.player1
+        if newGameState.player1.isInstalledAndAlive {
+            var player: SnakePlayer = newGameState.player1
             let snakeBody: SnakeBody = player.snakeBody.stateForTick(
                 movement: player.pendingMovement,
                 act: player.pendingAct
@@ -238,11 +243,11 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
             player = player.updatePendingMovement(.dontMove)
             player = player.updatePendingAct(.doNothing)
 //            player = stuckSnakeDetector1.killBotIfStuckInLoop(player)
-            gameState = gameState.stateWithNewPlayer1(player)
+            newGameState = newGameState.stateWithNewPlayer1(player)
         }
 
-        if gameState.player2.isInstalledAndAlive {
-            var player: SnakePlayer = gameState.player2
+        if newGameState.player2.isInstalledAndAlive {
+            var player: SnakePlayer = newGameState.player2
             let snakeBody: SnakeBody = player.snakeBody.stateForTick(
                 movement: player.pendingMovement,
                 act: player.pendingAct
@@ -251,17 +256,18 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
             player = player.updatePendingMovement(.dontMove)
             player = player.updatePendingAct(.doNothing)
 //            player = stuckSnakeDetector2.killBotIfStuckInLoop(player)
-            gameState = gameState.stateWithNewPlayer2(player)
+            newGameState = newGameState.stateWithNewPlayer2(player)
         }
 
-        gameState = self.placeNewFood(gameState)
-        gameState = self.computeNextBotMovement(gameState)
+        newGameState = self.placeNewFood(newGameState)
+        newGameState = self.prepareNextMovements(newGameState)
 
-        return gameState
+        self.gameState = newGameState
+        return newGameState
     }
 
     /// Decide about optimal path to get to the food.
-    private func computeNextBotMovement(_ oldGameState: SnakeGameState) -> SnakeGameState {
+    private func prepareNextMovements(_ oldGameState: SnakeGameState) -> SnakeGameState {
         let currentIteration: UInt64 = oldGameState.numberOfSteps + 1
         var newGameState: SnakeGameState = oldGameState
 
@@ -307,7 +313,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
     }
 
     private func placeNewFood(_ oldGameState: SnakeGameState) -> SnakeGameState {
-        let currentIteration: UInt64 = oldGameState.numberOfSteps + 1
+        let currentIteration: UInt64 = oldGameState.numberOfSteps
         guard currentIteration < foodPositions.count else {
             log.debug("Reached end of foodPositions array.  Iteration: \(currentIteration)")
             return oldGameState
@@ -317,7 +323,9 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
 //            log.debug("#\(currentIteration) food is unchanged. position: \(position)")
             return oldGameState
         }
-        log.debug("#\(currentIteration) placing new food at \(position)")
+        let length1: UInt = oldGameState.player1.lengthOfInstalledSnake()
+        let length2: UInt = oldGameState.player2.lengthOfInstalledSnake()
+        log.debug("#\(currentIteration) placing new food at \(position)   player1.length: \(length1)  player2.length: \(length2)")
         return oldGameState.stateWithNewFoodPosition(position)
     }
 }
