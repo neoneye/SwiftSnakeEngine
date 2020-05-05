@@ -38,6 +38,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
             return nil
         }
         gameState = gameState.clearPendingMovementAndPendingLengthForHumanPlayers()
+        gameState = self.placeNewFood(gameState)
         gameState = self.computeNextBotMovement(gameState)
 
         stuckSnakeDetector1.undo()
@@ -80,6 +81,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
             gameState = gameState.stateWithNewPlayer2(player)
         }
 
+        gameState = self.placeNewFood(gameState)
         gameState = self.computeNextBotMovement(gameState)
         return gameState
     }
@@ -139,7 +141,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         return newGameState
     }
 
-    public func placeNewFood(_ oldGameState: SnakeGameState) -> SnakeGameState {
+    private func placeNewFood(_ oldGameState: SnakeGameState) -> SnakeGameState {
         if oldGameState.foodPosition != nil {
             return oldGameState
         }

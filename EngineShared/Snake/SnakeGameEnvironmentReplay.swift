@@ -206,7 +206,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
 
         var gameState: SnakeGameState = self.initialGameState
         gameState = self.placeNewFood(gameState)
-        gameState = computeNextBotMovement(gameState)
+        gameState = self.computeNextBotMovement(gameState)
         return gameState
     }
 
@@ -216,7 +216,8 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
             return nil
         }
         gameState = gameState.clearPendingMovementAndPendingLengthForHumanPlayers()
-        gameState = computeNextBotMovement(gameState)
+        gameState = self.placeNewFood(gameState)
+        gameState = self.computeNextBotMovement(gameState)
         return gameState
     }
 
@@ -253,7 +254,8 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
             gameState = gameState.stateWithNewPlayer2(player)
         }
 
-        gameState = computeNextBotMovement(gameState)
+        gameState = self.placeNewFood(gameState)
+        gameState = self.computeNextBotMovement(gameState)
 
         return gameState
     }
@@ -304,7 +306,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
         return newGameState
     }
 
-    public func placeNewFood(_ oldGameState: SnakeGameState) -> SnakeGameState {
+    private func placeNewFood(_ oldGameState: SnakeGameState) -> SnakeGameState {
         let currentIteration: UInt64 = oldGameState.numberOfSteps + 1
         guard currentIteration < foodPositions.count else {
             log.debug("Reached end of foodPositions array.  Iteration: \(currentIteration)")

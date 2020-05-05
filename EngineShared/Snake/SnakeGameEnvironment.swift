@@ -11,7 +11,5 @@ public protocol SnakeGameEnvironment: class {
 
     func step(_ gameState: SnakeGameState) -> SnakeGameState
 
-    func placeNewFood(_ gameState: SnakeGameState) -> SnakeGameState
-
     func endOfStep(_ gameState: SnakeGameState) -> SnakeGameState
 }

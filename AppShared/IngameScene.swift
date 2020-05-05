@@ -618,8 +618,6 @@ class IngameScene: SKScene {
 
         didUpdateGameState(oldGameState: oldGameState, newGameState: newGameState2)
 
-        self.gameState = environment.placeNewFood(self.gameState)
-
 		if AppConstant.saveTrainingData {
             let url: URL = self.gameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
 			trainingSessionURLs.append(url)
@@ -632,6 +630,7 @@ class IngameScene: SKScene {
         let player2Alive: Bool = self.gameState.player2.isInstalledAndAlive
         let oneOrMorePlayersAreAlive: Bool = player1Alive || player2Alive
         if !oneOrMorePlayersAreAlive {
+            log.debug("All the players are dead.")
             self.isPaused = true
             // IDEA: Determine the winner: the longest snake, or the longest lived snake, or a combo?
             // IDEA: pass on which player won/loose.
