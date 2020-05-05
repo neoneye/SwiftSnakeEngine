@@ -623,8 +623,6 @@ class IngameScene: SKScene {
 			trainingSessionURLs.append(url)
 		}
 
-        self.gameState = self.environment.endOfStep(self.gameState)
-
         // The game is over when both players are dead
         let player1Alive: Bool = self.gameState.player1.isInstalledAndAlive
         let player2Alive: Bool = self.gameState.player2.isInstalledAndAlive

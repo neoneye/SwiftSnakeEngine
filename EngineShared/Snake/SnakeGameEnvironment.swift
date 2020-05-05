@@ -10,6 +10,4 @@ public protocol SnakeGameEnvironment: class {
     func undo() -> SnakeGameState?
 
     func step(_ gameState: SnakeGameState) -> SnakeGameState
-
-    func endOfStep(_ gameState: SnakeGameState) -> SnakeGameState
 }

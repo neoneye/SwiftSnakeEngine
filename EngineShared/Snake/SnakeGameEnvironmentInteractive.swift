@@ -52,8 +52,8 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         previousGameStates.append(currentGameState)
 
         var gameState: SnakeGameState = currentGameState
-        let newGameState = gameState.detectCollision()
-        gameState = newGameState
+        gameState = gameState.incrementNumberOfSteps()
+        gameState = gameState.detectCollision()
 
         if gameState.player1.isInstalledAndAlive {
             var player: SnakePlayer = gameState.player1
@@ -149,17 +149,5 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         //let steps: UInt64 = self.gameState.numberOfSteps
         //log.debug("place new food: \(steps)")
         return foodGenerator.placeNewFood(oldGameState)
-    }
-
-    static let printNumberOfSteps = false
-
-    public func endOfStep(_ oldGameState: SnakeGameState) -> SnakeGameState {
-        let step0: UInt64 = oldGameState.numberOfSteps
-        let newGameState: SnakeGameState = oldGameState.incrementNumberOfSteps()
-        let step1: UInt64 = newGameState.numberOfSteps
-        if Self.printNumberOfSteps {
-            log.debug("----------- numberOfSteps \(step0) -> \(step1) -----------")
-        }
-        return newGameState
     }
 }
