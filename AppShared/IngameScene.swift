@@ -611,12 +611,12 @@ class IngameScene: SKScene {
 			}
 		}
 
-		let newGameState2 = environment.step(gameState)
-		gameState = newGameState2
+		let newGameState = environment.step(gameState)
+		gameState = newGameState
 
         gameNodeNeedRedraw.insert(.stepForward)
 
-        didUpdateGameState(oldGameState: oldGameState, newGameState: newGameState2)
+        didUpdateGameState(oldGameState: oldGameState, newGameState: newGameState)
 
 		if AppConstant.saveTrainingData {
             let url: URL = self.gameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
