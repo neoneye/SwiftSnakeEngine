@@ -17,8 +17,6 @@ extension SnakeCauseOfDeath {
             return SnakeDatasetCauseOfDeath.stuckInLoop
         case .noMoreFood:
             return SnakeDatasetCauseOfDeath.other
-        case .killAfterAFewTimeSteps:
-            return SnakeDatasetCauseOfDeath.other
         }
     }
 }

@@ -603,13 +603,6 @@ class IngameScene: SKScene {
 		let oldGameState: SnakeGameState = self.gameState
 		//log.debug("all the players have made their decision")
 
-		if AppConstant.killPlayer2AfterAFewSteps {
-			if gameState.player2.isInstalledAndAlive && gameState.numberOfSteps == 10 {
-				var player: SnakePlayer = gameState.player2
-                player = player.kill(.killAfterAFewTimeSteps)
-				gameState = gameState.stateWithNewPlayer2(player)
-			}
-		}
 
 		let newGameState = environment.step(gameState)
 		gameState = newGameState

@@ -27,8 +27,6 @@ struct AppConstant {
 
 	static let tileSize: CGFloat = 100
 
-	static let killPlayer2AfterAFewSteps = false
-
 	static let ignoreRepeatingKeyDownEvents = true
 
     enum GameInitialStepMode {

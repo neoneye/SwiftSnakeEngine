@@ -282,7 +282,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
                 //log.debug("move from \(head.position) to \(position)   movement: \(movement)")
                 if movement == .dontMove {
                     log.error("Killing player1. The snake is supposed to move, but doesn't. Iteration: \(currentIteration)")
-                    newGameState = newGameState.killPlayer1(.killAfterAFewTimeSteps)
+                    newGameState = newGameState.killPlayer1(.other)
                 } else {
 //                    log.debug("#\(currentIteration) player1: movement \(movement)")
                     newGameState = newGameState.updatePendingMovementForPlayer1(movement)
@@ -301,7 +301,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
                 //log.debug("move from \(head.position) to \(position)   movement: \(movement)")
                 if movement == .dontMove {
                     log.error("Killing player2. The snake is supposed to move, but doesn't. Iteration: \(currentIteration)")
-                    newGameState = newGameState.killPlayer2(.killAfterAFewTimeSteps)
+                    newGameState = newGameState.killPlayer2(.other)
                 } else {
 //                    log.debug("#\(currentIteration) player2: movement \(movement)")
                     newGameState = newGameState.updatePendingMovementForPlayer2(movement)
