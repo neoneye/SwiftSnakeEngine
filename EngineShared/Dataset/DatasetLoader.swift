@@ -72,8 +72,8 @@ public class DatasetLoader {
     }
 
     internal static func snakeGameEnvironmentReplay(resourceName: String) throws -> SnakeGameEnvironmentReplay {
-        let data: Data = SnakeDatasetBundle.load(resourceName)
         do {
+            let data: Data = try SnakeDatasetBundle.load(resourceName)
             let model: SnakeDatasetResult = try SnakeDatasetResult(serializedData: data)
             return try DatasetLoader.snakeGameEnvironmentReplay(model: model)
         } catch {
