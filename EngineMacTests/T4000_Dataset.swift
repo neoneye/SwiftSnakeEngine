@@ -8,6 +8,7 @@ import XCTest
 /// 3rd step: verify that the desired model data has been preserved.
 class T4000_Dataset: XCTestCase {
 
+    // MARK: -
     func createSnakePlayer_human() -> SnakePlayer {
         let positions: [IntVec2] = [
             IntVec2(x: 10, y: 10),
@@ -80,6 +81,8 @@ class T4000_Dataset: XCTestCase {
         XCTAssertEqual(result.snakeBody, originalPlayer.snakeBody)
     }
 
+    // MARK: -
+
     func test200_serializationRoundtrip_level() throws {
         let uuid = UUID(uuidString: "cdeeadf2-31c9-48f4-852f-778b58086dd0")!
         guard let originalLevel: SnakeLevel = SnakeLevelManager.shared.level(id: uuid) else {
@@ -105,4 +108,19 @@ class T4000_Dataset: XCTestCase {
         XCTAssertEqual(level.player2_body.head.position, IntVec2.zero)
     }
 
+    // MARK: -
+
+    func test300_loadSnakeDataset_duel() throws {
+        let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "duel0.snakeDataset")
+        XCTAssertGreaterThan(environment.player1Positions.count, 10)
+        XCTAssertGreaterThan(environment.player2Positions.count, 10)
+        XCTAssertGreaterThan(environment.foodPositions.count, 10)
+    }
+
+    func test301_loadSnakeDataset_solo() throws {
+        let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "solo0.snakeDataset")
+        XCTAssertGreaterThan(environment.player1Positions.count, 10)
+        XCTAssertTrue(environment.player2Positions.isEmpty)
+        XCTAssertGreaterThan(environment.foodPositions.count, 10)
+    }
 }

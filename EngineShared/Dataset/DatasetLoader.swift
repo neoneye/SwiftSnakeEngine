@@ -71,7 +71,18 @@ public class DatasetLoader {
         )
     }
 
-    internal static func snakeGameEnvironmentReplay(_ model: SnakeDatasetResult) throws -> SnakeGameEnvironmentReplay {
+    internal static func snakeGameEnvironmentReplay(resourceName: String) throws -> SnakeGameEnvironmentReplay {
+        let data: Data = SnakeDatasetBundle.load(resourceName)
+        do {
+            let model: SnakeDatasetResult = try SnakeDatasetResult(serializedData: data)
+            return try DatasetLoader.snakeGameEnvironmentReplay(model: model)
+        } catch {
+            log.error("Unable to load file: \(error)")
+            fatalError()
+        }
+    }
+
+    internal static func snakeGameEnvironmentReplay(model: SnakeDatasetResult) throws -> SnakeGameEnvironmentReplay {
         guard model.hasLevel else {
             log.error("Expected the file to contain a 'level' snapshot of the board, but got none.")
             fatalError()

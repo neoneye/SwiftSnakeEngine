@@ -4,11 +4,11 @@ import Foundation
 /// Replay the moves of a historic game.
 public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
     public let initialGameState: SnakeGameState
-    private let foodPositions: [IntVec2]
-    private let player1Positions: [IntVec2]
-    private let player2Positions: [IntVec2]
-    private let player1CauseOfDeath: SnakeCauseOfDeath
-    private let player2CauseOfDeath: SnakeCauseOfDeath
+    internal let foodPositions: [IntVec2]
+    internal let player1Positions: [IntVec2]
+    internal let player2Positions: [IntVec2]
+    internal let player1CauseOfDeath: SnakeCauseOfDeath
+    internal let player2CauseOfDeath: SnakeCauseOfDeath
     private var previousGameStates: [SnakeGameState] = []
     private var gameState: SnakeGameState
 
@@ -23,10 +23,9 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
     }
 
     public static func create() -> SnakeGameEnvironmentReplay {
-        let data: Data = SnakeDatasetBundle.load("2.snakeDataset")
+        let resourceName: String = "duel0.snakeDataset"
         do {
-            let model: SnakeDatasetResult = try SnakeDatasetResult(serializedData: data)
-            return try DatasetLoader.snakeGameEnvironmentReplay(model)
+            return try DatasetLoader.snakeGameEnvironmentReplay(resourceName: resourceName)
         } catch {
             log.error("Unable to load file: \(error)")
             fatalError()
