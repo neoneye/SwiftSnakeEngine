@@ -152,10 +152,12 @@ public class DatasetLoader {
         log.debug("player2: \(pretty.format(player2Positions))")
         log.debug("food: \(pretty.format(foodPositions))")
 
+        let datasetTimestamp: Date
         if model.hasTimestamp {
             let t: Google_Protobuf_Timestamp = model.timestamp
-            let date: Date = t.date
-            log.debug("date: \(date)")
+            datasetTimestamp = t.date
+        } else {
+            datasetTimestamp = Date.distantPast
         }
 
         // IDEA: validate positions are inside the level coordinates
@@ -192,6 +194,7 @@ public class DatasetLoader {
         gameState = gameState.stateWithNewFoodPosition(level.initialFoodPosition.intVec2)
 
         return SnakeGameEnvironmentReplay(
+            datasetTimestamp: datasetTimestamp,
             initialGameState: gameState,
             foodPositions: foodPositions,
             player1Positions: player1Positions,

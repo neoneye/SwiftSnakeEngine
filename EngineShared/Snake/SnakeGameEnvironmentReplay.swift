@@ -3,6 +3,7 @@ import Foundation
 
 /// Replay the moves of a historic game.
 public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
+    public let datasetTimestamp: Date
     public let initialGameState: SnakeGameState
     internal let foodPositions: [IntVec2]
     internal let player1Positions: [IntVec2]
@@ -12,7 +13,8 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
     private var previousGameStates: [SnakeGameState] = []
     private var gameState: SnakeGameState
 
-    internal init(initialGameState: SnakeGameState, foodPositions: [IntVec2], player1Positions: [IntVec2], player2Positions: [IntVec2], player1CauseOfDeath: SnakeCauseOfDeath, player2CauseOfDeath: SnakeCauseOfDeath) {
+    internal init(datasetTimestamp: Date, initialGameState: SnakeGameState, foodPositions: [IntVec2], player1Positions: [IntVec2], player2Positions: [IntVec2], player1CauseOfDeath: SnakeCauseOfDeath, player2CauseOfDeath: SnakeCauseOfDeath) {
+        self.datasetTimestamp = datasetTimestamp
         self.initialGameState = initialGameState
         self.foodPositions = foodPositions
         self.player1Positions = player1Positions

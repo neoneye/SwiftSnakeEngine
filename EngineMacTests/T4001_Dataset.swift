@@ -110,11 +110,20 @@ class T4001_Dataset: XCTestCase {
 
     // MARK: -
 
+    func snakeDatasetResult_duel0() throws -> SnakeDatasetResult {
+        let data: Data = try SnakeDatasetBundle.load("duel0.snakeDataset")
+        return try SnakeDatasetResult(serializedData: data)
+    }
+
     func test300_loadSnakeDataset_duel() throws {
         let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "duel0.snakeDataset")
         XCTAssertGreaterThan(environment.player1Positions.count, 10)
         XCTAssertGreaterThan(environment.player2Positions.count, 10)
         XCTAssertGreaterThan(environment.foodPositions.count, 10)
+
+        let gameState: SnakeGameState = environment.reset()
+        XCTAssertTrue(gameState.player1.isInstalled)
+        XCTAssertTrue(gameState.player2.isInstalled)
     }
 
     func test301_loadSnakeDataset_solo() throws {
@@ -122,6 +131,25 @@ class T4001_Dataset: XCTestCase {
         XCTAssertGreaterThan(environment.player1Positions.count, 10)
         XCTAssertTrue(environment.player2Positions.isEmpty)
         XCTAssertGreaterThan(environment.foodPositions.count, 10)
+
+        let gameState: SnakeGameState = environment.reset()
+        XCTAssertTrue(gameState.player1.isInstalled)
+        XCTAssertFalse(gameState.player2.isInstalled)
+    }
+
+    func test302_loadSnakeDataset_datasetTimestamp() throws {
+        do {
+            let model: SnakeDatasetResult = try snakeDatasetResult_duel0()
+            let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(model: model)
+            XCTAssertGreaterThan(environment.datasetTimestamp, Date.distantPast)
+        }
+
+        do {
+            var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
+            model.clearTimestamp()
+            let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(model: model)
+            XCTAssertEqual(environment.datasetTimestamp, Date.distantPast)
+        }
     }
 
     func test310_loadSnakeDataset_error_noSuchFile() throws {
@@ -135,12 +163,7 @@ class T4001_Dataset: XCTestCase {
         }
     }
 
-    func snakeDatasetResult_duel0() throws -> SnakeDatasetResult {
-        let data: Data = try SnakeDatasetBundle.load("duel0.snakeDataset")
-        return try SnakeDatasetResult(serializedData: data)
-    }
-
-    func test310_loadSnakeDataset_error_noLevel() throws {
+    func test310_loadSnakeDataset_error_clearLevel() throws {
         var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
         model.clearLevel()
         do {
@@ -153,7 +176,7 @@ class T4001_Dataset: XCTestCase {
         }
     }
 
-    func test311_loadSnakeDataset_error_noFirstStep() throws {
+    func test311_loadSnakeDataset_error_clearFirstStep() throws {
         var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
         model.clearFirstStep()
         do {
@@ -166,7 +189,7 @@ class T4001_Dataset: XCTestCase {
         }
     }
 
-    func test312_loadSnakeDataset_error_noLastStep() throws {
+    func test312_loadSnakeDataset_error_clearLastStep() throws {
         var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
         model.clearLastStep()
         do {
