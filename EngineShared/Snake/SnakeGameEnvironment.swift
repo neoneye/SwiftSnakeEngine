@@ -12,12 +12,18 @@ public struct SnakeGameAction {
 
 public protocol SnakeGameEnvironment: class {
     /// Rewind the game to the initial state.
+    ///
+    /// - returns: The initial state of the world.
     func reset() -> SnakeGameState
 
     /// Undo to the previous step.
     ///
-    /// - returns: The new state of world. And `nil` when there is no previous step that can be rolled back to.
+    /// - returns: The new state of the world. And `nil` when there is no previous step that can be rolled back to.
     func undo() -> SnakeGameState?
 
+    /// Execute game mechanics for 1 time step.
+    /// 
+    /// - parameter action: Human input from keyboard or touch display for controlling the snakes.
+    /// - returns: The new state of the world.
     func step(action: SnakeGameAction) -> SnakeGameState
 }
