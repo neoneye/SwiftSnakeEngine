@@ -32,7 +32,6 @@ enum UpdateAction {
 }
 
 class IngameScene: SKScene {
-    private let initialGameState: SnakeGameState
     private let sound_snakeDies = SKAction.playSoundFileNamed("snake_dies.wav", waitForCompletion: false)
     private let sound_snakeEats = SKAction.playSoundFileNamed("snake_eats.wav", waitForCompletion: false)
     private let sound_snakeStep = SKAction.playSoundFileNamed("snake_step.wav", waitForCompletion: false)
@@ -48,50 +47,49 @@ class IngameScene: SKScene {
 	private var trainingSessionURLs: [URL]
 	private var gameState: SnakeGameState
 	private var gameNode: SnakeGameNode
-    private let gameExecuter: SnakeGameExecuter
-	private var previousGameStates: [SnakeGameState] = []
+    private let environment: SnakeGameEnvironment
+    private var pendingMovement_player1: SnakeBodyMovement
+    private var pendingMovement_player2: SnakeBodyMovement
 
 	class func createHumanVsNone() -> IngameScene {
-        let gameExecuter: SnakeGameExecuter = SnakeGameExecuterInteractive()
 		let gameState = SnakeGameState.create(
 			player1: .human,
 			player2: .none,
 			levelName: "Level 0.csv"
 		)
-        return IngameScene(initialGameState: gameState, gameExecuter: gameExecuter)
+        let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+            initialGameState: gameState
+        )
+        return IngameScene(environment: environment)
 	}
 
     class func createBotVsNone() -> IngameScene {
-        let gameExecuter: SnakeGameExecuter = SnakeGameExecuterInteractive()
         let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
         let gameState = SnakeGameState.create(
             player1: .bot(snakeBotType: snakeBotType),
             player2: .none,
             levelName: "Level 0.csv"
         )
-        return IngameScene(initialGameState: gameState, gameExecuter: gameExecuter)
+        let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+            initialGameState: gameState
+        )
+        return IngameScene(environment: environment)
     }
 
     class func createReplay() -> IngameScene {
-        let gameExecuter = SnakeGameExecuterReplay.create()
-        let gameState: SnakeGameState = gameExecuter.initialGameState
-        return IngameScene(initialGameState: gameState, gameExecuter: gameExecuter)
+        let environment = SnakeGameEnvironmentReplay.create()
+        return IngameScene(environment: environment)
     }
 
-    init(initialGameState: SnakeGameState, gameExecuter: SnakeGameExecuter) {
-        log.debug("level: \(initialGameState.level)")
-        log.debug("player1: \(initialGameState.player1)")
-        log.debug("player2: \(initialGameState.player2)")
-        let initialFoodPosition: String = initialGameState.foodPosition?.debugDescription ?? "No food"
-        log.debug("food position: \(initialFoodPosition)")
-
-        self.initialGameState = initialGameState
-        self.gameExecuter = gameExecuter
+    init(environment: SnakeGameEnvironment) {
+        self.environment = environment
         self.trainingSessionUUID = UUID()
         self.trainingSessionURLs = []
-        self.gameState = initialGameState
+        self.gameState = environment.reset()
         self.gameNode = SnakeGameNode()
         self.gameNodeNeedRedraw.insert(.newGame)
+        self.pendingMovement_player1 = .dontMove
+        self.pendingMovement_player2 = .dontMove
         super.init(size: CGSize(width: 100, height: 100))
         self.scaleMode = .resizeFill
     }
@@ -173,6 +171,18 @@ class IngameScene: SKScene {
         needBecomeFirstResponder = true
     }
 
+    func restartGame() {
+        //log.debug("restartGame")
+        pendingUpdateAction = UpdateAction.initialUpdateAction
+        isPaused = false
+        gameNodeNeedRedraw.insert(.newGame)
+        needLayout = true
+        needSendingBeginNewGame = true
+        trainingSessionUUID = UUID()
+        trainingSessionURLs = []
+
+        self.gameState = environment.reset()
+    }
 
     #if os(iOS)
 
@@ -400,21 +410,6 @@ class IngameScene: SKScene {
     }
     #endif
 
-	func restartGame() {
-		//log.debug("restartGame")
-		pendingUpdateAction = UpdateAction.initialUpdateAction
-		isPaused = false
-        gameNodeNeedRedraw.insert(.newGame)
-		needLayout = true
-        needSendingBeginNewGame = true
-		previousGameStates = []
-		gameState = initialGameState
-		trainingSessionUUID = UUID()
-		trainingSessionURLs = []
-        gameExecuter.reset()
-        gameState = gameExecuter.placeNewFood(gameState)
-	}
-
     #if os(macOS)
     override func keyDown(with event: NSEvent) {
 		if AppConstant.ignoreRepeatingKeyDownEvents && event.isARepeat {
@@ -508,14 +503,12 @@ class IngameScene: SKScene {
             userInput_stepBackwardOnce_ifSingleHuman()
             return
         }
-        let newGameState: SnakeGameState
         switch player.id {
         case .player1:
-            newGameState = gameState.updatePendingMovementForPlayer1(movement)
+            pendingMovement_player1 = movement
         case .player2:
-            newGameState = gameState.updatePendingMovementForPlayer2(movement)
+            pendingMovement_player2 = movement
         }
-        self.gameState = newGameState
         self.isPaused = false
         self.pendingUpdateAction = .stepForwardContinuously
     }
@@ -560,10 +553,6 @@ class IngameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
 		super.update(currentTime)
 
-        if gameNodeNeedRedraw.contains(.newGame) {
-            self.gameState = self.gameExecuter.computeNextBotMovement(gameState)
-        }
-
         let updateAction = self.pendingUpdateAction
         switch updateAction {
         case .doNothing:
@@ -605,9 +594,20 @@ class IngameScene: SKScene {
 	}
 
 	func stepForward() {
-        self.gameState = self.gameState.preventHumanCollisions()
+        var possibleGameState: SnakeGameState = self.gameState
+        if self.pendingMovement_player1 != .dontMove {
+            let movement: SnakeBodyMovement = self.pendingMovement_player1
+            self.pendingMovement_player1 = .dontMove
+            possibleGameState = possibleGameState.updatePendingMovementForPlayer1(movement)
+        }
+        if self.pendingMovement_player2 != .dontMove {
+            let movement: SnakeBodyMovement = self.pendingMovement_player2
+            self.pendingMovement_player2 = .dontMove
+            possibleGameState = possibleGameState.updatePendingMovementForPlayer2(movement)
+        }
+        possibleGameState = possibleGameState.preventHumanCollisions()
 
-		let isWaiting = self.gameState.isWaitingForInput()
+        let isWaiting = possibleGameState.isWaitingForInput()
 		if isWaiting {
 			//log.debug("waiting for input")
 			return
@@ -615,28 +615,55 @@ class IngameScene: SKScene {
 
 		let oldGameState: SnakeGameState = self.gameState
 		//log.debug("all the players have made their decision")
-		do {
-			let state: SnakeGameState = self.gameState
-//			log.debug("appending: \(state.player2.debugDescription)")
-			previousGameStates.append(state)
-		}
 
-		if AppConstant.killPlayer2AfterAFewSteps {
-			if gameState.player2.isInstalledAndAlive && gameState.numberOfSteps == 10 {
-				var player: SnakePlayer = gameState.player2
-                player = player.kill(.killAfterAFewTimeSteps)
-				gameState = gameState.stateWithNewPlayer2(player)
-			}
-		}
-
-		let newGameState2 = gameExecuter.executeStep(gameState)
-		gameState = newGameState2
+        let action = SnakeGameAction(
+            player1: possibleGameState.player1.pendingMovement,
+            player2: possibleGameState.player2.pendingMovement
+        )
+        let newGameState = environment.step(action: action)
+		gameState = newGameState
 
         gameNodeNeedRedraw.insert(.stepForward)
 
+        didUpdateGameState(oldGameState: oldGameState, newGameState: newGameState)
+
+		if AppConstant.saveTrainingData {
+            let url: URL = self.gameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
+			trainingSessionURLs.append(url)
+		}
+
+        // The game is over when both players are dead
+        let player1Alive: Bool = self.gameState.player1.isInstalledAndAlive
+        let player2Alive: Bool = self.gameState.player2.isInstalledAndAlive
+        let oneOrMorePlayersAreAlive: Bool = player1Alive || player2Alive
+        if !oneOrMorePlayersAreAlive {
+            log.debug("All the players are dead.")
+            self.isPaused = true
+            // IDEA: Determine the winner: the longest snake, or the longest lived snake, or a combo?
+            // IDEA: pass on which player won/loose.
+            PostProcessTrainingData.process(trainingSessionUUID: self.trainingSessionUUID, urls: self.trainingSessionURLs)
+            return
+        }
+    }
+
+	func stepBackward() {
+        let oldGameState: SnakeGameState = self.gameState
+
+        guard let newGameState: SnakeGameState = environment.undo() else {
+            log.info("Canot step backward. There is no previous state to rewind back to.")
+			return
+		}
+
+        self.gameState = newGameState
+        gameNodeNeedRedraw.insert(.stepBackward)
+
+        didUpdateGameState(oldGameState: oldGameState, newGameState: newGameState)
+	}
+
+    func didUpdateGameState(oldGameState: SnakeGameState, newGameState: SnakeGameState) {
         do {
             let oldLength: UInt = oldGameState.player1.snakeBody.length
-            let newLength: UInt = self.gameState.player1.snakeBody.length
+            let newLength: UInt = newGameState.player1.snakeBody.length
             if oldLength != newLength {
                 sendInfoEvent(.player1_didUpdateLength(newLength))
             }
@@ -644,76 +671,44 @@ class IngameScene: SKScene {
 
         do {
             let oldLength: UInt = oldGameState.player2.snakeBody.length
-            let newLength: UInt = self.gameState.player2.snakeBody.length
+            let newLength: UInt = newGameState.player2.snakeBody.length
             if oldLength != newLength {
                 sendInfoEvent(.player2_didUpdateLength(newLength))
             }
         }
 
-		if oldGameState.foodPosition != self.gameState.foodPosition {
-			if let pos: IntVec2 = oldGameState.foodPosition {
-				let point = cgPointFromGridPoint(pos)
-				explode(at: point, for: 0.25, zPosition: 200) {}
-				playSoundEffect(sound_snakeEats)
-			}
-		}
+        if oldGameState.foodPosition != newGameState.foodPosition {
+            if let pos: IntVec2 = oldGameState.foodPosition {
+                let point = cgPointFromGridPoint(pos)
+                explode(at: point, for: 0.25, zPosition: 200) {}
+                playSoundEffect(sound_snakeEats)
+            }
+        }
 
-        self.gameState = self.gameExecuter.computeNextBotMovement(gameState)
+        let human1Alive: Bool = newGameState.player1.isInstalledAndAliveAndHuman
+        let human2Alive: Bool = newGameState.player2.isInstalledAndAliveAndHuman
+        if human1Alive || human2Alive {
+            playSoundEffect(sound_snakeStep)
+        }
 
-		let human1Alive: Bool = gameState.player1.isInstalledAndAliveAndHuman
-		let human2Alive: Bool = gameState.player2.isInstalledAndAliveAndHuman
-		if human1Alive || human2Alive {
-			playSoundEffect(sound_snakeStep)
-		}
-		
-		let player1Dies: Bool = oldGameState.player1.isInstalledAndAlive && self.gameState.player1.isInstalledAndDead
-		let player2Dies: Bool = oldGameState.player2.isInstalledAndAlive && self.gameState.player2.isInstalledAndDead
-		if player1Dies || player2Dies {
-			playSoundEffect(sound_snakeDies)
-		}
+        let player1Dies: Bool = oldGameState.player1.isInstalledAndAlive && newGameState.player1.isInstalledAndDead
+        let player2Dies: Bool = oldGameState.player2.isInstalledAndAlive && newGameState.player2.isInstalledAndDead
+        if player1Dies || player2Dies {
+            playSoundEffect(sound_snakeDies)
+        }
         if player1Dies {
-            sendInfoEvent(.player1_dead(self.gameState.player1.causesOfDeath))
+            sendInfoEvent(.player1_dead(newGameState.player1.causesOfDeath))
         }
         if player2Dies {
-            sendInfoEvent(.player2_dead(self.gameState.player2.causesOfDeath))
+            sendInfoEvent(.player2_dead(newGameState.player2.causesOfDeath))
         }
-
-        let player1Alive: Bool = self.gameState.player1.isInstalledAndAlive
-        let player2Alive: Bool = self.gameState.player2.isInstalledAndAlive
-        let oneOrMorePlayersAreAlive: Bool = player1Alive || player2Alive
-		if !oneOrMorePlayersAreAlive {
-			self.isPaused = true
-			// IDEA: Determine the winner: the longest snake, or the longest lived snake, or a combo?
-			// IDEA: pass on which player won/loose.
-			PostProcessTrainingData.process(trainingSessionUUID: self.trainingSessionUUID, urls: self.trainingSessionURLs)
-			return
-		}
-
-        self.gameState = gameExecuter.placeNewFood(self.gameState)
-
-		if AppConstant.saveTrainingData {
-			let url: URL = oldGameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
-			trainingSessionURLs.append(url)
-		}
-
-        self.gameState = self.gameExecuter.endOfStep(self.gameState)
     }
-
-	func stepBackward() {
-		guard var state: SnakeGameState = previousGameStates.popLast() else {
-            log.info("Canot step backward. There is no previous state to rewind back to.")
-			return
-		}
-        gameExecuter.undo()
-		state = state.clearPendingMovementAndPendingLengthForHumanPlayers()
-//		log.debug("rewind to: \(state.player2.debugDescription)")
-		gameState = state
-        gameNodeNeedRedraw.insert(.stepBackward)
-	}
 
 	func schedule_stepBackwardOnce() {
 		pendingUpdateAction = .stepBackwardOnce
         isPaused = false
+        pendingMovement_player1 = .dontMove
+        pendingMovement_player2 = .dontMove
 	}
 
 	func schedule_stepForwardOnce() {

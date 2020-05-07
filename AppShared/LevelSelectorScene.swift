@@ -208,8 +208,10 @@ class LevelSelectorScene: SKScene {
 //		let transition = SKTransition.doorsOpenHorizontal(withDuration: 1)
 //		let transition = SKTransition.doorsCloseHorizontal(withDuration: 1)
 
-        let gameExecuter: SnakeGameExecuter = SnakeGameExecuterInteractive()
-        let newScene = IngameScene(initialGameState: gameState, gameExecuter: gameExecuter)
+        let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+            initialGameState: gameState
+        )
+        let newScene = IngameScene(environment: environment)
 		scene?.view?.presentScene(newScene, transition: transition)
 	}
 

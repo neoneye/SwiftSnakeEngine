@@ -17,8 +17,6 @@ extension SnakeCauseOfDeath {
             return SnakeDatasetCauseOfDeath.stuckInLoop
         case .noMoreFood:
             return SnakeDatasetCauseOfDeath.other
-        case .killAfterAFewTimeSteps:
-            return SnakeDatasetCauseOfDeath.other
         }
     }
 }
@@ -105,6 +103,7 @@ extension SnakeGameState {
 				$0.y = position.y
 			}
 			optionalFoodPosition = SnakeDatasetStep.OneOf_OptionalFoodPosition.foodPosition(foodPosition)
+            log.debug("#\(self.numberOfSteps) saving food position: \(position)")
 		}
 
 		// Player A
@@ -114,6 +113,10 @@ extension SnakeGameState {
 			if player.isInstalled {
 				let model: SnakeDatasetPlayer = player.toSnakeDatasetPlayer()
 				optionalPlayerA = SnakeDatasetStep.OneOf_OptionalPlayerA.playerA(model)
+
+                let pretty = PrettyPrintArray.simple
+                let positions: [IntVec2] = player.snakeBody.positionArray()
+                log.debug("#\(self.numberOfSteps) saving player1: \(pretty.format(positions))")
 			}
 		}
 
@@ -124,6 +127,10 @@ extension SnakeGameState {
 			if player.isInstalled {
 				let model: SnakeDatasetPlayer = player.toSnakeDatasetPlayer()
 				optionalPlayerB = SnakeDatasetStep.OneOf_OptionalPlayerB.playerB(model)
+
+                let pretty = PrettyPrintArray.simple
+                let positions: [IntVec2] = player.snakeBody.positionArray()
+                log.debug("#\(self.numberOfSteps) saving player2: \(pretty.format(positions))")
 			}
 		}
 
@@ -208,7 +215,7 @@ public class PostProcessTrainingData {
             foodPositions.append(step.foodPosition)
         }
 
-        // Extract "head positions" for "Player A"
+        // Extract all "head positions" for "Player A"
         var playerAPositions: [SnakeDatasetPosition] = []
         for (index, step) in stepArray.enumerated() {
             guard case .playerA(let player)? = step.optionalPlayerA else {
@@ -217,18 +224,19 @@ public class PostProcessTrainingData {
                 }
                 break
             }
-            guard player.alive else {
-                log.debug("Player A is dead.  Index: \(index)")
-                break
-            }
             guard let headPosition: SnakeDatasetPosition = player.bodyPositions.first else {
                 log.error("Expected player A bodyPositions to be non-empty, but it's empty. Index: \(index).")
+                break
+            }
+            let previousPosition: SnakeDatasetPosition? = playerAPositions.last
+            guard previousPosition != headPosition else {
+                log.debug("Player A is dead. The position is no longer changing. Index: \(index)")
                 break
             }
             playerAPositions.append(headPosition)
         }
 
-        // Extract "head positions" for "Player B"
+        // Extract all "head positions" for "Player B"
         var playerBPositions: [SnakeDatasetPosition] = []
         for (index, step) in stepArray.enumerated() {
             guard case .playerB(let player)? = step.optionalPlayerB else {
@@ -237,16 +245,36 @@ public class PostProcessTrainingData {
                 }
                 break
             }
-            guard player.alive else {
-                log.debug("Player B is dead.  Index: \(index)")
-                break
-            }
             guard let headPosition: SnakeDatasetPosition = player.bodyPositions.first else {
                 log.error("Expected player B bodyPositions to be non-empty, but it's empty. Index: \(index).")
                 break
             }
+            let previousPosition: SnakeDatasetPosition? = playerBPositions.last
+            guard previousPosition != headPosition else {
+                log.debug("Player B is dead. The position is no longer changing. Index: \(index)")
+                break
+            }
             playerBPositions.append(headPosition)
         }
+
+        // Discard the first head position,
+        // Since the initial snake body, has a its head position at the same position.
+        // We are only interested in saving the movements of the snake.
+        // We are not interested in a snake that doesn't move in the first step.
+        if !playerAPositions.isEmpty {
+            playerAPositions.removeFirst(1)
+        }
+        if !playerBPositions.isEmpty {
+            playerBPositions.removeFirst(1)
+        }
+
+        let positions1: [UIntVec2] = playerAPositions.toUIntVec2Array()
+        let positions2: [UIntVec2] = playerBPositions.toUIntVec2Array()
+
+        let pretty = PrettyPrintArray.simple
+        log.debug("Post processing. all move positions for player1: \(pretty.format(positions1))")
+        log.debug("Post processing. all move positions for player2: \(pretty.format(positions2))")
+
 
         let date = Date()
 

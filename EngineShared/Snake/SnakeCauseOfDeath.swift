@@ -23,9 +23,6 @@ public enum SnakeCauseOfDeath {
 
     /// The player have died from starvation.
     case noMoreFood
-
-    /// Used during development, to run a few iterations of a game, and then automatically terminate the game.
-    case killAfterAFewTimeSteps
 }
 
 extension SnakeCauseOfDeath {
@@ -49,8 +46,6 @@ extension SnakeCauseOfDeath {
             return "Stuck in a loop!"
         case .noMoreFood:
             return "Starvation!"
-        case .killAfterAFewTimeSteps:
-            return "Autokill!"
         }
     }
 
@@ -68,8 +63,6 @@ extension SnakeCauseOfDeath {
             return "Expected the snake to make progress growing, but the snake continues doing the same moves over and over."
         case .noMoreFood:
             return "There is no more food."
-        case .killAfterAFewTimeSteps:
-            return "Killed automatically after a few steps.\nThis is useful during development."
         }
     }
 }
