@@ -1,12 +1,12 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-/// Detect if a player has gotten stuck and doing the same things over and over.
+/// Detect if a player has gotten stuck and is doing the same things over and over.
 ///
 /// Undo is possible in the UI. This makes debugging easiser, but it also complicates the data model.
 /// The user can step back/forward in time and inspect what is going on.
 ///
-/// The `StuckSnakeDetectorForwardHistory` in it self does not support undo.
+/// The `StuckSnakeDetectorForwardHistory` in itself does not support undo.
 ///
 /// The `StuckSnakeDetector` makes undo possible.
 public class StuckSnakeDetector {
@@ -48,7 +48,7 @@ public class StuckSnakeDetector {
 }
 
 
-/// Detect if a player has gotten stuck and doing the same things over and over.
+/// Detect if a player has gotten stuck and is doing the same things over and over.
 ///
 /// It's only possible to append items to this class.
 ///
