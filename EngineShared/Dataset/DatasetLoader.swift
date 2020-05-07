@@ -101,6 +101,7 @@ public class DatasetLoader {
         }
         levelBuilder.initialFoodPosition = initialFoodPosition
 
+        // Obtain player1 body positions.
         var player1: SnakePlayer?
         if let playerResult: DatasetLoader.SnakePlayerResult = try firstStep.snakePlayerResultWithPlayerA() {
             if playerResult.isAlive {
@@ -114,6 +115,7 @@ public class DatasetLoader {
             }
         }
 
+        // Obtain player2 body positions.
         var player2: SnakePlayer?
         if let playerResult: DatasetLoader.SnakePlayerResult = try firstStep.snakePlayerResultWithPlayerB() {
             if playerResult.isAlive {
@@ -127,6 +129,7 @@ public class DatasetLoader {
             }
         }
 
+        // Obtain the cause of death for each player
         var player1CauseOfDeath: SnakeCauseOfDeath = .other
         if let playerResult: DatasetLoader.SnakePlayerResult = try lastStep.snakePlayerResultWithPlayerA() {
             if verbose {
@@ -156,6 +159,7 @@ public class DatasetLoader {
             log.debug("food: \(pretty.format(foodPositions))")
         }
 
+        // Extract the timestamp of when this dataset was created.
         let datasetTimestamp: Date
         if model.hasTimestamp {
             let t: Google_Protobuf_Timestamp = model.timestamp
@@ -171,6 +175,10 @@ public class DatasetLoader {
         // IDEA: validate that the food is placed on an empty cell
         // IDEA: use unsigned integers for positions, that never can be negative. Less error handling.
 
+        // Ensure that there is no cheating.
+        // The snake can only move by 1 unit for each step.
+        // It's not allowed for the snake to jump more than 1 unit.
+        // It's not allowed for the snake to stand still and move by less than 1 unit.
         guard ValidateDistance.distanceIsOne(player1Positions) else {
             throw DatasetLoaderError.runtimeError(message: "Invalid player1 positions. All moves must be by a distance of 1 unit.")
         }
@@ -178,9 +186,11 @@ public class DatasetLoader {
             throw DatasetLoaderError.runtimeError(message: "Invalid player2 positions. All moves must be by a distance of 1 unit.")
         }
 
+        // Create the initial game state with its initial configuration.
         var gameState = SnakeGameState.empty()
         gameState = gameState.stateWithNewLevel(level)
 
+        // Install player 1, if there is data for this player.
         if let player: SnakePlayer = player1 {
             gameState = gameState.stateWithNewPlayer1(player)
         } else {
@@ -189,6 +199,7 @@ public class DatasetLoader {
             gameState = gameState.stateWithNewPlayer1(player)
         }
 
+        // Install player 2, if there is data for this player.
         if let player: SnakePlayer = player2 {
             gameState = gameState.stateWithNewPlayer2(player)
         } else {
@@ -197,6 +208,7 @@ public class DatasetLoader {
             gameState = gameState.stateWithNewPlayer2(player)
         }
 
+        // Place the initial food.
         gameState = gameState.stateWithNewFoodPosition(level.initialFoodPosition.intVec2)
 
         return SnakeGameEnvironmentReplay(
