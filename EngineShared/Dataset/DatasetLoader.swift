@@ -1,5 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
+import SwiftProtobuf
 
 public class DatasetLoader {
     enum DatasetLoaderError: Error {
@@ -70,6 +71,181 @@ public class DatasetLoader {
         )
     }
 
+    internal static func snakeGameEnvironmentReplay(resourceName: String, verbose: Bool) throws -> SnakeGameEnvironmentReplay {
+        let data: Data = try SnakeDatasetBundle.load(resourceName)
+        let model: SnakeDatasetResult = try SnakeDatasetResult(serializedData: data)
+        return try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: verbose)
+    }
+
+    internal static func snakeGameEnvironmentReplay(model: SnakeDatasetResult, verbose: Bool) throws -> SnakeGameEnvironmentReplay {
+        guard model.hasLevel else {
+            throw DatasetLoaderError.runtimeError(message: "Expected the file to contain a 'level' snapshot of the board, but got none.")
+        }
+        guard model.hasFirstStep else {
+            throw DatasetLoaderError.runtimeError(message: "Expected the file to contain a 'firstStep' snapshot of the board, but got none.")
+        }
+        guard model.hasLastStep else {
+            throw DatasetLoaderError.runtimeError(message: "Expected the file to contain a 'lastStep' snapshot of the board, but got none.")
+        }
+
+        let firstStep: SnakeDatasetStep = model.firstStep
+        let lastStep: SnakeDatasetStep = model.lastStep
+
+        let foodPositions: [IntVec2] = model.foodPositions.toIntVec2Array()
+        let player1Positions: [IntVec2] = model.playerAPositions.toIntVec2Array()
+        let player2Positions: [IntVec2] = model.playerBPositions.toIntVec2Array()
+
+        let levelBuilder: SnakeLevelBuilder = try DatasetLoader.snakeLevelBuilder(levelModel: model.level)
+        guard let initialFoodPosition: UIntVec2 = foodPositions.first?.uintVec2() else {
+            throw DatasetLoaderError.runtimeError(message: "Expected the file to contain one or more foodPositions, but got none.")
+        }
+        levelBuilder.initialFoodPosition = initialFoodPosition
+
+        // Obtain player1 body positions.
+        var player1: SnakePlayer?
+        if let playerResult: DatasetLoader.SnakePlayerResult = try firstStep.snakePlayerResultWithPlayerA() {
+            if playerResult.isAlive {
+                levelBuilder.player1_body = playerResult.snakeBody
+
+                if let role: SnakePlayerRole = SnakePlayerRole.create(uuid: playerResult.uuid) {
+                    var player = SnakePlayer.create(id: .player1, role: role)
+                    player = player.playerWithNewSnakeBody(playerResult.snakeBody)
+                    player1 = player
+                }
+            }
+        }
+
+        // Obtain player2 body positions.
+        var player2: SnakePlayer?
+        if let playerResult: DatasetLoader.SnakePlayerResult = try firstStep.snakePlayerResultWithPlayerB() {
+            if playerResult.isAlive {
+                levelBuilder.player2_body = playerResult.snakeBody
+
+                if let role: SnakePlayerRole = SnakePlayerRole.create(uuid: playerResult.uuid) {
+                    var player = SnakePlayer.create(id: .player2, role: role)
+                    player = player.playerWithNewSnakeBody(playerResult.snakeBody)
+                    player2 = player
+                }
+            }
+        }
+
+        // Obtain the cause of death for each player
+        var player1CauseOfDeath: SnakeCauseOfDeath = .other
+        if let playerResult: DatasetLoader.SnakePlayerResult = try lastStep.snakePlayerResultWithPlayerA() {
+            if verbose {
+                log.debug("last step for player 1. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
+            }
+            player1CauseOfDeath = playerResult.causeOfDeath
+        }
+        var player2CauseOfDeath: SnakeCauseOfDeath = .other
+        if let playerResult: DatasetLoader.SnakePlayerResult = try lastStep.snakePlayerResultWithPlayerB() {
+            if verbose {
+                log.debug("last step for player 2. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
+            }
+            player2CauseOfDeath = playerResult.causeOfDeath
+        }
+
+        let level: SnakeLevel = levelBuilder.level()
+        if verbose {
+            log.debug("level: \(level)")
+            log.debug("level.id: '\(model.level.uuid)'")
+            log.debug("food positions.count: \(foodPositions.count)")
+            log.debug("player1 positions.count: \(player1Positions.count)")
+            log.debug("player2 positions.count: \(player2Positions.count)")
+
+            let pretty = PrettyPrintArray(prefixLength: 10, suffixLength: 2, separator: ",", ellipsis: "...")
+            log.debug("player1: \(pretty.format(player1Positions))")
+            log.debug("player2: \(pretty.format(player2Positions))")
+            log.debug("food: \(pretty.format(foodPositions))")
+        }
+
+        // Extract the timestamp of when this dataset was created.
+        let datasetTimestamp: Date
+        if model.hasTimestamp {
+            let t: Google_Protobuf_Timestamp = model.timestamp
+            datasetTimestamp = t.date
+        } else {
+            datasetTimestamp = Date.distantPast
+        }
+
+        // IDEA: check hashes of the loaded level corresponds with the level files in the file system.
+        // IDEA: validate positions are inside the level coordinates
+        // IDEA: validate that none of the snakes overlap with each other
+        // IDEA: validate that the snakes only occupy empty cells
+        // IDEA: validate that the food is placed on an empty cell
+        // IDEA: use unsigned integers for positions, that never can be negative. Less error handling.
+
+        // Ensure that there is no cheating.
+        // The snake can only move by 1 unit for each step.
+        // It's not allowed for the snake to jump more than 1 unit.
+        // It's not allowed for the snake to stand still and move by less than 1 unit.
+        guard ValidateDistance.distanceIsOne(player1Positions) else {
+            throw DatasetLoaderError.runtimeError(message: "Invalid player1 positions. All moves must be by a distance of 1 unit.")
+        }
+        guard ValidateDistance.distanceIsOne(player2Positions) else {
+            throw DatasetLoaderError.runtimeError(message: "Invalid player2 positions. All moves must be by a distance of 1 unit.")
+        }
+
+        // Create the initial game state with its initial configuration.
+        var gameState = SnakeGameState.empty()
+        gameState = gameState.stateWithNewLevel(level)
+
+        // Install player 1, if there is data for this player.
+        if let player: SnakePlayer = player1 {
+            gameState = gameState.stateWithNewPlayer1(player)
+        } else {
+            var player = SnakePlayer.create(id: .player1, role: .none)
+            player = player.uninstall()
+            gameState = gameState.stateWithNewPlayer1(player)
+        }
+
+        // Install player 2, if there is data for this player.
+        if let player: SnakePlayer = player2 {
+            gameState = gameState.stateWithNewPlayer2(player)
+        } else {
+            var player = SnakePlayer.create(id: .player2, role: .none)
+            player = player.uninstall()
+            gameState = gameState.stateWithNewPlayer2(player)
+        }
+
+        // Place the initial food.
+        gameState = gameState.stateWithNewFoodPosition(level.initialFoodPosition.intVec2)
+
+        return SnakeGameEnvironmentReplay(
+            datasetTimestamp: datasetTimestamp,
+            initialGameState: gameState,
+            foodPositions: foodPositions,
+            player1Positions: player1Positions,
+            player2Positions: player2Positions,
+            player1CauseOfDeath: player1CauseOfDeath,
+            player2CauseOfDeath: player2CauseOfDeath
+        )
+    }
+
+}
+
+extension SnakeDatasetStep {
+    fileprivate func snakePlayerResultWithPlayerA() throws -> DatasetLoader.SnakePlayerResult? {
+        guard case .playerA(let player)? = self.optionalPlayerA else {
+            return nil
+        }
+        do {
+            return try DatasetLoader.snakePlayerResult(playerModel: player)
+        } catch {
+            throw DatasetLoader.DatasetLoaderError.runtimeError(message: "Unable to parse player A. \(error)")
+        }
+    }
+
+    fileprivate func snakePlayerResultWithPlayerB() throws -> DatasetLoader.SnakePlayerResult? {
+        guard case .playerB(let player)? = self.optionalPlayerB else {
+            return nil
+        }
+        do {
+            return try DatasetLoader.snakePlayerResult(playerModel: player)
+        } catch {
+            throw DatasetLoader.DatasetLoaderError.runtimeError(message: "Unable to parse player B. \(error)")
+        }
+    }
 }
 
 extension Array where Element == SnakeDatasetPosition {

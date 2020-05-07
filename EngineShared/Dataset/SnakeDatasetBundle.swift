@@ -2,23 +2,23 @@
 import Foundation
 
 class SnakeDatasetBundle {
-    public class func load(_ resourceName: String) -> Data {
+    public enum LoadError: Error {
+        case runtimeError(message: String)
+    }
+
+    public class func load(_ resourceName: String) throws -> Data {
         let bundleName = "SnakeDataset.bundle"
         guard let bundleUrl: URL = Bundle(for: SnakeDatasetBundle.self).url(forResource: bundleName, withExtension: nil) else {
-            log.error("Cannot locate bundle: '\(bundleName)'")
-            fatalError()
+            throw LoadError.runtimeError(message: "Cannot locate bundle: '\(bundleName)'")
         }
         guard let bundle: Bundle = Bundle(url: bundleUrl) else {
-            log.error("Unable to create bundle from url: '\(bundleUrl)'")
-            fatalError()
+            throw LoadError.runtimeError(message: "Unable to create bundle from url: '\(bundleUrl)'")
         }
         guard let dataUrl: URL = bundle.url(forResource: resourceName, withExtension: nil) else {
-            log.error("Unable to locate resource: '\(resourceName)' inside bundle at: '\(bundleUrl)'")
-            fatalError()
+            throw LoadError.runtimeError(message: "Unable to locate resource: '\(resourceName)' inside bundle at: '\(bundleUrl)'")
         }
         guard let data = try? Data(contentsOf: dataUrl) else {
-            log.error("Unable to load data from url: \(dataUrl)")
-            fatalError()
+            throw LoadError.runtimeError(message: "Unable to load data from url: \(dataUrl)")
         }
         return data
     }

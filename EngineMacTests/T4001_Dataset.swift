@@ -6,8 +6,9 @@ import XCTest
 /// 1st step: convert from a model representation to a protobuf representation.
 /// 2nd step: convert back to a model representation.
 /// 3rd step: verify that the desired model data has been preserved.
-class T4000_Dataset: XCTestCase {
+class T4001_Dataset: XCTestCase {
 
+    // MARK: -
     func createSnakePlayer_human() -> SnakePlayer {
         let positions: [IntVec2] = [
             IntVec2(x: 10, y: 10),
@@ -80,6 +81,8 @@ class T4000_Dataset: XCTestCase {
         XCTAssertEqual(result.snakeBody, originalPlayer.snakeBody)
     }
 
+    // MARK: -
+
     func test200_serializationRoundtrip_level() throws {
         let uuid = UUID(uuidString: "cdeeadf2-31c9-48f4-852f-778b58086dd0")!
         guard let originalLevel: SnakeLevel = SnakeLevelManager.shared.level(id: uuid) else {
@@ -105,4 +108,110 @@ class T4000_Dataset: XCTestCase {
         XCTAssertEqual(level.player2_body.head.position, IntVec2.zero)
     }
 
+    // MARK: -
+
+    func snakeDatasetResult_duel0() throws -> SnakeDatasetResult {
+        let data: Data = try SnakeDatasetBundle.load("duel0.snakeDataset")
+        return try SnakeDatasetResult(serializedData: data)
+    }
+
+    func test300_loadSnakeDataset_duel() throws {
+        let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "duel0.snakeDataset", verbose: false)
+        XCTAssertGreaterThan(environment.player1Positions.count, 10)
+        XCTAssertGreaterThan(environment.player2Positions.count, 10)
+        XCTAssertGreaterThan(environment.foodPositions.count, 10)
+
+        let gameState: SnakeGameState = environment.reset()
+        XCTAssertTrue(gameState.player1.isInstalled)
+        XCTAssertTrue(gameState.player2.isInstalled)
+    }
+
+    func test301_loadSnakeDataset_solo() throws {
+        let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "solo0.snakeDataset", verbose: false)
+        XCTAssertGreaterThan(environment.player1Positions.count, 10)
+        XCTAssertTrue(environment.player2Positions.isEmpty)
+        XCTAssertGreaterThan(environment.foodPositions.count, 10)
+
+        let gameState: SnakeGameState = environment.reset()
+        XCTAssertTrue(gameState.player1.isInstalled)
+        XCTAssertFalse(gameState.player2.isInstalled)
+    }
+
+    func test302_loadSnakeDataset_datasetTimestamp() throws {
+        do {
+            let model: SnakeDatasetResult = try snakeDatasetResult_duel0()
+            let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
+            XCTAssertGreaterThan(environment.datasetTimestamp, Date.distantPast)
+        }
+
+        do {
+            var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
+            model.clearTimestamp()
+            let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
+            XCTAssertEqual(environment.datasetTimestamp, Date.distantPast)
+        }
+    }
+
+    func test310_loadSnakeDataset_error_noSuchFile() throws {
+        do {
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "nonExistingFilename.snakeDataset", verbose: false)
+            XCTFail()
+        } catch SnakeDatasetBundle.LoadError.runtimeError {
+            // success
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test310_loadSnakeDataset_error_clearLevel() throws {
+        var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
+        model.clearLevel()
+        do {
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
+            XCTFail()
+        } catch DatasetLoader.DatasetLoaderError.runtimeError(let message) {
+            XCTAssertTrue(message.contains("level"))
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test311_loadSnakeDataset_error_clearFirstStep() throws {
+        var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
+        model.clearFirstStep()
+        do {
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
+            XCTFail()
+        } catch DatasetLoader.DatasetLoaderError.runtimeError(let message) {
+            XCTAssertTrue(message.contains("firstStep"))
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test312_loadSnakeDataset_error_clearLastStep() throws {
+        var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
+        model.clearLastStep()
+        do {
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
+            XCTFail()
+        } catch DatasetLoader.DatasetLoaderError.runtimeError(let message) {
+            XCTAssertTrue(message.contains("lastStep"))
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test313_loadSnakeDataset_error_clearFoodPositions() throws {
+        var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
+        model.foodPositions = []
+        do {
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
+            XCTFail()
+        } catch DatasetLoader.DatasetLoaderError.runtimeError(let message) {
+            XCTAssertTrue(message.contains("food"))
+        } catch {
+            XCTFail()
+        }
+    }
 }
