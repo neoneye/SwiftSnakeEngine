@@ -201,4 +201,17 @@ class T4001_Dataset: XCTestCase {
             XCTFail()
         }
     }
+
+    func test313_loadSnakeDataset_error_clearFoodPositions() throws {
+        var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
+        model.foodPositions = []
+        do {
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model)
+            XCTFail()
+        } catch DatasetLoader.DatasetLoaderError.runtimeError(let message) {
+            XCTAssertTrue(message.contains("food"))
+        } catch {
+            XCTFail()
+        }
+    }
 }

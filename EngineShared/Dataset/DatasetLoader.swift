@@ -91,9 +91,15 @@ public class DatasetLoader {
         let firstStep: SnakeDatasetStep = model.firstStep
         let lastStep: SnakeDatasetStep = model.lastStep
 
-        let levelBuilder: SnakeLevelBuilder = try DatasetLoader.snakeLevelBuilder(levelModel: model.level)
+        let foodPositions: [IntVec2] = model.foodPositions.toIntVec2Array()
+        let player1Positions: [IntVec2] = model.playerAPositions.toIntVec2Array()
+        let player2Positions: [IntVec2] = model.playerBPositions.toIntVec2Array()
 
-        assignFoodPosition(levelBuilder: levelBuilder, stepModel: firstStep)
+        let levelBuilder: SnakeLevelBuilder = try DatasetLoader.snakeLevelBuilder(levelModel: model.level)
+        guard let initialFoodPosition: UIntVec2 = foodPositions.first?.uintVec2() else {
+            throw DatasetLoaderError.runtimeError(message: "Expected the file to contain one or more foodPositions, but got none.")
+        }
+        levelBuilder.initialFoodPosition = initialFoodPosition
 
         var player1: SnakePlayer?
         if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerA(stepModel: firstStep) {
@@ -137,10 +143,6 @@ public class DatasetLoader {
         log.debug("level: \(level)")
 
         // IDEA: check hashes of the loaded level with the level in the file system.
-
-        let foodPositions: [IntVec2] = model.foodPositions.toIntVec2Array()
-        let player1Positions: [IntVec2] = model.playerAPositions.toIntVec2Array()
-        let player2Positions: [IntVec2] = model.playerBPositions.toIntVec2Array()
 
         log.debug("level.id: '\(model.level.uuid)'")
         log.debug("food positions.count: \(foodPositions.count)")
@@ -202,14 +204,6 @@ public class DatasetLoader {
             player1CauseOfDeath: player1CauseOfDeath,
             player2CauseOfDeath: player2CauseOfDeath
         )
-    }
-
-    static func assignFoodPosition(levelBuilder: SnakeLevelBuilder, stepModel: SnakeDatasetStep) {
-        guard case .foodPosition(let foodPositionModel)? = stepModel.optionalFoodPosition else {
-            log.error("Expected file to contain a food position for the first step, but got none.")
-            fatalError()
-        }
-        levelBuilder.initialFoodPosition = UIntVec2(x: foodPositionModel.x, y: foodPositionModel.y)
     }
 
     private static func snakePlayerResultWithPlayerA(stepModel: SnakeDatasetStep) -> DatasetLoader.SnakePlayerResult? {
