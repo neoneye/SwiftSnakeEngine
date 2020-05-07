@@ -27,7 +27,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
     public static func create() -> SnakeGameEnvironmentReplay {
         let resourceName: String = "duel0.snakeDataset"
         do {
-            return try DatasetLoader.snakeGameEnvironmentReplay(resourceName: resourceName)
+            return try DatasetLoader.snakeGameEnvironmentReplay(resourceName: resourceName, verbose: true)
         } catch {
             log.error("Unable to load file: \(error)")
             fatalError()

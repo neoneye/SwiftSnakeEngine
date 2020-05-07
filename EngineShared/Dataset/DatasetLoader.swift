@@ -71,13 +71,13 @@ public class DatasetLoader {
         )
     }
 
-    internal static func snakeGameEnvironmentReplay(resourceName: String) throws -> SnakeGameEnvironmentReplay {
+    internal static func snakeGameEnvironmentReplay(resourceName: String, verbose: Bool) throws -> SnakeGameEnvironmentReplay {
         let data: Data = try SnakeDatasetBundle.load(resourceName)
         let model: SnakeDatasetResult = try SnakeDatasetResult(serializedData: data)
-        return try DatasetLoader.snakeGameEnvironmentReplay(model: model)
+        return try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: verbose)
     }
 
-    internal static func snakeGameEnvironmentReplay(model: SnakeDatasetResult) throws -> SnakeGameEnvironmentReplay {
+    internal static func snakeGameEnvironmentReplay(model: SnakeDatasetResult, verbose: Bool) throws -> SnakeGameEnvironmentReplay {
         guard model.hasLevel else {
             throw DatasetLoaderError.runtimeError(message: "Expected the file to contain a 'level' snapshot of the board, but got none.")
         }
@@ -129,30 +129,33 @@ public class DatasetLoader {
 
         var player1CauseOfDeath: SnakeCauseOfDeath = .other
         if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerA(stepModel: lastStep) {
-            log.debug("last step for player 1. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
+            if verbose {
+                log.debug("last step for player 1. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
+            }
             player1CauseOfDeath = playerResult.causeOfDeath
         }
         var player2CauseOfDeath: SnakeCauseOfDeath = .other
         if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerB(stepModel: lastStep) {
-            log.debug("last step for player 2. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
+            if verbose {
+                log.debug("last step for player 2. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
+            }
             player2CauseOfDeath = playerResult.causeOfDeath
         }
 
 
         let level: SnakeLevel = levelBuilder.level()
-        log.debug("level: \(level)")
+        if verbose {
+            log.debug("level: \(level)")
+            log.debug("level.id: '\(model.level.uuid)'")
+            log.debug("food positions.count: \(foodPositions.count)")
+            log.debug("player1 positions.count: \(player1Positions.count)")
+            log.debug("player2 positions.count: \(player2Positions.count)")
 
-        // IDEA: check hashes of the loaded level with the level in the file system.
-
-        log.debug("level.id: '\(model.level.uuid)'")
-        log.debug("food positions.count: \(foodPositions.count)")
-        log.debug("player1 positions.count: \(player1Positions.count)")
-        log.debug("player2 positions.count: \(player2Positions.count)")
-
-        let pretty = PrettyPrintArray(prefixLength: 10, suffixLength: 2, separator: ",", ellipsis: "...")
-        log.debug("player1: \(pretty.format(player1Positions))")
-        log.debug("player2: \(pretty.format(player2Positions))")
-        log.debug("food: \(pretty.format(foodPositions))")
+            let pretty = PrettyPrintArray(prefixLength: 10, suffixLength: 2, separator: ",", ellipsis: "...")
+            log.debug("player1: \(pretty.format(player1Positions))")
+            log.debug("player2: \(pretty.format(player2Positions))")
+            log.debug("food: \(pretty.format(foodPositions))")
+        }
 
         let datasetTimestamp: Date
         if model.hasTimestamp {
@@ -162,6 +165,7 @@ public class DatasetLoader {
             datasetTimestamp = Date.distantPast
         }
 
+        // IDEA: check hashes of the loaded level with the level in the file system.
         // IDEA: validate positions are inside the level coordinates
         // IDEA: validate that none of the snakes overlap with each other
         // IDEA: validate that the snakes only occupy empty cells

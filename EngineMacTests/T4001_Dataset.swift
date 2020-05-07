@@ -116,7 +116,7 @@ class T4001_Dataset: XCTestCase {
     }
 
     func test300_loadSnakeDataset_duel() throws {
-        let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "duel0.snakeDataset")
+        let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "duel0.snakeDataset", verbose: false)
         XCTAssertGreaterThan(environment.player1Positions.count, 10)
         XCTAssertGreaterThan(environment.player2Positions.count, 10)
         XCTAssertGreaterThan(environment.foodPositions.count, 10)
@@ -127,7 +127,7 @@ class T4001_Dataset: XCTestCase {
     }
 
     func test301_loadSnakeDataset_solo() throws {
-        let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "solo0.snakeDataset")
+        let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "solo0.snakeDataset", verbose: false)
         XCTAssertGreaterThan(environment.player1Positions.count, 10)
         XCTAssertTrue(environment.player2Positions.isEmpty)
         XCTAssertGreaterThan(environment.foodPositions.count, 10)
@@ -140,21 +140,21 @@ class T4001_Dataset: XCTestCase {
     func test302_loadSnakeDataset_datasetTimestamp() throws {
         do {
             let model: SnakeDatasetResult = try snakeDatasetResult_duel0()
-            let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(model: model)
+            let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
             XCTAssertGreaterThan(environment.datasetTimestamp, Date.distantPast)
         }
 
         do {
             var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
             model.clearTimestamp()
-            let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(model: model)
+            let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
             XCTAssertEqual(environment.datasetTimestamp, Date.distantPast)
         }
     }
 
     func test310_loadSnakeDataset_error_noSuchFile() throws {
         do {
-            _ = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "nonExistingFilename.snakeDataset")
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "nonExistingFilename.snakeDataset", verbose: false)
             XCTFail()
         } catch SnakeDatasetBundle.LoadError.runtimeError {
             // success
@@ -167,7 +167,7 @@ class T4001_Dataset: XCTestCase {
         var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
         model.clearLevel()
         do {
-            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model)
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
             XCTFail()
         } catch DatasetLoader.DatasetLoaderError.runtimeError(let message) {
             XCTAssertTrue(message.contains("level"))
@@ -180,7 +180,7 @@ class T4001_Dataset: XCTestCase {
         var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
         model.clearFirstStep()
         do {
-            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model)
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
             XCTFail()
         } catch DatasetLoader.DatasetLoaderError.runtimeError(let message) {
             XCTAssertTrue(message.contains("firstStep"))
@@ -193,7 +193,7 @@ class T4001_Dataset: XCTestCase {
         var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
         model.clearLastStep()
         do {
-            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model)
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
             XCTFail()
         } catch DatasetLoader.DatasetLoaderError.runtimeError(let message) {
             XCTAssertTrue(message.contains("lastStep"))
@@ -206,7 +206,7 @@ class T4001_Dataset: XCTestCase {
         var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
         model.foodPositions = []
         do {
-            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model)
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
             XCTFail()
         } catch DatasetLoader.DatasetLoaderError.runtimeError(let message) {
             XCTAssertTrue(message.contains("food"))
