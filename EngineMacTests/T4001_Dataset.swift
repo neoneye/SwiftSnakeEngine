@@ -6,7 +6,7 @@ import XCTest
 /// 1st step: convert from a model representation to a protobuf representation.
 /// 2nd step: convert back to a model representation.
 /// 3rd step: verify that the desired model data has been preserved.
-class T4000_Dataset: XCTestCase {
+class T4001_Dataset: XCTestCase {
 
     // MARK: -
     func createSnakePlayer_human() -> SnakePlayer {
