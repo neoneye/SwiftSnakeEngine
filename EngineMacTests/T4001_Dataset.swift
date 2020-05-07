@@ -123,4 +123,59 @@ class T4001_Dataset: XCTestCase {
         XCTAssertTrue(environment.player2Positions.isEmpty)
         XCTAssertGreaterThan(environment.foodPositions.count, 10)
     }
+
+    func test310_loadSnakeDataset_error_noSuchFile() throws {
+        do {
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "nonExistingFilename.snakeDataset")
+            XCTFail()
+        } catch SnakeDatasetBundle.LoadError.runtimeError {
+            // success
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func snakeDatasetResult_duel0() throws -> SnakeDatasetResult {
+        let data: Data = try SnakeDatasetBundle.load("duel0.snakeDataset")
+        return try SnakeDatasetResult(serializedData: data)
+    }
+
+    func test310_loadSnakeDataset_error_noLevel() throws {
+        var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
+        model.clearLevel()
+        do {
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model)
+            XCTFail()
+        } catch DatasetLoader.DatasetLoaderError.runtimeError(let message) {
+            XCTAssertTrue(message.contains("level"))
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test311_loadSnakeDataset_error_noFirstStep() throws {
+        var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
+        model.clearFirstStep()
+        do {
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model)
+            XCTFail()
+        } catch DatasetLoader.DatasetLoaderError.runtimeError(let message) {
+            XCTAssertTrue(message.contains("firstStep"))
+        } catch {
+            XCTFail()
+        }
+    }
+
+    func test312_loadSnakeDataset_error_noLastStep() throws {
+        var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
+        model.clearLastStep()
+        do {
+            _ = try DatasetLoader.snakeGameEnvironmentReplay(model: model)
+            XCTFail()
+        } catch DatasetLoader.DatasetLoaderError.runtimeError(let message) {
+            XCTAssertTrue(message.contains("lastStep"))
+        } catch {
+            XCTFail()
+        }
+    }
 }

@@ -72,41 +72,26 @@ public class DatasetLoader {
     }
 
     internal static func snakeGameEnvironmentReplay(resourceName: String) throws -> SnakeGameEnvironmentReplay {
-        do {
-            let data: Data = try SnakeDatasetBundle.load(resourceName)
-            let model: SnakeDatasetResult = try SnakeDatasetResult(serializedData: data)
-            return try DatasetLoader.snakeGameEnvironmentReplay(model: model)
-        } catch {
-            log.error("Unable to load file: \(error)")
-            fatalError()
-        }
+        let data: Data = try SnakeDatasetBundle.load(resourceName)
+        let model: SnakeDatasetResult = try SnakeDatasetResult(serializedData: data)
+        return try DatasetLoader.snakeGameEnvironmentReplay(model: model)
     }
 
     internal static func snakeGameEnvironmentReplay(model: SnakeDatasetResult) throws -> SnakeGameEnvironmentReplay {
         guard model.hasLevel else {
-            log.error("Expected the file to contain a 'level' snapshot of the board, but got none.")
-            fatalError()
+            throw DatasetLoaderError.runtimeError(message: "Expected the file to contain a 'level' snapshot of the board, but got none.")
         }
         guard model.hasFirstStep else {
-            log.error("Expected the file to contain a 'firstStep' snapshot of the board, but got none.")
-            fatalError()
+            throw DatasetLoaderError.runtimeError(message: "Expected the file to contain a 'firstStep' snapshot of the board, but got none.")
         }
         guard model.hasLastStep else {
-            log.error("Expected the file to contain a 'lastStep' snapshot of the board, but got none.")
-            fatalError()
+            throw DatasetLoaderError.runtimeError(message: "Expected the file to contain a 'lastStep' snapshot of the board, but got none.")
         }
-        log.debug("successfully loaded file")
 
         let firstStep: SnakeDatasetStep = model.firstStep
         let lastStep: SnakeDatasetStep = model.lastStep
 
-        let levelBuilder: SnakeLevelBuilder
-        do {
-            levelBuilder = try DatasetLoader.snakeLevelBuilder(levelModel: model.level)
-        } catch {
-            log.error("Unable to parse level. \(error)")
-            fatalError()
-        }
+        let levelBuilder: SnakeLevelBuilder = try DatasetLoader.snakeLevelBuilder(levelModel: model.level)
 
         assignFoodPosition(levelBuilder: levelBuilder, stepModel: firstStep)
 
@@ -136,7 +121,6 @@ public class DatasetLoader {
             }
         }
 
-        // IDEA: When the game ends, show the causeOfDeath in the UI.
         var player1CauseOfDeath: SnakeCauseOfDeath = .other
         if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerA(stepModel: lastStep) {
             log.debug("last step for player 1. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
@@ -180,12 +164,10 @@ public class DatasetLoader {
         // IDEA: validate that the food is placed on an empty cell
 
         guard ValidateDistance.distanceIsOne(player1Positions) else {
-            log.error("Invalid player1 positions. All moves must be by a distance of 1 unit.")
-            fatalError()
+            throw DatasetLoaderError.runtimeError(message: "Invalid player1 positions. All moves must be by a distance of 1 unit.")
         }
         guard ValidateDistance.distanceIsOne(player2Positions) else {
-            log.error("Invalid player2 positions. All moves must be by a distance of 1 unit.")
-            fatalError()
+            throw DatasetLoaderError.runtimeError(message: "Invalid player2 positions. All moves must be by a distance of 1 unit.")
         }
 
         var gameState = SnakeGameState.empty()
