@@ -215,7 +215,7 @@ public class PostProcessTrainingData {
             foodPositions.append(step.foodPosition)
         }
 
-        // Extract "head positions" for "Player A"
+        // Extract all "head positions" for "Player A"
         var playerAPositions: [SnakeDatasetPosition] = []
         for (index, step) in stepArray.enumerated() {
             guard case .playerA(let player)? = step.optionalPlayerA else {
@@ -236,7 +236,7 @@ public class PostProcessTrainingData {
             playerAPositions.append(headPosition)
         }
 
-        // Extract "head positions" for "Player B"
+        // Extract all "head positions" for "Player B"
         var playerBPositions: [SnakeDatasetPosition] = []
         for (index, step) in stepArray.enumerated() {
             guard case .playerB(let player)? = step.optionalPlayerB else {
@@ -255,6 +255,17 @@ public class PostProcessTrainingData {
                 break
             }
             playerBPositions.append(headPosition)
+        }
+
+        // Discard the first head position,
+        // Since the initial snake body, has a its head position at the same position.
+        // We are only interested in saving the movements of the snake.
+        // We are not interested in a snake that doesn't move in the first step.
+        if !playerAPositions.isEmpty {
+            playerAPositions.removeFirst(1)
+        }
+        if !playerBPositions.isEmpty {
+            playerBPositions.removeFirst(1)
         }
 
         let positions1: [UIntVec2] = playerAPositions.toUIntVec2Array()
