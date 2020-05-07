@@ -48,15 +48,41 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         return gameState
     }
 
-    public func step(_ currentGameState: SnakeGameState) -> SnakeGameState {
-        previousGameStates.append(currentGameState)
+    public func step(action: SnakeGameAction) -> SnakeGameState {
+        let oldGameState: SnakeGameState = self.gameState
 
-        var gameState: SnakeGameState = currentGameState
-        gameState = gameState.incrementNumberOfSteps()
-        gameState = gameState.detectCollision()
+        var newGameState: SnakeGameState = oldGameState
+        newGameState = newGameState.incrementNumberOfSteps()
 
-        if gameState.player1.isInstalledAndAlive {
-            var player: SnakePlayer = gameState.player1
+        do {
+            var player: SnakePlayer = newGameState.player1
+            if player.isInstalledAndAlive && player.role == .human {
+                let movement: SnakeBodyMovement = action.player1
+                guard movement != .dontMove else {
+                    log.error("Expected human actions to be different from dontMove, but got dontMove!")
+                    return oldGameState
+                }
+                player = player.updatePendingMovement(movement)
+                newGameState = newGameState.stateWithNewPlayer1(player)
+            }
+        }
+        do {
+            var player: SnakePlayer = newGameState.player2
+            if player.isInstalledAndAlive && player.role == .human {
+                let movement: SnakeBodyMovement = action.player2
+                guard movement != .dontMove else {
+                    log.error("Expected human actions to be different from dontMove, but got dontMove!")
+                    return oldGameState
+                }
+                player = player.updatePendingMovement(movement)
+                newGameState = newGameState.stateWithNewPlayer2(player)
+            }
+        }
+
+        newGameState = newGameState.detectCollision()
+
+        if newGameState.player1.isInstalledAndAlive {
+            var player: SnakePlayer = newGameState.player1
             let snakeBody: SnakeBody = player.snakeBody.stateForTick(
                 movement: player.pendingMovement,
                 act: player.pendingAct
@@ -65,11 +91,11 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
             player = player.updatePendingMovement(.dontMove)
             player = player.updatePendingAct(.doNothing)
             player = stuckSnakeDetector1.killBotIfStuckInLoop(player)
-            gameState = gameState.stateWithNewPlayer1(player)
+            newGameState = newGameState.stateWithNewPlayer1(player)
         }
 
-        if gameState.player2.isInstalledAndAlive {
-            var player: SnakePlayer = gameState.player2
+        if newGameState.player2.isInstalledAndAlive {
+            var player: SnakePlayer = newGameState.player2
             let snakeBody: SnakeBody = player.snakeBody.stateForTick(
                 movement: player.pendingMovement,
                 act: player.pendingAct
@@ -78,12 +104,15 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
             player = player.updatePendingMovement(.dontMove)
             player = player.updatePendingAct(.doNothing)
             player = stuckSnakeDetector2.killBotIfStuckInLoop(player)
-            gameState = gameState.stateWithNewPlayer2(player)
+            newGameState = newGameState.stateWithNewPlayer2(player)
         }
 
-        gameState = self.placeNewFood(gameState)
-        gameState = self.computeNextBotMovement(gameState)
-        return gameState
+        newGameState = self.placeNewFood(newGameState)
+        newGameState = self.computeNextBotMovement(newGameState)
+
+        previousGameStates.append(oldGameState)
+        self.gameState = newGameState
+        return newGameState
     }
 
     /// Decide about optimal path to get to the food.

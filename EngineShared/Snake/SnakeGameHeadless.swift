@@ -2,37 +2,27 @@
 import Foundation
 
 public class SnakeGameHeadless {
-    private let environment: SnakeGameEnvironment
-
-	public init() {
+	public static func run() {
         let snakeBotType0: SnakeBot.Type = SnakeBotFactory.smartestBotType()
         let bot = SnakePlayerRole.bot(snakeBotType: snakeBotType0)
 
-        let gameState = SnakeGameState.create(
+        let initialGameState = SnakeGameState.create(
             player1: bot,
             player2: bot,
             levelName: "Level 4.csv"
         )
-        environment = SnakeGameEnvironmentInteractive(initialGameState: gameState)
-    }
+        let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(initialGameState: initialGameState)
 
-	private func step(_ currentGameState: SnakeGameState) -> SnakeGameState {
-		return environment.step(currentGameState)
-	}
-
-	public func run() {
-        let snakeBotType0: SnakeBot.Type = SnakeBotFactory.smartestBotType()
-		let bot = SnakePlayerRole.bot(snakeBotType: snakeBotType0)
-
-		var gameState = SnakeGameState.create(
-			player1: bot,
-			player2: bot,
-			levelName: "Level 4.csv"
-		)
+        var gameState: SnakeGameState = environment.reset()
 
 		for iteration in 0..<1000 {
             log.debug("#\(iteration) \(gameState.player1.snakeBody.length) \(gameState.player2.snakeBody.length)")
-			gameState = step(gameState)
+
+            let action = SnakeGameAction(
+                player1: .dontMove,
+                player2: .dontMove
+            )
+            gameState = environment.step(action: action)
 		}
 	}
 }

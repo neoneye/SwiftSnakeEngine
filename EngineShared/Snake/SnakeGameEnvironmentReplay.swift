@@ -225,7 +225,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
         return gameState
     }
 
-    public func step(_ currentGameState: SnakeGameState) -> SnakeGameState {
+    public func step(action: SnakeGameAction) -> SnakeGameState {
         let oldGameState = self.gameState
         previousGameStates.append(oldGameState)
 

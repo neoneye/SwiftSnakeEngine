@@ -48,6 +48,8 @@ class IngameScene: SKScene {
 	private var gameState: SnakeGameState
 	private var gameNode: SnakeGameNode
     private let environment: SnakeGameEnvironment
+    private var pendingMovement_player1: SnakeBodyMovement
+    private var pendingMovement_player2: SnakeBodyMovement
 
 	class func createHumanVsNone() -> IngameScene {
 		let gameState = SnakeGameState.create(
@@ -86,6 +88,8 @@ class IngameScene: SKScene {
         self.gameState = environment.reset()
         self.gameNode = SnakeGameNode()
         self.gameNodeNeedRedraw.insert(.newGame)
+        self.pendingMovement_player1 = .dontMove
+        self.pendingMovement_player2 = .dontMove
         super.init(size: CGSize(width: 100, height: 100))
         self.scaleMode = .resizeFill
     }
@@ -499,14 +503,12 @@ class IngameScene: SKScene {
             userInput_stepBackwardOnce_ifSingleHuman()
             return
         }
-        let newGameState: SnakeGameState
         switch player.id {
         case .player1:
-            newGameState = gameState.updatePendingMovementForPlayer1(movement)
+            pendingMovement_player1 = movement
         case .player2:
-            newGameState = gameState.updatePendingMovementForPlayer2(movement)
+            pendingMovement_player2 = movement
         }
-        self.gameState = newGameState
         self.isPaused = false
         self.pendingUpdateAction = .stepForwardContinuously
     }
@@ -592,9 +594,20 @@ class IngameScene: SKScene {
 	}
 
 	func stepForward() {
-        self.gameState = self.gameState.preventHumanCollisions()
+        var possibleGameState: SnakeGameState = self.gameState
+        if self.pendingMovement_player1 != .dontMove {
+            let movement: SnakeBodyMovement = self.pendingMovement_player1
+            self.pendingMovement_player1 = .dontMove
+            possibleGameState = possibleGameState.updatePendingMovementForPlayer1(movement)
+        }
+        if self.pendingMovement_player2 != .dontMove {
+            let movement: SnakeBodyMovement = self.pendingMovement_player2
+            self.pendingMovement_player2 = .dontMove
+            possibleGameState = possibleGameState.updatePendingMovementForPlayer2(movement)
+        }
+        possibleGameState = possibleGameState.preventHumanCollisions()
 
-		let isWaiting = self.gameState.isWaitingForInput()
+        let isWaiting = possibleGameState.isWaitingForInput()
 		if isWaiting {
 			//log.debug("waiting for input")
 			return
@@ -603,8 +616,11 @@ class IngameScene: SKScene {
 		let oldGameState: SnakeGameState = self.gameState
 		//log.debug("all the players have made their decision")
 
-
-		let newGameState = environment.step(gameState)
+        let action = SnakeGameAction(
+            player1: possibleGameState.player1.pendingMovement,
+            player2: possibleGameState.player2.pendingMovement
+        )
+        let newGameState = environment.step(action: action)
 		gameState = newGameState
 
         gameNodeNeedRedraw.insert(.stepForward)
@@ -691,6 +707,8 @@ class IngameScene: SKScene {
 	func schedule_stepBackwardOnce() {
 		pendingUpdateAction = .stepBackwardOnce
         isPaused = false
+        pendingMovement_player1 = .dontMove
+        pendingMovement_player2 = .dontMove
 	}
 
 	func schedule_stepForwardOnce() {
