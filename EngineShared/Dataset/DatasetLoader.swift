@@ -102,7 +102,7 @@ public class DatasetLoader {
         levelBuilder.initialFoodPosition = initialFoodPosition
 
         var player1: SnakePlayer?
-        if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerA(stepModel: firstStep) {
+        if let playerResult: DatasetLoader.SnakePlayerResult = try firstStep.snakePlayerResultWithPlayerA() {
             if playerResult.isAlive {
                 levelBuilder.player1_body = playerResult.snakeBody
 
@@ -115,7 +115,7 @@ public class DatasetLoader {
         }
 
         var player2: SnakePlayer?
-        if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerB(stepModel: firstStep) {
+        if let playerResult: DatasetLoader.SnakePlayerResult = try firstStep.snakePlayerResultWithPlayerB() {
             if playerResult.isAlive {
                 levelBuilder.player2_body = playerResult.snakeBody
 
@@ -128,20 +128,19 @@ public class DatasetLoader {
         }
 
         var player1CauseOfDeath: SnakeCauseOfDeath = .other
-        if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerA(stepModel: lastStep) {
+        if let playerResult: DatasetLoader.SnakePlayerResult = try lastStep.snakePlayerResultWithPlayerA() {
             if verbose {
                 log.debug("last step for player 1. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
             }
             player1CauseOfDeath = playerResult.causeOfDeath
         }
         var player2CauseOfDeath: SnakeCauseOfDeath = .other
-        if let playerResult: DatasetLoader.SnakePlayerResult = snakePlayerResultWithPlayerB(stepModel: lastStep) {
+        if let playerResult: DatasetLoader.SnakePlayerResult = try lastStep.snakePlayerResultWithPlayerB() {
             if verbose {
                 log.debug("last step for player 2. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
             }
             player2CauseOfDeath = playerResult.causeOfDeath
         }
-
 
         let level: SnakeLevel = levelBuilder.level()
         if verbose {
@@ -165,11 +164,12 @@ public class DatasetLoader {
             datasetTimestamp = Date.distantPast
         }
 
-        // IDEA: check hashes of the loaded level with the level in the file system.
+        // IDEA: check hashes of the loaded level corresponds with the level files in the file system.
         // IDEA: validate positions are inside the level coordinates
         // IDEA: validate that none of the snakes overlap with each other
         // IDEA: validate that the snakes only occupy empty cells
         // IDEA: validate that the food is placed on an empty cell
+        // IDEA: use unsigned integers for positions, that never can be negative. Less error handling.
 
         guard ValidateDistance.distanceIsOne(player1Positions) else {
             throw DatasetLoaderError.runtimeError(message: "Invalid player1 positions. All moves must be by a distance of 1 unit.")
@@ -210,29 +210,28 @@ public class DatasetLoader {
         )
     }
 
-    private static func snakePlayerResultWithPlayerA(stepModel: SnakeDatasetStep) -> DatasetLoader.SnakePlayerResult? {
-        guard case .playerA(let player)? = stepModel.optionalPlayerA else {
-            log.error("Expected player A, but got none.")
+}
+
+extension SnakeDatasetStep {
+    fileprivate func snakePlayerResultWithPlayerA() throws -> DatasetLoader.SnakePlayerResult? {
+        guard case .playerA(let player)? = self.optionalPlayerA else {
             return nil
         }
         do {
             return try DatasetLoader.snakePlayerResult(playerModel: player)
         } catch {
-            log.error("Unable to parse player A. \(error)")
-            return nil
+            throw DatasetLoader.DatasetLoaderError.runtimeError(message: "Unable to parse player A. \(error)")
         }
     }
 
-    private static func snakePlayerResultWithPlayerB(stepModel: SnakeDatasetStep) -> DatasetLoader.SnakePlayerResult? {
-        guard case .playerB(let player)? = stepModel.optionalPlayerB else {
-            log.error("Expected player B, but got none.")
+    fileprivate func snakePlayerResultWithPlayerB() throws -> DatasetLoader.SnakePlayerResult? {
+        guard case .playerB(let player)? = self.optionalPlayerB else {
             return nil
         }
         do {
             return try DatasetLoader.snakePlayerResult(playerModel: player)
         } catch {
-            log.error("Unable to parse player B. \(error)")
-            return nil
+            throw DatasetLoader.DatasetLoaderError.runtimeError(message: "Unable to parse player B. \(error)")
         }
     }
 }
