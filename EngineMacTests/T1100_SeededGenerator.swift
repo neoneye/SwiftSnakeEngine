@@ -5,52 +5,82 @@ import XCTest
 class T1100_SeededGenerator: XCTestCase {
     func test0_resetWithSeed0() {
 		let seed: UInt64 = 0
-		let expected: [UInt8] = [197, 132, 23]
-		var generator = SeededGenerator(seed: seed)
+		let expected: [UInt8] = [45, 166, 59]
+		var generator = CountingSeededGenerator(seed: seed)
 		XCTAssertEqual(generator.count, 0)
 
-		let actual0: [UInt8] = generate(3, using: &generator)
+        let actual0: [UInt8] = generator.generate(3)
 		XCTAssertEqual(actual0, expected)
 		XCTAssertEqual(generator.count, 3)
 
-		generator.forceReset(seed: seed, count: 0)
-		let actual1: [UInt8] = generate(3, using: &generator)
+		generator.seed = seed
+        let actual1: [UInt8] = generator.generate(3)
 		XCTAssertEqual(actual1, expected)
-		XCTAssertEqual(generator.count, 3)
+		XCTAssertEqual(generator.count, 6)
 
-		generator.forceReset(seed: seed, count: 2)
-		let actual2: [UInt8] = generate(1, using: &generator)
-		XCTAssertEqual(actual2.count, 1)
-		XCTAssertEqual(actual2.last, expected.last)
-		XCTAssertEqual(generator.count, 3)
+        generator.seed = seed
+        var actual2: [UInt8] = []
+        actual2 += generator.generate(1)
+        actual2 += generator.generate(1)
+        actual2 += generator.generate(1)
+        XCTAssertEqual(actual2, expected)
+        XCTAssertEqual(generator.count, 9)
 	}
 
 	func test1_resetWithSeed1() {
 		let seed: UInt64 = 1
-		let expected: [UInt8] = [95, 80, 231]
-		var generator = SeededGenerator(seed: seed)
+		let expected: [UInt8] = [42, 175, 32]
+		var generator = CountingSeededGenerator(seed: seed)
 		XCTAssertEqual(generator.count, 0)
 
-		let actual0: [UInt8] = generate(3, using: &generator)
+        let actual0: [UInt8] = generator.generate(3)
 		XCTAssertEqual(actual0, expected)
 		XCTAssertEqual(generator.count, 3)
 
-		generator.forceReset(seed: seed, count: 0)
-		let actual1: [UInt8] = generate(3, using: &generator)
+		generator.seed = seed
+        let actual1: [UInt8] = generator.generate(3)
 		XCTAssertEqual(actual1, expected)
-		XCTAssertEqual(generator.count, 3)
+		XCTAssertEqual(generator.count, 6)
 
-		generator.forceReset(seed: seed, count: 2)
-		let actual2: [UInt8] = generate(1, using: &generator)
-		XCTAssertEqual(actual2.count, 1)
-		XCTAssertEqual(actual2.last, expected.last)
-		XCTAssertEqual(generator.count, 3)
+        generator.seed = seed
+        var actual2: [UInt8] = []
+        actual2 += generator.generate(1)
+        actual2 += generator.generate(1)
+        actual2 += generator.generate(1)
+        XCTAssertEqual(actual2, expected)
+        XCTAssertEqual(generator.count, 9)
+    }
+}
+
+fileprivate struct CountingSeededGenerator: RandomNumberGenerator {
+    var generator: SeededGenerator
+    var count: Int
+
+    init(seed: UInt64) {
+        self.generator = SeededGenerator(seed: seed)
+        self.count = 0
     }
 
-	func generate(_ count: UInt, using generator: inout SeededGenerator) -> [UInt8] {
-		let values: [UInt8] = (1...count).map { (_) in
-			return UInt8.random(in: 0...255, using: &generator)
-		}
-		return values
-	}
+    var seed: UInt64 {
+        get {
+            return self.generator.seed
+        }
+        set {
+            self.generator.seed = newValue
+        }
+    }
+
+    mutating func next() -> UInt64 {
+        count += 1
+        return generator.next()
+    }
+}
+
+extension RandomNumberGenerator {
+    fileprivate mutating func generate(_ count: UInt) -> [UInt8] {
+        let values: [UInt8] = (1...count).map { (_) in
+            return UInt8.random(in: 0...255, using: &self)
+        }
+        return values
+    }
 }

@@ -9,16 +9,14 @@ public class SnakeGameState {
 	public let player1: SnakePlayer
 	public let player2: SnakePlayer
 	public let foodRandomGenerator_seed: UInt64
-	public let foodRandomGenerator_count: UInt64
 	public let numberOfSteps: UInt64
 
-	internal init(level: SnakeLevel, foodPosition: IntVec2?, player1: SnakePlayer, player2: SnakePlayer, foodRandomGenerator_seed: UInt64, foodRandomGenerator_count: UInt64, numberOfSteps: UInt64) {
+	internal init(level: SnakeLevel, foodPosition: IntVec2?, player1: SnakePlayer, player2: SnakePlayer, foodRandomGenerator_seed: UInt64, numberOfSteps: UInt64) {
 		self.level = level
 		self.foodPosition = foodPosition
 		self.player1 = player1
 		self.player2 = player2
 		self.foodRandomGenerator_seed = foodRandomGenerator_seed
-		self.foodRandomGenerator_count = foodRandomGenerator_count
 		self.numberOfSteps = numberOfSteps
 	}
 
@@ -29,7 +27,6 @@ public class SnakeGameState {
             player1: SnakePlayer.create(id: .player1, role: .human),
 			player2: SnakePlayer.create(id: .player2, role: .human),
 			foodRandomGenerator_seed: 0,
-			foodRandomGenerator_count: 0,
 			numberOfSteps: 0
 		)
 	}
@@ -41,7 +38,6 @@ public class SnakeGameState {
 			player1: player1,
 			player2: player2,
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
-			foodRandomGenerator_count: foodRandomGenerator_count,
 			numberOfSteps: numberOfSteps
 		)
 	}
@@ -53,7 +49,6 @@ public class SnakeGameState {
 			player1: player1,
 			player2: player2,
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
-			foodRandomGenerator_count: foodRandomGenerator_count,
 			numberOfSteps: numberOfSteps
 		)
 	}
@@ -65,7 +60,6 @@ public class SnakeGameState {
 			player1: newPlayer1,
 			player2: player2,
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
-			foodRandomGenerator_count: foodRandomGenerator_count,
 			numberOfSteps: numberOfSteps
 		)
 	}
@@ -77,7 +71,6 @@ public class SnakeGameState {
 			player1: player1,
 			player2: newPlayer2,
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
-			foodRandomGenerator_count: foodRandomGenerator_count,
 			numberOfSteps: numberOfSteps
 		)
 	}
@@ -89,7 +82,6 @@ public class SnakeGameState {
 			player1: player1.updatePendingMovement(newPendingMovement),
 			player2: player2,
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
-			foodRandomGenerator_count: foodRandomGenerator_count,
 			numberOfSteps: numberOfSteps
 		)
 	}
@@ -101,7 +93,6 @@ public class SnakeGameState {
 			player1: player1,
 			player2: player2.updatePendingMovement(newPendingMovement),
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
-			foodRandomGenerator_count: foodRandomGenerator_count,
 			numberOfSteps: numberOfSteps
 		)
 	}
@@ -113,7 +104,6 @@ public class SnakeGameState {
 			player1: player1.clearPendingMovementAndPendingActForHuman(),
 			player2: player2.clearPendingMovementAndPendingActForHuman(),
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
-			foodRandomGenerator_count: foodRandomGenerator_count,
 			numberOfSteps: numberOfSteps
 		)
 	}
@@ -125,7 +115,6 @@ public class SnakeGameState {
 			player1: player1.kill(causeOfDeath),
 			player2: player2,
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
-			foodRandomGenerator_count: foodRandomGenerator_count,
 			numberOfSteps: numberOfSteps
 		)
 	}
@@ -137,19 +126,17 @@ public class SnakeGameState {
 			player1: player1,
 			player2: player2.kill(causeOfDeath),
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
-			foodRandomGenerator_count: foodRandomGenerator_count,
 			numberOfSteps: numberOfSteps
 		)
 	}
 
-	public func updateFoodRandomGenerator(seed: UInt64, count: UInt64) -> SnakeGameState {
+	public func updateFoodRandomGenerator(seed: UInt64) -> SnakeGameState {
 		return SnakeGameState(
 			level: level,
 			foodPosition: foodPosition,
 			player1: player1,
 			player2: player2,
 			foodRandomGenerator_seed: seed,
-			foodRandomGenerator_count: count,
 			numberOfSteps: numberOfSteps
 		)
 	}
@@ -161,7 +148,6 @@ public class SnakeGameState {
 			player1: player1.updateBot(newBot),
 			player2: player2,
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
-			foodRandomGenerator_count: foodRandomGenerator_count,
 			numberOfSteps: numberOfSteps
 		)
 	}
@@ -173,7 +159,6 @@ public class SnakeGameState {
 			player1: player1,
 			player2: player2.updateBot(newBot),
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
-			foodRandomGenerator_count: foodRandomGenerator_count,
 			numberOfSteps: numberOfSteps
 		)
 	}
@@ -185,7 +170,6 @@ public class SnakeGameState {
 			player1: player1,
 			player2: player2,
 			foodRandomGenerator_seed: foodRandomGenerator_seed,
-			foodRandomGenerator_count: foodRandomGenerator_count,
 			numberOfSteps: numberOfSteps + 1
 		)
 	}

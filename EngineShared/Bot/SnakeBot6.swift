@@ -590,9 +590,8 @@ fileprivate class BuildTreeVisitor: Visitor {
 	}
 
 	func printStats() {
-		let invocationsOfRandomGenerator: UInt64 = self.randomNumberGenerator.count
 		let scenariosCount: Int = self.scenarios.count
-		log.debug("random: \(invocationsOfRandomGenerator)  scenarios: \(scenariosCount)")
+		log.debug("scenariosCount: \(scenariosCount)")
 	}
 
 	func visit(_ node: RootNode) {
