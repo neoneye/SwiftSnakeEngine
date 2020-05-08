@@ -29,12 +29,8 @@ public class SnakeFoodGenerator {
 		foodPositionsArray.removeAll { snakePositionSet.contains($0) }
 
         self.randomNumberGenerator.seed = gameState.foodRandomGenerator_seed
-
 		let positionOrNil: IntVec2? = foodPositionsArray.randomElement(using: &randomNumberGenerator)
-		gameState = gameState.updateFoodRandomGenerator(
-			seed: randomNumberGenerator.seed,
-			count: 0
-		)
+		gameState = gameState.updateFoodRandomGenerator(seed: randomNumberGenerator.seed)
 
 		guard let position: IntVec2 = positionOrNil else {
             log.info("You won. There are no more available food positions!")
