@@ -1,5 +1,4 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
-//import Foundation
 
 public struct PrettyPrintArray {
     let prefixLength: UInt
