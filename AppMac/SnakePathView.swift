@@ -10,27 +10,23 @@ import EngineMac
 #endif
 
 struct SnakePathView: View {
+    let rowCount: UInt
+    let columnCount: UInt
     let positions: [IntVec2]
 
     var body: some View {
-        ZStack {
-            pathWithBevelStroke()
-                .position(x: 150, y: 170)
-
-            pathWithRetro()
-                .position(x: 250, y: 230)
+        GeometryReader { geometry in
+            self.pathWithBevelStroke(geometry)
         }
-        .frame(width: 400, height: 400)
     }
 
-    private func pathWithBevelStroke() -> some View {
-        Path { path in
-            let tileSize: CGFloat = 20
+    private func pathWithBevelStroke(_ geometry: GeometryProxy) -> some View {
+        let gridComputer = IngameGridComputer(viewSize: geometry.size, columnCount: columnCount, rowCount: rowCount)
+        let tileMinSize: CGFloat = min(gridComputer.cellSize.width, gridComputer.cellSize.height)
+        let lineWidth: CGFloat = tileMinSize - 2
+        return Path { path in
             for (index, currentPosition) in positions.enumerated() {
-                let point = CGPoint(
-                    x: CGFloat(currentPosition.x) * tileSize,
-                    y: CGFloat(currentPosition.y) * tileSize
-                )
+                let point: CGPoint = gridComputer.position(currentPosition)
                 if index == 0 {
                     path.move(to: point)
                 } else {
@@ -38,7 +34,7 @@ struct SnakePathView: View {
                 }
             }
         }
-        .stroke(Color.blue, style: StrokeStyle(lineWidth: 17, lineCap: .butt, lineJoin: .bevel))
+        .stroke(Color.blue, style: StrokeStyle(lineWidth: lineWidth, lineCap: .butt, lineJoin: .bevel))
     }
 
     private func pathWithRetro() -> some View {
@@ -109,6 +105,13 @@ struct SnakePathView_Previews: PreviewProvider {
             IntVec2(x: 12, y:  9),
             IntVec2(x: 12, y: 12),
         ]
-        return SnakePathView(positions: positions)
+        return Group {
+            SnakePathView(rowCount: 14, columnCount: 16, positions: positions)
+                .previewLayout(.fixed(width: 130, height: 200))
+            SnakePathView(rowCount: 14, columnCount: 16, positions: positions)
+                .previewLayout(.fixed(width: 300, height: 200))
+            SnakePathView(rowCount: 14, columnCount: 16, positions: positions)
+                .previewLayout(.fixed(width: 500, height: 150))
+        }
     }
 }

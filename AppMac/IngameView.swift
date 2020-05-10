@@ -28,7 +28,7 @@ struct IngameView: View {
             IntVec2(x: 12, y:  9),
             IntVec2(x: 12, y: 12),
         ]
-        return SnakePathView(positions: positions)
+        return SnakePathView(rowCount: 20, columnCount: 15, positions: positions)
     }
 }
 
