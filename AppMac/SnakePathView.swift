@@ -23,7 +23,7 @@ struct SnakePathView: View {
     private func pathWithBevelStroke(_ geometry: GeometryProxy) -> some View {
         let gridComputer = IngameGridComputer(viewSize: geometry.size, columnCount: columnCount, rowCount: rowCount)
         let tileMinSize: CGFloat = min(gridComputer.cellSize.width, gridComputer.cellSize.height)
-        let lineWidth: CGFloat = tileMinSize - 2
+        let lineWidth: CGFloat = tileMinSize - 4
         return Path { path in
             for (index, currentPosition) in positions.enumerated() {
                 let point: CGPoint = gridComputer.position(currentPosition)
@@ -34,7 +34,7 @@ struct SnakePathView: View {
                 }
             }
         }
-        .stroke(Color.blue, style: StrokeStyle(lineWidth: lineWidth, lineCap: .butt, lineJoin: .bevel))
+        .stroke(Color.blue, style: StrokeStyle(lineWidth: lineWidth, lineCap: .square, lineJoin: .bevel))
     }
 
     private func pathWithRetro() -> some View {
