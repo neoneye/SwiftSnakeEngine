@@ -46,6 +46,10 @@
 		42510E632467730400A2DACD /* PositionArrayToPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E612467730400A2DACD /* PositionArrayToPath.swift */; };
 		42510E65246790F100A2DACD /* IngameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E64246790F100A2DACD /* IngameView.swift */; };
 		42510E672468187D00A2DACD /* IngameGridComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E662468187D00A2DACD /* IngameGridComputer.swift */; };
+		42510E68246825F400A2DACD /* IngameGridComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E662468187D00A2DACD /* IngameGridComputer.swift */; };
+		42510E692468260700A2DACD /* IngameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E64246790F100A2DACD /* IngameView.swift */; };
+		42510E6A2468260A00A2DACD /* LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E592467112900A2DACD /* LevelView.swift */; };
+		42510E6B2468260E00A2DACD /* SnakePathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E5D2467686C00A2DACD /* SnakePathView.swift */; };
 		4253C53F23359FB000210611 /* SnakeLevels.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4253C53E23359FB000210611 /* SnakeLevels.bundle */; };
 		4253C5412335A9D100210611 /* SnakeLevel+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5402335A9D100210611 /* SnakeLevel+Load.swift */; };
 		4253C5432336349800210611 /* UIntVec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5422336349800210611 /* UIntVec2.swift */; };
@@ -687,15 +691,11 @@
 				42ECBCCA237CA50700758303 /* DebugMenu.swift */,
 				421A9E32243922ED00A85B6F /* GameNSView.swift */,
 				4255CA1C232F8A2300A230AF /* Info.plist */,
-				42510E662468187D00A2DACD /* IngameGridComputer.swift */,
-				42510E64246790F100A2DACD /* IngameView.swift */,
-				42510E592467112900A2DACD /* LevelView.swift */,
 				4255CA19232F8A2300A230AF /* Main.storyboard */,
 				42C5566723ABE7E70001DBD8 /* NSEvent+KeyCode.swift */,
 				429CD0D02348F93E00098E68 /* NSUserDefaultsController+Settings.swift */,
 				4246C440235BB07E00324965 /* PlayerMenu.swift */,
 				422B903A23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift */,
-				42510E5D2467686C00A2DACD /* SnakePathView.swift */,
 			);
 			path = AppMac;
 			sourceTree = "<group>";
@@ -723,9 +723,12 @@
 				4294DA40233EF33200AA58CD /* Explosion.sks */,
 				42905330243E99DD004EFFB6 /* Fonts */,
 				42CBF1CB2443B31F001A5D04 /* GameViewModel.swift */,
+				42510E662468187D00A2DACD /* IngameGridComputer.swift */,
 				4255CA13232F8A2100A230AF /* IngameScene.swift */,
+				42510E64246790F100A2DACD /* IngameView.swift */,
 				42B96D942347EE000073CAAA /* LevelSelectorNode.swift */,
 				423494FB234D151D009C0030 /* LevelSelectorScene.swift */,
+				42510E592467112900A2DACD /* LevelView.swift */,
 				42A93BF723FC1E1800A15FD2 /* MyContentView.swift */,
 				42A06C1D2441D90600877CB9 /* PauseSheetView.swift */,
 				42F35E6023FD877400A4795B /* PlayerScoreView.swift */,
@@ -735,6 +738,7 @@
 				42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */,
 				4294DA502341377900AA58CD /* SnakeGameNode.swift */,
 				42FC337123FEAC20004A50E7 /* SnakeGameSKView.swift */,
+				42510E5D2467686C00A2DACD /* SnakePathView.swift */,
 				4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */,
 				42CC22C82337C28500CF3D96 /* SnakeWallNode.swift */,
 				42C3182B2386F17000468D1F /* Sounds */,
@@ -1552,16 +1556,20 @@
 				42905335243E9CA4004EFFB6 /* AppConstant.swift in Sources */,
 				42BE1626243E90050031C88B /* SnakePlannedPathNode.swift in Sources */,
 				4220E565244B54B80088C3C1 /* AppColor.swift in Sources */,
+				42510E692468260700A2DACD /* IngameView.swift in Sources */,
 				4290533F243EABD8004EFFB6 /* MyContentView.swift in Sources */,
 				42A06C1E2441D90600877CB9 /* PauseSheetView.swift in Sources */,
+				42510E6B2468260E00A2DACD /* SnakePathView.swift in Sources */,
 				4290533E243EA6F8004EFFB6 /* SpriteKitContainer.swift in Sources */,
 				42685C47243E8DF5000C5511 /* SnakeWallNode.swift in Sources */,
 				4290533C243EA41C004EFFB6 /* LevelSelectorNode.swift in Sources */,
 				42905334243E9BDF004EFFB6 /* SnakeGameSKView.swift in Sources */,
 				42C1930B244913A500697159 /* ViewHeightGetter.swift in Sources */,
+				42510E6A2468260A00A2DACD /* LevelView.swift in Sources */,
 				4211C32D244A063600C25514 /* SelectedLevelController.swift in Sources */,
 				4290533D243EA53C004EFFB6 /* LevelSelectorScene.swift in Sources */,
 				42905333243E9A3F004EFFB6 /* PlayerScoreView.swift in Sources */,
+				42510E68246825F400A2DACD /* IngameGridComputer.swift in Sources */,
 				42A3899B24462DF200552363 /* GameViewController.swift in Sources */,
 				42905361243EAE0B004EFFB6 /* SceneDelegate.swift in Sources */,
 				42BE1628243E93E10031C88B /* SKSpriteNode+Pulse.swift in Sources */,
