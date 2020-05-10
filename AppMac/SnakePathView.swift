@@ -14,6 +14,35 @@ struct SnakePathView: View {
     let positions: [IntVec2]
 
     var body: some View {
+        ZStack {
+            pathWithBevelStroke()
+                .position(x: 150, y: 170)
+
+            pathWithRetro()
+                .position(x: 250, y: 230)
+        }
+        .frame(width: 400, height: 400)
+    }
+
+    private func pathWithBevelStroke() -> some View {
+        Path { path in
+            let tileSize: CGFloat = 20
+            for (index, currentPosition) in positions.enumerated() {
+                let point = CGPoint(
+                    x: CGFloat(currentPosition.x) * tileSize,
+                    y: CGFloat(currentPosition.y) * tileSize
+                )
+                if index == 0 {
+                    path.move(to: point)
+                } else {
+                    path.addLine(to: point)
+                }
+            }
+        }
+        .stroke(Color.blue, style: StrokeStyle(lineWidth: 17, lineCap: .butt, lineJoin: .bevel))
+    }
+
+    private func pathWithRetro() -> some View {
         Path { path in
             let tileSize: CGFloat = 20
             let halfBorderSize: CGFloat = 8
@@ -67,7 +96,6 @@ struct SnakePathView: View {
             }
         }
         .fill(Color.red)
-        .frame(width: 400, height: 400)
     }
 }
 
