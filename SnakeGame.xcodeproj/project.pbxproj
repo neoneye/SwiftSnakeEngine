@@ -39,7 +39,7 @@
 		423DE7962464989E00C97EF6 /* T4000_SnakeDatasetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423DE7952464989E00C97EF6 /* T4000_SnakeDatasetBundle.swift */; };
 		4243859A245C863700711EA2 /* T4001_Dataset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42438599245C863700711EA2 /* T4001_Dataset.swift */; };
 		4246C441235BB07E00324965 /* PlayerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4246C440235BB07E00324965 /* PlayerMenu.swift */; };
-		42510E5A2467112900A2DACD /* IngameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E592467112900A2DACD /* IngameView.swift */; };
+		42510E5A2467112900A2DACD /* LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E592467112900A2DACD /* LevelView.swift */; };
 		42510E5E2467686C00A2DACD /* SnakePathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E5D2467686C00A2DACD /* SnakePathView.swift */; };
 		42510E6024676A8200A2DACD /* T2006_PositionArrayToPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E5F24676A8200A2DACD /* T2006_PositionArrayToPath.swift */; };
 		42510E622467730400A2DACD /* PositionArrayToPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E612467730400A2DACD /* PositionArrayToPath.swift */; };
@@ -349,7 +349,7 @@
 		423DE7952464989E00C97EF6 /* T4000_SnakeDatasetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T4000_SnakeDatasetBundle.swift; sourceTree = "<group>"; };
 		42438599245C863700711EA2 /* T4001_Dataset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T4001_Dataset.swift; sourceTree = "<group>"; };
 		4246C440235BB07E00324965 /* PlayerMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMenu.swift; sourceTree = "<group>"; };
-		42510E592467112900A2DACD /* IngameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngameView.swift; sourceTree = "<group>"; };
+		42510E592467112900A2DACD /* LevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelView.swift; sourceTree = "<group>"; };
 		42510E5D2467686C00A2DACD /* SnakePathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakePathView.swift; sourceTree = "<group>"; };
 		42510E5F24676A8200A2DACD /* T2006_PositionArrayToPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2006_PositionArrayToPath.swift; sourceTree = "<group>"; };
 		42510E612467730400A2DACD /* PositionArrayToPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionArrayToPath.swift; sourceTree = "<group>"; };
@@ -683,7 +683,7 @@
 				42ECBCCA237CA50700758303 /* DebugMenu.swift */,
 				421A9E32243922ED00A85B6F /* GameNSView.swift */,
 				4255CA1C232F8A2300A230AF /* Info.plist */,
-				42510E592467112900A2DACD /* IngameView.swift */,
+				42510E592467112900A2DACD /* LevelView.swift */,
 				4255CA19232F8A2300A230AF /* Main.storyboard */,
 				42C5566723ABE7E70001DBD8 /* NSEvent+KeyCode.swift */,
 				429CD0D02348F93E00098E68 /* NSUserDefaultsController+Settings.swift */,
@@ -1445,7 +1445,7 @@
 				42A93BF823FC1E1800A15FD2 /* MyContentView.swift in Sources */,
 				421A9E33243922ED00A85B6F /* GameNSView.swift in Sources */,
 				42CCD61D23C3CF660021CBE7 /* SpriteKitContainer.swift in Sources */,
-				42510E5A2467112900A2DACD /* IngameView.swift in Sources */,
+				42510E5A2467112900A2DACD /* LevelView.swift in Sources */,
 				4255CA14232F8A2100A230AF /* IngameScene.swift in Sources */,
 				4220E566244B54B80088C3C1 /* AppColor.swift in Sources */,
 				429CD0D12348F93E00098E68 /* NSUserDefaultsController+Settings.swift in Sources */,

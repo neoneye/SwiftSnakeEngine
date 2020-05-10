@@ -1,5 +1,4 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
-import Foundation
 import SwiftUI
 
 #if os(iOS)
@@ -15,7 +14,7 @@ struct LevelCell: Identifiable {
     var position: UIntVec2
 }
 
-struct GridCell: View {
+struct LevelCellView: View {
     var levelCell: LevelCell
 
     var body: some View {
@@ -24,7 +23,7 @@ struct GridCell: View {
     }
 }
 
-struct GridView: View {
+struct LevelGridView: View {
     let rowCount: UInt
     let columnCount: UInt
     let levelCellArray: [LevelCell]
@@ -68,7 +67,7 @@ struct GridView: View {
         )
         return ZStack(alignment: .topLeading) {
             ForEach(self.levelCellArray) { cell in
-                GridCell(levelCell: cell)
+                LevelCellView(levelCell: cell)
                     .frame(width: width, height: height)
                     .position(self.compute(cell: cell, size: size, inset: inset))
             }
@@ -76,7 +75,7 @@ struct GridView: View {
     }
 }
 
-struct IngameView: View {
+struct LevelView: View {
     var body: some View {
         let uuid = UUID(uuidString: "cdeeadf2-31c9-48f4-852f-778b58086dd0")!
         let level: SnakeLevel = SnakeLevelManager.shared.level(id: uuid)!
@@ -100,18 +99,18 @@ struct IngameView: View {
             }
         }
 
-        return GridView(rowCount: UInt(size.y), columnCount: UInt(size.x), levelCellArray: levelCellArray)
+        return LevelGridView(rowCount: UInt(size.y), columnCount: UInt(size.x), levelCellArray: levelCellArray)
     }
 }
 
-struct IngameView_Previews: PreviewProvider {
+struct LevelView_Previews: PreviewProvider {
     static var previews: some View {
         return Group {
-            IngameView()
+            LevelView()
                 .previewLayout(.fixed(width: 130, height: 200))
-            IngameView()
+            LevelView()
                 .previewLayout(.fixed(width: 300, height: 200))
-            IngameView()
+            LevelView()
                 .previewLayout(.fixed(width: 500, height: 150))
         }
     }

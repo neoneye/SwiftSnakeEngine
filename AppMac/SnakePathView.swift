@@ -1,5 +1,4 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
-import Foundation
 import SwiftUI
 
 #if os(iOS)
