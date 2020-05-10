@@ -48,28 +48,13 @@ struct LevelGridView: View {
                               endPoint: .bottom)
     }
 
-    private func compute(cell: LevelCell, size: CGSize, inset: CGPoint) -> CGPoint {
-        return CGPoint(
-            x: CGFloat(cell.position.x) * size.width + inset.x,
-            y: CGFloat(cell.position.y) * size.height + inset.y
-        )
-    }
-
     private func gridView(_ geometry: GeometryProxy) -> some View {
-        let halfWidth: CGFloat = floor(geometry.size.width / CGFloat(columnCount * 2))
-        let halfHeight: CGFloat = floor(geometry.size.height / CGFloat(rowCount * 2))
-        let width: CGFloat = halfWidth * 2
-        let height: CGFloat = halfHeight * 2
-        let size: CGSize = CGSize(width: width, height: height)
-        let inset: CGPoint = CGPoint(
-            x: floor((geometry.size.width - width * CGFloat(columnCount))/2) + halfWidth,
-            y: floor((geometry.size.height - height * CGFloat(rowCount))/2) + halfHeight
-        )
+        let gridComputer = IngameGridComputer(viewSize: geometry.size, columnCount: columnCount, rowCount: rowCount)
         return ZStack(alignment: .topLeading) {
             ForEach(self.levelCellArray) { cell in
                 LevelCellView(levelCell: cell)
-                    .frame(width: width, height: height)
-                    .position(self.compute(cell: cell, size: size, inset: inset))
+                    .frame(width: gridComputer.cellSize.width, height: gridComputer.cellSize.height)
+                    .position(gridComputer.position(cell.position))
             }
         }
     }

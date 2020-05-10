@@ -45,6 +45,7 @@
 		42510E622467730400A2DACD /* PositionArrayToPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E612467730400A2DACD /* PositionArrayToPath.swift */; };
 		42510E632467730400A2DACD /* PositionArrayToPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E612467730400A2DACD /* PositionArrayToPath.swift */; };
 		42510E65246790F100A2DACD /* IngameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E64246790F100A2DACD /* IngameView.swift */; };
+		42510E672468187D00A2DACD /* IngameGridComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E662468187D00A2DACD /* IngameGridComputer.swift */; };
 		4253C53F23359FB000210611 /* SnakeLevels.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4253C53E23359FB000210611 /* SnakeLevels.bundle */; };
 		4253C5412335A9D100210611 /* SnakeLevel+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5402335A9D100210611 /* SnakeLevel+Load.swift */; };
 		4253C5432336349800210611 /* UIntVec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5422336349800210611 /* UIntVec2.swift */; };
@@ -355,6 +356,7 @@
 		42510E5F24676A8200A2DACD /* T2006_PositionArrayToPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2006_PositionArrayToPath.swift; sourceTree = "<group>"; };
 		42510E612467730400A2DACD /* PositionArrayToPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionArrayToPath.swift; sourceTree = "<group>"; };
 		42510E64246790F100A2DACD /* IngameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngameView.swift; sourceTree = "<group>"; };
+		42510E662468187D00A2DACD /* IngameGridComputer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngameGridComputer.swift; sourceTree = "<group>"; };
 		4253C53E23359FB000210611 /* SnakeLevels.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SnakeLevels.bundle; sourceTree = "<group>"; };
 		4253C5402335A9D100210611 /* SnakeLevel+Load.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnakeLevel+Load.swift"; sourceTree = "<group>"; };
 		4253C5422336349800210611 /* UIntVec2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIntVec2.swift; sourceTree = "<group>"; };
@@ -685,6 +687,7 @@
 				42ECBCCA237CA50700758303 /* DebugMenu.swift */,
 				421A9E32243922ED00A85B6F /* GameNSView.swift */,
 				4255CA1C232F8A2300A230AF /* Info.plist */,
+				42510E662468187D00A2DACD /* IngameGridComputer.swift */,
 				42510E64246790F100A2DACD /* IngameView.swift */,
 				42510E592467112900A2DACD /* LevelView.swift */,
 				4255CA19232F8A2300A230AF /* Main.storyboard */,
@@ -1448,6 +1451,7 @@
 				42A93BF823FC1E1800A15FD2 /* MyContentView.swift in Sources */,
 				421A9E33243922ED00A85B6F /* GameNSView.swift in Sources */,
 				42CCD61D23C3CF660021CBE7 /* SpriteKitContainer.swift in Sources */,
+				42510E672468187D00A2DACD /* IngameGridComputer.swift in Sources */,
 				42510E5A2467112900A2DACD /* LevelView.swift in Sources */,
 				4255CA14232F8A2100A230AF /* IngameScene.swift in Sources */,
 				4220E566244B54B80088C3C1 /* AppColor.swift in Sources */,
