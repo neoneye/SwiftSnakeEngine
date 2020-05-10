@@ -43,7 +43,7 @@ struct IngameView: View {
             IntVec2(x: 12, y:  7),
             IntVec2(x: 12, y: 10),
         ]
-        return SnakePathView(rowCount: UInt(level.size.y), columnCount: UInt(level.size.x), positions: positions)
+        return SnakePathView(gridSize: level.size, positions: positions)
     }
 }
 

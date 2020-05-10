@@ -46,8 +46,7 @@ struct LevelCellView: View {
 }
 
 struct LevelGridView: View {
-    let rowCount: UInt
-    let columnCount: UInt
+    let gridSize: UIntVec2
     let levelCellArray: [LevelCell]
 
     var body: some View {
@@ -57,7 +56,7 @@ struct LevelGridView: View {
     }
 
     private func gridView(_ geometry: GeometryProxy) -> some View {
-        let gridComputer = IngameGridComputer(viewSize: geometry.size, columnCount: columnCount, rowCount: rowCount)
+        let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
         return ZStack(alignment: .topLeading) {
             ForEach(self.levelCellArray) { cell in
                 LevelCellView(levelCell: cell)
@@ -72,10 +71,8 @@ struct LevelView: View {
     let level: SnakeLevel
 
     var body: some View {
-        let size: UIntVec2 = level.size
         let levelCellArray: [LevelCell] = LevelCell.create(level: level)
-
-        return LevelGridView(rowCount: UInt(size.y), columnCount: UInt(size.x), levelCellArray: levelCellArray)
+        return LevelGridView(gridSize: level.size, levelCellArray: levelCellArray)
     }
 }
 

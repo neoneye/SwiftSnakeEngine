@@ -11,19 +11,17 @@ import EngineMac
 
 struct IngameGridComputer {
     let viewSize: CGSize
-    let columnCount: UInt
-    let rowCount: UInt
+    let gridSize: UIntVec2
     let halfCellSize: CGSize
     let cellSize: CGSize
     let inset: CGPoint
 
-    init(viewSize: CGSize, columnCount: UInt, rowCount: UInt) {
+    init(viewSize: CGSize, gridSize: UIntVec2) {
         self.viewSize = viewSize
-        self.columnCount = columnCount
-        self.rowCount = rowCount
+        self.gridSize = gridSize
 
-        let halfWidth: CGFloat = floor(viewSize.width / CGFloat(columnCount * 2))
-        let halfHeight: CGFloat = floor(viewSize.height / CGFloat(rowCount * 2))
+        let halfWidth: CGFloat = floor(viewSize.width / CGFloat(gridSize.x * 2))
+        let halfHeight: CGFloat = floor(viewSize.height / CGFloat(gridSize.y * 2))
         self.halfCellSize = CGSize(width: halfWidth, height: halfHeight)
 
         let width: CGFloat = halfWidth * 2
@@ -32,8 +30,8 @@ struct IngameGridComputer {
         self.cellSize = cellSize
 
         let inset: CGPoint = CGPoint(
-            x: floor((viewSize.width - width * CGFloat(columnCount))/2) + halfWidth,
-            y: floor((viewSize.height - height * CGFloat(rowCount))/2) + halfHeight
+            x: floor((viewSize.width - width * CGFloat(gridSize.x))/2) + halfWidth,
+            y: floor((viewSize.height - height * CGFloat(gridSize.y))/2) + halfHeight
         )
         self.inset = inset
     }

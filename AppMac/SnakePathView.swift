@@ -10,8 +10,7 @@ import EngineMac
 #endif
 
 struct SnakePathView: View {
-    let rowCount: UInt
-    let columnCount: UInt
+    let gridSize: UIntVec2
     let positions: [IntVec2]
 
     var body: some View {
@@ -21,7 +20,7 @@ struct SnakePathView: View {
     }
 
     private func pathWithBevelStroke(_ geometry: GeometryProxy) -> some View {
-        let gridComputer = IngameGridComputer(viewSize: geometry.size, columnCount: columnCount, rowCount: rowCount)
+        let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
         let tileMinSize: CGFloat = min(gridComputer.cellSize.width, gridComputer.cellSize.height)
         let lineWidth: CGFloat = tileMinSize - 4
         return Path { path in
@@ -105,12 +104,13 @@ struct SnakePathView_Previews: PreviewProvider {
             IntVec2(x: 12, y:  9),
             IntVec2(x: 12, y: 12),
         ]
+        let gridSize = UIntVec2(x: 14, y: 16)
         return Group {
-            SnakePathView(rowCount: 14, columnCount: 16, positions: positions)
+            SnakePathView(gridSize: gridSize, positions: positions)
                 .previewLayout(.fixed(width: 130, height: 200))
-            SnakePathView(rowCount: 14, columnCount: 16, positions: positions)
+            SnakePathView(gridSize: gridSize, positions: positions)
                 .previewLayout(.fixed(width: 300, height: 200))
-            SnakePathView(rowCount: 14, columnCount: 16, positions: positions)
+            SnakePathView(gridSize: gridSize, positions: positions)
                 .previewLayout(.fixed(width: 500, height: 150))
         }
     }
