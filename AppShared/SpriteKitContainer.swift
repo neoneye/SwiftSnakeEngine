@@ -119,7 +119,7 @@ struct SpriteKitContainer: ViewRepresentableType {
 struct SpriteKitContainer_Previews : PreviewProvider {
 
 	static var previews: some View {
-        let model = GameViewModel()
+        let model = GameViewModel.create()
         return Group {
             SpriteKitContainer(model: model, isPreview: true).previewLayout(.fixed(width: 125, height: 200))
 			SpriteKitContainer(model: model, isPreview: true).previewLayout(.fixed(width: 150, height: 150))

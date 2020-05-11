@@ -40,12 +40,29 @@ public class GameViewModel: ObservableObject {
     @Published var levelSelector_visible = true
     @Published var levelSelector_insetTop: CGFloat = 0
     @Published var player1SnakeBody: SnakeBody = SnakeBody.empty()
+    private let snakeGameEnvironment: SnakeGameEnvironment
 
     #if os(iOS)
     @Published var iOS_soundEffectsEnabled: Bool = SoundEffectController().value {
         didSet { SoundEffectController().set(self.iOS_soundEffectsEnabled) }
     }
     #endif
+
+    init(snakeGameEnvironment: SnakeGameEnvironment) {
+        self.snakeGameEnvironment = snakeGameEnvironment
+    }
+
+    static func create() -> GameViewModel {
+        let gameState = SnakeGameState.create(
+            player1: .human,
+            player2: .none,
+            levelName: "Level 0.csv"
+        )
+        let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+            initialGameState: gameState
+        )
+        return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
+    }
 
     func sendInfoEvent(_ event: SnakeGameInfoEvent) {
         switch event {

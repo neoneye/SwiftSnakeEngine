@@ -387,7 +387,7 @@ struct MyContentView: View {
 struct ContentView_Previews : PreviewProvider {
 
     static var previews: some View {
-        let model = GameViewModel()
+        let model = GameViewModel.create()
         return Group {
             MyContentView(model: model, isPreview: true)
                 .previewLayout(.fixed(width: 130, height: 200))

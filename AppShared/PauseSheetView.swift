@@ -97,7 +97,7 @@ struct PauseSheetView: View {
 
 struct PauseSheetView_Previews: PreviewProvider {
     static var previews: some View {
-        let model = GameViewModel()
+        let model = GameViewModel.create()
         return PauseSheetView(model: model, presentedAsModal: .constant(true))
     }
 }
