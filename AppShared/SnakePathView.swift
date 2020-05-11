@@ -100,15 +100,27 @@ struct SnakePathView_Previews: PreviewProvider {
     static var previews: some View {
         let positions: [IntVec2] = [
             IntVec2(x:  7, y: 10),
+            IntVec2(x:  8, y: 10),
+            IntVec2(x:  9, y: 10),
             IntVec2(x: 10, y: 10),
+            IntVec2(x: 10, y:  9),
+            IntVec2(x: 10, y:  8),
             IntVec2(x: 10, y:  7),
+            IntVec2(x: 11, y:  7),
+            IntVec2(x: 12, y:  7),
             IntVec2(x: 13, y:  7),
+            IntVec2(x: 13, y:  8),
             IntVec2(x: 13, y:  9),
             IntVec2(x: 12, y:  9),
+            IntVec2(x: 12, y: 10),
+            IntVec2(x: 12, y: 11),
             IntVec2(x: 12, y: 12),
         ]
-        let snakeBody: SnakeBody = SnakeBody.create(positions: positions)!
+        guard let snakeBody: SnakeBody = SnakeBody.create(positions: positions) else {
+            fatalError("Unable to create snake")
+        }
         let gridSize = UIntVec2(x: 14, y: 16)
+        
         return Group {
             SnakePathView(
                 gridSize: .constant(gridSize),
