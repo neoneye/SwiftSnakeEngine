@@ -484,21 +484,8 @@ class IngameScene: SKScene {
         guard player.isInstalledAndAliveAndHuman else {
             return
         }
-        let dx: Int32
-        let dy: Int32
-        switch desiredHeadDirection {
-        case .up:
-            (dx, dy) = (0, 1)
-        case .down:
-            (dx, dy) = (0, -1)
-        case .left:
-            (dx, dy) = (-1, 0)
-        case .right:
-            (dx, dy) = (1, 0)
-        }
         let head: SnakeHead = player.snakeBody.head
-        let newPosition: IntVec2 = head.position.offsetBy(dx: dx, dy: dy)
-        let movement: SnakeBodyMovement = head.moveToward(newPosition) ?? SnakeBodyMovement.dontMove
+        let movement: SnakeBodyMovement = head.moveToward(direction: desiredHeadDirection)
         guard movement != SnakeBodyMovement.dontMove else {
             userInput_stepBackwardOnce_ifSingleHuman()
             return
