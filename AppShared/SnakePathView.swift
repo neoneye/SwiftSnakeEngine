@@ -10,7 +10,7 @@ import EngineMac
 #endif
 
 struct SnakePathView: View {
-    let gridSize: UIntVec2
+    @Binding var gridSize: UIntVec2
     let positions: [IntVec2]
 
     var body: some View {
@@ -106,11 +106,11 @@ struct SnakePathView_Previews: PreviewProvider {
         ]
         let gridSize = UIntVec2(x: 14, y: 16)
         return Group {
-            SnakePathView(gridSize: gridSize, positions: positions)
+            SnakePathView(gridSize: .constant(gridSize), positions: positions)
                 .previewLayout(.fixed(width: 130, height: 200))
-            SnakePathView(gridSize: gridSize, positions: positions)
+            SnakePathView(gridSize: .constant(gridSize), positions: positions)
                 .previewLayout(.fixed(width: 300, height: 200))
-            SnakePathView(gridSize: gridSize, positions: positions)
+            SnakePathView(gridSize: .constant(gridSize), positions: positions)
                 .previewLayout(.fixed(width: 500, height: 150))
         }
     }
