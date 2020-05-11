@@ -13,6 +13,10 @@ import EngineMac
 struct MyContentView: View {
     @ObservedObject var model: GameViewModel
 
+    #if os(macOS)
+    @Environment(\.keyPublisher) var keyPublisher
+    #endif
+
     @State private var player1Dead: Bool = false
     @State private var player2Dead: Bool = false
     @State var presentingModal = false
@@ -153,6 +157,79 @@ struct MyContentView: View {
         )
     }
 
+    private var ingameView: IngameView {
+        let uuid = UUID(uuidString: "cdeeadf2-31c9-48f4-852f-778b58086dd0")!
+        let level: SnakeLevel = SnakeLevelManager.shared.level(id: uuid)!
+
+        return IngameView(level: level)
+    }
+
+    @State private var index: Int = 0
+    var keyCounter: some View {
+        #if os(macOS)
+        return Text("Demo \(index)")
+            .onReceive(keyPublisher) { event in
+                self.keyPressed(with: event)
+            }
+        #else
+        return Text("Demo \(index)")
+        #endif
+    }
+
+    #if os(macOS)
+    func keyPressed(with event: NSEvent) {
+        self.index += 1
+
+        if AppConstant.ignoreRepeatingKeyDownEvents && event.isARepeat {
+            //log.debug("keyDown: ignoring repeating event.")
+            return
+        }
+        switch event.keyCodeEnum {
+//        case .letterW:
+//            userInputForPlayer2(.up)
+//        case .letterA:
+//            userInputForPlayer2(.left)
+//        case .letterS:
+//            userInputForPlayer2(.down)
+//        case .letterD:
+//            userInputForPlayer2(.right)
+//        case .letterZ:
+//            schedule_stepBackwardOnce()
+//        case .letterT:
+//            let url: URL = gameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
+//            trainingSessionURLs.append(url)
+//        case .enter:
+//            restartGame()
+//        case .tab:
+//            restartGame()
+//        case .spacebar:
+//            if gameState.player1.isInstalledAndAlive || gameState.player2.isInstalledAndAlive {
+//                let updateAction = self.pendingUpdateAction
+//                switch updateAction {
+//                case .doNothing:
+//                    self.pendingUpdateAction = .stepForwardContinuously
+//                case .stepForwardContinuously, .stepForwardOnce, .stepBackwardOnce:
+//                    self.pendingUpdateAction = .doNothing
+//                }
+//            } else {
+//                restartGame()
+//            }
+        case .escape:
+            NSApp.terminate(self)
+//        case .arrowUp:
+//            userInputForPlayer1(.up)
+//        case .arrowLeft:
+//            userInputForPlayer1(.left)
+//        case .arrowRight:
+//            userInputForPlayer1(.right)
+//        case .arrowDown:
+//            userInputForPlayer1(.down)
+        default:
+            log.debug("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
+        }
+    }
+    #endif
+
     private var pauseButton: some View {
         Button(action: {
             log.debug("pause button pressed")
@@ -233,7 +310,13 @@ struct MyContentView: View {
 
     var macOS_body: some View {
         VStack(spacing: 1) {
-            spriteKitContainer
+
+            if AppConstant.useSwiftUIInsteadOfSpriteKit {
+                ingameView
+                keyCounter
+            } else {
+                spriteKitContainer
+            }
 
             macOS_footer
         }
@@ -243,7 +326,11 @@ struct MyContentView: View {
 
     var iOS_body: some View {
         ZStack {
-            spriteKitContainer
+            if AppConstant.useSwiftUIInsteadOfSpriteKit {
+                ingameView
+            } else {
+                spriteKitContainer
+            }
 
             if model.showPauseButton {
                 iOS_overlayWithPauseButton

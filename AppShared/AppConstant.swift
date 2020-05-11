@@ -19,6 +19,8 @@ struct AppConstant {
 	}
 	static let mode: Mode = .production
 
+    static let useSwiftUIInsteadOfSpriteKit: Bool = false
+
 	enum SnakeGameTheme {
 		case theme1
 		case theme2

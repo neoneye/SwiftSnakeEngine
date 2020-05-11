@@ -3,6 +3,31 @@ import Foundation
 import Combine
 import SwiftUI
 
+#if os(iOS)
+import EngineIOS
+#elseif os(macOS)
+import EngineMac
+#else
+#error("Unknown OS")
+#endif
+
+#if os(macOS)
+// Environment key to hold even publisher
+struct WindowEventPublisherKey: EnvironmentKey {
+    static let defaultValue: AnyPublisher<NSEvent, Never> =
+        Just(NSEvent()).eraseToAnyPublisher() // just default stub
+}
+
+
+// Environment value for keyPublisher access
+extension EnvironmentValues {
+    var keyPublisher: AnyPublisher<NSEvent, Never> {
+        get { self[WindowEventPublisherKey.self] }
+        set { self[WindowEventPublisherKey.self] = newValue }
+    }
+}
+#endif
+
 public class GameViewModel: ObservableObject {
     public let jumpToLevelSelector = PassthroughSubject<Void, Never>()
     public let userInterfaceStyle = PassthroughSubject<Void, Never>()
