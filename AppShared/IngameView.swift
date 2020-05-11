@@ -45,7 +45,7 @@ struct IngameView: View {
         ]
         return SnakePathView(
             gridSize: .constant(level.size),
-            positions: positions
+            positions: .constant(positions)
         )
     }
 }
