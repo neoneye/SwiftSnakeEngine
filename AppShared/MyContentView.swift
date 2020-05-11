@@ -186,6 +186,9 @@ struct MyContentView: View {
 
     #if os(macOS)
     func keyPressed(with event: NSEvent) {
+        guard event.type == NSEvent.EventType.keyDown else {
+            return
+        }
         self.index += 1
 
         if AppConstant.ignoreRepeatingKeyDownEvents && event.isARepeat {
