@@ -196,23 +196,23 @@ struct MyContentView: View {
             return
         }
         switch event.keyCodeEnum {
-//        case .letterW:
-//            userInputForPlayer2(.up)
-//        case .letterA:
-//            userInputForPlayer2(.left)
-//        case .letterS:
-//            userInputForPlayer2(.down)
-//        case .letterD:
-//            userInputForPlayer2(.right)
+        case .letterW:
+            model.userInputForPlayer2(.up)
+        case .letterA:
+            model.userInputForPlayer2(.left)
+        case .letterS:
+            model.userInputForPlayer2(.down)
+        case .letterD:
+            model.userInputForPlayer2(.right)
 //        case .letterZ:
 //            schedule_stepBackwardOnce()
 //        case .letterT:
 //            let url: URL = gameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
 //            trainingSessionURLs.append(url)
-//        case .enter:
-//            restartGame()
-//        case .tab:
-//            restartGame()
+        case .enter:
+            model.restartGame()
+        case .tab:
+            model.restartGame()
 //        case .spacebar:
 //            if gameState.player1.isInstalledAndAlive || gameState.player2.isInstalledAndAlive {
 //                let updateAction = self.pendingUpdateAction
@@ -228,36 +228,18 @@ struct MyContentView: View {
         case .escape:
             NSApp.terminate(self)
         case .arrowUp:
-            userInputForPlayer1(.up)
+            model.userInputForPlayer1(.up)
         case .arrowLeft:
-            userInputForPlayer1(.left)
+            model.userInputForPlayer1(.left)
         case .arrowRight:
-            userInputForPlayer1(.right)
+            model.userInputForPlayer1(.right)
         case .arrowDown:
-            userInputForPlayer1(.down)
+            model.userInputForPlayer1(.down)
         default:
             log.debug("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
         }
     }
     #endif
-
-    func userInputForPlayer1(_ desiredHeadDirection: SnakeHeadDirection) {
-        if model.player1SnakeBody.length == 0 {
-            let positions: [IntVec2] = [
-                IntVec2(x: 4, y: 4),
-                IntVec2(x: 5, y: 4),
-                IntVec2(x: 6, y: 4),
-                IntVec2(x: 6, y: 3),
-            ]
-            model.player1SnakeBody = SnakeBody.create(positions: positions)!
-        } else {
-            let snakeBody0: SnakeBody = model.player1SnakeBody
-            let head: SnakeHead = snakeBody0.head
-            let movement: SnakeBodyMovement = head.moveToward(direction: desiredHeadDirection)
-            let snakeBody1: SnakeBody = snakeBody0.stateForTick(movement: movement, act: .eat)
-            model.player1SnakeBody = snakeBody1
-        }
-    }
 
     private var pauseButton: some View {
         Button(action: {

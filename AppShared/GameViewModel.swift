@@ -41,6 +41,23 @@ public class GameViewModel: ObservableObject {
     @Published var levelSelector_insetTop: CGFloat = 0
     @Published var player1SnakeBody: SnakeBody = SnakeBody.empty()
     private let snakeGameEnvironment: SnakeGameEnvironment
+    private var _gameState: SnakeGameState
+
+    private var gameState: SnakeGameState {
+        get {
+            return _gameState
+        }
+        set {
+            _gameState = newValue
+            syncGameState(_gameState)
+        }
+    }
+    private var pendingMovement_player1: SnakeBodyMovement = .dontMove
+    private var pendingMovement_player2: SnakeBodyMovement = .dontMove
+
+    func syncGameState(_ gameState: SnakeGameState) {
+        self.player1SnakeBody = gameState.player1.snakeBody
+    }
 
     #if os(iOS)
     @Published var iOS_soundEffectsEnabled: Bool = SoundEffectController().value {
@@ -50,6 +67,8 @@ public class GameViewModel: ObservableObject {
 
     init(snakeGameEnvironment: SnakeGameEnvironment) {
         self.snakeGameEnvironment = snakeGameEnvironment
+        self._gameState = snakeGameEnvironment.reset()
+        syncGameState(_gameState)
     }
 
     static func create() -> GameViewModel {
@@ -62,6 +81,48 @@ public class GameViewModel: ObservableObject {
             initialGameState: gameState
         )
         return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
+    }
+
+    func restartGame() {
+        gameState = snakeGameEnvironment.reset()
+    }
+
+    func userInputForPlayer1(_ desiredHeadDirection: SnakeHeadDirection) {
+        userInputForPlayer(player: gameState.player1, desiredHeadDirection: desiredHeadDirection)
+    }
+
+    func userInputForPlayer2(_ desiredHeadDirection: SnakeHeadDirection) {
+        userInputForPlayer(player: gameState.player2, desiredHeadDirection: desiredHeadDirection)
+    }
+
+    private func userInputForPlayer(player: SnakePlayer, desiredHeadDirection: SnakeHeadDirection) {
+        guard player.isInstalledAndAliveAndHuman else {
+            return
+        }
+        let head: SnakeHead = player.snakeBody.head
+        let movement: SnakeBodyMovement = head.moveToward(direction: desiredHeadDirection)
+        guard movement != SnakeBodyMovement.dontMove else {
+//            userInput_stepBackwardOnce_ifSingleHuman()
+            return
+        }
+        switch player.id {
+        case .player1:
+            pendingMovement_player1 = movement
+        case .player2:
+            pendingMovement_player2 = movement
+        }
+//        self.isPaused = false
+//        self.pendingUpdateAction = .stepForwardContinuously
+        stepForward()
+    }
+
+    func stepForward() {
+        let action = SnakeGameAction(
+            player1: pendingMovement_player1,
+            player2: pendingMovement_player2
+        )
+        let newGameState = snakeGameEnvironment.step(action: action)
+        gameState = newGameState
     }
 
     func sendInfoEvent(_ event: SnakeGameInfoEvent) {
