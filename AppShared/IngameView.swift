@@ -36,16 +36,20 @@ struct IngameView: View {
     private func snakePathView() -> some View {
         let positions: [IntVec2] = [
             IntVec2(x:  7, y:  8),
+            IntVec2(x:  8, y:  8),
+            IntVec2(x:  9, y:  8),
             IntVec2(x: 10, y:  8),
+            IntVec2(x: 10, y:  7),
+            IntVec2(x: 10, y:  6),
             IntVec2(x: 10, y:  5),
+            IntVec2(x: 11, y:  5),
+            IntVec2(x: 12, y:  5),
             IntVec2(x: 13, y:  5),
-            IntVec2(x: 13, y:  7),
-            IntVec2(x: 12, y:  7),
-            IntVec2(x: 12, y: 10),
         ]
+        let snakeBody: SnakeBody = SnakeBody.create(positions: positions)!
         return SnakePathView(
             gridSize: .constant(level.size),
-            positions: .constant(positions)
+            snakeBody: .constant(snakeBody)
         )
     }
 }

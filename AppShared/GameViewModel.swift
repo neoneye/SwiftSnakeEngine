@@ -39,6 +39,7 @@ public class GameViewModel: ObservableObject {
     @Published var levelSelector_humanVsBot = true
     @Published var levelSelector_visible = true
     @Published var levelSelector_insetTop: CGFloat = 0
+    @Published var player1SnakeBody: SnakeBody = SnakeBody.empty()
 
     #if os(iOS)
     @Published var iOS_soundEffectsEnabled: Bool = SoundEffectController().value {

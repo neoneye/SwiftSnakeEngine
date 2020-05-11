@@ -164,6 +164,14 @@ struct MyContentView: View {
         return IngameView(level: level)
     }
 
+    private var snakePathView: SnakePathView {
+        let gridSize = UIntVec2(x: 14, y: 16)
+        return SnakePathView(
+            gridSize: .constant(gridSize),
+            snakeBody: $model.player1SnakeBody
+        )
+    }
+
     @State private var index: Int = 0
     var keyCounter: some View {
         #if os(macOS)
@@ -216,19 +224,37 @@ struct MyContentView: View {
 //            }
         case .escape:
             NSApp.terminate(self)
-//        case .arrowUp:
-//            userInputForPlayer1(.up)
-//        case .arrowLeft:
-//            userInputForPlayer1(.left)
-//        case .arrowRight:
-//            userInputForPlayer1(.right)
-//        case .arrowDown:
-//            userInputForPlayer1(.down)
+        case .arrowUp:
+            userInputForPlayer1(.up)
+        case .arrowLeft:
+            userInputForPlayer1(.left)
+        case .arrowRight:
+            userInputForPlayer1(.right)
+        case .arrowDown:
+            userInputForPlayer1(.down)
         default:
             log.debug("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
         }
     }
     #endif
+
+    func userInputForPlayer1(_ desiredHeadDirection: SnakeHeadDirection) {
+        if model.player1SnakeBody.length == 0 {
+            let positions: [IntVec2] = [
+                IntVec2(x: 4, y: 4),
+                IntVec2(x: 5, y: 4),
+                IntVec2(x: 6, y: 4),
+                IntVec2(x: 6, y: 3),
+            ]
+            model.player1SnakeBody = SnakeBody.create(positions: positions)!
+        } else {
+            let snakeBody0: SnakeBody = model.player1SnakeBody
+            let head: SnakeHead = snakeBody0.head
+            let movement: SnakeBodyMovement = head.moveToward(direction: desiredHeadDirection)
+            let snakeBody1: SnakeBody = snakeBody0.stateForTick(movement: movement, act: .eat)
+            model.player1SnakeBody = snakeBody1
+        }
+    }
 
     private var pauseButton: some View {
         Button(action: {
@@ -313,6 +339,7 @@ struct MyContentView: View {
 
             if AppConstant.useSwiftUIInsteadOfSpriteKit {
                 ingameView
+                snakePathView
                 keyCounter
             } else {
                 spriteKitContainer

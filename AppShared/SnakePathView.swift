@@ -11,7 +11,7 @@ import EngineMac
 
 struct SnakePathView: View {
     @Binding var gridSize: UIntVec2
-    @Binding var positions: [IntVec2]
+    @Binding var snakeBody: SnakeBody
 
     var body: some View {
         GeometryReader { geometry in
@@ -20,12 +20,14 @@ struct SnakePathView: View {
     }
 
     private func pathWithBevelStroke(_ geometry: GeometryProxy) -> some View {
+        let positions: [IntVec2] = snakeBody.positionArray()
         let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
         let tileMinSize: CGFloat = min(gridComputer.cellSize.width, gridComputer.cellSize.height)
         let lineWidth: CGFloat = tileMinSize - 4
         return Path { path in
-            for (index, currentPosition) in positions.enumerated() {
-                let point: CGPoint = gridComputer.position(currentPosition)
+            for (index, flippedPosition) in positions.enumerated() {
+                let position = IntVec2(x: flippedPosition.x, y: Int32(gridSize.y) - 1 - flippedPosition.y)
+                let point: CGPoint = gridComputer.position(position)
                 if index == 0 {
                     path.move(to: point)
                 } else {
@@ -41,6 +43,7 @@ struct SnakePathView: View {
             let tileSize: CGFloat = 20
             let halfBorderSize: CGFloat = 8
             let halfCornerOverlap: CGFloat = 5
+            let positions: [IntVec2] = snakeBody.positionArray()
             for (index, currentPosition) in positions.enumerated() {
                 if index == 0 {
                     continue
@@ -104,23 +107,24 @@ struct SnakePathView_Previews: PreviewProvider {
             IntVec2(x: 12, y:  9),
             IntVec2(x: 12, y: 12),
         ]
+        let snakeBody: SnakeBody = SnakeBody.create(positions: positions)!
         let gridSize = UIntVec2(x: 14, y: 16)
         return Group {
             SnakePathView(
                 gridSize: .constant(gridSize),
-                positions: .constant(positions)
+                snakeBody: .constant(snakeBody)
             )
             .previewLayout(.fixed(width: 130, height: 200))
 
             SnakePathView(
                 gridSize: .constant(gridSize),
-                positions: .constant(positions)
+                snakeBody: .constant(snakeBody)
             )
             .previewLayout(.fixed(width: 300, height: 200))
 
             SnakePathView(
                 gridSize: .constant(gridSize),
-                positions: .constant(positions)
+                snakeBody: .constant(snakeBody)
             )
             .previewLayout(.fixed(width: 500, height: 150))
         }
