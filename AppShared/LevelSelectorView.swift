@@ -36,7 +36,16 @@ fileprivate struct LevelSelectorCellView: View {
     var levelSelectorCell: LevelSelectorCell
 
     var body: some View {
-        IngameView(model: levelSelectorCell.model)
+        return Button(action: {
+            log.debug("select level")
+        }) {
+            IngameView(model: levelSelectorCell.model)
+            .frame(width: 80, height: 80)
+        }
+            .buttonStyle(BorderlessButtonStyle())
+        .padding()
+        .background(Color.yellow)
+        .cornerRadius(5)
     }
 }
 

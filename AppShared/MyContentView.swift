@@ -161,6 +161,16 @@ struct MyContentView: View {
         return IngameView(model: model)
     }
 
+    private var levelSelectorView: LevelSelectorView {
+        var models: [GameViewModel] = []
+        models.append(GameViewModel.create())
+        models.append(GameViewModel.createBotVsNone())
+        models.append(GameViewModel.createBotVsBot())
+        models.append(GameViewModel.createHumanVsBot())
+        let gridSize = UIntVec2(x: 3, y: 3)
+        return LevelSelectorView(gridSize: gridSize, models: models)
+    }
+
     @State private var index: Int = 0
     var keyCounter: some View {
         #if os(macOS)
@@ -314,6 +324,7 @@ struct MyContentView: View {
         VStack(spacing: 1) {
 
             if AppConstant.useSwiftUIInsteadOfSpriteKit {
+//                levelSelectorView
                 ingameView
                 keyCounter
             } else {
