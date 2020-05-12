@@ -12,6 +12,7 @@ import EngineMac
 
 struct MyContentView: View {
     @ObservedObject var model: GameViewModel
+    @ObservedObject var levelSelectorViewModel: LevelSelectorViewModel
 
     #if os(macOS)
     @Environment(\.keyPublisher) var keyPublisher
@@ -320,12 +321,20 @@ struct MyContentView: View {
         .frame(minWidth: 80, maxWidth: .infinity, minHeight: 80, maxHeight: 100)
     }
 
+    var mainContent: some View {
+        switch levelSelectorViewModel.visibleContent {
+        case .levelSelector:
+            return AnyView(levelSelectorView)
+        case .ingame:
+            return AnyView(ingameView)
+        }
+    }
+
     var macOS_body: some View {
         VStack(spacing: 1) {
 
             if AppConstant.useSwiftUIInsteadOfSpriteKit {
-//                levelSelectorView
-                ingameView
+                mainContent
                 keyCounter
             } else {
                 spriteKitContainer
@@ -371,12 +380,13 @@ struct ContentView_Previews : PreviewProvider {
 
     static var previews: some View {
         let model = GameViewModel.create()
+        let levelSelectorViewModel = LevelSelectorViewModel()
         return Group {
-            MyContentView(model: model, isPreview: true)
+            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, isPreview: true)
                 .previewLayout(.fixed(width: 130, height: 200))
-            MyContentView(model: model, isPreview: true)
+            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, isPreview: true)
                 .previewLayout(.fixed(width: 300, height: 200))
-            MyContentView(model: model, isPreview: true)
+            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, isPreview: true)
                 .previewLayout(.fixed(width: 500, height: 150))
         }
     }

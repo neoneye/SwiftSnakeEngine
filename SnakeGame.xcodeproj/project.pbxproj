@@ -192,6 +192,8 @@
 		42ABC151243D13B400E05FF3 /* SnakeLevels.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4253C53E23359FB000210611 /* SnakeLevels.bundle */; };
 		42AFEB17246AF5A8007F15D5 /* LevelSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFEB16246AF5A8007F15D5 /* LevelSelectorView.swift */; };
 		42AFEB18246AF5A8007F15D5 /* LevelSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFEB16246AF5A8007F15D5 /* LevelSelectorView.swift */; };
+		42AFEB1A246B5694007F15D5 /* LevelSelectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFEB19246B5694007F15D5 /* LevelSelectorViewModel.swift */; };
+		42AFEB1B246B5694007F15D5 /* LevelSelectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AFEB19246B5694007F15D5 /* LevelSelectorViewModel.swift */; };
 		42B96D952347EE000073CAAA /* LevelSelectorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B96D942347EE000073CAAA /* LevelSelectorNode.swift */; };
 		42BE1626243E90050031C88B /* SnakePlannedPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA9240F00740066B8C0 /* SnakePlannedPathNode.swift */; };
 		42BE1627243E93650031C88B /* SnakeBodyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */; };
@@ -433,6 +435,7 @@
 		42ABC110243CAD1100E05FF3 /* EngineIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EngineIOS.h; sourceTree = "<group>"; };
 		42ABC111243CAD1100E05FF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42AFEB16246AF5A8007F15D5 /* LevelSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectorView.swift; sourceTree = "<group>"; };
+		42AFEB19246B5694007F15D5 /* LevelSelectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectorViewModel.swift; sourceTree = "<group>"; };
 		42B96D942347EE000073CAAA /* LevelSelectorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectorNode.swift; sourceTree = "<group>"; };
 		42C1930824489A5C00697159 /* PlayerModeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModeController.swift; sourceTree = "<group>"; };
 		42C1930A244913A500697159 /* ViewHeightGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHeightGetter.swift; sourceTree = "<group>"; };
@@ -739,6 +742,7 @@
 				42B96D942347EE000073CAAA /* LevelSelectorNode.swift */,
 				423494FB234D151D009C0030 /* LevelSelectorScene.swift */,
 				42AFEB16246AF5A8007F15D5 /* LevelSelectorView.swift */,
+				42AFEB19246B5694007F15D5 /* LevelSelectorViewModel.swift */,
 				42510E592467112900A2DACD /* LevelView.swift */,
 				42A93BF723FC1E1800A15FD2 /* MyContentView.swift */,
 				42A06C1D2441D90600877CB9 /* PauseSheetView.swift */,
@@ -1453,6 +1457,7 @@
 			files = (
 				42C5566823ABE7E70001DBD8 /* NSEvent+KeyCode.swift in Sources */,
 				422B903B23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift in Sources */,
+				42AFEB1B246B5694007F15D5 /* LevelSelectorViewModel.swift in Sources */,
 				42F35E6123FD877400A4795B /* PlayerScoreView.swift in Sources */,
 				42A06C1F2441D90600877CB9 /* PauseSheetView.swift in Sources */,
 				4294DA512341377900AA58CD /* SnakeGameNode.swift in Sources */,
@@ -1584,6 +1589,7 @@
 				4211C32D244A063600C25514 /* SelectedLevelController.swift in Sources */,
 				4290533D243EA53C004EFFB6 /* LevelSelectorScene.swift in Sources */,
 				42905333243E9A3F004EFFB6 /* PlayerScoreView.swift in Sources */,
+				42AFEB1A246B5694007F15D5 /* LevelSelectorViewModel.swift in Sources */,
 				42510E68246825F400A2DACD /* IngameGridComputer.swift in Sources */,
 				42A3899B24462DF200552363 /* GameViewController.swift in Sources */,
 				42905361243EAE0B004EFFB6 /* SceneDelegate.swift in Sources */,
