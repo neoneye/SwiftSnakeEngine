@@ -11,7 +11,7 @@ import EngineMac
 #endif
 
 struct MyContentView: View {
-    @ObservedObject var model: GameViewModel
+    @State var model: GameViewModel
     @ObservedObject var levelSelectorViewModel: LevelSelectorViewModel
 
     #if os(macOS)
@@ -172,6 +172,7 @@ struct MyContentView: View {
 
         let selectLevelHandler: SelectLevelHandler = { model in
             log.debug("did select model: \(model)")
+            self.model = model
             self.levelSelectorViewModel.visibleContent = .ingame
         }
         return LevelSelectorView(gridSize: gridSize, models: models, selectLevelHandler: selectLevelHandler)
