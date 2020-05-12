@@ -40,6 +40,8 @@ public class GameViewModel: ObservableObject {
     @Published var levelSelector_visible = true
     @Published var levelSelector_insetTop: CGFloat = 0
     @Published var player1SnakeBody: SnakeBody = SnakeBody.empty()
+    @Published var level: SnakeLevel = SnakeLevel.empty()
+
     private let snakeGameEnvironment: SnakeGameEnvironment
     private var _gameState: SnakeGameState
 
@@ -57,6 +59,7 @@ public class GameViewModel: ObservableObject {
 
     func syncGameState(_ gameState: SnakeGameState) {
         self.player1SnakeBody = gameState.player1.snakeBody
+        self.level = gameState.level
     }
 
     #if os(iOS)

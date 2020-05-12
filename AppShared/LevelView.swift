@@ -68,9 +68,10 @@ struct LevelGridView: View {
 }
 
 struct LevelView: View {
-    let level: SnakeLevel
+    @ObservedObject var model: GameViewModel
 
     var body: some View {
+        let level: SnakeLevel = model.level
         let levelCellArray: [LevelCell] = LevelCell.create(level: level)
         return LevelGridView(gridSize: level.size, levelCellArray: levelCellArray)
     }
@@ -78,15 +79,13 @@ struct LevelView: View {
 
 struct LevelView_Previews: PreviewProvider {
     static var previews: some View {
-        let uuid = UUID(uuidString: "cdeeadf2-31c9-48f4-852f-778b58086dd0")!
-        let level: SnakeLevel = SnakeLevelManager.shared.level(id: uuid)!
-
+        let model = GameViewModel.create()
         return Group {
-            LevelView(level: level)
+            LevelView(model: model)
                 .previewLayout(.fixed(width: 130, height: 200))
-            LevelView(level: level)
+            LevelView(model: model)
                 .previewLayout(.fixed(width: 300, height: 200))
-            LevelView(level: level)
+            LevelView(model: model)
                 .previewLayout(.fixed(width: 500, height: 150))
         }
     }

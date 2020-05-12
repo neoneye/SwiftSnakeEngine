@@ -158,18 +158,7 @@ struct MyContentView: View {
     }
 
     private var ingameView: IngameView {
-        let uuid = UUID(uuidString: "cdeeadf2-31c9-48f4-852f-778b58086dd0")!
-        let level: SnakeLevel = SnakeLevelManager.shared.level(id: uuid)!
-
-        return IngameView(level: level)
-    }
-
-    private var snakePathView: SnakePathView {
-        let gridSize = UIntVec2(x: 14, y: 16)
-        return SnakePathView(
-            gridSize: .constant(gridSize),
-            snakeBody: $model.player1SnakeBody
-        )
+        return IngameView(model: model)
     }
 
     @State private var index: Int = 0
@@ -324,7 +313,6 @@ struct MyContentView: View {
 
             if AppConstant.useSwiftUIInsteadOfSpriteKit {
                 ingameView
-                snakePathView
                 keyCounter
             } else {
                 spriteKitContainer

@@ -10,14 +10,14 @@ import EngineMac
 #endif
 
 struct IngameView: View {
-    let level: SnakeLevel
+    @ObservedObject var model: GameViewModel
 
     var body: some View {
         ZStack {
             self.backgroundGradient
                 .edgesIgnoringSafeArea(.all)
 
-            LevelView(level: level)
+            LevelView(model: model)
 
             snakePathView()
         }
@@ -34,31 +34,16 @@ struct IngameView: View {
     }
 
     private func snakePathView() -> some View {
-        let positions: [IntVec2] = [
-            IntVec2(x:  7, y:  8),
-            IntVec2(x:  8, y:  8),
-            IntVec2(x:  9, y:  8),
-            IntVec2(x: 10, y:  8),
-            IntVec2(x: 10, y:  7),
-            IntVec2(x: 10, y:  6),
-            IntVec2(x: 10, y:  5),
-            IntVec2(x: 11, y:  5),
-            IntVec2(x: 12, y:  5),
-            IntVec2(x: 13, y:  5),
-        ]
-        let snakeBody: SnakeBody = SnakeBody.create(positions: positions)!
         return SnakePathView(
-            gridSize: .constant(level.size),
-            snakeBody: .constant(snakeBody)
+            gridSize: .constant(model.level.size),
+            snakeBody: $model.player1SnakeBody
         )
     }
 }
 
 struct IngameView_Previews: PreviewProvider {
     static var previews: some View {
-        let uuid = UUID(uuidString: "cdeeadf2-31c9-48f4-852f-778b58086dd0")!
-        let level: SnakeLevel = SnakeLevelManager.shared.level(id: uuid)!
-
-        return IngameView(level: level)
+        let model = GameViewModel.create()
+        return IngameView(model: model)
     }
 }
