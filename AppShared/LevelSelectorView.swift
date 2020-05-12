@@ -9,6 +9,8 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
+typealias SelectLevelHandler = (GameViewModel) -> Void
+
 fileprivate struct LevelSelectorCell: Identifiable {
     var id: Int
     var position: UIntVec2
@@ -33,8 +35,8 @@ fileprivate struct LevelSelectorCell: Identifiable {
 }
 
 fileprivate struct LevelSelectorCellView: View {
-    var levelSelectorCell: LevelSelectorCell
-    @State var showModal = false
+    let selectLevelHandler: SelectLevelHandler
+    let levelSelectorCell: LevelSelectorCell
 
     var body: some View {
         GeometryReader { geometry in
@@ -54,7 +56,7 @@ fileprivate struct LevelSelectorCellView: View {
 
         return Button(action: {
             log.debug("select level id: \(self.levelSelectorCell.id)")
-            self.showModal = true
+            self.selectLevelHandler(self.levelSelectorCell.model)
         }) {
             self.ingameView(size: ingameViewSize)
         }
@@ -62,18 +64,13 @@ fileprivate struct LevelSelectorCellView: View {
         .background(Color.yellow)
         .cornerRadius(5)
         .frame(width: geometry.size.width, height: geometry.size.height)
-        .sheet(isPresented: self.$showModal, onDismiss: {
-            self.showModal = false
-        }) {
-            IngameView(model: self.levelSelectorCell.model)
-            .frame(width: 200, height: 200)
-        }
     }
 }
 
 fileprivate struct LevelSelectorGridView: View {
     let gridSize: UIntVec2
     let cells: [LevelSelectorCell]
+    let selectLevelHandler: SelectLevelHandler
 
     var body: some View {
         GeometryReader { geometry in
@@ -85,7 +82,7 @@ fileprivate struct LevelSelectorGridView: View {
         let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
         return ZStack(alignment: .topLeading) {
             ForEach(self.cells) { cell in
-                LevelSelectorCellView(levelSelectorCell: cell)
+                LevelSelectorCellView(selectLevelHandler: self.selectLevelHandler, levelSelectorCell: cell)
                     .frame(width: gridComputer.cellSize.width, height: gridComputer.cellSize.height)
                     .position(gridComputer.position(cell.position))
             }
@@ -96,10 +93,11 @@ fileprivate struct LevelSelectorGridView: View {
 struct LevelSelectorView: View {
     let gridSize: UIntVec2
     let models: [GameViewModel]
+    let selectLevelHandler: SelectLevelHandler
 
     var body: some View {
         let cells: [LevelSelectorCell] = LevelSelectorCell.create(gridSize: gridSize, models: models)
-        return LevelSelectorGridView(gridSize: gridSize, cells: cells)
+        return LevelSelectorGridView(gridSize: gridSize, cells: cells, selectLevelHandler: selectLevelHandler)
     }
 }
 
@@ -111,6 +109,6 @@ struct LevelSelectorView_Previews: PreviewProvider {
         models.append(GameViewModel.createBotVsBot())
         models.append(GameViewModel.createHumanVsBot())
         let gridSize = UIntVec2(x: 3, y: 3)
-        return LevelSelectorView(gridSize: gridSize, models: models)
+        return LevelSelectorView(gridSize: gridSize, models: models, selectLevelHandler: {_ in })
     }
 }

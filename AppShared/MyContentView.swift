@@ -169,7 +169,12 @@ struct MyContentView: View {
         models.append(GameViewModel.createBotVsBot())
         models.append(GameViewModel.createHumanVsBot())
         let gridSize = UIntVec2(x: 3, y: 3)
-        return LevelSelectorView(gridSize: gridSize, models: models)
+
+        let selectLevelHandler: SelectLevelHandler = { model in
+            log.debug("did select model: \(model)")
+            self.levelSelectorViewModel.visibleContent = .ingame
+        }
+        return LevelSelectorView(gridSize: gridSize, models: models, selectLevelHandler: selectLevelHandler)
     }
 
     @State private var index: Int = 0
