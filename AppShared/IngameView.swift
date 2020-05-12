@@ -76,6 +76,13 @@ struct IngameView: View {
 struct IngameView_Previews: PreviewProvider {
     static var previews: some View {
         let model = GameViewModel.createHumanVsHuman()
-        return IngameView(model: model)
+        return Group {
+            IngameView(model: model)
+                .previewLayout(.fixed(width: 130, height: 200))
+            IngameView(model: model)
+                .previewLayout(.fixed(width: 300, height: 200))
+            IngameView(model: model)
+                .previewLayout(.fixed(width: 400, height: 150))
+        }
     }
 }
