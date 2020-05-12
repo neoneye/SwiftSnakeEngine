@@ -92,30 +92,7 @@ class LevelSelectorNode: SKSpriteNode {
 	}
 
 	func createGameStates() {
-        let role1: SnakePlayerRole
-        let role2: SnakePlayerRole
-        #if os(macOS)
-        role1 = UserDefaults.standard.player1RoleMenuItem.role
-        role2 = UserDefaults.standard.player2RoleMenuItem.role
-        #else
-
-        role1 = SnakePlayerRole.human
-
-        let playerMode: PlayerMode = PlayerModeController().value
-        switch playerMode {
-        case .twoPlayer_humanBot:
-            let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
-            role2 = SnakePlayerRole.bot(snakeBotType: snakeBotType)
-        case .singlePlayer_human:
-           role2 = SnakePlayerRole.none
-        }
-        #endif
-
-		let levelNames: [String] = SnakeLevelManager.shared.levelNames
-		let gameStates: [SnakeGameState] = levelNames.map {
-			SnakeGameState.create(player1: role1, player2: role2, levelName: $0)
-		}
-		self.gameStates = gameStates
+        self.gameStates = LevelSelectorDataSource.createGameStatesWithUserDefaults()
 	}
 
 	func createGameNodes() {
