@@ -36,19 +36,38 @@ struct IngameView: View {
     }
 
     private var player1Snake: some View {
-        return SnakePathView(
+        guard model.player1IsInstalled else {
+            return AnyView(EmptyView())
+        }
+        let color: Color
+        if model.player1IsAlive {
+            color = AppColor.player1_snakeBody.color
+        } else {
+            color = AppColor.player1_snakeBody_dead.color
+        }
+        let view = SnakePathView(
             gridSize: .constant(model.level.size),
             snakeBody: $model.player1SnakeBody,
-            fillColor: Color.blue
+            fillColor: color
         )
+        return AnyView(view)
     }
 
     private var player2Snake: some View {
-        return SnakePathView(
+        guard model.player2IsInstalled else {
+            return AnyView(EmptyView())
+        }
+        let color: Color
+        if model.player1IsAlive {
+            color = AppColor.player2_snakeBody.color
+        } else {
+            color = AppColor.player2_snakeBody_dead.color
+        }
+        return AnyView(SnakePathView(
             gridSize: .constant(model.level.size),
             snakeBody: $model.player2SnakeBody,
-            fillColor: Color.yellow
-        )
+            fillColor: color
+        ))
     }
 }
 

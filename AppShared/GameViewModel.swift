@@ -41,7 +41,14 @@ public class GameViewModel: ObservableObject {
     @Published var levelSelector_insetTop: CGFloat = 0
     @Published var player1SnakeBody: SnakeBody = SnakeBody.empty()
     @Published var player2SnakeBody: SnakeBody = SnakeBody.empty()
+    @Published var player1IsInstalled: Bool = true
+    @Published var player2IsInstalled: Bool = true
+    @Published var player1IsAlive: Bool = true
+    @Published var player2IsAlive: Bool = true
     @Published var level: SnakeLevel = SnakeLevel.empty()
+
+    private var pendingMovement_player1: SnakeBodyMovement = .dontMove
+    private var pendingMovement_player2: SnakeBodyMovement = .dontMove
 
     private let snakeGameEnvironment: SnakeGameEnvironment
     private var _gameState: SnakeGameState
@@ -55,13 +62,17 @@ public class GameViewModel: ObservableObject {
             syncGameState(_gameState)
         }
     }
-    private var pendingMovement_player1: SnakeBodyMovement = .dontMove
-    private var pendingMovement_player2: SnakeBodyMovement = .dontMove
 
     func syncGameState(_ gameState: SnakeGameState) {
+        self.level = gameState.level
         self.player1SnakeBody = gameState.player1.snakeBody
         self.player2SnakeBody = gameState.player2.snakeBody
-        self.level = gameState.level
+        self.player1IsInstalled = gameState.player1.isInstalled
+        self.player2IsInstalled = gameState.player2.isInstalled
+        self.player1IsAlive = gameState.player1.isInstalledAndAlive
+        self.player2IsAlive = gameState.player2.isInstalledAndAlive
+        self.player1Length = gameState.player1.lengthOfInstalledSnake()
+        self.player2Length = gameState.player2.lengthOfInstalledSnake()
     }
 
     #if os(iOS)
