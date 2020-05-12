@@ -31,6 +31,8 @@ extension EnvironmentValues {
 public class GameViewModel: ObservableObject {
     public let jumpToLevelSelector = PassthroughSubject<Void, Never>()
     public let userInterfaceStyle = PassthroughSubject<Void, Never>()
+    @Published var level: SnakeLevel = SnakeLevel.empty()
+    @Published var foodPosition: IntVec2 = IntVec2.zero
     @Published var player1Length: UInt = 1
     @Published var player2Length: UInt = 1
     @Published var player1Info = "Player 1 (green)\nAlive\nLength 29"
@@ -45,7 +47,6 @@ public class GameViewModel: ObservableObject {
     @Published var player2IsInstalled: Bool = true
     @Published var player1IsAlive: Bool = true
     @Published var player2IsAlive: Bool = true
-    @Published var level: SnakeLevel = SnakeLevel.empty()
 
     private var pendingMovement_player1: SnakeBodyMovement = .dontMove
     private var pendingMovement_player2: SnakeBodyMovement = .dontMove
@@ -65,6 +66,7 @@ public class GameViewModel: ObservableObject {
 
     func syncGameState(_ gameState: SnakeGameState) {
         self.level = gameState.level
+        self.foodPosition = gameState.foodPosition ?? IntVec2.zero
         self.player1SnakeBody = gameState.player1.snakeBody
         self.player2SnakeBody = gameState.player2.snakeBody
         self.player1IsInstalled = gameState.player1.isInstalled

@@ -16,6 +16,7 @@ struct IngameView: View {
         ZStack {
             backgroundSolid
             LevelView(model: model)
+            food
             player1Snake
             player2Snake
         }
@@ -25,6 +26,13 @@ struct IngameView: View {
         Rectangle()
             .foregroundColor(AppColor.theme1_floor.color)
             .edgesIgnoringSafeArea(.all)
+    }
+
+    private var food: some View {
+        FoodView(
+            gridSize: .constant(model.level.size),
+            foodPosition: $model.foodPosition
+        )
     }
 
     private var player1Snake: some View {
