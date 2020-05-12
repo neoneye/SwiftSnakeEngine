@@ -194,6 +194,7 @@ public class GameViewModel: ObservableObject {
     }
 
     private func stepForward() {
+        // IDEA: perform in a separate thread
         let action = SnakeGameAction(
             player1: pendingMovement_player1,
             player2: pendingMovement_player2
