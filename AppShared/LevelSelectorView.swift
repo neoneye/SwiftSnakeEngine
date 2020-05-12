@@ -34,6 +34,7 @@ fileprivate struct LevelSelectorCell: Identifiable {
 
 fileprivate struct LevelSelectorCellView: View {
     var levelSelectorCell: LevelSelectorCell
+    @State var showModal = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -53,13 +54,20 @@ fileprivate struct LevelSelectorCellView: View {
 
         return Button(action: {
             log.debug("select level id: \(self.levelSelectorCell.id)")
+            self.showModal = true
         }) {
             self.ingameView(size: ingameViewSize)
         }
         .buttonStyle(BorderlessButtonStyle())
         .background(Color.yellow)
         .cornerRadius(5)
-            .frame(width: geometry.size.width, height: geometry.size.height)
+        .frame(width: geometry.size.width, height: geometry.size.height)
+        .sheet(isPresented: self.$showModal, onDismiss: {
+            self.showModal = false
+        }) {
+            IngameView(model: self.levelSelectorCell.model)
+            .frame(width: 200, height: 200)
+        }
     }
 }
 
