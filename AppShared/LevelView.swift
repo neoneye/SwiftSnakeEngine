@@ -41,7 +41,7 @@ struct LevelCellView: View {
 
     var body: some View {
         Rectangle()
-            .foregroundColor(Color.red)
+            .foregroundColor(AppColor.theme1_wall.color)
     }
 }
 

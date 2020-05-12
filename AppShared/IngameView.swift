@@ -14,25 +14,17 @@ struct IngameView: View {
 
     var body: some View {
         ZStack {
-            self.backgroundGradient
-                .edgesIgnoringSafeArea(.all)
-
+            backgroundSolid
             LevelView(model: model)
-
             player1Snake
-
             player2Snake
         }
     }
 
-    private var backgroundGradient: LinearGradient {
-        let gradient = Gradient(colors: [
-            Color(red: 192/255.0, green: 192/255.0, blue: 192/255.0),
-            Color(red: 50/255.0, green: 50/255.0, blue: 50/255.0)
-        ])
-        return LinearGradient(gradient: gradient,
-                              startPoint: .top,
-                              endPoint: .bottom)
+    private var backgroundSolid: some View {
+        Rectangle()
+            .foregroundColor(AppColor.theme1_floor.color)
+            .edgesIgnoringSafeArea(.all)
     }
 
     private var player1Snake: some View {
