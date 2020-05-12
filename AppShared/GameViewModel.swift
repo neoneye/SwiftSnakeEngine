@@ -113,6 +113,19 @@ public class GameViewModel: ObservableObject {
         return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
     }
 
+    class func createHumanVsBot() -> GameViewModel {
+        let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
+        let gameState = SnakeGameState.create(
+            player1: .human,
+            player2: .bot(snakeBotType: snakeBotType),
+            levelName: "Level 6.csv"
+        )
+        let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+            initialGameState: gameState
+        )
+        return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
+    }
+
     class func createBotVsNone() -> GameViewModel {
         let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
         let gameState = SnakeGameState.create(
