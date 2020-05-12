@@ -19,7 +19,9 @@ struct IngameView: View {
 
             LevelView(model: model)
 
-            snakePathView()
+            player1Snake
+
+            player2Snake
         }
     }
 
@@ -33,17 +35,26 @@ struct IngameView: View {
                               endPoint: .bottom)
     }
 
-    private func snakePathView() -> some View {
+    private var player1Snake: some View {
         return SnakePathView(
             gridSize: .constant(model.level.size),
-            snakeBody: $model.player1SnakeBody
+            snakeBody: $model.player1SnakeBody,
+            fillColor: Color.blue
+        )
+    }
+
+    private var player2Snake: some View {
+        return SnakePathView(
+            gridSize: .constant(model.level.size),
+            snakeBody: $model.player2SnakeBody,
+            fillColor: Color.yellow
         )
     }
 }
 
 struct IngameView_Previews: PreviewProvider {
     static var previews: some View {
-        let model = GameViewModel.create()
+        let model = GameViewModel.createHumanVsHuman()
         return IngameView(model: model)
     }
 }

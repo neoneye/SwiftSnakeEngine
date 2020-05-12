@@ -12,6 +12,7 @@ import EngineMac
 struct SnakePathView: View {
     @Binding var gridSize: UIntVec2
     @Binding var snakeBody: SnakeBody
+    let fillColor: Color
 
     var body: some View {
         GeometryReader { geometry in
@@ -35,7 +36,7 @@ struct SnakePathView: View {
                 }
             }
         }
-        .stroke(Color.blue, style: StrokeStyle(lineWidth: lineWidth, lineCap: .square, lineJoin: .bevel))
+        .stroke(fillColor, style: StrokeStyle(lineWidth: lineWidth, lineCap: .square, lineJoin: .bevel))
     }
 
     private func pathWithRetro() -> some View {
@@ -124,19 +125,22 @@ struct SnakePathView_Previews: PreviewProvider {
         return Group {
             SnakePathView(
                 gridSize: .constant(gridSize),
-                snakeBody: .constant(snakeBody)
+                snakeBody: .constant(snakeBody),
+                fillColor: Color.blue
             )
             .previewLayout(.fixed(width: 130, height: 200))
 
             SnakePathView(
                 gridSize: .constant(gridSize),
-                snakeBody: .constant(snakeBody)
+                snakeBody: .constant(snakeBody),
+                fillColor: Color.blue
             )
             .previewLayout(.fixed(width: 300, height: 200))
 
             SnakePathView(
                 gridSize: .constant(gridSize),
-                snakeBody: .constant(snakeBody)
+                snakeBody: .constant(snakeBody),
+                fillColor: Color.blue
             )
             .previewLayout(.fixed(width: 500, height: 150))
         }

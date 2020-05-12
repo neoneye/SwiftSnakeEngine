@@ -40,6 +40,7 @@ public class GameViewModel: ObservableObject {
     @Published var levelSelector_visible = true
     @Published var levelSelector_insetTop: CGFloat = 0
     @Published var player1SnakeBody: SnakeBody = SnakeBody.empty()
+    @Published var player2SnakeBody: SnakeBody = SnakeBody.empty()
     @Published var level: SnakeLevel = SnakeLevel.empty()
 
     private let snakeGameEnvironment: SnakeGameEnvironment
@@ -59,6 +60,7 @@ public class GameViewModel: ObservableObject {
 
     func syncGameState(_ gameState: SnakeGameState) {
         self.player1SnakeBody = gameState.player1.snakeBody
+        self.player2SnakeBody = gameState.player2.snakeBody
         self.level = gameState.level
     }
 
@@ -79,6 +81,18 @@ public class GameViewModel: ObservableObject {
             player1: .human,
             player2: .none,
             levelName: "Level 0.csv"
+        )
+        let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+            initialGameState: gameState
+        )
+        return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
+    }
+
+    static func createHumanVsHuman() -> GameViewModel {
+        let gameState = SnakeGameState.create(
+            player1: .human,
+            player2: .human,
+            levelName: "Level 6.csv"
         )
         let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
             initialGameState: gameState
