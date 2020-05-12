@@ -113,6 +113,33 @@ public class GameViewModel: ObservableObject {
         return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
     }
 
+    class func createBotVsNone() -> GameViewModel {
+        let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
+        let gameState = SnakeGameState.create(
+            player1: .bot(snakeBotType: snakeBotType),
+            player2: .none,
+            levelName: "Level 0.csv"
+        )
+        let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+            initialGameState: gameState
+        )
+        return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
+    }
+
+    class func createBotVsBot() -> GameViewModel {
+        let snakeBotType1: SnakeBot.Type = SnakeBotFactory.smartestBotType()
+        let snakeBotType2: SnakeBot.Type = SnakeBotFactory.smartestBotType()
+        let gameState = SnakeGameState.create(
+            player1: .bot(snakeBotType: snakeBotType1),
+            player2: .bot(snakeBotType: snakeBotType2),
+            levelName: "Level 6.csv"
+        )
+        let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+            initialGameState: gameState
+        )
+        return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
+    }
+
     func restartGame() {
         gameState = snakeGameEnvironment.reset()
     }
@@ -146,7 +173,27 @@ public class GameViewModel: ObservableObject {
         stepForward()
     }
 
-    func stepForward() {
+    func singleStepForwardOnlyForBots() {
+        var botCount: UInt = 0
+        var nonBotCount: UInt = 0
+        let players: [SnakePlayer] = [gameState.player1, gameState.player2]
+        for player in players {
+            if player.isInstalledAndAlive {
+                if player.isBot {
+                    botCount += 1
+                } else {
+                    nonBotCount += 1
+                }
+            }
+        }
+        guard nonBotCount == 0 && botCount > 0 else {
+            log.debug("Single step forward can only be done when there are only bots")
+            return
+        }
+        stepForward()
+    }
+
+    private func stepForward() {
         let action = SnakeGameAction(
             player1: pendingMovement_player1,
             player2: pendingMovement_player2

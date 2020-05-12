@@ -193,6 +193,8 @@ struct MyContentView: View {
             model.userInputForPlayer2(.down)
         case .letterD:
             model.userInputForPlayer2(.right)
+        case .letterM:
+            model.singleStepForwardOnlyForBots()
 //        case .letterZ:
 //            schedule_stepBackwardOnce()
 //        case .letterT:
