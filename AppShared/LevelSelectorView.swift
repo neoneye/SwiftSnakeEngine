@@ -36,16 +36,30 @@ fileprivate struct LevelSelectorCellView: View {
     var levelSelectorCell: LevelSelectorCell
 
     var body: some View {
-        return Button(action: {
-            log.debug("select level")
-        }) {
-            IngameView(model: levelSelectorCell.model)
-            .frame(width: 80, height: 80)
+        GeometryReader { geometry in
+            self.button(geometry)
         }
-            .buttonStyle(BorderlessButtonStyle())
-        .padding()
+    }
+
+    private func ingameView(size: CGSize) -> some View {
+        return IngameView(model: levelSelectorCell.model)
+            .frame(width: size.width, height: size.height)
+    }
+
+    private func button(_ geometry: GeometryProxy) -> some View {
+        var ingameViewSize: CGSize = geometry.size
+        ingameViewSize.width -= 4
+        ingameViewSize.height -= 4
+
+        return Button(action: {
+            log.debug("select level id: \(self.levelSelectorCell.id)")
+        }) {
+            self.ingameView(size: ingameViewSize)
+        }
+        .buttonStyle(BorderlessButtonStyle())
         .background(Color.yellow)
         .cornerRadius(5)
+            .frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
 
