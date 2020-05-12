@@ -13,13 +13,15 @@ struct IngameView: View {
     @ObservedObject var model: GameViewModel
 
     var body: some View {
-        ZStack {
+        let levelSize: UIntVec2 = model.level.size
+        let aspectRatio = CGSize(width: CGFloat(levelSize.x), height: CGFloat(levelSize.y))
+        return ZStack {
             backgroundSolid
             LevelView(model: model)
             food
             player1Snake
             player2Snake
-        }
+        }.aspectRatio(aspectRatio, contentMode: .fit)
     }
 
     private var backgroundSolid: some View {
