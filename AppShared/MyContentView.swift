@@ -234,7 +234,7 @@ struct MyContentView: View {
 //                restartGame()
 //            }
         case .escape:
-            NSApp.terminate(self)
+            pressEscapeKey()
         case .arrowUp:
             model.userInputForPlayer1(.up)
         case .arrowLeft:
@@ -245,6 +245,15 @@ struct MyContentView: View {
             model.userInputForPlayer1(.down)
         default:
             log.debug("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
+        }
+    }
+
+    func pressEscapeKey() {
+        switch levelSelectorViewModel.visibleContent {
+        case .levelSelector:
+            NSApp.terminate(self)
+        case .ingame:
+            self.levelSelectorViewModel.visibleContent = .levelSelector
         }
     }
     #endif
