@@ -9,7 +9,7 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
-struct LevelCell: Identifiable {
+fileprivate struct LevelCell: Identifiable {
     var id: Int
     var position: UIntVec2
 
@@ -36,7 +36,7 @@ struct LevelCell: Identifiable {
     }
 }
 
-struct LevelCellView: View {
+fileprivate struct LevelCellView: View {
     var levelCell: LevelCell
 
     var body: some View {
@@ -45,7 +45,7 @@ struct LevelCellView: View {
     }
 }
 
-struct LevelGridView: View {
+fileprivate struct LevelGridView: View {
     let gridSize: UIntVec2
     let cells: [LevelCell]
 
