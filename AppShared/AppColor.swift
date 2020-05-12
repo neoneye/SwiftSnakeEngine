@@ -24,6 +24,8 @@ enum AppColor: String, CaseIterable {
     case player2_plannedPath
     case player1_snakeBody
     case player2_snakeBody
+    case player1_snakeBody_dead
+    case player2_snakeBody_dead
     case exitGameButton_fill
     case exitGameButton_text
     case theme1_wall
