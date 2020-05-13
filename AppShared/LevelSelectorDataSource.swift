@@ -10,8 +10,11 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
-class LevelSelectorDataSource {
-    static func createGameStatesWithUserDefaults() -> [SnakeGameState] {
+struct LevelSelectorDataSource {
+    let role1: SnakePlayerRole
+    let role2: SnakePlayerRole
+
+    static func createWithUserDefaults() -> LevelSelectorDataSource {
         let role1: SnakePlayerRole
         let role2: SnakePlayerRole
         #if os(macOS)
@@ -28,13 +31,25 @@ class LevelSelectorDataSource {
            role2 = SnakePlayerRole.none
         }
         #endif
-        return createGameStates(role1: role1, role2: role2)
+        return LevelSelectorDataSource(role1: role1, role2: role2)
     }
 
-    static func createGameStates(role1: SnakePlayerRole, role2: SnakePlayerRole) -> [SnakeGameState] {
+    func createGameStates() -> [SnakeGameState] {
         let levelNames: [String] = SnakeLevelManager.shared.levelNames
         return levelNames.map {
             SnakeGameState.create(player1: role1, player2: role2, levelName: $0)
         }
+    }
+}
+
+extension LevelSelectorDataSource: Equatable {
+    public static func == (lhs: LevelSelectorDataSource, rhs: LevelSelectorDataSource) -> Bool {
+        guard lhs.role1 == rhs.role1 else {
+            return false
+        }
+        guard lhs.role2 == rhs.role2 else {
+            return false
+        }
+        return true
     }
 }

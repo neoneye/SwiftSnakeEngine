@@ -92,7 +92,8 @@ class LevelSelectorNode: SKSpriteNode {
 	}
 
 	func createGameStates() {
-        self.gameStates = LevelSelectorDataSource.createGameStatesWithUserDefaults()
+        let dataSource = LevelSelectorDataSource.createWithUserDefaults()
+        self.gameStates = dataSource.createGameStates()
 	}
 
 	func createGameNodes() {

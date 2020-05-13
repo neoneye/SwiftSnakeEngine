@@ -15,7 +15,9 @@ import EngineMac
 public class LevelSelectorViewModel: ObservableObject {
     @Published var models: [GameViewModel] = []
 
-    var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
+
+    private var dataSource: LevelSelectorDataSource?
 
     init() {
         let settingsUpdated = Notification.Name("SettingsUpdated")
@@ -32,7 +34,13 @@ public class LevelSelectorViewModel: ObservableObject {
     }
 
     func loadModelsFromUserDefaults() {
-        let gameStates: [SnakeGameState] = LevelSelectorDataSource.createGameStatesWithUserDefaults()
+        let newDataSource = LevelSelectorDataSource.createWithUserDefaults()
+        guard dataSource != newDataSource else {
+            //log.debug("no change to level selector data source")
+            return
+        }
+        dataSource = newDataSource
+        let gameStates: [SnakeGameState] = newDataSource.createGameStates()
         models = gameStates.toGameViewModels()
     }
 }
