@@ -14,6 +14,7 @@ import EngineMac
 
 public class LevelSelectorViewModel: ObservableObject {
     @Published var models: [GameViewModel] = []
+    @Published var selectedIndex: UInt = 3
 
     private var cancellables = Set<AnyCancellable>()
 

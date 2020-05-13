@@ -12,21 +12,23 @@ import EngineMac
 typealias SelectLevelHandler = (GameViewModel) -> Void
 
 fileprivate struct LevelSelectorCell: Identifiable {
-    var id: Int
-    var position: UIntVec2
+    let id: UInt
+    let position: UIntVec2
     let model: GameViewModel
+    let isSelected: Bool
 
-    static func create(gridSize: UIntVec2, models: [GameViewModel]) -> [LevelSelectorCell] {
+    static func create(gridSize: UIntVec2, models: [GameViewModel], selectedIndex: UInt) -> [LevelSelectorCell] {
         var levelSelectorCellArray = [LevelSelectorCell]()
         for y in 0..<gridSize.y {
             for x in 0..<gridSize.x {
-                let index: Int = Int(y * gridSize.y + x)
+                let index: UInt = UInt(y * gridSize.y + x)
                 guard index < models.count else {
                     break
                 }
-                let model: GameViewModel = models[index]
+                let model: GameViewModel = models[Int(index)]
                 let position = UIntVec2(x: x, y: y)
-                let levelSelectorCell = LevelSelectorCell(id: index, position: position, model: model)
+                let isSelected: Bool = (selectedIndex == index)
+                let levelSelectorCell = LevelSelectorCell(id: index, position: position, model: model, isSelected: isSelected)
                 levelSelectorCellArray.append(levelSelectorCell)
             }
         }
@@ -50,6 +52,11 @@ fileprivate struct LevelSelectorCellView: View {
     }
 
     private func button(_ geometry: GeometryProxy) -> some View {
+        var color: Color = Color.black
+        if levelSelectorCell.isSelected {
+            color = Color.gray
+        }
+
         var ingameViewSize: CGSize = geometry.size
         ingameViewSize.width -= 4
         ingameViewSize.height -= 4
@@ -61,7 +68,7 @@ fileprivate struct LevelSelectorCellView: View {
             self.ingameView(size: ingameViewSize)
         }
         .buttonStyle(BorderlessButtonStyle())
-        .background(Color.yellow)
+        .background(color)
         .cornerRadius(5)
         .frame(width: geometry.size.width, height: geometry.size.height)
     }
@@ -96,7 +103,7 @@ struct LevelSelectorView: View {
     let selectLevelHandler: SelectLevelHandler
 
     var body: some View {
-        let cells: [LevelSelectorCell] = LevelSelectorCell.create(gridSize: gridSize, models: levelSelectorViewModel.models)
+        let cells: [LevelSelectorCell] = LevelSelectorCell.create(gridSize: gridSize, models: levelSelectorViewModel.models, selectedIndex: levelSelectorViewModel.selectedIndex)
         return LevelSelectorGridView(gridSize: gridSize, cells: cells, selectLevelHandler: selectLevelHandler)
     }
 }
