@@ -163,11 +163,14 @@ struct MyContentView: View {
     }
 
     private var levelSelectorView: LevelSelectorView {
-        var models: [GameViewModel] = []
-        models.append(GameViewModel.create())
-        models.append(GameViewModel.createBotVsNone())
-        models.append(GameViewModel.createBotVsBot())
-        models.append(GameViewModel.createHumanVsBot())
+        let models: [GameViewModel]
+        if isPreview {
+            let model = GameViewModel.create()
+            models = Array<GameViewModel>(repeating: model, count: 9)
+        } else {
+            let gameStates: [SnakeGameState] = LevelSelectorDataSource.createGameStatesWithUserDefaults()
+            models = gameStates.toGameViewModels()
+        }
         let gridSize = UIntVec2(x: 3, y: 3)
 
         let selectLevelHandler: SelectLevelHandler = { model in
