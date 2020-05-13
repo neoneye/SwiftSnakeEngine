@@ -45,4 +45,32 @@ class T2005_SnakePlayerRole: XCTestCase {
         XCTAssertTrue(botType is SnakeBot_MoveForward.Type)
     }
 
+    func test200_hashable() {
+        do {
+            var set = Set<SnakePlayerRole>()
+            XCTAssertEqual(set.count, 0)
+            set.insert(SnakePlayerRole.human)
+            XCTAssertEqual(set.count, 1)
+            set.insert(SnakePlayerRole.human)
+            XCTAssertEqual(set.count, 1)
+            XCTAssertTrue(set.contains(SnakePlayerRole.human))
+            set.remove(SnakePlayerRole.human)
+            XCTAssertFalse(set.contains(SnakePlayerRole.human))
+            XCTAssertEqual(set.count, 0)
+        }
+        do {
+            let bot0: SnakeBot.Type = SnakeBotFactory.emptyBotType()
+            let bot1: SnakeBot.Type = SnakeBotFactory.smartestBotType()
+            var set = Set<SnakePlayerRole>()
+            set.insert(SnakePlayerRole.none)
+            set.insert(SnakePlayerRole.human)
+            set.insert(SnakePlayerRole.bot(snakeBotType: bot0))
+            set.insert(SnakePlayerRole.bot(snakeBotType: bot1))
+            XCTAssertEqual(set.count, 4)
+            set.remove(SnakePlayerRole.bot(snakeBotType: bot0))
+            XCTAssertEqual(set.count, 3)
+            set.remove(SnakePlayerRole.bot(snakeBotType: bot1))
+            XCTAssertEqual(set.count, 2)
+        }
+    }
 }
