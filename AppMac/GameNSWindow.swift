@@ -26,6 +26,7 @@ class GameNSWindow: NSWindow {
 //        let model = GameViewModel.createBotVsNone()
 //        let model = GameViewModel.createBotVsBot()
 //        let model = GameViewModel.createHumanVsBot()
+        let settingsStore = SettingsStore()
         let window = GameNSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 600, height: 500),
             styleMask: [.titled, .closable, .miniaturizable, .resizable],
@@ -34,7 +35,7 @@ class GameNSWindow: NSWindow {
         )
         window.center()
         window.setFrameAutosaveName("Main Window")
-        let view = MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel)
+        let view = MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingsStore: settingsStore)
             .environment(\.keyPublisher, window.keyEventPublisher)
         window.contentView = GameNSView(rootView: view)
         window.makeKeyAndOrderFront(nil)

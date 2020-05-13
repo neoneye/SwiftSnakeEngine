@@ -15,6 +15,17 @@ import EngineMac
 public class LevelSelectorViewModel: ObservableObject {
     @Published var models: [GameViewModel] = []
 
+    var cancellables = Set<AnyCancellable>()
+
+    init() {
+        let settingsUpdated = Notification.Name("SettingsUpdated")
+        NotificationCenter.default.publisher(for: settingsUpdated)
+            .sink(receiveValue: { _ in
+                log.debug("settings updated")
+            })
+            .store(in: &cancellables)
+    }
+
     func useMockData() {
         let model = GameViewModel.create()
         models = Array<GameViewModel>(repeating: model, count: 9)
