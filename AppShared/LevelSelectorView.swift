@@ -9,9 +9,7 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
-typealias SelectLevelHandler = (GameViewModel) -> Void
-
-fileprivate struct LevelSelectorCell: Identifiable {
+struct LevelSelectorCell: Identifiable {
     let id: UInt
     let position: UIntVec2
     let model: GameViewModel
@@ -35,6 +33,8 @@ fileprivate struct LevelSelectorCell: Identifiable {
         return levelSelectorCellArray
     }
 }
+
+typealias SelectLevelHandler = (LevelSelectorCell) -> Void
 
 fileprivate struct LevelSelectorCellView: View {
     let selectLevelHandler: SelectLevelHandler
@@ -63,7 +63,7 @@ fileprivate struct LevelSelectorCellView: View {
 
         return Button(action: {
             log.debug("select level id: \(self.levelSelectorCell.id)")
-            self.selectLevelHandler(self.levelSelectorCell.model)
+            self.selectLevelHandler(self.levelSelectorCell)
         }) {
             self.ingameView(size: ingameViewSize)
         }

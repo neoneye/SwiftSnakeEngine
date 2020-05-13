@@ -172,10 +172,15 @@ struct MyContentView: View {
     private var levelSelectorView: some View {
         let gridSize = UIntVec2(x: 3, y: 3)
 
-        let selectLevelHandler: SelectLevelHandler = { model in
-            log.debug("did select model: \(model)")
-            self.model = model
-            self.visibleContent = .ingame
+        let selectLevelHandler: SelectLevelHandler = { cell in
+            log.debug("did select model: \(cell.id)")
+            if self.levelSelectorViewModel.selectedIndex == cell.id {
+                self.model = cell.model
+                self.visibleContent = .ingame
+            } else {
+                self.levelSelectorViewModel.selectedIndex = cell.id
+                self.model = cell.model
+            }
         }
         return LevelSelectorView(
             levelSelectorViewModel: levelSelectorViewModel,
