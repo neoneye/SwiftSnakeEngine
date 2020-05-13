@@ -10,9 +10,15 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
+enum MyContentView_VisibleContent {
+    case levelSelector
+    case ingame
+}
+
 struct MyContentView: View {
     @State var model: GameViewModel
     @ObservedObject var levelSelectorViewModel: LevelSelectorViewModel
+    @State var visibleContent = MyContentView_VisibleContent.levelSelector
 
     #if os(macOS)
     @Environment(\.keyPublisher) var keyPublisher
@@ -176,7 +182,7 @@ struct MyContentView: View {
         let selectLevelHandler: SelectLevelHandler = { model in
             log.debug("did select model: \(model)")
             self.model = model
-            self.levelSelectorViewModel.visibleContent = .ingame
+            self.visibleContent = .ingame
         }
         return LevelSelectorView(gridSize: gridSize, models: models, selectLevelHandler: selectLevelHandler)
     }
@@ -252,11 +258,11 @@ struct MyContentView: View {
     }
 
     func pressEscapeKey() {
-        switch levelSelectorViewModel.visibleContent {
+        switch visibleContent {
         case .levelSelector:
             NSApp.terminate(self)
         case .ingame:
-            self.levelSelectorViewModel.visibleContent = .levelSelector
+            self.visibleContent = .levelSelector
         }
     }
     #endif
@@ -340,7 +346,7 @@ struct MyContentView: View {
     }
 
     var mainContent: some View {
-        switch levelSelectorViewModel.visibleContent {
+        switch visibleContent {
         case .levelSelector:
             return AnyView(levelSelectorView)
         case .ingame:

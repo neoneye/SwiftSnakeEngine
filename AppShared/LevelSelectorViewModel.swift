@@ -11,12 +11,7 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
-enum LevelSelectorViewModel_VisibleContent {
-    case levelSelector
-    case ingame
-}
 
 public class LevelSelectorViewModel: ObservableObject {
-    @Published var visibleContent = LevelSelectorViewModel_VisibleContent.levelSelector
 
 }
