@@ -758,8 +758,7 @@
 				42A06C1D2441D90600877CB9 /* PauseSheetView.swift */,
 				42F35E6023FD877400A4795B /* PlayerScoreView.swift */,
 				4211C32C244A063600C25514 /* SelectedLevelController.swift */,
-				42E5B341246C425200580517 /* SettingPlayerRole.swift */,
-				42E5B33E246B8A8000580517 /* SettingsStore.swift */,
+				42E5B344246C4C0800580517 /* Settings */,
 				4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */,
 				4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */,
 				42CC22C62336EFF200CF3D96 /* SnakeBodyNode.swift */,
@@ -855,6 +854,15 @@
 				4294DA4A233FC96300AA58CD /* snake_step.wav */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		42E5B344246C4C0800580517 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				42E5B341246C425200580517 /* SettingPlayerRole.swift */,
+				42E5B33E246B8A8000580517 /* SettingsStore.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		42F4538923E5AFA200B90297 /* Bot */ = {
