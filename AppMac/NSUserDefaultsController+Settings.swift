@@ -4,13 +4,13 @@ import Cocoa
 extension NSUserDefaultsController {
 	@objc dynamic var isSoundEffectsEnabled: Bool {
 		set {
-            defaults.set(newValue, forKey: SettingsStore.Key.isSoundEffectsEnabled.rawValue)
+            defaults.set(newValue, forKey: SettingStore.Key.isSoundEffectsEnabled.rawValue)
 		}
 		get {
-			if defaults.object(forKey: SettingsStore.Key.isSoundEffectsEnabled.rawValue) == nil {
+			if defaults.object(forKey: SettingStore.Key.isSoundEffectsEnabled.rawValue) == nil {
 				return true
 			}
-			return defaults.bool(forKey: SettingsStore.Key.isSoundEffectsEnabled.rawValue)
+			return defaults.bool(forKey: SettingStore.Key.isSoundEffectsEnabled.rawValue)
 		}
 	}
 

@@ -10,7 +10,7 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
-final class SettingsStore: ObservableObject {
+final class SettingStore: ObservableObject {
     let objectWillChange = PassthroughSubject<Void, Never>()
 
     enum Key: String {

@@ -18,7 +18,7 @@ enum MyContentView_VisibleContent {
 struct MyContentView: View {
     @State var model: GameViewModel
     @ObservedObject var levelSelectorViewModel: LevelSelectorViewModel
-    @ObservedObject var settingsStore: SettingsStore
+    @ObservedObject var settingStore: SettingStore
     @State var visibleContent = MyContentView_VisibleContent.levelSelector
 
     #if os(macOS)
@@ -182,7 +182,7 @@ struct MyContentView: View {
             gridSize: gridSize,
             selectLevelHandler: selectLevelHandler
         )
-        .onReceive(settingsStore.objectWillChange) { _ in
+        .onReceive(settingStore.objectWillChange) { _ in
             log.debug("did change settings")
             self.levelSelectorViewModel.loadModelsFromUserDefaults()
         }
@@ -271,7 +271,7 @@ struct MyContentView: View {
     #endif
 
     private var audioSetting: some View {
-        let text: String = settingsStore.isSoundEffectsEnabled ? "Audio ON" : "Audio OFF"
+        let text: String = settingStore.isSoundEffectsEnabled ? "Audio ON" : "Audio OFF"
         return Text(text)
     }
 
@@ -415,13 +415,13 @@ struct ContentView_Previews : PreviewProvider {
         let model = GameViewModel.create()
         let levelSelectorViewModel = LevelSelectorViewModel()
         levelSelectorViewModel.useMockData()
-        let settingsStore = SettingsStore()
+        let settingStore = SettingStore()
         return Group {
-            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingsStore: settingsStore, isPreview: true)
+            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore, isPreview: true)
                 .previewLayout(.fixed(width: 130, height: 200))
-            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingsStore: settingsStore, isPreview: true)
+            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore, isPreview: true)
                 .previewLayout(.fixed(width: 300, height: 200))
-            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingsStore: settingsStore, isPreview: true)
+            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore, isPreview: true)
                 .previewLayout(.fixed(width: 500, height: 150))
         }
     }
