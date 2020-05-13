@@ -231,8 +231,7 @@ struct MyContentView: View {
         case .enter:
             model.restartGame()
         case .tab:
-            levelSelectorViewModel.loadModelsFromUserDefaults()
-//            model.restartGame()
+            model.restartGame()
 //        case .spacebar:
 //            if gameState.player1.isInstalledAndAlive || gameState.player2.isInstalledAndAlive {
 //                let updateAction = self.pendingUpdateAction
