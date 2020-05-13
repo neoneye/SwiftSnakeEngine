@@ -114,49 +114,6 @@ public class PlayerRoleMenuItemFactory {
 	}
 }
 
-
-extension UserDefaults {
-	public var player1RoleMenuItem: PlayerRoleMenuItem {
-		set {
-            let string: String = newValue.id.uuidString
-            self.set(string, forKey: SettingsStore.Key.player1RoleMenuItem.rawValue)
-			FlowEvent_DidChangePlayerSetting().fire()
-		}
-		get {
-			guard let uuidString: String = self.string(forKey: SettingsStore.Key.player1RoleMenuItem.rawValue) else {
-				return PlayerRoleMenuItemFactory.shared.human
-			}
-            guard let id: UUID = UUID(uuidString: uuidString) else {
-                return PlayerRoleMenuItemFactory.shared.human
-            }
-			guard let playerRoleMenuItem: PlayerRoleMenuItem = PlayerRoleMenuItemFactory.shared.find(id: id) else {
-				return PlayerRoleMenuItemFactory.shared.human
-			}
-			return playerRoleMenuItem
-		}
-	}
-
-	public var player2RoleMenuItem: PlayerRoleMenuItem {
-		set {
-            let string: String = newValue.id.uuidString
-			self.set(string, forKey: SettingsStore.Key.player2RoleMenuItem.rawValue)
-			FlowEvent_DidChangePlayerSetting().fire()
-		}
-		get {
-            guard let uuidString: String = self.string(forKey: SettingsStore.Key.player2RoleMenuItem.rawValue) else {
-                return PlayerRoleMenuItemFactory.shared.smartestBotOrNone()
-            }
-            guard let id: UUID = UUID(uuidString: uuidString) else {
-                return PlayerRoleMenuItemFactory.shared.smartestBotOrNone()
-            }
-            guard let playerRoleMenuItem: PlayerRoleMenuItem = PlayerRoleMenuItemFactory.shared.find(id: id) else {
-				return PlayerRoleMenuItemFactory.shared.smartestBotOrNone()
-			}
-			return playerRoleMenuItem
-		}
-	}
-}
-
 public class PlayerMenu: NSMenu {
 	public func configureAsPlayer1() {
 		configure(menuMode: .player1)
@@ -219,18 +176,24 @@ public class PlayerMenu: NSMenu {
 		set {
 			switch self.menuMode {
 			case .player1:
-				UserDefaults.standard.player1RoleMenuItem = newValue
+                SettingPlayer1Role().set(newValue.role)
 			case .player2:
-				UserDefaults.standard.player2RoleMenuItem = newValue
+                SettingPlayer2Role().set(newValue.role)
 			}
+            FlowEvent_DidChangePlayerSetting().fire()
 		}
 		get {
+            let role: SnakePlayerRole
 			switch self.menuMode {
 			case .player1:
-				return UserDefaults.standard.player1RoleMenuItem
+                role = SettingPlayer1Role().value
 			case .player2:
-				return UserDefaults.standard.player2RoleMenuItem
+                role = SettingPlayer2Role().value
 			}
+            guard let playerRoleMenuItem: PlayerRoleMenuItem = PlayerRoleMenuItemFactory.shared.find(id: role.id) else {
+                return PlayerRoleMenuItemFactory.shared.human
+            }
+            return playerRoleMenuItem
 		}
 	}
 }

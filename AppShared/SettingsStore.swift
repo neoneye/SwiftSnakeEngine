@@ -15,12 +15,13 @@ final class SettingsStore: ObservableObject {
 
     enum Key: String {
         case isSoundEffectsEnabled
-        case player1RoleMenuItem
-        case player2RoleMenuItem
     }
 
     private let cancellable: Cancellable
     private let defaults: UserDefaults
+
+    private let settingPlayer1Role: SettingPlayer1Role
+    private let settingPlayer2Role: SettingPlayer2Role
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -31,6 +32,9 @@ final class SettingsStore: ObservableObject {
                 log.debug("UserDefaults did changed")
             }
             .subscribe(objectWillChange)
+
+        self.settingPlayer1Role = SettingPlayer1Role(defaults: defaults)
+        self.settingPlayer2Role = SettingPlayer2Role(defaults: defaults)
     }
 
     var isSoundEffectsEnabled: Bool {
@@ -42,6 +46,24 @@ final class SettingsStore: ObservableObject {
         }
         set {
             defaults.set(newValue, forKey: Key.isSoundEffectsEnabled.rawValue)
+        }
+    }
+
+    var player1Role: SnakePlayerRole {
+        get {
+            settingPlayer1Role.value
+        }
+        set {
+            settingPlayer1Role.set(newValue)
+        }
+    }
+
+    var player2Role: SnakePlayerRole {
+        get {
+            settingPlayer2Role.value
+        }
+        set {
+            settingPlayer2Role.set(newValue)
         }
     }
 }

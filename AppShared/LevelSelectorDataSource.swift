@@ -15,8 +15,8 @@ class LevelSelectorDataSource {
         let role1: SnakePlayerRole
         let role2: SnakePlayerRole
         #if os(macOS)
-        role1 = UserDefaults.standard.player1RoleMenuItem.role
-        role2 = UserDefaults.standard.player2RoleMenuItem.role
+        role1 = SettingPlayer1Role().value
+        role2 = SettingPlayer2Role().value
         #else
         role1 = SnakePlayerRole.human
         let playerMode: PlayerMode = PlayerModeController().value

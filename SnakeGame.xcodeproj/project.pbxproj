@@ -255,6 +255,8 @@
 		42E042B623340DEE007AC6F9 /* SnakeLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B523340DEE007AC6F9 /* SnakeLevel.swift */; };
 		42E5B33F246B8A8000580517 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E5B33E246B8A8000580517 /* SettingsStore.swift */; };
 		42E5B340246B8A8000580517 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E5B33E246B8A8000580517 /* SettingsStore.swift */; };
+		42E5B342246C425200580517 /* SettingPlayerRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E5B341246C425200580517 /* SettingPlayerRole.swift */; };
+		42E5B343246C425200580517 /* SettingPlayerRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E5B341246C425200580517 /* SettingPlayerRole.swift */; };
 		42EB7BFE23F1FD9D00229CEA /* SnakeDataset.proto in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7BFD23F1FD9D00229CEA /* SnakeDataset.proto */; };
 		42EB7C0223F283FC00229CEA /* URL+temporaryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7C0123F283FC00229CEA /* URL+temporaryFile.swift */; };
 		42EB7C0423F2873B00229CEA /* DatasetSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7C0323F2873B00229CEA /* DatasetSaver.swift */; };
@@ -486,6 +488,7 @@
 		42E042B3233402CD007AC6F9 /* T1200_ComputeShortestPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1200_ComputeShortestPath.swift; sourceTree = "<group>"; };
 		42E042B523340DEE007AC6F9 /* SnakeLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeLevel.swift; sourceTree = "<group>"; };
 		42E5B33E246B8A8000580517 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		42E5B341246C425200580517 /* SettingPlayerRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPlayerRole.swift; sourceTree = "<group>"; };
 		42EB7BFD23F1FD9D00229CEA /* SnakeDataset.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = SnakeDataset.proto; sourceTree = "<group>"; };
 		42EB7C0123F283FC00229CEA /* URL+temporaryFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+temporaryFile.swift"; sourceTree = "<group>"; };
 		42EB7C0323F2873B00229CEA /* DatasetSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatasetSaver.swift; sourceTree = "<group>"; };
@@ -755,6 +758,7 @@
 				42A06C1D2441D90600877CB9 /* PauseSheetView.swift */,
 				42F35E6023FD877400A4795B /* PlayerScoreView.swift */,
 				4211C32C244A063600C25514 /* SelectedLevelController.swift */,
+				42E5B341246C425200580517 /* SettingPlayerRole.swift */,
 				42E5B33E246B8A8000580517 /* SettingsStore.swift */,
 				4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */,
 				4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */,
@@ -1463,6 +1467,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42E5B343246C425200580517 /* SettingPlayerRole.swift in Sources */,
 				42C5566823ABE7E70001DBD8 /* NSEvent+KeyCode.swift in Sources */,
 				422B903B23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift in Sources */,
 				42AFEB1B246B5694007F15D5 /* LevelSelectorViewModel.swift in Sources */,
@@ -1587,6 +1592,7 @@
 				4220E565244B54B80088C3C1 /* AppColor.swift in Sources */,
 				42510E692468260700A2DACD /* IngameView.swift in Sources */,
 				4290533F243EABD8004EFFB6 /* MyContentView.swift in Sources */,
+				42E5B342246C425200580517 /* SettingPlayerRole.swift in Sources */,
 				42A06C1E2441D90600877CB9 /* PauseSheetView.swift in Sources */,
 				42510E6B2468260E00A2DACD /* SnakePathView.swift in Sources */,
 				4290533E243EA6F8004EFFB6 /* SpriteKitContainer.swift in Sources */,
