@@ -169,7 +169,7 @@ struct MyContentView: View {
         return IngameView(model: model)
     }
 
-    private var levelSelectorView: LevelSelectorView {
+    private var levelSelectorView: some View {
         let gridSize = UIntVec2(x: 3, y: 3)
 
         let selectLevelHandler: SelectLevelHandler = { model in
@@ -182,6 +182,10 @@ struct MyContentView: View {
             gridSize: gridSize,
             selectLevelHandler: selectLevelHandler
         )
+        .onReceive(settingsStore.objectWillChange) { _ in
+            log.debug("did change settings")
+            self.levelSelectorViewModel.loadModelsFromUserDefaults()
+        }
     }
 
     @State private var index: Int = 0

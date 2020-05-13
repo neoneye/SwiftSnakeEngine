@@ -15,6 +15,8 @@ final class SettingsStore: ObservableObject {
 
     enum Key: String {
         case isSoundEffectsEnabled
+        case player1RoleMenuItem
+        case player2RoleMenuItem
     }
 
     private let cancellable: Cancellable

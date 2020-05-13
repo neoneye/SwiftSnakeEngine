@@ -119,11 +119,11 @@ extension UserDefaults {
 	public var player1RoleMenuItem: PlayerRoleMenuItem {
 		set {
             let string: String = newValue.id.uuidString
-			self.set(string, forKey: "player1RoleMenuItem")
+            self.set(string, forKey: SettingsStore.Key.player1RoleMenuItem.rawValue)
 			FlowEvent_DidChangePlayerSetting().fire()
 		}
 		get {
-			guard let uuidString: String = self.string(forKey: "player1RoleMenuItem") else {
+			guard let uuidString: String = self.string(forKey: SettingsStore.Key.player1RoleMenuItem.rawValue) else {
 				return PlayerRoleMenuItemFactory.shared.human
 			}
             guard let id: UUID = UUID(uuidString: uuidString) else {
@@ -139,11 +139,11 @@ extension UserDefaults {
 	public var player2RoleMenuItem: PlayerRoleMenuItem {
 		set {
             let string: String = newValue.id.uuidString
-			self.set(string, forKey: "player2RoleMenuItem")
+			self.set(string, forKey: SettingsStore.Key.player2RoleMenuItem.rawValue)
 			FlowEvent_DidChangePlayerSetting().fire()
 		}
 		get {
-            guard let uuidString: String = self.string(forKey: "player2RoleMenuItem") else {
+            guard let uuidString: String = self.string(forKey: SettingsStore.Key.player2RoleMenuItem.rawValue) else {
                 return PlayerRoleMenuItemFactory.shared.smartestBotOrNone()
             }
             guard let id: UUID = UUID(uuidString: uuidString) else {
