@@ -21,6 +21,7 @@ class GameNSWindow: NSWindow {
 
     static func create() -> GameNSWindow {
         let levelSelectorViewModel = LevelSelectorViewModel()
+        levelSelectorViewModel.loadModelsFromUserDefaults()
         let model = GameViewModel.create()
 //        let model = GameViewModel.createBotVsNone()
 //        let model = GameViewModel.createBotVsBot()

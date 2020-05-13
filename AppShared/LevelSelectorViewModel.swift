@@ -13,5 +13,15 @@ import EngineMac
 
 
 public class LevelSelectorViewModel: ObservableObject {
+    @Published var models: [GameViewModel] = []
 
+    func useMockData() {
+        let model = GameViewModel.create()
+        models = Array<GameViewModel>(repeating: model, count: 9)
+    }
+
+    func loadModelsFromUserDefaults() {
+        let gameStates: [SnakeGameState] = LevelSelectorDataSource.createGameStatesWithUserDefaults()
+        models = gameStates.toGameViewModels()
+    }
 }

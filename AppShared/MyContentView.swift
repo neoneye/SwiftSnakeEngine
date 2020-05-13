@@ -169,14 +169,6 @@ struct MyContentView: View {
     }
 
     private var levelSelectorView: LevelSelectorView {
-        let models: [GameViewModel]
-        if isPreview {
-            let model = GameViewModel.create()
-            models = Array<GameViewModel>(repeating: model, count: 9)
-        } else {
-            let gameStates: [SnakeGameState] = LevelSelectorDataSource.createGameStatesWithUserDefaults()
-            models = gameStates.toGameViewModels()
-        }
         let gridSize = UIntVec2(x: 3, y: 3)
 
         let selectLevelHandler: SelectLevelHandler = { model in
@@ -184,7 +176,11 @@ struct MyContentView: View {
             self.model = model
             self.visibleContent = .ingame
         }
-        return LevelSelectorView(gridSize: gridSize, models: models, selectLevelHandler: selectLevelHandler)
+        return LevelSelectorView(
+            levelSelectorViewModel: levelSelectorViewModel,
+            gridSize: gridSize,
+            selectLevelHandler: selectLevelHandler
+        )
     }
 
     @State private var index: Int = 0
@@ -210,6 +206,7 @@ struct MyContentView: View {
             //log.debug("keyDown: ignoring repeating event.")
             return
         }
+
         switch event.keyCodeEnum {
         case .letterW:
             model.userInputForPlayer2(.up)
@@ -229,7 +226,8 @@ struct MyContentView: View {
         case .enter:
             model.restartGame()
         case .tab:
-            model.restartGame()
+            levelSelectorViewModel.loadModelsFromUserDefaults()
+//            model.restartGame()
 //        case .spacebar:
 //            if gameState.player1.isInstalledAndAlive || gameState.player2.isInstalledAndAlive {
 //                let updateAction = self.pendingUpdateAction
@@ -405,6 +403,7 @@ struct ContentView_Previews : PreviewProvider {
     static var previews: some View {
         let model = GameViewModel.create()
         let levelSelectorViewModel = LevelSelectorViewModel()
+        levelSelectorViewModel.useMockData()
         return Group {
             MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, isPreview: true)
                 .previewLayout(.fixed(width: 130, height: 200))
