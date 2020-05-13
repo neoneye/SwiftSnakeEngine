@@ -41,3 +41,18 @@ class GameNSWindow: NSWindow {
         return window
     }
 }
+
+// Environment key to hold even publisher
+struct WindowEventPublisherKey: EnvironmentKey {
+    static let defaultValue: AnyPublisher<NSEvent, Never> =
+        Just(NSEvent()).eraseToAnyPublisher()
+}
+
+
+// Environment value for keyPublisher access
+extension EnvironmentValues {
+    var keyPublisher: AnyPublisher<NSEvent, Never> {
+        get { self[WindowEventPublisherKey.self] }
+        set { self[WindowEventPublisherKey.self] = newValue }
+    }
+}
