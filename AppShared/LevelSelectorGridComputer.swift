@@ -49,14 +49,22 @@ struct LevelSelectorGridComputer {
         )
     }
 
-    func position(index: Int) -> CGPoint {
-        let yy: Int = index / xCellCount
-        let xx: Int = index - yy * xCellCount
-        let x = CGFloat(xx)
-        let y = CGFloat(yCellCount - 1 - yy)
+    func position(x: UInt, y: UInt) -> CGPoint {
+        let xx = CGFloat(x)
+        let yy = CGFloat(y)
         return CGPoint(
-            x: ((gameNodeSize.width + cellSpacing) * x) + (gameNodeSize.width / 2) + margin.leading - halfSize.width,
-            y: ((gameNodeSize.height + cellSpacing) * y) + (gameNodeSize.height / 2) + margin.bottom - halfSize.height
+            x: ((gameNodeSize.width + cellSpacing) * xx) + (gameNodeSize.width / 2) + margin.leading - halfSize.width,
+            y: ((gameNodeSize.height + cellSpacing) * yy) + (gameNodeSize.height / 2) + margin.bottom - halfSize.height
         )
+    }
+
+    func position(index: Int) -> CGPoint {
+        let y: Int = index / xCellCount
+        let x: Int = index - y * xCellCount
+        let yflipped = CGFloat(yCellCount - 1 - y)
+        guard x >= 0 && yflipped >= 0 else {
+            return CGPoint.zero
+        }
+        return position(x: UInt(x), y: UInt(yflipped))
     }
 }

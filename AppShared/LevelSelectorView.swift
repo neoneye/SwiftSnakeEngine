@@ -74,24 +74,88 @@ fileprivate struct LevelSelectorCellView: View {
     }
 }
 
+fileprivate enum LevelSelectorGridViewStyle {
+    case style1
+    case style2
+}
+
 fileprivate struct LevelSelectorGridView: View {
+    let style = LevelSelectorGridViewStyle.style2
     let gridSize: UIntVec2
     let cells: [LevelSelectorCell]
     let selectLevelHandler: SelectLevelHandler
 
     var body: some View {
-        GeometryReader { geometry in
-            self.gridView(geometry)
+        switch style {
+        case .style1:
+            return AnyView(body_style1)
+        case .style2:
+            return AnyView(body_style2)
         }
     }
 
-    private func gridView(_ geometry: GeometryProxy) -> some View {
+    var body_style1: some View {
+        GeometryReader { geometry in
+            self.gridView1(geometry)
+        }
+    }
+
+    var body_style2: some View {
+        GeometryReader { geometry in
+            self.gridView2(geometry)
+        }
+        .aspectRatio(1.0, contentMode: .fit)
+    }
+
+    private func gridView1(_ geometry: GeometryProxy) -> some View {
         let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
         return ZStack(alignment: .topLeading) {
             ForEach(self.cells) { cell in
                 LevelSelectorCellView(selectLevelHandler: self.selectLevelHandler, levelSelectorCell: cell)
                     .frame(width: gridComputer.cellSize.width, height: gridComputer.cellSize.height)
                     .position(gridComputer.position(cell.position))
+            }
+        }
+    }
+
+    private func gridView2(_ geometry: GeometryProxy) -> some View {
+        let margin = EdgeInsets(top: 80, leading: 80, bottom: 80, trailing: 80)
+        let gridComputer = LevelSelectorGridComputer(
+            margin: margin,
+            cellSpacing: 80,
+            xCellCount: Int(gridSize.x),
+            yCellCount: Int(gridSize.y),
+            size: geometry.size
+        )
+
+        let borderSize: CGFloat = 8
+
+        func cellView(cell: LevelSelectorCell) -> some View {
+            // Make the selected level slightly bigger than the non-selected levels.
+            var cellSize: CGSize = gridComputer.gameNodeSize
+            if cell.isSelected {
+                let extra: CGFloat = ceil(gridComputer.cellSpacing * 0.3) * 2 - borderSize
+                cellSize.width += extra
+                cellSize.height += extra
+            }
+
+            let x: UInt = UInt(cell.position.x)
+            let y: UInt = UInt(cell.position.y)
+            var position: CGPoint = gridComputer.position(x: x, y: y)
+            position.x += gridComputer.halfSize.width
+            position.y += gridComputer.halfSize.height
+
+            return LevelSelectorCellView(
+                selectLevelHandler: self.selectLevelHandler,
+                levelSelectorCell: cell
+            )
+                .frame(width: cellSize.width, height: cellSize.height)
+                .position(position)
+        }
+
+        return ZStack(alignment: .topLeading) {
+            ForEach(self.cells) { cell in
+                cellView(cell: cell)
             }
         }
     }
