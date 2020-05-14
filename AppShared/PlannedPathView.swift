@@ -14,7 +14,7 @@ struct PlannedPathView: View {
     let colorLowConfidence: Color
     @Binding var gridSize: UIntVec2
     let positionArray: [IntVec2]
-    let foodPosition: IntVec2
+    @Binding var foodPosition: IntVec2
 
     var body: some View {
         GeometryReader { geometry in
@@ -130,13 +130,17 @@ struct PlannedPathView_Previews: PreviewProvider {
         let colorHighConfidence: Color = Color.green
         let colorLowConfidence: Color = Color.green.opacity(0.3)
 
+        let foodPosition0: IntVec2 = IntVec2.zero
+        let foodPosition1: IntVec2 = f(13, 8)
+        let foodPosition2: IntVec2 = f(12, 12)
+
         return Group {
             PlannedPathView(
                 colorHighConfidence: colorHighConfidence,
                 colorLowConfidence: colorLowConfidence,
                 gridSize: .constant(gridSize),
                 positionArray: positions,
-                foodPosition: IntVec2.zero
+                foodPosition: .constant(foodPosition0)
             )
             .previewLayout(.fixed(width: 130, height: 130))
 
@@ -145,7 +149,7 @@ struct PlannedPathView_Previews: PreviewProvider {
                 colorLowConfidence: colorLowConfidence,
                 gridSize: .constant(gridSize),
                 positionArray: positions,
-                foodPosition: f(13, 8)
+                foodPosition: .constant(foodPosition1)
             )
             .previewLayout(.fixed(width: 130, height: 130))
 
@@ -154,7 +158,7 @@ struct PlannedPathView_Previews: PreviewProvider {
                 colorLowConfidence: colorLowConfidence,
                 gridSize: .constant(gridSize),
                 positionArray: positions,
-                foodPosition: f(12, 12)
+                foodPosition: .constant(foodPosition2)
             )
             .previewLayout(.fixed(width: 130, height: 130))
         }
