@@ -13,9 +13,16 @@ class GameViewController: UIHostingController<MyContentView> {
         case .singlePlayer_human:
             initialValue = false
         }
-        let model = GameViewModel()
+
+        let settingStore = SettingStore()
+
+        let levelSelectorViewModel = LevelSelectorViewModel()
+        levelSelectorViewModel.loadModelsFromUserDefaults()
+        levelSelectorViewModel.selectedIndex = settingStore.selectedLevel
+
+        let model = GameViewModel.create()
         model.levelSelector_humanVsBot = initialValue
-        let view = MyContentView(model: model)
+        let view = MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore)
         return GameViewController(rootView: view)
     }
 

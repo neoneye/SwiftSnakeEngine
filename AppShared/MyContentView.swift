@@ -393,7 +393,7 @@ struct MyContentView: View {
     var iOS_body: some View {
         ZStack {
             if AppConstant.useSwiftUIInsteadOfSpriteKit {
-                ingameView
+                mainContent
             } else {
                 spriteKitContainer
             }
