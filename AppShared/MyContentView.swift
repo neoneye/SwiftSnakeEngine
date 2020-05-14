@@ -195,24 +195,11 @@ struct MyContentView: View {
         }
     }
 
-    @State private var index: Int = 0
-    var keyCounter: some View {
-        #if os(macOS)
-        return Text("Demo \(index)")
-            .onReceive(keyPublisher) { event in
-                self.keyPressed(with: event)
-            }
-        #else
-        return Text("Demo \(index)")
-        #endif
-    }
-
     #if os(macOS)
     func keyPressed(with event: NSEvent) {
         guard event.type == NSEvent.EventType.keyDown else {
             return
         }
-        self.index += 1
 
         if AppConstant.ignoreRepeatingKeyDownEvents && event.isARepeat {
             //log.debug("keyDown: ignoring repeating event.")
@@ -300,11 +287,6 @@ struct MyContentView: View {
         }
     }
     #endif
-
-    private var audioSetting: some View {
-        let text: String = settingStore.isSoundEffectsEnabled ? "Audio ON" : "Audio OFF"
-        return Text(text)
-    }
 
     private var pauseButton: some View {
         Button(action: {
@@ -398,8 +380,6 @@ struct MyContentView: View {
 
             if AppConstant.useSwiftUIInsteadOfSpriteKit {
                 mainContent
-                keyCounter
-                audioSetting
             } else {
                 spriteKitContainer
             }
@@ -433,6 +413,9 @@ struct MyContentView: View {
     var body: some View {
         #if os(macOS)
         return macOS_body
+            .onReceive(keyPublisher) { event in
+                self.keyPressed(with: event)
+            }
         #else
         return iOS_body
         #endif
