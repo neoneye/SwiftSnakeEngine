@@ -13,11 +13,9 @@ struct IngameView: View {
     @ObservedObject var model: GameViewModel
 
     var body: some View {
-        let levelSize: UIntVec2 = model.level.size
-        let aspectRatio = CGSize(width: CGFloat(levelSize.x), height: CGFloat(levelSize.y))
         return ZStack {
             backgroundSolid
-            
+
             LevelView(model: model)
 
             food
@@ -27,7 +25,12 @@ struct IngameView: View {
 
             player1_plannedPath
             player2_plannedPath
-        }.aspectRatio(aspectRatio, contentMode: .fit)
+        }.aspectRatio(self.aspectRatio, contentMode: .fit)
+    }
+
+    private var aspectRatio: CGSize {
+        let levelSize: UIntVec2 = model.level.size
+        return CGSize(width: CGFloat(levelSize.x), height: CGFloat(levelSize.y))
     }
 
     private var backgroundSolid: some View {
