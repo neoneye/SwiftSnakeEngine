@@ -2,7 +2,7 @@
 import Foundation
 
 /// Remembers the selected level, so it's the same the next time the app is launched.
-class SelectedLevelController {
+class SettingSelectedLevel {
     private(set) lazy var value = initialValue()
     private let defaults: UserDefaults
     private let defaultsKey = "SELECTED_LEVEL"

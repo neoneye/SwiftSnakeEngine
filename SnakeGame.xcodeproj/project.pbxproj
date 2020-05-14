@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4211C32D244A063600C25514 /* SelectedLevelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4211C32C244A063600C25514 /* SelectedLevelController.swift */; };
+		4211C32D244A063600C25514 /* SettingSelectedLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4211C32C244A063600C25514 /* SettingSelectedLevel.swift */; };
 		4214300824259647003A58FB /* T2001_SnakeBodyMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4214300724259647003A58FB /* T2001_SnakeBodyMovement.swift */; };
 		4217EEA6240E77830066B8C0 /* T2000_SnakeHeadDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */; };
 		4217EEA8240E7D220066B8C0 /* SnakeBodyMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */; };
@@ -18,7 +18,7 @@
 		421BC991245330C70070F3EB /* SnakeBot7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421BC990245330C70070F3EB /* SnakeBot7.swift */; };
 		421BC992245330C70070F3EB /* SnakeBot7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421BC990245330C70070F3EB /* SnakeBot7.swift */; };
 		421BC9942455130D0070F3EB /* T2002_SnakeHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421BC9932455130D0070F3EB /* T2002_SnakeHead.swift */; };
-		4220E55D244A26AF0088C3C1 /* SelectedLevelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4211C32C244A063600C25514 /* SelectedLevelController.swift */; };
+		4220E55D244A26AF0088C3C1 /* SettingSelectedLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4211C32C244A063600C25514 /* SettingSelectedLevel.swift */; };
 		4220E55F244A40770088C3C1 /* SoundEffectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4220E55E244A40770088C3C1 /* SoundEffectController.swift */; };
 		4220E565244B54B80088C3C1 /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4220E564244B54B80088C3C1 /* AppColor.swift */; };
 		4220E566244B54B80088C3C1 /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4220E564244B54B80088C3C1 /* AppColor.swift */; };
@@ -338,7 +338,7 @@
 		35C4C097824F5A32B5434DAE /* Pods-BasePods-AppMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePods-AppMac.debug.xcconfig"; path = "Target Support Files/Pods-BasePods-AppMac/Pods-BasePods-AppMac.debug.xcconfig"; sourceTree = "<group>"; };
 		3D35A103F0B879CC6FD0D85D /* Pods-BasePodsMAC-EngineMacTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-EngineMacTests.release.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-EngineMacTests/Pods-BasePodsMAC-EngineMacTests.release.xcconfig"; sourceTree = "<group>"; };
 		3D7C5502B95DADFE8A9A7ECA /* Pods-BasePodsIOS-AppIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsIOS-AppIOS.release.xcconfig"; path = "Target Support Files/Pods-BasePodsIOS-AppIOS/Pods-BasePodsIOS-AppIOS.release.xcconfig"; sourceTree = "<group>"; };
-		4211C32C244A063600C25514 /* SelectedLevelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedLevelController.swift; sourceTree = "<group>"; };
+		4211C32C244A063600C25514 /* SettingSelectedLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSelectedLevel.swift; sourceTree = "<group>"; };
 		4214300724259647003A58FB /* T2001_SnakeBodyMovement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2001_SnakeBodyMovement.swift; sourceTree = "<group>"; };
 		4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2000_SnakeHeadDirection.swift; sourceTree = "<group>"; };
 		4217EEA7240E7D220066B8C0 /* SnakeBodyMovement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBodyMovement.swift; sourceTree = "<group>"; };
@@ -757,7 +757,6 @@
 				42A93BF723FC1E1800A15FD2 /* MyContentView.swift */,
 				42A06C1D2441D90600877CB9 /* PauseSheetView.swift */,
 				42F35E6023FD877400A4795B /* PlayerScoreView.swift */,
-				4211C32C244A063600C25514 /* SelectedLevelController.swift */,
 				42E5B344246C4C0800580517 /* Settings */,
 				4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */,
 				4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */,
@@ -860,6 +859,7 @@
 			isa = PBXGroup;
 			children = (
 				42E5B341246C425200580517 /* SettingPlayerRole.swift */,
+				4211C32C244A063600C25514 /* SettingSelectedLevel.swift */,
 				42E5B33E246B8A8000580517 /* SettingStore.swift */,
 			);
 			path = Settings;
@@ -1486,7 +1486,7 @@
 				4217EEAA240F00740066B8C0 /* SnakePlannedPathNode.swift in Sources */,
 				42CC22C72336EFF200CF3D96 /* SnakeBodyNode.swift in Sources */,
 				42AFEB1E246B6B2C007F15D5 /* LevelSelectorDataSource.swift in Sources */,
-				4220E55D244A26AF0088C3C1 /* SelectedLevelController.swift in Sources */,
+				4220E55D244A26AF0088C3C1 /* SettingSelectedLevel.swift in Sources */,
 				42510E5E2467686C00A2DACD /* SnakePathView.swift in Sources */,
 				42FC337223FEAC20004A50E7 /* SnakeGameSKView.swift in Sources */,
 				4246C441235BB07E00324965 /* PlayerMenu.swift in Sources */,
@@ -1611,7 +1611,7 @@
 				42C1930B244913A500697159 /* ViewHeightGetter.swift in Sources */,
 				42C32887246A2E3300F1EC6D /* FoodView.swift in Sources */,
 				42510E6A2468260A00A2DACD /* LevelView.swift in Sources */,
-				4211C32D244A063600C25514 /* SelectedLevelController.swift in Sources */,
+				4211C32D244A063600C25514 /* SettingSelectedLevel.swift in Sources */,
 				4290533D243EA53C004EFFB6 /* LevelSelectorScene.swift in Sources */,
 				42905333243E9A3F004EFFB6 /* PlayerScoreView.swift in Sources */,
 				42AFEB1A246B5694007F15D5 /* LevelSelectorViewModel.swift in Sources */,

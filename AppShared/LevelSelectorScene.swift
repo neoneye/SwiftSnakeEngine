@@ -120,7 +120,7 @@ class LevelSelectorScene: SKScene {
         guard levelSelectorNode.parent == nil else {
             fatalError("Expected levelSelectorNode.parent to be nil, but got non-nil.")
         }
-        levelSelectorNode.selectedIndex = SelectedLevelController().value
+        levelSelectorNode.selectedIndex = SettingSelectedLevel().value
         needSendingLevelInfo = true
         levelSelectorNode.createGameStates()
         levelSelectorNode.createGameNodes()
@@ -188,7 +188,7 @@ class LevelSelectorScene: SKScene {
 
     private func didChangeSelectedLevelIndex(_ selectedIndex: Int) {
         // Remember the current selected index, so the UI next time shows the same selected item.
-        SelectedLevelController().set(levelSelectorNode.selectedIndex ?? 0)
+        SettingSelectedLevel().set(levelSelectorNode.selectedIndex ?? 0)
         needRedraw = true
         needSendingLevelInfo = true
     }
