@@ -24,8 +24,7 @@ struct SnakeBodyView: View {
         let headCornerRadius: CGFloat = 5
         let positions: [IntVec2] = snakeBody.positionArray()
         let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
-        let tileMinSize: CGFloat = min(gridComputer.cellSize.width, gridComputer.cellSize.height)
-        let lineWidth: CGFloat = tileMinSize - 4
+        let lineWidth: CGFloat = gridComputer.tileMinSize - 4
         let bodyView = Path { path in
             for (index, flippedPosition) in positions.enumerated() {
                 let position = IntVec2(x: flippedPosition.x, y: Int32(gridSize.y) - 1 - flippedPosition.y)
@@ -47,7 +46,7 @@ struct SnakeBodyView: View {
         }
         let headView = RoundedRectangle(cornerRadius: headCornerRadius, style: .continuous)
             .fill(Color.white)
-            .frame(width: tileMinSize, height: tileMinSize)
+            .frame(width: gridComputer.tileMinSize, height: gridComputer.tileMinSize)
             .position(headPoint)
 
         return ZStack {
@@ -61,8 +60,7 @@ struct SnakeBodyView: View {
     private func pathWithBevelStroke(_ geometry: GeometryProxy) -> some View {
         let positions: [IntVec2] = snakeBody.positionArray()
         let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
-        let tileMinSize: CGFloat = min(gridComputer.cellSize.width, gridComputer.cellSize.height)
-        let lineWidth: CGFloat = tileMinSize - 4
+        let lineWidth: CGFloat = gridComputer.tileMinSize - 4
         return Path { path in
             for (index, flippedPosition) in positions.enumerated() {
                 let position = IntVec2(x: flippedPosition.x, y: Int32(gridSize.y) - 1 - flippedPosition.y)

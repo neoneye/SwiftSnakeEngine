@@ -22,8 +22,7 @@ struct FoodView: View {
 
     private func placeFood(_ geometry: GeometryProxy) -> some View {
         let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
-        let tileMinSize: CGFloat = min(gridComputer.cellSize.width, gridComputer.cellSize.height)
-        let circleSize: CGFloat = tileMinSize - 4
+        let circleSize: CGFloat = gridComputer.tileMinSize - 4
         let position = IntVec2(x: foodPosition.x, y: Int32(gridSize.y) - 1 - foodPosition.y)
         let point: CGPoint = gridComputer.position(position)
         return Circle()
