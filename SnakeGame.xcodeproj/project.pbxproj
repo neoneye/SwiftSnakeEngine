@@ -267,6 +267,8 @@
 		42ECBCBE236F305600758303 /* SnakeBot4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCBD236F305600758303 /* SnakeBot4.swift */; };
 		42ECBCC023735BF600758303 /* SnakeLevelCacheModel.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCBF23735BF500758303 /* SnakeLevelCacheModel.pb.swift */; };
 		42ECBCCB237CA50700758303 /* DebugMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCCA237CA50700758303 /* DebugMenu.swift */; };
+		42ED2AD7246DB9E2005D812F /* PlannedPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */; };
+		42ED2AD8246DB9E2005D812F /* PlannedPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */; };
 		42EFB41923E57E18002B6191 /* EngineMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EFB41823E57E18002B6191 /* EngineMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F35E6123FD877400A4795B /* PlayerScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F35E6023FD877400A4795B /* PlayerScoreView.swift */; };
 		42F4538823E5A3AD00B90297 /* IntVec2+CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3181F237D6E2700468D1F /* IntVec2+CGPoint.swift */; };
@@ -502,6 +504,7 @@
 		42ECBCBF23735BF500758303 /* SnakeLevelCacheModel.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeLevelCacheModel.pb.swift; sourceTree = "<group>"; };
 		42ECBCC42373608600758303 /* SnakeLevelCacheModel.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = SnakeLevelCacheModel.proto; sourceTree = "<group>"; };
 		42ECBCCA237CA50700758303 /* DebugMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenu.swift; sourceTree = "<group>"; };
+		42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedPathView.swift; sourceTree = "<group>"; };
 		42EFB41823E57E18002B6191 /* EngineMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EngineMac.h; sourceTree = "<group>"; };
 		42F35E6023FD877400A4795B /* PlayerScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScoreView.swift; sourceTree = "<group>"; };
 		42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeHeadDirection.swift; sourceTree = "<group>"; };
@@ -765,6 +768,7 @@
 				42A93BF723FC1E1800A15FD2 /* MyContentView.swift */,
 				42A06C1D2441D90600877CB9 /* PauseSheetView.swift */,
 				4217EEA9240F00740066B8C0 /* PlannedPathNode.swift */,
+				42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */,
 				42F35E6023FD877400A4795B /* PlayerScoreView.swift */,
 				42E5B344246C4C0800580517 /* Settings */,
 				4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */,
@@ -1506,6 +1510,7 @@
 				421A9E33243922ED00A85B6F /* GameNSView.swift in Sources */,
 				42CCD61D23C3CF660021CBE7 /* SpriteKitContainer.swift in Sources */,
 				42510E672468187D00A2DACD /* IngameGridComputer.swift in Sources */,
+				42ED2AD8246DB9E2005D812F /* PlannedPathView.swift in Sources */,
 				42AFEB18246AF5A8007F15D5 /* LevelSelectorView.swift in Sources */,
 				42510E5A2467112900A2DACD /* LevelView.swift in Sources */,
 				4255CA14232F8A2100A230AF /* IngameScene.swift in Sources */,
@@ -1614,6 +1619,7 @@
 				42E5B342246C425200580517 /* SettingPlayerRole.swift in Sources */,
 				42A06C1E2441D90600877CB9 /* PauseSheetView.swift in Sources */,
 				42510E6B2468260E00A2DACD /* SnakeBodyView.swift in Sources */,
+				42ED2AD7246DB9E2005D812F /* PlannedPathView.swift in Sources */,
 				4290533E243EA6F8004EFFB6 /* SpriteKitContainer.swift in Sources */,
 				42E5B33F246B8A8000580517 /* SettingStore.swift in Sources */,
 				42685C47243E8DF5000C5511 /* SnakeWallNode.swift in Sources */,

@@ -15,6 +15,7 @@ struct IngameGridComputer {
     let halfCellSize: CGSize
     let cellSize: CGSize
     let inset: CGPoint
+    let tileMinSize: CGFloat
 
     init(viewSize: CGSize, gridSize: UIntVec2) {
         self.viewSize = viewSize
@@ -34,6 +35,8 @@ struct IngameGridComputer {
             y: floor((viewSize.height - height * CGFloat(gridSize.y))/2) + halfHeight
         )
         self.inset = inset
+
+        self.tileMinSize = min(cellSize.width, cellSize.height)
     }
 
     func position(_ position: IntVec2) -> CGPoint {
