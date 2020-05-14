@@ -136,6 +136,11 @@ public class GameViewModel: ObservableObject {
         return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
     }
 
+    func toInteractiveModel() -> GameViewModel {
+        let sge = SnakeGameEnvironmentInteractive(initialGameState: self.gameState)
+        return GameViewModel(snakeGameEnvironment: sge)
+    }
+
     func restartGame() {
         gameState = snakeGameEnvironment.reset()
     }
@@ -236,9 +241,9 @@ public class GameViewModel: ObservableObject {
 }
 
 extension Array where Element == SnakeGameState {
-    func toGameViewModels() -> [GameViewModel] {
+    func toPreviewGameViewModels() -> [GameViewModel] {
         self.map {
-            let sge = SnakeGameEnvironmentInteractive(initialGameState: $0)
+            let sge = SnakeGameEnvironmentPreview(initialGameState: $0)
             return GameViewModel(snakeGameEnvironment: sge)
         }
     }

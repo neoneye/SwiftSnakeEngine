@@ -43,7 +43,7 @@ public class LevelSelectorViewModel: ObservableObject {
         }
         dataSource = newDataSource
         let gameStates: [SnakeGameState] = newDataSource.createGameStates()
-        models = gameStates.toGameViewModels()
+        models = gameStates.toPreviewGameViewModels()
     }
 
     func gameViewModelForSelectedIndex() -> GameViewModel? {

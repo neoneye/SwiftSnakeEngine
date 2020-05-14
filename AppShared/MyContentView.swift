@@ -169,12 +169,16 @@ struct MyContentView: View {
         return IngameView(model: model)
     }
 
+    func launchGame(_ gameViewModel: GameViewModel) {
+        self.model = gameViewModel.toInteractiveModel()
+        self.visibleContent = .ingame
+    }
+
     private var levelSelectorView: some View {
         let selectLevelHandler: SelectLevelHandler = { cell in
-            log.debug("did select model: \(cell.id)")
+            //log.debug("did select model: \(cell.id)")
             if self.levelSelectorViewModel.selectedIndex == cell.id {
-                self.model = cell.model
-                self.visibleContent = .ingame
+                self.launchGame(cell.model)
             } else {
                 self.settingStore.selectedLevel = cell.id
                 self.levelSelectorViewModel.selectedIndex = cell.id
@@ -229,9 +233,7 @@ struct MyContentView: View {
             NSApp.terminate(self)
         case .enter:
             if let model = levelSelectorViewModel.gameViewModelForSelectedIndex() {
-                log.debug("launching game")
-                self.model = model
-                self.visibleContent = .ingame
+                self.launchGame(model)
             }
         case .arrowUp:
             levelSelectorViewModel.moveSelectionUp()
