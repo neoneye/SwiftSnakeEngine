@@ -16,11 +16,11 @@ struct SnakeBodyView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            self.snakeBodyInnerView(geometry)
+            self.innerView(geometry)
         }
     }
 
-    private func snakeBodyInnerView(_ geometry: GeometryProxy) -> some View {
+    private func innerView(_ geometry: GeometryProxy) -> some View {
         let headCornerRadius: CGFloat = 5
         let positions: [IntVec2] = snakeBody.positionArray()
         let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
