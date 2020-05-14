@@ -9,7 +9,7 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
-class SnakePlannedPathNode: SKEffectNode {
+class PlannedPathNode: SKEffectNode {
     var colorHighConfidence: SKColor = SKColor.gray
     var colorLowConfidence: SKColor = SKColor.darkGray
 

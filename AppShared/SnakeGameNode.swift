@@ -43,16 +43,16 @@ class SnakeGameNode: SKNode {
 		return instance
 	}()
 
-    lazy var snakePlannedPathNode1: SnakePlannedPathNode = {
-        let instance = SnakePlannedPathNode()
+    lazy var plannedPathNode1: PlannedPathNode = {
+        let instance = PlannedPathNode()
         instance.convertCoordinate = { [weak self] (position) in
             return self?.cgPointFromGridPoint(position) ?? CGPoint.zero
         }
         return instance
     }()
 
-    lazy var snakePlannedPathNode2: SnakePlannedPathNode = {
-        let instance = SnakePlannedPathNode()
+    lazy var plannedPathNode2: PlannedPathNode = {
+        let instance = PlannedPathNode()
         instance.convertCoordinate = { [weak self] (position) in
             return self?.cgPointFromGridPoint(position) ?? CGPoint.zero
         }
@@ -71,8 +71,8 @@ class SnakeGameNode: SKNode {
 
         snakeBodyNode1.configure(playerId: .player1)
         snakeBodyNode2.configure(playerId: .player2)
-        snakePlannedPathNode1.configure(playerId: .player1)
-        snakePlannedPathNode2.configure(playerId: .player2)
+        plannedPathNode1.configure(playerId: .player1)
+        plannedPathNode2.configure(playerId: .player2)
 
 		self.node_food?.zPosition = 10
 		self.node_wall?.zPosition = 20
@@ -88,10 +88,10 @@ class SnakeGameNode: SKNode {
 		self.addChild(self.snakeBodyNode1)
 		self.addChild(self.snakeBodyNode2)
 
-        self.snakePlannedPathNode1.zPosition = 101
-        self.snakePlannedPathNode2.zPosition = 102
-        self.addChild(self.snakePlannedPathNode1)
-        self.addChild(self.snakePlannedPathNode2)
+        self.plannedPathNode1.zPosition = 101
+        self.plannedPathNode2.zPosition = 102
+        self.addChild(self.plannedPathNode1)
+        self.addChild(self.plannedPathNode2)
 
 		self.wallNode.zPosition = 100
 		wallNode.node_wall = node_wall
@@ -149,8 +149,8 @@ class SnakeGameNode: SKNode {
 		//log.debug("player1: \(gameState.player1.snakeBody.fifoContentString)")
 		snakeBodyNode1.rebuild(player: gameState.player1)
 		snakeBodyNode2.rebuild(player: gameState.player2)
-        snakePlannedPathNode1.rebuild(player: gameState.player1, foodPosition: gameState.foodPosition)
-        snakePlannedPathNode2.rebuild(player: gameState.player2, foodPosition: gameState.foodPosition)
+        plannedPathNode1.rebuild(player: gameState.player1, foodPosition: gameState.foodPosition)
+        plannedPathNode2.rebuild(player: gameState.player2, foodPosition: gameState.foodPosition)
 	}
 
     lazy var nextMoveIndicatorNode: SKShapeNode = {
