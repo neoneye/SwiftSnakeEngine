@@ -47,7 +47,7 @@ struct IngameView: View {
         } else {
             color = AppColor.player1_snakeBody_dead.color
         }
-        let view = SnakePathView(
+        let view = SnakeBodyView(
             gridSize: .constant(model.level.size),
             snakeBody: $model.player1SnakeBody,
             fillColor: color
@@ -65,7 +65,7 @@ struct IngameView: View {
         } else {
             color = AppColor.player2_snakeBody_dead.color
         }
-        return AnyView(SnakePathView(
+        return AnyView(SnakeBodyView(
             gridSize: .constant(model.level.size),
             snakeBody: $model.player2SnakeBody,
             fillColor: color

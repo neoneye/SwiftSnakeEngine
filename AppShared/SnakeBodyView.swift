@@ -9,18 +9,18 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
-struct SnakePathView: View {
+struct SnakeBodyView: View {
     @Binding var gridSize: UIntVec2
     @Binding var snakeBody: SnakeBody
     let fillColor: Color
 
     var body: some View {
         GeometryReader { geometry in
-            self.snakeBody(geometry)
+            self.snakeBodyInnerView(geometry)
         }
     }
 
-    private func snakeBody(_ geometry: GeometryProxy) -> some View {
+    private func snakeBodyInnerView(_ geometry: GeometryProxy) -> some View {
         let headCornerRadius: CGFloat = 5
         let positions: [IntVec2] = snakeBody.positionArray()
         let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
@@ -164,21 +164,21 @@ struct SnakePathView_Previews: PreviewProvider {
         let gridSize = UIntVec2(x: 9, y: 9)
         
         return Group {
-            SnakePathView(
+            SnakeBodyView(
                 gridSize: .constant(gridSize),
                 snakeBody: .constant(snakeBody),
                 fillColor: Color.blue
             )
             .previewLayout(.fixed(width: 130, height: 200))
 
-            SnakePathView(
+            SnakeBodyView(
                 gridSize: .constant(gridSize),
                 snakeBody: .constant(snakeBody),
                 fillColor: Color.blue
             )
             .previewLayout(.fixed(width: 300, height: 200))
 
-            SnakePathView(
+            SnakeBodyView(
                 gridSize: .constant(gridSize),
                 snakeBody: .constant(snakeBody),
                 fillColor: Color.blue
