@@ -11,7 +11,6 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
-
 public class LevelSelectorViewModel: ObservableObject {
     @Published var models: [GameViewModel] = []
     @Published var selectedIndex: UInt = 3
@@ -43,5 +42,12 @@ public class LevelSelectorViewModel: ObservableObject {
         dataSource = newDataSource
         let gameStates: [SnakeGameState] = newDataSource.createGameStates()
         models = gameStates.toGameViewModels()
+    }
+
+    func gameViewModelForSelectedIndex() -> GameViewModel? {
+        guard Int(selectedIndex) < models.count else {
+            return nil
+        }
+        return models[Int(selectedIndex)]
     }
 }

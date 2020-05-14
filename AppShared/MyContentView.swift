@@ -229,8 +229,12 @@ struct MyContentView: View {
         switch event.keyCodeEnum {
         case .escape:
             NSApp.terminate(self)
-//        case .enter:
-//            model.restartGame()
+        case .enter:
+            if let model = levelSelectorViewModel.gameViewModelForSelectedIndex() {
+                log.debug("launching game")
+                self.model = model
+                self.visibleContent = .ingame
+            }
 //        case .arrowUp:
 //            model.userInputForPlayer1(.up)
         case .arrowLeft:
