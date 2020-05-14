@@ -17,10 +17,16 @@ struct IngameView: View {
         let aspectRatio = CGSize(width: CGFloat(levelSize.x), height: CGFloat(levelSize.y))
         return ZStack {
             backgroundSolid
+            
             LevelView(model: model)
+
             food
-            player1Snake
-            player2Snake
+
+            player1_snakeBody
+            player2_snakeBody
+
+            player1_plannedPath
+            player2_plannedPath
         }.aspectRatio(aspectRatio, contentMode: .fit)
     }
 
@@ -37,7 +43,7 @@ struct IngameView: View {
         )
     }
 
-    private var player1Snake: some View {
+    private var player1_snakeBody: some View {
         guard model.player1IsInstalled else {
             return AnyView(EmptyView())
         }
@@ -55,7 +61,7 @@ struct IngameView: View {
         return AnyView(view)
     }
 
-    private var player2Snake: some View {
+    private var player2_snakeBody: some View {
         guard model.player2IsInstalled else {
             return AnyView(EmptyView())
         }
@@ -70,6 +76,30 @@ struct IngameView: View {
             snakeBody: $model.player2SnakeBody,
             fillColor: color
         ))
+    }
+
+    private var player1_plannedPath: PlannedPathView {
+        let colorHighConfidence: Color = AppColor.player1_plannedPath.color
+        let colorLowConfidence: Color = colorHighConfidence.opacity(0.5)
+        return PlannedPathView(
+            colorHighConfidence: colorHighConfidence,
+            colorLowConfidence: colorLowConfidence,
+            gridSize: .constant(model.level.size),
+            positionArray: $model.player1PlannedPath,
+            foodPosition: $model.foodPosition
+        )
+    }
+
+    private var player2_plannedPath: PlannedPathView {
+        let colorHighConfidence: Color = AppColor.player2_plannedPath.color
+        let colorLowConfidence: Color = colorHighConfidence.opacity(0.5)
+        return PlannedPathView(
+            colorHighConfidence: colorHighConfidence,
+            colorLowConfidence: colorLowConfidence,
+            gridSize: .constant(model.level.size),
+            positionArray: $model.player2PlannedPath,
+            foodPosition: $model.foodPosition
+        )
     }
 }
 

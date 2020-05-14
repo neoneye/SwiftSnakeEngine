@@ -13,7 +13,7 @@ struct PlannedPathView: View {
     let colorHighConfidence: Color
     let colorLowConfidence: Color
     @Binding var gridSize: UIntVec2
-    let positionArray: [IntVec2]
+    @Binding var positionArray: [IntVec2]
     @Binding var foodPosition: IntVec2
 
     var body: some View {
@@ -139,7 +139,7 @@ struct PlannedPathView_Previews: PreviewProvider {
                 colorHighConfidence: colorHighConfidence,
                 colorLowConfidence: colorLowConfidence,
                 gridSize: .constant(gridSize),
-                positionArray: positions,
+                positionArray: .constant(positions),
                 foodPosition: .constant(foodPosition0)
             )
             .previewLayout(.fixed(width: 130, height: 130))
@@ -148,7 +148,7 @@ struct PlannedPathView_Previews: PreviewProvider {
                 colorHighConfidence: colorHighConfidence,
                 colorLowConfidence: colorLowConfidence,
                 gridSize: .constant(gridSize),
-                positionArray: positions,
+                positionArray: .constant(positions),
                 foodPosition: .constant(foodPosition1)
             )
             .previewLayout(.fixed(width: 130, height: 130))
@@ -157,7 +157,7 @@ struct PlannedPathView_Previews: PreviewProvider {
                 colorHighConfidence: colorHighConfidence,
                 colorLowConfidence: colorLowConfidence,
                 gridSize: .constant(gridSize),
-                positionArray: positions,
+                positionArray: .constant(positions),
                 foodPosition: .constant(foodPosition2)
             )
             .previewLayout(.fixed(width: 130, height: 130))

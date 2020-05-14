@@ -30,6 +30,8 @@ public class GameViewModel: ObservableObject {
     @Published var player2IsInstalled: Bool = true
     @Published var player1IsAlive: Bool = true
     @Published var player2IsAlive: Bool = true
+    @Published var player1PlannedPath: [IntVec2] = []
+    @Published var player2PlannedPath: [IntVec2] = []
 
     private var pendingMovement_player1: SnakeBodyMovement = .dontMove
     private var pendingMovement_player2: SnakeBodyMovement = .dontMove
@@ -48,16 +50,30 @@ public class GameViewModel: ObservableObject {
     }
 
     func syncGameState(_ gameState: SnakeGameState) {
+        let player1: SnakePlayer = gameState.player1
+        let player2: SnakePlayer = gameState.player2
+
         self.level = gameState.level
         self.foodPosition = gameState.foodPosition ?? IntVec2.zero
-        self.player1SnakeBody = gameState.player1.snakeBody
-        self.player2SnakeBody = gameState.player2.snakeBody
-        self.player1IsInstalled = gameState.player1.isInstalled
-        self.player2IsInstalled = gameState.player2.isInstalled
-        self.player1IsAlive = gameState.player1.isInstalledAndAlive
-        self.player2IsAlive = gameState.player2.isInstalledAndAlive
-        self.player1Length = gameState.player1.lengthOfInstalledSnake()
-        self.player2Length = gameState.player2.lengthOfInstalledSnake()
+        self.player1SnakeBody = player1.snakeBody
+        self.player2SnakeBody = player2.snakeBody
+        self.player1IsInstalled = player1.isInstalled
+        self.player2IsInstalled = player2.isInstalled
+        self.player1IsAlive = player1.isInstalledAndAlive
+        self.player2IsAlive = player2.isInstalledAndAlive
+        self.player1Length = player1.lengthOfInstalledSnake()
+        self.player2Length = player2.lengthOfInstalledSnake()
+
+        if player1.isInstalledAndAlive {
+            self.player1PlannedPath = player1.bot.plannedPath
+        } else {
+            self.player1PlannedPath = []
+        }
+        if player2.isInstalledAndAlive {
+            self.player2PlannedPath = player2.bot.plannedPath
+        } else {
+            self.player2PlannedPath = []
+        }
     }
 
     #if os(iOS)
