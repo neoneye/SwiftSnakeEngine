@@ -99,22 +99,30 @@ fileprivate struct LevelSelectorGridView: View {
 
 struct LevelSelectorView: View {
     @ObservedObject var levelSelectorViewModel: LevelSelectorViewModel
-    let gridSize: UIntVec2
     let selectLevelHandler: SelectLevelHandler
 
     var body: some View {
-        let cells: [LevelSelectorCell] = LevelSelectorCell.create(gridSize: gridSize, models: levelSelectorViewModel.models, selectedIndex: levelSelectorViewModel.selectedIndex)
-        return LevelSelectorGridView(gridSize: gridSize, cells: cells, selectLevelHandler: selectLevelHandler)
+        let cells: [LevelSelectorCell] = LevelSelectorCell.create(
+            gridSize: levelSelectorViewModel.gridSize,
+            models: levelSelectorViewModel.models,
+            selectedIndex: levelSelectorViewModel.selectedIndex
+        )
+        return LevelSelectorGridView(
+            gridSize: levelSelectorViewModel.gridSize,
+            cells: cells,
+            selectLevelHandler: selectLevelHandler
+        )
     }
 }
 
 struct LevelSelectorView_Previews: PreviewProvider {
     static var previews: some View {
-        let gridSize = UIntVec2(x: 3, y: 3)
-
         let levelSelectorViewModel = LevelSelectorViewModel()
         levelSelectorViewModel.useMockData()
 
-        return LevelSelectorView(levelSelectorViewModel: levelSelectorViewModel, gridSize: gridSize, selectLevelHandler: {_ in })
+        return LevelSelectorView(
+            levelSelectorViewModel: levelSelectorViewModel,
+            selectLevelHandler: {_ in }
+        )
     }
 }

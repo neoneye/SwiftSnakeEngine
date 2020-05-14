@@ -12,6 +12,8 @@ import EngineMac
 #endif
 
 public class LevelSelectorViewModel: ObservableObject {
+    let gridSize = UIntVec2(x: 3, y: 3)
+
     @Published var models: [GameViewModel] = []
     @Published var selectedIndex: UInt = 3
 
@@ -49,5 +51,39 @@ public class LevelSelectorViewModel: ObservableObject {
             return nil
         }
         return models[Int(selectedIndex)]
+    }
+
+    // MARK: - Move selection around with arrow keys
+
+    func moveSelectionLeft() {
+        let xCellCount = UInt(gridSize.x)
+        let selectedIndex: UInt = self.selectedIndex
+        let row: UInt = selectedIndex / xCellCount
+        let column: UInt = (selectedIndex + xCellCount - 1) % xCellCount
+        self.selectedIndex = column + row * xCellCount
+    }
+
+    func moveSelectionRight() {
+        let xCellCount = UInt(gridSize.x)
+        let selectedIndex: UInt = self.selectedIndex
+        let row: UInt = selectedIndex / xCellCount
+        let column: UInt = (selectedIndex + 1) % xCellCount
+        self.selectedIndex = column + row * xCellCount
+    }
+
+    func moveSelectionUp() {
+        let xCellCount = UInt(gridSize.x)
+        let yCellCount = UInt(gridSize.y)
+        let selectedIndex: UInt = self.selectedIndex
+        let cellCount = xCellCount * yCellCount
+        self.selectedIndex = (selectedIndex + cellCount - xCellCount) % cellCount
+    }
+
+    func moveSelectionDown() {
+        let xCellCount = UInt(gridSize.x)
+        let yCellCount = UInt(gridSize.y)
+        let selectedIndex: UInt = self.selectedIndex
+        let cellCount = xCellCount * yCellCount
+        self.selectedIndex = (selectedIndex + xCellCount) % cellCount
     }
 }

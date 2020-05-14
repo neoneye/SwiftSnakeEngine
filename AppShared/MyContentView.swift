@@ -170,8 +170,6 @@ struct MyContentView: View {
     }
 
     private var levelSelectorView: some View {
-        let gridSize = UIntVec2(x: 3, y: 3)
-
         let selectLevelHandler: SelectLevelHandler = { cell in
             log.debug("did select model: \(cell.id)")
             if self.levelSelectorViewModel.selectedIndex == cell.id {
@@ -184,7 +182,6 @@ struct MyContentView: View {
         }
         return LevelSelectorView(
             levelSelectorViewModel: levelSelectorViewModel,
-            gridSize: gridSize,
             selectLevelHandler: selectLevelHandler
         )
         .onReceive(settingStore.objectWillChange) { _ in
@@ -235,14 +232,14 @@ struct MyContentView: View {
                 self.model = model
                 self.visibleContent = .ingame
             }
-//        case .arrowUp:
-//            model.userInputForPlayer1(.up)
+        case .arrowUp:
+            levelSelectorViewModel.moveSelectionUp()
         case .arrowLeft:
-            levelSelectorViewModel.selectedIndex -= 1
+            levelSelectorViewModel.moveSelectionLeft()
         case .arrowRight:
-            levelSelectorViewModel.selectedIndex += 1
-//        case .arrowDown:
-//            model.userInputForPlayer1(.down)
+            levelSelectorViewModel.moveSelectionRight()
+        case .arrowDown:
+            levelSelectorViewModel.moveSelectionDown()
         default:
             log.debug("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
         }
