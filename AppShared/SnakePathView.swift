@@ -16,8 +16,46 @@ struct SnakePathView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            self.pathWithBevelStroke(geometry)
+            self.snakeBody(geometry)
         }
+    }
+
+    private func snakeBody(_ geometry: GeometryProxy) -> some View {
+        let headCornerRadius: CGFloat = 5
+        let positions: [IntVec2] = snakeBody.positionArray()
+        let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
+        let tileMinSize: CGFloat = min(gridComputer.cellSize.width, gridComputer.cellSize.height)
+        let lineWidth: CGFloat = tileMinSize - 4
+        let bodyView = Path { path in
+            for (index, flippedPosition) in positions.enumerated() {
+                let position = IntVec2(x: flippedPosition.x, y: Int32(gridSize.y) - 1 - flippedPosition.y)
+                let point: CGPoint = gridComputer.position(position)
+                if index == 0 {
+                    path.move(to: point)
+                } else {
+                    path.addLine(to: point)
+                }
+            }
+        }
+        .stroke(Color.white, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
+
+        var headPoint: CGPoint = .zero
+        if let flippedPosition = positions.last {
+            let position = IntVec2(x: flippedPosition.x, y: Int32(gridSize.y) - 1 - flippedPosition.y)
+            let point: CGPoint = gridComputer.position(position)
+            headPoint = point
+        }
+        let headView = RoundedRectangle(cornerRadius: headCornerRadius, style: .continuous)
+            .fill(Color.white)
+            .frame(width: tileMinSize, height: tileMinSize)
+            .position(headPoint)
+
+        return ZStack {
+            bodyView
+            headView
+        }
+        .compositingGroup()
+        .colorMultiply(fillColor)
     }
 
     private func pathWithBevelStroke(_ geometry: GeometryProxy) -> some View {
@@ -99,28 +137,31 @@ struct SnakePathView: View {
 
 struct SnakePathView_Previews: PreviewProvider {
     static var previews: some View {
+        func f(_ x: Int32, _ y: Int32) -> IntVec2 {
+            IntVec2(x: x - 6, y: y - 5)
+        }
         let positions: [IntVec2] = [
-            IntVec2(x:  7, y: 10),
-            IntVec2(x:  8, y: 10),
-            IntVec2(x:  9, y: 10),
-            IntVec2(x: 10, y: 10),
-            IntVec2(x: 10, y:  9),
-            IntVec2(x: 10, y:  8),
-            IntVec2(x: 10, y:  7),
-            IntVec2(x: 11, y:  7),
-            IntVec2(x: 12, y:  7),
-            IntVec2(x: 13, y:  7),
-            IntVec2(x: 13, y:  8),
-            IntVec2(x: 13, y:  9),
-            IntVec2(x: 12, y:  9),
-            IntVec2(x: 12, y: 10),
-            IntVec2(x: 12, y: 11),
-            IntVec2(x: 12, y: 12),
+            f( 7, 10),
+            f( 8, 10),
+            f( 9, 10),
+            f(10, 10),
+            f(10,  9),
+            f(10,  8),
+            f(10,  7),
+            f(11,  7),
+            f(12,  7),
+            f(13,  7),
+            f(13,  8),
+            f(13,  9),
+            f(12,  9),
+            f(12, 10),
+            f(12, 11),
+            f(12, 12),
         ]
         guard let snakeBody: SnakeBody = SnakeBody.create(positions: positions) else {
             fatalError("Unable to create snake")
         }
-        let gridSize = UIntVec2(x: 14, y: 16)
+        let gridSize = UIntVec2(x: 9, y: 9)
         
         return Group {
             SnakePathView(
