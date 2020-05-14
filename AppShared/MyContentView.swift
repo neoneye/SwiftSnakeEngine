@@ -217,6 +217,34 @@ struct MyContentView: View {
             return
         }
 
+        switch visibleContent {
+        case .levelSelector:
+            keyPressed_levelSelector(with: event)
+        case .ingame:
+            keyPressed_ingame(with: event)
+        }
+    }
+
+    func keyPressed_levelSelector(with event: NSEvent) {
+        switch event.keyCodeEnum {
+        case .escape:
+            NSApp.terminate(self)
+//        case .enter:
+//            model.restartGame()
+//        case .arrowUp:
+//            model.userInputForPlayer1(.up)
+        case .arrowLeft:
+            levelSelectorViewModel.selectedIndex -= 1
+        case .arrowRight:
+            levelSelectorViewModel.selectedIndex += 1
+//        case .arrowDown:
+//            model.userInputForPlayer1(.down)
+        default:
+            log.debug("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
+        }
+    }
+
+    func keyPressed_ingame(with event: NSEvent) {
         switch event.keyCodeEnum {
         case .letterW:
             model.userInputForPlayer2(.up)
@@ -250,7 +278,7 @@ struct MyContentView: View {
 //                restartGame()
 //            }
         case .escape:
-            pressEscapeKey()
+            self.visibleContent = .levelSelector
         case .arrowUp:
             model.userInputForPlayer1(.up)
         case .arrowLeft:
@@ -261,15 +289,6 @@ struct MyContentView: View {
             model.userInputForPlayer1(.down)
         default:
             log.debug("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
-        }
-    }
-
-    func pressEscapeKey() {
-        switch visibleContent {
-        case .levelSelector:
-            NSApp.terminate(self)
-        case .ingame:
-            self.visibleContent = .levelSelector
         }
     }
     #endif
