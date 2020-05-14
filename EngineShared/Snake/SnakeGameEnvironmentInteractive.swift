@@ -1,6 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
+/// Human players can interact with the game state.
 public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
     private let initialGameState: SnakeGameState
     private var stuckSnakeDetector1 = StuckSnakeDetector(humanReadableName: "Player1")
