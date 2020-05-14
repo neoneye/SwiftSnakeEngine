@@ -22,6 +22,7 @@ final class SettingStore: ObservableObject {
 
     private let settingPlayer1Role: SettingPlayer1Role
     private let settingPlayer2Role: SettingPlayer2Role
+    private let settingSelectedLevel: SettingSelectedLevel
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -35,6 +36,7 @@ final class SettingStore: ObservableObject {
 
         self.settingPlayer1Role = SettingPlayer1Role(defaults: defaults)
         self.settingPlayer2Role = SettingPlayer2Role(defaults: defaults)
+        self.settingSelectedLevel = SettingSelectedLevel(defaults: defaults)
     }
 
     var isSoundEffectsEnabled: Bool {
@@ -64,6 +66,15 @@ final class SettingStore: ObservableObject {
         }
         set {
             settingPlayer2Role.set(newValue)
+        }
+    }
+
+    var selectedLevel: UInt {
+        get {
+            settingSelectedLevel.value
+        }
+        set {
+            settingSelectedLevel.set(newValue)
         }
     }
 }

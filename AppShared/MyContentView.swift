@@ -176,6 +176,7 @@ struct MyContentView: View {
                 self.model = cell.model
                 self.visibleContent = .ingame
             } else {
+                self.settingStore.selectedLevel = cell.id
                 self.levelSelectorViewModel.selectedIndex = cell.id
                 self.model = cell.model
             }
@@ -234,12 +235,16 @@ struct MyContentView: View {
             }
         case .arrowUp:
             levelSelectorViewModel.moveSelectionUp()
+            settingStore.selectedLevel = levelSelectorViewModel.selectedIndex
         case .arrowLeft:
             levelSelectorViewModel.moveSelectionLeft()
+            settingStore.selectedLevel = levelSelectorViewModel.selectedIndex
         case .arrowRight:
             levelSelectorViewModel.moveSelectionRight()
+            settingStore.selectedLevel = levelSelectorViewModel.selectedIndex
         case .arrowDown:
             levelSelectorViewModel.moveSelectionDown()
+            settingStore.selectedLevel = levelSelectorViewModel.selectedIndex
         default:
             log.debug("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
         }

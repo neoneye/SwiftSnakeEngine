@@ -20,13 +20,16 @@ class GameNSWindow: NSWindow {
     }
 
     static func create() -> GameNSWindow {
+        let settingStore = SettingStore()
+
         let levelSelectorViewModel = LevelSelectorViewModel()
         levelSelectorViewModel.loadModelsFromUserDefaults()
+        levelSelectorViewModel.selectedIndex = settingStore.selectedLevel
+
         let model = GameViewModel.create()
 //        let model = GameViewModel.createBotVsNone()
 //        let model = GameViewModel.createBotVsBot()
 //        let model = GameViewModel.createHumanVsBot()
-        let settingStore = SettingStore()
         let window = GameNSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 600, height: 500),
             styleMask: [.titled, .closable, .miniaturizable, .resizable],
