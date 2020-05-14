@@ -269,6 +269,8 @@
 		42ECBCCB237CA50700758303 /* DebugMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCCA237CA50700758303 /* DebugMenu.swift */; };
 		42ED2AD7246DB9E2005D812F /* PlannedPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */; };
 		42ED2AD8246DB9E2005D812F /* PlannedPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */; };
+		42ED2ADA246DFCC5005D812F /* GestureIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED2AD9246DFCC5005D812F /* GestureIndicatorView.swift */; };
+		42ED2ADB246DFCC5005D812F /* GestureIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED2AD9246DFCC5005D812F /* GestureIndicatorView.swift */; };
 		42EFB41923E57E18002B6191 /* EngineMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EFB41823E57E18002B6191 /* EngineMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F35E6123FD877400A4795B /* PlayerScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F35E6023FD877400A4795B /* PlayerScoreView.swift */; };
 		42F4538823E5A3AD00B90297 /* IntVec2+CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3181F237D6E2700468D1F /* IntVec2+CGPoint.swift */; };
@@ -505,6 +507,7 @@
 		42ECBCC42373608600758303 /* SnakeLevelCacheModel.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = SnakeLevelCacheModel.proto; sourceTree = "<group>"; };
 		42ECBCCA237CA50700758303 /* DebugMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenu.swift; sourceTree = "<group>"; };
 		42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedPathView.swift; sourceTree = "<group>"; };
+		42ED2AD9246DFCC5005D812F /* GestureIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureIndicatorView.swift; sourceTree = "<group>"; };
 		42EFB41823E57E18002B6191 /* EngineMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EngineMac.h; sourceTree = "<group>"; };
 		42F35E6023FD877400A4795B /* PlayerScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScoreView.swift; sourceTree = "<group>"; };
 		42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeHeadDirection.swift; sourceTree = "<group>"; };
@@ -755,6 +758,7 @@
 				42905330243E99DD004EFFB6 /* Fonts */,
 				42C32886246A2E3300F1EC6D /* FoodView.swift */,
 				42CBF1CB2443B31F001A5D04 /* GameViewModel.swift */,
+				42ED2AD9246DFCC5005D812F /* GestureIndicatorView.swift */,
 				42510E662468187D00A2DACD /* IngameGridComputer.swift */,
 				4255CA13232F8A2100A230AF /* IngameScene.swift */,
 				42510E64246790F100A2DACD /* IngameView.swift */,
@@ -1492,6 +1496,7 @@
 				42C5566823ABE7E70001DBD8 /* NSEvent+KeyCode.swift in Sources */,
 				422B903B23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift in Sources */,
 				42AFEB1B246B5694007F15D5 /* LevelSelectorViewModel.swift in Sources */,
+				42ED2ADB246DFCC5005D812F /* GestureIndicatorView.swift in Sources */,
 				42F35E6123FD877400A4795B /* PlayerScoreView.swift in Sources */,
 				42E5B340246B8A8000580517 /* SettingStore.swift in Sources */,
 				42A06C1F2441D90600877CB9 /* PauseSheetView.swift in Sources */,
@@ -1637,6 +1642,7 @@
 				42AFEB1D246B6B2C007F15D5 /* LevelSelectorDataSource.swift in Sources */,
 				42905361243EAE0B004EFFB6 /* SceneDelegate.swift in Sources */,
 				42BE1628243E93E10031C88B /* SKSpriteNode+Pulse.swift in Sources */,
+				42ED2ADA246DFCC5005D812F /* GestureIndicatorView.swift in Sources */,
 				4290533A243E9F9B004EFFB6 /* IngameScene.swift in Sources */,
 				42AFEB17246AF5A8007F15D5 /* LevelSelectorView.swift in Sources */,
 				42C1930924489A5C00697159 /* PlayerModeController.swift in Sources */,
