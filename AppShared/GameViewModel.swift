@@ -84,6 +84,18 @@ public class GameViewModel: ObservableObject {
         return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
     }
 
+    static func createPreview() -> GameViewModel {
+        let gameState = SnakeGameState.create(
+            player1: .human,
+            player2: .none,
+            levelName: "Level 0.csv"
+        )
+        let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentPreview(
+            initialGameState: gameState
+        )
+        return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
+    }
+
     static func createHumanVsHuman() -> GameViewModel {
         let gameState = SnakeGameState.create(
             player1: .human,

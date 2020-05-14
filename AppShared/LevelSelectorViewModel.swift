@@ -31,7 +31,7 @@ public class LevelSelectorViewModel: ObservableObject {
     }
 
     func useMockData() {
-        let model = GameViewModel.create()
+        let model = GameViewModel.createPreview()
         models = Array<GameViewModel>(repeating: model, count: 9)
     }
 
