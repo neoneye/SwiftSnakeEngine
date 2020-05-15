@@ -166,7 +166,7 @@ struct MyContentView: View {
     }
 
     private var ingameView: IngameView {
-        return IngameView(model: model)
+        return IngameView(model: model, hasPauseButton: true)
     }
 
     func launchGame(_ gameViewModel: GameViewModel) {

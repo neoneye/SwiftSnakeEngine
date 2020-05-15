@@ -11,8 +11,20 @@ import EngineMac
 
 struct IngameView: View {
     @ObservedObject var model: GameViewModel
+    @State var presentingModal = false
+    let hasPauseButton: Bool
 
     var body: some View {
+        return ZStack {
+            innerBodyWithAspectRatio
+
+            if hasPauseButton {
+                overlayWithPauseButton
+            }
+        }
+    }
+
+    var innerBodyWithAspectRatio: some View {
         return ZStack {
             backgroundSolid
 
@@ -113,17 +125,41 @@ struct IngameView: View {
             headPosition: .constant(IntVec2(x: 5, y: 5))
         )
     }
+
+    private var pauseButton: some View {
+        Button(action: {
+            self.presentingModal = true
+        }) {
+            Image("ingame_pauseButton_image")
+                .foregroundColor(AppColor.ingame_pauseButton.color)
+                .scaleEffect(0.6)
+                .padding(15)
+        }
+        .sheet(isPresented: $presentingModal) {
+            PauseSheetView(model: self.model, presentedAsModal: self.$presentingModal)
+        }
+    }
+
+    private var overlayWithPauseButton: some View {
+        VStack {
+            HStack {
+                pauseButton
+                Spacer()
+            }
+            Spacer()
+        }
+    }
 }
 
 struct IngameView_Previews: PreviewProvider {
     static var previews: some View {
         let model = GameViewModel.createHumanVsHuman()
         return Group {
-            IngameView(model: model)
+            IngameView(model: model, hasPauseButton: true)
                 .previewLayout(.fixed(width: 130, height: 200))
-            IngameView(model: model)
+            IngameView(model: model, hasPauseButton: true)
                 .previewLayout(.fixed(width: 300, height: 200))
-            IngameView(model: model)
+            IngameView(model: model, hasPauseButton: true)
                 .previewLayout(.fixed(width: 400, height: 150))
         }
     }
