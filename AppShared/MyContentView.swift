@@ -451,12 +451,14 @@ struct ContentView_Previews : PreviewProvider {
         levelSelectorViewModel.useMockData()
         let settingStore = SettingStore()
         return Group {
+//            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore, isPreview: true)
+//                .previewLayout(.fixed(width: 130, height: 200))
+
             MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore, isPreview: true)
-                .previewLayout(.fixed(width: 130, height: 200))
-            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore, isPreview: true)
-                .previewLayout(.fixed(width: 300, height: 200))
-            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore, isPreview: true)
-                .previewLayout(.fixed(width: 500, height: 150))
+                .previewLayout(.fixed(width: 500, height: 500))
+
+//            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore, isPreview: true)
+//                .previewLayout(.fixed(width: 500, height: 150))
         }
     }
 
