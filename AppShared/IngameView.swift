@@ -12,7 +12,37 @@ import EngineMac
 struct IngameView: View {
     @ObservedObject var model: GameViewModel
     @State var presentingModal = false
+    @State var isDragging = false
     let hasPauseButton: Bool
+
+    enum TouchMoveDirection {
+        case undecided
+        case horizontal
+        case vertical
+    }
+    @State var touchMoveDirection = TouchMoveDirection.undecided
+    @State var dragOffset: CGSize = .zero
+
+
+    private var drag: some Gesture {
+        DragGesture()
+            .onChanged { v in
+                if !self.isDragging {
+                    self.isDragging = true
+                    self.touchMoveDirection = TouchMoveDirection.undecided
+                    log.debug("began. startLocation: \(v.startLocation)")
+
+                } else {
+                    log.debug("changed. startLocation: \(v.startLocation)")
+                }
+                self.dragOffset = v.translation
+            }
+            .onEnded { v in
+                self.isDragging = false
+
+                log.debug("ended. startLocation: \(v.startLocation)")
+            }
+    }
 
     var body: some View {
         return ZStack {
@@ -22,6 +52,7 @@ struct IngameView: View {
                 overlayWithPauseButton
             }
         }
+        .gesture(drag)
     }
 
     var innerBodyWithAspectRatio: some View {
@@ -38,7 +69,10 @@ struct IngameView: View {
             player1_plannedPath
             player2_plannedPath
 
-            //gestureIndicator
+            if isDragging {
+                gestureIndicator
+            }
+
         }.aspectRatio(self.aspectRatio, contentMode: .fit)
     }
 
@@ -119,11 +153,12 @@ struct IngameView: View {
         )
     }
 
-    private var gestureIndicator: GestureIndicatorView {
+    private var gestureIndicator: some View {
         return GestureIndicatorView(
             gridSize: .constant(model.level.size),
-            headPosition: .constant(IntVec2(x: 5, y: 5))
+            headPosition: $model.gestureIndicatorPosition
         )
+        .offset(dragOffset)
     }
 
     private var pauseButton: some View {

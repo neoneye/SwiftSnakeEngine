@@ -33,6 +33,7 @@ public class GameViewModel: ObservableObject {
     @Published var player2IsAlive: Bool = true
     @Published var player1PlannedPath: [IntVec2] = []
     @Published var player2PlannedPath: [IntVec2] = []
+    @Published var gestureIndicatorPosition: IntVec2 = IntVec2.zero
 
     private var pendingMovement_player1: SnakeBodyMovement = .dontMove
     private var pendingMovement_player2: SnakeBodyMovement = .dontMove
@@ -74,6 +75,12 @@ public class GameViewModel: ObservableObject {
             self.player2PlannedPath = player2.bot.plannedPath
         } else {
             self.player2PlannedPath = []
+        }
+
+        if player1.isInstalledAndAlive {
+            self.gestureIndicatorPosition = player1.snakeBody.head.position
+        } else {
+            self.gestureIndicatorPosition = IntVec2.zero
         }
     }
 
