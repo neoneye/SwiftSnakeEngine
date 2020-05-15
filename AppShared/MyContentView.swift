@@ -174,7 +174,7 @@ struct MyContentView: View {
         self.visibleContent = .ingame
     }
 
-    private var levelSelectorView: some View {
+    private var innerLevelSelectorView: some View {
         let selectLevelHandler: SelectLevelHandler = { cell in
             //log.debug("did select model: \(cell.id)")
             if self.levelSelectorViewModel.selectedIndex == cell.id {
@@ -193,6 +193,26 @@ struct MyContentView: View {
             log.debug("did change settings")
             self.levelSelectorViewModel.loadModelsFromUserDefaults()
         }
+    }
+
+    private var macOS_levelSelectorView: some View {
+        return innerLevelSelectorView
+    }
+
+    private var iOS_levelSelectorView: some View {
+        VStack {
+            iOS_overlayWithHeader_inner
+
+            innerLevelSelectorView
+        }
+    }
+
+    private var levelSelectorView: some View {
+        #if os(macOS)
+        return macOS_levelSelectorView
+        #else
+        return iOS_levelSelectorView
+        #endif
     }
 
     #if os(macOS)
@@ -382,9 +402,9 @@ struct MyContentView: View {
                 mainContent
             } else {
                 spriteKitContainer
+                macOS_footer
             }
 
-            macOS_footer
         }
         .edgesIgnoringSafeArea(.all)
         .frame(minWidth: isPreview ? 100 : 400, maxWidth: .infinity, minHeight: isPreview ? 80 : 400, maxHeight: .infinity)
@@ -396,14 +416,14 @@ struct MyContentView: View {
                 mainContent
             } else {
                 spriteKitContainer
-            }
 
-            if model.showPauseButton {
-                iOS_overlayWithPauseButton
-            }
+                if model.showPauseButton {
+                    iOS_overlayWithPauseButton
+                }
 
-            if model.levelSelector_visible {
-                iOS_overlayWithHeader
+                if model.levelSelector_visible {
+                    iOS_overlayWithHeader
+                }
             }
         }
         .edgesIgnoringSafeArea(.all)
