@@ -168,7 +168,7 @@ struct MyContentView: View {
     private var ingameView: some View {
         IngameView(
             model: model,
-            hasPauseButton: true
+            mode: .playable
         )
     }
 

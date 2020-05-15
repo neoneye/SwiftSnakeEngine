@@ -13,7 +13,15 @@ struct IngameView: View {
     @ObservedObject var model: GameViewModel
     @State var presentingModal = false
     @State var isDragging = false
-    let hasPauseButton: Bool
+
+    enum Mode {
+        /// Interactive, drag gestures, pause button.
+        case playable
+
+        /// Non-interactive thumbnail of the level.
+        case levelSelectorPreview
+    }
+    let mode: Mode
 
     enum TouchMoveDirection {
         case undecided
@@ -45,12 +53,22 @@ struct IngameView: View {
     }
 
     var body: some View {
+        switch self.mode {
+        case .playable:
+            return AnyView(playableBody)
+        case .levelSelectorPreview:
+            return AnyView(innerBodyWithAspectRatio)
+        }
+    }
+
+    var playableBody: some View {
         return ZStack {
+            Rectangle()
+                .fill(AppColor.theme1_wall.color)
+
             innerBodyWithAspectRatio
 
-            if hasPauseButton {
-                overlayWithPauseButton
-            }
+            overlayWithPauseButton
         }
         .gesture(drag)
     }
@@ -191,11 +209,11 @@ struct IngameView_Previews: PreviewProvider {
     static var previews: some View {
         let model = GameViewModel.createHumanVsHuman()
         return Group {
-            IngameView(model: model, hasPauseButton: true)
+            IngameView(model: model, mode: .playable)
                 .previewLayout(.fixed(width: 130, height: 200))
-            IngameView(model: model, hasPauseButton: true)
+            IngameView(model: model, mode: .playable)
                 .previewLayout(.fixed(width: 300, height: 200))
-            IngameView(model: model, hasPauseButton: true)
+            IngameView(model: model, mode: .playable)
                 .previewLayout(.fixed(width: 400, height: 150))
         }
     }

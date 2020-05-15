@@ -47,7 +47,7 @@ fileprivate struct LevelSelectorCellView: View {
     }
 
     private func ingameView(size: CGSize) -> some View {
-        return IngameView(model: levelSelectorCell.model, hasPauseButton: false)
+        return IngameView(model: levelSelectorCell.model,             mode: .levelSelectorPreview)
             .frame(width: size.width, height: size.height)
     }
 
