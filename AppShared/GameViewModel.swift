@@ -11,6 +11,7 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
+// IDEA: rename to IngameViewModel
 public class GameViewModel: ObservableObject {
     public let jumpToLevelSelector = PassthroughSubject<Void, Never>()
     public let userInterfaceStyle = PassthroughSubject<Void, Never>()
