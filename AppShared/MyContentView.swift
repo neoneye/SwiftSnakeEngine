@@ -430,7 +430,7 @@ struct MyContentView: View {
         .frame(minWidth: isPreview ? 100 : 400, maxWidth: .infinity, minHeight: isPreview ? 80 : 400, maxHeight: .infinity)
     }
 
-    var body: some View {
+    var innerBody: some View {
         #if os(macOS)
         return macOS_body
             .onReceive(keyPublisher) { event in
@@ -441,6 +441,12 @@ struct MyContentView: View {
         #endif
     }
 
+    var body: some View {
+        innerBody
+        .onReceive(model.jumpToLevelSelector) { _ in
+            self.visibleContent = .levelSelector
+        }
+    }
 }
 
 struct ContentView_Previews : PreviewProvider {
