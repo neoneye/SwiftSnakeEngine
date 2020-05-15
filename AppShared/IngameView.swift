@@ -135,6 +135,7 @@ struct IngameView: View {
                 .scaleEffect(0.6)
                 .padding(15)
         }
+        .buttonStyle(BorderlessButtonStyle())
         .sheet(isPresented: $presentingModal) {
             PauseSheetView(model: self.model, presentedAsModal: self.$presentingModal)
         }
