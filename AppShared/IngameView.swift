@@ -25,6 +25,8 @@ struct IngameView: View {
 
             player1_plannedPath
             player2_plannedPath
+
+            //gestureIndicator
         }.aspectRatio(self.aspectRatio, contentMode: .fit)
     }
 
@@ -102,6 +104,13 @@ struct IngameView: View {
             gridSize: .constant(model.level.size),
             positionArray: $model.player2PlannedPath,
             foodPosition: $model.foodPosition
+        )
+    }
+
+    private var gestureIndicator: GestureIndicatorView {
+        return GestureIndicatorView(
+            gridSize: .constant(model.level.size),
+            headPosition: .constant(IntVec2(x: 5, y: 5))
         )
     }
 }
