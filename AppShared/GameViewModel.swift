@@ -39,8 +39,7 @@ public class GameViewModel: ObservableObject {
     private var pendingMovement_player2: SnakeBodyMovement = .dontMove
 
     private let settingStepMode: SettingStepMode
-
-    var isPlaying: Bool = false
+    private var isStepRepeatingForever: Bool = false
 
     private let snakeGameEnvironment: SnakeGameEnvironment
     private var _gameState: SnakeGameState
@@ -289,13 +288,13 @@ public class GameViewModel: ObservableObject {
     }
 
     private func repeatForever_step_botsOnly() {
-        guard isPlaying else {
+        guard isStepRepeatingForever else {
             log.debug("Stop repeatForever, since it has been paused.")
             return
         }
         guard isStepPossible_botsOnly else {
             log.debug("Stop repeatForever, since there is nothing meaningful to be repeated.")
-            isPlaying = false
+            isStepRepeatingForever = false
             return
         }
         log.debug("repeatForever")
@@ -314,7 +313,7 @@ public class GameViewModel: ObservableObject {
 
     func ingameView_playableMode_onDisappear() {
         log.debug("onDisappear")
-        isPlaying = false
+        isStepRepeatingForever = false
     }
 
     func pauseSheet_willPresentSheet() {
@@ -339,23 +338,25 @@ public class GameViewModel: ObservableObject {
     }
 
     private func startStepping() {
-        guard !isPlaying else {
+        guard !isStepRepeatingForever else {
             log.debug("already busy playing.")
             return
         }
-        isPlaying = true
+        isStepRepeatingForever = true
         repeatForever_step_botsOnly()
     }
 
-    func stopStepping() {
-        isPlaying = false
+    private func stopStepping() {
+        isStepRepeatingForever = false
     }
 
-    func togglePlayPause() {
-        if isPlaying {
+    func toggleStepMode() {
+        if isStepRepeatingForever {
+            // Pause
             settingStepMode.set(SettingStepModeValue.stepManual)
             stopStepping()
         } else {
+            // Resume playing
             settingStepMode.set(SettingStepModeValue.stepAuto)
             startStepping()
         }
@@ -363,7 +364,7 @@ public class GameViewModel: ObservableObject {
 
     func singleStep_botsOnly() {
         settingStepMode.set(SettingStepModeValue.stepManual)
-        isPlaying = false
+        isStepRepeatingForever = false
         step_botsOnly()
     }
 

@@ -285,7 +285,7 @@ struct MyContentView: View {
         case .tab:
             model.restartGame()
         case .spacebar:
-            model.togglePlayPause()
+            model.toggleStepMode()
 //            if gameState.player1.isInstalledAndAlive || gameState.player2.isInstalledAndAlive {
 //                let updateAction = self.pendingUpdateAction
 //                switch updateAction {
