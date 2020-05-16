@@ -172,6 +172,11 @@ public class GameViewModel: ObservableObject {
         return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
     }
 
+    class func createReplay() -> GameViewModel {
+        let environment = SnakeGameEnvironmentReplay.create()
+        return GameViewModel(snakeGameEnvironment: environment)
+    }
+
     func toInteractiveModel() -> GameViewModel {
         let sge = SnakeGameEnvironmentInteractive(initialGameState: self.gameState)
         return GameViewModel(snakeGameEnvironment: sge)
