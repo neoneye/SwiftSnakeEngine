@@ -172,6 +172,18 @@ struct MyContentView: View {
         )
     }
 
+    func togglePlayPause() {
+        let oldStepMode: SettingStepModeValue = settingStore.stepMode
+        switch oldStepMode {
+        case .stepManual:
+            settingStore.stepMode = SettingStepModeValue.stepAuto
+            model.start()
+        case .stepAuto:
+            settingStore.stepMode = SettingStepModeValue.stepManual
+            model.stop()
+        }
+    }
+
     func launchGame(_ gameViewModel: GameViewModel) {
 //        self.model = GameViewModel.createReplay()
         self.model = gameViewModel.toInteractiveModel()
@@ -285,7 +297,7 @@ struct MyContentView: View {
         case .tab:
             model.restartGame()
         case .spacebar:
-            model.repeatForever_step_botsOnly()
+            togglePlayPause()
 //            if gameState.player1.isInstalledAndAlive || gameState.player2.isInstalledAndAlive {
 //                let updateAction = self.pendingUpdateAction
 //                switch updateAction {

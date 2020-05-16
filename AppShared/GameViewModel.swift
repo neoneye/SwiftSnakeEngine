@@ -38,6 +38,8 @@ public class GameViewModel: ObservableObject {
     private var pendingMovement_player1: SnakeBodyMovement = .dontMove
     private var pendingMovement_player2: SnakeBodyMovement = .dontMove
 
+    var isPlaying: Bool = false
+
     private let snakeGameEnvironment: SnakeGameEnvironment
     private var _gameState: SnakeGameState
 
@@ -283,8 +285,13 @@ public class GameViewModel: ObservableObject {
     }
 
     func repeatForever_step_botsOnly() {
+        guard isPlaying else {
+            log.debug("Stop repeatForever, since it has been paused.")
+            return
+        }
         guard isStepPossible_botsOnly else {
             log.debug("Stop repeatForever, since there is nothing meaningful to be repeated.")
+            isPlaying = false
             return
         }
 
@@ -293,6 +300,19 @@ public class GameViewModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.016) { [weak self] in
             self?.repeatForever_step_botsOnly()
         }
+    }
+
+    func start() {
+        guard !isPlaying else {
+            log.debug("already busy playing.")
+            return
+        }
+        isPlaying = true
+        repeatForever_step_botsOnly()
+    }
+
+    func stop() {
+        isPlaying = false
     }
 
     private func step_humanVsAny() {
