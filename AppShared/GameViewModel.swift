@@ -302,6 +302,11 @@ public class GameViewModel: ObservableObject {
         }
     }
 
+    func ingameView_playableMode_onAppear() {
+        log.debug("appear")
+        start()
+    }
+
     func start() {
         guard !isPlaying else {
             log.debug("already busy playing.")

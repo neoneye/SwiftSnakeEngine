@@ -147,13 +147,13 @@ struct IngameView: View {
     var body: some View {
         switch self.mode {
         case .playable:
-            return AnyView(playableBody)
+            return AnyView(playableMode_body)
         case .levelSelectorPreview:
             return AnyView(innerBodyWithAspectRatio)
         }
     }
 
-    var playableBody: some View {
+    private var playableMode_body: some View {
         return ZStack {
             Rectangle()
                 .fill(AppColor.theme1_wall.color)
@@ -164,9 +164,12 @@ struct IngameView: View {
         }
         .gesture(tapGesture)
         .gesture(dragGesture)
+        .onAppear {
+            self.model.ingameView_playableMode_onAppear()
+        }
     }
 
-    var innerBodyWithAspectRatio: some View {
+    private var innerBodyWithAspectRatio: some View {
         return ZStack {
             backgroundSolid
 
