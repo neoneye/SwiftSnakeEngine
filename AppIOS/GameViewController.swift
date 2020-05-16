@@ -5,7 +5,7 @@ import EngineIOS
 class GameViewController: UIHostingController<MyContentView> {
 
     static func create() -> GameViewController {
-        let playerMode: PlayerMode = PlayerModeController().value
+        let playerMode: SettingPlayerModeValue = SettingPlayerMode().value
         let initialValue: Bool
         switch playerMode {
         case .twoPlayer_humanBot:

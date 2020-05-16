@@ -65,13 +65,13 @@ class LevelSelectorScene: SKScene {
         skView.model.$levelSelector_humanVsBot
             .sink { [weak self] (value: Bool) in
                 log.debug("human vs bot. value: \(value)")
-                let playerMode: PlayerMode
+                let playerMode: SettingPlayerModeValue
                 if value {
                     playerMode = .twoPlayer_humanBot
                 } else {
                     playerMode = .singlePlayer_human
                 }
-                PlayerModeController().set(playerMode)
+                SettingPlayerMode().set(playerMode)
                 self?.didChangePlayerSettings()
             }
             .store(in: &cancellable)

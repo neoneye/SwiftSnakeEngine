@@ -22,7 +22,7 @@ struct LevelSelectorDataSource {
         role2 = SettingPlayer2Role().value
         #else
         role1 = SnakePlayerRole.human
-        let playerMode: PlayerMode = PlayerModeController().value
+        let playerMode: SettingPlayerModeValue = SettingPlayerMode().value
         switch playerMode {
         case .twoPlayer_humanBot:
             let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()

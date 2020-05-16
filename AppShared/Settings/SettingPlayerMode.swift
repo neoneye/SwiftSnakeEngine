@@ -1,14 +1,21 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
-import EngineIOS
 
-enum PlayerMode: String {
+#if os(iOS)
+import EngineIOS
+#elseif os(macOS)
+import EngineMac
+#else
+#error("Unknown OS")
+#endif
+
+enum SettingPlayerModeValue: String {
     case twoPlayer_humanBot = "twoPlayer_humanBot"
     case singlePlayer_human = "singlePlayer_human"
 }
 
 /// Keeps track of the users preferred `player mode`.
-class PlayerModeController {
+class SettingPlayerMode {
     private(set) lazy var value = initialValue()
     private let defaults: UserDefaults
     private let defaultsKey = "SNAKE_PLAYERMODE"
@@ -17,13 +24,13 @@ class PlayerModeController {
         self.defaults = defaults
     }
 
-    func set(_ newValue: PlayerMode) {
+    func set(_ newValue: SettingPlayerModeValue) {
         value = newValue
         defaults.setValue(newValue.rawValue, forKey: defaultsKey)
     }
 
-    private func initialValue() -> PlayerMode {
+    private func initialValue() -> SettingPlayerModeValue {
         let rawValue: String? = defaults.string(forKey: defaultsKey)
-        return rawValue.flatMap(PlayerMode.init) ?? .twoPlayer_humanBot
+        return rawValue.flatMap(SettingPlayerModeValue.init) ?? .twoPlayer_humanBot
     }
 }
