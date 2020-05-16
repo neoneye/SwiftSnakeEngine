@@ -240,7 +240,15 @@ public class GameViewModel: ObservableObject {
         undo()
     }
 
-    func step_botsOnly() {
+    /// Single step forward can only be done when there are only bots.
+    ///
+    /// In a game where there are one or more humans that are alive,
+    /// here you have to wait for input from the humans, before the step can be executed.
+    /// This complicates things.
+    ///
+    /// For simplicity this function deals with games where there one or more bots,
+    /// And there are zero humans alive.
+    var isStepPossible_botsOnly: Bool {
         var botCount: UInt = 0
         var nonBotCount: UInt = 0
         let players: [SnakePlayer] = [gameState.player1, gameState.player2]
@@ -254,6 +262,13 @@ public class GameViewModel: ObservableObject {
             }
         }
         guard nonBotCount == 0 && botCount > 0 else {
+            return false
+        }
+        return true
+    }
+
+    func step_botsOnly() {
+        guard isStepPossible_botsOnly else {
             log.debug("Single step forward can only be done when there are only bots")
             return
         }
@@ -265,6 +280,19 @@ public class GameViewModel: ObservableObject {
         )
         // IDEA: perform in a separate thread
         gameState = snakeGameEnvironment.step(action: action)
+    }
+
+    func repeatForever_step_botsOnly() {
+        guard isStepPossible_botsOnly else {
+            log.debug("Stop repeatForever, since there is nothing meaningful to be repeated.")
+            return
+        }
+
+        step_botsOnly()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.016) { [weak self] in
+            self?.repeatForever_step_botsOnly()
+        }
     }
 
     private func step_humanVsAny() {

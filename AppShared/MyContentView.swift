@@ -173,6 +173,7 @@ struct MyContentView: View {
     }
 
     func launchGame(_ gameViewModel: GameViewModel) {
+//        self.model = GameViewModel.createReplay()
         self.model = gameViewModel.toInteractiveModel()
         self.visibleContent = .ingame
     }
@@ -283,7 +284,8 @@ struct MyContentView: View {
             model.restartGame()
         case .tab:
             model.restartGame()
-//        case .spacebar:
+        case .spacebar:
+            model.repeatForever_step_botsOnly()
 //            if gameState.player1.isInstalledAndAlive || gameState.player2.isInstalledAndAlive {
 //                let updateAction = self.pendingUpdateAction
 //                switch updateAction {
