@@ -172,18 +172,6 @@ struct MyContentView: View {
         )
     }
 
-    func togglePlayPause() {
-        let oldStepMode: SettingStepModeValue = settingStore.stepMode
-        switch oldStepMode {
-        case .stepManual:
-            settingStore.stepMode = SettingStepModeValue.stepAuto
-            model.start()
-        case .stepAuto:
-            settingStore.stepMode = SettingStepModeValue.stepManual
-            model.stop()
-        }
-    }
-
     func launchGame(_ gameViewModel: GameViewModel) {
 //        self.model = GameViewModel.createReplay()
         self.model = gameViewModel.toInteractiveModel()
@@ -286,7 +274,7 @@ struct MyContentView: View {
         case .letterD:
             model.userInputForPlayer2(.right)
         case .letterM:
-            model.step_botsOnly()
+            model.singleStep_botsOnly()
         case .letterZ:
             model.undo()
 //        case .letterT:
@@ -297,7 +285,7 @@ struct MyContentView: View {
         case .tab:
             model.restartGame()
         case .spacebar:
-            togglePlayPause()
+            model.togglePlayPause()
 //            if gameState.player1.isInstalledAndAlive || gameState.player2.isInstalledAndAlive {
 //                let updateAction = self.pendingUpdateAction
 //                switch updateAction {

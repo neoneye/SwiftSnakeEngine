@@ -38,6 +38,8 @@ public class GameViewModel: ObservableObject {
     private var pendingMovement_player1: SnakeBodyMovement = .dontMove
     private var pendingMovement_player2: SnakeBodyMovement = .dontMove
 
+    private let settingStepMode: SettingStepMode
+
     var isPlaying: Bool = false
 
     private let snakeGameEnvironment: SnakeGameEnvironment
@@ -93,6 +95,7 @@ public class GameViewModel: ObservableObject {
     #endif
 
     init(snakeGameEnvironment: SnakeGameEnvironment) {
+        self.settingStepMode = SettingStepMode(defaults: UserDefaults.standard)
         self.snakeGameEnvironment = snakeGameEnvironment
         self._gameState = snakeGameEnvironment.reset()
         syncGameState(_gameState)
@@ -294,6 +297,7 @@ public class GameViewModel: ObservableObject {
             isPlaying = false
             return
         }
+        log.debug("repeatForever")
 
         step_botsOnly()
 
@@ -303,8 +307,16 @@ public class GameViewModel: ObservableObject {
     }
 
     func ingameView_playableMode_onAppear() {
-        log.debug("appear")
-        start()
+        log.debug("onAppear")
+
+        if settingStepMode.value == .stepAuto {
+            start()
+        }
+    }
+
+    func ingameView_playableMode_onDisappear() {
+        log.debug("onDisappear")
+        isPlaying = false
     }
 
     func start() {
@@ -318,6 +330,22 @@ public class GameViewModel: ObservableObject {
 
     func stop() {
         isPlaying = false
+    }
+
+    func togglePlayPause() {
+        if isPlaying {
+            settingStepMode.set(SettingStepModeValue.stepManual)
+            stop()
+        } else {
+            settingStepMode.set(SettingStepModeValue.stepAuto)
+            start()
+        }
+    }
+
+    func singleStep_botsOnly() {
+        settingStepMode.set(SettingStepModeValue.stepManual)
+        isPlaying = false
+        step_botsOnly()
     }
 
     private func step_humanVsAny() {

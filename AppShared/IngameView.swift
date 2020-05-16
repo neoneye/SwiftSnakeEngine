@@ -167,6 +167,9 @@ struct IngameView: View {
         .onAppear {
             self.model.ingameView_playableMode_onAppear()
         }
+        .onDisappear {
+            self.model.ingameView_playableMode_onDisappear()
+        }
     }
 
     private var innerBodyWithAspectRatio: some View {
@@ -277,6 +280,7 @@ struct IngameView: View {
 
     private var pauseButton: some View {
         Button(action: {
+            self.model.stop()
             self.presentingModal = true
         }) {
             Image("ingame_pauseButton_image")
@@ -285,7 +289,9 @@ struct IngameView: View {
                 .padding(15)
         }
         .buttonStyle(BorderlessButtonStyle())
-        .sheet(isPresented: $presentingModal) {
+        .sheet(isPresented: $presentingModal, onDismiss: {
+            log.debug("dismiss pause sheet")
+        }) {
             PauseSheetView(model: self.model, presentedAsModal: self.$presentingModal)
         }
     }
