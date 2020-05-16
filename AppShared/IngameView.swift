@@ -289,9 +289,7 @@ struct IngameView: View {
                 .padding(15)
         }
         .buttonStyle(BorderlessButtonStyle())
-        .sheet(isPresented: $presentingModal, onDismiss: {
-            log.debug("dismiss pause sheet")
-        }) {
+        .sheet(isPresented: $presentingModal) {
             PauseSheetView(model: self.model, presentedAsModal: self.$presentingModal)
         }
     }
