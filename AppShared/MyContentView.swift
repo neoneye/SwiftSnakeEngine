@@ -286,17 +286,6 @@ struct MyContentView: View {
             model.restartGame()
         case .spacebar:
             model.toggleStepMode()
-//            if gameState.player1.isInstalledAndAlive || gameState.player2.isInstalledAndAlive {
-//                let updateAction = self.pendingUpdateAction
-//                switch updateAction {
-//                case .doNothing:
-//                    self.pendingUpdateAction = .stepForwardContinuously
-//                case .stepForwardContinuously, .stepForwardOnce, .stepBackwardOnce:
-//                    self.pendingUpdateAction = .doNothing
-//                }
-//            } else {
-//                restartGame()
-//            }
         case .escape:
             self.visibleContent = .levelSelector
         case .arrowUp:
