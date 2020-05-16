@@ -181,6 +181,14 @@ public class GameViewModel: ObservableObject {
         gameState = snakeGameEnvironment.reset()
     }
 
+    func userInputForPlayer1_moveForward() {
+        guard gameState.player1.isInstalledAndAliveAndHuman else {
+            return
+        }
+        pendingMovement_player1 = .moveForward
+        stepForward()
+    }
+
     func userInputForPlayer1(_ desiredHeadDirection: SnakeHeadDirection) {
         userInputForPlayer(player: gameState.player1, desiredHeadDirection: desiredHeadDirection)
     }

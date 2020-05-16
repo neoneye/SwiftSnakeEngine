@@ -33,7 +33,7 @@ struct IngameView: View {
     @State var dragOffset: CGSize = .zero
     @State var isDragging = false
 
-    private var drag: some Gesture {
+    private var dragGesture: some Gesture {
         DragGesture()
             .onChanged {
                 self.dragGesture_onChanged($0)
@@ -43,7 +43,7 @@ struct IngameView: View {
             }
     }
 
-    func dragGesture_onChanged(_ value: DragGesture.Value) {
+    private func dragGesture_onChanged(_ value: DragGesture.Value) {
         if !self.isDragging {
             self.isDragging = true
             self.dragDirection = DragDirection.undecided
@@ -66,7 +66,7 @@ struct IngameView: View {
         }
     }
 
-    func dragGesture_onChanged_undecided(_ value: DragGesture.Value) {
+    private func dragGesture_onChanged_undecided(_ value: DragGesture.Value) {
         let gridPoint0: CGPoint = value.startLocation
         let gridPoint1: CGPoint = value.location
         let dx: CGFloat = gridPoint0.x - gridPoint1.x
@@ -87,7 +87,7 @@ struct IngameView: View {
         }
     }
 
-    func dragGesture_onEnded(_ value: DragGesture.Value) {
+    private func dragGesture_onEnded(_ value: DragGesture.Value) {
         log.debug("ended. direction: \(self.dragDirection)")
         self.isDragging = false
         switch self.dragDirection {
@@ -100,7 +100,7 @@ struct IngameView: View {
         }
     }
 
-    func dragGesture_onEnded_horizontal(_ value: DragGesture.Value) {
+    private func dragGesture_onEnded_horizontal(_ value: DragGesture.Value) {
         let gridPoint0: CGPoint = value.startLocation
         let gridPoint1: CGPoint = value.location
         let dx: CGFloat = gridPoint0.x - gridPoint1.x
@@ -118,7 +118,7 @@ struct IngameView: View {
         }
     }
 
-    func dragGesture_onEnded_vertical(_ value: DragGesture.Value) {
+    private func dragGesture_onEnded_vertical(_ value: DragGesture.Value) {
         let gridPoint0: CGPoint = value.startLocation
         let gridPoint1: CGPoint = value.location
         let dy: CGFloat = gridPoint0.y - gridPoint1.y
@@ -134,6 +134,14 @@ struct IngameView: View {
         if dy < 0 {
             self.model.userInputForPlayer1(.down)
         }
+    }
+
+    private var tapGesture: some Gesture {
+        TapGesture(count: 1)
+            .onEnded { _ in
+//                log.debug("tap")
+                self.model.userInputForPlayer1_moveForward()
+            }
     }
 
     var body: some View {
@@ -154,7 +162,8 @@ struct IngameView: View {
 
             overlayWithPauseButton
         }
-        .gesture(drag)
+        .gesture(tapGesture)
+        .gesture(dragGesture)
     }
 
     var innerBodyWithAspectRatio: some View {
