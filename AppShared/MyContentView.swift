@@ -274,8 +274,8 @@ struct MyContentView: View {
             model.userInputForPlayer2(.right)
         case .letterM:
             model.step_botsOnly()
-//        case .letterZ:
-//            schedule_stepBackwardOnce()
+        case .letterZ:
+            model.undo()
 //        case .letterT:
 //            let url: URL = gameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
 //            trainingSessionURLs.append(url)
