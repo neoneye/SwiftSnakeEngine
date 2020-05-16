@@ -186,7 +186,7 @@ public class GameViewModel: ObservableObject {
             return
         }
         pendingMovement_player1 = .moveForward
-        stepForward()
+        step_humanVsAny()
     }
 
     func userInputForPlayer1(_ desiredHeadDirection: SnakeHeadDirection) {
@@ -213,7 +213,7 @@ public class GameViewModel: ObservableObject {
         case .player2:
             pendingMovement_player2 = movement
         }
-        stepForward()
+        step_humanVsAny()
     }
 
     func userInput_stepBackwardOnce_ifSingleHuman() {
@@ -232,10 +232,10 @@ public class GameViewModel: ObservableObject {
             log.debug("In a game with multiple human players. Then both players have to agree when to undo, and use the undo key for it.")
             return
         }
-        stepBackward()
+        undo()
     }
 
-    func singleStepForwardOnlyForBots() {
+    func step_botsOnly() {
         var botCount: UInt = 0
         var nonBotCount: UInt = 0
         let players: [SnakePlayer] = [gameState.player1, gameState.player2]
@@ -262,7 +262,7 @@ public class GameViewModel: ObservableObject {
         gameState = snakeGameEnvironment.step(action: action)
     }
 
-    private func stepForward() {
+    private func step_humanVsAny() {
         var possibleGameState: SnakeGameState = self.gameState
         if self.pendingMovement_player1 != .dontMove {
             let movement: SnakeBodyMovement = self.pendingMovement_player1
@@ -292,7 +292,7 @@ public class GameViewModel: ObservableObject {
         gameState = newGameState
     }
 
-    private func stepBackward() {
+    private func undo() {
         guard let newGameState = snakeGameEnvironment.undo() else {
             log.debug("Reached the beginning of the history. There is nothing that can be undone.")
             return
