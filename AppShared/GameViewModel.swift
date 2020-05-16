@@ -263,11 +263,31 @@ public class GameViewModel: ObservableObject {
     }
 
     private func stepForward() {
-        // IDEA: perform in a separate thread
+        var possibleGameState: SnakeGameState = self.gameState
+        if self.pendingMovement_player1 != .dontMove {
+            let movement: SnakeBodyMovement = self.pendingMovement_player1
+            possibleGameState = possibleGameState.updatePendingMovementForPlayer1(movement)
+        }
+        if self.pendingMovement_player2 != .dontMove {
+            let movement: SnakeBodyMovement = self.pendingMovement_player2
+            possibleGameState = possibleGameState.updatePendingMovementForPlayer2(movement)
+        }
+        possibleGameState = possibleGameState.preventHumanCollisions()
+
+        let isWaiting = possibleGameState.isWaitingForInput()
+        if isWaiting {
+            //log.debug("waiting for input")
+            return
+        }
+
+        self.pendingMovement_player1 = .dontMove
+        self.pendingMovement_player2 = .dontMove
+
         let action = SnakeGameAction(
-            player1: pendingMovement_player1,
-            player2: pendingMovement_player2
+            player1: possibleGameState.player1.pendingMovement,
+            player2: possibleGameState.player2.pendingMovement
         )
+        // IDEA: perform in a separate thread
         let newGameState = snakeGameEnvironment.step(action: action)
         gameState = newGameState
     }
