@@ -399,6 +399,7 @@ public class GameViewModel: ObservableObject {
     }
 
     func undo() {
+        stopStepping()
         guard let newGameState = snakeGameEnvironment.undo() else {
             log.debug("Reached the beginning of the history. There is nothing that can be undone.")
             return
