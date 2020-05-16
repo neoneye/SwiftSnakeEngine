@@ -165,12 +165,14 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftCSV-iOS/SwiftCSV.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftProtobuf-iOS/SwiftProtobuf.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-iOS/SwiftyBeaver.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS/SwiftySound.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SSEventFlow-iOS/SSEventFlow.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftCSV-iOS/SwiftCSV.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftProtobuf-iOS/SwiftProtobuf.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-iOS/SwiftyBeaver.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftySound-iOS/SwiftySound.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

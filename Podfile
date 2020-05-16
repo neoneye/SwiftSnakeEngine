@@ -11,6 +11,10 @@ def my_shared_pods
 
 	# https://github.com/apple/swift-protobuf/commits/master
 	pod 'SwiftProtobuf', :git => 'https://github.com/apple/swift-protobuf.git', :commit => 'd596aaf6568ff26285679e769769660a8b03b801'
+
+  # https://github.com/adamcichy/SwiftySound/commits/master
+  pod 'SwiftySound', :git => 'https://github.com/adamcichy/SwiftySound.git', :commit => 'de233cc96b0154cb26c66b9a0f1c2719709c83ac'
+
 end
 
 def my_pod_sseventflow
