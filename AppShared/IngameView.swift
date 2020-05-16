@@ -12,7 +12,6 @@ import EngineMac
 struct IngameView: View {
     @ObservedObject var model: GameViewModel
     @State var presentingModal = false
-    @State var isDragging = false
 
     enum Mode {
         /// Interactive, drag gestures, pause button.
@@ -23,33 +22,118 @@ struct IngameView: View {
     }
     let mode: Mode
 
-    enum TouchMoveDirection {
+    // MARK: - Drag gesture
+
+    enum DragDirection {
         case undecided
         case horizontal
         case vertical
     }
-    @State var touchMoveDirection = TouchMoveDirection.undecided
+    @State var dragDirection = DragDirection.undecided
     @State var dragOffset: CGSize = .zero
-
+    @State var isDragging = false
 
     private var drag: some Gesture {
         DragGesture()
-            .onChanged { v in
-                if !self.isDragging {
-                    self.isDragging = true
-                    self.touchMoveDirection = TouchMoveDirection.undecided
-                    log.debug("began. startLocation: \(v.startLocation)")
-
-                } else {
-                    log.debug("changed. startLocation: \(v.startLocation)")
-                }
-                self.dragOffset = v.translation
+            .onChanged {
+                self.dragGesture_onChanged($0)
             }
-            .onEnded { v in
-                self.isDragging = false
-
-                log.debug("ended. startLocation: \(v.startLocation)")
+            .onEnded {
+                self.dragGesture_onEnded($0)
             }
+    }
+
+    func dragGesture_onChanged(_ value: DragGesture.Value) {
+        if !self.isDragging {
+            self.isDragging = true
+            self.dragDirection = DragDirection.undecided
+            //log.debug("began. startLocation: \(value.startLocation)")
+
+        } else {
+            //log.debug("changed. startLocation: \(value.startLocation)")
+        }
+        self.dragOffset = value.translation
+
+        switch self.dragDirection {
+        case .undecided:
+            dragGesture_onChanged_undecided(value)
+        case .horizontal:
+            ()
+//            dragGesture_onChanged_horizontal(value)
+        case .vertical:
+            ()
+//            dragGesture_onChanged_vertical(value)
+        }
+    }
+
+    func dragGesture_onChanged_undecided(_ value: DragGesture.Value) {
+        let gridPoint0: CGPoint = value.startLocation
+        let gridPoint1: CGPoint = value.location
+        let dx: CGFloat = gridPoint0.x - gridPoint1.x
+        let dy: CGFloat = gridPoint0.y - gridPoint1.y
+        let dx2: CGFloat = dx * dx
+        let dy2: CGFloat = dy * dy
+        let distance: CGFloat = sqrt(dx2 + dy2)
+        guard distance > 10 else {
+            log.debug("undecided distance: \(distance.string2)")
+            return
+        }
+        if dx2 > dy2 {
+            dragDirection = .horizontal
+            log.debug("moving horizontal")
+        } else {
+            dragDirection = .vertical
+            log.debug("moving vertical")
+        }
+    }
+
+    func dragGesture_onEnded(_ value: DragGesture.Value) {
+        log.debug("ended. direction: \(self.dragDirection)")
+        self.isDragging = false
+        switch self.dragDirection {
+        case .undecided:
+            log.debug("do nothing")
+        case .horizontal:
+            dragGesture_onEnded_horizontal(value)
+        case .vertical:
+            dragGesture_onEnded_vertical(value)
+        }
+    }
+
+    func dragGesture_onEnded_horizontal(_ value: DragGesture.Value) {
+        let gridPoint0: CGPoint = value.startLocation
+        let gridPoint1: CGPoint = value.location
+        let dx: CGFloat = gridPoint0.x - gridPoint1.x
+        let dx2: CGFloat = dx * dx
+        let distance: CGFloat = sqrt(dx2)
+        guard distance > 10 else {
+            return
+        }
+
+        if dx > 0 {
+            self.model.userInputForPlayer1(.left)
+        }
+        if dx < 0 {
+            self.model.userInputForPlayer1(.right)
+        }
+    }
+
+    func dragGesture_onEnded_vertical(_ value: DragGesture.Value) {
+        let gridPoint0: CGPoint = value.startLocation
+        let gridPoint1: CGPoint = value.location
+        let dy: CGFloat = gridPoint0.y - gridPoint1.y
+        let dy2: CGFloat = dy * dy
+        let distance: CGFloat = sqrt(dy2)
+        guard distance > 10 else {
+            return
+        }
+
+        if dy > 0 {
+            self.model.userInputForPlayer1(.up)
+        }
+        if dy < 0 {
+            self.model.userInputForPlayer1(.down)
+        }
     }
 
     var body: some View {
