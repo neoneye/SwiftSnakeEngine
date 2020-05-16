@@ -252,7 +252,14 @@ public class GameViewModel: ObservableObject {
             log.debug("Single step forward can only be done when there are only bots")
             return
         }
-        stepForward()
+
+        // No human input
+        let action = SnakeGameAction(
+            player1: .dontMove,
+            player2: .dontMove
+        )
+        // IDEA: perform in a separate thread
+        gameState = snakeGameEnvironment.step(action: action)
     }
 
     private func stepForward() {
