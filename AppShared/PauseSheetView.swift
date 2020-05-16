@@ -55,6 +55,13 @@ struct PauseSheetView: View {
         })
     }
 
+    private var ingameView: some View {
+        IngameView(
+            model: model,
+            mode: .levelSelectorPreview
+        )
+    }
+
     var bodyWithoutNavigationBar: some View {
         VStack(spacing: 20) {
             #if os(macOS)
@@ -65,6 +72,10 @@ struct PauseSheetView: View {
                 Text("Human\nLength \(self.model.player1Length)")
                 Text("Computer\nLength \(self.model.player2Length)")
             }
+
+            Spacer()
+
+            ingameView
 
             Spacer()
 
