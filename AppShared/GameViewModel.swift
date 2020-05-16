@@ -204,7 +204,7 @@ public class GameViewModel: ObservableObject {
         let head: SnakeHead = player.snakeBody.head
         let movement: SnakeBodyMovement = head.moveToward(direction: desiredHeadDirection)
         guard movement != SnakeBodyMovement.dontMove else {
-//            userInput_stepBackwardOnce_ifSingleHuman()
+            userInput_stepBackwardOnce_ifSingleHuman()
             return
         }
         switch player.id {
@@ -213,9 +213,26 @@ public class GameViewModel: ObservableObject {
         case .player2:
             pendingMovement_player2 = movement
         }
-//        self.isPaused = false
-//        self.pendingUpdateAction = .stepForwardContinuously
         stepForward()
+    }
+
+    func userInput_stepBackwardOnce_ifSingleHuman() {
+        var numberOfHumans: UInt = 0
+        if gameState.player1.isInstalled && gameState.player1.role == .human {
+            numberOfHumans += 1
+        }
+        if gameState.player2.isInstalled && gameState.player2.role == .human {
+            numberOfHumans += 1
+        }
+        guard numberOfHumans > 0 else {
+            log.debug("In a game without human players, it makes no sense to perform undo")
+            return
+        }
+        guard numberOfHumans < 2 else {
+            log.debug("In a game with multiple human players. Then both players have to agree when to undo, and use the undo key for it.")
+            return
+        }
+        stepBackward()
     }
 
     func singleStepForwardOnlyForBots() {
@@ -245,6 +262,14 @@ public class GameViewModel: ObservableObject {
             player2: pendingMovement_player2
         )
         let newGameState = snakeGameEnvironment.step(action: action)
+        gameState = newGameState
+    }
+
+    private func stepBackward() {
+        guard let newGameState = snakeGameEnvironment.undo() else {
+            log.debug("Reached the beginning of the history. There is nothing that can be undone.")
+            return
+        }
         gameState = newGameState
     }
 
