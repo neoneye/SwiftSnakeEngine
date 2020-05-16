@@ -67,7 +67,7 @@ struct PauseSheetView: View {
             #if os(macOS)
             Button("Continue Game") {
                 self.presentedAsModal = false
-                self.model.pauseSheet_continueGame()
+                self.model.pauseSheet_dismissSheetAndContinueGame()
             }
             #endif
 
@@ -99,7 +99,7 @@ struct PauseSheetView: View {
                 .navigationBarItems(leading:
                     Button("Continue Game") {
                         self.presentedAsModal = false
-                        self.model.pauseSheet_continueGame()
+                        self.model.pauseSheet_dismissSheetAndContinueGame()
                     }
                 )
         }

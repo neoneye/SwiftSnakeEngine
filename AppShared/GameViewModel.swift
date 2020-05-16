@@ -189,9 +189,7 @@ public class GameViewModel: ObservableObject {
 
     func restartGame() {
         gameState = snakeGameEnvironment.reset()
-        if settingStepMode.value == .stepAuto {
-            start()
-        }
+        resumeSteppingIfPreferred()
     }
 
     func userInputForPlayer1_moveForward() {
@@ -311,10 +309,7 @@ public class GameViewModel: ObservableObject {
 
     func ingameView_playableMode_onAppear() {
         log.debug("onAppear")
-
-        if settingStepMode.value == .stepAuto {
-            start()
-        }
+        resumeSteppingIfPreferred()
     }
 
     func ingameView_playableMode_onDisappear() {
@@ -322,15 +317,28 @@ public class GameViewModel: ObservableObject {
         isPlaying = false
     }
 
-    func pauseSheet_continueGame() {
-        log.debug("continueGame")
+    func pauseSheet_willPresentSheet() {
+        log.debug("don't do any stepping while the pause sheet is shown")
+        stopStepping()
+    }
 
-        if settingStepMode.value == .stepAuto {
-            start()
+    func pauseSheet_dismissSheetAndContinueGame() {
+        log.debug("continueGame")
+        resumeSteppingIfPreferred()
+    }
+
+    private func resumeSteppingIfPreferred() {
+        switch settingStepMode.value {
+        case .stepAuto:
+            // The user prefer's stepping starts automatically
+            startStepping()
+        case .stepManual:
+            // The user prefer's single stepping
+            ()
         }
     }
 
-    func start() {
+    private func startStepping() {
         guard !isPlaying else {
             log.debug("already busy playing.")
             return
@@ -339,17 +347,17 @@ public class GameViewModel: ObservableObject {
         repeatForever_step_botsOnly()
     }
 
-    func stop() {
+    func stopStepping() {
         isPlaying = false
     }
 
     func togglePlayPause() {
         if isPlaying {
             settingStepMode.set(SettingStepModeValue.stepManual)
-            stop()
+            stopStepping()
         } else {
             settingStepMode.set(SettingStepModeValue.stepAuto)
-            start()
+            startStepping()
         }
     }
 
