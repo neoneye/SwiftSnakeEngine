@@ -189,6 +189,9 @@ public class GameViewModel: ObservableObject {
 
     func restartGame() {
         gameState = snakeGameEnvironment.reset()
+        if settingStepMode.value == .stepAuto {
+            start()
+        }
     }
 
     func userInputForPlayer1_moveForward() {
