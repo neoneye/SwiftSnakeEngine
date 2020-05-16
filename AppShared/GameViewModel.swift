@@ -355,11 +355,20 @@ public class GameViewModel: ObservableObject {
             // Pause
             settingStepMode.set(SettingStepModeValue.stepManual)
             stopStepping()
-        } else {
-            // Resume playing
-            settingStepMode.set(SettingStepModeValue.stepAuto)
-            startStepping()
+            return
         }
+
+        // Repeated stepping is only possible in games where there are only bots.
+        // If there are human players alive, then it's not possible to do stepping,
+        // since that would require near instant input from the human.
+        guard isStepPossible_botsOnly else {
+            log.debug("Start stepping ignored, since this is not a bots-only game")
+            return
+        }
+
+        // Resume stepping
+        settingStepMode.set(SettingStepModeValue.stepAuto)
+        startStepping()
     }
 
     func singleStep_botsOnly() {
