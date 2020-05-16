@@ -226,7 +226,7 @@ public class GameViewModel: ObservableObject {
         step_humanVsAny()
     }
 
-    func userInput_stepBackwardOnce_ifSingleHuman() {
+    private func userInput_stepBackwardOnce_ifSingleHuman() {
         var numberOfHumans: UInt = 0
         if gameState.player1.isInstalled && gameState.player1.role == .human {
             numberOfHumans += 1
@@ -253,7 +253,7 @@ public class GameViewModel: ObservableObject {
     ///
     /// For simplicity this function deals with games where there one or more bots,
     /// And there are zero humans alive.
-    var isStepPossible_botsOnly: Bool {
+    private var isStepPossible_botsOnly: Bool {
         var botCount: UInt = 0
         var nonBotCount: UInt = 0
         let players: [SnakePlayer] = [gameState.player1, gameState.player2]
@@ -272,7 +272,7 @@ public class GameViewModel: ObservableObject {
         return true
     }
 
-    func step_botsOnly() {
+    private func step_botsOnly() {
         guard isStepPossible_botsOnly else {
             log.debug("Single step forward can only be done when there are only bots")
             return
@@ -287,7 +287,7 @@ public class GameViewModel: ObservableObject {
         gameState = snakeGameEnvironment.step(action: action)
     }
 
-    func repeatForever_step_botsOnly() {
+    private func repeatForever_step_botsOnly() {
         guard isPlaying else {
             log.debug("Stop repeatForever, since it has been paused.")
             return
@@ -317,6 +317,14 @@ public class GameViewModel: ObservableObject {
     func ingameView_playableMode_onDisappear() {
         log.debug("onDisappear")
         isPlaying = false
+    }
+
+    func pauseSheet_continueGame() {
+        log.debug("continueGame")
+
+        if settingStepMode.value == .stepAuto {
+            start()
+        }
     }
 
     func start() {
