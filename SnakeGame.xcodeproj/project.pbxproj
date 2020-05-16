@@ -262,6 +262,8 @@
 		42E042B2233400D3007AC6F9 /* ComputeShortestPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B1233400D3007AC6F9 /* ComputeShortestPath.swift */; };
 		42E042B4233402CD007AC6F9 /* T1200_ComputeShortestPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B3233402CD007AC6F9 /* T1200_ComputeShortestPath.swift */; };
 		42E042B623340DEE007AC6F9 /* SnakeLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B523340DEE007AC6F9 /* SnakeLevel.swift */; };
+		42E425AE2470AC5C00F90073 /* SettingSoundEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E425AD2470AC5C00F90073 /* SettingSoundEffect.swift */; };
+		42E425AF2470AC5C00F90073 /* SettingSoundEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E425AD2470AC5C00F90073 /* SettingSoundEffect.swift */; };
 		42E5B33F246B8A8000580517 /* SettingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E5B33E246B8A8000580517 /* SettingStore.swift */; };
 		42E5B340246B8A8000580517 /* SettingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E5B33E246B8A8000580517 /* SettingStore.swift */; };
 		42E5B342246C425200580517 /* SettingPlayerRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E5B341246C425200580517 /* SettingPlayerRole.swift */; };
@@ -504,6 +506,7 @@
 		42E042B1233400D3007AC6F9 /* ComputeShortestPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputeShortestPath.swift; sourceTree = "<group>"; };
 		42E042B3233402CD007AC6F9 /* T1200_ComputeShortestPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1200_ComputeShortestPath.swift; sourceTree = "<group>"; };
 		42E042B523340DEE007AC6F9 /* SnakeLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeLevel.swift; sourceTree = "<group>"; };
+		42E425AD2470AC5C00F90073 /* SettingSoundEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSoundEffect.swift; sourceTree = "<group>"; };
 		42E5B33E246B8A8000580517 /* SettingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStore.swift; sourceTree = "<group>"; };
 		42E5B341246C425200580517 /* SettingPlayerRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPlayerRole.swift; sourceTree = "<group>"; };
 		42EB7BFD23F1FD9D00229CEA /* SnakeDataset.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = SnakeDataset.proto; sourceTree = "<group>"; };
@@ -885,6 +888,7 @@
 				42C1930824489A5C00697159 /* SettingPlayerMode.swift */,
 				42E5B341246C425200580517 /* SettingPlayerRole.swift */,
 				4211C32C244A063600C25514 /* SettingSelectedLevel.swift */,
+				42E425AD2470AC5C00F90073 /* SettingSoundEffect.swift */,
 				4295B7AD246F8C1D005ACAD1 /* SettingStepMode.swift */,
 				42E5B33E246B8A8000580517 /* SettingStore.swift */,
 			);
@@ -1536,6 +1540,7 @@
 				42C1930C244913A500697159 /* ViewHeightGetter.swift in Sources */,
 				42BAC9A4246CDCC7001723F8 /* LevelSelectorGridComputer.swift in Sources */,
 				42CC22C92337C28500CF3D96 /* SnakeWallNode.swift in Sources */,
+				42E425AF2470AC5C00F90073 /* SettingSoundEffect.swift in Sources */,
 				42B96D952347EE000073CAAA /* LevelSelectorNode.swift in Sources */,
 				4295B7AC246F85E3005ACAD1 /* SettingPlayerMode.swift in Sources */,
 				42ECBCCB237CA50700758303 /* DebugMenu.swift in Sources */,
@@ -1665,6 +1670,7 @@
 				42BE1627243E93650031C88B /* SnakeBodyNode.swift in Sources */,
 				42FB0582243C99C4006BEE8D /* AppDelegate.swift in Sources */,
 				42BAC9A3246CDCC7001723F8 /* LevelSelectorGridComputer.swift in Sources */,
+				42E425AE2470AC5C00F90073 /* SettingSoundEffect.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
