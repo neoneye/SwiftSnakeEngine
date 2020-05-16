@@ -49,8 +49,53 @@ public class GameViewModel: ObservableObject {
             return _gameState
         }
         set {
+            didUpdateGameState(oldGameState: _gameState, newGameState: newValue)
             _gameState = newValue
             syncGameState(_gameState)
+        }
+    }
+
+    func didUpdateGameState(oldGameState: SnakeGameState, newGameState: SnakeGameState) {
+        do {
+            let oldLength: UInt = oldGameState.player1.snakeBody.length
+            let newLength: UInt = newGameState.player1.snakeBody.length
+            if oldLength != newLength {
+                sendInfoEvent(.player1_didUpdateLength(newLength))
+            }
+        }
+
+        do {
+            let oldLength: UInt = oldGameState.player2.snakeBody.length
+            let newLength: UInt = newGameState.player2.snakeBody.length
+            if oldLength != newLength {
+                sendInfoEvent(.player2_didUpdateLength(newLength))
+            }
+        }
+
+        if oldGameState.foodPosition != newGameState.foodPosition {
+            if let pos: IntVec2 = oldGameState.foodPosition {
+//                let point = cgPointFromGridPoint(pos)
+//                explode(at: point, for: 0.25, zPosition: 200) {}
+                SoundItem.snake_eats.play()
+            }
+        }
+
+        let human1Alive: Bool = newGameState.player1.isInstalledAndAliveAndHuman
+        let human2Alive: Bool = newGameState.player2.isInstalledAndAliveAndHuman
+        if human1Alive || human2Alive {
+            SoundItem.snake_step.play()
+        }
+
+        let player1Dies: Bool = oldGameState.player1.isInstalledAndAlive && newGameState.player1.isInstalledAndDead
+        let player2Dies: Bool = oldGameState.player2.isInstalledAndAlive && newGameState.player2.isInstalledAndDead
+        if player1Dies || player2Dies {
+            SoundItem.snake_dies.play()
+        }
+        if player1Dies {
+            sendInfoEvent(.player1_dead(newGameState.player1.causesOfDeath))
+        }
+        if player2Dies {
+            sendInfoEvent(.player2_dead(newGameState.player2.causesOfDeath))
         }
     }
 
@@ -86,6 +131,7 @@ public class GameViewModel: ObservableObject {
             self.gestureIndicatorPosition = IntVec2.zero
         }
     }
+
 
     #if os(iOS)
     @Published var iOS_soundEffectsEnabled: Bool = SoundEffectController().value {
