@@ -17,7 +17,6 @@ import EngineMac
 enum AppColor: String, CaseIterable {
     case levelSelector_background
     case levelSelector_border
-    case levelSelector_header
     case ingame_background
     case ingame_pauseButton
     case player1_plannedPath
