@@ -21,7 +21,6 @@ final class SettingStore: ObservableObject {
     private let settingSelectedLevel: SettingSelectedLevel
     private let settingPlayerMode: SettingPlayerMode
     private let settingStepMode: SettingStepMode
-    private let settingSoundEffect: SettingSoundEffect
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -38,7 +37,6 @@ final class SettingStore: ObservableObject {
         self.settingSelectedLevel = SettingSelectedLevel(defaults: defaults)
         self.settingPlayerMode = SettingPlayerMode(defaults: defaults)
         self.settingStepMode = SettingStepMode(defaults: defaults)
-        self.settingSoundEffect = SettingSoundEffect(defaults: defaults)
     }
 
     var player1Role: SnakePlayerRole {
@@ -83,15 +81,6 @@ final class SettingStore: ObservableObject {
         }
         set {
             settingStepMode.set(newValue)
-        }
-    }
-
-    var isSoundEffectsEnabled: Bool {
-        get {
-            settingSoundEffect.value
-        }
-        set {
-            settingSoundEffect.set(newValue)
         }
     }
 }

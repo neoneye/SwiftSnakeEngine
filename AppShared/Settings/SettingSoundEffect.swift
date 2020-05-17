@@ -1,14 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-#if os(iOS)
-import EngineIOS
-#elseif os(macOS)
-import EngineMac
-#else
-#error("Unknown OS")
-#endif
-
 /// Keeps track of if the user prefers sound effects enabled/disabled.
 class SettingSoundEffect {
     private(set) lazy var value = initialValue()
