@@ -329,6 +329,20 @@ struct MyContentView: View {
     }
 
     private var iOS_overlayWithHeader_inner: some View {
+        // Translation between boolean <-> playerMode enum.
+        let bindingOn = Binding<Bool> (
+            get: {
+                (self.settingStore.playerMode == .twoPlayer_humanBot)
+            },
+            set: { newValue in
+                if newValue {
+                    self.settingStore.playerMode = .twoPlayer_humanBot
+                } else {
+                    self.settingStore.playerMode = .singlePlayer_human
+                }
+            }
+        )
+
         return VStack {
             HStack {
                 Text("Battle the AI")
@@ -337,7 +351,7 @@ struct MyContentView: View {
                     .bold()
                     .padding()
 
-                Toggle("Battle the AI", isOn: $model.levelSelector_humanVsBot)
+                Toggle("Battle the AI", isOn: bindingOn)
                 .labelsHidden()
             }
             .padding(EdgeInsets(top: 30, leading: 30, bottom: 10, trailing: 30))
