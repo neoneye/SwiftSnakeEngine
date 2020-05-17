@@ -23,13 +23,11 @@ fileprivate struct LevelCell: Identifiable {
                     continue
                 }
                 if cell == .empty {
-                    continue
+                    let id = Int(y * size.x + x)
+                    let position = UIntVec2(x: x, y: y)
+                    let levelCell = LevelCell(id: id, position: position)
+                    levelCellArray.append(levelCell)
                 }
-
-                let id = Int(y * size.x + x)
-                let position = UIntVec2(x: x, y: y)
-                let levelCell = LevelCell(id: id, position: position)
-                levelCellArray.append(levelCell)
             }
         }
         return levelCellArray
@@ -41,7 +39,7 @@ fileprivate struct LevelCellView: View {
 
     var body: some View {
         Rectangle()
-            .foregroundColor(AppColor.theme1_wall.color)
+            .foregroundColor(AppColor.theme1_floor.color)
     }
 }
 

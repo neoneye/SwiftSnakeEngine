@@ -157,7 +157,7 @@ struct IngameView: View {
     private var playableMode_body: some View {
         return ZStack {
             Rectangle()
-                .fill(AppColor.theme1_wall.color)
+                .foregroundColor(AppColor.theme1_wall.color)
 
             innerBodyWithAspectRatio
 
@@ -201,7 +201,7 @@ struct IngameView: View {
 
     private var backgroundSolid: some View {
         Rectangle()
-            .foregroundColor(AppColor.theme1_floor.color)
+            .foregroundColor(AppColor.theme1_wall.color)
             .edgesIgnoringSafeArea(.all)
     }
 
