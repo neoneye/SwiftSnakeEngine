@@ -16,15 +16,16 @@ struct SnakeBodyView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            self.innerView(geometry)
+            self.innerView_style0(geometry)
+//            self.innerView_style1(geometry)
         }
     }
 
-    private func innerView(_ geometry: GeometryProxy) -> some View {
+    private func innerView_style0(_ geometry: GeometryProxy) -> some View {
         let headCornerRadius: CGFloat = 5
         let positions: [IntVec2] = snakeBody.positionArray()
         let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
-        let lineWidth: CGFloat = gridComputer.tileMinSize - 4
+        let lineWidth: CGFloat = max(gridComputer.tileMinSize - 4, 1)
         let bodyView = Path { path in
             for (index, flippedPosition) in positions.enumerated() {
                 let position = IntVec2(x: flippedPosition.x, y: Int32(gridSize.y) - 1 - flippedPosition.y)
@@ -57,10 +58,10 @@ struct SnakeBodyView: View {
         .colorMultiply(fillColor)
     }
 
-    private func pathWithBevelStroke(_ geometry: GeometryProxy) -> some View {
+    private func innerView_style1(_ geometry: GeometryProxy) -> some View {
         let positions: [IntVec2] = snakeBody.positionArray()
         let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
-        let lineWidth: CGFloat = gridComputer.tileMinSize - 4
+        let lineWidth: CGFloat = max(gridComputer.tileMinSize - 4, 1)
         return Path { path in
             for (index, flippedPosition) in positions.enumerated() {
                 let position = IntVec2(x: flippedPosition.x, y: Int32(gridSize.y) - 1 - flippedPosition.y)
