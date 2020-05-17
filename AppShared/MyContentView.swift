@@ -209,6 +209,8 @@ struct MyContentView: View {
             iOS_overlayWithHeader_inner
 
             innerLevelSelectorView
+
+            Spacer()
         }
     }
 
@@ -414,7 +416,6 @@ struct MyContentView: View {
             }
 
         }
-        .edgesIgnoringSafeArea(.all)
         .frame(minWidth: isPreview ? 100 : 400, maxWidth: .infinity, minHeight: isPreview ? 80 : 400, maxHeight: .infinity)
     }
 
@@ -434,8 +435,6 @@ struct MyContentView: View {
                 }
             }
         }
-        .edgesIgnoringSafeArea(.all)
-        .frame(minWidth: isPreview ? 100 : 400, maxWidth: .infinity, minHeight: isPreview ? 80 : 400, maxHeight: .infinity)
     }
 
     var innerBody: some View {
@@ -455,6 +454,7 @@ struct MyContentView: View {
             self.visibleContent = .levelSelector
         }
         .background(AppColor.levelSelector_background.color)
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
