@@ -2,15 +2,6 @@
 import Cocoa
 
 extension NSUserDefaultsController {
-	@objc dynamic var isSoundEffectsEnabled: Bool {
-		set {
-            SettingSoundEffect().set(newValue)
-		}
-		get {
-            return SettingSoundEffect().value
-		}
-	}
-
 	@objc dynamic var isShowPlannedPathEnabled: Bool {
 		set {
 			defaults.set(newValue, forKey: "isShowPlannedPathEnabled")

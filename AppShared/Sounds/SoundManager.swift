@@ -38,6 +38,7 @@ class SoundManager {
     }
 
     fileprivate func playSound(for soundItem: SoundItem) {
+        Sound.enabled = SettingSoundEffect().value
         dict[soundItem]?.play()
     }
 }
