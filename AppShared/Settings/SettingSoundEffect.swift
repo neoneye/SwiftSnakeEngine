@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-/// Keeps track of if the user prefers sound effects enabled/disabled.
+/// Keeps track of the users preferred `sound effect mode`, eg. muted or enabled.
 class SettingSoundEffect {
     private(set) lazy var value = initialValue()
     private let defaults: UserDefaults
