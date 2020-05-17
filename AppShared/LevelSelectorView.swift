@@ -123,13 +123,15 @@ fileprivate struct LevelSelectorGridView: View {
     }
 
     private func gridView2(_ geometry: GeometryProxy) -> some View {
-        let margin = EdgeInsets(top: 80, leading: 80, bottom: 80, trailing: 80)
+        let wh: CGFloat = max(min(geometry.size.width, geometry.size.height), 80)
+        let a: CGFloat = min(wh / 12, 80)
+        let margin = EdgeInsets(top: a, leading: a, bottom: a, trailing: a)
         let gridComputer = LevelSelectorGridComputer(
             margin: margin,
-            cellSpacing: 80,
+            cellSpacing: a,
             xCellCount: Int(gridSize.x),
             yCellCount: Int(gridSize.y),
-            size: geometry.size
+            size: CGSize(width: wh, height: wh)
         )
 
         let borderSize: CGFloat = 8
