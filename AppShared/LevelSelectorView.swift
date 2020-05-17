@@ -47,16 +47,22 @@ fileprivate struct LevelSelectorCellView: View {
     }
 
     private func ingameView(size: CGSize) -> some View {
-        return IngameView(model: levelSelectorCell.model,             mode: .levelSelectorPreview)
+        let view0 = IngameView(model: levelSelectorCell.model, mode: .levelSelectorPreview)
+
+        let view1: AnyView
+        if levelSelectorCell.isSelected {
+            view1 = AnyView(view0.border(AppColor.levelSelector_border.color, width: 4))
+        } else {
+            view1 = AnyView(view0)
+        }
+
+        let view2: some View = view1
             .frame(width: size.width, height: size.height)
+
+        return view2
     }
 
     private func button(_ geometry: GeometryProxy) -> some View {
-        var color: Color = Color.black
-        if levelSelectorCell.isSelected {
-            color = Color.gray
-        }
-
         var ingameViewSize: CGSize = geometry.size
         ingameViewSize.width -= 4
         ingameViewSize.height -= 4
@@ -68,8 +74,6 @@ fileprivate struct LevelSelectorCellView: View {
             self.ingameView(size: ingameViewSize)
         }
         .buttonStyle(BorderlessButtonStyle())
-        .background(color)
-        .cornerRadius(5)
         .frame(width: geometry.size.width, height: geometry.size.height)
     }
 }
@@ -134,7 +138,7 @@ fileprivate struct LevelSelectorGridView: View {
             // Make the selected level slightly bigger than the non-selected levels.
             var cellSize: CGSize = gridComputer.gameNodeSize
             if cell.isSelected {
-                let extra: CGFloat = ceil(gridComputer.cellSpacing * 0.3) * 2 - borderSize
+                let extra: CGFloat = ceil(gridComputer.cellSpacing * 0.6) * 2 - borderSize
                 cellSize.width += extra
                 cellSize.height += extra
             }
