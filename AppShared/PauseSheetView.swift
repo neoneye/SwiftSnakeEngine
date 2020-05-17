@@ -11,6 +11,7 @@ import EngineMac
 #endif
 
 struct PauseSheetView: View {
+    @EnvironmentObject var settingStore: SettingStore
     @ObservedObject var model: GameViewModel
     @Binding var presentedAsModal: Bool
     @State var showExitGameAlert = false
@@ -29,14 +30,10 @@ struct PauseSheetView: View {
     }
 
     var soundEffectsButton: some View {
-        #if os(iOS)
         return HStack {
             Text("Sound effects")
-            Toggle("Sound effects", isOn: self.$model.iOS_soundEffectsEnabled).labelsHidden()
+            Toggle("Sound effects", isOn: self.$settingStore.isSoundEffectsEnabled).labelsHidden()
         }
-        #else
-        return Text("Sound effects")
-        #endif
     }
 
     var exitGameButton: some View {
@@ -114,7 +111,9 @@ struct PauseSheetView: View {
 
 struct PauseSheetView_Previews: PreviewProvider {
     static var previews: some View {
+        let settingStore = SettingStore()
         let model = GameViewModel.create()
         return PauseSheetView(model: model, presentedAsModal: .constant(true))
+            .environmentObject(settingStore)
     }
 }

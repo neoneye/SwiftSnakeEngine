@@ -10,6 +10,7 @@ import EngineMac
 #endif
 
 struct IngameView: View {
+    @EnvironmentObject var settingStore: SettingStore
     @ObservedObject var model: GameViewModel
     @State var presentingModal = false
 
@@ -291,6 +292,7 @@ struct IngameView: View {
         .buttonStyle(BorderlessButtonStyle())
         .sheet(isPresented: $presentingModal) {
             PauseSheetView(model: self.model, presentedAsModal: self.$presentingModal)
+                .environmentObject(self.settingStore)
         }
     }
 
@@ -307,6 +309,7 @@ struct IngameView: View {
 
 struct IngameView_Previews: PreviewProvider {
     static var previews: some View {
+        let settingStore = SettingStore()
         let model = GameViewModel.createHumanVsHuman()
         return Group {
             IngameView(model: model, mode: .playable)
@@ -316,5 +319,6 @@ struct IngameView_Previews: PreviewProvider {
             IngameView(model: model, mode: .playable)
                 .previewLayout(.fixed(width: 400, height: 150))
         }
+        .environmentObject(settingStore)
     }
 }

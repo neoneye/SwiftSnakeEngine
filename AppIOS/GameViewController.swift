@@ -2,9 +2,8 @@
 import SwiftUI
 import EngineIOS
 
-class GameViewController: UIHostingController<MyContentView> {
-
-    static func create() -> GameViewController {
+class GameViewController: UIHostingController<RootView> {
+    static func create() -> UIViewController {
         let playerMode: SettingPlayerModeValue = SettingPlayerMode().value
         let initialValue: Bool
         switch playerMode {
@@ -22,11 +21,11 @@ class GameViewController: UIHostingController<MyContentView> {
 
         let model = GameViewModel.create()
         model.levelSelector_humanVsBot = initialValue
-        let view = MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore)
+        let view = RootView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore)
         return GameViewController(rootView: view)
     }
 
-    override init(rootView: MyContentView) {
+    override init(rootView: RootView) {
         super.init(rootView: rootView)
     }
 

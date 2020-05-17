@@ -16,9 +16,10 @@ enum MyContentView_VisibleContent {
 }
 
 struct MyContentView: View {
+    @EnvironmentObject var settingStore: SettingStore
+
     @State var model: GameViewModel
     @ObservedObject var levelSelectorViewModel: LevelSelectorViewModel
-    @ObservedObject var settingStore: SettingStore
     @State var visibleContent = MyContentView_VisibleContent.levelSelector
 
     #if os(macOS)
@@ -451,15 +452,16 @@ struct ContentView_Previews : PreviewProvider {
         levelSelectorViewModel.useMockData()
         let settingStore = SettingStore()
         return Group {
-//            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore, isPreview: true)
+//            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, isPreview: true)
 //                .previewLayout(.fixed(width: 130, height: 200))
 
-            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore, isPreview: true)
+            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, isPreview: true)
                 .previewLayout(.fixed(width: 500, height: 500))
 
-//            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore, isPreview: true)
+//            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, isPreview: true)
 //                .previewLayout(.fixed(width: 500, height: 150))
         }
+        .environmentObject(settingStore)
     }
 
 }

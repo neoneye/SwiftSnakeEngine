@@ -38,8 +38,9 @@ class GameNSWindow: NSWindow {
         )
         window.center()
         window.setFrameAutosaveName("Main Window")
-        let view = MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore)
+        let view = MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel)
             .environment(\.keyPublisher, window.keyEventPublisher)
+            .environmentObject(settingStore)
         window.contentView = GameNSView(rootView: view)
         window.makeKeyAndOrderFront(nil)
         return window

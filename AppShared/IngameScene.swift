@@ -704,15 +704,9 @@ class IngameScene: SKScene {
 	}
 
 	func playSoundEffect(_ action: SKAction) {
-        #if os(macOS)
-//		guard NSUserDefaultsController.shared.isSoundEffectsEnabled else {
-//			return
-//		}
-        #elseif os(iOS)
-        guard SoundEffectController().value else {
+        guard SettingSoundEffect().value else {
             return
         }
-        #endif
         run(action)
 	}
 

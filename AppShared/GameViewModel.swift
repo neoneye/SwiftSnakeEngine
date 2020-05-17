@@ -133,11 +133,11 @@ public class GameViewModel: ObservableObject {
     }
 
 
-    #if os(iOS)
-    @Published var iOS_soundEffectsEnabled: Bool = SoundEffectController().value {
-        didSet { SoundEffectController().set(self.iOS_soundEffectsEnabled) }
+//    #if os(iOS)
+    @Published var iOS_soundEffectsEnabled: Bool = SettingSoundEffect().value {
+        didSet { SettingSoundEffect().set(self.iOS_soundEffectsEnabled) }
     }
-    #endif
+//    #endif
 
     init(snakeGameEnvironment: SnakeGameEnvironment) {
         self.settingStepMode = SettingStepMode(defaults: UserDefaults.standard)
