@@ -264,6 +264,8 @@
 		42E042B623340DEE007AC6F9 /* SnakeLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E042B523340DEE007AC6F9 /* SnakeLevel.swift */; };
 		42E425AE2470AC5C00F90073 /* SettingSoundEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E425AD2470AC5C00F90073 /* SettingSoundEffect.swift */; };
 		42E425AF2470AC5C00F90073 /* SettingSoundEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E425AD2470AC5C00F90073 /* SettingSoundEffect.swift */; };
+		42E425B12470CDE400F90073 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E425B02470CDE400F90073 /* RootView.swift */; };
+		42E425B22470CDE400F90073 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E425B02470CDE400F90073 /* RootView.swift */; };
 		42E5B33F246B8A8000580517 /* SettingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E5B33E246B8A8000580517 /* SettingStore.swift */; };
 		42E5B340246B8A8000580517 /* SettingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E5B33E246B8A8000580517 /* SettingStore.swift */; };
 		42E5B342246C425200580517 /* SettingPlayerRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E5B341246C425200580517 /* SettingPlayerRole.swift */; };
@@ -507,6 +509,7 @@
 		42E042B3233402CD007AC6F9 /* T1200_ComputeShortestPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1200_ComputeShortestPath.swift; sourceTree = "<group>"; };
 		42E042B523340DEE007AC6F9 /* SnakeLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeLevel.swift; sourceTree = "<group>"; };
 		42E425AD2470AC5C00F90073 /* SettingSoundEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSoundEffect.swift; sourceTree = "<group>"; };
+		42E425B02470CDE400F90073 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		42E5B33E246B8A8000580517 /* SettingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStore.swift; sourceTree = "<group>"; };
 		42E5B341246C425200580517 /* SettingPlayerRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPlayerRole.swift; sourceTree = "<group>"; };
 		42EB7BFD23F1FD9D00229CEA /* SnakeDataset.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = SnakeDataset.proto; sourceTree = "<group>"; };
@@ -784,6 +787,7 @@
 				4217EEA9240F00740066B8C0 /* PlannedPathNode.swift */,
 				42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */,
 				42F35E6023FD877400A4795B /* PlayerScoreView.swift */,
+				42E425B02470CDE400F90073 /* RootView.swift */,
 				42E5B344246C4C0800580517 /* Settings */,
 				4294DA42233FA3AF00AA58CD /* SKScene+Explode.swift */,
 				4294DA3E233EF09800AA58CD /* SKSpriteNode+Pulse.swift */,
@@ -1532,6 +1536,7 @@
 				42ED2AD8246DB9E2005D812F /* PlannedPathView.swift in Sources */,
 				42AFEB18246AF5A8007F15D5 /* LevelSelectorView.swift in Sources */,
 				42510E5A2467112900A2DACD /* LevelView.swift in Sources */,
+				42E425B22470CDE400F90073 /* RootView.swift in Sources */,
 				4255CA14232F8A2100A230AF /* IngameScene.swift in Sources */,
 				4220E566244B54B80088C3C1 /* AppColor.swift in Sources */,
 				429CD0D12348F93E00098E68 /* NSUserDefaultsController+Settings.swift in Sources */,
@@ -1653,6 +1658,7 @@
 				42510E6A2468260A00A2DACD /* LevelView.swift in Sources */,
 				4211C32D244A063600C25514 /* SettingSelectedLevel.swift in Sources */,
 				4290533D243EA53C004EFFB6 /* LevelSelectorScene.swift in Sources */,
+				42E425B12470CDE400F90073 /* RootView.swift in Sources */,
 				42905333243E9A3F004EFFB6 /* PlayerScoreView.swift in Sources */,
 				42AFEB1A246B5694007F15D5 /* LevelSelectorViewModel.swift in Sources */,
 				42510E68246825F400A2DACD /* IngameGridComputer.swift in Sources */,
