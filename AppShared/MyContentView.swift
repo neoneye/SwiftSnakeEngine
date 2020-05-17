@@ -363,7 +363,6 @@ struct MyContentView: View {
             log.debug("height of view: \(viewHeight)")
             model?.levelSelector_insetTop = viewHeight
         }
-        .background(AppColor.levelSelector_header.color)
     }
 
     private var iOS_overlayWithHeader: some View {
@@ -455,6 +454,7 @@ struct MyContentView: View {
         .onReceive(model.jumpToLevelSelector) { _ in
             self.visibleContent = .levelSelector
         }
+        .background(AppColor.levelSelector_background.color)
     }
 }
 
