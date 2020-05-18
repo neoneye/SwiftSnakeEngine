@@ -127,7 +127,6 @@
 		429A1536245CE97D009F6337 /* SnakePlayerRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429A1535245CE97D009F6337 /* SnakePlayerRole.swift */; };
 		429A1537245CE97D009F6337 /* SnakePlayerRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429A1535245CE97D009F6337 /* SnakePlayerRole.swift */; };
 		429A1539245D0C32009F6337 /* T2005_SnakePlayerRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429A1538245D0C32009F6337 /* T2005_SnakePlayerRole.swift */; };
-		429CD0D12348F93E00098E68 /* NSUserDefaultsController+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429CD0D02348F93E00098E68 /* NSUserDefaultsController+Settings.swift */; };
 		429CD0D523495DF300098E68 /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429CD0D423495DF300098E68 /* AppConstant.swift */; };
 		429D336623FAF46E00EF9B37 /* StuckSnakeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429D336523FAF46E00EF9B37 /* StuckSnakeDetector.swift */; };
 		429D336823FB056300EF9B37 /* T3100_StuckSnakeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429D336723FB056300EF9B37 /* T3100_StuckSnakeDetector.swift */; };
@@ -449,7 +448,6 @@
 		429A1532245CA7ED009F6337 /* DatasetLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatasetLoader.swift; sourceTree = "<group>"; };
 		429A1535245CE97D009F6337 /* SnakePlayerRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakePlayerRole.swift; sourceTree = "<group>"; };
 		429A1538245D0C32009F6337 /* T2005_SnakePlayerRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2005_SnakePlayerRole.swift; sourceTree = "<group>"; };
-		429CD0D02348F93E00098E68 /* NSUserDefaultsController+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserDefaultsController+Settings.swift"; sourceTree = "<group>"; };
 		429CD0D423495DF300098E68 /* AppConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
 		429D336523FAF46E00EF9B37 /* StuckSnakeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StuckSnakeDetector.swift; sourceTree = "<group>"; };
 		429D336723FB056300EF9B37 /* T3100_StuckSnakeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T3100_StuckSnakeDetector.swift; sourceTree = "<group>"; };
@@ -745,7 +743,6 @@
 				4255CA1C232F8A2300A230AF /* Info.plist */,
 				4255CA19232F8A2300A230AF /* Main.storyboard */,
 				42C5566723ABE7E70001DBD8 /* NSEvent+KeyCode.swift */,
-				429CD0D02348F93E00098E68 /* NSUserDefaultsController+Settings.swift */,
 				4246C440235BB07E00324965 /* PlayerMenu.swift */,
 				422B903A23C7BED100A478A7 /* SKScene+BecomeFirstResponder.swift */,
 			);
@@ -1545,7 +1542,6 @@
 				42E425B22470CDE400F90073 /* RootView.swift in Sources */,
 				4255CA14232F8A2100A230AF /* IngameScene.swift in Sources */,
 				4220E566244B54B80088C3C1 /* AppColor.swift in Sources */,
-				429CD0D12348F93E00098E68 /* NSUserDefaultsController+Settings.swift in Sources */,
 				42510E65246790F100A2DACD /* IngameView.swift in Sources */,
 				4294DA43233FA3AF00AA58CD /* SKScene+Explode.swift in Sources */,
 				42C1930C244913A500697159 /* ViewHeightGetter.swift in Sources */,

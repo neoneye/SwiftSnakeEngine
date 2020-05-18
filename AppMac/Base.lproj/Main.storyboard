@@ -118,7 +118,7 @@
                                         <menuItem title="Show Planned Path" state="mixed" id="4bI-PI-LbA">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <binding destination="9gn-hT-kxi" name="value" keyPath="values.isShowPlannedPathEnabled" id="9Ko-AS-XE7"/>
+                                                <binding destination="9gn-hT-kxi" name="value" keyPath="values.SNAKE_SHOWPLANNEDPATH" id="dYt-ji-8Dp"/>
                                             </connections>
                                         </menuItem>
                                     </items>

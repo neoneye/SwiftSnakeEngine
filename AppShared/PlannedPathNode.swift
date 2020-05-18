@@ -44,7 +44,7 @@ class PlannedPathNode: SKEffectNode {
     private func drawPlannedPathForBot(player: SnakePlayer, foodPosition: IntVec2?) {
         let showPlannedPath: Bool
         #if os(macOS)
-        showPlannedPath = NSUserDefaultsController.shared.isShowPlannedPathEnabled
+        showPlannedPath = SettingShowPlannedPath().value
         #else
         showPlannedPath = false
         #endif
