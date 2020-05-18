@@ -21,6 +21,8 @@ public class GameViewModel: ObservableObject {
     @Published var player2Length: UInt = 1
     @Published var player1Info = "Player 1 (green)\nAlive\nLength 29"
     @Published var player2Info = "Player 2 (blue)\nDead by collision with wall\nLength 14"
+    @Published var player1Summary = "Player 1 (green)\nAlive\nLength 29"
+    @Published var player2Summary = "Player 2 (blue)\nDead by collision with wall\nLength 14"
     @Published var showPauseButton: Bool = true
     @Published var levelSelector_humanVsBot = true
     @Published var levelSelector_visible = true
@@ -124,6 +126,27 @@ public class GameViewModel: ObservableObject {
         } else {
             self.player2PlannedPath = []
         }
+
+        func createSummaryFor(player: SnakePlayer) -> String {
+            guard player.isInstalled else {
+                return "\(player.id): Not installed"
+            }
+            var rows = [String]()
+            #if os(macOS)
+            rows.append("\(player.id): \(player.humanReadableRole)")
+            #else
+            rows.append(player.briefDescription)
+            #endif
+            rows.append("Length: \(player.lengthOfInstalledSnake())")
+            if player.isInstalledAndDead {
+                let deathExplanations: [String] = player.causesOfDeath.map { $0.humanReadableDeathExplanation }
+                rows.append("Cause of death:")
+                rows += deathExplanations
+            }
+            return rows.joined(separator: "\n")
+        }
+        self.player1Summary = createSummaryFor(player: player1)
+        self.player2Summary = createSummaryFor(player: player2)
 
         if player1.isInstalledAndAlive {
             self.gestureIndicatorPosition = player1.snakeBody.head.position
@@ -510,6 +533,19 @@ extension Array where Element == SnakeGameState {
         self.map {
             let sge = SnakeGameEnvironmentPreview(initialGameState: $0)
             return GameViewModel(snakeGameEnvironment: sge)
+        }
+    }
+}
+
+extension SnakePlayer {
+    public var briefDescription: String {
+        switch self.role {
+        case .none:
+            return "Disabled"
+        case .human:
+            return "HUMAN"
+        case .bot:
+            return "BOT"
         }
     }
 }

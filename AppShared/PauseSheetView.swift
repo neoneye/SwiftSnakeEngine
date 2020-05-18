@@ -68,9 +68,18 @@ struct PauseSheetView: View {
             }
             #endif
 
-            HStack(spacing: 40) {
-                Text("Human\nLength \(self.model.player1Length)")
-                Text("Computer\nLength \(self.model.player2Length)")
+            HStack(alignment: .top) {
+                Text(self.model.player1Summary)
+                .foregroundColor(Color.black)
+                .padding()
+                .background(AppColor.player1_snakeBody.color)
+
+                Spacer()
+
+                Text(self.model.player2Summary)
+                .foregroundColor(Color.black)
+                .padding()
+                .background(AppColor.player2_snakeBody.color)
             }
 
             Spacer()
@@ -115,5 +124,6 @@ struct PauseSheetView_Previews: PreviewProvider {
         let model = GameViewModel.create()
         return PauseSheetView(model: model, presentedAsModal: .constant(true))
             .environmentObject(settingStore)
+            .previewLayout(.fixed(width: 400, height: 500))
     }
 }
