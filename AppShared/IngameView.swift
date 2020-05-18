@@ -196,7 +196,15 @@ struct IngameView: View {
 
     private var aspectRatio: CGSize {
         let levelSize: UIntVec2 = model.level.size
-        return CGSize(width: CGFloat(levelSize.x), height: CGFloat(levelSize.y))
+        var x = Int(levelSize.x)
+        var y = Int(levelSize.y)
+        if IngameGridComputer.trimEdges {
+            x -= 2
+            y -= 2
+        }
+        x = max(x, 1)
+        y = max(y, 1)
+        return CGSize(width: CGFloat(x), height: CGFloat(y))
     }
 
     private var backgroundSolid: some View {

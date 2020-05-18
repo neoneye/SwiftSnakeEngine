@@ -10,6 +10,10 @@ import EngineMac
 #endif
 
 struct IngameGridComputer {
+    // In order to reduce wasted screen estate on small displays.
+    // This gets rid of the wall cells that surrounds the level.
+    static let trimEdges = true
+
     let viewSize: CGSize
     let gridSize: UIntVec2
     let halfCellSize: CGSize
@@ -17,7 +21,15 @@ struct IngameGridComputer {
     let inset: CGPoint
     let tileMinSize: CGFloat
 
-    init(viewSize: CGSize, gridSize: UIntVec2) {
+    init(viewSize: CGSize, gridSize gs: UIntVec2) {
+        
+        // When trimming the outer cells adjacent to the edge:
+        // Then it's left + right sides, so 2 cells removed in the horizontal axis.
+        // Then it's top + bottom sides, so 2 cells removed in the vertical axis.
+        let cellTrim: Int = Self.trimEdges ? 2 : 0
+        let gsx: Int = max(Int(gs.x) - cellTrim, 1)
+        let gsy: Int = max(Int(gs.y) - cellTrim, 1)
+        let gridSize: UIntVec2 = UIntVec2(x: UInt32(gsx), y: UInt32(gsy))
         self.viewSize = viewSize
         self.gridSize = gridSize
 
@@ -39,17 +51,20 @@ struct IngameGridComputer {
         self.tileMinSize = min(cellSize.width, cellSize.height)
     }
 
-    func position(_ position: IntVec2) -> CGPoint {
+    private func computePosition(x: Int, y: Int) -> CGPoint {
+        // When trimming the cells near the edges, then we ignore the bottom row, and the left column.
+        let cellOffset: Int = Self.trimEdges ? 1 : 0
         return CGPoint(
-            x: CGFloat(position.x) * cellSize.width + inset.x,
-            y: CGFloat(position.y) * cellSize.height + inset.y
+            x: CGFloat(x - cellOffset) * cellSize.width + inset.x,
+            y: CGFloat(y - cellOffset) * cellSize.height + inset.y
         )
     }
 
+    func position(_ position: IntVec2) -> CGPoint {
+        return computePosition(x: Int(position.x), y: Int(position.y))
+    }
+
     func position(_ position: UIntVec2) -> CGPoint {
-        return CGPoint(
-            x: CGFloat(position.x) * cellSize.width + inset.x,
-            y: CGFloat(position.y) * cellSize.height + inset.y
-        )
+        return computePosition(x: Int(position.x), y: Int(position.y))
     }
 }
