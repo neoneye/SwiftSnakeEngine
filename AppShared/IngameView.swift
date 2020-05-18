@@ -243,7 +243,7 @@ struct IngameView: View {
             return AnyView(EmptyView())
         }
         let color: Color
-        if model.player1IsAlive {
+        if model.player2IsAlive {
             color = AppColor.player2_snakeBody.color
         } else {
             color = AppColor.player2_snakeBody_dead.color
