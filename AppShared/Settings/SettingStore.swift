@@ -22,6 +22,7 @@ final class SettingStore: ObservableObject {
     private let settingPlayerMode: SettingPlayerMode
     private let settingStepMode: SettingStepMode
     private let settingSoundEffect: SettingSoundEffect
+    private let settingShowPlannedPath: SettingShowPlannedPath
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
@@ -39,6 +40,7 @@ final class SettingStore: ObservableObject {
         self.settingPlayerMode = SettingPlayerMode(defaults: defaults)
         self.settingStepMode = SettingStepMode(defaults: defaults)
         self.settingSoundEffect = SettingSoundEffect(defaults: defaults)
+        self.settingShowPlannedPath = SettingShowPlannedPath(defaults: defaults)
     }
 
     var player1Role: SnakePlayerRole {
@@ -92,6 +94,15 @@ final class SettingStore: ObservableObject {
         }
         set {
             settingSoundEffect.set(newValue)
+        }
+    }
+
+    var isShowPlannedPathEnabled: Bool {
+        get {
+            settingShowPlannedPath.value
+        }
+        set {
+            settingShowPlannedPath.set(newValue)
         }
     }
 }
