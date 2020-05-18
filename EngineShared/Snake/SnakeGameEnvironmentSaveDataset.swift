@@ -30,10 +30,19 @@ public class SnakeGameEnvironmentSaveDataset: SnakeGameEnvironment {
     }
 
     public func step(action: SnakeGameAction) -> SnakeGameState {
-        let newGameState: SnakeGameState = wrapped.step(action: action)
-        let url: URL = newGameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
+        let gameState: SnakeGameState = wrapped.step(action: action)
+        let url: URL = gameState.saveTrainingData(trainingSessionUUID: self.trainingSessionUUID)
         trainingSessionURLs.append(url)
-        return newGameState
+
+        // The game is over when both players are dead
+        let player1Alive: Bool = gameState.player1.isInstalledAndAlive
+        let player2Alive: Bool = gameState.player2.isInstalledAndAlive
+        let oneOrMorePlayersAreAlive: Bool = player1Alive || player2Alive
+        if !oneOrMorePlayersAreAlive {
+            postProcess()
+        }
+
+        return gameState
     }
 
     public func postProcess() {
