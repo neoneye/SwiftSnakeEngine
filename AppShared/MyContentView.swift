@@ -159,13 +159,6 @@ struct MyContentView: View {
         }
     }
 
-    private var spriteKitContainer: SpriteKitContainer {
-        SpriteKitContainer(
-            model: self.model,
-            isPreview: self.isPreview
-        )
-    }
-
     private var ingameView: some View {
         IngameView(
             model: model,
