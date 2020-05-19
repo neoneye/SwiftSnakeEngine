@@ -84,9 +84,10 @@ struct PauseSheetView: View {
 
             Spacer()
 
-            ingameView
-
-            Spacer()
+            // IDEA: show replay of the game
+//            ingameView
+//
+//            Spacer()
 
             soundEffectsButton
 
