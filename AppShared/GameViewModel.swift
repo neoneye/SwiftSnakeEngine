@@ -58,28 +58,9 @@ public class GameViewModel: ObservableObject {
     }
 
     func didUpdateGameState(oldGameState: SnakeGameState, newGameState: SnakeGameState) {
-        do {
-            let oldLength: UInt = oldGameState.player1.snakeBody.length
-            let newLength: UInt = newGameState.player1.snakeBody.length
-            if oldLength != newLength {
-                sendInfoEvent(.player1_didUpdateLength(newLength))
-            }
-        }
-
-        do {
-            let oldLength: UInt = oldGameState.player2.snakeBody.length
-            let newLength: UInt = newGameState.player2.snakeBody.length
-            if oldLength != newLength {
-                sendInfoEvent(.player2_didUpdateLength(newLength))
-            }
-        }
 
         if oldGameState.foodPosition != newGameState.foodPosition {
-            if let pos: IntVec2 = oldGameState.foodPosition {
-//                let point = cgPointFromGridPoint(pos)
-//                explode(at: point, for: 0.25, zPosition: 200) {}
-                SoundItem.snake_eats.play()
-            }
+            SoundItem.snake_eats.play()
         }
 
         let human1Alive: Bool = newGameState.player1.isInstalledAndAliveAndHuman
@@ -92,12 +73,6 @@ public class GameViewModel: ObservableObject {
         let player2Dies: Bool = oldGameState.player2.isInstalledAndAlive && newGameState.player2.isInstalledAndDead
         if player1Dies || player2Dies {
             SoundItem.snake_dies.play()
-        }
-        if player1Dies {
-            sendInfoEvent(.player1_dead(newGameState.player1.causesOfDeath))
-        }
-        if player2Dies {
-            sendInfoEvent(.player2_dead(newGameState.player2.causesOfDeath))
         }
     }
 
@@ -154,13 +129,6 @@ public class GameViewModel: ObservableObject {
             self.gestureIndicatorPosition = IntVec2.zero
         }
     }
-
-
-//    #if os(iOS)
-    @Published var iOS_soundEffectsEnabled: Bool = SettingSoundEffect().value {
-        didSet { SettingSoundEffect().set(self.iOS_soundEffectsEnabled) }
-    }
-//    #endif
 
     init(snakeGameEnvironment: SnakeGameEnvironment) {
         self.settingStepMode = SettingStepMode(defaults: UserDefaults.standard)
@@ -491,41 +459,6 @@ public class GameViewModel: ObservableObject {
         }
         gameState = newGameState
     }
-
-    func sendInfoEvent(_ event: SnakeGameInfoEvent) {
-        switch event {
-        case .showLevelSelector:
-            player1Info = ""
-            player2Info = ""
-            player1Length = 0
-            player2Length = 0
-            showPauseButton = false
-        case let .showLevelDetail(gameState):
-            player1Info = gameState.player1.humanReadableRole
-            player2Info = gameState.player2.humanReadableRole
-            player1Length = gameState.player1.lengthOfInstalledSnake()
-            player2Length = gameState.player2.lengthOfInstalledSnake()
-        case let .beginNewGame(gameState):
-            player1Info = gameState.player1.humanReadableRole
-            player2Info = gameState.player2.humanReadableRole
-            player1Length = gameState.player1.lengthOfInstalledSnake()
-            player2Length = gameState.player2.lengthOfInstalledSnake()
-            showPauseButton = true
-        case let .player1_didUpdateLength(length):
-            player1Length = length
-        case let .player2_didUpdateLength(length):
-            player2Length = length
-        case let .player1_dead(causesOfDeath):
-            let deathExplanations: [String] = causesOfDeath.map { $0.humanReadableDeathExplanation }
-            let info: String = deathExplanations.joined(separator: "\n-\n")
-            player1Info = info
-        case let .player2_dead(causesOfDeath):
-            let deathExplanations: [String] = causesOfDeath.map { $0.humanReadableDeathExplanation }
-            let info: String = deathExplanations.joined(separator: "\n-\n")
-            player2Info = info
-        }
-    }
-
 }
 
 extension Array where Element == SnakeGameState {
@@ -547,5 +480,11 @@ extension SnakePlayer {
         case .bot:
             return "BOT"
         }
+    }
+}
+
+extension SnakePlayer {
+    var isInstalledAndAliveAndHuman: Bool {
+        return self.isInstalledAndAlive && self.role == .human
     }
 }
