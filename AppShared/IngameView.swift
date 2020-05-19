@@ -34,22 +34,28 @@ struct IngameView: View {
     @State var dragOffset: CGSize = .zero
     @State var isDragging = false
 
-    private var dragGesture: some Gesture {
-        DragGesture()
+    private func dragGesture(_ geometry: GeometryProxy) -> some Gesture {
+        let gridSize: UIntVec2 = model.level.size
+        let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
+        let tileMinSize: CGFloat = gridComputer.tileMinSize
+        let minimumDistance: CGFloat = tileMinSize * 0.05
+//        log.debug("minimumDistance: \(minimumDistance)")
+
+//        return DragGesture(minimumDistance: 0)
+        return DragGesture(minimumDistance: minimumDistance)
             .onChanged {
-                self.dragGesture_onChanged($0)
+                self.dragGesture_onChanged(value: $0, minimumDistance: minimumDistance)
             }
             .onEnded {
-                self.dragGesture_onEnded($0)
+                self.dragGesture_onEnded(value: $0, minimumDistance: minimumDistance)
             }
     }
 
-    private func dragGesture_onChanged(_ value: DragGesture.Value) {
+    private func dragGesture_onChanged(value: DragGesture.Value, minimumDistance: CGFloat) {
         if !self.isDragging {
             self.isDragging = true
-            self.dragDirection = DragDirection.undecided
-            //log.debug("began. startLocation: \(value.startLocation)")
-
+            self.dragDirection = determineDirection(value: value, minimumDistance: minimumDistance)
+            log.debug("began. startLocation: \(value.startLocation)")
         } else {
             //log.debug("changed. startLocation: \(value.startLocation)")
         }
@@ -57,7 +63,7 @@ struct IngameView: View {
 
         switch self.dragDirection {
         case .undecided:
-            dragGesture_onChanged_undecided(value)
+            ()
         case .horizontal:
             ()
 //            dragGesture_onChanged_horizontal(value)
@@ -67,7 +73,7 @@ struct IngameView: View {
         }
     }
 
-    private func dragGesture_onChanged_undecided(_ value: DragGesture.Value) {
+    private func determineDirection(value: DragGesture.Value, minimumDistance: CGFloat) -> DragDirection {
         let gridPoint0: CGPoint = value.startLocation
         let gridPoint1: CGPoint = value.location
         let dx: CGFloat = gridPoint0.x - gridPoint1.x
@@ -75,39 +81,39 @@ struct IngameView: View {
         let dx2: CGFloat = dx * dx
         let dy2: CGFloat = dy * dy
         let distance: CGFloat = sqrt(dx2 + dy2)
-        guard distance > 10 else {
-            log.debug("undecided distance: \(distance.string2)")
-            return
+        guard distance > minimumDistance else {
+            log.debug("undecided direction. distance: \(distance.string2)  minimumDistance: \(minimumDistance)")
+            return .undecided
         }
         if dx2 > dy2 {
-            dragDirection = .horizontal
-            log.debug("moving horizontal")
+            log.debug("horizontal direction. distance: \(distance.string2)  minimumDistance: \(minimumDistance)")
+            return .horizontal
         } else {
-            dragDirection = .vertical
-            log.debug("moving vertical")
+            log.debug("vertical direction. distance: \(distance.string2)  minimumDistance: \(minimumDistance)")
+            return .vertical
         }
     }
 
-    private func dragGesture_onEnded(_ value: DragGesture.Value) {
+    private func dragGesture_onEnded(value: DragGesture.Value, minimumDistance: CGFloat) {
         log.debug("ended. direction: \(self.dragDirection)")
         self.isDragging = false
         switch self.dragDirection {
         case .undecided:
             log.debug("do nothing")
         case .horizontal:
-            dragGesture_onEnded_horizontal(value)
+            dragGesture_onEnded_horizontal(value: value, minimumDistance: minimumDistance)
         case .vertical:
-            dragGesture_onEnded_vertical(value)
+            dragGesture_onEnded_vertical(value: value, minimumDistance: minimumDistance)
         }
     }
 
-    private func dragGesture_onEnded_horizontal(_ value: DragGesture.Value) {
+    private func dragGesture_onEnded_horizontal(value: DragGesture.Value, minimumDistance: CGFloat) {
         let gridPoint0: CGPoint = value.startLocation
         let gridPoint1: CGPoint = value.location
         let dx: CGFloat = gridPoint0.x - gridPoint1.x
         let dx2: CGFloat = dx * dx
         let distance: CGFloat = sqrt(dx2)
-        guard distance > 10 else {
+        guard distance > minimumDistance else {
             return
         }
 
@@ -119,13 +125,13 @@ struct IngameView: View {
         }
     }
 
-    private func dragGesture_onEnded_vertical(_ value: DragGesture.Value) {
+    private func dragGesture_onEnded_vertical(value: DragGesture.Value, minimumDistance: CGFloat) {
         let gridPoint0: CGPoint = value.startLocation
         let gridPoint1: CGPoint = value.location
         let dy: CGFloat = gridPoint0.y - gridPoint1.y
         let dy2: CGFloat = dy * dy
         let distance: CGFloat = sqrt(dy2)
-        guard distance > 10 else {
+        guard distance > minimumDistance else {
             return
         }
 
@@ -154,7 +160,7 @@ struct IngameView: View {
         }
     }
 
-    private var playableMode_body: some View {
+    private func playableMode_body_inner(_ geometry: GeometryProxy) -> some View {
         return ZStack {
             Rectangle()
                 .foregroundColor(AppColor.theme1_wall.color)
@@ -164,12 +170,18 @@ struct IngameView: View {
             overlayWithPauseButton
         }
         .gesture(tapGesture)
-        .gesture(dragGesture)
+        .highPriorityGesture(dragGesture(geometry))
         .onAppear {
             self.model.ingameView_playableMode_onAppear()
         }
         .onDisappear {
             self.model.ingameView_playableMode_onDisappear()
+        }
+    }
+
+    private var playableMode_body: some View {
+        GeometryReader { geometry in
+            self.playableMode_body_inner(geometry)
         }
     }
 
