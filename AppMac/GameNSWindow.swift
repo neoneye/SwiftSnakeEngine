@@ -12,11 +12,7 @@ class GameNSWindow: NSWindow {
     }
 
     override func keyDown(with event: NSEvent) {
-        if AppConstant.useSwiftUIInsteadOfSpriteKit {
-            publisher.send(event)
-        } else {
-            super.keyDown(with: event)
-        }
+        publisher.send(event)
     }
 
     static func create() -> GameNSWindow {
