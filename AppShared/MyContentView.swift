@@ -406,35 +406,12 @@ struct MyContentView: View {
     }
 
     var macOS_body: some View {
-        VStack(spacing: 1) {
-
-            if AppConstant.useSwiftUIInsteadOfSpriteKit {
-                mainContent
-            } else {
-                spriteKitContainer
-                macOS_footer
-            }
-
-        }
+        mainContent
         .frame(minWidth: isPreview ? 100 : 400, maxWidth: .infinity, minHeight: isPreview ? 80 : 400, maxHeight: .infinity)
     }
 
     var iOS_body: some View {
-        ZStack {
-            if AppConstant.useSwiftUIInsteadOfSpriteKit {
-                mainContent
-            } else {
-                spriteKitContainer
-
-                if model.showPauseButton {
-                    iOS_overlayWithPauseButton
-                }
-
-                if model.levelSelector_visible {
-                    iOS_overlayWithHeader
-                }
-            }
-        }
+        mainContent
     }
 
     var innerBody: some View {
