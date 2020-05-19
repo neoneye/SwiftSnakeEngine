@@ -38,38 +38,38 @@ struct IngameView: View {
         let gridSize: UIntVec2 = model.level.size
         let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
         let tileMinSize: CGFloat = gridComputer.tileMinSize
-        let minimumDistance: CGFloat = tileMinSize * 0.05
-//        log.debug("minimumDistance: \(minimumDistance)")
+        let minimumDistance: CGFloat = tileMinSize * 0.1
+        let dragOffsetLimit: CGFloat = tileMinSize
 
-//        return DragGesture(minimumDistance: 0)
         return DragGesture(minimumDistance: minimumDistance)
             .onChanged {
-                self.dragGesture_onChanged(value: $0, minimumDistance: minimumDistance)
+                self.dragGesture_onChanged(value: $0, minimumDistance: minimumDistance, dragOffsetLimit: dragOffsetLimit)
             }
             .onEnded {
                 self.dragGesture_onEnded(value: $0, minimumDistance: minimumDistance)
             }
     }
 
-    private func dragGesture_onChanged(value: DragGesture.Value, minimumDistance: CGFloat) {
+    private func dragGesture_onChanged(value: DragGesture.Value, minimumDistance: CGFloat, dragOffsetLimit: CGFloat) {
         if !self.isDragging {
+            let newDragDirection: DragDirection = determineDirection(value: value, minimumDistance: minimumDistance)
+            if newDragDirection == .undecided {
+                log.error("Inconsistency: DragGesture began, but distance is smaller than minimumDistance. Cannot determine direction.")
+                return
+            }
+
+            self.dragDirection = newDragDirection
             self.isDragging = true
-            self.dragDirection = determineDirection(value: value, minimumDistance: minimumDistance)
-            log.debug("began. startLocation: \(value.startLocation)")
-        } else {
-            //log.debug("changed. startLocation: \(value.startLocation)")
+//            log.debug("began")
         }
-        self.dragOffset = value.translation
 
         switch self.dragDirection {
         case .undecided:
             ()
         case .horizontal:
-            ()
-//            dragGesture_onChanged_horizontal(value)
+            dragGesture_onChanged_horizontal(value: value, dragOffsetLimit: dragOffsetLimit)
         case .vertical:
-            ()
-//            dragGesture_onChanged_vertical(value)
+            dragGesture_onChanged_vertical(value: value, dragOffsetLimit: dragOffsetLimit)
         }
     }
 
@@ -82,16 +82,38 @@ struct IngameView: View {
         let dy2: CGFloat = dy * dy
         let distance: CGFloat = sqrt(dx2 + dy2)
         guard distance > minimumDistance else {
-            log.debug("undecided direction. distance: \(distance.string2)  minimumDistance: \(minimumDistance)")
+            //log.debug("undecided direction. distance: \(distance.string2)  minimumDistance: \(minimumDistance)")
             return .undecided
         }
         if dx2 > dy2 {
-            log.debug("horizontal direction. distance: \(distance.string2)  minimumDistance: \(minimumDistance)")
+            //log.debug("horizontal direction. distance: \(distance.string2)  minimumDistance: \(minimumDistance)")
             return .horizontal
         } else {
-            log.debug("vertical direction. distance: \(distance.string2)  minimumDistance: \(minimumDistance)")
+            //log.debug("vertical direction. distance: \(distance.string2)  minimumDistance: \(minimumDistance)")
             return .vertical
         }
+    }
+
+    func dragGesture_onChanged_horizontal(value: DragGesture.Value, dragOffsetLimit: CGFloat) {
+        var offset: CGFloat = value.translation.width
+        if offset < -dragOffsetLimit {
+            offset = -dragOffsetLimit
+        }
+        if offset > dragOffsetLimit {
+            offset = dragOffsetLimit
+        }
+        self.dragOffset = CGSize(width: offset, height: 0)
+    }
+
+    func dragGesture_onChanged_vertical(value: DragGesture.Value, dragOffsetLimit: CGFloat) {
+        var offset: CGFloat = value.translation.height
+        if offset < -dragOffsetLimit {
+            offset = -dragOffsetLimit
+        }
+        if offset > dragOffsetLimit {
+            offset = dragOffsetLimit
+        }
+        self.dragOffset = CGSize(width: 0, height: offset)
     }
 
     private func dragGesture_onEnded(value: DragGesture.Value, minimumDistance: CGFloat) {
