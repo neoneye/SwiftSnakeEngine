@@ -1,0 +1,6 @@
+framework module SwiftySound {
+  umbrella header "SwiftySound-iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

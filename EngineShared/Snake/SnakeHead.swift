@@ -122,4 +122,28 @@ public struct SnakeHead: Hashable {
         // The snake cannot go backwards. In this case `nil` is returned.
         return nil
     }
+
+    /// Move the snake according to user input: arrow up/down/left/right.
+    ///
+    /// The snake cannot go backwards, so if the `direction`  is in the opposite of the head direction, then `dontMove` is returned.
+    ///
+    /// - parameter direction: The new direction of the snake head.
+    /// - returns: `dontMove` if the the two directions are opposites.
+    public func moveToward(direction: SnakeHeadDirection) -> SnakeBodyMovement {
+        let dx: Int32
+        let dy: Int32
+        switch direction {
+        case .up:
+            (dx, dy) = (0, 1)
+        case .down:
+            (dx, dy) = (0, -1)
+        case .left:
+            (dx, dy) = (-1, 0)
+        case .right:
+            (dx, dy) = (1, 0)
+        }
+        let newPosition: IntVec2 = self.position.offsetBy(dx: dx, dy: dy)
+        let movement: SnakeBodyMovement = self.moveToward(newPosition) ?? SnakeBodyMovement.dontMove
+        return movement
+    }
 }

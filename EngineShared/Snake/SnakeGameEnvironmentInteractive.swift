@@ -1,6 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
+/// Human players can interact with the game state.
 public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
     private let initialGameState: SnakeGameState
     private var stuckSnakeDetector1 = StuckSnakeDetector(humanReadableName: "Player1")
@@ -13,11 +14,11 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         self.initialGameState = initialGameState
         self.gameState = initialGameState
 
-        log.debug("level: \(initialGameState.level)")
-        log.debug("player1: \(initialGameState.player1)")
-        log.debug("player2: \(initialGameState.player2)")
-        let initialFoodPosition: String = initialGameState.foodPosition?.debugDescription ?? "No food"
-        log.debug("food position: \(initialFoodPosition)")
+//        log.debug("level: \(initialGameState.level)")
+//        log.debug("player1: \(initialGameState.player1)")
+//        log.debug("player2: \(initialGameState.player2)")
+//        let initialFoodPosition: String = initialGameState.foodPosition?.debugDescription ?? "No food"
+//        log.debug("food position: \(initialFoodPosition)")
     }
 
     public func reset() -> SnakeGameState {

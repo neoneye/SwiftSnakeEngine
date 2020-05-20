@@ -2,14 +2,8 @@
 import SwiftUI
 import SSEventFlow
 
-class GameNSView: NSHostingView<MyContentView> {
-    static func create() -> GameNSView {
-        let model = GameViewModel()
-        let view = MyContentView(model: model)
-        return GameNSView(rootView: view)
-    }
-
-    required init(rootView: MyContentView) {
+class GameNSView<Content>: NSHostingView<Content> where Content : View {
+    required init(rootView: Content) {
         super.init(rootView: rootView)
         setupTrackingArea()
     }
@@ -18,7 +12,7 @@ class GameNSView: NSHostingView<MyContentView> {
         fatalError("init(coder:) has not been implemented")
     }
 
-    /// This is a workaround.
+    /// Workaround: In order to show tooltips while the ingame UI is shown.
     ///
     /// The `SKScene.mouseMoved()` function doesn't get invoked. I suspect it has to do with I'm using SwiftUI.
     /// So I'm now listening for events inside the `NSTrackingArea`.

@@ -7,7 +7,6 @@ import EngineMac
 class AppDelegate: NSObject, NSApplicationDelegate {
 	@IBOutlet weak var player1Menu: PlayerMenu!
 	@IBOutlet weak var player2Menu: PlayerMenu!
-	@IBOutlet weak var debugMenu: DebugMenu!
 
     var window: NSWindow!
 
@@ -25,16 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //		let game = SnakeGameHeadless()
 //		game.run()
 
-        window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 600, height: 500),
-            styleMask: [.titled, .closable, .miniaturizable, .resizable],
-            backing: .buffered,
-            defer: false
-        )
-        window.center()
-        window.setFrameAutosaveName("Main Window")
-        window.contentView = GameNSView.create()
-        window.makeKeyAndOrderFront(nil)
+        window = GameNSWindow.create()
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {

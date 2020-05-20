@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -60,7 +60,7 @@
                                     <items>
                                         <menuItem title="Sound Effects" state="mixed" keyEquivalent="n" id="Was-JA-tGl">
                                             <connections>
-                                                <binding destination="9gn-hT-kxi" name="value" keyPath="values.isSoundEffectsEnabled" id="dpp-pM-fAY"/>
+                                                <binding destination="9gn-hT-kxi" name="value" keyPath="values.SNAKE_SOUNDEFFECTS" id="dgp-OZ-elT"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -102,23 +102,10 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Debug" id="XgW-Se-TQz" userLabel="Debug" customClass="DebugMenu" customModule="Snake" customModuleProvider="target">
                                     <items>
-                                        <menuItem title="Undo" keyEquivalent="" id="7Ah-AS-auP">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="undoAction:" target="XgW-Se-TQz" id="SxZ-sx-r1Z"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Redo" keyEquivalent="" id="IhV-NJ-cgI">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="redoAction:" target="XgW-Se-TQz" id="ERP-YG-2hD"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="POm-ho-gIi"/>
                                         <menuItem title="Show Planned Path" state="mixed" id="4bI-PI-LbA">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <binding destination="9gn-hT-kxi" name="value" keyPath="values.isShowPlannedPathEnabled" id="9Ko-AS-XE7"/>
+                                                <binding destination="9gn-hT-kxi" name="value" keyPath="values.SNAKE_SHOWPLANNEDPATH" id="dYt-ji-8Dp"/>
                                             </connections>
                                         </menuItem>
                                     </items>
