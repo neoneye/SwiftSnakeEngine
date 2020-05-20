@@ -16,16 +16,10 @@ public class GameViewModel: ObservableObject {
     public let jumpToLevelSelector = PassthroughSubject<Void, Never>()
     @Published var level: SnakeLevel = SnakeLevel.empty()
     @Published var foodPosition: IntVec2 = IntVec2.zero
-    @Published var player1Length: UInt = 1
-    @Published var player2Length: UInt = 1
-    @Published var player1Info = "Player 1 (green)\nAlive\nLength 29"
-    @Published var player2Info = "Player 2 (blue)\nDead by collision with wall\nLength 14"
     @Published var player1Summary = "Player 1 (green)\nAlive\nLength 29"
     @Published var player2Summary = "Player 2 (blue)\nDead by collision with wall\nLength 14"
     @Published var showPauseButton: Bool = true
     @Published var levelSelector_humanVsBot = true
-    @Published var levelSelector_visible = true
-    @Published var levelSelector_insetTop: CGFloat = 0
     @Published var player1SnakeBody: SnakeBody = SnakeBody.empty()
     @Published var player2SnakeBody: SnakeBody = SnakeBody.empty()
     @Published var player1IsInstalled: Bool = true
@@ -87,8 +81,6 @@ public class GameViewModel: ObservableObject {
         self.player2IsInstalled = player2.isInstalled
         self.player1IsAlive = player1.isInstalledAndAlive
         self.player2IsAlive = player2.isInstalledAndAlive
-        self.player1Length = player1.lengthOfInstalledSnake()
-        self.player2Length = player2.lengthOfInstalledSnake()
 
         if player1.isInstalledAndAlive {
             self.player1PlannedPath = player1.bot.plannedPath
