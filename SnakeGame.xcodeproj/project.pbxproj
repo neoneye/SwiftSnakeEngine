@@ -542,6 +542,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		421CA8552474ACBE00F7A094 /* IngameView */ = {
+			isa = PBXGroup;
+			children = (
+				42C32886246A2E3300F1EC6D /* FoodView.swift */,
+				42CBF1CB2443B31F001A5D04 /* GameViewModel.swift */,
+				42ED2AD9246DFCC5005D812F /* GestureIndicatorView.swift */,
+				42510E662468187D00A2DACD /* IngameGridComputer.swift */,
+				42510E64246790F100A2DACD /* IngameView.swift */,
+				42510E592467112900A2DACD /* LevelView.swift */,
+				42A06C1D2441D90600877CB9 /* PauseSheetView.swift */,
+				42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */,
+				42510E5D2467686C00A2DACD /* SnakeBodyView.swift */,
+			);
+			path = IngameView;
+			sourceTree = "<group>";
+		};
+		421CA8562474AD1200F7A094 /* RootView */ = {
+			isa = PBXGroup;
+			children = (
+				42AFEB1C246B6B2C007F15D5 /* LevelSelectorDataSource.swift */,
+				42BAC9A2246CDCC7001723F8 /* LevelSelectorGridComputer.swift */,
+				42AFEB16246AF5A8007F15D5 /* LevelSelectorView.swift */,
+				42AFEB19246B5694007F15D5 /* LevelSelectorViewModel.swift */,
+				42A93BF723FC1E1800A15FD2 /* MyContentView.swift */,
+				42E425B02470CDE400F90073 /* RootView.swift */,
+			);
+			path = RootView;
+			sourceTree = "<group>";
+		};
 		422423BF233E79090006D02D /* Snake */ = {
 			isa = PBXGroup;
 			children = (
@@ -705,22 +734,9 @@
 				4220E564244B54B80088C3C1 /* AppColor.swift */,
 				429CD0D423495DF300098E68 /* AppConstant.swift */,
 				4255CA17232F8A2300A230AF /* Assets.xcassets */,
-				42C32886246A2E3300F1EC6D /* FoodView.swift */,
-				42CBF1CB2443B31F001A5D04 /* GameViewModel.swift */,
-				42ED2AD9246DFCC5005D812F /* GestureIndicatorView.swift */,
-				42510E662468187D00A2DACD /* IngameGridComputer.swift */,
-				42510E64246790F100A2DACD /* IngameView.swift */,
-				42AFEB1C246B6B2C007F15D5 /* LevelSelectorDataSource.swift */,
-				42BAC9A2246CDCC7001723F8 /* LevelSelectorGridComputer.swift */,
-				42AFEB16246AF5A8007F15D5 /* LevelSelectorView.swift */,
-				42AFEB19246B5694007F15D5 /* LevelSelectorViewModel.swift */,
-				42510E592467112900A2DACD /* LevelView.swift */,
-				42A93BF723FC1E1800A15FD2 /* MyContentView.swift */,
-				42A06C1D2441D90600877CB9 /* PauseSheetView.swift */,
-				42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */,
-				42E425B02470CDE400F90073 /* RootView.swift */,
+				421CA8552474ACBE00F7A094 /* IngameView */,
+				421CA8562474AD1200F7A094 /* RootView */,
 				42E5B344246C4C0800580517 /* Settings */,
-				42510E5D2467686C00A2DACD /* SnakeBodyView.swift */,
 				42C3182B2386F17000468D1F /* Sounds */,
 			);
 			path = AppShared;
