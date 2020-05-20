@@ -7,7 +7,6 @@ import EngineMac
 class AppDelegate: NSObject, NSApplicationDelegate {
 	@IBOutlet weak var player1Menu: PlayerMenu!
 	@IBOutlet weak var player2Menu: PlayerMenu!
-	@IBOutlet weak var debugMenu: DebugMenu!
 
     var window: NSWindow!
 

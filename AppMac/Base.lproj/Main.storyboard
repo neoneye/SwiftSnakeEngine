@@ -102,19 +102,6 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Debug" id="XgW-Se-TQz" userLabel="Debug" customClass="DebugMenu" customModule="Snake" customModuleProvider="target">
                                     <items>
-                                        <menuItem title="Undo" keyEquivalent="" id="7Ah-AS-auP">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="undoAction:" target="XgW-Se-TQz" id="SxZ-sx-r1Z"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Redo" keyEquivalent="" id="IhV-NJ-cgI">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="redoAction:" target="XgW-Se-TQz" id="ERP-YG-2hD"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="POm-ho-gIi"/>
                                         <menuItem title="Show Planned Path" state="mixed" id="4bI-PI-LbA">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>

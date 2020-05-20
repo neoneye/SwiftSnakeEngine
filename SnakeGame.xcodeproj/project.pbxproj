@@ -238,7 +238,6 @@
 		42EB7C0423F2873B00229CEA /* DatasetSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7C0323F2873B00229CEA /* DatasetSaver.swift */; };
 		42ECBCBE236F305600758303 /* SnakeBot4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCBD236F305600758303 /* SnakeBot4.swift */; };
 		42ECBCC023735BF600758303 /* SnakeLevelCacheModel.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCBF23735BF500758303 /* SnakeLevelCacheModel.pb.swift */; };
-		42ECBCCB237CA50700758303 /* DebugMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECBCCA237CA50700758303 /* DebugMenu.swift */; };
 		42ED2AD7246DB9E2005D812F /* PlannedPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */; };
 		42ED2AD8246DB9E2005D812F /* PlannedPathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */; };
 		42ED2ADA246DFCC5005D812F /* GestureIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ED2AD9246DFCC5005D812F /* GestureIndicatorView.swift */; };
@@ -460,7 +459,6 @@
 		42ECBCBD236F305600758303 /* SnakeBot4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeBot4.swift; sourceTree = "<group>"; };
 		42ECBCBF23735BF500758303 /* SnakeLevelCacheModel.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeLevelCacheModel.pb.swift; sourceTree = "<group>"; };
 		42ECBCC42373608600758303 /* SnakeLevelCacheModel.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = SnakeLevelCacheModel.proto; sourceTree = "<group>"; };
-		42ECBCCA237CA50700758303 /* DebugMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenu.swift; sourceTree = "<group>"; };
 		42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedPathView.swift; sourceTree = "<group>"; };
 		42ED2AD9246DFCC5005D812F /* GestureIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureIndicatorView.swift; sourceTree = "<group>"; };
 		42EFB41823E57E18002B6191 /* EngineMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EngineMac.h; sourceTree = "<group>"; };
@@ -704,7 +702,6 @@
 			children = (
 				4255CA0D232F8A2100A230AF /* AppDelegate.swift */,
 				4255CA1D232F8A2300A230AF /* AppMac.entitlements */,
-				42ECBCCA237CA50700758303 /* DebugMenu.swift */,
 				421A9E32243922ED00A85B6F /* GameNSView.swift */,
 				428FE9F32469AFFB002B62C3 /* GameNSWindow.swift */,
 				4255CA1C232F8A2300A230AF /* Info.plist */,
@@ -1449,7 +1446,6 @@
 				42AFCF7F2472339B00F78952 /* SettingShowPlannedPath.swift in Sources */,
 				42E425AF2470AC5C00F90073 /* SettingSoundEffect.swift in Sources */,
 				4295B7AC246F85E3005ACAD1 /* SettingPlayerMode.swift in Sources */,
-				42ECBCCB237CA50700758303 /* DebugMenu.swift in Sources */,
 				42CBF1CD2443B31F001A5D04 /* GameViewModel.swift in Sources */,
 				4295B7AF246F8C1D005ACAD1 /* SettingStepMode.swift in Sources */,
 				4255CA0E232F8A2100A230AF /* AppDelegate.swift in Sources */,
