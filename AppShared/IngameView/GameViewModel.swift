@@ -14,7 +14,6 @@ import EngineMac
 // IDEA: rename to IngameViewModel
 public class GameViewModel: ObservableObject {
     public let jumpToLevelSelector = PassthroughSubject<Void, Never>()
-    public let userInterfaceStyle = PassthroughSubject<Void, Never>()
     @Published var level: SnakeLevel = SnakeLevel.empty()
     @Published var foodPosition: IntVec2 = IntVec2.zero
     @Published var player1Length: UInt = 1
