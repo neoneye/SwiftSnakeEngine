@@ -1,9 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Cocoa
-import SSEventFlow
 import EngineMac
-
-class FlowEvent_DidChangePlayerSetting: FlowEvent {}
 
 public enum PlayerMenuMode {
 	case player1, player2
@@ -180,7 +177,6 @@ public class PlayerMenu: NSMenu {
 			case .player2:
                 SettingPlayer2Role().set(newValue.role)
 			}
-            FlowEvent_DidChangePlayerSetting().fire()
 		}
 		get {
             let role: SnakePlayerRole
