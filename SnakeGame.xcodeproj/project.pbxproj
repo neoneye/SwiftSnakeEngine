@@ -180,8 +180,6 @@
 		42BAC9A3246CDCC7001723F8 /* LevelSelectorGridComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BAC9A2246CDCC7001723F8 /* LevelSelectorGridComputer.swift */; };
 		42BAC9A4246CDCC7001723F8 /* LevelSelectorGridComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BAC9A2246CDCC7001723F8 /* LevelSelectorGridComputer.swift */; };
 		42C1930924489A5C00697159 /* SettingPlayerMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1930824489A5C00697159 /* SettingPlayerMode.swift */; };
-		42C1930B244913A500697159 /* ViewHeightGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1930A244913A500697159 /* ViewHeightGetter.swift */; };
-		42C1930C244913A500697159 /* ViewHeightGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C1930A244913A500697159 /* ViewHeightGetter.swift */; };
 		42C236EB2332F4BB00241639 /* T2003_SnakeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C236EA2332F4BB00241639 /* T2003_SnakeBody.swift */; };
 		42C236ED2333033700241639 /* MeasureAreaSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C236EC2333033700241639 /* MeasureAreaSize.swift */; };
 		42C31822237F27AF00468D1F /* Array2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C31821237F27AF00468D1F /* Array2.swift */; };
@@ -414,7 +412,6 @@
 		42BAC99F246CD570001723F8 /* SnakeGameEnvironmentPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameEnvironmentPreview.swift; sourceTree = "<group>"; };
 		42BAC9A2246CDCC7001723F8 /* LevelSelectorGridComputer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectorGridComputer.swift; sourceTree = "<group>"; };
 		42C1930824489A5C00697159 /* SettingPlayerMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPlayerMode.swift; sourceTree = "<group>"; };
-		42C1930A244913A500697159 /* ViewHeightGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewHeightGetter.swift; sourceTree = "<group>"; };
 		42C236EA2332F4BB00241639 /* T2003_SnakeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2003_SnakeBody.swift; sourceTree = "<group>"; };
 		42C236EC2333033700241639 /* MeasureAreaSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureAreaSize.swift; sourceTree = "<group>"; };
 		42C3181F237D6E2700468D1F /* IntVec2+CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IntVec2+CGPoint.swift"; sourceTree = "<group>"; };
@@ -725,7 +722,6 @@
 				42E5B344246C4C0800580517 /* Settings */,
 				42510E5D2467686C00A2DACD /* SnakeBodyView.swift */,
 				42C3182B2386F17000468D1F /* Sounds */,
-				42C1930A244913A500697159 /* ViewHeightGetter.swift */,
 			);
 			path = AppShared;
 			sourceTree = "<group>";
@@ -1433,7 +1429,6 @@
 				42E425B22470CDE400F90073 /* RootView.swift in Sources */,
 				4220E566244B54B80088C3C1 /* AppColor.swift in Sources */,
 				42510E65246790F100A2DACD /* IngameView.swift in Sources */,
-				42C1930C244913A500697159 /* ViewHeightGetter.swift in Sources */,
 				42BAC9A4246CDCC7001723F8 /* LevelSelectorGridComputer.swift in Sources */,
 				42AFCF7F2472339B00F78952 /* SettingShowPlannedPath.swift in Sources */,
 				42E425AF2470AC5C00F90073 /* SettingSoundEffect.swift in Sources */,
@@ -1536,7 +1531,6 @@
 				42510E6B2468260E00A2DACD /* SnakeBodyView.swift in Sources */,
 				42ED2AD7246DB9E2005D812F /* PlannedPathView.swift in Sources */,
 				42E5B33F246B8A8000580517 /* SettingStore.swift in Sources */,
-				42C1930B244913A500697159 /* ViewHeightGetter.swift in Sources */,
 				4295B7B1247084D3005ACAD1 /* SoundManager.swift in Sources */,
 				42C32887246A2E3300F1EC6D /* FoodView.swift in Sources */,
 				42510E6A2468260A00A2DACD /* LevelView.swift in Sources */,

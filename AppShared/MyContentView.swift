@@ -195,11 +195,6 @@ struct MyContentView: View {
 
         }
         .frame(minWidth: 80, maxWidth: .infinity)
-        .modifier(ViewHeightGetter())
-        .onPreferenceChange(ViewHeightPreferenceKey.self) { [weak model] (viewHeight: CGFloat) in
-            log.debug("height of view: \(viewHeight)")
-            model?.levelSelector_insetTop = viewHeight
-        }
     }
 
     private var iOS_overlayWithHeader: some View {
