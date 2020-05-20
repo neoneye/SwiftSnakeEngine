@@ -17,7 +17,6 @@ enum AppColor: String {
     case theme1_wall
     case theme1_food
     case theme1_floor
-    case theme2_floor
 }
 
 extension AppColor {
