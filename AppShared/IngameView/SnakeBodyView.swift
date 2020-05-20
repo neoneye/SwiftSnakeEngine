@@ -25,7 +25,7 @@ struct SnakeBodyView: View {
         let headCornerRadius: CGFloat = 5
         let positions: [IntVec2] = snakeBody.positionArray()
         let gridComputer = IngameGridComputer(viewSize: geometry.size, gridSize: gridSize)
-        let lineWidth: CGFloat = max(gridComputer.tileMinSize - 4, 1)
+        let lineWidth: CGFloat = max(gridComputer.tileMinSize * 0.8, 1)
         let bodyView = Path { path in
             for (index, flippedPosition) in positions.enumerated() {
                 let position = IntVec2(x: flippedPosition.x, y: Int32(gridSize.y) - 1 - flippedPosition.y)
