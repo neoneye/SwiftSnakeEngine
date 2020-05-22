@@ -99,6 +99,9 @@ public struct SnakeBody: Hashable {
 		return Set<IntVec2>(positionArray())
 	}
 
+    /// Checks only if the head is overlapping with the rest of the body.
+    ///
+    /// This is not a full overlap test.
 	public var isEatingItself: Bool {
 		// IDEA: Caching. If it's already computed then no need to compute it again.
 		return bodyAndTailWithoutHead_positionSet().contains(head.position)
