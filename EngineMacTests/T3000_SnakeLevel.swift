@@ -4,7 +4,22 @@ import XCTest
 
 class T3000_SnakeLevel: XCTestCase {
 
-    func test0_adjacentClusterPairs() {
+    func test0_installWallsAroundTheLevel() {
+        do {
+            let b = SnakeLevelBuilder(id: UUID(), size: UIntVec2(x: 3, y: 3))
+            b.installWallsAroundTheLevel()
+            let level: SnakeLevel = b.level()
+            XCTAssertEqual(level.emptyPositionArray.count, 1)
+        }
+        do {
+            let b = SnakeLevelBuilder(id: UUID(), size: UIntVec2(x: 4, y: 4))
+            b.installWallsAroundTheLevel()
+            let level: SnakeLevel = b.level()
+            XCTAssertEqual(level.emptyPositionArray.count, 4)
+        }
+    }
+
+    func test1_adjacentClusterPairs() {
 		do {
             let b = SnakeLevelBuilder(id: UUID(), size: UIntVec2(x: 3, y: 1))
 			b.assignCluster(100, at: UIntVec2(x: 0, y: 0))
