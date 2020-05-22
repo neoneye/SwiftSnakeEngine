@@ -45,6 +45,25 @@ class T2004_SnakeBodyAdvancedCreate: XCTestCase {
         XCTAssertEqual(body.head.direction, SnakeHeadDirection.up)
         XCTAssertEqual(body.length, 6)
         XCTAssertEqual(body.positionArray(), positions)
+        XCTAssertEqual(body.positionSet().count, body.positionArray().count)
+    }
+
+    func test103_suppressErrorHandling_eatingItself() throws {
+        let positions: [IntVec2] = [
+            IntVec2(x:  9, y: 10),
+            IntVec2(x: 10, y: 10),
+            IntVec2(x: 11, y: 10),
+            IntVec2(x: 11, y: 11),
+            IntVec2(x: 10, y: 11),
+            IntVec2(x: 10, y: 10),
+            IntVec2(x: 10, y:  9),
+        ]
+        let body: SnakeBody = try SnakeBodyAdvancedCreate.create(positions: positions, checkEatingItself: false)
+        XCTAssertEqual(body.head.position, IntVec2(x: 10, y: 9))
+        XCTAssertEqual(body.head.direction, SnakeHeadDirection.down)
+        XCTAssertEqual(body.length, 7)
+        XCTAssertEqual(body.positionArray(), positions)
+        XCTAssertNotEqual(body.positionSet().count, body.positionArray().count)
     }
 
     // MARK: Error handling
@@ -102,16 +121,16 @@ class T2004_SnakeBodyAdvancedCreate: XCTestCase {
         }
     }
 
-    func test202_error_eatingItself() {
+    func test202_error_moveBackward() {
         do {
             let positions: [IntVec2] = [
                 IntVec2(x: 10, y: 10),
                 IntVec2(x: 11, y: 10),
                 IntVec2(x: 10, y: 10),
             ]
-            _ = try SnakeBodyAdvancedCreate.create(positions: positions)
+            _ = try SnakeBodyAdvancedCreate.create(positions: positions, checkEatingItself: false)
             XCTFail()
-        } catch SnakeBodyAdvancedCreate.CreateError.eatingItself {
+        } catch SnakeBodyAdvancedCreate.CreateError.moveBackward {
             // success
         } catch {
             XCTFail()

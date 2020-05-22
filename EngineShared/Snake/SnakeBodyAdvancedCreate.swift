@@ -7,6 +7,7 @@ public struct SnakeBodyAdvancedCreate {
         case tooFewPositions
         case distanceOfOne
         case eatingItself
+        case moveBackward
     }
 
     /// Advanced creation of a `SnakeBody`.
@@ -18,7 +19,7 @@ public struct SnakeBodyAdvancedCreate {
     /// - parameter positions: At least 2 positions must be provided. All positions must be neighbours. The positions must not overlap.
     /// - returns: `SnakeBody` instance.
     /// - throws: `CreateError` when parsing `positions` fails.
-    public static func create(positions: [IntVec2]) throws -> SnakeBody {
+    public static func create(positions: [IntVec2], checkEatingItself: Bool = true) throws -> SnakeBody {
         guard positions.count >= 2 else {
             // Expected the snake to be 2 units or longer, but it's shorter.
             throw CreateError.tooFewPositions
@@ -30,7 +31,8 @@ public struct SnakeBodyAdvancedCreate {
         }
 
         let positionSet = Set<IntVec2>(positions)
-        guard positionSet.count == positions.count else {
+        let hasDuplicates: Bool = (positionSet.count != positions.count)
+        if checkEatingItself && hasDuplicates {
             // If there are overlapping positions, then the Set will have fewer entries than the array.
             // This means that the snake is eating itself.
             throw CreateError.eatingItself
@@ -56,7 +58,7 @@ public struct SnakeBodyAdvancedCreate {
             }
             guard let movement: SnakeBodyMovement = state.head.moveToward(position) else {
                 // The snake is moving backwards, and eating itself.
-                throw CreateError.eatingItself
+                throw CreateError.moveBackward
             }
             guard movement != .dontMove else {
                 // The snake is not moving. Violates that all the positions are supposed to be adjacent each other.
@@ -80,6 +82,8 @@ extension SnakeBodyAdvancedCreate.CreateError: LocalizedError {
             return "Expecting all positions to have a distance of 1 unit, but one or more positions doesn't satisfy this."
         case .eatingItself:
             return "Expecting the snake not to be eating itself."
+        case .moveBackward:
+            return "Expecting the snake to always be moving forwards, but it's moving backwards."
         }
     }
 }
