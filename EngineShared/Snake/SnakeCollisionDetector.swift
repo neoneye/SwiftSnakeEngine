@@ -68,8 +68,17 @@ public class SnakeCollisionDetector {
 		self.collisionType2 = .noCollision
 	}
 
-	/// Deal with collision when both the player1 and the player2 is installed
-	/// Deal with collision only if either the player1 or player2 is installed
+    /// This function is fragile. If provided with garbage input, then it wont be
+    /// able to detect collisions.
+    ///
+	/// Deal with collision when both the player1 and the player2 is installed.
+	/// Deal with collision only if either the player1 or player2 is installed.
+    ///
+    /// This function only considers the head of the snake.
+    /// The remaining snake body parts are not being checked for collision.
+    /// It's time consuming to do a full collision detection, and hard to tell what went wrong.
+    /// It's much faster only to consider the snake head and easier to tell what kind of collision happened.
+    /// However this also makes it fragile to garbage input data.
 	public func process() {
         guard player1Installed || player2Installed else {
             log.debug("None of the players are installed. No need for checking for collisons.")
