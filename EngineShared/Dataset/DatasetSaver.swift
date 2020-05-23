@@ -94,7 +94,7 @@ extension SnakeLevel {
 }
 
 extension SnakeGameState {
-	private func toSnakeDatasetStep() -> SnakeDatasetStep {
+	internal func toSnakeDatasetStep() -> SnakeDatasetStep {
 		// Food
 		var optionalFoodPosition: SnakeDatasetStep.OneOf_OptionalFoodPosition? = nil
 		if let position: UIntVec2 = self.foodPosition?.uintVec2() {
@@ -174,35 +174,12 @@ extension SnakeGameState {
 public class PostProcessTrainingData {
 	private let trainingSessionUUID: UUID
 	private let sharedLevel: SnakeDatasetLevel
-    private var stepArray: [SnakeDatasetStep] = []
+    private let stepArray: [SnakeDatasetStep]
 
-	private init(trainingSessionUUID: UUID, sharedLevel: SnakeDatasetLevel) {
+	private init(trainingSessionUUID: UUID, sharedLevel: SnakeDatasetLevel, stepArray: [SnakeDatasetStep]) {
 		self.trainingSessionUUID = trainingSessionUUID
 		self.sharedLevel = sharedLevel
-	}
-
-	private func processFile(at url: URL) {
-		let model: SnakeDatasetIngame
-		do {
-			let data: Data = try Data(contentsOf: url)
-			model = try SnakeDatasetIngame(serializedData: data)
-		} catch {
-			log.error("Unable to load file at url: '\(url)'. \(error)")
-			return
-		}
-        guard model.hasLevel else {
-            log.error("Expected the file to have a reference to level, but got none. '\(url)'")
-            return
-        }
-        guard model.hasStep else {
-            log.error("Expected the file to 'step' instance, but got nil. url: '\(url)'")
-            return
-        }
-        guard model.level.isEqualTo(message: self.sharedLevel) else {
-            log.error("Inconsistent level info. Expected all the files in a session to refer to the same level. '\(url)'")
-            return
-        }
-        stepArray.append(model.step)
+        self.stepArray = stepArray
 	}
 
 	private func saveResult() {
@@ -321,23 +298,50 @@ public class PostProcessTrainingData {
 			log.error("Expected 1 or more urls for post processing. There is nothing to process!")
 			return
 		}
-		let sharedLevel: SnakeDatasetLevel
-		let url0: URL = urls.first!
-		do {
-			let data: Data = try Data(contentsOf: url0)
-			let model: SnakeDatasetIngame = try SnakeDatasetIngame(serializedData: data)
-			sharedLevel = model.level
-		} catch {
-			log.error("Unable to load file at url: '\(url0)'. \(error)")
-			return
-		}
-		let processor = PostProcessTrainingData(trainingSessionUUID: trainingSessionUUID, sharedLevel: sharedLevel)
-		for url in urls {
-			processor.processFile(at: url)
-		}
-
+        log.info("will process \(urls.count) files")
+        let snakeDatasetIngameArray: [SnakeDatasetIngame] = urls.compactMap {
+            loadSnakeDatasetIngame(contentsOf: $0)
+        }
+        guard snakeDatasetIngameArray.count == urls.count else {
+            log.error("There was a problem processing one or more files.")
+            return
+        }
         log.info("did process \(urls.count) files")
 
+        let sharedLevel: SnakeDatasetLevel = snakeDatasetIngameArray.first!.level
+        for snakeDatasetIngame: SnakeDatasetIngame in snakeDatasetIngameArray {
+            guard snakeDatasetIngame.level.isEqualTo(message: sharedLevel) else {
+                log.error("Inconsistent level info. Expected all the files in a session to refer to the same level.")
+                return
+            }
+        }
+        let stepArray: [SnakeDatasetStep] = snakeDatasetIngameArray.map { $0.step }
+
+        log.info("will postprocess")
+		let processor = PostProcessTrainingData(trainingSessionUUID: trainingSessionUUID, sharedLevel: sharedLevel, stepArray: stepArray)
+
 		processor.saveResult()
+        log.info("did postprocess")
 	}
+
+    private class func loadSnakeDatasetIngame(contentsOf url: URL) -> SnakeDatasetIngame? {
+        let model: SnakeDatasetIngame
+        do {
+            let data: Data = try Data(contentsOf: url)
+            model = try SnakeDatasetIngame(serializedData: data)
+        } catch {
+            log.error("Unable to load file at url: '\(url)'. \(error)")
+            return nil
+        }
+        guard model.hasLevel else {
+            log.error("Expected the file to have a reference to level, but got none. '\(url)'")
+            return nil
+        }
+        guard model.hasStep else {
+            log.error("Expected the file to 'step' instance, but got nil. url: '\(url)'")
+            return nil
+        }
+        return model
+    }
+
 }
