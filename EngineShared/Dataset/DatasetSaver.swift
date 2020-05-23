@@ -172,17 +172,16 @@ extension SnakeGameState {
 }
 
 public class PostProcessTrainingData {
-	private let trainingSessionUUID: UUID
-	private let sharedLevel: SnakeDatasetLevel
+	private let level: SnakeDatasetLevel
     private let stepArray: [SnakeDatasetStep]
 
-	private init(trainingSessionUUID: UUID, sharedLevel: SnakeDatasetLevel, stepArray: [SnakeDatasetStep]) {
-		self.trainingSessionUUID = trainingSessionUUID
-		self.sharedLevel = sharedLevel
+	internal init(level: SnakeDatasetLevel, stepArray: [SnakeDatasetStep]) {
+		self.level = level
         self.stepArray = stepArray
 	}
 
-	private func saveResult() {
+    /// SnakeDatasetResult serialized to Data
+	private func toData() -> Data {
         guard let firstStep: SnakeDatasetStep = self.stepArray.first,
             let lastStep: SnakeDatasetStep = self.stepArray.last else {
             fatalError("Expected the stepArray to be non-empty, but it's empty. Cannot create result file.")
@@ -255,14 +254,14 @@ public class PostProcessTrainingData {
 
         let date = Date()
 
-        log.debug("level.uuid: '\(self.sharedLevel.uuid)'")
+        log.debug("level.uuid: '\(self.level.uuid)'")
         log.debug("foodPositions.count: \(foodPositions.count)")
         log.debug("playerAPositions.count: \(playerAPositions.count)")
         log.debug("playerBPositions.count: \(playerBPositions.count)")
         log.debug("timestamp: \(date)")
 
 		let model = SnakeDatasetResult.with {
-			$0.level = self.sharedLevel
+			$0.level = self.level
             $0.firstStep = firstStep
             $0.lastStep = lastStep
             $0.foodPositions = foodPositions
@@ -275,9 +274,14 @@ public class PostProcessTrainingData {
 		guard let binaryData: Data = try? model.serializedData() else {
 			fatalError("Unable to serialize to a result file.")
 		}
+        return binaryData
+    }
+
+    func saveToTempoaryFile(trainingSessionUUID: UUID) {
+        let binaryData: Data = self.toData()
 		let temporaryFileUrl: URL = URL.temporaryFile(
 			prefixes: ["snakegame", "trainingdata"],
-			uuid: self.trainingSessionUUID,
+			uuid: trainingSessionUUID,
 			suffixes: ["result"]
 		)
 		do {
@@ -318,9 +322,9 @@ public class PostProcessTrainingData {
         let stepArray: [SnakeDatasetStep] = snakeDatasetIngameArray.map { $0.step }
 
         log.info("will postprocess")
-		let processor = PostProcessTrainingData(trainingSessionUUID: trainingSessionUUID, sharedLevel: sharedLevel, stepArray: stepArray)
+		let processor = PostProcessTrainingData(level: sharedLevel, stepArray: stepArray)
 
-		processor.saveResult()
+		processor.saveToTempoaryFile(trainingSessionUUID: trainingSessionUUID)
         log.info("did postprocess")
 	}
 
