@@ -25,7 +25,7 @@ class T3300_SnakeCollisionDetector: XCTestCase {
         // Create player 2
         let body2: SnakeBody = try SnakeBodyAdvancedCreate.create(positions: player2Positions, checkEatingItself: false)
         var player2: SnakePlayer = SnakePlayer.create(id: .player2, role: .human)
-        player2 = player1.playerWithNewSnakeBody(body2)
+        player2 = player2.playerWithNewSnakeBody(body2)
         guard player2.isInstalledAndAlive else {
             throw CreateError.message(message: "Inconsistency. At this point player2 should be installed and alive.")
         }
