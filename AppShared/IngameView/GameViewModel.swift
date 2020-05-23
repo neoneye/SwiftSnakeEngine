@@ -15,7 +15,7 @@ import EngineMac
 public class GameViewModel: ObservableObject {
     public let jumpToLevelSelector = PassthroughSubject<Void, Never>()
     @Published var level: SnakeLevel = SnakeLevel.empty()
-    @Published var foodPosition: IntVec2 = IntVec2.zero
+    @Published var foodPosition: IntVec2? = nil
     @Published var player1Summary = "Player 1 (green)\nAlive\nLength 29"
     @Published var player2Summary = "Player 2 (blue)\nDead by collision with wall\nLength 14"
     @Published var showPauseButton: Bool = true
@@ -74,7 +74,7 @@ public class GameViewModel: ObservableObject {
         let player2: SnakePlayer = gameState.player2
 
         self.level = gameState.level
-        self.foodPosition = gameState.foodPosition ?? IntVec2.zero
+        self.foodPosition = gameState.foodPosition
         self.player1SnakeBody = player1.snakeBody
         self.player2SnakeBody = player2.snakeBody
         self.player1IsInstalled = player1.isInstalled

@@ -14,7 +14,7 @@ struct PlannedPathView: View {
     let colorLowConfidence: Color
     @Binding var gridSize: UIntVec2
     @Binding var positionArray: [IntVec2]
-    @Binding var foodPosition: IntVec2
+    @Binding var foodPosition: IntVec2?
 
     var body: some View {
         GeometryReader { geometry in
@@ -130,7 +130,7 @@ struct PlannedPathView_Previews: PreviewProvider {
         let colorHighConfidence: Color = Color.green
         let colorLowConfidence: Color = Color.green.opacity(0.3)
 
-        let foodPosition0: IntVec2 = IntVec2.zero
+        let foodPosition0: IntVec2? = nil
         let foodPosition1: IntVec2 = f(13, 8)
         let foodPosition2: IntVec2 = f(12, 12)
 
