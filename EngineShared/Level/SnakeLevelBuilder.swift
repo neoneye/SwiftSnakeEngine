@@ -64,6 +64,21 @@ public class SnakeLevelBuilder {
 		cells.setValue(.wall, at: position)
 	}
 
+    /// Draw an outer wall around the level.
+    public func installWallsAroundTheLevel() {
+        guard cells.size.x >= 1 && cells.size.y >= 1 else {
+            return
+        }
+        for x in 0..<cells.size.x {
+            cells.setValue(.wall, at: UIntVec2(x: x, y: 0))
+            cells.setValue(.wall, at: UIntVec2(x: x, y: cells.size.y - 1))
+        }
+        for y in 0..<cells.size.y {
+            cells.setValue(.wall, at: UIntVec2(x: 0, y: y))
+            cells.setValue(.wall, at: UIntVec2(x: cells.size.x - 1, y: y))
+        }
+    }
+
 	public func assignCluster(_ clusterId: SnakeLevel_ClusterId, at position: UIntVec2) {
 		clusters.setValue(clusterId, at: position)
 	}
