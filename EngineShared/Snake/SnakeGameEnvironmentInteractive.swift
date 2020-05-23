@@ -115,6 +115,8 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
             newGameState = newGameState.stateWithNewPlayer2(player)
         }
 
+        // In a two-player game, when one player eats and becomes 1 unit longer,
+        // then the other player can collide with the tail.
         if collisionCheckAfterEating && newGameState.player1.isInstalledAndAlive && newGameState.player2.isInstalledAndAlive {
             let player1: SnakePlayer = newGameState.player1
             let player2: SnakePlayer = newGameState.player2
@@ -122,13 +124,13 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
             let positions2: Set<IntVec2> = player2.snakeBody.positionSet()
             if !positions1.isDisjoint(with: positions2) {
                 if positions2.contains(player1.snakeBody.head.position) {
-//                    log.debug("player1 is colliding into the tail of player2")
-                    let player = player1.kill(.collisionWithOpponent)
+                    //log.debug("player1 is colliding into the tail of player2")
+                    let player: SnakePlayer = oldGameState.player1.kill(.collisionWithOpponent)
                     newGameState = newGameState.stateWithNewPlayer1(player)
                 }
                 if positions1.contains(player2.snakeBody.head.position) {
-//                    log.debug("player2 is colliding into the tail of player1")
-                    let player = player2.kill(.collisionWithOpponent)
+                    //log.debug("player2 is colliding into the tail of player1")
+                    let player: SnakePlayer = oldGameState.player2.kill(.collisionWithOpponent)
                     newGameState = newGameState.stateWithNewPlayer2(player)
                 }
             }

@@ -68,7 +68,7 @@ class T3400_SnakeGameEnvironmentInteractive: XCTestCase {
         let state1: SnakeGameState = environment.step(action: SnakeGameAction(player1: .moveForward, player2: .moveForward))
         XCTAssertTrue(state1.player1.isInstalledAndDead)
         XCTAssertTrue(state1.player2.isInstalledAndAlive)
-        XCTAssertEqual(state1.player1.snakeBody.head.position, IntVec2(x: 8, y: 2))
+        XCTAssertEqual(state1.player1.snakeBody.head.position, IntVec2(x: 7, y: 2))
         XCTAssertEqual(state1.player2.snakeBody.head.position, IntVec2(x: 8, y: 5))
         XCTAssertEqual(state1.player1.lengthOfInstalledSnake(), 3)
         XCTAssertEqual(state1.player2.lengthOfInstalledSnake(), 4)
@@ -101,7 +101,7 @@ class T3400_SnakeGameEnvironmentInteractive: XCTestCase {
         XCTAssertTrue(state1.player1.isInstalledAndAlive)
         XCTAssertTrue(state1.player2.isInstalledAndDead)
         XCTAssertEqual(state1.player1.snakeBody.head.position, IntVec2(x: 8, y: 5))
-        XCTAssertEqual(state1.player2.snakeBody.head.position, IntVec2(x: 8, y: 2))
+        XCTAssertEqual(state1.player2.snakeBody.head.position, IntVec2(x: 7, y: 2))
         XCTAssertEqual(state1.player1.lengthOfInstalledSnake(), 4)
         XCTAssertEqual(state1.player2.lengthOfInstalledSnake(), 3)
     }
