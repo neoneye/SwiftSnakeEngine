@@ -64,7 +64,7 @@ struct IngameGridComputer {
             translate.y += halfHeight
         }
         do {
-            //
+            // Small amount of padding around the view.
             translate.x += viewTrim
             translate.y += viewTrim
         }
