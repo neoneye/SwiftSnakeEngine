@@ -82,8 +82,12 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
 
         newGameState = newGameState.detectCollision()
 
+        var collisionCheckAfterEating: Bool = false
         if newGameState.player1.isInstalledAndAlive {
             var player: SnakePlayer = newGameState.player1
+            if player.pendingAct == .eat {
+                collisionCheckAfterEating = true
+            }
             let snakeBody: SnakeBody = player.snakeBody.stateForTick(
                 movement: player.pendingMovement,
                 act: player.pendingAct
@@ -97,6 +101,9 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
 
         if newGameState.player2.isInstalledAndAlive {
             var player: SnakePlayer = newGameState.player2
+            if player.pendingAct == .eat {
+                collisionCheckAfterEating = true
+            }
             let snakeBody: SnakeBody = player.snakeBody.stateForTick(
                 movement: player.pendingMovement,
                 act: player.pendingAct
@@ -106,6 +113,25 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
             player = player.updatePendingAct(.doNothing)
             player = stuckSnakeDetector2.killBotIfStuckInLoop(player)
             newGameState = newGameState.stateWithNewPlayer2(player)
+        }
+
+        if collisionCheckAfterEating && newGameState.player1.isInstalledAndAlive && newGameState.player2.isInstalledAndAlive {
+            let player1: SnakePlayer = newGameState.player1
+            let player2: SnakePlayer = newGameState.player2
+            let positions1: Set<IntVec2> = player1.snakeBody.positionSet()
+            let positions2: Set<IntVec2> = player2.snakeBody.positionSet()
+            if !positions1.isDisjoint(with: positions2) {
+                if positions2.contains(player1.snakeBody.head.position) {
+//                    log.debug("player1 is colliding into the tail of player2")
+                    let player = player1.kill(.collisionWithOpponent)
+                    newGameState = newGameState.stateWithNewPlayer1(player)
+                }
+                if positions1.contains(player2.snakeBody.head.position) {
+//                    log.debug("player2 is colliding into the tail of player1")
+                    let player = player2.kill(.collisionWithOpponent)
+                    newGameState = newGameState.stateWithNewPlayer2(player)
+                }
+            }
         }
 
         newGameState = self.placeNewFood(newGameState)
