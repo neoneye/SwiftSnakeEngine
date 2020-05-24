@@ -20,6 +20,9 @@ struct IngameView: View {
 
         /// Non-interactive thumbnail of the level.
         case levelSelectorPreview
+
+        /// Non-interactive replay of the game.
+        case replayOnPauseSheet
     }
     let mode: Mode
 
@@ -179,6 +182,8 @@ struct IngameView: View {
             return AnyView(playableMode_body)
         case .levelSelectorPreview:
             return AnyView(innerBodyWithAspectRatio)
+        case .replayOnPauseSheet:
+            return AnyView(replayView)
         }
     }
 
@@ -204,6 +209,16 @@ struct IngameView: View {
     private var playableMode_body: some View {
         GeometryReader { geometry in
             self.playableMode_body_inner(geometry)
+        }
+    }
+
+    private var replayView: some View {
+        innerBodyWithAspectRatio
+        .onAppear {
+            self.model.ingameView_replayMode_onAppear()
+        }
+        .onDisappear {
+            self.model.ingameView_replayMode_onDisappear()
         }
     }
 

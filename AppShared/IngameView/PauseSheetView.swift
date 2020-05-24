@@ -54,9 +54,10 @@ struct PauseSheetView: View {
     }
 
     private var ingameView: some View {
-        IngameView(
+        let model = GameViewModel.createReplay()
+        return IngameView(
             model: model,
-            mode: .levelSelectorPreview
+            mode: .replayOnPauseSheet
         )
     }
 

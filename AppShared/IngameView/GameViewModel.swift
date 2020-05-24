@@ -348,7 +348,17 @@ public class GameViewModel: ObservableObject {
 
     func ingameView_playableMode_onDisappear() {
         log.debug("onDisappear")
-        isStepRepeatingForever = false
+        stopStepping()
+    }
+
+    func ingameView_replayMode_onAppear() {
+        log.debug("onAppear")
+        startStepping()
+    }
+
+    func ingameView_replayMode_onDisappear() {
+        log.debug("onDisappear")
+        stopStepping()
     }
 
     func pauseSheet_willPresentSheet() {
