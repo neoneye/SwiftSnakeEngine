@@ -59,6 +59,7 @@ struct PauseSheetView: View {
             model: model,
             mode: .replayOnPauseSheet
         )
+        .frame(width: 200, height: 200)
     }
 
     var bodyWithoutNavigationBar: some View {
@@ -86,10 +87,11 @@ struct PauseSheetView: View {
 
             Spacer()
 
-            // IDEA: show replay of the game
-//            ingameView
-//
-//            Spacer()
+            if AppConstant.develop_showReplayOnPauseSheet {
+                // Show replay of the game
+                ingameView
+                Spacer()
+            }
 
             soundEffectsButton
 
