@@ -361,7 +361,7 @@ public class GameViewModel: ObservableObject {
         stopStepping()
     }
 
-    func pauseSheet_willPresentSheet() {
+    func ingameView_willPresentPauseSheet() {
         log.debug("don't do any stepping while the pause sheet is shown")
         stopStepping()
     }

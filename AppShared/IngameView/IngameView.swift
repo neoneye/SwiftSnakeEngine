@@ -338,7 +338,7 @@ struct IngameView: View {
 
     private var pauseButton: some View {
         Button(action: {
-            self.model.pauseSheet_willPresentSheet()
+            self.model.ingameView_willPresentPauseSheet()
             self.presentingModal = true
         }) {
             Image("ingame_pauseButton_image")
