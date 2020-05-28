@@ -171,6 +171,8 @@ extension SnakeGameState {
 	}
 }
 
+// IDEA: Determine the winner: the longest snake, or the longest lived snake, or a combo?
+// IDEA: pass on which player won/loose.
 public class PostProcessTrainingData {
 	private let level: SnakeDatasetLevel
     private let stepArray: [SnakeDatasetStep]

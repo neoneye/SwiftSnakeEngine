@@ -60,8 +60,5 @@ public class SnakeGameEnvironmentSaveDataset: SnakeGameEnvironment {
         let levelDataset: SnakeDatasetLevel = level.toSnakeDatasetLevel()
         let processor = PostProcessTrainingData(level: levelDataset, stepArray: stepArray)
         processor.saveToTempoaryFile(trainingSessionUUID: trainingSessionUUID)
-
-        // IDEA: Determine the winner: the longest snake, or the longest lived snake, or a combo?
-        // IDEA: pass on which player won/loose.
     }
 }
