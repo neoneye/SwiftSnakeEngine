@@ -34,6 +34,15 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
         }
     }
 
+    public static func create(data: Data) -> SnakeGameEnvironmentReplay {
+        do {
+            return try DatasetLoader.snakeGameEnvironmentReplay(data: data, verbose: true)
+        } catch {
+            log.error("Unable to parse data: \(error)")
+            fatalError()
+        }
+    }
+
     public func reset() -> SnakeGameState {
         previousGameStates = []
 

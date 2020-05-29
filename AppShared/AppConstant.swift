@@ -21,7 +21,7 @@ struct AppConstant {
 
 	static let ignoreRepeatingKeyDownEvents = true
 
-	static let saveTrainingData = false
+	static let saveTrainingData = true
 
     static let develop_showReplayOnPauseSheet = true
 

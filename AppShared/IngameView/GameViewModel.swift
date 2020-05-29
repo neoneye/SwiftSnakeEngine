@@ -209,6 +209,18 @@ public class GameViewModel: ObservableObject {
         return GameViewModel(snakeGameEnvironment: environment)
     }
 
+    func createReplay() -> GameViewModel? {
+        guard let data: Data = self.exportToData() else {
+            log.error("Unable to serialize the current model")
+            return nil
+        }
+        log.debug("successfully obtained a serialized version of the current model.")
+        let environment: SnakeGameEnvironmentReplay = SnakeGameEnvironmentReplay.create(data: data)
+        let newModel = GameViewModel(snakeGameEnvironment: environment)
+        log.debug("created gameviewmodel with the replay data")
+        return newModel
+    }
+
     func toInteractiveModel() -> GameViewModel {
         let sge0 = SnakeGameEnvironmentInteractive(initialGameState: self.gameState)
 
@@ -219,6 +231,22 @@ public class GameViewModel: ObservableObject {
             sge1 = sge0
         }
         return GameViewModel(snakeGameEnvironment: sge1)
+    }
+
+    func exportToData() -> Data? {
+        guard let saveDataset = self.snakeGameEnvironment as? SnakeGameEnvironmentSaveDataset else {
+            log.error("Unable to typecast snakeGameEnvironment to SnakeGameEnvironmentSaveDataset. \(type(of: self.snakeGameEnvironment))")
+            return nil
+        }
+        do {
+            log.debug("will export")
+            let data: Data = try saveDataset.exportResultToData()
+            log.debug("did export. bytes: \(data.count)")
+            return data
+        } catch {
+            log.error("Unable to export the result to a Data instance. \(error)")
+            return nil
+        }
     }
 
     func restartGame() {
