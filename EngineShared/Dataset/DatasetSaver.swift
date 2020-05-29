@@ -183,7 +183,7 @@ public class PostProcessTrainingData {
 	}
 
     /// SnakeDatasetResult serialized to Data
-	private func toData() -> Data {
+	internal func toData() -> Data {
         guard let firstStep: SnakeDatasetStep = self.stepArray.first,
             let lastStep: SnakeDatasetStep = self.stepArray.last else {
             fatalError("Expected the stepArray to be non-empty, but it's empty. Cannot create result file.")

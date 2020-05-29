@@ -3,19 +3,16 @@ import Foundation
 
 public class SnakeGameEnvironmentSaveDataset: SnakeGameEnvironment {
     private let wrapped: SnakeGameEnvironment
-    private var trainingSessionUUID: UUID
     private var stepArray: [SnakeDatasetStep]
     private var level: SnakeLevel?
 
     public init(wrapped: SnakeGameEnvironment) {
         self.wrapped = wrapped
-        self.trainingSessionUUID = UUID()
         self.stepArray = []
         self.level = nil
     }
 
     public func reset() -> SnakeGameState {
-        trainingSessionUUID = UUID()
         stepArray = []
         let gameState: SnakeGameState = wrapped.reset()
         stepArray.append(gameState.toSnakeDatasetStep())
@@ -52,13 +49,33 @@ public class SnakeGameEnvironmentSaveDataset: SnakeGameEnvironment {
         return gameState
     }
 
+    public enum SaveDatasetError: Error {
+        case runtimeError(message: String)
+    }
+
     public func postProcess() {
-        guard let level: SnakeLevel = self.level else {
-            log.error("Expected level to be non-nil, but got nil. Maybe reset() was never invoked. Cannot generate a dataset file.")
+        let processor: PostProcessTrainingData
+        do {
+            processor = try createPostProcessor()
+        } catch {
+            log.error("Unable to create postprocessor. \(error)")
             return
+        }
+        let trainingSessionUUID = UUID()
+        processor.saveToTempoaryFile(trainingSessionUUID: trainingSessionUUID)
+    }
+
+    public func exportResultToData() throws -> Data {
+        let processor: PostProcessTrainingData = try createPostProcessor()
+        return processor.toData()
+    }
+
+    private func createPostProcessor() throws -> PostProcessTrainingData {
+        guard let level: SnakeLevel = self.level else {
+            throw SaveDatasetError.runtimeError(message: "Expected level to be non-nil, but got nil. Maybe reset() was never invoked. Cannot generate a dataset file.")
         }
         let levelDataset: SnakeDatasetLevel = level.toSnakeDatasetLevel()
         let processor = PostProcessTrainingData(level: levelDataset, stepArray: stepArray)
-        processor.saveToTempoaryFile(trainingSessionUUID: trainingSessionUUID)
+        return processor
     }
 }
