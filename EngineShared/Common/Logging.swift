@@ -54,6 +54,7 @@ public class LogHelper {
 
 	private static func addConsoleDestination(_ minLevel: SwiftyBeaver.Level) {
 		let destination = ConsoleDestination()
+        destination.format = "$DHH:mm:ss.SSS$d $C$L$c $N.$F:$l $T- $M"
 		destination.levelColor.applyDefaultStyle()
 		destination.minLevel = minLevel
 		destination.asynchronously = false
