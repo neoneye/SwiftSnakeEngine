@@ -20,7 +20,7 @@ struct MyContentView: View {
 
     @State var model: GameViewModel
     @ObservedObject var levelSelectorViewModel: LevelSelectorViewModel
-    @State var visibleContent = MyContentView_VisibleContent.levelSelector
+    @State var visibleContent: MyContentView_VisibleContent
 
     #if os(macOS)
     @Environment(\.keyPublisher) var keyPublisher
@@ -94,6 +94,17 @@ struct MyContentView: View {
         if AppConstant.ignoreRepeatingKeyDownEvents && event.isARepeat {
             //log.debug("keyDown: ignoring repeating event.")
             return
+        }
+
+        switch event.keyCodeEnum {
+        case .escape:
+            if AppConstant.escapeKeyToTerminateApp {
+                log.debug("ESCape key to terminate app")
+                NSApp.terminate(self)
+                return
+            }
+        default:
+            ()
         }
 
         switch visibleContent {
@@ -256,7 +267,7 @@ struct ContentView_Previews : PreviewProvider {
 //            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, isPreview: true)
 //                .previewLayout(.fixed(width: 130, height: 200))
 
-            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, isPreview: true)
+            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, visibleContent: .levelSelector, isPreview: true)
                 .previewLayout(.fixed(width: 500, height: 500))
 
 //            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, isPreview: true)

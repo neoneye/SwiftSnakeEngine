@@ -7,7 +7,7 @@ struct RootView: View {
     @ObservedObject var settingStore: SettingStore
 
     var body: some View {
-        MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel)
+        MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, visibleContent: .levelSelector)
         .environmentObject(settingStore)
     }
 }

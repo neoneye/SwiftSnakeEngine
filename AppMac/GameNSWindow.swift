@@ -22,10 +22,20 @@ class GameNSWindow: NSWindow {
         levelSelectorViewModel.loadModelsFromUserDefaults()
         levelSelectorViewModel.selectedIndex = settingStore.selectedLevel
 
-        let model = GameViewModel.create()
-//        let model = GameViewModel.createBotVsNone()
+//        let model = GameViewModel.create()
+        let model = GameViewModel.createBotVsNone()
 //        let model = GameViewModel.createBotVsBot()
 //        let model = GameViewModel.createHumanVsBot()
+
+        let visibleContent: MyContentView_VisibleContent
+        switch AppConstant.mode {
+        case .production:
+            visibleContent = .levelSelector
+        case .develop_ingame:
+            visibleContent = .ingame
+        }
+
+
         let window = GameNSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 600, height: 500),
             styleMask: [.titled, .closable, .miniaturizable, .resizable],
@@ -34,7 +44,7 @@ class GameNSWindow: NSWindow {
         )
         window.center()
         window.setFrameAutosaveName("Main Window")
-        let view = MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel)
+        let view = MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, visibleContent: visibleContent)
             .environment(\.keyPublisher, window.keyEventPublisher)
             .environmentObject(settingStore)
         window.contentView = GameNSView(rootView: view)
