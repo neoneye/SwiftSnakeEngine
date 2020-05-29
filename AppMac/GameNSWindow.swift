@@ -23,7 +23,7 @@ class GameNSWindow: NSWindow {
         levelSelectorViewModel.selectedIndex = settingStore.selectedLevel
 
 //        let model = GameViewModel.create()
-        let model = GameViewModel.createBotVsNone()
+        let model = GameViewModel.createBotVsNone().toInteractiveModel()
 //        let model = GameViewModel.createBotVsBot()
 //        let model = GameViewModel.createHumanVsBot()
 
