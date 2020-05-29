@@ -103,6 +103,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
         newGameState = self.prepareNextMovements(newGameState)
 
         self.gameState = newGameState
+        log.debug("step \(oldGameState.numberOfSteps) -> \(newGameState.numberOfSteps)")
         return newGameState
     }
 
