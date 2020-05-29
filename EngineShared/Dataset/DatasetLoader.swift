@@ -73,6 +73,10 @@ public class DatasetLoader {
 
     internal static func snakeGameEnvironmentReplay(resourceName: String, verbose: Bool) throws -> SnakeGameEnvironmentReplay {
         let data: Data = try SnakeDatasetBundle.load(resourceName)
+        return try DatasetLoader.snakeGameEnvironmentReplay(data: data, verbose: verbose)
+    }
+
+    internal static func snakeGameEnvironmentReplay(data: Data, verbose: Bool) throws -> SnakeGameEnvironmentReplay {
         let model: SnakeDatasetResult = try SnakeDatasetResult(serializedData: data)
         return try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: verbose)
     }
