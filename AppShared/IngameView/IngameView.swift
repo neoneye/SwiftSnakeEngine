@@ -11,7 +11,7 @@ import EngineMac
 
 struct IngameView: View {
     @EnvironmentObject var settingStore: SettingStore
-    @ObservedObject var model: GameViewModel
+    @ObservedObject var model: IngameViewModel
     @State var presentingModal = false
 
     enum Mode {
@@ -367,7 +367,7 @@ struct IngameView: View {
 struct IngameView_Previews: PreviewProvider {
     static var previews: some View {
         let settingStore = SettingStore()
-        let model = GameViewModel.createHumanVsHuman()
+        let model = IngameViewModel.createHumanVsHuman()
         return Group {
             IngameView(model: model, mode: .playable)
                 .previewLayout(.fixed(width: 130, height: 200))

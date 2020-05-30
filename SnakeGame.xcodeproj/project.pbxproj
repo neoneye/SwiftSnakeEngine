@@ -193,8 +193,8 @@
 		42C354D22478995D0000DBF2 /* T3400_SnakeGameEnvironmentInteractive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C354D12478995D0000DBF2 /* T3400_SnakeGameEnvironmentInteractive.swift */; };
 		42C5566823ABE7E70001DBD8 /* NSEvent+KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C5566723ABE7E70001DBD8 /* NSEvent+KeyCode.swift */; };
 		42C6512F23F5A2FD00B2669E /* T1007_SnakeFifo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C6512E23F5A2FD00B2669E /* T1007_SnakeFifo.swift */; };
-		42CBF1CC2443B31F001A5D04 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CBF1CB2443B31F001A5D04 /* GameViewModel.swift */; };
-		42CBF1CD2443B31F001A5D04 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CBF1CB2443B31F001A5D04 /* GameViewModel.swift */; };
+		42CBF1CC2443B31F001A5D04 /* IngameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CBF1CB2443B31F001A5D04 /* IngameViewModel.swift */; };
+		42CBF1CD2443B31F001A5D04 /* IngameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CBF1CB2443B31F001A5D04 /* IngameViewModel.swift */; };
 		42CC22CB23397D1300CF3D96 /* SnakePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22CA23397D1300CF3D96 /* SnakePlayer.swift */; };
 		42CC22CD23397D9700CF3D96 /* SnakeBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CC22CC23397D9700CF3D96 /* SnakeBot.swift */; };
 		42CCD60923BD54F70021CBE7 /* T3001_SnakeLevel_Cluster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCD60823BD54F70021CBE7 /* T3001_SnakeLevel_Cluster.swift */; };
@@ -426,7 +426,7 @@
 		42C354D12478995D0000DBF2 /* T3400_SnakeGameEnvironmentInteractive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T3400_SnakeGameEnvironmentInteractive.swift; sourceTree = "<group>"; };
 		42C5566723ABE7E70001DBD8 /* NSEvent+KeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSEvent+KeyCode.swift"; sourceTree = "<group>"; };
 		42C6512E23F5A2FD00B2669E /* T1007_SnakeFifo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1007_SnakeFifo.swift; sourceTree = "<group>"; };
-		42CBF1CB2443B31F001A5D04 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		42CBF1CB2443B31F001A5D04 /* IngameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngameViewModel.swift; sourceTree = "<group>"; };
 		42CC22CA23397D1300CF3D96 /* SnakePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakePlayer.swift; sourceTree = "<group>"; };
 		42CC22CC23397D9700CF3D96 /* SnakeBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBot.swift; sourceTree = "<group>"; };
 		42CCD60823BD54F70021CBE7 /* T3001_SnakeLevel_Cluster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T3001_SnakeLevel_Cluster.swift; sourceTree = "<group>"; };
@@ -548,10 +548,10 @@
 			isa = PBXGroup;
 			children = (
 				42C32886246A2E3300F1EC6D /* FoodView.swift */,
-				42CBF1CB2443B31F001A5D04 /* GameViewModel.swift */,
 				42ED2AD9246DFCC5005D812F /* GestureIndicatorView.swift */,
 				42510E662468187D00A2DACD /* IngameGridComputer.swift */,
 				42510E64246790F100A2DACD /* IngameView.swift */,
+				42CBF1CB2443B31F001A5D04 /* IngameViewModel.swift */,
 				42510E592467112900A2DACD /* LevelView.swift */,
 				42A06C1D2441D90600877CB9 /* PauseSheetView.swift */,
 				42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */,
@@ -1454,7 +1454,7 @@
 				42AFCF7F2472339B00F78952 /* SettingShowPlannedPath.swift in Sources */,
 				42E425AF2470AC5C00F90073 /* SettingSoundEffect.swift in Sources */,
 				4295B7AC246F85E3005ACAD1 /* SettingPlayerMode.swift in Sources */,
-				42CBF1CD2443B31F001A5D04 /* GameViewModel.swift in Sources */,
+				42CBF1CD2443B31F001A5D04 /* IngameViewModel.swift in Sources */,
 				4295B7AF246F8C1D005ACAD1 /* SettingStepMode.swift in Sources */,
 				4255CA0E232F8A2100A230AF /* AppDelegate.swift in Sources */,
 				429CD0D523495DF300098E68 /* AppConstant.swift in Sources */,
@@ -1565,7 +1565,7 @@
 				42ED2ADA246DFCC5005D812F /* GestureIndicatorView.swift in Sources */,
 				42AFEB17246AF5A8007F15D5 /* LevelSelectorView.swift in Sources */,
 				42C1930924489A5C00697159 /* SettingPlayerMode.swift in Sources */,
-				42CBF1CC2443B31F001A5D04 /* GameViewModel.swift in Sources */,
+				42CBF1CC2443B31F001A5D04 /* IngameViewModel.swift in Sources */,
 				42FB0582243C99C4006BEE8D /* AppDelegate.swift in Sources */,
 				42BAC9A3246CDCC7001723F8 /* LevelSelectorGridComputer.swift in Sources */,
 				42E425AE2470AC5C00F90073 /* SettingSoundEffect.swift in Sources */,

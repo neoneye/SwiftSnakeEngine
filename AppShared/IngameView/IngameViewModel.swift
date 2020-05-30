@@ -11,8 +11,7 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
-// IDEA: rename to IngameViewModel
-public class GameViewModel: ObservableObject {
+public class IngameViewModel: ObservableObject {
     public let jumpToLevelSelector = PassthroughSubject<Void, Never>()
     @Published var level: SnakeLevel = SnakeLevel.empty()
     @Published var foodPosition: IntVec2? = nil
@@ -29,7 +28,7 @@ public class GameViewModel: ObservableObject {
     @Published var player1PlannedPath: [IntVec2] = []
     @Published var player2PlannedPath: [IntVec2] = []
     @Published var gestureIndicatorPosition: IntVec2 = IntVec2.zero
-    var replayGameViewModel: GameViewModel?
+    var replayGameViewModel: IngameViewModel?
 
     private var pendingMovement_player1: SnakeBodyMovement = .dontMove
     private var pendingMovement_player2: SnakeBodyMovement = .dontMove
@@ -129,7 +128,7 @@ public class GameViewModel: ObservableObject {
         syncGameState(_gameState)
     }
 
-    static func create() -> GameViewModel {
+    static func create() -> IngameViewModel {
         let gameState = SnakeGameState.create(
             player1: .human,
             player2: .none,
@@ -138,10 +137,10 @@ public class GameViewModel: ObservableObject {
         let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
             initialGameState: gameState
         )
-        return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
+        return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
     }
 
-    static func createPreview() -> GameViewModel {
+    static func createPreview() -> IngameViewModel {
         let gameState = SnakeGameState.create(
             player1: .human,
             player2: .none,
@@ -150,10 +149,10 @@ public class GameViewModel: ObservableObject {
         let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentPreview(
             initialGameState: gameState
         )
-        return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
+        return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
     }
 
-    static func createHumanVsHuman() -> GameViewModel {
+    static func createHumanVsHuman() -> IngameViewModel {
         let gameState = SnakeGameState.create(
             player1: .human,
             player2: .human,
@@ -162,10 +161,10 @@ public class GameViewModel: ObservableObject {
         let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
             initialGameState: gameState
         )
-        return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
+        return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
     }
 
-    class func createHumanVsBot() -> GameViewModel {
+    class func createHumanVsBot() -> IngameViewModel {
         let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
         let gameState = SnakeGameState.create(
             player1: .human,
@@ -175,10 +174,10 @@ public class GameViewModel: ObservableObject {
         let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
             initialGameState: gameState
         )
-        return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
+        return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
     }
 
-    class func createBotVsNone() -> GameViewModel {
+    class func createBotVsNone() -> IngameViewModel {
         let snakeBotType: SnakeBot.Type = SnakeBotFactory.smartestBotType()
         let gameState = SnakeGameState.create(
             player1: .bot(snakeBotType: snakeBotType),
@@ -188,10 +187,10 @@ public class GameViewModel: ObservableObject {
         let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
             initialGameState: gameState
         )
-        return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
+        return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
     }
 
-    class func createBotVsBot() -> GameViewModel {
+    class func createBotVsBot() -> IngameViewModel {
         let snakeBotType1: SnakeBot.Type = SnakeBotFactory.smartestBotType()
         let snakeBotType2: SnakeBot.Type = SnakeBotFactory.smartestBotType()
         let gameState = SnakeGameState.create(
@@ -202,17 +201,17 @@ public class GameViewModel: ObservableObject {
         let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
             initialGameState: gameState
         )
-        return GameViewModel(snakeGameEnvironment: snakeGameEnvironment)
+        return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
     }
 
-    class func createReplay() -> GameViewModel {
+    class func createReplay() -> IngameViewModel {
         let environment = SnakeGameEnvironmentReplay.create()
-        return GameViewModel(snakeGameEnvironment: environment)
+        return IngameViewModel(snakeGameEnvironment: environment)
     }
 
     static var createReplayCounter: UInt = 0
 
-    func createReplay() -> GameViewModel? {
+    func createReplay() -> IngameViewModel? {
         let counter: UInt = Self.createReplayCounter
         Self.createReplayCounter = counter + 1
 
@@ -223,12 +222,12 @@ public class GameViewModel: ObservableObject {
         }
         log.debug("#\(counter) Create replay environment")
         let environment: SnakeGameEnvironmentReplay = SnakeGameEnvironmentReplay.create(data: data)
-        let newModel = GameViewModel(snakeGameEnvironment: environment)
+        let newModel = IngameViewModel(snakeGameEnvironment: environment)
         log.debug("#\(counter) Create replay gameviewmodel")
         return newModel
     }
 
-    func toInteractiveModel() -> GameViewModel {
+    func toInteractiveModel() -> IngameViewModel {
         let sge0 = SnakeGameEnvironmentInteractive(initialGameState: self.gameState)
 
         let sge1: SnakeGameEnvironment
@@ -237,7 +236,7 @@ public class GameViewModel: ObservableObject {
         } else {
             sge1 = sge0
         }
-        return GameViewModel(snakeGameEnvironment: sge1)
+        return IngameViewModel(snakeGameEnvironment: sge1)
     }
 
     func exportToData() -> Data? {
@@ -400,7 +399,7 @@ public class GameViewModel: ObservableObject {
         log.debug("don't do any stepping while the pause sheet is shown")
         stopStepping()
 
-        guard let model: GameViewModel = self.createReplay() else {
+        guard let model: IngameViewModel = self.createReplay() else {
             log.error("Unable to create replay data of the current model")
             replayGameViewModel = nil
             return
@@ -506,10 +505,10 @@ public class GameViewModel: ObservableObject {
 }
 
 extension Array where Element == SnakeGameState {
-    func toPreviewGameViewModels() -> [GameViewModel] {
+    func toPreviewGameViewModels() -> [IngameViewModel] {
         self.map {
             let sge = SnakeGameEnvironmentPreview(initialGameState: $0)
-            return GameViewModel(snakeGameEnvironment: sge)
+            return IngameViewModel(snakeGameEnvironment: sge)
         }
     }
 }

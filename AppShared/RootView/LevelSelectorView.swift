@@ -12,10 +12,10 @@ import EngineMac
 struct LevelSelectorCell: Identifiable {
     let id: UInt
     let position: UIntVec2
-    let model: GameViewModel
+    let model: IngameViewModel
     let isSelected: Bool
 
-    static func create(gridSize: UIntVec2, models: [GameViewModel], selectedIndex: UInt) -> [LevelSelectorCell] {
+    static func create(gridSize: UIntVec2, models: [IngameViewModel], selectedIndex: UInt) -> [LevelSelectorCell] {
         var levelSelectorCellArray = [LevelSelectorCell]()
         for y in 0..<gridSize.y {
             for x in 0..<gridSize.x {
@@ -23,7 +23,7 @@ struct LevelSelectorCell: Identifiable {
                 guard index < models.count else {
                     break
                 }
-                let model: GameViewModel = models[Int(index)]
+                let model: IngameViewModel = models[Int(index)]
                 let position = UIntVec2(x: x, y: y)
                 let isSelected: Bool = (selectedIndex == index)
                 let levelSelectorCell = LevelSelectorCell(id: index, position: position, model: model, isSelected: isSelected)

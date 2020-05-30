@@ -18,7 +18,7 @@ enum MyContentView_VisibleContent {
 struct MyContentView: View {
     @EnvironmentObject var settingStore: SettingStore
 
-    @State var model: GameViewModel
+    @State var model: IngameViewModel
     @ObservedObject var levelSelectorViewModel: LevelSelectorViewModel
     @State var visibleContent: MyContentView_VisibleContent
 
@@ -36,7 +36,7 @@ struct MyContentView: View {
         )
     }
 
-    func launchGame(_ gameViewModel: GameViewModel) {
+    func launchGame(_ gameViewModel: IngameViewModel) {
 //        self.model = GameViewModel.createReplay()
         self.model = gameViewModel.toInteractiveModel()
         self.visibleContent = .ingame
@@ -259,7 +259,7 @@ struct MyContentView: View {
 struct ContentView_Previews : PreviewProvider {
 
     static var previews: some View {
-        let model = GameViewModel.create()
+        let model = IngameViewModel.create()
         let levelSelectorViewModel = LevelSelectorViewModel()
         levelSelectorViewModel.useMockData()
         let settingStore = SettingStore()

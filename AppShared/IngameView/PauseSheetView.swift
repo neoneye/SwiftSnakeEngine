@@ -12,7 +12,7 @@ import EngineMac
 
 struct PauseSheetView: View {
     @EnvironmentObject var settingStore: SettingStore
-    @ObservedObject var model: GameViewModel
+    @ObservedObject var model: IngameViewModel
     @Binding var presentedAsModal: Bool
     @State var showExitGameAlert = false
 
@@ -54,7 +54,7 @@ struct PauseSheetView: View {
     }
 
     private var replayView: some View {
-        guard let model: GameViewModel = self.model.replayGameViewModel else {
+        guard let model: IngameViewModel = self.model.replayGameViewModel else {
             log.error("There is replay data to be replayed")
             return AnyView(EmptyView())
         }
@@ -131,7 +131,7 @@ struct PauseSheetView: View {
 struct PauseSheetView_Previews: PreviewProvider {
     static var previews: some View {
         let settingStore = SettingStore()
-        let model = GameViewModel.create()
+        let model = IngameViewModel.create()
         return PauseSheetView(model: model, presentedAsModal: .constant(true))
             .environmentObject(settingStore)
             .previewLayout(.fixed(width: 400, height: 500))
