@@ -53,12 +53,12 @@ struct PauseSheetView: View {
         })
     }
 
-    private var ingameView: some View {
-        guard let model: GameViewModel = self.model.createReplay() else {
-            log.error("Unable to do a replay of the current model")
+    private var replayView: some View {
+        guard let model: GameViewModel = self.model.replayGameViewModel else {
+            log.error("There is replay data to be replayed")
             return AnyView(EmptyView())
         }
-        log.debug("created gameviewmodel with the replay")
+        log.debug("Greated gameviewmodel with the replay data")
         let view = IngameView(
             model: model,
             mode: .replayOnPauseSheet
@@ -94,7 +94,7 @@ struct PauseSheetView: View {
 
             if AppConstant.develop_showReplayOnPauseSheet {
                 // Show replay of the game
-                ingameView
+                replayView
                 Spacer()
             }
 

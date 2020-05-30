@@ -29,6 +29,7 @@ public class GameViewModel: ObservableObject {
     @Published var player1PlannedPath: [IntVec2] = []
     @Published var player2PlannedPath: [IntVec2] = []
     @Published var gestureIndicatorPosition: IntVec2 = IntVec2.zero
+    var replayGameViewModel: GameViewModel?
 
     private var pendingMovement_player1: SnakeBodyMovement = .dontMove
     private var pendingMovement_player2: SnakeBodyMovement = .dontMove
@@ -398,6 +399,14 @@ public class GameViewModel: ObservableObject {
     func ingameView_willPresentPauseSheet() {
         log.debug("don't do any stepping while the pause sheet is shown")
         stopStepping()
+
+        guard let model: GameViewModel = self.createReplay() else {
+            log.error("Unable to create replay data of the current model")
+            replayGameViewModel = nil
+            return
+        }
+        log.debug("successfully created replay gameviewmodel")
+        replayGameViewModel = model
     }
 
     func pauseSheet_dismissSheetAndContinueGame() {
