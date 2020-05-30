@@ -209,15 +209,21 @@ public class GameViewModel: ObservableObject {
         return GameViewModel(snakeGameEnvironment: environment)
     }
 
+    static var createReplayCounter: UInt = 0
+
     func createReplay() -> GameViewModel? {
+        let counter: UInt = Self.createReplayCounter
+        Self.createReplayCounter = counter + 1
+
+        log.debug("#\(counter) Export to data")
         guard let data: Data = self.exportToData() else {
             log.error("Unable to serialize the current model")
             return nil
         }
-        log.debug("successfully obtained a serialized version of the current model.")
+        log.debug("#\(counter) Create replay environment")
         let environment: SnakeGameEnvironmentReplay = SnakeGameEnvironmentReplay.create(data: data)
         let newModel = GameViewModel(snakeGameEnvironment: environment)
-        log.debug("created gameviewmodel with the replay data")
+        log.debug("#\(counter) Create replay gameviewmodel")
         return newModel
     }
 
