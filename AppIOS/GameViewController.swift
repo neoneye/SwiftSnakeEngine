@@ -19,7 +19,7 @@ class GameViewController: UIHostingController<RootView> {
         levelSelectorViewModel.loadModelsFromUserDefaults()
         levelSelectorViewModel.selectedIndex = settingStore.selectedLevel
 
-        let model = GameViewModel.create()
+        let model = IngameViewModel.create()
         model.levelSelector_humanVsBot = initialValue
         let view = RootView(model: model, levelSelectorViewModel: levelSelectorViewModel, settingStore: settingStore)
         return GameViewController(rootView: view)
