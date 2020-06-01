@@ -214,6 +214,7 @@
 		42CCDB6D245A29260086A3C3 /* SnakeGameState+PreventHumanCollisions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCDB6B245A29260086A3C3 /* SnakeGameState+PreventHumanCollisions.swift */; };
 		42CCDB6F245A2A3C0086A3C3 /* SnakeGameState+IsWaitingForInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCDB6E245A2A3C0086A3C3 /* SnakeGameState+IsWaitingForInput.swift */; };
 		42CCDB70245A2A3C0086A3C3 /* SnakeGameState+IsWaitingForInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CCDB6E245A2A3C0086A3C3 /* SnakeGameState+IsWaitingForInput.swift */; };
+		42CEAE6E2485A32C00D2C4AB /* T2007_SnakePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CEAE6D2485A32C00D2C4AB /* T2007_SnakePlayer.swift */; };
 		42CFF5B4245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CFF5B3245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift */; };
 		42CFF5B5245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CFF5B3245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift */; };
 		42CFF5B7245B514000590D62 /* T2004_SnakeBodyAdvancedCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CFF5B6245B514000590D62 /* T2004_SnakeBodyAdvancedCreate.swift */; };
@@ -443,6 +444,7 @@
 		42CCDB69245A1FBF0086A3C3 /* T1008_ValidateDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1008_ValidateDistance.swift; sourceTree = "<group>"; };
 		42CCDB6B245A29260086A3C3 /* SnakeGameState+PreventHumanCollisions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnakeGameState+PreventHumanCollisions.swift"; sourceTree = "<group>"; };
 		42CCDB6E245A2A3C0086A3C3 /* SnakeGameState+IsWaitingForInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnakeGameState+IsWaitingForInput.swift"; sourceTree = "<group>"; };
+		42CEAE6D2485A32C00D2C4AB /* T2007_SnakePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2007_SnakePlayer.swift; sourceTree = "<group>"; };
 		42CF349E6C439CD0ACDE948C /* Pods-BasePodsMAC-SnakeGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BasePodsMAC-SnakeGame.debug.xcconfig"; path = "Target Support Files/Pods-BasePodsMAC-SnakeGame/Pods-BasePodsMAC-SnakeGame.debug.xcconfig"; sourceTree = "<group>"; };
 		42CFF5B3245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBodyAdvancedCreate.swift; sourceTree = "<group>"; };
 		42CFF5B6245B514000590D62 /* T2004_SnakeBodyAdvancedCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T2004_SnakeBodyAdvancedCreate.swift; sourceTree = "<group>"; };
@@ -691,6 +693,7 @@
 				42CFF5B6245B514000590D62 /* T2004_SnakeBodyAdvancedCreate.swift */,
 				429A1538245D0C32009F6337 /* T2005_SnakePlayerRole.swift */,
 				42510E5F24676A8200A2DACD /* T2006_PositionArrayToPath.swift */,
+				42CEAE6D2485A32C00D2C4AB /* T2007_SnakePlayer.swift */,
 				42CCD61923C2AA9A0021CBE7 /* T3000_SnakeLevel.swift */,
 				42CCD60823BD54F70021CBE7 /* T3001_SnakeLevel_Cluster.swift */,
 				429D336723FB056300EF9B37 /* T3100_StuckSnakeDetector.swift */,
@@ -1419,6 +1422,7 @@
 				429A1539245D0C32009F6337 /* T2005_SnakePlayerRole.swift in Sources */,
 				42CCD61A23C2AA9A0021CBE7 /* T3000_SnakeLevel.swift in Sources */,
 				42C236EB2332F4BB00241639 /* T2003_SnakeBody.swift in Sources */,
+				42CEAE6E2485A32C00D2C4AB /* T2007_SnakePlayer.swift in Sources */,
 				42CCD60923BD54F70021CBE7 /* T3001_SnakeLevel_Cluster.swift in Sources */,
 				4217EEA6240E77830066B8C0 /* T2000_SnakeHeadDirection.swift in Sources */,
 			);

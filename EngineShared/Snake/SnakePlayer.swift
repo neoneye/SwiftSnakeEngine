@@ -24,6 +24,10 @@ public class SnakePlayer {
         return isInstalled && !causesOfDeath.isEmpty
     }
 
+    public var isInstalledAndAliveAndHuman: Bool {
+        return isInstalledAndAlive && role == .human
+    }
+
 	public var isBot: Bool {
 		switch role {
 		case .none:

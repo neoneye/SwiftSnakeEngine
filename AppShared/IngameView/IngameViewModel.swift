@@ -525,9 +525,3 @@ extension SnakePlayer {
         }
     }
 }
-
-extension SnakePlayer {
-    var isInstalledAndAliveAndHuman: Bool {
-        return self.isInstalledAndAlive && self.role == .human
-    }
-}
