@@ -57,7 +57,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
 
         do {
             var player: SnakePlayer = newGameState.player1
-            if player.isInstalledAndAlive && player.role == .human {
+            if player.isInstalledAndAliveAndHuman {
                 let movement: SnakeBodyMovement = action.player1
                 guard movement != .dontMove else {
                     log.error("Expected human actions to be different from dontMove, but got dontMove!")
@@ -69,7 +69,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         }
         do {
             var player: SnakePlayer = newGameState.player2
-            if player.isInstalledAndAlive && player.role == .human {
+            if player.isInstalledAndAliveAndHuman {
                 let movement: SnakeBodyMovement = action.player2
                 guard movement != .dontMove else {
                     log.error("Expected human actions to be different from dontMove, but got dontMove!")
