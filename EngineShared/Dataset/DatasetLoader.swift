@@ -133,20 +133,25 @@ public class DatasetLoader {
             }
         }
 
-        // Obtain the cause of death for each player
-        var player1CauseOfDeath: SnakeCauseOfDeath = .other
+        // Obtain the cause of death for each player.
+        // If the player is alive, then use `nil` as magic value.
+        var player1CauseOfDeath: SnakeCauseOfDeath? = nil
         if let playerResult: DatasetLoader.SnakePlayerResult = try lastStep.snakePlayerResultWithPlayerA() {
             if verbose {
                 log.debug("last step for player 1. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
             }
-            player1CauseOfDeath = playerResult.causeOfDeath
+            if !playerResult.isAlive {
+                player1CauseOfDeath = playerResult.causeOfDeath
+            }
         }
-        var player2CauseOfDeath: SnakeCauseOfDeath = .other
+        var player2CauseOfDeath: SnakeCauseOfDeath? = nil
         if let playerResult: DatasetLoader.SnakePlayerResult = try lastStep.snakePlayerResultWithPlayerB() {
             if verbose {
                 log.debug("last step for player 2. \(playerResult.isAlive) \(playerResult.causeOfDeath)")
             }
-            player2CauseOfDeath = playerResult.causeOfDeath
+            if !playerResult.isAlive {
+                player2CauseOfDeath = playerResult.causeOfDeath
+            }
         }
 
         let level: SnakeLevel = levelBuilder.level()
