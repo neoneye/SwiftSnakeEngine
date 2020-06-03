@@ -314,37 +314,20 @@ public class IngameViewModel: ObservableObject {
         undo()
     }
 
-    /// Single step forward can only be done when there are only bots.
-    ///
-    /// In a game where there are one or more humans that are alive,
-    /// here you have to wait for input from the humans, before the step can be executed.
-    /// This complicates things.
-    ///
-    /// For simplicity this function deals with games where there one or more bots,
-    /// And there are zero humans alive.
-    private var isStepPossible_botsOnly: Bool {
-        var botCount: UInt = 0
-        var nonBotCount: UInt = 0
-        let players: [SnakePlayer] = [gameState.player1, gameState.player2]
-        for player in players {
-            if player.isInstalledAndAlive {
-                if player.isBot {
-                    botCount += 1
-                } else {
-                    nonBotCount += 1
-                }
-            }
-        }
-        guard nonBotCount == 0 && botCount > 0 else {
-            return false
-        }
-        return true
-    }
-
-    private func step_botsOnly() {
-        guard isStepPossible_botsOnly else {
-            log.debug("Single step forward can only be done when there are only bots")
+    private func stepAutonomousIfPossible() {
+        switch snakeGameEnvironment.stepControlMode {
+        case .stepRequiresHumanInput:
+            // Step is not possible in a game where there are one or more humans that are alive,
+            // here you have to wait for input from the humans, before the step can be executed.
+            log.error("Step requires human input. Cannot execute step!")
             return
+        case .reachedTheEnd:
+            log.debug("Step have reached the end of the game.")
+            return
+        case .stepAutonomous:
+            // Step can be done when there are only bots alive.
+            // Step can be done when it's a replay of a historical game.
+            ()
         }
 
         // No human input
@@ -361,14 +344,14 @@ public class IngameViewModel: ObservableObject {
             log.debug("Stop repeatForever, since it has been paused.")
             return
         }
-        guard isStepPossible_botsOnly else {
+        guard snakeGameEnvironment.stepControlMode == .stepAutonomous else {
             log.debug("Stop repeatForever, since there is nothing meaningful to be repeated.")
             isStepRepeatingForever = false
             return
         }
         log.debug("repeatForever")
 
-        step_botsOnly()
+        stepAutonomousIfPossible()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.016) { [weak self] in
             self?.repeatForever_step_botsOnly()
@@ -448,7 +431,7 @@ public class IngameViewModel: ObservableObject {
         // Repeated stepping is only possible in games where there are only bots.
         // If there are human players alive, then it's not possible to do stepping,
         // since that would require near instant input from the human.
-        guard isStepPossible_botsOnly else {
+        guard snakeGameEnvironment.stepControlMode == .stepAutonomous else {
             log.debug("Start stepping ignored, since this is not a bots-only game")
             return
         }
@@ -461,7 +444,7 @@ public class IngameViewModel: ObservableObject {
     func singleStep_botsOnly() {
         settingStepMode.set(SettingStepModeValue.stepManual)
         isStepRepeatingForever = false
-        step_botsOnly()
+        stepAutonomousIfPossible()
     }
 
     private func step_humanVsAny() {

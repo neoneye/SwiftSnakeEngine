@@ -17,6 +17,10 @@ public class SnakeGameEnvironmentPreview: SnakeGameEnvironment {
         return nil
     }
 
+    public var stepControlMode: SnakeGameEnvironment_StepControlMode {
+        return .reachedTheEnd
+    }
+
     public func step(action: SnakeGameAction) -> SnakeGameState {
         return initialGameState
     }

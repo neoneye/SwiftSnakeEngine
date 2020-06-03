@@ -34,6 +34,10 @@ public class SnakeGameEnvironmentSaveDataset: SnakeGameEnvironment {
         return gameState
     }
 
+    public var stepControlMode: SnakeGameEnvironment_StepControlMode {
+        return wrapped.stepControlMode
+    }
+
     public func step(action: SnakeGameAction) -> SnakeGameState {
         let gameState: SnakeGameState = wrapped.step(action: action)
         stepArray.append(gameState.toSnakeDatasetStep())

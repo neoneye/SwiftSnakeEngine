@@ -65,6 +65,19 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
         return gameState
     }
 
+    public var stepControlMode: SnakeGameEnvironment_StepControlMode {
+        if self.gameState.player1.isInstalledAndAlive {
+            //log.debug("player1 is installed an alive. return: stepAutonomous")
+            return .stepAutonomous
+        }
+        if self.gameState.player2.isInstalledAndAlive {
+            //log.debug("player2 is installed an alive. return: stepAutonomous")
+            return .stepAutonomous
+        }
+        //log.debug("none of the players are installed an alive. return: reachedTheEnd")
+        return .reachedTheEnd
+    }
+
     public func step(action: SnakeGameAction) -> SnakeGameState {
         let oldGameState = self.gameState
         previousGameStates.append(oldGameState)

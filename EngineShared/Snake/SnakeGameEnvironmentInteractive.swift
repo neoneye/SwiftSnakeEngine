@@ -49,6 +49,29 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         return gameState
     }
 
+    public var stepControlMode: SnakeGameEnvironment_StepControlMode {
+        var botCount: UInt = 0
+        var nonBotCount: UInt = 0
+        let players: [SnakePlayer] = [gameState.player1, gameState.player2]
+        for player in players {
+            if player.isInstalledAndAlive {
+                if player.isBot {
+                    botCount += 1
+                } else {
+                    nonBotCount += 1
+                }
+            }
+        }
+        guard botCount + nonBotCount > 0 else {
+            return .reachedTheEnd
+        }
+        if nonBotCount > 0 {
+            return .stepRequiresHumanInput
+        } else {
+            return .stepAutonomous
+        }
+    }
+
     public func step(action: SnakeGameAction) -> SnakeGameState {
         let oldGameState: SnakeGameState = self.gameState
 
