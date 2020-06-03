@@ -339,7 +339,7 @@ public class IngameViewModel: ObservableObject {
         gameState = snakeGameEnvironment.step(action: action)
     }
 
-    private func repeatForever_step_botsOnly() {
+    private func repeatForever_stepAutonomousIfPossible() {
         guard isStepRepeatingForever else {
             log.debug("Stop repeatForever, since it has been paused.")
             return
@@ -354,7 +354,7 @@ public class IngameViewModel: ObservableObject {
         stepAutonomousIfPossible()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.016) { [weak self] in
-            self?.repeatForever_step_botsOnly()
+            self?.repeatForever_stepAutonomousIfPossible()
         }
     }
 
@@ -413,7 +413,7 @@ public class IngameViewModel: ObservableObject {
             return
         }
         isStepRepeatingForever = true
-        repeatForever_step_botsOnly()
+        repeatForever_stepAutonomousIfPossible()
     }
 
     private func stopStepping() {
