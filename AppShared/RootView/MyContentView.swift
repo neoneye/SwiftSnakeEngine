@@ -37,7 +37,7 @@ struct MyContentView: View {
     }
 
     func launchGame(_ gameViewModel: IngameViewModel) {
-//        self.model = GameViewModel.createReplay()
+//        self.model = IngameViewModel.createReplay()
         self.model = gameViewModel.toInteractiveModel()
         self.visibleContent = .ingame
     }
