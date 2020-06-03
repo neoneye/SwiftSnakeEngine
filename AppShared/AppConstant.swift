@@ -15,7 +15,7 @@ struct AppConstant {
 		case production
         case develop_ingame
 	}
-	static let mode: Mode = .develop_ingame
+	static let mode: Mode = .production
 
     static var escapeKeyToTerminateApp: Bool {
         switch mode {
