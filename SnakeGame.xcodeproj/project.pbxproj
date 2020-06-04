@@ -546,6 +546,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4215431E2489237E00EBF4D1 /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+				422423BB233D9ABD0006D02D /* SnakeGameEnvironment.swift */,
+				42D730952460C0FC008D4AB5 /* SnakeGameEnvironmentInteractive.swift */,
+				42BAC99F246CD570001723F8 /* SnakeGameEnvironmentPreview.swift */,
+				42D730922460C0BA008D4AB5 /* SnakeGameEnvironmentReplay.swift */,
+				42AFCF7A24721E2800F78952 /* SnakeGameEnvironmentSaveDataset.swift */,
+			);
+			path = Environment;
+			sourceTree = "<group>";
+		};
 		421CA8552474ACBE00F7A094 /* IngameView */ = {
 			isa = PBXGroup;
 			children = (
@@ -585,11 +597,6 @@
 				422423B3233CE40A0006D02D /* SnakeCollisionDetector.swift */,
 				42A8B6FB2331B3CC00E618CF /* SnakeFifo.swift */,
 				422423B7233D71E80006D02D /* SnakeFoodGenerator.swift */,
-				422423BB233D9ABD0006D02D /* SnakeGameEnvironment.swift */,
-				42D730952460C0FC008D4AB5 /* SnakeGameEnvironmentInteractive.swift */,
-				42BAC99F246CD570001723F8 /* SnakeGameEnvironmentPreview.swift */,
-				42D730922460C0BA008D4AB5 /* SnakeGameEnvironmentReplay.swift */,
-				42AFCF7A24721E2800F78952 /* SnakeGameEnvironmentSaveDataset.swift */,
 				422423BD233D9B760006D02D /* SnakeGameHeadless.swift */,
 				422423B5233D46F30006D02D /* SnakeGameState.swift */,
 				422423B9233D9A590006D02D /* SnakeGameState+Create.swift */,
@@ -802,6 +809,7 @@
 				42F4538923E5AFA200B90297 /* Bot */,
 				422423C0233E79240006D02D /* Common */,
 				42FA3C472458BEF10064C76C /* Dataset */,
+				4215431E2489237E00EBF4D1 /* Environment */,
 				42F4538A23E5B0A200B90297 /* Level */,
 				422423BF233E79090006D02D /* Snake */,
 			);
