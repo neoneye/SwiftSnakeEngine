@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-public class SnakeGameEnvironmentSaveDataset: GameEnvironment {
+public class GameEnvironmentSaveDataset: GameEnvironment {
     private let wrapped: GameEnvironment
     private var stepArray: [SnakeDatasetStep]
     private var level: SnakeLevel?

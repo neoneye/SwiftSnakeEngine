@@ -232,7 +232,7 @@ public class IngameViewModel: ObservableObject {
 
         let sge1: GameEnvironment
         if AppConstant.saveTrainingData {
-            sge1 = SnakeGameEnvironmentSaveDataset(wrapped: sge0)
+            sge1 = GameEnvironmentSaveDataset(wrapped: sge0)
         } else {
             sge1 = sge0
         }
@@ -240,8 +240,8 @@ public class IngameViewModel: ObservableObject {
     }
 
     func exportToData() -> Data? {
-        guard let saveDataset = self.snakeGameEnvironment as? SnakeGameEnvironmentSaveDataset else {
-            log.error("Unable to typecast snakeGameEnvironment to SnakeGameEnvironmentSaveDataset. \(type(of: self.snakeGameEnvironment))")
+        guard let saveDataset = self.snakeGameEnvironment as? GameEnvironmentSaveDataset else {
+            log.error("Unable to typecast GameEnvironment to GameEnvironmentSaveDataset. \(type(of: self.snakeGameEnvironment))")
             return nil
         }
         do {
