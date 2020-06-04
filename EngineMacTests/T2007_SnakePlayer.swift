@@ -81,4 +81,48 @@ class T2007_SnakePlayer: XCTestCase {
             XCTAssertFalse(player.isInstalledAndAliveAndHuman)
         }
     }
+
+    func test300_clearPendingMovementAndPendingAct() {
+        do {
+            var player = SnakePlayer.create(id: .player1, role: .human)
+            player = player.updatePendingMovement(.moveCCW)
+            player = player.updatePendingAct(.eat)
+
+            player = player.clearPendingMovementAndPendingAct()
+            XCTAssertEqual(player.pendingMovement, .dontMove)
+            XCTAssertEqual(player.pendingAct, .doNothing)
+        }
+        do {
+            let bot: SnakeBot.Type = SnakeBotFactory.emptyBotType()
+            var player = SnakePlayer.create(id: .player1, role: .bot(snakeBotType: bot))
+            player = player.updatePendingMovement(.moveCCW)
+            player = player.updatePendingAct(.eat)
+
+            player = player.clearPendingMovementAndPendingAct()
+            XCTAssertEqual(player.pendingMovement, .dontMove)
+            XCTAssertEqual(player.pendingAct, .doNothing)
+        }
+    }
+
+    func test301_clearPendingMovementAndPendingActForHuman() {
+        do {
+            var player = SnakePlayer.create(id: .player1, role: .human)
+            player = player.updatePendingMovement(.moveCCW)
+            player = player.updatePendingAct(.eat)
+
+            player = player.clearPendingMovementAndPendingActForHuman()
+            XCTAssertEqual(player.pendingMovement, .dontMove)
+            XCTAssertEqual(player.pendingAct, .doNothing)
+        }
+        do {
+            let bot: SnakeBot.Type = SnakeBotFactory.emptyBotType()
+            var player = SnakePlayer.create(id: .player1, role: .bot(snakeBotType: bot))
+            player = player.updatePendingMovement(.moveCCW)
+            player = player.updatePendingAct(.eat)
+
+            player = player.clearPendingMovementAndPendingActForHuman()
+            XCTAssertEqual(player.pendingMovement, .moveCCW)
+            XCTAssertEqual(player.pendingAct, .eat)
+        }
+    }
 }

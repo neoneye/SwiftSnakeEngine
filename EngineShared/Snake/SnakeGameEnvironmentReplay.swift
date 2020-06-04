@@ -138,8 +138,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
         // Reset pending actions for player
         do {
             var player: SnakePlayer = newGameState.player1
-            player = player.updatePendingMovement(.dontMove)
-            player = player.updatePendingAct(.doNothing)
+            player = player.clearPendingMovementAndPendingAct()
             newGameState = newGameState.stateWithNewPlayer1(player)
         }
 
@@ -180,8 +179,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
         // Reset pending actions for player
         do {
             var player: SnakePlayer = newGameState.player2
-            player = player.updatePendingMovement(.dontMove)
-            player = player.updatePendingAct(.doNothing)
+            player = player.clearPendingMovementAndPendingAct()
             newGameState = newGameState.stateWithNewPlayer2(player)
         }
 
