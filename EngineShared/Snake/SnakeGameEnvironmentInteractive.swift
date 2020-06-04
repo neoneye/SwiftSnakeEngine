@@ -63,11 +63,14 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
             }
         }
         guard botCount + nonBotCount > 0 else {
+            // There are no players alive. The game is over.
             return .reachedTheEnd
         }
         if nonBotCount > 0 {
+            // There are one or more players that requires interactive input.
             return .stepRequiresHumanInput
         } else {
+            // All the players can step fully autonomous.
             return .stepAutonomous
         }
     }
