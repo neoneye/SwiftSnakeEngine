@@ -119,8 +119,7 @@ public class GameEnvironmentInteractive: GameEnvironment {
                 act: player.pendingAct
             )
             player = player.playerWithNewSnakeBody(snakeBody)
-            player = player.updatePendingMovement(.dontMove)
-            player = player.updatePendingAct(.doNothing)
+            player = player.clearPendingMovementAndPendingAct()
             player = stuckSnakeDetector1.killBotIfStuckInLoop(player)
             newGameState = newGameState.stateWithNewPlayer1(player)
         }
@@ -135,8 +134,7 @@ public class GameEnvironmentInteractive: GameEnvironment {
                 act: player.pendingAct
             )
             player = player.playerWithNewSnakeBody(snakeBody)
-            player = player.updatePendingMovement(.dontMove)
-            player = player.updatePendingAct(.doNothing)
+            player = player.clearPendingMovementAndPendingAct()
             player = stuckSnakeDetector2.killBotIfStuckInLoop(player)
             newGameState = newGameState.stateWithNewPlayer2(player)
         }
