@@ -97,7 +97,7 @@ public class SnakeGameState {
 		)
 	}
 
-	public func clearPendingMovementAndPendingLengthForHumanPlayers() -> SnakeGameState {
+	public func clearPendingMovementAndPendingActForHumanPlayers() -> SnakeGameState {
 		return SnakeGameState(
 			level: level,
 			foodPosition: foodPosition,

@@ -67,7 +67,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
             log.info("Canot step backward. There is no previous state to rewind back to.")
             return nil
         }
-        gameState = gameState.clearPendingMovementAndPendingLengthForHumanPlayers()
+        gameState = gameState.clearPendingMovementAndPendingActForHumanPlayers()
         gameState = self.placeNewFood(gameState)
         gameState = self.prepareNextMovements(gameState)
         self.gameState = gameState
