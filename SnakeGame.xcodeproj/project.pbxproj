@@ -554,6 +554,7 @@
 				42BAC99F246CD570001723F8 /* SnakeGameEnvironmentPreview.swift */,
 				42D730922460C0BA008D4AB5 /* SnakeGameEnvironmentReplay.swift */,
 				42AFCF7A24721E2800F78952 /* SnakeGameEnvironmentSaveDataset.swift */,
+				422423BD233D9B760006D02D /* SnakeGameHeadless.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -597,7 +598,6 @@
 				422423B3233CE40A0006D02D /* SnakeCollisionDetector.swift */,
 				42A8B6FB2331B3CC00E618CF /* SnakeFifo.swift */,
 				422423B7233D71E80006D02D /* SnakeFoodGenerator.swift */,
-				422423BD233D9B760006D02D /* SnakeGameHeadless.swift */,
 				422423B5233D46F30006D02D /* SnakeGameState.swift */,
 				422423B9233D9A590006D02D /* SnakeGameState+Create.swift */,
 				42CCDB6E245A2A3C0086A3C3 /* SnakeGameState+IsWaitingForInput.swift */,
