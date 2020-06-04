@@ -2,7 +2,7 @@
 import Foundation
 
 /// Replay the moves of a historic game.
-public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
+public class SnakeGameEnvironmentReplay: GameEnvironment {
     public let datasetTimestamp: Date
     public let initialGameState: SnakeGameState
     internal let foodPositions: [IntVec2]
@@ -74,7 +74,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
         return gameState
     }
 
-    public var stepControlMode: SnakeGameEnvironment_StepControlMode {
+    public var stepControlMode: GameEnvironment_StepControlMode {
         if gameState.player1.pendingMovement != .dontMove {
             //log.debug("player1 is installed an alive. return: stepAutonomous")
             return .stepAutonomous
@@ -87,7 +87,7 @@ public class SnakeGameEnvironmentReplay: SnakeGameEnvironment {
         return .reachedTheEnd
     }
 
-    public func step(action: SnakeGameAction) -> SnakeGameState {
+    public func step(action: GameEnvironment_StepAction) -> SnakeGameState {
         let oldGameState = self.gameState
         previousGameStates.append(oldGameState)
 

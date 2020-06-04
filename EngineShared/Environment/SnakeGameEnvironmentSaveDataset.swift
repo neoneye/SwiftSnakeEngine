@@ -1,12 +1,12 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-public class SnakeGameEnvironmentSaveDataset: SnakeGameEnvironment {
-    private let wrapped: SnakeGameEnvironment
+public class SnakeGameEnvironmentSaveDataset: GameEnvironment {
+    private let wrapped: GameEnvironment
     private var stepArray: [SnakeDatasetStep]
     private var level: SnakeLevel?
 
-    public init(wrapped: SnakeGameEnvironment) {
+    public init(wrapped: GameEnvironment) {
         self.wrapped = wrapped
         self.stepArray = []
         self.level = nil
@@ -34,11 +34,11 @@ public class SnakeGameEnvironmentSaveDataset: SnakeGameEnvironment {
         return gameState
     }
 
-    public var stepControlMode: SnakeGameEnvironment_StepControlMode {
+    public var stepControlMode: GameEnvironment_StepControlMode {
         return wrapped.stepControlMode
     }
 
-    public func step(action: SnakeGameAction) -> SnakeGameState {
+    public func step(action: GameEnvironment_StepAction) -> SnakeGameState {
         let gameState: SnakeGameState = wrapped.step(action: action)
         stepArray.append(gameState.toSnakeDatasetStep())
 

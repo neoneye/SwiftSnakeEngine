@@ -2,7 +2,7 @@
 import Foundation
 
 /// Human players can interact with the game state.
-public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
+public class SnakeGameEnvironmentInteractive: GameEnvironment {
     private let initialGameState: SnakeGameState
     private var stuckSnakeDetector1 = StuckSnakeDetector(humanReadableName: "Player1")
     private var stuckSnakeDetector2 = StuckSnakeDetector(humanReadableName: "Player2")
@@ -49,7 +49,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         return gameState
     }
 
-    public var stepControlMode: SnakeGameEnvironment_StepControlMode {
+    public var stepControlMode: GameEnvironment_StepControlMode {
         var botCount: UInt = 0
         var nonBotCount: UInt = 0
         let players: [SnakePlayer] = [gameState.player1, gameState.player2]
@@ -75,7 +75,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         }
     }
 
-    public func step(action: SnakeGameAction) -> SnakeGameState {
+    public func step(action: GameEnvironment_StepAction) -> SnakeGameState {
         let oldGameState: SnakeGameState = self.gameState
 
         var newGameState: SnakeGameState = oldGameState

@@ -1,6 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 
-public struct SnakeGameAction {
+public struct GameEnvironment_StepAction {
     public let player1: SnakeBodyMovement
     public let player2: SnakeBodyMovement
 
@@ -10,7 +10,7 @@ public struct SnakeGameAction {
     }
 }
 
-public enum SnakeGameEnvironment_StepControlMode {
+public enum GameEnvironment_StepControlMode {
     /// In a game where there are one or two human players, then the `step()` function can
     /// only be invoked when the human players have prepared their movements.
     /// As long as the human players are alive, this returns `stepRequiresHumanInput`.
@@ -35,7 +35,7 @@ public enum SnakeGameEnvironment_StepControlMode {
     case reachedTheEnd
 }
 
-public protocol SnakeGameEnvironment: class {
+public protocol GameEnvironment: class {
     /// Rewind the game to the initial state.
     ///
     /// - returns: The initial state of the world.
@@ -54,11 +54,11 @@ public protocol SnakeGameEnvironment: class {
     /// - It's a human vs bot game, and the human have died and the bot is still alive.
     ///
     /// Human input is needed when it's an interactive game with one or two human players.
-    var stepControlMode: SnakeGameEnvironment_StepControlMode { get }
+    var stepControlMode: GameEnvironment_StepControlMode { get }
 
     /// Execute the game mechanics for one time step.
     /// 
     /// - parameter action: Human input from keyboard or touch display for controlling the snakes.
     /// - returns: The new state of the world.
-    func step(action: SnakeGameAction) -> SnakeGameState
+    func step(action: GameEnvironment_StepAction) -> SnakeGameState
 }

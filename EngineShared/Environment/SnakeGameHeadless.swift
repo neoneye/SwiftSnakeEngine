@@ -11,14 +11,14 @@ public class SnakeGameHeadless {
             player2: bot,
             levelName: "Level 4.csv"
         )
-        let environment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(initialGameState: initialGameState)
+        let environment: GameEnvironment = SnakeGameEnvironmentInteractive(initialGameState: initialGameState)
 
         var gameState: SnakeGameState = environment.reset()
 
 		for iteration in 0..<1000 {
             log.debug("#\(iteration) \(gameState.player1.snakeBody.length) \(gameState.player2.snakeBody.length)")
 
-            let action = SnakeGameAction(
+            let action = GameEnvironment_StepAction(
                 player1: .dontMove,
                 player2: .dontMove
             )

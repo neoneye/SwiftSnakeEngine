@@ -36,7 +36,7 @@ public class IngameViewModel: ObservableObject {
     private let settingStepMode: SettingStepMode
     private var isStepRepeatingForever: Bool = false
 
-    private let snakeGameEnvironment: SnakeGameEnvironment
+    private let snakeGameEnvironment: GameEnvironment
     private var _gameState: SnakeGameState
 
     private var gameState: SnakeGameState {
@@ -121,7 +121,7 @@ public class IngameViewModel: ObservableObject {
         }
     }
 
-    init(snakeGameEnvironment: SnakeGameEnvironment) {
+    init(snakeGameEnvironment: GameEnvironment) {
         self.settingStepMode = SettingStepMode(defaults: UserDefaults.standard)
         self.snakeGameEnvironment = snakeGameEnvironment
         self._gameState = snakeGameEnvironment.reset()
@@ -134,7 +134,7 @@ public class IngameViewModel: ObservableObject {
             player2: .none,
             levelName: "Level 0.csv"
         )
-        let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+        let snakeGameEnvironment: GameEnvironment = SnakeGameEnvironmentInteractive(
             initialGameState: gameState
         )
         return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
@@ -146,7 +146,7 @@ public class IngameViewModel: ObservableObject {
             player2: .none,
             levelName: "Level 0.csv"
         )
-        let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentPreview(
+        let snakeGameEnvironment: GameEnvironment = SnakeGameEnvironmentPreview(
             initialGameState: gameState
         )
         return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
@@ -158,7 +158,7 @@ public class IngameViewModel: ObservableObject {
             player2: .human,
             levelName: "Level 6.csv"
         )
-        let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+        let snakeGameEnvironment: GameEnvironment = SnakeGameEnvironmentInteractive(
             initialGameState: gameState
         )
         return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
@@ -171,7 +171,7 @@ public class IngameViewModel: ObservableObject {
             player2: .bot(snakeBotType: snakeBotType),
             levelName: "Level 6.csv"
         )
-        let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+        let snakeGameEnvironment: GameEnvironment = SnakeGameEnvironmentInteractive(
             initialGameState: gameState
         )
         return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
@@ -184,7 +184,7 @@ public class IngameViewModel: ObservableObject {
             player2: .none,
             levelName: "Level 0.csv"
         )
-        let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+        let snakeGameEnvironment: GameEnvironment = SnakeGameEnvironmentInteractive(
             initialGameState: gameState
         )
         return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
@@ -198,7 +198,7 @@ public class IngameViewModel: ObservableObject {
             player2: .bot(snakeBotType: snakeBotType2),
             levelName: "Level 6.csv"
         )
-        let snakeGameEnvironment: SnakeGameEnvironment = SnakeGameEnvironmentInteractive(
+        let snakeGameEnvironment: GameEnvironment = SnakeGameEnvironmentInteractive(
             initialGameState: gameState
         )
         return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
@@ -230,7 +230,7 @@ public class IngameViewModel: ObservableObject {
     func toInteractiveModel() -> IngameViewModel {
         let sge0 = SnakeGameEnvironmentInteractive(initialGameState: self.gameState)
 
-        let sge1: SnakeGameEnvironment
+        let sge1: GameEnvironment
         if AppConstant.saveTrainingData {
             sge1 = SnakeGameEnvironmentSaveDataset(wrapped: sge0)
         } else {
@@ -331,7 +331,7 @@ public class IngameViewModel: ObservableObject {
         }
 
         // No human input
-        let action = SnakeGameAction(
+        let action = GameEnvironment_StepAction(
             player1: .dontMove,
             player2: .dontMove
         )
@@ -468,7 +468,7 @@ public class IngameViewModel: ObservableObject {
         self.pendingMovement_player1 = .dontMove
         self.pendingMovement_player2 = .dontMove
 
-        let action = SnakeGameAction(
+        let action = GameEnvironment_StepAction(
             player1: possibleGameState.player1.pendingMovement,
             player2: possibleGameState.player2.pendingMovement
         )

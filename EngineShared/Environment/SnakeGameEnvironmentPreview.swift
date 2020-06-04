@@ -2,7 +2,7 @@
 import Foundation
 
 /// Used by the level selector where heavy loading is to be avoided.
-public class SnakeGameEnvironmentPreview: SnakeGameEnvironment {
+public class SnakeGameEnvironmentPreview: GameEnvironment {
     private let initialGameState: SnakeGameState
 
     public init(initialGameState: SnakeGameState) {
@@ -17,11 +17,11 @@ public class SnakeGameEnvironmentPreview: SnakeGameEnvironment {
         return nil
     }
 
-    public var stepControlMode: SnakeGameEnvironment_StepControlMode {
+    public var stepControlMode: GameEnvironment_StepControlMode {
         return .reachedTheEnd
     }
 
-    public func step(action: SnakeGameAction) -> SnakeGameState {
+    public func step(action: GameEnvironment_StepAction) -> SnakeGameState {
         return initialGameState
     }
 }
