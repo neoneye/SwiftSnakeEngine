@@ -36,7 +36,7 @@ public class IngameViewModel: ObservableObject {
     private let settingStepMode: SettingStepMode
     private var isStepRepeatingForever: Bool = false
 
-    private let snakeGameEnvironment: GameEnvironment
+    private let gameEnvironment: GameEnvironment
     private var _gameState: SnakeGameState
 
     private var gameState: SnakeGameState {
@@ -123,7 +123,7 @@ public class IngameViewModel: ObservableObject {
 
     init(snakeGameEnvironment: GameEnvironment) {
         self.settingStepMode = SettingStepMode(defaults: UserDefaults.standard)
-        self.snakeGameEnvironment = snakeGameEnvironment
+        self.gameEnvironment = snakeGameEnvironment
         self._gameState = snakeGameEnvironment.reset()
         syncGameState(_gameState)
     }
@@ -240,8 +240,8 @@ public class IngameViewModel: ObservableObject {
     }
 
     func exportToData() -> Data? {
-        guard let saveDataset = self.snakeGameEnvironment as? GameEnvironmentSaveDataset else {
-            log.error("Unable to typecast GameEnvironment to GameEnvironmentSaveDataset. \(type(of: self.snakeGameEnvironment))")
+        guard let saveDataset = self.gameEnvironment as? GameEnvironmentSaveDataset else {
+            log.error("Unable to typecast GameEnvironment to GameEnvironmentSaveDataset. \(type(of: self.gameEnvironment))")
             return nil
         }
         do {
@@ -256,7 +256,7 @@ public class IngameViewModel: ObservableObject {
     }
 
     func restartGame() {
-        gameState = snakeGameEnvironment.reset()
+        gameState = gameEnvironment.reset()
         resumeSteppingIfPreferred()
     }
 
@@ -315,7 +315,7 @@ public class IngameViewModel: ObservableObject {
     }
 
     private func stepAutonomousIfPossible() {
-        switch snakeGameEnvironment.stepControlMode {
+        switch gameEnvironment.stepControlMode {
         case .stepRequiresHumanInput:
             // Step is not possible in a game where there are one or more humans that are alive,
             // here you have to wait for input from the humans, before the step can be executed.
@@ -336,7 +336,7 @@ public class IngameViewModel: ObservableObject {
             player2: .dontMove
         )
         // IDEA: perform in a separate thread
-        gameState = snakeGameEnvironment.step(action: action)
+        gameState = gameEnvironment.step(action: action)
     }
 
     private func repeatForever_stepAutonomousIfPossible() {
@@ -344,7 +344,7 @@ public class IngameViewModel: ObservableObject {
             log.debug("Stop repeatForever, since it has been paused.")
             return
         }
-        guard snakeGameEnvironment.stepControlMode == .stepAutonomous else {
+        guard gameEnvironment.stepControlMode == .stepAutonomous else {
             log.debug("Stop repeatForever, since there is nothing meaningful to be repeated.")
             isStepRepeatingForever = false
             return
@@ -431,7 +431,7 @@ public class IngameViewModel: ObservableObject {
         // Repeated stepping is only possible in games where there are only bots.
         // If there are human players alive, then it's not possible to do stepping,
         // since that would require near instant input from the human.
-        guard snakeGameEnvironment.stepControlMode == .stepAutonomous else {
+        guard gameEnvironment.stepControlMode == .stepAutonomous else {
             log.debug("Start stepping ignored, since this is not a bots-only game")
             return
         }
@@ -473,13 +473,13 @@ public class IngameViewModel: ObservableObject {
             player2: possibleGameState.player2.pendingMovement
         )
         // IDEA: perform in a separate thread
-        let newGameState = snakeGameEnvironment.step(action: action)
+        let newGameState = gameEnvironment.step(action: action)
         gameState = newGameState
     }
 
     func undo() {
         stopStepping()
-        guard let newGameState = snakeGameEnvironment.undo() else {
+        guard let newGameState = gameEnvironment.undo() else {
             log.debug("Reached the beginning of the history. There is nothing that can be undone.")
             return
         }
