@@ -26,7 +26,7 @@
 		422423B8233D71E80006D02D /* SnakeFoodGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B7233D71E80006D02D /* SnakeFoodGenerator.swift */; };
 		422423BA233D9A590006D02D /* SnakeGameState+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B9233D9A590006D02D /* SnakeGameState+Create.swift */; };
 		422423BC233D9ABD0006D02D /* GameEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423BB233D9ABD0006D02D /* GameEnvironment.swift */; };
-		422423BE233D9B760006D02D /* SnakeGameHeadless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423BD233D9B760006D02D /* SnakeGameHeadless.swift */; };
+		422423BE233D9B760006D02D /* GameHeadless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423BD233D9B760006D02D /* GameHeadless.swift */; };
 		42247FF9244D0E08003EB9E9 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42247FF8244D0E08003EB9E9 /* GameKit.framework */; };
 		4228915223341CCC00273A0F /* MeasureTurnCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4228915123341CCC00273A0F /* MeasureTurnCount.swift */; };
 		4228915423341D2100273A0F /* T1006_MeasureTurnCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4228915323341D2100273A0F /* T1006_MeasureTurnCount.swift */; };
@@ -155,7 +155,7 @@
 		42ABC144243D13AB00E05FF3 /* SnakeFifo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A8B6FB2331B3CC00E618CF /* SnakeFifo.swift */; };
 		42ABC145243D13AB00E05FF3 /* SnakeFoodGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B7233D71E80006D02D /* SnakeFoodGenerator.swift */; };
 		42ABC146243D13AB00E05FF3 /* GameEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423BB233D9ABD0006D02D /* GameEnvironment.swift */; };
-		42ABC147243D13AB00E05FF3 /* SnakeGameHeadless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423BD233D9B760006D02D /* SnakeGameHeadless.swift */; };
+		42ABC147243D13AB00E05FF3 /* GameHeadless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423BD233D9B760006D02D /* GameHeadless.swift */; };
 		42ABC148243D13AB00E05FF3 /* SnakeGameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B5233D46F30006D02D /* SnakeGameState.swift */; };
 		42ABC149243D13AB00E05FF3 /* SnakeGameState+Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422423B9233D9A590006D02D /* SnakeGameState+Create.swift */; };
 		42ABC14A243D13AB00E05FF3 /* DatasetSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EB7C0323F2873B00229CEA /* DatasetSaver.swift */; };
@@ -334,7 +334,7 @@
 		422423B7233D71E80006D02D /* SnakeFoodGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeFoodGenerator.swift; sourceTree = "<group>"; };
 		422423B9233D9A590006D02D /* SnakeGameState+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnakeGameState+Create.swift"; sourceTree = "<group>"; };
 		422423BB233D9ABD0006D02D /* GameEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEnvironment.swift; sourceTree = "<group>"; };
-		422423BD233D9B760006D02D /* SnakeGameHeadless.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeGameHeadless.swift; sourceTree = "<group>"; };
+		422423BD233D9B760006D02D /* GameHeadless.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHeadless.swift; sourceTree = "<group>"; };
 		42247FF8244D0E08003EB9E9 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.4.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		42247FFA244D0E1E003EB9E9 /* AppIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppIOS.entitlements; sourceTree = "<group>"; };
 		4228915123341CCC00273A0F /* MeasureTurnCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureTurnCount.swift; sourceTree = "<group>"; };
@@ -554,7 +554,7 @@
 				42BAC99F246CD570001723F8 /* GameEnvironmentPreview.swift */,
 				42D730922460C0BA008D4AB5 /* GameEnvironmentReplay.swift */,
 				42AFCF7A24721E2800F78952 /* GameEnvironmentSaveDataset.swift */,
-				422423BD233D9B760006D02D /* SnakeGameHeadless.swift */,
+				422423BD233D9B760006D02D /* GameHeadless.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -1335,7 +1335,7 @@
 				4255CA26232FD31900A230AF /* IntVec2.swift in Sources */,
 				423C4F55240C4B5B00786F49 /* OSLogDestination.swift in Sources */,
 				42C31822237F27AF00468D1F /* Array2.swift in Sources */,
-				422423BE233D9B760006D02D /* SnakeGameHeadless.swift in Sources */,
+				422423BE233D9B760006D02D /* GameHeadless.swift in Sources */,
 				42CCDB67245A1F2F0086A3C3 /* ValidateDistance.swift in Sources */,
 				429A1533245CA7ED009F6337 /* DatasetLoader.swift in Sources */,
 				42CC22CD23397D9700CF3D96 /* SnakeBot.swift in Sources */,
@@ -1526,7 +1526,7 @@
 				42AFCF7C24721E2800F78952 /* GameEnvironmentSaveDataset.swift in Sources */,
 				421BC992245330C70070F3EB /* SnakeBot7.swift in Sources */,
 				42D730942460C0BA008D4AB5 /* GameEnvironmentReplay.swift in Sources */,
-				42ABC147243D13AB00E05FF3 /* SnakeGameHeadless.swift in Sources */,
+				42ABC147243D13AB00E05FF3 /* GameHeadless.swift in Sources */,
 				42CFF5BC245BB7D400590D62 /* PrettyPrintArray.swift in Sources */,
 				42CFF5B5245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift in Sources */,
 				42CCDB70245A2A3C0086A3C3 /* SnakeGameState+IsWaitingForInput.swift in Sources */,

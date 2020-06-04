@@ -1,7 +1,7 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-public class SnakeGameHeadless {
+public class GameHeadless {
 	public static func run() {
         let snakeBotType0: SnakeBot.Type = SnakeBotFactory.smartestBotType()
         let bot = SnakePlayerRole.bot(snakeBotType: snakeBotType0)
