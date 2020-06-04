@@ -2,7 +2,7 @@
 import Foundation
 
 /// Human players can interact with the game state.
-public class SnakeGameEnvironmentInteractive: GameEnvironment {
+public class GameEnvironmentInteractive: GameEnvironment {
     private let initialGameState: SnakeGameState
     private var stuckSnakeDetector1 = StuckSnakeDetector(humanReadableName: "Player1")
     private var stuckSnakeDetector2 = StuckSnakeDetector(humanReadableName: "Player2")

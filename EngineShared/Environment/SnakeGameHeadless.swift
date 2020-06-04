@@ -11,7 +11,7 @@ public class SnakeGameHeadless {
             player2: bot,
             levelName: "Level 4.csv"
         )
-        let environment: GameEnvironment = SnakeGameEnvironmentInteractive(initialGameState: initialGameState)
+        let environment: GameEnvironment = GameEnvironmentInteractive(initialGameState: initialGameState)
 
         var gameState: SnakeGameState = environment.reset()
 

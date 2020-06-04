@@ -134,7 +134,7 @@ public class IngameViewModel: ObservableObject {
             player2: .none,
             levelName: "Level 0.csv"
         )
-        let snakeGameEnvironment: GameEnvironment = SnakeGameEnvironmentInteractive(
+        let snakeGameEnvironment: GameEnvironment = GameEnvironmentInteractive(
             initialGameState: gameState
         )
         return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
@@ -158,7 +158,7 @@ public class IngameViewModel: ObservableObject {
             player2: .human,
             levelName: "Level 6.csv"
         )
-        let snakeGameEnvironment: GameEnvironment = SnakeGameEnvironmentInteractive(
+        let snakeGameEnvironment: GameEnvironment = GameEnvironmentInteractive(
             initialGameState: gameState
         )
         return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
@@ -171,7 +171,7 @@ public class IngameViewModel: ObservableObject {
             player2: .bot(snakeBotType: snakeBotType),
             levelName: "Level 6.csv"
         )
-        let snakeGameEnvironment: GameEnvironment = SnakeGameEnvironmentInteractive(
+        let snakeGameEnvironment: GameEnvironment = GameEnvironmentInteractive(
             initialGameState: gameState
         )
         return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
@@ -184,7 +184,7 @@ public class IngameViewModel: ObservableObject {
             player2: .none,
             levelName: "Level 0.csv"
         )
-        let snakeGameEnvironment: GameEnvironment = SnakeGameEnvironmentInteractive(
+        let snakeGameEnvironment: GameEnvironment = GameEnvironmentInteractive(
             initialGameState: gameState
         )
         return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
@@ -198,7 +198,7 @@ public class IngameViewModel: ObservableObject {
             player2: .bot(snakeBotType: snakeBotType2),
             levelName: "Level 6.csv"
         )
-        let snakeGameEnvironment: GameEnvironment = SnakeGameEnvironmentInteractive(
+        let snakeGameEnvironment: GameEnvironment = GameEnvironmentInteractive(
             initialGameState: gameState
         )
         return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
@@ -228,7 +228,7 @@ public class IngameViewModel: ObservableObject {
     }
 
     func toInteractiveModel() -> IngameViewModel {
-        let sge0 = SnakeGameEnvironmentInteractive(initialGameState: self.gameState)
+        let sge0 = GameEnvironmentInteractive(initialGameState: self.gameState)
 
         let sge1: GameEnvironment
         if AppConstant.saveTrainingData {
