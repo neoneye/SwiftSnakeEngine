@@ -71,17 +71,17 @@ public class DatasetLoader {
         )
     }
 
-    internal static func snakeGameEnvironmentReplay(resourceName: String, verbose: Bool) throws -> SnakeGameEnvironmentReplay {
+    internal static func snakeGameEnvironmentReplay(resourceName: String, verbose: Bool) throws -> GameEnvironmentReplay {
         let data: Data = try SnakeDatasetBundle.load(resourceName)
         return try DatasetLoader.snakeGameEnvironmentReplay(data: data, verbose: verbose)
     }
 
-    internal static func snakeGameEnvironmentReplay(data: Data, verbose: Bool) throws -> SnakeGameEnvironmentReplay {
+    internal static func snakeGameEnvironmentReplay(data: Data, verbose: Bool) throws -> GameEnvironmentReplay {
         let model: SnakeDatasetResult = try SnakeDatasetResult(serializedData: data)
         return try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: verbose)
     }
 
-    internal static func snakeGameEnvironmentReplay(model: SnakeDatasetResult, verbose: Bool) throws -> SnakeGameEnvironmentReplay {
+    internal static func snakeGameEnvironmentReplay(model: SnakeDatasetResult, verbose: Bool) throws -> GameEnvironmentReplay {
         guard model.hasLevel else {
             throw DatasetLoaderError.runtimeError(message: "Expected the file to contain a 'level' snapshot of the board, but got none.")
         }
@@ -220,7 +220,7 @@ public class DatasetLoader {
         // Place the initial food.
         gameState = gameState.stateWithNewFoodPosition(level.initialFoodPosition.intVec2)
 
-        return SnakeGameEnvironmentReplay(
+        return GameEnvironmentReplay(
             datasetTimestamp: datasetTimestamp,
             initialGameState: gameState,
             foodPositions: foodPositions,

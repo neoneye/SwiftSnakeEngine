@@ -205,7 +205,7 @@ public class IngameViewModel: ObservableObject {
     }
 
     class func createReplay() -> IngameViewModel {
-        let environment = SnakeGameEnvironmentReplay.create()
+        let environment = GameEnvironmentReplay.create()
         return IngameViewModel(snakeGameEnvironment: environment)
     }
 
@@ -221,7 +221,7 @@ public class IngameViewModel: ObservableObject {
             return nil
         }
         log.debug("#\(counter) Create replay environment")
-        let environment: SnakeGameEnvironmentReplay = SnakeGameEnvironmentReplay.create(data: data)
+        let environment: GameEnvironmentReplay = GameEnvironmentReplay.create(data: data)
         let newModel = IngameViewModel(snakeGameEnvironment: environment)
         log.debug("#\(counter) Create replay gameviewmodel")
         return newModel

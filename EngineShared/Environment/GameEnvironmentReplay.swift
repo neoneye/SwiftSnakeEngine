@@ -2,7 +2,7 @@
 import Foundation
 
 /// Replay the moves of a historic game.
-public class SnakeGameEnvironmentReplay: GameEnvironment {
+public class GameEnvironmentReplay: GameEnvironment {
     public let datasetTimestamp: Date
     public let initialGameState: SnakeGameState
     internal let foodPositions: [IntVec2]
@@ -33,7 +33,7 @@ public class SnakeGameEnvironmentReplay: GameEnvironment {
         self.gameState = initialGameState
     }
 
-    public static func create() -> SnakeGameEnvironmentReplay {
+    public static func create() -> GameEnvironmentReplay {
         let resourceName: String = "duel0.snakeDataset"
         do {
             return try DatasetLoader.snakeGameEnvironmentReplay(resourceName: resourceName, verbose: true)
@@ -43,7 +43,7 @@ public class SnakeGameEnvironmentReplay: GameEnvironment {
         }
     }
 
-    public static func create(data: Data) -> SnakeGameEnvironmentReplay {
+    public static func create(data: Data) -> GameEnvironmentReplay {
         do {
             return try DatasetLoader.snakeGameEnvironmentReplay(data: data, verbose: true)
         } catch {
