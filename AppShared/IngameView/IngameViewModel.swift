@@ -146,7 +146,7 @@ public class IngameViewModel: ObservableObject {
             player2: .none,
             levelName: "Level 0.csv"
         )
-        let snakeGameEnvironment: GameEnvironment = SnakeGameEnvironmentPreview(
+        let snakeGameEnvironment: GameEnvironment = GameEnvironmentPreview(
             initialGameState: gameState
         )
         return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
@@ -490,7 +490,7 @@ public class IngameViewModel: ObservableObject {
 extension Array where Element == SnakeGameState {
     func toPreviewGameViewModels() -> [IngameViewModel] {
         self.map {
-            let sge = SnakeGameEnvironmentPreview(initialGameState: $0)
+            let sge = GameEnvironmentPreview(initialGameState: $0)
             return IngameViewModel(snakeGameEnvironment: sge)
         }
     }

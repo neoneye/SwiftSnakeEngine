@@ -2,7 +2,7 @@
 import Foundation
 
 /// Used by the level selector where heavy loading is to be avoided.
-public class SnakeGameEnvironmentPreview: GameEnvironment {
+public class GameEnvironmentPreview: GameEnvironment {
     private let initialGameState: SnakeGameState
 
     public init(initialGameState: SnakeGameState) {
