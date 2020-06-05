@@ -67,13 +67,17 @@ struct PauseSheetView: View {
         return AnyView(view)
     }
 
+    private var continueGameButton: some View {
+        Button("Continue Game") {
+            self.presentedAsModal = false
+            self.model.pauseSheet_dismissSheetAndContinueGame()
+        }
+    }
+
     var bodyWithoutNavigationBar: some View {
         VStack(spacing: 20) {
             #if os(macOS)
-            Button("Continue Game") {
-                self.presentedAsModal = false
-                self.model.pauseSheet_dismissSheetAndContinueGame()
-            }
+            continueGameButton
             #endif
 
             HStack(alignment: .top) {
@@ -113,10 +117,7 @@ struct PauseSheetView: View {
             bodyWithoutNavigationBar
                 .navigationBarTitle("Game Paused")
                 .navigationBarItems(leading:
-                    Button("Continue Game") {
-                        self.presentedAsModal = false
-                        self.model.pauseSheet_dismissSheetAndContinueGame()
-                    }
+                    continueGameButton
                 )
         }
         .navigationViewStyle(StackNavigationViewStyle())
