@@ -63,7 +63,7 @@ struct PauseSheetView: View {
             model: model,
             mode: .replayOnPauseSheet
         )
-        .frame(width: 200, height: 200)
+        .frame(minWidth: 100, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
         return AnyView(view)
     }
 
@@ -91,7 +91,7 @@ struct PauseSheetView: View {
     }
 
     var bodyWithoutNavigationBar: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 0) {
             #if os(macOS)
             macOS_navigationBar
             #endif
@@ -110,17 +110,14 @@ struct PauseSheetView: View {
                 .background(AppColor.player2_snakeBody.color)
             }
 
-            Spacer()
-
             if AppConstant.develop_showReplayOnPauseSheet {
                 // Show replay of the game
                 replayView
-                Spacer()
             }
 
-            Spacer()
-
-            exitGameButton.padding(.bottom, 20)
+            exitGameButton
+                .padding(.top, 10)
+                .padding(.bottom, 20)
         }
     }
 
@@ -147,7 +144,8 @@ struct PauseSheetView: View {
 struct PauseSheetView_Previews: PreviewProvider {
     static var previews: some View {
         let settingStore = SettingStore()
-        let model = IngameViewModel.create()
+        let model = IngameViewModel.createHumanVsHuman()
+        model.replayGameViewModel = model
         return PauseSheetView(model: model, presentedAsModal: .constant(true))
             .environmentObject(settingStore)
             .previewLayout(.fixed(width: 400, height: 500))
