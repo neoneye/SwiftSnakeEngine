@@ -31,7 +31,7 @@ struct PauseSheetView: View {
 
     var soundEffectsButton: some View {
         return HStack {
-            Text("Sound effects")
+            Text("Sound")
             Toggle("Sound effects", isOn: self.$settingStore.isSoundEffectsEnabled).labelsHidden()
         }
     }
@@ -74,10 +74,26 @@ struct PauseSheetView: View {
         }
     }
 
+    private var macOS_navigationBar: some View {
+        VStack {
+            HStack {
+                continueGameButton
+                Spacer()
+                soundEffectsButton
+            }
+
+            HStack {
+                Text("Game Paused").font(Font.largeTitle)
+                Spacer()
+            }
+        }
+        .padding([.top, .leading, .trailing], 10)
+    }
+
     var bodyWithoutNavigationBar: some View {
         VStack(spacing: 20) {
             #if os(macOS)
-            continueGameButton
+            macOS_navigationBar
             #endif
 
             HStack(alignment: .top) {
@@ -102,22 +118,21 @@ struct PauseSheetView: View {
                 Spacer()
             }
 
-            soundEffectsButton
-
             Spacer()
 
-            exitGameButton
+            exitGameButton.padding(.bottom, 20)
         }
-        .padding(EdgeInsets(top: 40, leading: 0, bottom: 40, trailing: 0))
     }
 
     #if os(iOS)
     var body: some View {
         NavigationView {
             bodyWithoutNavigationBar
+                .padding(.top, 40)
                 .navigationBarTitle("Game Paused")
-                .navigationBarItems(leading:
-                    continueGameButton
+                .navigationBarItems(
+                    leading: continueGameButton,
+                    trailing: soundEffectsButton
                 )
         }
         .navigationViewStyle(StackNavigationViewStyle())
