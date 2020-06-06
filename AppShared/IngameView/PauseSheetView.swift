@@ -63,7 +63,7 @@ struct PauseSheetView: View {
             model: model,
             mode: .replayOnPauseSheet
         )
-        .frame(minWidth: 100, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+        .frame(minWidth: 200, maxWidth: .infinity, minHeight: 200, maxHeight: .infinity)
         return AnyView(view)
     }
 
@@ -90,25 +90,59 @@ struct PauseSheetView: View {
         .padding([.top, .leading, .trailing], 10)
     }
 
+    var playerScoreSplitView: some View {
+        GeometryReader { geometry in
+            self.playerScoreSplitView_inner(geometry)
+        }
+        .padding([.leading, .trailing], 10)
+        .padding(.bottom, 5)
+    }
+
+    private func playerScoreSplitView_inner(_ geometry: GeometryProxy) -> some View {
+        let size: CGSize = geometry.size
+        let spacing: CGFloat = 10
+        let width: CGFloat = floor((size.width - spacing) / 2)
+
+        let shadowColorLeft = Color.white.opacity(0.3)
+        let shadowColorRight = Color.white.opacity(0.6)
+
+        let leftView = Text(self.model.player1Score)
+            .lineLimit(1)
+            .font(Font.largeTitle.bold())
+            .scaleEffect(1.5)
+            .shadow(color: shadowColorLeft, radius: 2, x: 0, y: 0)
+            .padding(5)
+            .foregroundColor(Color.black)
+            .frame(minWidth: width, maxWidth: width, minHeight: 20, maxHeight: .infinity, alignment: .center)
+            .background(AppColor.player1_snakeBody.color)
+
+        let rightView = Text(self.model.player2Score)
+            .lineLimit(1)
+            .font(Font.largeTitle.bold())
+            .scaleEffect(1.5)
+            .shadow(color: shadowColorRight, radius: 2, x: 0, y: 0)
+            .padding(5)
+            .foregroundColor(Color.black)
+            .frame(minWidth: width, maxWidth: width, minHeight: 20, maxHeight: .infinity, alignment: .center)
+            .background(AppColor.player2_snakeBody.color)
+
+        let stackView = HStack(spacing: spacing) {
+            leftView
+            rightView
+        }
+
+        return AnyView(stackView)
+    }
+
+
     var bodyWithoutNavigationBar: some View {
         VStack(spacing: 0) {
             #if os(macOS)
             macOS_navigationBar
             #endif
 
-            HStack(alignment: .top) {
-                Text(self.model.player1Summary)
-                .foregroundColor(Color.black)
-                .padding()
-                .background(AppColor.player1_snakeBody.color)
-
-                Spacer()
-
-                Text(self.model.player2Summary)
-                .foregroundColor(Color.black)
-                .padding()
-                .background(AppColor.player2_snakeBody.color)
-            }
+            playerScoreSplitView
+                .frame(height: 80)
 
             if AppConstant.develop_showReplayOnPauseSheet {
                 // Show replay of the game
