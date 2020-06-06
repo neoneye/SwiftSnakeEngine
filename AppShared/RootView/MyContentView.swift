@@ -193,13 +193,13 @@ struct MyContentView: View {
 
         return VStack {
             HStack {
-                Text("Battle the AI")
+                Text("Human + Robot")
                     .foregroundColor(.primary)
                     .font(.largeTitle)
                     .bold()
                     .padding()
 
-                Toggle("Battle the AI", isOn: bindingOn)
+                Toggle("Human + Robot", isOn: bindingOn)
                 .labelsHidden()
             }
             .padding(EdgeInsets(top: 30, leading: 30, bottom: 10, trailing: 30))
