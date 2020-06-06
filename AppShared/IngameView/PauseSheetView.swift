@@ -54,6 +54,7 @@ struct PauseSheetView: View {
         .alert(isPresented: $showExitGameAlert, content: prepareExitGameAlertContent)
     }
 
+    /// Shows a replay of the game
     private var replayView: some View {
         let view = IngameView(
             model: replayModel,
@@ -141,10 +142,7 @@ struct PauseSheetView: View {
             playerScoreSplitView
                 .frame(height: 80)
 
-            if AppConstant.develop_showReplayOnPauseSheet {
-                // Show replay of the game
-                replayView
-            }
+            replayView
 
             exitGameButton
                 .padding(.top, 10)
