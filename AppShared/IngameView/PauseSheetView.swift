@@ -13,21 +13,9 @@ import EngineMac
 struct PauseSheetView: View {
     @EnvironmentObject var settingStore: SettingStore
     @ObservedObject var model: IngameViewModel
+    @ObservedObject var replayModel: IngameViewModel
     @Binding var presentedAsModal: Bool
     @State var showExitGameAlert = false
-
-    var exitGameAlert: Alert {
-        return Alert(
-            title: Text("Do you want to exit game?"),
-            message: Text("This will delete your current snake game progress."),
-            primaryButton: Alert.Button.destructive(Text("Exit game"), action: {
-                log.debug("Exit game. Yes, I'm sure!")
-                self.presentedAsModal = false
-                self.model.jumpToLevelSelector.send()
-            }),
-            secondaryButton: Alert.Button.cancel()
-        )
-    }
 
     var soundEffectsButton: some View {
         return HStack {
@@ -36,9 +24,24 @@ struct PauseSheetView: View {
         }
     }
 
+    func prepareExitGameAlertContent() -> Alert {
+        //log.debug("create alert")
+        return Alert(
+            title: Text("Do you want to exit game?"),
+            message: Text("This will delete your current snake game progress."),
+            primaryButton: Alert.Button.destructive(Text("Exit game"), action: {
+                log.debug("Exit game. Yes, I'm sure!")
+                self.presentedAsModal = false
+                self.model.pauseSheet_dismissSheetAndExitGame()
+            }),
+            secondaryButton: Alert.Button.cancel()
+        )
+    }
+
     var exitGameButton: some View {
         return Button(action: {
             log.debug("show exit game alert")
+            self.replayModel.pauseSheet_stopReplay()
             self.showExitGameAlert.toggle()
         }) {
             Text("Exit Game")
@@ -48,28 +51,22 @@ struct PauseSheetView: View {
         .buttonStyle(BorderlessButtonStyle())
         .background(AppColor.exitGameButton_fill.color)
         .cornerRadius(5)
-        .alert(isPresented: $showExitGameAlert, content: {
-            exitGameAlert
-        })
+        .alert(isPresented: $showExitGameAlert, content: prepareExitGameAlertContent)
     }
 
     private var replayView: some View {
-        guard let model: IngameViewModel = self.model.replayGameViewModel else {
-            log.error("There is replay data to be replayed")
-            return AnyView(EmptyView())
-        }
-        log.debug("Greated gameviewmodel with the replay data")
         let view = IngameView(
-            model: model,
+            model: replayModel,
             mode: .replayOnPauseSheet
         )
         .frame(minWidth: 200, maxWidth: .infinity, minHeight: 200, maxHeight: .infinity)
-        return AnyView(view)
+        return view
     }
 
     private var continueGameButton: some View {
         Button("Continue Game") {
             self.presentedAsModal = false
+            self.replayModel.pauseSheet_stopReplay()
             self.model.pauseSheet_dismissSheetAndContinueGame()
         }
     }
@@ -180,8 +177,12 @@ struct PauseSheetView_Previews: PreviewProvider {
         let settingStore = SettingStore()
         let model = IngameViewModel.createHumanVsHuman()
         model.replayGameViewModel = model
-        return PauseSheetView(model: model, presentedAsModal: .constant(true))
-            .environmentObject(settingStore)
-            .previewLayout(.fixed(width: 400, height: 500))
+        return PauseSheetView(
+            model: model,
+            replayModel: model,
+            presentedAsModal: .constant(true)
+        )
+        .environmentObject(settingStore)
+        .previewLayout(.fixed(width: 400, height: 500))
     }
 }

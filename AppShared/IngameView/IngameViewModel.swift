@@ -397,8 +397,17 @@ public class IngameViewModel: ObservableObject {
     }
 
     func pauseSheet_dismissSheetAndContinueGame() {
-        log.debug("continueGame")
+        log.debug("continue game")
         resumeSteppingIfPreferred()
+    }
+
+    func pauseSheet_dismissSheetAndExitGame() {
+        log.debug("exit game")
+        self.jumpToLevelSelector.send()
+    }
+
+    func pauseSheet_stopReplay() {
+        stopStepping()
     }
 
     private func resumeSteppingIfPreferred() {

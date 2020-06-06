@@ -347,10 +347,20 @@ struct IngameView: View {
                 .padding(15)
         }
         .buttonStyle(BorderlessButtonStyle())
-        .sheet(isPresented: $presentingModal) {
-            PauseSheetView(model: self.model, presentedAsModal: self.$presentingModal)
-                .environmentObject(self.settingStore)
+        .sheet(isPresented: $presentingModal, content: buildPauseSheetContent)
+    }
+
+    private func buildPauseSheetContent() -> some View {
+        guard let replayModel: IngameViewModel = self.model.replayGameViewModel else {
+            log.error("There is no replay data to be replayed")
+            fatalError()
         }
+        return PauseSheetView(
+            model: self.model,
+            replayModel: replayModel,
+            presentedAsModal: self.$presentingModal
+        )
+        .environmentObject(self.settingStore)
     }
 
     private var overlayWithPauseButton: some View {
