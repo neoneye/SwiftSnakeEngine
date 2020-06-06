@@ -234,13 +234,7 @@ public class IngameViewModel: ObservableObject {
 
     func toInteractiveModel() -> IngameViewModel {
         let sge0 = GameEnvironmentInteractive(initialGameState: self.gameState)
-
-        let sge1: GameEnvironment
-        if AppConstant.saveTrainingData {
-            sge1 = GameEnvironmentSaveDataset(wrapped: sge0)
-        } else {
-            sge1 = sge0
-        }
+        let sge1 = GameEnvironmentSaveDataset(wrapped: sge0)
         return IngameViewModel(snakeGameEnvironment: sge1)
     }
 

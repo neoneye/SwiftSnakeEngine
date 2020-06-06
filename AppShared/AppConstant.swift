@@ -28,8 +28,6 @@ struct AppConstant {
 
 	static let ignoreRepeatingKeyDownEvents = true
 
-	static let saveTrainingData = true
-
     struct Dashboard {
         static let url = URL(string: "http://localhost:4000/")!
     }
