@@ -24,6 +24,10 @@ public class SnakePlayer {
         return isInstalled && !causesOfDeath.isEmpty
     }
 
+    public var isInstalledAndAliveAndHuman: Bool {
+        return isInstalledAndAlive && role == .human
+    }
+
 	public var isBot: Bool {
 		switch role {
 		case .none:
@@ -109,10 +113,8 @@ public class SnakePlayer {
 		)
 	}
 
-	public func clearPendingMovementAndPendingActForHuman() -> SnakePlayer {
-		guard role == .human else {
-			return self
-		}
+    /// Resets the `pendingMovement` and `pendingAct` fields.
+	public func clearPendingMovementAndPendingAct() -> SnakePlayer {
 		return SnakePlayer(
             id: id,
             isInstalled: isInstalled,
@@ -124,6 +126,15 @@ public class SnakePlayer {
 			bot: bot
 		)
 	}
+
+    /// For humans players, resets the `pendingMovement` and `pendingAct` fields.
+    /// For non-human players, does nothing.
+    public func clearPendingMovementAndPendingActForHuman() -> SnakePlayer {
+        guard role == .human else {
+            return self
+        }
+        return self.clearPendingMovementAndPendingAct()
+    }
 
     /// Examples of how the snake can die: stuck, collision with wall, collision with self, collision with opponent.
     public func kill(_ causeOfDeath: SnakeCauseOfDeath) -> SnakePlayer {

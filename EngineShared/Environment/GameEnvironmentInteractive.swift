@@ -2,7 +2,7 @@
 import Foundation
 
 /// Human players can interact with the game state.
-public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
+public class GameEnvironmentInteractive: GameEnvironment {
     private let initialGameState: SnakeGameState
     private var stuckSnakeDetector1 = StuckSnakeDetector(humanReadableName: "Player1")
     private var stuckSnakeDetector2 = StuckSnakeDetector(humanReadableName: "Player2")
@@ -38,7 +38,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
             log.info("Canot step backward. There is no previous state to rewind back to.")
             return nil
         }
-        gameState = gameState.clearPendingMovementAndPendingLengthForHumanPlayers()
+        gameState = gameState.clearPendingMovementAndPendingActForHumanPlayers()
         gameState = self.placeNewFood(gameState)
         gameState = self.computeNextBotMovement(gameState)
 
@@ -49,7 +49,33 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         return gameState
     }
 
-    public func step(action: SnakeGameAction) -> SnakeGameState {
+    public var stepControlMode: GameEnvironment_StepControlMode {
+        var botCount: UInt = 0
+        var nonBotCount: UInt = 0
+        let players: [SnakePlayer] = [gameState.player1, gameState.player2]
+        for player in players {
+            if player.isInstalledAndAlive {
+                if player.isBot {
+                    botCount += 1
+                } else {
+                    nonBotCount += 1
+                }
+            }
+        }
+        guard botCount + nonBotCount > 0 else {
+            // There are no players alive. The game is over.
+            return .reachedTheEnd
+        }
+        if nonBotCount > 0 {
+            // There are one or more players that requires interactive input.
+            return .stepRequiresHumanInput
+        } else {
+            // All the players can step fully autonomous.
+            return .stepAutonomous
+        }
+    }
+
+    public func step(action: GameEnvironment_StepAction) -> SnakeGameState {
         let oldGameState: SnakeGameState = self.gameState
 
         var newGameState: SnakeGameState = oldGameState
@@ -57,7 +83,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
 
         do {
             var player: SnakePlayer = newGameState.player1
-            if player.isInstalledAndAlive && player.role == .human {
+            if player.isInstalledAndAliveAndHuman {
                 let movement: SnakeBodyMovement = action.player1
                 guard movement != .dontMove else {
                     log.error("Expected human actions to be different from dontMove, but got dontMove!")
@@ -69,7 +95,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
         }
         do {
             var player: SnakePlayer = newGameState.player2
-            if player.isInstalledAndAlive && player.role == .human {
+            if player.isInstalledAndAliveAndHuman {
                 let movement: SnakeBodyMovement = action.player2
                 guard movement != .dontMove else {
                     log.error("Expected human actions to be different from dontMove, but got dontMove!")
@@ -93,8 +119,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
                 act: player.pendingAct
             )
             player = player.playerWithNewSnakeBody(snakeBody)
-            player = player.updatePendingMovement(.dontMove)
-            player = player.updatePendingAct(.doNothing)
+            player = player.clearPendingMovementAndPendingAct()
             player = stuckSnakeDetector1.killBotIfStuckInLoop(player)
             newGameState = newGameState.stateWithNewPlayer1(player)
         }
@@ -109,8 +134,7 @@ public class SnakeGameEnvironmentInteractive: SnakeGameEnvironment {
                 act: player.pendingAct
             )
             player = player.playerWithNewSnakeBody(snakeBody)
-            player = player.updatePendingMovement(.dontMove)
-            player = player.updatePendingAct(.doNothing)
+            player = player.clearPendingMovementAndPendingAct()
             player = stuckSnakeDetector2.killBotIfStuckInLoop(player)
             newGameState = newGameState.stateWithNewPlayer2(player)
         }

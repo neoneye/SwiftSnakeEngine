@@ -66,7 +66,7 @@ fileprivate struct LevelGridView: View {
 }
 
 struct LevelView: View {
-    @ObservedObject var model: GameViewModel
+    @ObservedObject var model: IngameViewModel
 
     var body: some View {
         let level: SnakeLevel = model.level
@@ -77,7 +77,7 @@ struct LevelView: View {
 
 struct LevelView_Previews: PreviewProvider {
     static var previews: some View {
-        let model = GameViewModel.create()
+        let model = IngameViewModel.create()
         return Group {
             LevelView(model: model)
                 .previewLayout(.fixed(width: 130, height: 200))

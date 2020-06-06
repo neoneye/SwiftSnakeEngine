@@ -18,9 +18,9 @@ enum MyContentView_VisibleContent {
 struct MyContentView: View {
     @EnvironmentObject var settingStore: SettingStore
 
-    @State var model: GameViewModel
+    @State var model: IngameViewModel
     @ObservedObject var levelSelectorViewModel: LevelSelectorViewModel
-    @State var visibleContent = MyContentView_VisibleContent.levelSelector
+    @State var visibleContent: MyContentView_VisibleContent
 
     #if os(macOS)
     @Environment(\.keyPublisher) var keyPublisher
@@ -36,8 +36,8 @@ struct MyContentView: View {
         )
     }
 
-    func launchGame(_ gameViewModel: GameViewModel) {
-//        self.model = GameViewModel.createReplay()
+    func launchGame(_ gameViewModel: IngameViewModel) {
+//        self.model = IngameViewModel.createReplay()
         self.model = gameViewModel.toInteractiveModel()
         self.visibleContent = .ingame
     }
@@ -94,6 +94,17 @@ struct MyContentView: View {
         if AppConstant.ignoreRepeatingKeyDownEvents && event.isARepeat {
             //log.debug("keyDown: ignoring repeating event.")
             return
+        }
+
+        switch event.keyCodeEnum {
+        case .escape:
+            if AppConstant.escapeKeyToTerminateApp {
+                log.debug("ESCape key to terminate app")
+                NSApp.terminate(self)
+                return
+            }
+        default:
+            ()
         }
 
         switch visibleContent {
@@ -248,7 +259,7 @@ struct MyContentView: View {
 struct ContentView_Previews : PreviewProvider {
 
     static var previews: some View {
-        let model = GameViewModel.create()
+        let model = IngameViewModel.create()
         let levelSelectorViewModel = LevelSelectorViewModel()
         levelSelectorViewModel.useMockData()
         let settingStore = SettingStore()
@@ -256,7 +267,7 @@ struct ContentView_Previews : PreviewProvider {
 //            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, isPreview: true)
 //                .previewLayout(.fixed(width: 130, height: 200))
 
-            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, isPreview: true)
+            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, visibleContent: .levelSelector, isPreview: true)
                 .previewLayout(.fixed(width: 500, height: 500))
 
 //            MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, isPreview: true)

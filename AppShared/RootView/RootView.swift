@@ -2,12 +2,12 @@
 import SwiftUI
 
 struct RootView: View {
-    @State var model: GameViewModel
+    @State var model: IngameViewModel
     @ObservedObject var levelSelectorViewModel: LevelSelectorViewModel
     @ObservedObject var settingStore: SettingStore
 
     var body: some View {
-        MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel)
+        MyContentView(model: model, levelSelectorViewModel: levelSelectorViewModel, visibleContent: .levelSelector)
         .environmentObject(settingStore)
     }
 }

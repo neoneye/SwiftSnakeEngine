@@ -94,7 +94,7 @@ extension SnakeLevel {
 }
 
 extension SnakeGameState {
-	private func toSnakeDatasetStep() -> SnakeDatasetStep {
+	internal func toSnakeDatasetStep() -> SnakeDatasetStep {
 		// Food
 		var optionalFoodPosition: SnakeDatasetStep.OneOf_OptionalFoodPosition? = nil
 		if let position: UIntVec2 = self.foodPosition?.uintVec2() {
@@ -171,41 +171,19 @@ extension SnakeGameState {
 	}
 }
 
+// IDEA: Determine the winner: the longest snake, or the longest lived snake, or a combo?
+// IDEA: pass on which player won/loose.
 public class PostProcessTrainingData {
-	private let trainingSessionUUID: UUID
-	private let sharedLevel: SnakeDatasetLevel
-    private var stepArray: [SnakeDatasetStep] = []
+	private let level: SnakeDatasetLevel
+    private let stepArray: [SnakeDatasetStep]
 
-	private init(trainingSessionUUID: UUID, sharedLevel: SnakeDatasetLevel) {
-		self.trainingSessionUUID = trainingSessionUUID
-		self.sharedLevel = sharedLevel
+	internal init(level: SnakeDatasetLevel, stepArray: [SnakeDatasetStep]) {
+		self.level = level
+        self.stepArray = stepArray
 	}
 
-	private func processFile(at url: URL) {
-		let model: SnakeDatasetIngame
-		do {
-			let data: Data = try Data(contentsOf: url)
-			model = try SnakeDatasetIngame(serializedData: data)
-		} catch {
-			log.error("Unable to load file at url: '\(url)'. \(error)")
-			return
-		}
-        guard model.hasLevel else {
-            log.error("Expected the file to have a reference to level, but got none. '\(url)'")
-            return
-        }
-        guard model.hasStep else {
-            log.error("Expected the file to 'step' instance, but got nil. url: '\(url)'")
-            return
-        }
-        guard model.level.isEqualTo(message: self.sharedLevel) else {
-            log.error("Inconsistent level info. Expected all the files in a session to refer to the same level. '\(url)'")
-            return
-        }
-        stepArray.append(model.step)
-	}
-
-	private func saveResult() {
+    /// SnakeDatasetResult serialized to Data
+	internal func toData() -> Data {
         guard let firstStep: SnakeDatasetStep = self.stepArray.first,
             let lastStep: SnakeDatasetStep = self.stepArray.last else {
             fatalError("Expected the stepArray to be non-empty, but it's empty. Cannot create result file.")
@@ -278,14 +256,14 @@ public class PostProcessTrainingData {
 
         let date = Date()
 
-        log.debug("level.uuid: '\(self.sharedLevel.uuid)'")
+        log.debug("level.uuid: '\(self.level.uuid)'")
         log.debug("foodPositions.count: \(foodPositions.count)")
         log.debug("playerAPositions.count: \(playerAPositions.count)")
         log.debug("playerBPositions.count: \(playerBPositions.count)")
         log.debug("timestamp: \(date)")
 
 		let model = SnakeDatasetResult.with {
-			$0.level = self.sharedLevel
+			$0.level = self.level
             $0.firstStep = firstStep
             $0.lastStep = lastStep
             $0.foodPositions = foodPositions
@@ -298,9 +276,14 @@ public class PostProcessTrainingData {
 		guard let binaryData: Data = try? model.serializedData() else {
 			fatalError("Unable to serialize to a result file.")
 		}
+        return binaryData
+    }
+
+    func saveToTempoaryFile(trainingSessionUUID: UUID) {
+        let binaryData: Data = self.toData()
 		let temporaryFileUrl: URL = URL.temporaryFile(
 			prefixes: ["snakegame", "trainingdata"],
-			uuid: self.trainingSessionUUID,
+			uuid: trainingSessionUUID,
 			suffixes: ["result"]
 		)
 		do {
@@ -321,23 +304,50 @@ public class PostProcessTrainingData {
 			log.error("Expected 1 or more urls for post processing. There is nothing to process!")
 			return
 		}
-		let sharedLevel: SnakeDatasetLevel
-		let url0: URL = urls.first!
-		do {
-			let data: Data = try Data(contentsOf: url0)
-			let model: SnakeDatasetIngame = try SnakeDatasetIngame(serializedData: data)
-			sharedLevel = model.level
-		} catch {
-			log.error("Unable to load file at url: '\(url0)'. \(error)")
-			return
-		}
-		let processor = PostProcessTrainingData(trainingSessionUUID: trainingSessionUUID, sharedLevel: sharedLevel)
-		for url in urls {
-			processor.processFile(at: url)
-		}
-
+        log.info("will process \(urls.count) files")
+        let snakeDatasetIngameArray: [SnakeDatasetIngame] = urls.compactMap {
+            loadSnakeDatasetIngame(contentsOf: $0)
+        }
+        guard snakeDatasetIngameArray.count == urls.count else {
+            log.error("There was a problem processing one or more files.")
+            return
+        }
         log.info("did process \(urls.count) files")
 
-		processor.saveResult()
+        let sharedLevel: SnakeDatasetLevel = snakeDatasetIngameArray.first!.level
+        for snakeDatasetIngame: SnakeDatasetIngame in snakeDatasetIngameArray {
+            guard snakeDatasetIngame.level.isEqualTo(message: sharedLevel) else {
+                log.error("Inconsistent level info. Expected all the files in a session to refer to the same level.")
+                return
+            }
+        }
+        let stepArray: [SnakeDatasetStep] = snakeDatasetIngameArray.map { $0.step }
+
+        log.info("will postprocess")
+		let processor = PostProcessTrainingData(level: sharedLevel, stepArray: stepArray)
+
+		processor.saveToTempoaryFile(trainingSessionUUID: trainingSessionUUID)
+        log.info("did postprocess")
 	}
+
+    private class func loadSnakeDatasetIngame(contentsOf url: URL) -> SnakeDatasetIngame? {
+        let model: SnakeDatasetIngame
+        do {
+            let data: Data = try Data(contentsOf: url)
+            model = try SnakeDatasetIngame(serializedData: data)
+        } catch {
+            log.error("Unable to load file at url: '\(url)'. \(error)")
+            return nil
+        }
+        guard model.hasLevel else {
+            log.error("Expected the file to have a reference to level, but got none. '\(url)'")
+            return nil
+        }
+        guard model.hasStep else {
+            log.error("Expected the file to 'step' instance, but got nil. url: '\(url)'")
+            return nil
+        }
+        return model
+    }
+
 }

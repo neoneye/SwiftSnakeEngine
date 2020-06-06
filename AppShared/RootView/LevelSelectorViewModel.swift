@@ -14,7 +14,7 @@ import EngineMac
 public class LevelSelectorViewModel: ObservableObject {
     let gridSize = UIntVec2(x: 3, y: 3)
 
-    @Published var models: [GameViewModel] = []
+    @Published var models: [IngameViewModel] = []
     @Published var selectedIndex: UInt = 3
 
     private var cancellables = Set<AnyCancellable>()
@@ -31,8 +31,8 @@ public class LevelSelectorViewModel: ObservableObject {
     }
 
     func useMockData() {
-        let model = GameViewModel.createPreview()
-        models = Array<GameViewModel>(repeating: model, count: 9)
+        let model = IngameViewModel.createPreview()
+        models = Array<IngameViewModel>(repeating: model, count: 9)
     }
 
     func loadModelsFromUserDefaults() {
@@ -46,7 +46,7 @@ public class LevelSelectorViewModel: ObservableObject {
         models = gameStates.toPreviewGameViewModels()
     }
 
-    func gameViewModelForSelectedIndex() -> GameViewModel? {
+    func gameViewModelForSelectedIndex() -> IngameViewModel? {
         guard Int(selectedIndex) < models.count else {
             return nil
         }

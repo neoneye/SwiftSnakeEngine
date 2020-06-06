@@ -13,15 +13,20 @@ import EngineMac
 struct AppConstant {
 	enum Mode {
 		case production
-		case develop_humanVsNone
-        case develop_botVsNone
-        case develop_replay
+        case develop_ingame
 	}
 	static let mode: Mode = .production
 
-	static let ignoreRepeatingKeyDownEvents = true
+    static var escapeKeyToTerminateApp: Bool {
+        switch mode {
+        case .production:
+            return false
+        case .develop_ingame:
+            return true
+        }
+    }
 
-	static let saveTrainingData = false
+	static let ignoreRepeatingKeyDownEvents = true
 
     struct Dashboard {
         static let url = URL(string: "http://localhost:4000/")!

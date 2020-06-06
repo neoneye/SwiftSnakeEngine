@@ -11,7 +11,7 @@ import EngineMac
 
 struct IngameView: View {
     @EnvironmentObject var settingStore: SettingStore
-    @ObservedObject var model: GameViewModel
+    @ObservedObject var model: IngameViewModel
     @State var presentingModal = false
 
     enum Mode {
@@ -20,6 +20,9 @@ struct IngameView: View {
 
         /// Non-interactive thumbnail of the level.
         case levelSelectorPreview
+
+        /// Non-interactive replay of the game.
+        case replayOnPauseSheet
     }
     let mode: Mode
 
@@ -179,6 +182,8 @@ struct IngameView: View {
             return AnyView(playableMode_body)
         case .levelSelectorPreview:
             return AnyView(innerBodyWithAspectRatio)
+        case .replayOnPauseSheet:
+            return AnyView(replayView)
         }
     }
 
@@ -204,6 +209,16 @@ struct IngameView: View {
     private var playableMode_body: some View {
         GeometryReader { geometry in
             self.playableMode_body_inner(geometry)
+        }
+    }
+
+    private var replayView: some View {
+        innerBodyWithAspectRatio
+        .onAppear {
+            self.model.ingameView_replayMode_onAppear()
+        }
+        .onDisappear {
+            self.model.ingameView_replayMode_onDisappear()
         }
     }
 
@@ -323,7 +338,7 @@ struct IngameView: View {
 
     private var pauseButton: some View {
         Button(action: {
-            self.model.pauseSheet_willPresentSheet()
+            self.model.ingameView_willPresentPauseSheet()
             self.presentingModal = true
         }) {
             Image("ingame_pauseButton_image")
@@ -332,10 +347,20 @@ struct IngameView: View {
                 .padding(15)
         }
         .buttonStyle(BorderlessButtonStyle())
-        .sheet(isPresented: $presentingModal) {
-            PauseSheetView(model: self.model, presentedAsModal: self.$presentingModal)
-                .environmentObject(self.settingStore)
+        .sheet(isPresented: $presentingModal, content: buildPauseSheetContent)
+    }
+
+    private func buildPauseSheetContent() -> some View {
+        guard let replayModel: IngameViewModel = self.model.replayGameViewModel else {
+            log.error("There is no replay data to be replayed")
+            fatalError()
         }
+        return PauseSheetView(
+            model: self.model,
+            replayModel: replayModel,
+            presentedAsModal: self.$presentingModal
+        )
+        .environmentObject(self.settingStore)
     }
 
     private var overlayWithPauseButton: some View {
@@ -352,7 +377,7 @@ struct IngameView: View {
 struct IngameView_Previews: PreviewProvider {
     static var previews: some View {
         let settingStore = SettingStore()
-        let model = GameViewModel.createHumanVsHuman()
+        let model = IngameViewModel.createHumanVsHuman()
         return Group {
             IngameView(model: model, mode: .playable)
                 .previewLayout(.fixed(width: 130, height: 200))

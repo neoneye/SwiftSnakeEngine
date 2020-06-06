@@ -116,7 +116,7 @@ class T4001_Dataset: XCTestCase {
     }
 
     func test300_loadSnakeDataset_duel() throws {
-        let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "duel0.snakeDataset", verbose: false)
+        let environment: GameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "duel0.snakeDataset", verbose: false)
         XCTAssertGreaterThan(environment.player1Positions.count, 10)
         XCTAssertGreaterThan(environment.player2Positions.count, 10)
         XCTAssertGreaterThan(environment.foodPositions.count, 10)
@@ -127,7 +127,7 @@ class T4001_Dataset: XCTestCase {
     }
 
     func test301_loadSnakeDataset_solo() throws {
-        let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "solo0.snakeDataset", verbose: false)
+        let environment: GameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "solo0.snakeDataset", verbose: false)
         XCTAssertGreaterThan(environment.player1Positions.count, 10)
         XCTAssertTrue(environment.player2Positions.isEmpty)
         XCTAssertGreaterThan(environment.foodPositions.count, 10)
@@ -140,14 +140,14 @@ class T4001_Dataset: XCTestCase {
     func test302_loadSnakeDataset_datasetTimestamp() throws {
         do {
             let model: SnakeDatasetResult = try snakeDatasetResult_duel0()
-            let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
+            let environment: GameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
             XCTAssertGreaterThan(environment.datasetTimestamp, Date.distantPast)
         }
 
         do {
             var model: SnakeDatasetResult = try snakeDatasetResult_duel0()
             model.clearTimestamp()
-            let environment: SnakeGameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
+            let environment: GameEnvironmentReplay = try DatasetLoader.snakeGameEnvironmentReplay(model: model, verbose: false)
             XCTAssertEqual(environment.datasetTimestamp, Date.distantPast)
         }
     }
