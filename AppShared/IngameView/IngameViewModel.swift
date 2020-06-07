@@ -11,6 +11,11 @@ import EngineMac
 #error("Unknown OS")
 #endif
 
+struct ReplaySnapshot {
+    let rawData: Data
+    let ingameViewModel: IngameViewModel
+}
+
 public class IngameViewModel: ObservableObject {
     public let jumpToLevelSelector = PassthroughSubject<Void, Never>()
     @Published var level: SnakeLevel = SnakeLevel.empty()
@@ -30,7 +35,7 @@ public class IngameViewModel: ObservableObject {
     @Published var player1PlannedPath: [IntVec2] = []
     @Published var player2PlannedPath: [IntVec2] = []
     @Published var gestureIndicatorPosition: IntVec2 = IntVec2.zero
-    var replayGameViewModel: IngameViewModel?
+    var replaySnapshot: ReplaySnapshot?
 
     private var pendingMovement_player1: SnakeBodyMovement = .dontMove
     private var pendingMovement_player2: SnakeBodyMovement = .dontMove
@@ -216,7 +221,7 @@ public class IngameViewModel: ObservableObject {
 
     static var createReplayCounter: UInt = 0
 
-    func createReplay() -> IngameViewModel? {
+    func createReplay() -> ReplaySnapshot? {
         let counter: UInt = Self.createReplayCounter
         Self.createReplayCounter = counter + 1
 
@@ -229,7 +234,8 @@ public class IngameViewModel: ObservableObject {
         let environment: GameEnvironmentReplay = GameEnvironmentReplay.create(data: data)
         let newModel = IngameViewModel(snakeGameEnvironment: environment)
         log.debug("#\(counter) Create replay gameviewmodel")
-        return newModel
+
+        return ReplaySnapshot(rawData: data, ingameViewModel: newModel)
     }
 
     func toInteractiveModel() -> IngameViewModel {
@@ -380,14 +386,17 @@ public class IngameViewModel: ObservableObject {
     func ingameView_willPresentPauseSheet() {
         log.debug("don't do any stepping while the pause sheet is shown")
         stopStepping()
+        captureReplaySnapshot()
+    }
 
-        guard let model: IngameViewModel = self.createReplay() else {
+    func captureReplaySnapshot() {
+        guard let replaySnapshot: ReplaySnapshot = self.createReplay() else {
             log.error("Unable to create replay data of the current model")
-            replayGameViewModel = nil
+            self.replaySnapshot = nil
             return
         }
         log.debug("successfully created replay gameviewmodel")
-        replayGameViewModel = model
+        self.replaySnapshot = replaySnapshot
     }
 
     func pauseSheet_dismissSheetAndContinueGame() {

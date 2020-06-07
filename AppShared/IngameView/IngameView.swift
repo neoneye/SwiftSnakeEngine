@@ -372,14 +372,15 @@ struct IngameView: View {
     }
 
     private func buildPauseSheetContent() -> some View {
-        guard let replayModel: IngameViewModel = self.model.replayGameViewModel else {
+        guard let replaySnapshot: ReplaySnapshot = self.model.replaySnapshot else {
             log.error("There is no replay data to be replayed")
             fatalError()
         }
         return PauseSheetView(
             model: self.model,
-            replayModel: replayModel,
-            presentedAsModal: self.$presentingModal
+            replayModel: replaySnapshot.ingameViewModel,
+            presentedAsModal: self.$presentingModal,
+            dataset_mailAttachmentData: replaySnapshot.rawData
         )
         .environmentObject(self.settingStore)
     }

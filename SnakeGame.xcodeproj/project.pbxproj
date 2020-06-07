@@ -73,6 +73,8 @@
 		426891FF233267E900B97E29 /* BellmanFord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426891F8233267E900B97E29 /* BellmanFord.swift */; };
 		426892032332682100B97E29 /* GraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426892012332682100B97E29 /* GraphTests.swift */; };
 		426892042332682100B97E29 /* SSSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426892022332682100B97E29 /* SSSPTests.swift */; };
+		42743410248CFF14000134B5 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4274340F248CFF14000134B5 /* MailView.swift */; };
+		42743413248D003F000134B5 /* MailButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42743412248D003F000134B5 /* MailButtonView.swift */; };
 		427C3656245DFE890069E08B /* SnakeDataset.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427C3655245DFE890069E08B /* SnakeDataset.pb.swift */; };
 		427C3657245DFE890069E08B /* SnakeDataset.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427C3655245DFE890069E08B /* SnakeDataset.pb.swift */; };
 		4281226E245A658200486CB0 /* T3200_SnakeLevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4281226D245A658200486CB0 /* T3200_SnakeLevelManager.swift */; };
@@ -381,6 +383,8 @@
 		426891F8233267E900B97E29 /* BellmanFord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BellmanFord.swift; sourceTree = "<group>"; };
 		426892012332682100B97E29 /* GraphTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphTests.swift; sourceTree = "<group>"; };
 		426892022332682100B97E29 /* SSSPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSSPTests.swift; sourceTree = "<group>"; };
+		4274340F248CFF14000134B5 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
+		42743412248D003F000134B5 /* MailButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailButtonView.swift; sourceTree = "<group>"; };
 		427C3655245DFE890069E08B /* SnakeDataset.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeDataset.pb.swift; sourceTree = "<group>"; };
 		4281226D245A658200486CB0 /* T3200_SnakeLevelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T3200_SnakeLevelManager.swift; sourceTree = "<group>"; };
 		42822A22239817CA00DA4461 /* SnakeBot6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeBot6.swift; sourceTree = "<group>"; };
@@ -568,6 +572,8 @@
 				42510E64246790F100A2DACD /* IngameView.swift */,
 				42CBF1CB2443B31F001A5D04 /* IngameViewModel.swift */,
 				42510E592467112900A2DACD /* LevelView.swift */,
+				42743412248D003F000134B5 /* MailButtonView.swift */,
+				4274340F248CFF14000134B5 /* MailView.swift */,
 				42A06C1D2441D90600877CB9 /* PauseSheetView.swift */,
 				42ED2AD6246DB9E2005D812F /* PlannedPathView.swift */,
 				42510E5D2467686C00A2DACD /* SnakeBodyView.swift */,
@@ -1572,6 +1578,7 @@
 				42510E68246825F400A2DACD /* IngameGridComputer.swift in Sources */,
 				42A3899B24462DF200552363 /* GameViewController.swift in Sources */,
 				42AFEB1D246B6B2C007F15D5 /* LevelSelectorDataSource.swift in Sources */,
+				42743410248CFF14000134B5 /* MailView.swift in Sources */,
 				42905361243EAE0B004EFFB6 /* SceneDelegate.swift in Sources */,
 				4295B7AE246F8C1D005ACAD1 /* SettingStepMode.swift in Sources */,
 				42ED2ADA246DFCC5005D812F /* GestureIndicatorView.swift in Sources */,
@@ -1581,6 +1588,7 @@
 				42FB0582243C99C4006BEE8D /* AppDelegate.swift in Sources */,
 				42BAC9A3246CDCC7001723F8 /* LevelSelectorGridComputer.swift in Sources */,
 				42E425AE2470AC5C00F90073 /* SettingSoundEffect.swift in Sources */,
+				42743413248D003F000134B5 /* MailButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
