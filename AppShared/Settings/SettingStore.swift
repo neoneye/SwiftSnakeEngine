@@ -30,7 +30,7 @@ final class SettingStore: ObservableObject {
         self.cancellable = NotificationCenter.default
             .publisher(for: UserDefaults.didChangeNotification)
             .map { _ in ()
-                log.debug("UserDefaults did changed")
+                //log.debug("UserDefaults did changed")
             }
             .subscribe(objectWillChange)
 
