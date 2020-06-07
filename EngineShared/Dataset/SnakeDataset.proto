@@ -1,0 +1,125 @@
+// Regenerate swift file
+// PROMPT> protoc --swift_out=. SnakeDataset.proto
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+message SnakeDatasetPosition {
+	// The coordinate system origin is in the left/bottom corner.
+	uint32 x = 1;
+	uint32 y = 2;
+}
+
+enum SnakeDatasetCauseOfDeath {
+    // The player have died from one or more unspecified reasons.
+    OTHER = 0;
+
+    // The player attempted to move into a wall, which is deadly.
+    COLLISION_WITH_WALL = 1;
+
+    // The player attempted to move into itself. Eating snake is deadly.
+    COLLISION_WITH_ITSELF = 2;
+
+    // The player attempted to move into the opponent player. Eating another snake is also deadly.
+    COLLISION_WITH_OPPONENT = 3;
+
+    // The AI continued doing the same moves over and over, which is deadly.
+    STUCK_IN_LOOP = 4;
+}
+
+message SnakeDatasetPlayer {
+    // Is the snake alive/dead.
+    bool alive = 1;
+
+    // The array start is the snake head. The array tail is the snake tail.
+    // Two adjacent positions have a distance of exactly 1 unit.
+    // The positions does not overlap with the level walls.
+    // The positions does not overlap the player itself (no duplicate positions).
+    // The positions does not overlap with an opponent player.
+	repeated SnakeDatasetPosition body_positions = 2;
+
+    // Reference to what player it is. Is it human or bot.
+    // If it's a bot, then what particular bot is it.
+    // PROBLEM: The bot can be renamed, so it's fragile refering to its bot-name.
+    // SOLUTION: Use a version4 UUID, so it's possible finding the original bot implementation.
+    string uuid = 3;
+
+    // Conditions resulting in a player's death.
+    SnakeDatasetCauseOfDeath cause_of_death = 4;
+}
+
+message SnakeDatasetLevel {
+    // Reference to the level file, stored in CSV file format.
+    // PROBLEM: The level file can be renamed, so it's fragile to refer to its filename.
+    // SOLUTION: Use a version4 UUID, so it's possible finding the original level file.
+    string uuid = 1;
+
+	// The level has a size: width * height.
+	uint32 width = 2;
+	uint32 height = 3;
+
+	// Places where the snake can go.
+	repeated SnakeDatasetPosition empty_positions = 4;
+}
+
+// Full snapshot of the grid for a single time step.
+//
+// Benefit of a full snapshot. It can easily be checked for collisions/cheating.
+//
+// Benefit of a full snapshot. Jump directly to a particular timestep.
+// No need to replay 345 time steps, to recreate a particular moment in a game.
+//
+// Drawback of a full snapshot: Lots of data stored.
+message SnakeDatasetIngame {
+	SnakeDatasetLevel level = 1;
+    SnakeDatasetStep step = 2;
+}
+
+message SnakeDatasetStep {
+	// There may be food or there may be no food.
+	oneof optional_food_position {
+		SnakeDatasetPosition food_position = 1;
+	}
+
+	// While ingame it's uncertain which of the players becomes the winner or the looser.
+    // This is determined after the game have ended.
+    //
+    // When one of the player dies, then assign "alive=false".
+    // The player is never set to "nil".
+    //
+    // In a two player game, there are both player_a and player_b.
+    // Both players are "non-nil" througout the entire game.
+    //
+    // In a single player game, there is either player_a or player_b.
+    // The opponent player is "nil" thoughout the entire game.
+	oneof optional_player_a {
+		SnakeDatasetPlayer player_a = 2;
+	}
+	oneof optional_player_b {
+		SnakeDatasetPlayer player_b = 3;
+	}
+}
+
+message SnakeDatasetResult {
+    // The game is taking place inside a level with this uuid and these properties.
+	SnakeDatasetLevel level = 1;
+
+    // Snapshot of what the grid looks like in the very first step.
+    SnakeDatasetStep first_step = 2;
+
+    // Snapshot of what the grid looks like in the very last step.
+    SnakeDatasetStep last_step = 3;
+
+    // Food positions throughout the game.
+    // Magic value is (0,0), this means that there is no food position.
+    repeated SnakeDatasetPosition food_positions = 4;
+
+    // Head positions of "player_a" througout the game.
+    repeated SnakeDatasetPosition player_a_positions = 5;
+
+    // Head positions of "player_b" througout the game.
+    repeated SnakeDatasetPosition player_b_positions = 6;
+
+    // When was this dataset generated.
+    google.protobuf.Timestamp timestamp = 7;
+}
