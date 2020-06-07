@@ -45,12 +45,14 @@ struct IngameGridComputer {
 
         let halfWidth: CGFloat = floor(viewSize.width / CGFloat(gridSize.x * 2))
         let halfHeight: CGFloat = floor(viewSize.height / CGFloat(gridSize.y * 2))
-        self.halfCellSize = CGSize(width: halfWidth, height: halfHeight)
+        let halfSize: CGFloat = min(halfWidth, halfHeight)
+        self.halfCellSize = CGSize(width: halfSize, height: halfSize)
 
-        let width: CGFloat = halfWidth * 2
-        let height: CGFloat = halfHeight * 2
+        let width: CGFloat = halfSize * 2
+        let height: CGFloat = halfSize * 2
         let cellSize: CGSize = CGSize(width: width, height: height)
         self.cellSize = cellSize
+        self.tileMinSize = halfSize * 2
 
         var translate = CGPoint.zero
         do {
@@ -75,8 +77,6 @@ struct IngameGridComputer {
         }
 
         self.translate = translate
-
-        self.tileMinSize = min(cellSize.width, cellSize.height)
     }
 
     private func computePosition(x: Int, y: Int) -> CGPoint {
