@@ -1891,7 +1891,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 2020.1.1;
+				MARKETING_VERSION = 2020.6.7;
 				PRODUCT_BUNDLE_IDENTIFIER = neoneye.snake;
 				PRODUCT_NAME = Snake;
 				SWIFT_VERSION = 5.0;
@@ -1912,7 +1912,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 2020.1.1;
+				MARKETING_VERSION = 2020.6.7;
 				PRODUCT_BUNDLE_IDENTIFIER = neoneye.snake;
 				PRODUCT_NAME = Snake;
 				SWIFT_VERSION = 5.0;
@@ -1989,7 +1989,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2020.4.20;
+				MARKETING_VERSION = 2020.6.7;
 				PRODUCT_BUNDLE_IDENTIFIER = neoneye.game.snakepuzzle;
 				PRODUCT_NAME = "Snake Puzzle";
 				SDKROOT = iphoneos;
@@ -2013,7 +2013,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2020.4.20;
+				MARKETING_VERSION = 2020.6.7;
 				PRODUCT_BUNDLE_IDENTIFIER = neoneye.game.snakepuzzle;
 				PRODUCT_NAME = "Snake Puzzle";
 				SDKROOT = iphoneos;
