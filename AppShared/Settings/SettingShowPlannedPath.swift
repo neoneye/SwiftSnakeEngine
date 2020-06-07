@@ -1,17 +1,8 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-#if os(iOS)
-import EngineIOS
-#elseif os(macOS)
-import EngineMac
-#else
-#error("Unknown OS")
-#endif
-
 /// Keeps track of the users preferred `show planned path` mode.
 class SettingShowPlannedPath {
-    private(set) lazy var value = initialValue()
     private let defaults: UserDefaults
     private let defaultsKey = "SNAKE_SHOWPLANNEDPATH"
 
@@ -20,11 +11,12 @@ class SettingShowPlannedPath {
     }
 
     func set(_ newValue: Bool) {
-        value = newValue
         defaults.set(newValue, forKey: defaultsKey)
     }
 
-    private func initialValue() -> Bool {
+    /// When this app runs on macOS, the NSMenu for "Show planned path"
+    /// makes changes directly via NSUserDefaultsController, without going through this class.
+    var value: Bool {
         if defaults.object(forKey: defaultsKey) == nil {
             return true
         }

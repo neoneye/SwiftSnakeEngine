@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -63,6 +63,12 @@
                                                 <binding destination="9gn-hT-kxi" name="value" keyPath="values.SNAKE_SOUNDEFFECTS" id="dgp-OZ-elT"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Show Planned Path" state="mixed" id="4bI-PI-LbA">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <binding destination="9gn-hT-kxi" name="value" keyPath="values.SNAKE_SHOWPLANNEDPATH" id="dYt-ji-8Dp"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -94,19 +100,6 @@
                                         </menuItem>
                                         <menuItem title="Bot" id="cv6-sF-KY4" userLabel="Bot">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="Debug" id="8Km-Fz-QsU">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Debug" id="XgW-Se-TQz" userLabel="Debug" customClass="DebugMenu" customModule="Snake" customModuleProvider="target">
-                                    <items>
-                                        <menuItem title="Show Planned Path" state="mixed" id="4bI-PI-LbA">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <binding destination="9gn-hT-kxi" name="value" keyPath="values.SNAKE_SHOWPLANNEDPATH" id="dYt-ji-8Dp"/>
-                                            </connections>
                                         </menuItem>
                                     </items>
                                 </menu>
@@ -188,7 +181,6 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Snake" customModuleProvider="target">
                     <connections>
-                        <outlet property="debugMenu" destination="XgW-Se-TQz" id="IKZ-fi-u4Y"/>
                         <outlet property="player1Menu" destination="bYH-uU-eqv" id="tac-yD-Orl"/>
                         <outlet property="player2Menu" destination="K20-Ha-dXk" id="FUE-t9-F2a"/>
                     </connections>

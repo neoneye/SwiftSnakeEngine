@@ -17,31 +17,30 @@ struct PlannedPathView: View {
     @Binding var foodPosition: IntVec2?
 
     var body: some View {
-        GeometryReader { geometry in
-            self.innerView(geometry)
-        }
-    }
-
-    private func innerView(_ geometry: GeometryProxy) -> some View {
-        let positionArrayCount: Int = positionArray.count
-        guard positionArrayCount >= 2 else {
+        guard positionArray.count >= 2 else {
             //log.debug("Cannot show the planned path, it's too short.")
             return AnyView(EmptyView())
         }
+        let view = GeometryReader { geometry in
+            self.innerView(geometry)
+        }
+        return AnyView(view)
+    }
 
+    private func innerView(_ geometry: GeometryProxy) -> some View {
         let highConfidenceCount: UInt = self.highConfidenceCount(positionArray: positionArray, foodPosition: foodPosition)
 
         // High confidence. Positions that leads directly to the food.
         var leftRangeEnd = Int(highConfidenceCount + 1)
-        if leftRangeEnd >= positionArrayCount {
-            leftRangeEnd = positionArrayCount
+        if leftRangeEnd >= positionArray.count {
+            leftRangeEnd = positionArray.count
         }
         let leftSplit: ArraySlice<IntVec2> = positionArray[0 ..< leftRangeEnd]
 
         // Low confidence. Positions that doesn't lead to the food.
         var rightRangeBegin = Int(highConfidenceCount)
-        if rightRangeBegin >= positionArrayCount {
-            rightRangeBegin = positionArrayCount
+        if rightRangeBegin >= positionArray.count {
+            rightRangeBegin = positionArray.count
         }
         let rightSplit: ArraySlice<IntVec2> = positionArray[rightRangeBegin ..< positionArray.count]
 
@@ -62,11 +61,10 @@ struct PlannedPathView: View {
             style: StrokeStyle(lineWidth: 1, lineCap: .square, lineJoin: .miter)
         )
 
-        let view = ZStack {
+        return ZStack {
             lowConfidenceView
             highConfidenceView
         }
-        return AnyView(view)
     }
 
     private func highConfidenceCount(positionArray: [IntVec2], foodPosition: IntVec2?) -> UInt {

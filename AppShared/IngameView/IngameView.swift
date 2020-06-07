@@ -233,8 +233,10 @@ struct IngameView: View {
             player1_snakeBody
             player2_snakeBody
 
-            player1_plannedPath
-            player2_plannedPath
+            if isShowPlannedPathEnabledForThisMode {
+                player1_plannedPath
+                player2_plannedPath
+            }
 
             if isDragging {
                 gestureIndicator
@@ -304,7 +306,26 @@ struct IngameView: View {
         ))
     }
 
-    private var player1_plannedPath: PlannedPathView {
+    private var isShowPlannedPathEnabledForThisMode: Bool {
+        #if os(macOS)
+
+        guard mode == .playable else {
+            return false
+        }
+        guard settingStore.isShowPlannedPathEnabled else {
+            return false
+        }
+        // The developer have enabled planned path visualization.
+        return true
+
+        #else
+
+        // Planned path is always hidden on iOS.
+        return false
+        #endif
+    }
+
+    private var player1_plannedPath: some View {
         let colorHighConfidence: Color = AppColor.player1_plannedPath.color
         let colorLowConfidence: Color = colorHighConfidence.opacity(0.5)
         return PlannedPathView(
@@ -316,7 +337,7 @@ struct IngameView: View {
         )
     }
 
-    private var player2_plannedPath: PlannedPathView {
+    private var player2_plannedPath: some View {
         let colorHighConfidence: Color = AppColor.player2_plannedPath.color
         let colorLowConfidence: Color = colorHighConfidence.opacity(0.5)
         return PlannedPathView(
