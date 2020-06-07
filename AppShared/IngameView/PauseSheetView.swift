@@ -54,6 +54,14 @@ struct PauseSheetView: View {
         .alert(isPresented: $showExitGameAlert, content: prepareExitGameAlertContent)
     }
 
+    var sendDatasetToDeveloperButton: some View {
+        #if os(iOS)
+        return AnyView(MailButtonView())
+        #else
+        return AnyView(EmptyView())
+        #endif
+    }
+
     /// Shows a replay of the game
     private var replayView: some View {
         let view = IngameView(
@@ -144,9 +152,13 @@ struct PauseSheetView: View {
 
             replayView
 
-            exitGameButton
-                .padding(.top, 10)
-                .padding(.bottom, 20)
+            HStack {
+                sendDatasetToDeveloperButton
+                Spacer()
+                exitGameButton
+            }
+            .padding([.top, .leading, .trailing], 10)
+            .padding(.bottom, 20)
         }
     }
 
