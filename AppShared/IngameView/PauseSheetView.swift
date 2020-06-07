@@ -161,8 +161,8 @@ struct PauseSheetView: View {
                 Spacer()
                 exitGameButton
             }
-            .padding([.top, .leading, .trailing], 10)
-            .padding(.bottom, 20)
+            .padding(.top, 10)
+            .padding([.leading, .trailing, .bottom], 20)
         }
     }
 
