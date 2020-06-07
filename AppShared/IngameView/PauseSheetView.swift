@@ -57,7 +57,9 @@ struct PauseSheetView: View {
 
     var sendDatasetToDeveloperButton: some View {
         #if os(iOS)
-        let view = MailButtonView()
+        let view = MailButtonView(
+            dataset_mailAttachmentData: self.dataset_mailAttachmentData
+        )
         return AnyView(view)
         #else
         return AnyView(EmptyView())

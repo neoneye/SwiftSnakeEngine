@@ -4,9 +4,9 @@ import UIKit
 import MessageUI
 
 struct MailView: UIViewControllerRepresentable {
-
     @Environment(\.presentationMode) var presentation
     @Binding var result: Result<MFMailComposeResult, Error>?
+    let dataset_mailAttachmentData: Data
 
     class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
 
@@ -52,10 +52,7 @@ struct MailView: UIViewControllerRepresentable {
         vc.setToRecipients(["Simon Strandgaard <neoneye@gmail.com>"])
         vc.setMessageBody(messageBody, isHTML: false)
 
-        let text = "{\"key\":\"value\"}"
-        if let data: Data = text.data(using: .ascii) {
-            vc.addAttachmentData(data, mimeType: "application/json", fileName: "sampleData.json")
-        }
+        vc.addAttachmentData(dataset_mailAttachmentData, mimeType: "application/octet-stream", fileName: "game.snakeDataset")
         return vc
     }
 
