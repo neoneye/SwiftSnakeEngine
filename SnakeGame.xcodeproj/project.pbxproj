@@ -75,6 +75,10 @@
 		426892042332682100B97E29 /* SSSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426892022332682100B97E29 /* SSSPTests.swift */; };
 		42743410248CFF14000134B5 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4274340F248CFF14000134B5 /* MailView.swift */; };
 		42743413248D003F000134B5 /* MailButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42743412248D003F000134B5 /* MailButtonView.swift */; };
+		42743415248D20E5000134B5 /* SystemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42743414248D20E5000134B5 /* SystemInfo.swift */; };
+		42743416248D20E5000134B5 /* SystemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42743414248D20E5000134B5 /* SystemInfo.swift */; };
+		42743418248D212B000134B5 /* VerboseInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42743417248D212B000134B5 /* VerboseInfoProvider.swift */; };
+		42743419248D212B000134B5 /* VerboseInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42743417248D212B000134B5 /* VerboseInfoProvider.swift */; };
 		427C3656245DFE890069E08B /* SnakeDataset.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427C3655245DFE890069E08B /* SnakeDataset.pb.swift */; };
 		427C3657245DFE890069E08B /* SnakeDataset.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427C3655245DFE890069E08B /* SnakeDataset.pb.swift */; };
 		4281226E245A658200486CB0 /* T3200_SnakeLevelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4281226D245A658200486CB0 /* T3200_SnakeLevelManager.swift */; };
@@ -385,6 +389,8 @@
 		426892022332682100B97E29 /* SSSPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSSPTests.swift; sourceTree = "<group>"; };
 		4274340F248CFF14000134B5 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		42743412248D003F000134B5 /* MailButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailButtonView.swift; sourceTree = "<group>"; };
+		42743414248D20E5000134B5 /* SystemInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemInfo.swift; sourceTree = "<group>"; };
+		42743417248D212B000134B5 /* VerboseInfoProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerboseInfoProvider.swift; sourceTree = "<group>"; };
 		427C3655245DFE890069E08B /* SnakeDataset.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeDataset.pb.swift; sourceTree = "<group>"; };
 		4281226D245A658200486CB0 /* T3200_SnakeLevelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T3200_SnakeLevelManager.swift; sourceTree = "<group>"; };
 		42822A22239817CA00DA4461 /* SnakeBot6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnakeBot6.swift; sourceTree = "<group>"; };
@@ -753,6 +759,7 @@
 				4220E564244B54B80088C3C1 /* AppColor.swift */,
 				429CD0D423495DF300098E68 /* AppConstant.swift */,
 				4255CA17232F8A2300A230AF /* Assets.xcassets */,
+				4274341A248D232E000134B5 /* Core */,
 				421CA8552474ACBE00F7A094 /* IngameView */,
 				421CA8562474AD1200F7A094 /* RootView */,
 				42E5B344246C4C0800580517 /* Settings */,
@@ -798,6 +805,15 @@
 				426892022332682100B97E29 /* SSSPTests.swift */,
 			);
 			path = "swift-algorithm-club";
+			sourceTree = "<group>";
+		};
+		4274341A248D232E000134B5 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				42743414248D20E5000134B5 /* SystemInfo.swift */,
+				42743417248D212B000134B5 /* VerboseInfoProvider.swift */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 		42ABC10F243CAD1100E05FF3 /* EngineIOS */ = {
@@ -1447,9 +1463,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				42E5B343246C425200580517 /* SettingPlayerRole.swift in Sources */,
+				42743419248D212B000134B5 /* VerboseInfoProvider.swift in Sources */,
 				42C5566823ABE7E70001DBD8 /* NSEvent+KeyCode.swift in Sources */,
 				42AFEB1B246B5694007F15D5 /* LevelSelectorViewModel.swift in Sources */,
 				42ED2ADB246DFCC5005D812F /* GestureIndicatorView.swift in Sources */,
+				42743416248D20E5000134B5 /* SystemInfo.swift in Sources */,
 				42E5B340246B8A8000580517 /* SettingStore.swift in Sources */,
 				42A06C1F2441D90600877CB9 /* PauseSheetView.swift in Sources */,
 				4295B7B2247084D3005ACAD1 /* SoundManager.swift in Sources */,
@@ -1560,9 +1578,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				42AFCF7E2472339B00F78952 /* SettingShowPlannedPath.swift in Sources */,
+				42743418248D212B000134B5 /* VerboseInfoProvider.swift in Sources */,
 				42905335243E9CA4004EFFB6 /* AppConstant.swift in Sources */,
 				4220E565244B54B80088C3C1 /* AppColor.swift in Sources */,
 				42510E692468260700A2DACD /* IngameView.swift in Sources */,
+				42743415248D20E5000134B5 /* SystemInfo.swift in Sources */,
 				4290533F243EABD8004EFFB6 /* MyContentView.swift in Sources */,
 				42E5B342246C425200580517 /* SettingPlayerRole.swift in Sources */,
 				42A06C1E2441D90600877CB9 /* PauseSheetView.swift in Sources */,

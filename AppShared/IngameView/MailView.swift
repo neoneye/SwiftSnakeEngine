@@ -39,10 +39,15 @@ struct MailView: UIViewControllerRepresentable {
     }
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<MailView>) -> MFMailComposeViewController {
+
+        let infoToDeveloper: String = SystemInfo.systemInfo
+
         var items = [String]()
         items.append("What do you think?")
         items.append("")
         items.append("")
+        items.append("Helpful info for the developer:")
+        items.append(infoToDeveloper)
         let messageBody: String = items.joined(separator: "\n")
 
         let subject = "Snake Dataset"
