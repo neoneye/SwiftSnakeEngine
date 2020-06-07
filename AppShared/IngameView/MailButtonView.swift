@@ -11,7 +11,7 @@ struct MailButtonView: View {
         Button(action: {
             self.isShowingMailView.toggle()
         }) {
-            Text("Tap Me")
+            Text("Send to developer")
         }
         .disabled(!MFMailComposeViewController.canSendMail())
         .sheet(isPresented: $isShowingMailView) {
