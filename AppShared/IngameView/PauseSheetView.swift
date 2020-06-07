@@ -15,6 +15,7 @@ struct PauseSheetView: View {
     @ObservedObject var model: IngameViewModel
     @ObservedObject var replayModel: IngameViewModel
     @Binding var presentedAsModal: Bool
+    let dataset_mailAttachmentData: Data
     @State var showExitGameAlert = false
 
     var soundEffectsButton: some View {
@@ -56,7 +57,8 @@ struct PauseSheetView: View {
 
     var sendDatasetToDeveloperButton: some View {
         #if os(iOS)
-        return AnyView(MailButtonView())
+        let view = MailButtonView()
+        return AnyView(view)
         #else
         return AnyView(EmptyView())
         #endif
@@ -190,7 +192,8 @@ struct PauseSheetView_Previews: PreviewProvider {
         return PauseSheetView(
             model: model,
             replayModel: model,
-            presentedAsModal: .constant(true)
+            presentedAsModal: .constant(true),
+            dataset_mailAttachmentData: Data()
         )
         .environmentObject(settingStore)
         .previewLayout(.fixed(width: 400, height: 500))

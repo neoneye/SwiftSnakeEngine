@@ -379,7 +379,8 @@ struct IngameView: View {
         return PauseSheetView(
             model: self.model,
             replayModel: replaySnapshot.ingameViewModel,
-            presentedAsModal: self.$presentingModal
+            presentedAsModal: self.$presentingModal,
+            dataset_mailAttachmentData: replaySnapshot.rawData
         )
         .environmentObject(self.settingStore)
     }
