@@ -186,7 +186,7 @@ struct PauseSheetView_Previews: PreviewProvider {
     static var previews: some View {
         let settingStore = SettingStore()
         let model = IngameViewModel.createHumanVsHuman()
-        model.replayGameViewModel = model
+        model.captureReplaySnapshot()
         return PauseSheetView(
             model: model,
             replayModel: model,
