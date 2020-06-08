@@ -34,7 +34,10 @@ public class GameEnvironmentReplay: GameEnvironment {
     }
 
     public static func create() -> GameEnvironmentReplay {
-        let resourceName: String = "duel0.snakeDataset"
+        return create(resourceName: "duel0.snakeDataset")
+    }
+
+    public static func create(resourceName: String) -> GameEnvironmentReplay {
         do {
             return try DatasetLoader.snakeGameEnvironmentReplay(resourceName: resourceName, verbose: true)
         } catch {

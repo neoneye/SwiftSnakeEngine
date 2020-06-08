@@ -214,8 +214,8 @@ public class IngameViewModel: ObservableObject {
         return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
     }
 
-    class func createReplay() -> IngameViewModel {
-        let environment = GameEnvironmentReplay.create()
+    class func createReplay(resourceName: String) -> IngameViewModel {
+        let environment = GameEnvironmentReplay.create(resourceName: resourceName)
         return IngameViewModel(snakeGameEnvironment: environment)
     }
 

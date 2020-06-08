@@ -22,19 +22,19 @@ class GameNSWindow: NSWindow {
         levelSelectorViewModel.loadModelsFromUserDefaults()
         levelSelectorViewModel.selectedIndex = settingStore.selectedLevel
 
-//        let model = GameViewModel.create()
-        let model = IngameViewModel.createBotVsNone().toInteractiveModel()
-//        let model = GameViewModel.createBotVsBot()
-//        let model = GameViewModel.createHumanVsBot()
-
         let visibleContent: MyContentView_VisibleContent
+        let model: IngameViewModel
         switch AppConstant.mode {
         case .production:
             visibleContent = .levelSelector
+            model = IngameViewModel.createBotVsNone().toInteractiveModel()
         case .develop_ingame:
             visibleContent = .ingame
+            model = IngameViewModel.create()
+        case .develop_replay(let resourceName):
+            visibleContent = .ingame
+            model = IngameViewModel.createReplay(resourceName: resourceName)
         }
-
 
         let window = GameNSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 600, height: 500),

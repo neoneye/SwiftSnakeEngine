@@ -14,14 +14,19 @@ struct AppConstant {
 	enum Mode {
 		case production
         case develop_ingame
+        case develop_replay(resourceName: String)
 	}
 	static let mode: Mode = .production
+    //static let mode: Mode = .develop_replay(resourceName: "duel8.snakeDataset")
+    //static let mode: Mode = .develop_replay(resourceName: "solo0.snakeDataset")
 
     static var escapeKeyToTerminateApp: Bool {
         switch mode {
         case .production:
             return false
         case .develop_ingame:
+            return true
+        case .develop_replay:
             return true
         }
     }
