@@ -38,4 +38,24 @@ public class Array2<T> {
 		let index = Int(position.y * size.x + position.x)
 		return array[index]
 	}
+
+    public typealias FormatBlock = (T, UIntVec2) -> String
+
+    /// Pretty print all the cells of the array.
+    public func format(columnSeparator: String=",", rowSeparator: String="\n", _ block: @escaping FormatBlock) -> String {
+        var rows = [String]()
+        for y: UInt32 in 0..<size.y {
+            var columns = [String]()
+            for x: UInt32 in 0..<size.x {
+                let position = UIntVec2(x: x, y: y)
+                guard let value: T = getValue(position) else {
+                    fatalError("Expected non-nil, but got nil. Position inside the grid is always supposed to return non-nil.")
+                }
+                let valueString: String = block(value, position)
+                columns.append(valueString)
+            }
+            rows.append(columns.joined(separator: columnSeparator))
+        }
+        return rows.joined(separator: rowSeparator)
+    }
 }
