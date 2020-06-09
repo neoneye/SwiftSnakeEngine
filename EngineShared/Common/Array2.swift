@@ -9,6 +9,11 @@ public class Array2<T> {
 		self.array = [T](repeating: defaultValue, count: Int(capacity))
 	}
 
+    private init(size: UIntVec2, array: [T]) {
+        self.size = size
+        self.array = array
+    }
+
 	public func setValue(_ value: T, at position: IntVec2) {
 		guard let position1 = position.uintVec2() else {
 			return
@@ -57,5 +62,35 @@ public class Array2<T> {
             rows.append(columns.joined(separator: columnSeparator))
         }
         return rows.joined(separator: rowSeparator)
+    }
+
+    public var flipX: Array2<T> {
+        let newArray = Array2(size: self.size, array: [T](self.array))
+        for y in 0..<Int32(self.size.y) {
+            for x in 0..<Int32(self.size.x) {
+                let sourcePosition = IntVec2(x: x, y: y)
+                let destinationPosition = IntVec2(x: Int32(self.size.x) - x - 1, y: y)
+                guard let value: T = getValue(sourcePosition) else {
+                    fatalError("Expected non-nil, but got nil. Position inside the grid is always supposed to return non-nil.")
+                }
+                newArray.setValue(value, at: destinationPosition)
+            }
+        }
+        return newArray
+    }
+
+    public var flipY: Array2<T> {
+        let newArray = Array2(size: self.size, array: [T](self.array))
+        for y in 0..<Int32(self.size.y) {
+            for x in 0..<Int32(self.size.x) {
+                let sourcePosition = IntVec2(x: x, y: y)
+                let destinationPosition = IntVec2(x: x, y: Int32(self.size.y) - y - 1)
+                guard let value: T = getValue(sourcePosition) else {
+                    fatalError("Expected non-nil, but got nil. Position inside the grid is always supposed to return non-nil.")
+                }
+                newArray.setValue(value, at: destinationPosition)
+            }
+        }
+        return newArray
     }
 }

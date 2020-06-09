@@ -47,4 +47,34 @@ class T1003_Array2: XCTestCase {
             XCTAssertEqual(s, "00,10,20\n01,11,21\n02,12,22")
         }
     }
+
+    func test300_flipX() {
+        let grid = Array2<String>(size: UIntVec2(x: 2, y: 3), defaultValue: "x")
+        grid.setValue("a", at: IntVec2(x: 0, y: 0))
+        grid.setValue("b", at: IntVec2(x: 0, y: 1))
+        grid.setValue("c", at: IntVec2(x: 0, y: 2))
+        grid.setValue("A", at: IntVec2(x: 1, y: 0))
+        grid.setValue("B", at: IntVec2(x: 1, y: 1))
+        grid.setValue("C", at: IntVec2(x: 1, y: 2))
+        let s0: String = grid.format(columnSeparator: "") { (value, _) in value }
+        XCTAssertEqual(s0, "aA\nbB\ncC")
+        let gridFlipped = grid.flipX
+        let s1: String = gridFlipped.format(columnSeparator: "") { (value, _) in value }
+        XCTAssertEqual(s1, "Aa\nBb\nCc")
+    }
+
+    func test301_flipY() {
+        let grid = Array2<String>(size: UIntVec2(x: 2, y: 3), defaultValue: "x")
+        grid.setValue("a", at: IntVec2(x: 0, y: 0))
+        grid.setValue("b", at: IntVec2(x: 0, y: 1))
+        grid.setValue("c", at: IntVec2(x: 0, y: 2))
+        grid.setValue("A", at: IntVec2(x: 1, y: 0))
+        grid.setValue("B", at: IntVec2(x: 1, y: 1))
+        grid.setValue("C", at: IntVec2(x: 1, y: 2))
+        let s0: String = grid.format(columnSeparator: "") { (value, _) in value }
+        XCTAssertEqual(s0, "aA\nbB\ncC")
+        let gridFlipped = grid.flipY
+        let s1: String = gridFlipped.format(columnSeparator: "") { (value, _) in value }
+        XCTAssertEqual(s1, "cC\nbB\naA")
+    }
 }
