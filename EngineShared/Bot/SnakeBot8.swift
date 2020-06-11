@@ -39,11 +39,11 @@ public class SnakeBot8: SnakeBot {
             for x: Int32 in 0...8 {
                 let position: IntVec2 = headPosition.offsetBy(dx: x-4, dy: y-4)
                 guard let cell: SnakeLevelCell = level.getValue(position) else {
-                    grid.setValue(true, at: IntVec2(x: x, y: y))
+                    grid[x, y] = true
                     continue
                 }
                 if cell == .wall {
-                    grid.setValue(true, at: IntVec2(x: x, y: y))
+                    grid[x, y] = true
                 }
             }
         }
@@ -57,7 +57,7 @@ public class SnakeBot8: SnakeBot {
             for x: Int32 in 0...8 {
                 let position: IntVec2 = headPosition.offsetBy(dx: x-4, dy: y-4)
                 if playerPositionSet.contains(position) {
-                    grid.setValue(true, at: IntVec2(x: x, y: y))
+                    grid[x, y] = true
                 }
             }
         }
