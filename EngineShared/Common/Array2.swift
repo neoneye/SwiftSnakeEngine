@@ -1,4 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
+
+/// Two-dimensional array
 public class Array2<T> {
 	public let size: UIntVec2
 	private var array: [T]
@@ -43,6 +45,27 @@ public class Array2<T> {
 		let index = Int(position.y * size.x + position.x)
 		return array[index]
 	}
+
+    public func indexIsValid(x: Int32, y: Int32) -> Bool {
+        x >= 0 && y >= 0 && x < size.x && y < size.y
+    }
+
+    private func offsetForIndex(x: UInt32, y: UInt32) -> UInt32 {
+        y * size.x + x
+    }
+
+    public subscript(x: Int32, y: Int32) -> T {
+        get {
+            assert(indexIsValid(x: x, y: y))
+            let offset: UInt32 = offsetForIndex(x: UInt32(x), y: UInt32(y))
+            return array[Int(offset)]
+        }
+        set {
+            assert(indexIsValid(x: x, y: y))
+            let offset: UInt32 = offsetForIndex(x: UInt32(x), y: UInt32(y))
+            array[Int(offset)] = newValue
+        }
+    }
 
     public typealias FormatBlock = (T, UIntVec2) -> String
 

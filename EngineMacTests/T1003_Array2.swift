@@ -2,32 +2,36 @@
 import XCTest
 @testable import EngineMac
 
-fileprivate class Demo_Array2_Int: Array2<Int> {
-	init(size: UIntVec2) {
-		super.init(size: size, defaultValue: -1)
-	}
-}
-
-
 class T1003_Array2: XCTestCase {
     func test100_getset() {
-		let array = Demo_Array2_Int(size: UIntVec2(x: 2, y: 2))
+		let array = Array2<Int>(size: UIntVec2(x: 2, y: 2), defaultValue: -1)
 		array.setValue(0, at: UIntVec2(x: 0, y: 0))
 		array.setValue(1, at: UIntVec2(x: 1, y: 0))
 		array.setValue(2, at: UIntVec2(x: 0, y: 1))
 		array.setValue(3, at: UIntVec2(x: 1, y: 1))
-
 		XCTAssertEqual(array.getValue(UIntVec2(x: 0, y: 0)), 0)
 		XCTAssertEqual(array.getValue(UIntVec2(x: 1, y: 0)), 1)
 		XCTAssertEqual(array.getValue(UIntVec2(x: 0, y: 1)), 2)
 		XCTAssertEqual(array.getValue(UIntVec2(x: 1, y: 1)), 3)
     }
 
+    func test101_subscript() {
+        let array = Array2<Int>(size: UIntVec2(x: 2, y: 2), defaultValue: -1)
+        array[0, 0] = 0
+        array[1, 0] = 1
+        array[0, 1] = 2
+        array[1, 1] = 3
+        XCTAssertEqual(array[0, 0], 0)
+        XCTAssertEqual(array[1, 0], 1)
+        XCTAssertEqual(array[0, 1], 2)
+        XCTAssertEqual(array[1, 1], 3)
+    }
+
     func test200_format() {
         let grid = Array2<Bool>(size: UIntVec2(x: 3, y: 3), defaultValue: false)
-        grid.setValue(true, at: IntVec2(x: 0, y: 0))
-        grid.setValue(true, at: IntVec2(x: 1, y: 1))
-        grid.setValue(true, at: IntVec2(x: 2, y: 2))
+        grid[0, 0] = true
+        grid[1, 1] = true
+        grid[2, 2] = true
 
         do {
             func prettyValue(value: Bool, position: UIntVec2) -> String {
@@ -50,12 +54,12 @@ class T1003_Array2: XCTestCase {
 
     func test300_flipX() {
         let grid = Array2<String>(size: UIntVec2(x: 2, y: 3), defaultValue: "x")
-        grid.setValue("a", at: IntVec2(x: 0, y: 0))
-        grid.setValue("b", at: IntVec2(x: 0, y: 1))
-        grid.setValue("c", at: IntVec2(x: 0, y: 2))
-        grid.setValue("A", at: IntVec2(x: 1, y: 0))
-        grid.setValue("B", at: IntVec2(x: 1, y: 1))
-        grid.setValue("C", at: IntVec2(x: 1, y: 2))
+        grid[0, 0] = "a"
+        grid[0, 1] = "b"
+        grid[0, 2] = "c"
+        grid[1, 0] = "A"
+        grid[1, 1] = "B"
+        grid[1, 2] = "C"
         let s0: String = grid.format(columnSeparator: "") { (value, _) in value }
         XCTAssertEqual(s0, "aA\nbB\ncC")
         let gridFlipped = grid.flipX
@@ -65,12 +69,12 @@ class T1003_Array2: XCTestCase {
 
     func test301_flipY() {
         let grid = Array2<String>(size: UIntVec2(x: 2, y: 3), defaultValue: "x")
-        grid.setValue("a", at: IntVec2(x: 0, y: 0))
-        grid.setValue("b", at: IntVec2(x: 0, y: 1))
-        grid.setValue("c", at: IntVec2(x: 0, y: 2))
-        grid.setValue("A", at: IntVec2(x: 1, y: 0))
-        grid.setValue("B", at: IntVec2(x: 1, y: 1))
-        grid.setValue("C", at: IntVec2(x: 1, y: 2))
+        grid[0, 0] = "a"
+        grid[0, 1] = "b"
+        grid[0, 2] = "c"
+        grid[1, 0] = "A"
+        grid[1, 1] = "B"
+        grid[1, 2] = "C"
         let s0: String = grid.format(columnSeparator: "") { (value, _) in value }
         XCTAssertEqual(s0, "aA\nbB\ncC")
         let gridFlipped = grid.flipY
