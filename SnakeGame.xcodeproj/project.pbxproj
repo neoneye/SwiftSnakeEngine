@@ -75,6 +75,8 @@
 		426892042332682100B97E29 /* SSSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426892022332682100B97E29 /* SSSPTests.swift */; };
 		426FE437248F0AE8007DB514 /* SnakeBot8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FE436248F0AE8007DB514 /* SnakeBot8.swift */; };
 		426FE438248F0AE8007DB514 /* SnakeBot8.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FE436248F0AE8007DB514 /* SnakeBot8.swift */; };
+		426FE43A249579B0007DB514 /* DatasetCompiler1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FE439249579B0007DB514 /* DatasetCompiler1.swift */; };
+		426FE43B249579B0007DB514 /* DatasetCompiler1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426FE439249579B0007DB514 /* DatasetCompiler1.swift */; };
 		42743410248CFF14000134B5 /* MailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4274340F248CFF14000134B5 /* MailView.swift */; };
 		42743413248D003F000134B5 /* MailButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42743412248D003F000134B5 /* MailButtonView.swift */; };
 		42743415248D20E5000134B5 /* SystemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42743414248D20E5000134B5 /* SystemInfo.swift */; };
@@ -390,6 +392,7 @@
 		426892012332682100B97E29 /* GraphTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphTests.swift; sourceTree = "<group>"; };
 		426892022332682100B97E29 /* SSSPTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSSPTests.swift; sourceTree = "<group>"; };
 		426FE436248F0AE8007DB514 /* SnakeBot8.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeBot8.swift; sourceTree = "<group>"; };
+		426FE439249579B0007DB514 /* DatasetCompiler1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatasetCompiler1.swift; sourceTree = "<group>"; };
 		4274340F248CFF14000134B5 /* MailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailView.swift; sourceTree = "<group>"; };
 		42743412248D003F000134B5 /* MailButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailButtonView.swift; sourceTree = "<group>"; };
 		42743414248D20E5000134B5 /* SystemInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemInfo.swift; sourceTree = "<group>"; };
@@ -900,6 +903,7 @@
 		42FA3C472458BEF10064C76C /* Dataset */ = {
 			isa = PBXGroup;
 			children = (
+				426FE439249579B0007DB514 /* DatasetCompiler1.swift */,
 				429A1532245CA7ED009F6337 /* DatasetLoader.swift */,
 				42EB7C0323F2873B00229CEA /* DatasetSaver.swift */,
 				42CCDB65245A03050086A3C3 /* readme.md */,
@@ -1356,6 +1360,7 @@
 				42FA3C452458BC5D0064C76C /* SnakeDatasetBundle.swift in Sources */,
 				42CCD60D23BE62CE0021CBE7 /* SnakeLevelBuilder.swift in Sources */,
 				422423BA233D9A590006D02D /* SnakeGameState+Create.swift in Sources */,
+				426FE43A249579B0007DB514 /* DatasetCompiler1.swift in Sources */,
 				4228915223341CCC00273A0F /* MeasureTurnCount.swift in Sources */,
 				42EB7BFE23F1FD9D00229CEA /* SnakeDataset.proto in Sources */,
 				4255CA26232FD31900A230AF /* IntVec2.swift in Sources */,
@@ -1509,6 +1514,7 @@
 				42FA3C462458BC5D0064C76C /* SnakeDatasetBundle.swift in Sources */,
 				42ABC11D243D137D00E05FF3 /* SnakeBot1.swift in Sources */,
 				42ABC13D243D13A200E05FF3 /* SnakeLevelCacheModel.pb.swift in Sources */,
+				426FE43B249579B0007DB514 /* DatasetCompiler1.swift in Sources */,
 				42ABC129243D138300E05FF3 /* Logging.swift in Sources */,
 				42ABC11F243D137D00E05FF3 /* SnakeBot5.swift in Sources */,
 				42ABC128243D138300E05FF3 /* IntVec2+CGPoint.swift in Sources */,

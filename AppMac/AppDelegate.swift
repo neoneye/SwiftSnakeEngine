@@ -24,6 +24,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 //		let game = SnakeGameHeadless()
 //		game.run()
 
+        if AppConstant.mode == .develop_runDatasetCompiler1 {
+            DatasetCompiler1.run()
+            NSApp.terminate(self)
+            return;
+        }
+
         window = GameNSWindow.create()
     }
     

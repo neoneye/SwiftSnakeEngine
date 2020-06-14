@@ -34,6 +34,8 @@ class GameNSWindow: NSWindow {
         case .develop_replay(let resourceName):
             visibleContent = .ingame
             model = IngameViewModel.createReplay(resourceName: resourceName)
+        case .develop_runDatasetCompiler1:
+            fatalError()
         }
 
         let window = GameNSWindow(
