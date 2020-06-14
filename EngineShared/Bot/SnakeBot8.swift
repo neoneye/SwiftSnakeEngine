@@ -50,7 +50,7 @@ public class SnakeBot8: SnakeBot {
 
         // Draw players as obstacles
         var playerPositionSet: Set<IntVec2> = player.snakeBody.positionSet()
-        if oppositePlayer.isInstalledAndAlive {
+        if oppositePlayer.isInstalled {
             playerPositionSet.formUnion(oppositePlayer.snakeBody.positionSet())
         }
         for y: Int32 in 0...8 {
