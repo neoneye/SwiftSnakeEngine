@@ -17,16 +17,13 @@ public class SnakeDatasetBundle {
         return bundle
     }
 
-    public class func load(_ resourceName: String) throws -> Data {
+    public class func url(forResource resourceName: String) throws -> URL {
         let bundle: Bundle = try snakeDatasetBundle()
-        guard let dataUrl: URL = bundle.url(forResource: resourceName, withExtension: nil) else {
+        guard let url: URL = bundle.url(forResource: resourceName, withExtension: nil) else {
             let bundleUrlString = String(describing: bundle.resourceURL)
             throw SnakeDatasetBundleError.custom(message: "Unable to locate resource: '\(resourceName)' inside bundle at: '\(bundleUrlString)'")
         }
-        guard let data = try? Data(contentsOf: dataUrl) else {
-            throw SnakeDatasetBundleError.custom(message: "Unable to load data from url: \(dataUrl)")
-        }
-        return data
+        return url
     }
 
     /// Returns an array of file URLs for all the `snakeDataset` contained in the bundle.
