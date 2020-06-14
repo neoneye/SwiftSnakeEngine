@@ -20,10 +20,21 @@ class T4000_SnakeDatasetBundle: XCTestCase {
         do {
             _ = try SnakeDatasetBundle.load(resourceName)
             XCTFail()
-        } catch SnakeDatasetBundle.LoadError.runtimeError {
+        } catch SnakeDatasetBundleError.custom {
             // success
         } catch {
             XCTFail()
         }
+    }
+
+    func test300_urls() {
+        let urls: [URL]
+        do {
+            urls = try SnakeDatasetBundle.urls()
+        } catch {
+            XCTFail()
+            return
+        }
+        XCTAssertGreaterThan(urls.count, 5)
     }
 }

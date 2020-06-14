@@ -156,7 +156,7 @@ class T4001_Dataset: XCTestCase {
         do {
             _ = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "nonExistingFilename.snakeDataset", verbose: false)
             XCTFail()
-        } catch SnakeDatasetBundle.LoadError.runtimeError {
+        } catch SnakeDatasetBundleError.custom {
             // success
         } catch {
             XCTFail()
