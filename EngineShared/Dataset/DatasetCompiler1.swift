@@ -3,7 +3,7 @@ import Foundation
 
 /// Generate a CSV file with data extracted from the snakeDataset files.
 public class DatasetCompiler1 {
-    private var valueRows = [String]()
+    private var csvRows = [String]()
 
     public static func run() {
         let instance = DatasetCompiler1()
@@ -11,23 +11,25 @@ public class DatasetCompiler1 {
     }
 
     func processAllFiles() {
-        let urls: [URL] = try! SnakeDatasetBundle.urls()
+        csvRows = [self.headerRow]
 
+        // Process input files
+        let urls: [URL] = try! SnakeDatasetBundle.urls()
         for (index, url) in urls.enumerated() {
             log.debug("process: \(index) of \(urls.count)")
             do {
-                try process(url)
+                try processFile(url)
             } catch {
                 log.error("\(index) of \(urls.count): failed processing file. \(url) error: \(error)")
             }
         }
 
-        // save as csv file
+        // Save the result as csv file
 
-        log.debug("done. rows: \(valueRows.count)")
+        log.debug("done. rows: \(csvRows.count)")
 
         let url: URL = URL.temporaryFile(prefixes: ["snake", "dataset"], uuid: nil, suffixes: [], pathExtension: "csv")
-        let csvString = valueRows.joined(separator: "\n")
+        let csvString = csvRows.joined(separator: "\n")
         guard let data: Data = csvString.data(using: .utf8) else {
             log.error("unable to create data from csv string")
             fatalError()
@@ -41,7 +43,7 @@ public class DatasetCompiler1 {
         log.debug("done")
     }
 
-    func process(_ url: URL) throws {
+    func processFile(_ url: URL) throws {
         var rowsPlayer1 = [String]()
         var rowsPlayer2 = [String]()
 
@@ -54,10 +56,10 @@ public class DatasetCompiler1 {
                 log.debug("step: \(state.numberOfSteps)")
             }
 
-            if let s: String = processStep(level: state.level, player: state.player1, oppositePlayer: state.player2, foodPosition: state.foodPosition) {
+            if let s: String = convertStepToString(level: state.level, player: state.player1, oppositePlayer: state.player2, foodPosition: state.foodPosition) {
                 rowsPlayer1.append(s)
             }
-            if let s: String = processStep(level: state.level, player: state.player2, oppositePlayer: state.player1, foodPosition: state.foodPosition) {
+            if let s: String = convertStepToString(level: state.level, player: state.player2, oppositePlayer: state.player1, foodPosition: state.foodPosition) {
                 rowsPlayer2.append(s)
             }
 
@@ -86,16 +88,16 @@ public class DatasetCompiler1 {
         let n: Int = 20
         if rowsPlayer1.count > n {
             rowsPlayer1.removeLast(n)
-            valueRows += rowsPlayer1
+            csvRows += rowsPlayer1
         }
         if rowsPlayer2.count > n {
             rowsPlayer2.removeLast(n)
-            valueRows += rowsPlayer2
+            csvRows += rowsPlayer2
         }
     }
 
     /// Build a grid of things close to the snake head
-    func processStep(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> String? {
+    func convertStepToString(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> String? {
         guard player.isInstalledAndAlive else {
             //log.debug("Do nothing. The bot must be installed and alive. It doesn't make sense to run the bot.")
             return nil
@@ -175,6 +177,30 @@ public class DatasetCompiler1 {
         return fieldsJoined
     }
 
+    var headerRow: String {
+        var fields: [String] = []
+
+        fields.append("label")
+
+        // Relative position to the food
+        fields.append("foodx,foody")
+
+        // Relative position to the opponent player
+        fields.append("opponentx,opponenty")
+
+        // Obstacles around the snake head
+        do {
+            let grid = Array2<Bool>(size: UIntVec2(x: 9, y: 9), defaultValue: false)
+            let columnString = grid.flipY.format(columnSeparator: ",", rowSeparator: ",") { (value, position) in
+                "cell\(position.x)\(position.y)"
+            }
+            fields.append(columnString)
+            //log.debug("csv row: \(columnString)")
+        }
+
+        let fieldsJoined: String = fields.joined(separator: ",")
+        return fieldsJoined
+    }
 }
 
 fileprivate enum CellValue {
