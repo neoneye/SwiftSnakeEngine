@@ -3,6 +3,7 @@ import Foundation
 
 /// Generate a CSV file with data extracted from the snakeDataset files.
 public class DatasetCompiler1 {
+    private var valueRows = [String]()
 
     public static func run() {
         let instance = DatasetCompiler1()
@@ -23,19 +24,42 @@ public class DatasetCompiler1 {
 
         // save as csv file
 
+        log.debug("done. rows: \(valueRows.count)")
+
+        let url: URL = URL.temporaryFile(prefixes: ["snake", "dataset"], uuid: nil, suffixes: [])
+        let csvString = valueRows.joined(separator: "\n")
+        guard let data: Data = csvString.data(using: .utf8) else {
+            log.error("unable to create data from csv string")
+            fatalError()
+        }
+        log.debug("writing \(data.count) bytes to file at: \(url)")
+        do {
+            try data.write(to: url)
+        } catch {
+            log.error("unable to write to file. error: \(error)")
+        }
         log.debug("done")
     }
 
     func process(_ url: URL) throws {
+        var rowsPlayer1 = [String]()
+        var rowsPlayer2 = [String]()
+
         let environment: GameEnvironmentReplay = try GameEnvironmentReplay.create(url: url)
 
         var state: SnakeGameState = environment.reset()
 
         while true {
-            log.debug("step: \(state.numberOfSteps)")
+            if (state.numberOfSteps % 100) == 0 {
+                log.debug("step: \(state.numberOfSteps)")
+            }
 
-            processStep(level: state.level, player: state.player1, oppositePlayer: state.player2, foodPosition: state.foodPosition)
-            processStep(level: state.level, player: state.player2, oppositePlayer: state.player1, foodPosition: state.foodPosition)
+            if let s: String = processStep(level: state.level, player: state.player1, oppositePlayer: state.player2, foodPosition: state.foodPosition) {
+                rowsPlayer1.append(s)
+            }
+            if let s: String = processStep(level: state.level, player: state.player2, oppositePlayer: state.player1, foodPosition: state.foodPosition) {
+                rowsPlayer2.append(s)
+            }
 
             let stop: Bool
             switch environment.stepControlMode {
@@ -43,9 +67,9 @@ public class DatasetCompiler1 {
                 log.error("Inconsistency: Expected all steps in the replay data to be for autonomous replay, but this step wants human input.")
                 return
             case .stepAutonomous:
-                stop = true
-            case .reachedTheEnd:
                 stop = false
+            case .reachedTheEnd:
+                stop = true
             }
             if stop {
                 break
@@ -53,15 +77,28 @@ public class DatasetCompiler1 {
             state = environment.step(action: GameEnvironment_StepAction(player1: .dontMove, player2: .dontMove))
         }
 
+//        log.debug("rows player1: \(rowsPlayer1.count)")
+//        log.debug("rows player2: \(rowsPlayer2.count)")
 
-
+        // At this point the replay of have reached the end.
+        // The players may be still alive, or dead.
+        // Remove the last 20 steps, so that the last sequence of unfortunate decisions gets eliminated.
+        let n: Int = 20
+        if rowsPlayer1.count > n {
+            rowsPlayer1.removeLast(n)
+            valueRows += rowsPlayer1
+        }
+        if rowsPlayer2.count > n {
+            rowsPlayer2.removeLast(n)
+            valueRows += rowsPlayer2
+        }
     }
 
     /// Build a grid of things close to the snake head
-    func processStep(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) {
+    func processStep(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> String? {
         guard player.isInstalledAndAlive else {
             //log.debug("Do nothing. The bot must be installed and alive. It doesn't make sense to run the bot.")
-            return
+            return nil
         }
 
         let headPosition: IntVec2 = player.snakeBody.head.position
@@ -74,11 +111,12 @@ public class DatasetCompiler1 {
             for x: Int32 in 0...8 {
                 let position: IntVec2 = headPosition.offsetBy(dx: x-4, dy: y-4)
                 guard let cell: SnakeLevelCell = level.getValue(position) else {
-                    grid[x, y] = .permanentObstacle
+                    // Treat positions outside the level as obstacles.
+                    grid[x, y] = .obstacle
                     continue
                 }
                 if cell == .wall {
-                    grid[x, y] = .permanentObstacle
+                    grid[x, y] = .obstacle
                 }
             }
         }
@@ -92,75 +130,80 @@ public class DatasetCompiler1 {
             for x: Int32 in 0...8 {
                 let position: IntVec2 = headPosition.offsetBy(dx: x-4, dy: y-4)
                 if playerPositionSet.contains(position) {
-                    grid[x, y] = .movingObstacle
+                    grid[x, y] = .obstacle
                 }
             }
         }
 
-        // If there is food; Determine if the food is inside or outside the 9x9 grid.
-        var foodInside: Bool = false
-        var foodOutside: Bool = false
+        var fields: [String] = []
+
+        do {
+            let newHead: SnakeHead = player.snakeBody.head.simulateTick(movement: player.pendingMovement)
+            let direction: SnakeHeadDirection = newHead.direction
+            fields.append(direction.csvLabel)
+        }
+
+        // Relative position to the food
         if let fp: IntVec2 = foodPosition {
-            let x0: Int32 = headPosition.x - 4
-            let x1: Int32 = headPosition.x + 4
-            let y0: Int32 = headPosition.y - 4
-            let y1: Int32 = headPosition.y + 4
-            if fp.x >= x0 && fp.x <= x1 && fp.y >= y0 && fp.y <= y1 {
-                foodInside = true
-            } else {
-                foodOutside = true
+            let diff = headPosition.subtract(fp)
+            fields.append("\(diff.x),\(diff.y)")
+        } else {
+            fields.append("X,X")
+        }
+
+        // Relative position to the opponent player
+        if oppositePlayer.isInstalledAndAlive {
+            let diff = headPosition.subtract(oppositePlayer.snakeBody.head.position)
+            fields.append("\(diff.x),\(diff.y)")
+        } else {
+            fields.append("X,X")
+        }
+
+        // Obstacles around the snake head
+        do {
+            let columnString = grid.flipY.format(columnSeparator: ",", rowSeparator: ",") { (value, position) in
+                "\(value.uint)"
             }
+            fields.append(columnString)
+            //log.debug("csv row: \(columnString)")
         }
 
-        if foodInside {
-            for y: Int32 in 0...8 {
-                for x: Int32 in 0...8 {
-                    let position: IntVec2 = headPosition.offsetBy(dx: x-4, dy: y-4)
-                    if position == foodPosition {
-                        grid[x, y] = .emptyAndFood
-                    }
-                }
-            }
-        }
+        let fieldsJoined: String = fields.joined(separator: ",")
 
-        let gridString = grid.flipY.format(columnSeparator: " ") { (value, position) in
-            "\(value.uint)"
-        }
-        let newHead: SnakeHead = player.snakeBody.head.simulateTick(movement: player.pendingMovement)
-        log.debug("label: \(newHead.direction)")
-        log.debug("grid: \(gridString)")
+//        log.debug("fields: \(fieldsJoined)")
 
+        return fieldsJoined
     }
 
 }
 
 fileprivate enum CellValue {
-    case emptyAndFood
-    case emptyShortestPathForFood
     case empty
-    case movingObstaclePlayerTail
-    case movingObstacle
-    case movingObstacleOpponentPlayerHead
-    case permanentObstacle
+    case obstacle
 }
 
 extension CellValue {
-    var uint: UInt8 {
+    fileprivate var uint: UInt8 {
         switch self {
-        case .emptyAndFood:
-            return 0
-        case .emptyShortestPathForFood:
-            return 20
         case .empty:
-            return 30
-        case .movingObstaclePlayerTail:
-            return 128
-        case .movingObstacle:
-            return 192
-        case .movingObstacleOpponentPlayerHead:
-            return 240
-        case .permanentObstacle:
-            return 255
+            return 0
+        case .obstacle:
+            return 1
+        }
+    }
+}
+
+extension SnakeHeadDirection {
+    fileprivate var csvLabel: String {
+        switch self {
+        case .up:
+            return "U"
+        case .left:
+            return "L"
+        case .right:
+            return "R"
+        case .down:
+            return "D"
         }
     }
 }
