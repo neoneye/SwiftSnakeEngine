@@ -46,6 +46,7 @@
 		42510E692468260700A2DACD /* IngameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E64246790F100A2DACD /* IngameView.swift */; };
 		42510E6A2468260A00A2DACD /* LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E592467112900A2DACD /* LevelView.swift */; };
 		42510E6B2468260E00A2DACD /* SnakeBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E5D2467686C00A2DACD /* SnakeBodyView.swift */; };
+		42512FAE2498158600C21C5C /* T1010_URLTemporaryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42512FAD2498158600C21C5C /* T1010_URLTemporaryFile.swift */; };
 		4253C53F23359FB000210611 /* SnakeLevels.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4253C53E23359FB000210611 /* SnakeLevels.bundle */; };
 		4253C5412335A9D100210611 /* SnakeLevel+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5402335A9D100210611 /* SnakeLevel+Load.swift */; };
 		4253C5432336349800210611 /* UIntVec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5422336349800210611 /* UIntVec2.swift */; };
@@ -360,6 +361,7 @@
 		42510E612467730400A2DACD /* PositionArrayToPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionArrayToPath.swift; sourceTree = "<group>"; };
 		42510E64246790F100A2DACD /* IngameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngameView.swift; sourceTree = "<group>"; };
 		42510E662468187D00A2DACD /* IngameGridComputer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngameGridComputer.swift; sourceTree = "<group>"; };
+		42512FAD2498158600C21C5C /* T1010_URLTemporaryFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1010_URLTemporaryFile.swift; sourceTree = "<group>"; };
 		4253C53E23359FB000210611 /* SnakeLevels.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SnakeLevels.bundle; sourceTree = "<group>"; };
 		4253C5402335A9D100210611 /* SnakeLevel+Load.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnakeLevel+Load.swift"; sourceTree = "<group>"; };
 		4253C5422336349800210611 /* UIntVec2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIntVec2.swift; sourceTree = "<group>"; };
@@ -709,6 +711,7 @@
 				42C6512E23F5A2FD00B2669E /* T1007_SnakeFifo.swift */,
 				42CCDB69245A1FBF0086A3C3 /* T1008_ValidateDistance.swift */,
 				42CFF5BD245BBB1300590D62 /* T1009_PrettyPrintArray.swift */,
+				42512FAD2498158600C21C5C /* T1010_URLTemporaryFile.swift */,
 				4253C5452336350100210611 /* T1100_SeededGenerator.swift */,
 				42E042B3233402CD007AC6F9 /* T1200_ComputeShortestPath.swift */,
 				4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */,
@@ -1455,6 +1458,7 @@
 				42E042B4233402CD007AC6F9 /* T1200_ComputeShortestPath.swift in Sources */,
 				426892032332682100B97E29 /* GraphTests.swift in Sources */,
 				42CCDB6A245A1FBF0086A3C3 /* T1008_ValidateDistance.swift in Sources */,
+				42512FAE2498158600C21C5C /* T1010_URLTemporaryFile.swift in Sources */,
 				4255CA24232FD2D700A230AF /* T1001_IntVec2.swift in Sources */,
 				421BC9942455130D0070F3EB /* T2002_SnakeHead.swift in Sources */,
 				42CCD60F23BE65EA0021CBE7 /* T1004_BoundingBox.swift in Sources */,

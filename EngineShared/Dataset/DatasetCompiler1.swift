@@ -26,7 +26,7 @@ public class DatasetCompiler1 {
 
         log.debug("done. rows: \(valueRows.count)")
 
-        let url: URL = URL.temporaryFile(prefixes: ["snake", "dataset"], uuid: nil, suffixes: [])
+        let url: URL = URL.temporaryFile(prefixes: ["snake", "dataset"], uuid: nil, suffixes: [], pathExtension: "csv")
         let csvString = valueRows.joined(separator: "\n")
         guard let data: Data = csvString.data(using: .utf8) else {
             log.error("unable to create data from csv string")
