@@ -63,12 +63,37 @@ public class SnakeBot8: SnakeBot {
             }
         }
 
-        SnakeBot8Math.shared.compute()
-
         let gridString = grid.flipY.format(columnSeparator: " ") { (value, position) in
             value ? "*" : "-"
         }
         log.debug("grid: \(gridString)")
+
+        var values = [Float32]()
+        if let position: IntVec2 = foodPosition {
+            let diff = headPosition.subtract(position)
+            values.append(Float32(diff.x))
+            values.append(Float32(diff.y))
+        } else {
+            values.append(0)
+            values.append(0)
+        }
+        if oppositePlayer.isInstalled {
+            let position: IntVec2 = oppositePlayer.snakeBody.head.position
+            let diff = headPosition.subtract(position)
+            values.append(Float32(diff.x))
+            values.append(Float32(diff.y))
+        } else {
+            values.append(0)
+            values.append(0)
+        }
+        for y: Int32 in 0...8 {
+            for x: Int32 in 0...8 {
+                let cell: Bool = grid[x, y]
+                values.append(cell ? 1 : 0)
+            }
+        }
+
+        SnakeBot8Math.shared.compute(values: values)
 
         let pendingMovement: SnakeBodyMovement = .moveForward
 
@@ -129,9 +154,13 @@ fileprivate class SnakeBot8Math {
         return array
     }
 
-    func compute() {
+    func compute(values: [Float32]) {
         setup()
 
+        log.debug("values: \(values)")
+        log.debug("values.count: \(values.count)")
 
+        log.debug("weight.size: \(weight.size)")
+        log.debug("bias.size: \(bias.size)")
     }
 }
