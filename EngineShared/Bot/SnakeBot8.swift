@@ -71,6 +71,7 @@ public class SnakeBot8: SnakeBot {
         var values = [Float32]()
         if let position: IntVec2 = foodPosition {
             let diff = headPosition.subtract(position)
+//            let diff = position.subtract(headPosition)
             values.append(Float32(diff.x))
             values.append(Float32(diff.y))
         } else {
@@ -86,16 +87,35 @@ public class SnakeBot8: SnakeBot {
             values.append(0)
             values.append(0)
         }
+        let gridFlipped: Array2<Bool> = grid.flipY
         for y: Int32 in 0...8 {
             for x: Int32 in 0...8 {
                 let cell: Bool = grid[x, y]
+//                let cell: Bool = gridFlipped[x, y]
                 values.append(cell ? 1 : 0)
             }
         }
 
-        SnakeBot8Math.shared.compute(values: values)
+        var direction: SnakeHeadDirection = .left
+        let index: Int = SnakeBot8Math.shared.compute(values: values)
+        switch index {
+        case 0:
+//            direction = .up
+            direction = .down
+        case 1:
+            direction = .left
+        case 2:
+            direction = .right
+        case 3:
+            direction = .up
+//            direction = .down
+        default:
+            log.error("Unable to compute a movement for this step")
+            direction = .left
+        }
+        let pendingMovement: SnakeBodyMovement = player.snakeBody.head.moveToward(direction: direction)
 
-        let pendingMovement: SnakeBodyMovement = .moveForward
+//        let pendingMovement: SnakeBodyMovement = .moveForward
 
         return SnakeBot8(
             iteration: self.iteration + 1,
@@ -154,7 +174,7 @@ fileprivate class SnakeBot8Math {
         return array
     }
 
-    func compute(values: [Float32]) {
+    func compute(values: [Float32]) -> Int {
         setup()
 
         log.debug("values: \(values)")
@@ -188,5 +208,17 @@ fileprivate class SnakeBot8Math {
         let arrayString: String = result.format(columnSeparator: " ") { (value, _) in value.string2 }
         log.debug("result: \(arrayString)")
 
+        // argmax
+        var foundValue: Float32 = -1
+        var foundIndex: Int = -1
+        for index in 0..<4 {
+            let value: Float32 = result[Int32(index), Int32(0)]
+            if index == 0 || value > foundValue {
+                foundValue = value
+                foundIndex = index
+            }
+        }
+        log.debug("argmax: \(foundIndex)")
+        return foundIndex
     }
 }
