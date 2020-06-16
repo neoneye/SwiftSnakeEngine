@@ -162,5 +162,31 @@ fileprivate class SnakeBot8Math {
 
         log.debug("weight.size: \(weight.size)")
         log.debug("bias.size: \(bias.size)")
+
+        assert(values.count == Int(weight.size.y))
+        assert(weight.size.x == 4)
+        assert(bias.size.y == 4)
+        assert(bias.size.x == 1)
+
+        let result = Array2<Float32>(size: UIntVec2(x: 4, y: 1), defaultValue: 0)
+
+        // Matrix Multiplication: values X weight
+        for x in 0..<4 {
+            var sum: Float32 = 0
+            for (y, value) in values.enumerated() {
+                let w: Float32 = weight[Int32(x), Int32(y)]
+                sum += w * value
+            }
+            result[Int32(x), Int32(0)] = sum
+        }
+
+        // Add bias
+        for index in 0..<4 {
+            result[Int32(index), Int32(0)] += bias[Int32(0), Int32(index)]
+        }
+
+        let arrayString: String = result.format(columnSeparator: " ") { (value, _) in value.string2 }
+        log.debug("result: \(arrayString)")
+
     }
 }
