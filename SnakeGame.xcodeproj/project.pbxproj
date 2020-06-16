@@ -47,6 +47,10 @@
 		42510E6A2468260A00A2DACD /* LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E592467112900A2DACD /* LevelView.swift */; };
 		42510E6B2468260E00A2DACD /* SnakeBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42510E5D2467686C00A2DACD /* SnakeBodyView.swift */; };
 		42512FAE2498158600C21C5C /* T1010_URLTemporaryFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42512FAD2498158600C21C5C /* T1010_URLTemporaryFile.swift */; };
+		42512FB12498646900C21C5C /* SnakeBot8_weight.csv in Resources */ = {isa = PBXBuildFile; fileRef = 42512FAF2498646900C21C5C /* SnakeBot8_weight.csv */; };
+		42512FB22498646900C21C5C /* SnakeBot8_weight.csv in Resources */ = {isa = PBXBuildFile; fileRef = 42512FAF2498646900C21C5C /* SnakeBot8_weight.csv */; };
+		42512FB32498646900C21C5C /* SnakeBot8_bias.csv in Resources */ = {isa = PBXBuildFile; fileRef = 42512FB02498646900C21C5C /* SnakeBot8_bias.csv */; };
+		42512FB42498646900C21C5C /* SnakeBot8_bias.csv in Resources */ = {isa = PBXBuildFile; fileRef = 42512FB02498646900C21C5C /* SnakeBot8_bias.csv */; };
 		4253C53F23359FB000210611 /* SnakeLevels.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4253C53E23359FB000210611 /* SnakeLevels.bundle */; };
 		4253C5412335A9D100210611 /* SnakeLevel+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5402335A9D100210611 /* SnakeLevel+Load.swift */; };
 		4253C5432336349800210611 /* UIntVec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5422336349800210611 /* UIntVec2.swift */; };
@@ -362,6 +366,8 @@
 		42510E64246790F100A2DACD /* IngameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngameView.swift; sourceTree = "<group>"; };
 		42510E662468187D00A2DACD /* IngameGridComputer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngameGridComputer.swift; sourceTree = "<group>"; };
 		42512FAD2498158600C21C5C /* T1010_URLTemporaryFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1010_URLTemporaryFile.swift; sourceTree = "<group>"; };
+		42512FAF2498646900C21C5C /* SnakeBot8_weight.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SnakeBot8_weight.csv; sourceTree = "<group>"; };
+		42512FB02498646900C21C5C /* SnakeBot8_bias.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SnakeBot8_bias.csv; sourceTree = "<group>"; };
 		4253C53E23359FB000210611 /* SnakeLevels.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SnakeLevels.bundle; sourceTree = "<group>"; };
 		4253C5402335A9D100210611 /* SnakeLevel+Load.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnakeLevel+Load.swift"; sourceTree = "<group>"; };
 		4253C5422336349800210611 /* UIntVec2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIntVec2.swift; sourceTree = "<group>"; };
@@ -882,6 +888,8 @@
 				42C3182C2386FBDC00468D1F /* SnakeBot5.swift */,
 				42822A22239817CA00DA4461 /* SnakeBot6.swift */,
 				421BC990245330C70070F3EB /* SnakeBot7.swift */,
+				42512FB02498646900C21C5C /* SnakeBot8_bias.csv */,
+				42512FAF2498646900C21C5C /* SnakeBot8_weight.csv */,
 				426FE436248F0AE8007DB514 /* SnakeBot8.swift */,
 			);
 			path = Bot;
@@ -1144,6 +1152,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42512FB12498646900C21C5C /* SnakeBot8_weight.csv in Resources */,
+				42512FB32498646900C21C5C /* SnakeBot8_bias.csv in Resources */,
 				42FA3C422458BB8F0064C76C /* SnakeDataset.bundle in Resources */,
 				4253C53F23359FB000210611 /* SnakeLevels.bundle in Resources */,
 			);
@@ -1172,6 +1182,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42512FB22498646900C21C5C /* SnakeBot8_weight.csv in Resources */,
+				42512FB42498646900C21C5C /* SnakeBot8_bias.csv in Resources */,
 				42FA3C432458BB8F0064C76C /* SnakeDataset.bundle in Resources */,
 				42ABC151243D13B400E05FF3 /* SnakeLevels.bundle in Resources */,
 			);

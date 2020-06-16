@@ -1,5 +1,6 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
+import SwiftCSV
 
 public class SnakeBot8: SnakeBot {
     public static var info = SnakeBotInfo(
@@ -62,6 +63,8 @@ public class SnakeBot8: SnakeBot {
             }
         }
 
+        SnakeBot8Math.shared.compute()
+
         let gridString = grid.flipY.format(columnSeparator: " ") { (value, position) in
             value ? "*" : "-"
         }
@@ -73,5 +76,62 @@ public class SnakeBot8: SnakeBot {
             iteration: self.iteration + 1,
             plannedMovement: pendingMovement
         )
+    }
+}
+
+fileprivate class SnakeBot8Math {
+    static let shared = SnakeBot8Math()
+
+    private var setupDone = false
+    private var bias: Array2<Float32> = Array2<Float32>(size: UIntVec2.zero, defaultValue: 0)
+    private var weight: Array2<Float32> = Array2<Float32>(size: UIntVec2.zero, defaultValue: 0)
+
+    private func setup() {
+        if setupDone {
+            return
+        }
+        self.weight = parseCSV(forResource: "SnakeBot8_weight.csv")
+        self.bias = parseCSV(forResource: "SnakeBot8_bias.csv")
+        setupDone = true
+    }
+
+    private func parseCSV(forResource resourceName: String) -> Array2<Float32> {
+        guard let url: URL = Bundle(for: SnakeBot8Math.self).url(forResource: resourceName, withExtension: nil) else {
+            log.error("Cannot locate \(resourceName) in bundle")
+            fatalError()
+        }
+        //log.debug("url weight: \(url)")
+
+        guard let csv: CSV = try? CSV(url: url, delimiter: ",", encoding: .utf8, loadColumns: false) else {
+            log.error("Unable to load CSV. url: \(url)")
+            fatalError()
+        }
+
+        let rows: [[String]] = csv.enumeratedRows
+        guard let columnsInRow0: [String] = rows.first else {
+            log.error("Expected 1 or more rows in the csv file, but got none.")
+            fatalError()
+        }
+
+        let width = UInt32(columnsInRow0.count)
+        let height = UInt32(rows.count)
+        let size = UIntVec2(x: width, y: height)
+        //log.debug("size: \(size)")
+
+        let array: Array2<Float32> = Array2<Float32>(size: size, defaultValue: 0)
+        for (y, columns) in rows.enumerated() {
+            for (x, value) in columns.enumerated() {
+                array[Int32(x), Int32(y)] = Float32(value) ?? 0
+            }
+        }
+//        let arrayString: String = array.format(columnSeparator: " ") { (value, _) in value.string2 }
+//        log.debug("array: \(arrayString)")
+        return array
+    }
+
+    func compute() {
+        setup()
+
+
     }
 }
