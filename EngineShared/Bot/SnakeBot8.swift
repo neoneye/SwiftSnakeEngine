@@ -72,18 +72,34 @@ public class SnakeBot8: SnakeBot {
         if let position: IntVec2 = foodPosition {
             let diff = headPosition.subtract(position)
 //            let diff = position.subtract(headPosition)
-            values.append(Float32(diff.x))
-            values.append(Float32(diff.y))
+            let x_positive: Float32 = Float32(convert_coordinate_positive(diff.x))
+            let x_negative: Float32 = Float32(convert_coordinate_negative(diff.x))
+            let y_positive: Float32 = Float32(convert_coordinate_positive(diff.y))
+            let y_negative: Float32 = Float32(convert_coordinate_negative(diff.y))
+            values.append(x_positive)
+            values.append(x_negative)
+            values.append(y_positive)
+            values.append(y_negative)
         } else {
+            values.append(0)
+            values.append(0)
             values.append(0)
             values.append(0)
         }
         if oppositePlayer.isInstalled {
             let position: IntVec2 = oppositePlayer.snakeBody.head.position
             let diff = headPosition.subtract(position)
-            values.append(Float32(diff.x))
-            values.append(Float32(diff.y))
+            let x_positive: Float32 = Float32(convert_coordinate_positive(diff.x))
+            let x_negative: Float32 = Float32(convert_coordinate_negative(diff.x))
+            let y_positive: Float32 = Float32(convert_coordinate_positive(diff.y))
+            let y_negative: Float32 = Float32(convert_coordinate_negative(diff.y))
+            values.append(x_positive)
+            values.append(x_negative)
+            values.append(y_positive)
+            values.append(y_negative)
         } else {
+            values.append(0)
+            values.append(0)
             values.append(0)
             values.append(0)
         }
@@ -225,4 +241,16 @@ fileprivate class SnakeBot8Math {
         log.debug("argmax: \(foundIndex)")
         return foundIndex
     }
+}
+
+fileprivate func convert_coordinate_positive(_ value: Int32) -> Double {
+    if value <= 0 {
+        return 0
+    }
+    let weight: Double = 0.009
+    return sigmoid(Double(value) * weight) * 2 - 1
+}
+
+fileprivate func convert_coordinate_negative(_ value: Int32) -> Double {
+    return convert_coordinate_positive(-value)
 }
