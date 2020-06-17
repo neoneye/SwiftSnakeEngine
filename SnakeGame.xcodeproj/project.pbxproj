@@ -51,6 +51,9 @@
 		42512FB22498646900C21C5C /* SnakeBot8_weight.csv in Resources */ = {isa = PBXBuildFile; fileRef = 42512FAF2498646900C21C5C /* SnakeBot8_weight.csv */; };
 		42512FB32498646900C21C5C /* SnakeBot8_bias.csv in Resources */ = {isa = PBXBuildFile; fileRef = 42512FB02498646900C21C5C /* SnakeBot8_bias.csv */; };
 		42512FB42498646900C21C5C /* SnakeBot8_bias.csv in Resources */ = {isa = PBXBuildFile; fileRef = 42512FB02498646900C21C5C /* SnakeBot8_bias.csv */; };
+		42512FB62499A4BF00C21C5C /* Softmax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42512FB52499A4BF00C21C5C /* Softmax.swift */; };
+		42512FB72499A4BF00C21C5C /* Softmax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42512FB52499A4BF00C21C5C /* Softmax.swift */; };
+		42512FB92499A52B00C21C5C /* T1011_Softmax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42512FB82499A52B00C21C5C /* T1011_Softmax.swift */; };
 		4253C53F23359FB000210611 /* SnakeLevels.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4253C53E23359FB000210611 /* SnakeLevels.bundle */; };
 		4253C5412335A9D100210611 /* SnakeLevel+Load.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5402335A9D100210611 /* SnakeLevel+Load.swift */; };
 		4253C5432336349800210611 /* UIntVec2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253C5422336349800210611 /* UIntVec2.swift */; };
@@ -368,6 +371,8 @@
 		42512FAD2498158600C21C5C /* T1010_URLTemporaryFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1010_URLTemporaryFile.swift; sourceTree = "<group>"; };
 		42512FAF2498646900C21C5C /* SnakeBot8_weight.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SnakeBot8_weight.csv; sourceTree = "<group>"; };
 		42512FB02498646900C21C5C /* SnakeBot8_bias.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SnakeBot8_bias.csv; sourceTree = "<group>"; };
+		42512FB52499A4BF00C21C5C /* Softmax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Softmax.swift; sourceTree = "<group>"; };
+		42512FB82499A52B00C21C5C /* T1011_Softmax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = T1011_Softmax.swift; sourceTree = "<group>"; };
 		4253C53E23359FB000210611 /* SnakeLevels.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SnakeLevels.bundle; sourceTree = "<group>"; };
 		4253C5402335A9D100210611 /* SnakeLevel+Load.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnakeLevel+Load.swift"; sourceTree = "<group>"; };
 		4253C5422336349800210611 /* UIntVec2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIntVec2.swift; sourceTree = "<group>"; };
@@ -657,6 +662,7 @@
 				4255C9FF232F70F800A230AF /* remap.swift */,
 				4255CA29233180B500A230AF /* SeededGenerator.swift */,
 				4255CA00232F70F800A230AF /* sigmoid.swift */,
+				42512FB52499A4BF00C21C5C /* Softmax.swift */,
 				426891EF233267E900B97E29 /* swift-algorithm-club */,
 				4253C5422336349800210611 /* UIntVec2.swift */,
 				42EB7C0123F283FC00229CEA /* URL+temporaryFile.swift */,
@@ -718,6 +724,7 @@
 				42CCDB69245A1FBF0086A3C3 /* T1008_ValidateDistance.swift */,
 				42CFF5BD245BBB1300590D62 /* T1009_PrettyPrintArray.swift */,
 				42512FAD2498158600C21C5C /* T1010_URLTemporaryFile.swift */,
+				42512FB82499A52B00C21C5C /* T1011_Softmax.swift */,
 				4253C5452336350100210611 /* T1100_SeededGenerator.swift */,
 				42E042B3233402CD007AC6F9 /* T1200_ComputeShortestPath.swift */,
 				4217EEA5240E77830066B8C0 /* T2000_SnakeHeadDirection.swift */,
@@ -1422,6 +1429,7 @@
 				42AFCF7B24721E2800F78952 /* GameEnvironmentSaveDataset.swift in Sources */,
 				426FE437248F0AE8007DB514 /* SnakeBot8.swift in Sources */,
 				421BC991245330C70070F3EB /* SnakeBot7.swift in Sources */,
+				42512FB62499A4BF00C21C5C /* Softmax.swift in Sources */,
 				42D730932460C0BA008D4AB5 /* GameEnvironmentReplay.swift in Sources */,
 				42CCD61123BE65FD0021CBE7 /* BoundingBox.swift in Sources */,
 				42CFF5BB245BB7D400590D62 /* PrettyPrintArray.swift in Sources */,
@@ -1456,6 +1464,7 @@
 				4214300824259647003A58FB /* T2001_SnakeBodyMovement.swift in Sources */,
 				4255CA04232F76F400A230AF /* T1000_Sigmoid.swift in Sources */,
 				42C31824237F294E00468D1F /* T1003_Array2.swift in Sources */,
+				42512FB92499A52B00C21C5C /* T1011_Softmax.swift in Sources */,
 				423DE7962464989E00C97EF6 /* T4000_SnakeDatasetBundle.swift in Sources */,
 				4228915423341D2100273A0F /* T1006_MeasureTurnCount.swift in Sources */,
 				4253C5472336350100210611 /* T1100_SeededGenerator.swift in Sources */,
@@ -1577,6 +1586,7 @@
 				42AFCF7C24721E2800F78952 /* GameEnvironmentSaveDataset.swift in Sources */,
 				426FE438248F0AE8007DB514 /* SnakeBot8.swift in Sources */,
 				421BC992245330C70070F3EB /* SnakeBot7.swift in Sources */,
+				42512FB72499A4BF00C21C5C /* Softmax.swift in Sources */,
 				42D730942460C0BA008D4AB5 /* GameEnvironmentReplay.swift in Sources */,
 				42ABC147243D13AB00E05FF3 /* GameHeadless.swift in Sources */,
 				42CFF5BC245BB7D400590D62 /* PrettyPrintArray.swift in Sources */,
