@@ -188,7 +188,7 @@ fileprivate class SnakeBot8Math {
         assert(bias.size.y == 4)
         assert(bias.size.x == 1)
 
-        let result = Array2<Float32>(size: UIntVec2(x: 4, y: 1), defaultValue: 0)
+        var result = [Float32](repeating: 0, count: 4)
 
         // Matrix Multiplication: values X weight
         for x in 0..<4 {
@@ -197,22 +197,26 @@ fileprivate class SnakeBot8Math {
                 let w: Float32 = weight[Int32(x), Int32(y)]
                 sum += w * value
             }
-            result[Int32(x), Int32(0)] = sum
+            result[x] = sum
         }
 
         // Add bias
         for index in 0..<4 {
-            result[Int32(index), Int32(0)] += bias[Int32(0), Int32(index)]
+            result[index] += bias[Int32(0), Int32(index)]
         }
 
-        let arrayString: String = result.format(columnSeparator: " ") { (value, _) in value.string2 }
-        log.debug("result: \(arrayString)")
+        let s: String = PrettyPrintArray.simple.format(result)
+        log.debug("result: \(s)")
+
+        let result2: [Float32] = result.softmax
+        let s2: String = PrettyPrintArray.simple.format(result2)
+        log.debug("softmax: \(s2)")
 
         // argmax
         var foundValue: Float32 = -1
         var foundIndex: Int = -1
         for index in 0..<4 {
-            let value: Float32 = result[Int32(index), Int32(0)]
+            let value: Float32 = result2[index]
             if index == 0 || value > foundValue {
                 foundValue = value
                 foundIndex = index
