@@ -489,9 +489,9 @@ public class IngameViewModel: ObservableObject {
         }
         possibleGameState = possibleGameState.preventHumanCollisions()
 
-        let isWaiting = possibleGameState.isWaitingForInput()
+        let isWaiting = possibleGameState.isWaitingForHumanInput()
         if isWaiting {
-            //log.debug("waiting for input")
+            //log.debug("waiting for human input")
             return
         }
 
