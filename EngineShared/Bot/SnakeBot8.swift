@@ -63,15 +63,14 @@ public class SnakeBot8: SnakeBot {
             }
         }
 
-        let gridString = grid.flipY.format(columnSeparator: " ") { (value, position) in
-            value ? "*" : "-"
-        }
-        log.debug("grid: \(gridString)")
+//        let gridString = grid.flipY.format(columnSeparator: " ") { (value, position) in
+//            value ? "*" : "-"
+//        }
+//        log.debug("grid: \(gridString)")
 
         var values = [Float32]()
         if let position: IntVec2 = foodPosition {
             let diff = headPosition.subtract(position)
-//            let diff = position.subtract(headPosition)
             let x_positive: Float32 = Float32(convert_coordinate_positive(diff.x))
             let x_negative: Float32 = Float32(convert_coordinate_negative(diff.x))
             let y_positive: Float32 = Float32(convert_coordinate_positive(diff.y))
@@ -103,11 +102,9 @@ public class SnakeBot8: SnakeBot {
             values.append(0)
             values.append(0)
         }
-        let gridFlipped: Array2<Bool> = grid.flipY
         for y: Int32 in 0...8 {
             for x: Int32 in 0...8 {
                 let cell: Bool = grid[x, y]
-//                let cell: Bool = gridFlipped[x, y]
                 values.append(cell ? 1 : 0)
             }
         }
@@ -116,7 +113,6 @@ public class SnakeBot8: SnakeBot {
         let index: Int = SnakeBot8Math.shared.compute(values: values)
         switch index {
         case 0:
-//            direction = .up
             direction = .down
         case 1:
             direction = .left
@@ -124,14 +120,11 @@ public class SnakeBot8: SnakeBot {
             direction = .right
         case 3:
             direction = .up
-//            direction = .down
         default:
             log.error("Unable to compute a movement for this step")
             direction = .left
         }
         let pendingMovement: SnakeBodyMovement = player.snakeBody.head.moveToward(direction: direction)
-
-//        let pendingMovement: SnakeBodyMovement = .moveForward
 
         return SnakeBot8(
             iteration: self.iteration + 1,
@@ -193,11 +186,11 @@ fileprivate class SnakeBot8Math {
     func compute(values: [Float32]) -> Int {
         setup()
 
-        log.debug("values: \(values)")
-        log.debug("values.count: \(values.count)")
+//        log.debug("values: \(values)")
+//        log.debug("values.count: \(values.count)")
 
-        log.debug("weight.size: \(weight.size)")
-        log.debug("bias.size: \(bias.size)")
+//        log.debug("weight.size: \(weight.size)")
+//        log.debug("bias.size: \(bias.size)")
 
         assert(values.count == Int(weight.size.y))
         assert(weight.size.x == 4)
@@ -221,12 +214,12 @@ fileprivate class SnakeBot8Math {
             result[index] += bias[Int32(0), Int32(index)]
         }
 
-        let s: String = PrettyPrintArray.simple.format(result)
-        log.debug("result: \(s)")
+//        let s: String = PrettyPrintArray.simple.format(result)
+//        log.debug("result: \(s)")
 
         let result2: [Float32] = result.softmax
-        let s2: String = PrettyPrintArray.simple.format(result2)
-        log.debug("softmax: \(s2)")
+//        let s2: String = PrettyPrintArray.simple.format(result2)
+//        log.debug("softmax: \(s2)")
 
         // argmax
         var foundValue: Float32 = -1
@@ -238,7 +231,7 @@ fileprivate class SnakeBot8Math {
                 foundIndex = index
             }
         }
-        log.debug("argmax: \(foundIndex)")
+//        log.debug("argmax: \(foundIndex)")
         return foundIndex
     }
 }
