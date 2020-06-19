@@ -5,7 +5,7 @@ import SwiftCSV
 public class SnakeBot8: SnakeBot {
     public static var info = SnakeBotInfo(
         uuid: "ce015558-3705-45e5-9b16-7f79757d2a51",
-        name: "Experimental"
+        name: "Pretrained 9x9"
     )
 
     public let plannedMovement: SnakeBodyMovement
