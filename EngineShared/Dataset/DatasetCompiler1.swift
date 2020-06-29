@@ -18,6 +18,7 @@ import Foundation
 ///
 /// # Ideas for future CSV files
 /// Ideas for columns that will add more value to the training data.
+/// - Prefer games that are completed faster, than games that take lots of unnecessary steps.
 /// - 81 columns with 9x9 grid with obstacles around the opponent snake head.
 /// - Increase the grid size from 9x9 to 11x11 or even bigger.
 /// - Compute shortest path the to food for all the edge cells of the 9x9 grid.
@@ -25,6 +26,11 @@ import Foundation
 /// - One-hot encoding of the last 10 moves of both players.
 /// - Relative position of the snake tail for both players.
 /// - Snake length of both players.
+/// - Size of the open area reachable. If it's big, then there is less risk of being trapped.
+/// - Label column for the moves that is optimal for the opponent player.
+/// - When there is only 1 choice available, then store the number of steps until more choices becomes available.
+/// - Distinguish between permanent obstacles (walls) and snake obstacles (player 1, player 2).
+/// - For each grid cell store the direction of snake movement. (1,0) = right, (0,-1) = down.
 public class DatasetCompiler1 {
     private var csvRows = [String]()
 
