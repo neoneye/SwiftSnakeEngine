@@ -1,7 +1,30 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-/// Generate a CSV file with data extracted from the snakeDataset files.
+/// Generate a CSV file with data extracted from the `.snakeDataset` files.
+///
+/// # There are 86 columns in the CSV file
+/// - 1 column with the label: up, left, right, down.
+/// - 2 columns with relative position to the food.
+/// - 2 columns with relative position to the opponent.
+/// - 81 columns with a 9x9 grid with obstacles around the snake head.
+///
+/// # Problem with this CSV file format
+/// The relative position to the food, does not consider the scenario
+/// when there is a big obstacle between the snake and the food,
+/// and the snake have to take a longer route to get to the food.
+/// This makes the AI think that it's getting closer to the target,
+/// when it's not making any progress.
+///
+/// # Ideas for future CSV files
+/// Ideas for columns that will add more value to the training data.
+/// - 81 columns with 9x9 grid with obstacles around the opponent snake head.
+/// - Increase the grid size from 9x9 to 11x11 or even bigger.
+/// - Compute shortest path the to food for all the edge cells of the 9x9 grid.
+/// - Store the score of the `StuckSnakeDetector`, so that repeating patterns are punished.
+/// - One-hot encoding of the last 10 moves of both players.
+/// - Relative position of the snake tail for both players.
+/// - Snake length of both players.
 public class DatasetCompiler1 {
     private var csvRows = [String]()
 
