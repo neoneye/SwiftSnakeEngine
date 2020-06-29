@@ -1,25 +1,37 @@
 // MIT license. Copyright (c) 2020 Simon Strandgaard. All rights reserved.
 import Foundation
 
-class SnakeDatasetBundle {
-    public enum LoadError: Error {
-        case runtimeError(message: String)
-    }
+public enum SnakeDatasetBundleError: Error {
+    case custom(message: String)
+}
 
-    public class func load(_ resourceName: String) throws -> Data {
+public class SnakeDatasetBundle {
+    private class func snakeDatasetBundle() throws -> Bundle {
         let bundleName = "SnakeDataset.bundle"
         guard let bundleUrl: URL = Bundle(for: SnakeDatasetBundle.self).url(forResource: bundleName, withExtension: nil) else {
-            throw LoadError.runtimeError(message: "Cannot locate bundle: '\(bundleName)'")
+            throw SnakeDatasetBundleError.custom(message: "Cannot locate bundle: '\(bundleName)'")
         }
         guard let bundle: Bundle = Bundle(url: bundleUrl) else {
-            throw LoadError.runtimeError(message: "Unable to create bundle from url: '\(bundleUrl)'")
+            throw SnakeDatasetBundleError.custom(message: "Unable to create bundle from url: '\(bundleUrl)'")
         }
-        guard let dataUrl: URL = bundle.url(forResource: resourceName, withExtension: nil) else {
-            throw LoadError.runtimeError(message: "Unable to locate resource: '\(resourceName)' inside bundle at: '\(bundleUrl)'")
+        return bundle
+    }
+
+    public class func url(forResource resourceName: String) throws -> URL {
+        let bundle: Bundle = try snakeDatasetBundle()
+        guard let url: URL = bundle.url(forResource: resourceName, withExtension: nil) else {
+            let bundleUrlString = String(describing: bundle.resourceURL)
+            throw SnakeDatasetBundleError.custom(message: "Unable to locate resource: '\(resourceName)' inside bundle at: '\(bundleUrlString)'")
         }
-        guard let data = try? Data(contentsOf: dataUrl) else {
-            throw LoadError.runtimeError(message: "Unable to load data from url: \(dataUrl)")
+        return url
+    }
+
+    /// Returns an array of file URLs for all the `snakeDataset` contained in the bundle.
+    public class func urls() throws -> [URL] {
+        let bundle: Bundle = try snakeDatasetBundle()
+        guard let urls: [URL] = bundle.urls(forResourcesWithExtension: "snakeDataset", subdirectory: nil) else {
+            throw SnakeDatasetBundleError.custom(message: "Unable to get content of bundle")
         }
-        return data
+        return urls
     }
 }

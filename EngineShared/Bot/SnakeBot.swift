@@ -51,6 +51,7 @@ public class SnakeBotFactory {
             SnakeBot5.self,
             SnakeBot6.self,
             SnakeBot7.self,
+            SnakeBot8.self,
         ]
 
         self.macOSPlayerMenuTypes = [
@@ -59,6 +60,7 @@ public class SnakeBotFactory {
             SnakeBot5.self,
             SnakeBot6.self,
             SnakeBot7.self,
+            SnakeBot8.self,
         ]
 
         var uuidToType = [UUID: SnakeBot.Type]()

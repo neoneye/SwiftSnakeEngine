@@ -16,11 +16,13 @@ public class SnakeLevelManager {
 			"Level 1.csv",
 			"Level 2.csv",
 			"Level 3.csv",
-			"Level 4.csv",
-			"Level 5.csv",
+			//"Level 4.csv",
+			//"Level 5.csv",
 			"Level 6.csv",
 			"Level 7.csv",
 			"Level 8.csv",
+            "Level 9.csv",
+            "Level 10.csv",
 		]
 		self.levelNames = levelNames
 		self.defaultLevelName = levelNames.first!

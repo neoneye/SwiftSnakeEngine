@@ -111,7 +111,8 @@ class T4001_Dataset: XCTestCase {
     // MARK: -
 
     func snakeDatasetResult_duel0() throws -> SnakeDatasetResult {
-        let data: Data = try SnakeDatasetBundle.load("duel0.snakeDataset")
+        let url: URL = try SnakeDatasetBundle.url(forResource: "duel0.snakeDataset")
+        let data: Data = try Data(contentsOf: url)
         return try SnakeDatasetResult(serializedData: data)
     }
 
@@ -156,7 +157,7 @@ class T4001_Dataset: XCTestCase {
         do {
             _ = try DatasetLoader.snakeGameEnvironmentReplay(resourceName: "nonExistingFilename.snakeDataset", verbose: false)
             XCTFail()
-        } catch SnakeDatasetBundle.LoadError.runtimeError {
+        } catch SnakeDatasetBundleError.custom {
             // success
         } catch {
             XCTFail()

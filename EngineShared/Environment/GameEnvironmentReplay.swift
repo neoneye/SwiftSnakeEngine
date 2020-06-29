@@ -34,25 +34,12 @@ public class GameEnvironmentReplay: GameEnvironment {
     }
 
     public static func create() -> GameEnvironmentReplay {
-        return create(resourceName: "duel0.snakeDataset")
+        let url: URL = try! SnakeDatasetBundle.url(forResource: "duel0.snakeDataset")
+        return try! create(url: url)
     }
 
-    public static func create(resourceName: String) -> GameEnvironmentReplay {
-        do {
-            return try DatasetLoader.snakeGameEnvironmentReplay(resourceName: resourceName, verbose: true)
-        } catch {
-            log.error("Unable to load file: \(error)")
-            fatalError()
-        }
-    }
-
-    public static func create(data: Data) -> GameEnvironmentReplay {
-        do {
-            return try DatasetLoader.snakeGameEnvironmentReplay(data: data, verbose: true)
-        } catch {
-            log.error("Unable to parse data: \(error)")
-            fatalError()
-        }
+    public static func create(url: URL) throws -> GameEnvironmentReplay {
+        return try DatasetLoader.snakeGameEnvironmentReplay(url: url, verbose: true)
     }
 
     public func reset() -> SnakeGameState {
