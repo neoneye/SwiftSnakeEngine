@@ -140,7 +140,7 @@ public class GameEnvironmentInteractive: GameEnvironment {
             player = player.playerWithNewSnakeBody(snakeBody)
             player = player.clearPendingMovementAndPendingAct()
             if !opponentPlayer.isInstalledAndAliveAndHuman {
-                player = stuckSnakeDetector1.killBotIfStuckInLoop(player)
+                player = stuckSnakeDetector2.killBotIfStuckInLoop(player)
             }
             newGameState = newGameState.stateWithNewPlayer2(player)
         }
