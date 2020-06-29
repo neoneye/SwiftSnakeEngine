@@ -15,7 +15,7 @@ struct AppConstant {
 		case production
         case develop_ingame
         case develop_replay(resourceName: String)
-        case develop_runDatasetCompiler1
+        case develop_runDatasetCompiler(version: UInt)
 
         static func ==(lhs: Mode, rhs: Mode) -> Bool {
             switch (lhs, rhs) {
@@ -25,17 +25,18 @@ struct AppConstant {
                 return true
             case (let .develop_replay(name0), let .develop_replay(name1)):
                 return name0 == name1
-            case (.develop_runDatasetCompiler1, .develop_runDatasetCompiler1):
-                return true
+            case (let .develop_runDatasetCompiler(version0), let .develop_runDatasetCompiler(version1)):
+                return version0 == version1
             default:
                 return false
             }
         }
 	}
-	static let mode: Mode = .production
+//	static let mode: Mode = .production
     //static let mode: Mode = .develop_replay(resourceName: "duel8.snakeDataset")
     //static let mode: Mode = .develop_replay(resourceName: "solo0.snakeDataset")
-    //static let mode: Mode = .develop_runDatasetCompiler1
+    //static let mode: Mode = .develop_runDatasetCompiler(version: 1)
+    static let mode: Mode = .develop_runDatasetCompiler(version: 2)
 
     static var escapeKeyToTerminateApp: Bool {
         switch mode {
@@ -45,7 +46,7 @@ struct AppConstant {
             return true
         case .develop_replay:
             return true
-        case .develop_runDatasetCompiler1:
+        case .develop_runDatasetCompiler:
             return true
         }
     }
