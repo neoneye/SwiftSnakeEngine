@@ -3,6 +3,7 @@ import Foundation
 
 public enum GridCell {
     case empty
+    case food
     case wall
     case player1
     case player2
@@ -26,6 +27,10 @@ extension SnakeGameState {
                 }
                 if cell == .wall {
                     grid[x, y] = .wall
+                }
+
+                if position == self.foodPosition {
+                    grid[x, y] = .food
                 }
             }
         }

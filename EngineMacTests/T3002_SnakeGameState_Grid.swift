@@ -15,9 +15,17 @@ class T3002_SnakeGameState_Grid: XCTestCase {
         state = state.stateWithNewPlayer1(state.player1.uninstall())
         state = state.stateWithNewPlayer2(state.player2.uninstall())
         do {
-            // Without any players
+            // Without any players. Without any food.
             let grid: Array2<GridCell> = state.grid(radius: 2, center: IntVec2(x: 2, y: 2))
             XCTAssertEqual("WWWWW,W   W,W   W,W   W,WWWWW", format(grid))
+        }
+
+        state = state.stateWithNewFoodPosition(IntVec2(x: 2, y: 2))
+
+        do {
+            // Without any players. With food.
+            let grid: Array2<GridCell> = state.grid(radius: 2, center: IntVec2(x: 2, y: 2))
+            XCTAssertEqual("WWWWW,W   W,W F W,W   W,WWWWW", format(grid))
         }
 
         do {
@@ -35,15 +43,15 @@ class T3002_SnakeGameState_Grid: XCTestCase {
         }
 
         do {
-            // With both player1 and player2
+            // With both player1 and player2. And with food.
             let grid0: Array2<GridCell> = state.grid(radius: 2, center: IntVec2(x: 2, y: 2))
-            XCTAssertEqual("WWWWW,W111W,W   W,W222W,WWWWW", format(grid0))
+            XCTAssertEqual("WWWWW,W111W,W F W,W222W,WWWWW", format(grid0))
 
             let grid1: Array2<GridCell> = state.grid(radius: 2, center: IntVec2(x: 2, y: 1))
-            XCTAssertEqual("WWWWW,WWWWW,W111W,W   W,W222W", format(grid1))
+            XCTAssertEqual("WWWWW,WWWWW,W111W,W F W,W222W", format(grid1))
 
             let grid2: Array2<GridCell> = state.grid(radius: 2, center: IntVec2(x: 2, y: 0))
-            XCTAssertEqual("WWWWW,WWWWW,WWWWW,W111W,W   W", format(grid2))
+            XCTAssertEqual("WWWWW,WWWWW,WWWWW,W111W,W F W", format(grid2))
         }
     }
 
@@ -59,6 +67,8 @@ extension GridCell {
         switch self {
         case .empty:
             return " "
+        case .food:
+            return "F"
         case .wall:
             return "W"
         case .player1:

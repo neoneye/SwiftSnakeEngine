@@ -221,6 +221,8 @@ extension GridCell {
         switch self {
         case .empty:
             return 0
+        case .food:
+            return 0
         case .wall:
             return 1
         case .player1:
