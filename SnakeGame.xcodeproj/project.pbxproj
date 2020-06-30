@@ -268,6 +268,8 @@
 		42F4538C23E5B41400B90297 /* SnakeHeadDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */; };
 		42F9074D24AA7A030092DC69 /* DatasetCompiler2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F9074C24AA7A030092DC69 /* DatasetCompiler2.swift */; };
 		42F9074E24AA7A030092DC69 /* DatasetCompiler2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F9074C24AA7A030092DC69 /* DatasetCompiler2.swift */; };
+		42F9075024AAC6040092DC69 /* SnakeGameState+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F9074F24AAC6040092DC69 /* SnakeGameState+Grid.swift */; };
+		42F9075124AAC6040092DC69 /* SnakeGameState+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F9074F24AAC6040092DC69 /* SnakeGameState+Grid.swift */; };
 		42FA3C422458BB8F0064C76C /* SnakeDataset.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42FA3C412458BB8F0064C76C /* SnakeDataset.bundle */; };
 		42FA3C432458BB8F0064C76C /* SnakeDataset.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42FA3C412458BB8F0064C76C /* SnakeDataset.bundle */; };
 		42FA3C452458BC5D0064C76C /* SnakeDatasetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FA3C442458BC5D0064C76C /* SnakeDatasetBundle.swift */; };
@@ -501,6 +503,7 @@
 		42EFB41823E57E18002B6191 /* EngineMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EngineMac.h; sourceTree = "<group>"; };
 		42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeHeadDirection.swift; sourceTree = "<group>"; };
 		42F9074C24AA7A030092DC69 /* DatasetCompiler2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatasetCompiler2.swift; sourceTree = "<group>"; };
+		42F9074F24AAC6040092DC69 /* SnakeGameState+Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnakeGameState+Grid.swift"; sourceTree = "<group>"; };
 		42FA3C412458BB8F0064C76C /* SnakeDataset.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SnakeDataset.bundle; sourceTree = "<group>"; };
 		42FA3C442458BC5D0064C76C /* SnakeDatasetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeDatasetBundle.swift; sourceTree = "<group>"; };
 		42FB057F243C99C4006BEE8D /* Snake Puzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Snake Puzzle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -634,6 +637,7 @@
 				422423B7233D71E80006D02D /* SnakeFoodGenerator.swift */,
 				422423B5233D46F30006D02D /* SnakeGameState.swift */,
 				422423B9233D9A590006D02D /* SnakeGameState+Create.swift */,
+				42F9074F24AAC6040092DC69 /* SnakeGameState+Grid.swift */,
 				42CCDB6E245A2A3C0086A3C3 /* SnakeGameState+IsWaitingForHumanInput.swift */,
 				42CCDB6B245A29260086A3C3 /* SnakeGameState+PreventHumanCollisions.swift */,
 				42A8B6FD2331B4AE00E618CF /* SnakeHead.swift */,
@@ -1437,6 +1441,7 @@
 				42512FB62499A4BF00C21C5C /* Softmax.swift in Sources */,
 				42D730932460C0BA008D4AB5 /* GameEnvironmentReplay.swift in Sources */,
 				42CCD61123BE65FD0021CBE7 /* BoundingBox.swift in Sources */,
+				42F9075024AAC6040092DC69 /* SnakeGameState+Grid.swift in Sources */,
 				42CFF5BB245BB7D400590D62 /* PrettyPrintArray.swift in Sources */,
 				42CFF5B4245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift in Sources */,
 				42CCDB6F245A2A3C0086A3C3 /* SnakeGameState+IsWaitingForHumanInput.swift in Sources */,
@@ -1595,6 +1600,7 @@
 				42512FB72499A4BF00C21C5C /* Softmax.swift in Sources */,
 				42D730942460C0BA008D4AB5 /* GameEnvironmentReplay.swift in Sources */,
 				42ABC147243D13AB00E05FF3 /* GameHeadless.swift in Sources */,
+				42F9075124AAC6040092DC69 /* SnakeGameState+Grid.swift in Sources */,
 				42CFF5BC245BB7D400590D62 /* PrettyPrintArray.swift in Sources */,
 				42CFF5B5245B49CC00590D62 /* SnakeBodyAdvancedCreate.swift in Sources */,
 				42CCDB70245A2A3C0086A3C3 /* SnakeGameState+IsWaitingForHumanInput.swift in Sources */,
