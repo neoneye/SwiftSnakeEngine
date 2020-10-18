@@ -36,7 +36,6 @@ struct AppConstant {
     //static let mode: Mode = .develop_replay(resourceName: "duel8.snakeDataset")
     //static let mode: Mode = .develop_replay(resourceName: "solo0.snakeDataset")
 //    static let mode: Mode = .develop_runDatasetCompiler(version: 1)
-//    static let mode: Mode = .develop_runDatasetCompiler(version: 2)
 
     static var escapeKeyToTerminateApp: Bool {
         switch mode {

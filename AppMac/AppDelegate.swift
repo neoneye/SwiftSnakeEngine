@@ -25,8 +25,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             switch version {
             case 1:
                 DatasetCompiler1.run()
-            case 2:
-                DatasetCompiler2.run()
             default:
                 ()
             }

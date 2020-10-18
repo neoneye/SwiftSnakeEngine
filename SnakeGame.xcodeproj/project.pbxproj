@@ -267,8 +267,6 @@
 		42EFB41923E57E18002B6191 /* EngineMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EFB41823E57E18002B6191 /* EngineMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		42F4538823E5A3AD00B90297 /* IntVec2+CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3181F237D6E2700468D1F /* IntVec2+CGPoint.swift */; };
 		42F4538C23E5B41400B90297 /* SnakeHeadDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */; };
-		42F9074D24AA7A030092DC69 /* DatasetCompiler2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F9074C24AA7A030092DC69 /* DatasetCompiler2.swift */; };
-		42F9074E24AA7A030092DC69 /* DatasetCompiler2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F9074C24AA7A030092DC69 /* DatasetCompiler2.swift */; };
 		42F9075024AAC6040092DC69 /* SnakeGameState+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F9074F24AAC6040092DC69 /* SnakeGameState+Grid.swift */; };
 		42F9075124AAC6040092DC69 /* SnakeGameState+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F9074F24AAC6040092DC69 /* SnakeGameState+Grid.swift */; };
 		42FA3C422458BB8F0064C76C /* SnakeDataset.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42FA3C412458BB8F0064C76C /* SnakeDataset.bundle */; };
@@ -504,7 +502,6 @@
 		42ED2AD9246DFCC5005D812F /* GestureIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureIndicatorView.swift; sourceTree = "<group>"; };
 		42EFB41823E57E18002B6191 /* EngineMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EngineMac.h; sourceTree = "<group>"; };
 		42F4538B23E5B41400B90297 /* SnakeHeadDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeHeadDirection.swift; sourceTree = "<group>"; };
-		42F9074C24AA7A030092DC69 /* DatasetCompiler2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatasetCompiler2.swift; sourceTree = "<group>"; };
 		42F9074F24AAC6040092DC69 /* SnakeGameState+Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SnakeGameState+Grid.swift"; sourceTree = "<group>"; };
 		42FA3C412458BB8F0064C76C /* SnakeDataset.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SnakeDataset.bundle; sourceTree = "<group>"; };
 		42FA3C442458BC5D0064C76C /* SnakeDatasetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeDatasetBundle.swift; sourceTree = "<group>"; };
@@ -932,7 +929,6 @@
 			isa = PBXGroup;
 			children = (
 				426FE439249579B0007DB514 /* DatasetCompiler1.swift */,
-				42F9074C24AA7A030092DC69 /* DatasetCompiler2.swift */,
 				429A1532245CA7ED009F6337 /* DatasetLoader.swift */,
 				42EB7C0323F2873B00229CEA /* DatasetSaver.swift */,
 				42CCDB65245A03050086A3C3 /* readme.md */,
@@ -1398,7 +1394,6 @@
 				42EB7BFE23F1FD9D00229CEA /* SnakeDataset.proto in Sources */,
 				4255CA26232FD31900A230AF /* IntVec2.swift in Sources */,
 				423C4F55240C4B5B00786F49 /* OSLogDestination.swift in Sources */,
-				42F9074D24AA7A030092DC69 /* DatasetCompiler2.swift in Sources */,
 				42C31822237F27AF00468D1F /* Array2.swift in Sources */,
 				422423BE233D9B760006D02D /* GameHeadless.swift in Sources */,
 				42CCDB67245A1F2F0086A3C3 /* ValidateDistance.swift in Sources */,
@@ -1558,7 +1553,6 @@
 				42ABC11F243D137D00E05FF3 /* SnakeBot5.swift in Sources */,
 				42ABC128243D138300E05FF3 /* IntVec2+CGPoint.swift in Sources */,
 				42ABC138243D139300E05FF3 /* SSSP.swift in Sources */,
-				42F9074E24AA7A030092DC69 /* DatasetCompiler2.swift in Sources */,
 				42ABC125243D138300E05FF3 /* Data+SHA1.swift in Sources */,
 				42ABC136243D139300E05FF3 /* Vertex.swift in Sources */,
 				42ABC148243D13AB00E05FF3 /* SnakeGameState.swift in Sources */,
