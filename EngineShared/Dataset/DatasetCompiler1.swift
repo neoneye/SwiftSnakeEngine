@@ -33,6 +33,7 @@ import Foundation
 /// - For each grid cell store the direction of snake movement. (1,0) = right, (0,-1) = down.
 public class DatasetCompiler1 {
     private var csvRows = [String]()
+    private let gridRadius: UInt32 = 4
 
     public static func run() {
         let instance = DatasetCompiler1()
@@ -85,10 +86,10 @@ public class DatasetCompiler1 {
                 log.debug("step: \(state.numberOfSteps)")
             }
 
-            if let s: String = convertStepToString(level: state.level, player: state.player1, oppositePlayer: state.player2, foodPosition: state.foodPosition) {
+            if let s: String = convertStepToString(state: state, playerId: .player1) {
                 rowsPlayer1.append(s)
             }
-            if let s: String = convertStepToString(level: state.level, player: state.player2, oppositePlayer: state.player1, foodPosition: state.foodPosition) {
+            if let s: String = convertStepToString(state: state, playerId: .player2) {
                 rowsPlayer2.append(s)
             }
 
@@ -126,7 +127,18 @@ public class DatasetCompiler1 {
     }
 
     /// Build a grid of things close to the snake head
-    func convertStepToString(level: SnakeLevel, player: SnakePlayer, oppositePlayer: SnakePlayer, foodPosition: IntVec2?) -> String? {
+    func convertStepToString(state: SnakeGameState, playerId: SnakePlayerId) -> String? {
+        let player: SnakePlayer
+        let oppositePlayer: SnakePlayer
+        switch playerId {
+        case .player1:
+            player = state.player1
+            oppositePlayer = state.player2
+        case .player2:
+            player = state.player2
+            oppositePlayer = state.player1
+        }
+
         guard player.isInstalledAndAlive else {
             //log.debug("Do nothing. The bot must be installed and alive. It doesn't make sense to run the bot.")
             return nil
@@ -134,37 +146,8 @@ public class DatasetCompiler1 {
 
         let headPosition: IntVec2 = player.snakeBody.head.position
 
-        // 9x9 grid with obstacles surrounding the head
-        let grid = Array2<CellValue>(size: UIntVec2(x: 9, y: 9), defaultValue: CellValue.empty)
-
-        // Draw the level walls as obstacles
-        for y: Int32 in 0...8 {
-            for x: Int32 in 0...8 {
-                let position: IntVec2 = headPosition.offsetBy(dx: x-4, dy: y-4)
-                guard let cell: SnakeLevelCell = level.getValue(position) else {
-                    // Treat positions outside the level as obstacles.
-                    grid[x, y] = .obstacle
-                    continue
-                }
-                if cell == .wall {
-                    grid[x, y] = .obstacle
-                }
-            }
-        }
-
-        // Draw players as obstacles
-        var playerPositionSet: Set<IntVec2> = player.snakeBody.positionSet()
-        if oppositePlayer.isInstalled {
-            playerPositionSet.formUnion(oppositePlayer.snakeBody.positionSet())
-        }
-        for y: Int32 in 0...8 {
-            for x: Int32 in 0...8 {
-                let position: IntVec2 = headPosition.offsetBy(dx: x-4, dy: y-4)
-                if playerPositionSet.contains(position) {
-                    grid[x, y] = .obstacle
-                }
-            }
-        }
+        // NxN grid with obstacles surrounding the snake head
+        let grid: Array2<GridCell> = state.grid(radius: gridRadius, center: headPosition)
 
         var fields: [String] = []
 
@@ -175,7 +158,7 @@ public class DatasetCompiler1 {
         }
 
         // Relative position to the food
-        if let fp: IntVec2 = foodPosition {
+        if let fp: IntVec2 = state.foodPosition {
             let diff = headPosition.subtract(fp)
             fields.append("\(diff.x),\(diff.y)")
         } else {
@@ -219,7 +202,8 @@ public class DatasetCompiler1 {
 
         // Obstacles around the snake head
         do {
-            let grid = Array2<Bool>(size: UIntVec2(x: 9, y: 9), defaultValue: false)
+            let size: UInt32 = gridRadius * 2 + 1
+            let grid = Array2<Bool>(size: UIntVec2(x: size, y: size), defaultValue: false)
             let columnString = grid.flipY.format(columnSeparator: ",", rowSeparator: ",") { (value, position) in
                 "cell\(position.x)\(position.y)"
             }
@@ -232,17 +216,18 @@ public class DatasetCompiler1 {
     }
 }
 
-fileprivate enum CellValue {
-    case empty
-    case obstacle
-}
-
-extension CellValue {
+extension GridCell {
     fileprivate var uint: UInt8 {
         switch self {
         case .empty:
             return 0
-        case .obstacle:
+        case .food:
+            return 0
+        case .wall:
+            return 1
+        case .player1:
+            return 1
+        case .player2:
             return 1
         }
     }
