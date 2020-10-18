@@ -368,6 +368,7 @@ struct IngameView: View {
                 .padding(15)
         }
         .buttonStyle(BorderlessButtonStyle())
+        .accessibility(identifier: "IngameViewPauseButton")
         .sheet(isPresented: $presentingModal, content: buildPauseSheetContent)
     }
 

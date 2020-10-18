@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1130"
+   LastUpgradeVersion = "1200"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -9,14 +9,14 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "42FB057E243C99C4006BEE8D"
-               BuildableName = "Snake Puzzle.app"
-               BlueprintName = "AppIOS"
+               BlueprintIdentifier = "4261B1FC253C97160029F0A1"
+               BuildableName = "UI Test.xctest"
+               BlueprintName = "UI Test"
                ReferencedContainer = "container:SnakeGame.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -67,16 +67,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "42FB057E243C99C4006BEE8D"
-            BuildableName = "Snake Puzzle.app"
-            BlueprintName = "AppIOS"
-            ReferencedContainer = "container:SnakeGame.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
