@@ -74,6 +74,7 @@ fileprivate struct LevelSelectorCellView: View {
             self.ingameView(size: ingameViewSize)
         }
         .buttonStyle(BorderlessButtonStyle())
+        .accessibility(identifier: "Select Level \(self.levelSelectorCell.id)")
         .frame(width: geometry.size.width, height: geometry.size.height)
     }
 }

@@ -1,0 +1,11 @@
+lane :ios_screenshots_dark do
+    capture_ios_screenshots(
+      dark_mode: true
+    )
+end
+
+lane :ios_screenshots_light do
+    capture_ios_screenshots(
+      dark_mode: false
+    )
+end
