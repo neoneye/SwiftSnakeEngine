@@ -50,11 +50,11 @@ struct MailView: UIViewControllerRepresentable {
         items.append(infoToDeveloper)
         let messageBody: String = items.joined(separator: "\n")
 
-        let subject = "Snake Dataset"
+        let subject = "Snake Game Data"
         let vc = MFMailComposeViewController()
         vc.mailComposeDelegate = context.coordinator
         vc.setSubject(subject)
-        vc.setToRecipients(["Simon Strandgaard <neoneye@gmail.com>"])
+        vc.setToRecipients(["Simon Strandgaard <neoneye+snake@gmail.com>"])
         vc.setMessageBody(messageBody, isHTML: false)
 
         vc.addAttachmentData(dataset_mailAttachmentData, mimeType: "application/octet-stream", fileName: "game.snakeDataset")
