@@ -214,8 +214,15 @@ public class IngameViewModel: ObservableObject {
         return IngameViewModel(snakeGameEnvironment: snakeGameEnvironment)
     }
 
-    class func createReplay() -> IngameViewModel {
-        let environment = GameEnvironmentReplay.create()
+    class func createReplay(resourceName: String) -> IngameViewModel {
+        let environment: GameEnvironmentReplay
+        do {
+            let url: URL = try SnakeDatasetBundle.url(forResource: resourceName)
+            environment = try GameEnvironmentReplay.create(url: url)
+        } catch {
+            log.error("Unable to create replay for resource: \(resourceName). error: \(error)")
+            fatalError()
+        }
         return IngameViewModel(snakeGameEnvironment: environment)
     }
 
@@ -231,7 +238,13 @@ public class IngameViewModel: ObservableObject {
             return nil
         }
         log.debug("#\(counter) Create replay environment")
-        let environment: GameEnvironmentReplay = GameEnvironmentReplay.create(data: data)
+        let environment: GameEnvironmentReplay
+        do {
+            environment = try DatasetLoader.snakeGameEnvironmentReplay(data: data, verbose: true)
+        } catch {
+            log.error("Unable to create environment with data. \(error)")
+            return nil
+        }
         let newModel = IngameViewModel(snakeGameEnvironment: environment)
         log.debug("#\(counter) Create replay gameviewmodel")
 
@@ -476,9 +489,9 @@ public class IngameViewModel: ObservableObject {
         }
         possibleGameState = possibleGameState.preventHumanCollisions()
 
-        let isWaiting = possibleGameState.isWaitingForInput()
+        let isWaiting = possibleGameState.isWaitingForHumanInput()
         if isWaiting {
-            //log.debug("waiting for input")
+            //log.debug("waiting for human input")
             return
         }
 

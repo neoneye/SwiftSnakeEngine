@@ -111,6 +111,7 @@ public class GameEnvironmentInteractive: GameEnvironment {
         var collisionCheckAfterEating: Bool = false
         if newGameState.player1.isInstalledAndAlive {
             var player: SnakePlayer = newGameState.player1
+            let opponentPlayer: SnakePlayer = newGameState.player2
             if player.pendingAct == .eat {
                 collisionCheckAfterEating = true
             }
@@ -120,12 +121,15 @@ public class GameEnvironmentInteractive: GameEnvironment {
             )
             player = player.playerWithNewSnakeBody(snakeBody)
             player = player.clearPendingMovementAndPendingAct()
-            player = stuckSnakeDetector1.killBotIfStuckInLoop(player)
+            if !opponentPlayer.isInstalledAndAliveAndHuman {
+                player = stuckSnakeDetector1.killBotIfStuckInLoop(player)
+            }
             newGameState = newGameState.stateWithNewPlayer1(player)
         }
 
         if newGameState.player2.isInstalledAndAlive {
             var player: SnakePlayer = newGameState.player2
+            let opponentPlayer: SnakePlayer = newGameState.player1
             if player.pendingAct == .eat {
                 collisionCheckAfterEating = true
             }
@@ -135,7 +139,9 @@ public class GameEnvironmentInteractive: GameEnvironment {
             )
             player = player.playerWithNewSnakeBody(snakeBody)
             player = player.clearPendingMovementAndPendingAct()
-            player = stuckSnakeDetector2.killBotIfStuckInLoop(player)
+            if !opponentPlayer.isInstalledAndAliveAndHuman {
+                player = stuckSnakeDetector2.killBotIfStuckInLoop(player)
+            }
             newGameState = newGameState.stateWithNewPlayer2(player)
         }
 

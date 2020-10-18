@@ -21,8 +21,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         player1Menu?.configureAsPlayer1()
 		player2Menu?.configureAsPlayer2()
 
-//		let game = SnakeGameHeadless()
-//		game.run()
+        if case .develop_runDatasetCompiler(let version) = AppConstant.mode {
+            switch version {
+            case 1:
+                DatasetCompiler1.run()
+            default:
+                ()
+            }
+            NSApp.terminate(self)
+            return;
+        }
 
         window = GameNSWindow.create()
     }

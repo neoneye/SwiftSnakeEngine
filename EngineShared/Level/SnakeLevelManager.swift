@@ -13,14 +13,17 @@ public class SnakeLevelManager {
 	private init() {
 		let levelNames: [String] = [
 			"Level 0.csv",
-			"Level 1.csv",
+			//"Level 1.csv", // Too huge for the AI to complete a round in reasonable time.
 			"Level 2.csv",
 			"Level 3.csv",
-			"Level 4.csv",
-			"Level 5.csv",
+			//"Level 4.csv", // Requires 2 players. Unsuitable for single player games.
+			//"Level 5.csv", // Requires 2 players. Unsuitable for single player games.
 			"Level 6.csv",
 			"Level 7.csv",
 			"Level 8.csv",
+            "Level 9.csv",
+            "Level 10.csv",
+            "Level 11.csv",
 		]
 		self.levelNames = levelNames
 		self.defaultLevelName = levelNames.first!

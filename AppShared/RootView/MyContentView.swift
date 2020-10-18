@@ -37,7 +37,6 @@ struct MyContentView: View {
     }
 
     func launchGame(_ gameViewModel: IngameViewModel) {
-//        self.model = IngameViewModel.createReplay()
         self.model = gameViewModel.toInteractiveModel()
         self.visibleContent = .ingame
     }
@@ -193,13 +192,13 @@ struct MyContentView: View {
 
         return VStack {
             HStack {
-                Text("Human + Robot")
+                Text("Human vs AI")
                     .foregroundColor(.primary)
                     .font(.largeTitle)
                     .bold()
                     .padding()
 
-                Toggle("Human + Robot", isOn: bindingOn)
+                Toggle("Human vs AI", isOn: bindingOn)
                 .labelsHidden()
             }
             .padding(EdgeInsets(top: 30, leading: 30, bottom: 10, trailing: 30))
