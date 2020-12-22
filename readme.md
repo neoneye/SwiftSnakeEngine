@@ -9,6 +9,11 @@
 
 ### SwiftSnakeEngine is a snake AI, for iOS and macOS
 
+App Store link:
+
+https://apps.apple.com/us/app/snake-puzzle-game/id1508917634
+
+
 Hi, I'm Simon Strandgaard and this is my lab, where I experiment with coding a snake AI.
 
 My goal is to make an AI that can play the snake video game at a superhuman level.
@@ -16,11 +21,6 @@ My goal is to make an AI that can play the snake video game at a superhuman leve
 See my snake videos:
 
 https://www.youtube.com/playlist?list=PLG29Vi-HcRXGTh8z_o1CQp17j0H7FslbP
-
-Follow me on Twitter:
-
-https://twitter.com/neoneye
-
 
 
 # Single player
@@ -78,10 +78,5 @@ Spacebar = pause/resume.
 Enter = start over.
 
 ESCape = quit game, useful during development for faster feedback cycle.
-
-
-# Compiling this project
-
-Xcode 11.4
 
 
